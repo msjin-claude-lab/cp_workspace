@@ -70,10 +70,11 @@ HUD 상태바와 agent teams는 **Claude Code 시작 시** 읽힌다. 두 PC 모
 2. 작업 전 `git pull`, 작업 후 `git push` — push는 **Gitea에만** 한다. 처음 push할 때 Gitea 계정 이름 + 액세스 토큰으로 로그인한다. GitHub는 Gitea 푸시 미러가 맞춘다
 3. `~/.claude/` 전역 설정은 저장소에 없으므로 CLAUDE.md의 표대로 새 PC에서 따로 맞춘다
 
-이미 저장소가 있는 PC(사내망 PC)는 clone 대신 [docs/handoff/office-pc.md](docs/handoff/office-pc.md)를 따른다. Gitea에 접근할 수 없으면 CLAUDE.md의 "예비 수단 — git bundle"을 쓴다.
+이미 저장소가 있는 PC(사내망 PC, `D:\cp_workspace`)는 clone 대신 [docs/handoff/office-pc.md](docs/handoff/office-pc.md)를 따른다. Gitea에 접근할 수 없으면 CLAUDE.md의 "예비 수단 — git bundle"을 쓴다.
 
 새 세션은 이렇게 시작하면 된다:
 
 ```
-D:\dev\workspace 에서 작업을 이어서 한다. HANDOFF.md 를 읽고 시작해라.
+D:\dev\workspace 에서 작업을 이어서 한다. HANDOFF.md 를 읽고 시작해라.      (개인 PC)
+D:\cp_workspace 에서 작업을 이어서 한다. HANDOFF.md 를 읽고 시작해라.      (사내망 PC)
 ```

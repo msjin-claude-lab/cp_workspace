@@ -6,7 +6,7 @@
 
 ## 요약
 
-- 사내망 PC는 `cp-workspace.bundle`을 만든 시점(`079f999`)에 머물러 있다. 원격이 없고 브랜치는 `master`다.
+- 사내망 PC의 저장소는 `D:\cp_workspace`이고, `cp-workspace.bundle`을 만든 시점(`079f999`)에 머물러 있다. 원격이 없고 브랜치는 `master`다.
 - 그 번들로 개인 PC에서 저장소를 복원했고, 그 뒤 **원격 저장소 두 곳**을 만들었다.
   - **Gitea (기준 저장소)**: `https://gitea.msjin.workers.dev/msjin-claude-lab/cp_workspace.git`. 개인 NAS에서 돌아간다. **사내망에서 접근되는지는 아직 확인하지 않았다** — 아래 0단계에서 확인한다.
   - **GitHub (읽기 전용 사본)**: `https://github.com/msjin-claude-lab/cp_workspace.git`. Gitea **푸시 미러**가 Gitea에 push가 들어올 때마다 자동으로 맞춘다. 사내망에서는 막혀 있으니 **사내망 PC에는 추가하지 않는다.**
@@ -44,7 +44,7 @@ git ls-remote https://gitea.msjin.workers.dev/msjin-claude-lab/cp_workspace.git
 
 ### 1. 현재 상태 확인
 
-저장소 루트에서 실행한다.
+저장소 루트(`D:\cp_workspace`)에서 실행한다.
 
 ```bash
 git status --short --branch
@@ -127,6 +127,6 @@ git push
 Gitea에서 이 문서를 바로 볼 수 있다. 다만 2단계 전에는 로컬에 이 파일이 없으니, 아래처럼 주소를 같이 넘긴다.
 
 ```
-저장소 루트에서 작업한다. 아래 인계 문서를 읽고 0단계(Gitea 접근 점검)만 먼저 해서 결과를 알려줘. 진행 여부는 내가 정한다.
+D:\cp_workspace 에서 작업한다. 아래 인계 문서를 읽고 0단계(Gitea 접근 점검)만 먼저 해서 결과를 알려줘. 진행 여부는 내가 정한다.
 https://gitea.msjin.workers.dev/msjin-claude-lab/cp_workspace/raw/branch/main/docs/handoff/office-pc.md
 ```

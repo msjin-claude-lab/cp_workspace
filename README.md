@@ -36,13 +36,14 @@ git clone https://gitea.msjin.workers.dev/msjin-claude-lab/cp_workspace.git D:/d
 
 - clone·pull은 로그인 없이 된다(공개 저장소). push할 때만 Gitea 계정 + 액세스 토큰이 필요하다.
 - `~/.claude/` 전역 설정(OMC, HUD, agent teams)은 저장소에 없다. 새 PC에서는 [CLAUDE.md의 "저장소에 들어 있지 않은 것"](CLAUDE.md#저장소에-들어-있지-않은-것) 표대로 맞춘다.
-- 이미 저장소가 있는 사내망 PC는 clone 대신 [docs/handoff/office-pc.md](docs/handoff/office-pc.md)를 따른다.
+- 이미 저장소가 있는 사내망 PC(`D:\cp_workspace`)는 clone 대신 [docs/handoff/office-pc.md](docs/handoff/office-pc.md)를 따른다.
 - Gitea에 접근할 수 없으면 git bundle을 메일로 주고받는다([CLAUDE.md의 "예비 수단"](CLAUDE.md#예비-수단--git-bundle)).
 
 Claude Code 새 세션은 이렇게 시작한다:
 
 ```
-D:\dev\workspace 에서 작업을 이어서 한다. HANDOFF.md 를 읽고 시작해라.
+D:\dev\workspace 에서 작업을 이어서 한다. HANDOFF.md 를 읽고 시작해라.      (개인 PC)
+D:\cp_workspace 에서 작업을 이어서 한다. HANDOFF.md 를 읽고 시작해라.      (사내망 PC)
 ```
 
 ## 연습 프로젝트 — `projects/loan`
