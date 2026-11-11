@@ -44,12 +44,14 @@ HUD 상태바와 agent teams는 **Claude Code 시작 시** 읽힌다. 이 PC에�
 
 절차는 [CLAUDE.md의 "다른 PC로 옮기기"](CLAUDE.md#다른-pc로-옮기기)에 있다. 요약하면:
 
-1. 보내는 PC: `git bundle create cp-workspace.bundle --all`
-2. 받는 PC: `git bundle verify cp-workspace.bundle` → `git clone cp-workspace.bundle cp-workspace`
-3. `~/.claude/` 전역 설정은 번들에 없으므로 CLAUDE.md의 표대로 새 PC에서 따로 맞춘다
+1. 받는 PC: `git clone https://gitea.msjin.workers.dev/msjin-claude-lab/cp_workspace.git D:/dev/workspace` (Gitea 계정 + 액세스 토큰으로 로그인)
+2. 작업 전 `git pull`, 작업 후 `git push`
+3. `~/.claude/` 전역 설정은 저장소에 없으므로 CLAUDE.md의 표대로 새 PC에서 따로 맞춘다
+
+Gitea에 접근할 수 없으면 CLAUDE.md의 "예비 수단 — git bundle"을 쓴다.
 
 새 세션은 이렇게 시작하면 된다:
 
 ```
-D:\cp-workspace 에서 작업을 이어서 한다. HANDOFF.md 를 읽고 시작해라.
+D:\dev\workspace 에서 작업을 이어서 한다. HANDOFF.md 를 읽고 시작해라.
 ```

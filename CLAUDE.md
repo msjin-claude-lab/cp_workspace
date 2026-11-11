@@ -16,35 +16,67 @@ cp-workspace/
 
 ## 네트워크 제약
 
-**차단된 것은 `github.com` 하나뿐이다.** 패키지 레지스트리는 열려 있다 (2026-11-11 실측).
+PC에 따라 다르다. **사내망 PC에서는 `github.com`이 차단**되고, 개인 PC에서는 열려 있다. 패키지 레지스트리는 양쪽 모두 열려 있다 (2026-11-11 실측).
 
-| 호스트 | 상태 |
-|---|---|
-| `github.com` | 차단 |
-| `registry.npmjs.org` | 가용 |
-| `repo.maven.apache.org` | 가용 |
+| 호스트 | 사내망 PC | 개인 PC |
+|---|---|---|
+| `github.com` | 차단 | 가용 |
+| `gitea.msjin.workers.dev` (개인 Gitea) | 가용 | 가용 |
+| `registry.npmjs.org` | 가용 | 가용 |
+| `repo.maven.apache.org` | 가용 | 가용 |
 
-따라서 npm·Maven 의존성은 자유롭게 추가해도 된다. GitHub에서 받아오는 것만 안 된다.
+따라서 npm·Maven 의존성은 자유롭게 추가해도 된다. 사내망 PC에서 GitHub에서 받아오는 것만 안 된다.
 
 ### 사용할 수 없는 스킬
 
-`gh` CLI 미설치 + GitHub 차단이라 아래는 이 워크스페이스에서 동작하지 않는다. 시도하지 말 것:
+`gh` CLI 미설치 + (사내망) GitHub 차단이라 아래는 이 워크스페이스에서 동작하지 않는다. 시도하지 말 것:
 
 `/pr` · `/babysit` · `/fix-ci` · `/get-pr-comments` · `/review`(GitHub PR용 — 작업 중인 diff 리뷰는 `/omc-review`를 쓴다)
 
 ## git
 
-**로컬 전용이다.** 원격을 추가하거나 push 하지 않는다. 커밋·브랜치·rebase 등 로컬 작업은 모두 정상이다.
+원격 저장소는 두 곳이다. 기본 브랜치는 원격 모두 `main`이다.
+
+| 원격 | 주소 | 용도 |
+|---|---|---|
+| Gitea (개인 NAS) | `https://gitea.msjin.workers.dev/msjin-claude-lab/cp_workspace.git` | **기준 저장소.** 사내망·개인 PC 모두 접근 가능 |
+| GitHub | `https://github.com/msjin-claude-lab/cp_workspace.git` | 사본. 개인 PC에서만 접근 가능 |
+
+PC별 원격 구성:
+
+- **사내망 PC** — `origin` = Gitea 하나만 둔다. GitHub 원격을 추가하지 않는다(차단돼 push가 실패한다).
+- **개인 PC** — `origin`의 fetch는 GitHub, push는 GitHub·Gitea 둘 다. `git push` 한 번에 양쪽으로 간다. Gitea만 따로 다루려면 `gitea` 원격을 쓴다.
+
+```bash
+# 개인 PC 설정
+git remote add gitea https://gitea.msjin.workers.dev/msjin-claude-lab/cp_workspace.git
+git remote set-url --add --push origin https://github.com/msjin-claude-lab/cp_workspace.git
+git remote set-url --add --push origin https://gitea.msjin.workers.dev/msjin-claude-lab/cp_workspace.git
+```
+
+> 사내망 PC에서 Gitea에 push한 커밋은 GitHub에 자동으로 가지 않는다. 개인 PC에서 `git pull gitea main` 후 `git push` 하면 GitHub까지 맞춰진다.
+
+인증은 Gitea 계정 이름 + **액세스 토큰**(Gitea 설정 → 애플리케이션, 권한 `repository: 읽기/쓰기`)이다. 처음 clone·push 할 때 Git Credential Manager 창에 입력하면 저장된다. GCM이 호스트 종류를 못 알아내 느려지면 `git config --global credential.https://gitea.msjin.workers.dev.provider generic`.
 
 ## 다른 PC로 옮기기
 
-GitHub이 막혀 있으므로 **git bundle**을 쓴다. 저장소 전체(이력 포함)가 파일 하나가 되므로 USB·사내 공유 폴더·메일 어느 쪽으로든 옮길 수 있다. 아래 절차는 실제로 왕복 검증했다 (2026-11-11).
+**Gitea에서 clone한다.** 사내망에서도 접근되므로 이것이 기본 방법이다:
+
+```bash
+git clone https://gitea.msjin.workers.dev/msjin-claude-lab/cp_workspace.git D:/dev/workspace
+```
+
+이후로는 평범하게 `git pull` / `git push`.
+
+### 예비 수단 — git bundle
+
+Gitea에 접근할 수 없을 때만 쓴다. 저장소 전체(이력 포함)가 파일 하나가 되므로 USB·사내 공유 폴더·메일 어느 쪽으로든 옮길 수 있다. 아래 절차는 실제로 왕복 검증했다 (2026-11-11).
 
 **전달 수단은 메일 첨부다.** 번들은 추적되는 파일만 담으므로 `target/`·`node_modules/` 같은 빌드 산출물이 자동으로 빠진다. 전체 번들이 22KB였다 — 용량 걱정은 없다.
 
 > 메일 게이트웨이가 모르는 확장자를 막는 경우가 있다. `.bundle`이 반송되면 **확장자만 `.txt`로 바꿔서** 보내고 받는 쪽에서 되돌린다. 내용은 바이너리 그대로이므로 이름만 바뀐다. 압축해도 되지만 이미 압축된 형식이라 거의 줄지 않는다.
 
-### 처음 한 번 — 통째로 옮기기
+#### 처음 한 번 — 통째로 옮기기
 
 보내는 PC:
 
@@ -59,7 +91,7 @@ git bundle verify cp-workspace.bundle     # 이력이 온전한지 확인
 git clone cp-workspace.bundle cp-workspace
 ```
 
-### 그 다음부터 — 바뀐 것만 옮기기
+#### 그 다음부터 — 바뀐 것만 옮기기
 
 전체를 다시 보낼 필요 없다. 상대 PC가 이미 가진 마지막 커밋 해시를 기준으로 증분 번들을 만든다 (커밋 1개면 수백 바이트다):
 
@@ -75,26 +107,15 @@ git pull update.bundle master
 
 > 양쪽에서 각자 커밋했다면 `git pull`에서 충돌이 날 수 있다. 일반 병합과 똑같이 처리하면 된다.
 
-### 사내 git 서버나 공유 폴더가 있다면
-
-그쪽이 더 편하다. 공유 폴더에 bare 저장소를 두고 평범한 remote로 쓸 수 있다:
-
-```bash
-git clone --bare cp-workspace //서버/공유/cp-workspace.git
-git remote add origin //서버/공유/cp-workspace.git
-```
-
-사내 GitLab·Gitea·Bitbucket·Azure DevOps가 있다면 그것을 remote로 쓴다. **차단된 것은 GitHub뿐이다.**
-
 ### 저장소에 들어 있지 않은 것
 
-OMC 전역 설정은 `~/.claude/` 아래에 있어서 번들에 포함되지 않는다. 새 PC에서는 따로 맞춰야 한다:
+OMC 전역 설정은 `~/.claude/` 아래에 있어서 git 저장소에 포함되지 않는다. 새 PC에서는 따로 맞춰야 한다:
 
 | 항목 | 새 PC에서 할 일 |
 |---|---|
 | OMC 설치 | `npm i -g oh-my-claude-sisyphus` |
 | HUD 상태바 | `/oh-my-claudecode:hud setup` |
-| HUD 게이지 문자 | 아래 "HUD 게이지" 참고. 스크립트는 저장소의 `tools/`에 있으므로 번들에 실려 온다 |
+| HUD 게이지 문자 | 아래 "HUD 게이지" 참고. 스크립트는 저장소의 `tools/`에 있으므로 clone하면 같이 온다 |
 | agent teams | `~/.claude/settings.json`의 `env`에 `"CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"` |
 | `.omc/` 작업 상태 | 옮기지 않는다. PC별 로컬 상태이며 git에서도 제외돼 있다 |
 
