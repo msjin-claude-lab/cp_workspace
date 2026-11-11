@@ -96,13 +96,13 @@ git clone cp-workspace.bundle cp-workspace
 전체를 다시 보낼 필요 없다. 상대 PC가 이미 가진 마지막 커밋 해시를 기준으로 증분 번들을 만든다 (커밋 1개면 수백 바이트다):
 
 ```bash
-git bundle create update.bundle master ^<상대가 가진 마지막 커밋 해시>
+git bundle create update.bundle main ^<상대가 가진 마지막 커밋 해시>
 ```
 
 받는 쪽:
 
 ```bash
-git pull update.bundle master
+git pull update.bundle main
 ```
 
 > 양쪽에서 각자 커밋했다면 `git pull`에서 충돌이 날 수 있다. 일반 병합과 똑같이 처리하면 된다.
