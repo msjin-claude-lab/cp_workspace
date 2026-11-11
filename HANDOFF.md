@@ -22,37 +22,16 @@ FeeCalculatorTest.chargesOnlyDaysBeyondGrace:41  expected: <1000> but was: <2500
 
 유예기간(grace) 이후 일수만 과금해야 하는데 전체 일수를 과금하고 있다.
 
-## 중단된 작업 — HUD 게이지를 블록 문자로 되돌리기
+## HUD 게이지 — 해결됨 (래퍼 스크립트)
 
-**증상:** 상태바 게이지가 `[##------]`처럼 ASCII로 나온다. Claude Code 기본 상태바가 쓰던 `[████░░░░░░]` 같은 모양을 원한다.
+게이지가 `[##------]`로 나오던 것을 `[██░░░░░░]`로 되돌렸다. 사용법은 [CLAUDE.md의 "HUD 게이지"](CLAUDE.md#hud-게이지)에 있다.
 
-**원인 (조사 완료):** OMC가 설정이나 터미널 감지 없이 **무조건** 치환한다.
+- 스크립트: `tools/omc-hud-gauge.mjs` (저장소에 있으므로 번들에 실린다)
+- 설치 위치: `~/.claude/hud/omc-hud-gauge.mjs`, `settings.json`의 `statusLine.command`가 이걸 가리킨다
 
-`node_modules/oh-my-claude-sisyphus/dist/hud/sanitize.js:53`
+원인은 `dist/hud/sanitize.js`의 `replaceUnicodeBlocks()`가 설정·터미널 감지 없이 `█`→`#`, `░`→`-`로 무조건 치환하는 것이었다. 공식 설정으로는 끌 수 없어 출력을 후처리한다.
 
-```js
-export function replaceUnicodeBlocks(text) {
-  return text
-    .replace(/█/g, '#')
-    .replace(/░/g, '-')
-    .replace(/▓/g, '=')
-    .replace(/▒/g, '-');
-}
-```
-
-렌더러(`dist/hud/colors.js:147`, `elements/context.js:113`, `elements/limits.js:258`)는 원래 `█`/`░`로 그린다. 출력 직전 `sanitizeOutput()`이 이 함수를 거치면서 ASCII가 된다.
-
-**OMC가 그렇게 하는 이유** (`sanitize.js` 주석, issue #346): 가변폭 유니코드가 Claude Code의 Ink 렌더러와 겹치면 커서 위치 계산이 틀어져 터미널이 깨진다. `█`(U+2588)·`░`(U+2591)은 동아시아 환경에서 **폭이 모호한(Ambiguous) 문자**라 한국어 로케일 터미널에서 2칸으로 그려질 수 있다 — 이게 실제 위험이다.
-
-**공식 설정으로는 못 바꾼다.** `omc hud`는 `--watch`/`--interval`만 받고, HUD 설정 스키마(`dist/hud/types.d.ts`)에도 게이지 문자 옵션이 없다. `callCountsFormat`은 이모지/ASCII 선택지가 있지만 게이지와는 무관하다.
-
-**다음에 할 일 — 두 가지 방법 중 선택:**
-
-1. **래퍼 스크립트** (권장) — `~/.claude/hud/` 아래에 omc-hud를 호출하고 출력만 후처리하는 스크립트를 두고, `settings.json`의 `statusLine.command`가 그것을 가리키게 한다. npm 업데이트에 지워지지 않는다.
-   - 주의: `-`를 통째로 `░`로 바꾸면 안 된다. 브랜치명·모델 ID(`claude-opus-5`)·시간 표기에도 `-`가 쓰인다. **대괄호 안쪽만** 치환해야 한다 (`[`와 `]` 사이가 ANSI 코드와 `#-=`로만 이루어진 구간).
-2. **패키지 직접 수정** — `dist/hud/sanitize.js`를 고친다. 간단하지만 `npm i -g` 할 때마다 날아간다.
-
-**검증:** 바꾼 뒤 실제 한국어 로케일 터미널에서 게이지 폭이 밀리지 않는지 눈으로 볼 것. 밀린다면 OMC가 ASCII로 바꾼 판단이 옳았던 것이니 되돌린다.
+**아직 눈으로 확인 못 한 것:** `█`(U+2588)·`░`(U+2591)은 동아시아 환경에서 **폭이 모호한(Ambiguous) 문자**다. 한국어 로케일 터미널이 2칸으로 그리면 게이지 폭이 밀린다 — OMC가 ASCII로 바꾼 진짜 이유가 이것이다(`sanitize.js` 주석, issue #346). 재시작 후 상태바에서 폭이 밀리지 않는지 볼 것. 밀리면 `statusLine.command`를 `omc-hud.mjs`로 되돌린다.
 
 ## 재시작 후 확인할 것
 

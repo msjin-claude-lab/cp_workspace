@@ -94,8 +94,31 @@ OMC 전역 설정은 `~/.claude/` 아래에 있어서 번들에 포함되지 않
 |---|---|
 | OMC 설치 | `npm i -g oh-my-claude-sisyphus` |
 | HUD 상태바 | `/oh-my-claudecode:hud setup` |
+| HUD 게이지 문자 | 아래 "HUD 게이지" 참고. 스크립트는 저장소의 `tools/`에 있으므로 번들에 실려 온다 |
 | agent teams | `~/.claude/settings.json`의 `env`에 `"CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"` |
 | `.omc/` 작업 상태 | 옮기지 않는다. PC별 로컬 상태이며 git에서도 제외돼 있다 |
+
+### HUD 게이지
+
+OMC는 상태바 게이지를 `[##------]`처럼 ASCII로 그린다. 블록 문자(`[██░░░░░░]`)로 되돌리려면 `tools/omc-hud-gauge.mjs`를 쓴다.
+
+OMC가 출력 직전 `sanitizeOutput()`에서 블록 문자를 무조건 치환하는데(`dist/hud/sanitize.js`의 `replaceUnicodeBlocks`), **설정으로 끌 수 없다.** `omc hud`에는 관련 옵션이 없고 HUD 설정 스키마에도 게이지 문자 항목이 없다. 그래서 출력을 후처리하는 래퍼를 둔다. 패키지를 직접 고치면 `npm i -g` 할 때마다 날아가므로 래퍼가 맞다.
+
+새 PC에서:
+
+```bash
+cp tools/omc-hud-gauge.mjs ~/.claude/hud/
+```
+
+그리고 `~/.claude/settings.json`의 `statusLine.command`를 그 경로로 바꾼다:
+
+```json
+"statusLine": { "type": "command", "command": "node C:/Users/M/.claude/hud/omc-hud-gauge.mjs" }
+```
+
+되돌리려면 `omc-hud.mjs`를 가리키게 하면 된다.
+
+> `/oh-my-claudecode:hud setup`을 다시 돌리면 `statusLine`이 `omc-hud.mjs`로 되돌아간다. 그때는 위 경로로 다시 바꾼다.
 
 ## 설치된 도구
 
