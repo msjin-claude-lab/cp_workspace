@@ -15,11 +15,28 @@
  * `node C:/Users/M/.claude/hud/omc-hud.mjs` 로 바꾸면 된다.
  */
 
-import { writeSync } from "node:fs";
+import { existsSync, writeSync } from "node:fs";
+import { homedir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+
+/**
+ * 감쌀 대상인 omc-hud.mjs 를 찾는다.
+ *
+ * 보통은 이 스크립트 옆에 있다(~/.claude/hud/). 저장소의 tools/ 사본처럼
+ * 다른 위치에서 실행되면 형제 파일이 없으므로 설정 디렉터리도 본다.
+ * 둘 다 없으면 던지지 않고 null 을 돌려준다 — 상태바가 스택 트레이스와 함께
+ * 빈 채로 남는 것보다 한 줄짜리 안내가 낫다.
+ */
+function findHud() {
+  const configDir = process.env.CLAUDE_CONFIG_DIR?.trim() || join(homedir(), ".claude");
+  for (const candidate of [join(__dirname, "omc-hud.mjs"), join(configDir, "hud", "omc-hud.mjs")]) {
+    if (existsSync(candidate)) return candidate;
+  }
+  return null;
+}
 
 // 게이지 한 칸: ANSI SGR 시퀀스(\x1b[...m) 또는 ASCII 게이지 문자.
 // 대괄호 안이 '오직' 그것들로만 이루어졌을 때에만 게이지로 인정한다.
@@ -83,4 +100,17 @@ function flush() {
 
 process.on("exit", flush);
 
-await import(pathToFileURL(join(__dirname, "omc-hud.mjs")).href);
+const hudPath = findHud();
+if (!hudPath) {
+  chunks.push(
+    "[OMC HUD] omc-hud.mjs 를 찾을 수 없다. " +
+      "이 스크립트는 omc-hud.mjs 옆(~/.claude/hud/)에 두어야 한다.\n",
+  );
+} else {
+  try {
+    await import(pathToFileURL(hudPath).href);
+  } catch (error) {
+    const detail = error?.message ? String(error.message).replace(/\s+/g, " ").trim() : String(error);
+    chunks.push(`[OMC HUD] 로드 실패: ${detail.slice(0, 120)}\n`);
+  }
+}
