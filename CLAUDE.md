@@ -36,6 +36,63 @@ cp-workspace/
 
 **로컬 전용이다.** 원격을 추가하거나 push 하지 않는다. 커밋·브랜치·rebase 등 로컬 작업은 모두 정상이다.
 
+## 다른 PC로 옮기기
+
+GitHub이 막혀 있으므로 **git bundle**을 쓴다. 저장소 전체(이력 포함)가 파일 하나가 되므로 USB·사내 공유 폴더·메일 어느 쪽으로든 옮길 수 있다. 아래 절차는 실제로 왕복 검증했다 (2026-11-11).
+
+### 처음 한 번 — 통째로 옮기기
+
+보내는 PC:
+
+```bash
+git bundle create cp-workspace.bundle --all
+```
+
+받는 PC (번들 파일을 옮긴 뒤):
+
+```bash
+git bundle verify cp-workspace.bundle     # 이력이 온전한지 확인
+git clone cp-workspace.bundle cp-workspace
+```
+
+### 그 다음부터 — 바뀐 것만 옮기기
+
+전체를 다시 보낼 필요 없다. 상대 PC가 이미 가진 마지막 커밋 해시를 기준으로 증분 번들을 만든다 (커밋 1개면 수백 바이트다):
+
+```bash
+git bundle create update.bundle master ^<상대가 가진 마지막 커밋 해시>
+```
+
+받는 쪽:
+
+```bash
+git pull update.bundle master
+```
+
+> 양쪽에서 각자 커밋했다면 `git pull`에서 충돌이 날 수 있다. 일반 병합과 똑같이 처리하면 된다.
+
+### 사내 git 서버나 공유 폴더가 있다면
+
+그쪽이 더 편하다. 공유 폴더에 bare 저장소를 두고 평범한 remote로 쓸 수 있다:
+
+```bash
+git clone --bare cp-workspace //서버/공유/cp-workspace.git
+git remote add origin //서버/공유/cp-workspace.git
+```
+
+사내 GitLab·Gitea·Bitbucket·Azure DevOps가 있다면 그것을 remote로 쓴다. **차단된 것은 GitHub뿐이다.**
+
+### 저장소에 들어 있지 않은 것
+
+OMC 전역 설정은 `~/.claude/` 아래에 있어서 번들에 포함되지 않는다. 새 PC에서는 따로 맞춰야 한다:
+
+| 항목 | 새 PC에서 할 일 |
+|---|---|
+| OMC 설치 | `npm i -g oh-my-claude-sisyphus` |
+| HUD 상태바 | `/oh-my-claudecode:hud setup` |
+| agent teams | `~/.claude/settings.json`의 `env`에 `"CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"` |
+| `.omc/` 작업 상태 | 옮기지 않는다. PC별 로컬 상태이며 git에서도 제외돼 있다 |
+
 ## 설치된 도구
 
 | 도구 | 버전 |
