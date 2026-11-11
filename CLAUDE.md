@@ -40,21 +40,25 @@ PC에 따라 다르다. **사내망 PC에서는 `github.com`이 차단**되고, 
 | 원격 | 주소 | 용도 |
 |---|---|---|
 | Gitea (개인 NAS) | `https://gitea.msjin.workers.dev/msjin-claude-lab/cp_workspace.git` | **기준 저장소.** 사내망·개인 PC 모두 접근 가능 |
-| GitHub | `https://github.com/msjin-claude-lab/cp_workspace.git` | 사본. 개인 PC에서만 접근 가능 |
+| GitHub | `https://github.com/msjin-claude-lab/cp_workspace.git` | **읽기 전용 사본.** Gitea 푸시 미러가 자동으로 맞춘다 |
+
+**모든 PC는 Gitea 하나에만 push한다.** Gitea에 push가 들어오면 푸시 미러가 GitHub로 자동 복사한다(Gitea 저장소 설정 → 미러 설정, 커밋 푸시 시 동기화 + 8시간 주기).
+
+**GitHub에 직접 push하지 않는다.** 푸시 미러는 GitHub를 Gitea와 똑같이 덮어쓰므로, GitHub에만 있는 커밋은 다음 동기화 때 사라진다.
 
 PC별 원격 구성:
 
-- **사내망 PC** — `origin` = Gitea 하나만 둔다. GitHub 원격을 추가하지 않는다(차단돼 push가 실패한다).
-- **개인 PC** — `origin`의 fetch는 GitHub, push는 GitHub·Gitea 둘 다. `git push` 한 번에 양쪽으로 간다. Gitea만 따로 다루려면 `gitea` 원격을 쓴다.
+- **사내망 PC** — `origin` = Gitea 하나만 둔다. GitHub 원격은 두지 않는다(차단돼 있다).
+- **개인 PC** — `origin` = Gitea. GitHub는 미러 확인용 `github` 원격으로 두되 push 주소를 막아 둔다.
 
 ```bash
 # 개인 PC 설정
-git remote add gitea https://gitea.msjin.workers.dev/msjin-claude-lab/cp_workspace.git
-git remote set-url --add --push origin https://github.com/msjin-claude-lab/cp_workspace.git
-git remote set-url --add --push origin https://gitea.msjin.workers.dev/msjin-claude-lab/cp_workspace.git
+git remote add origin https://gitea.msjin.workers.dev/msjin-claude-lab/cp_workspace.git
+git remote add github https://github.com/msjin-claude-lab/cp_workspace.git
+git remote set-url --push github DISABLED-gitea-mirror-only
 ```
 
-> 사내망 PC에서 Gitea에 push한 커밋은 GitHub에 자동으로 가지 않는다. 개인 PC에서 `git pull gitea main` 후 `git push` 하면 GitHub까지 맞춰진다.
+미러가 멈추면(대개 Gitea에 넣은 GitHub 토큰 만료) GitHub만 뒤처진다. `git fetch github` 후 `git log -1 github/main`이 `origin/main`과 다르면 Gitea 미러 설정에서 토큰을 갱신한다.
 
 인증은 Gitea 계정 이름 + **액세스 토큰**(Gitea 설정 → 애플리케이션, 권한 `repository: 읽기/쓰기`)이다. 처음 clone·push 할 때 Git Credential Manager 창에 입력하면 저장된다. GCM이 호스트 종류를 못 알아내 느려지면 `git config --global credential.https://gitea.msjin.workers.dev.provider generic`.
 
