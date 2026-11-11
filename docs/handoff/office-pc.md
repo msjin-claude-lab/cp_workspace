@@ -8,7 +8,7 @@
 
 - 사내망 PC는 `cp-workspace.bundle`을 만든 시점(`079f999`)에 머물러 있다. 원격이 없고 브랜치는 `master`다.
 - 그 번들로 개인 PC에서 저장소를 복원했고, 그 뒤 **원격 저장소 두 곳**을 만들었다.
-  - **Gitea (기준 저장소)**: `https://gitea.msjin.workers.dev/msjin-claude-lab/cp_workspace.git`. 개인 NAS에서 돌아가며 **사내망에서도 접근된다.**
+  - **Gitea (기준 저장소)**: `https://gitea.msjin.workers.dev/msjin-claude-lab/cp_workspace.git`. 개인 NAS에서 돌아간다. **사내망에서 접근되는지는 아직 확인하지 않았다** — 아래 0단계에서 확인한다.
   - **GitHub (읽기 전용 사본)**: `https://github.com/msjin-claude-lab/cp_workspace.git`. Gitea **푸시 미러**가 Gitea에 push가 들어올 때마다 자동으로 맞춘다. 사내망에서는 막혀 있으니 **사내망 PC에는 추가하지 않는다.**
 - **모든 PC는 Gitea에만 push한다.** GitHub에는 직접 push하지 않는다(미러가 덮어써서 사라진다).
 - 두 원격 모두 기본 브랜치는 `main`이다. `079f999` 위에 커밋이 더 올라가 있다(`git log --oneline 079f999..origin/main`으로 확인):
@@ -22,6 +22,25 @@
 - **bundle·메일 전달은 이제 예비 수단이다.** 앞으로는 `git pull` / `git push`로 주고받는다.
 
 ## 할 일
+
+### 0. Gitea 접근 확인 (가장 먼저)
+
+저장소를 건드리기 전에 사내망에서 Gitea에 닿는지 확인한다. 아래는 모두 읽기 전용이다.
+
+```bash
+nslookup gitea.msjin.workers.dev
+curl -sS --max-time 20 https://gitea.msjin.workers.dev/api/v1/version
+git ls-remote https://gitea.msjin.workers.dev/msjin-claude-lab/cp_workspace.git
+```
+
+| 확인 | 정상 결과 |
+|---|---|
+| `nslookup` | `Address:`에 IP가 나온다 (2026-11-11 기준 `104.21.x.x`, `172.67.x.x`) |
+| `curl` | `{"version":"1.26.4"}` 같은 JSON |
+| `git ls-remote` | 로그인 창 없이 `refs/heads/main` 한 줄 이상 |
+
+- **셋 다 정상이면** 1단계로 간다.
+- **하나라도 실패하면 여기서 멈춘다.** 저장소는 건드리지 않는다. 사람에게 어느 명령이 어떤 오류 문구로 실패했는지 그대로 보고한다. 원인을 단정하거나 우회(IP 직접 지정, 다른 DNS, 프록시 설정 등)하지 않는다. 실패 원인 판단과 대안 결정은 사람이 한다.
 
 ### 1. 현재 상태 확인
 
