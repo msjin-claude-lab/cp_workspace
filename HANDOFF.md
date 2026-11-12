@@ -27,16 +27,10 @@ FeeCalculatorTest.chargesOnlyDaysBeyondGrace:41  expected: <1000> but was: <2500
 
 | 할 일 | 사내망 PC | 개인 PC |
 |---|---|---|
-| Gitea 원격으로 전환 | **남음** — [docs/handoff/office-pc.md](docs/handoff/office-pc.md) | 완료 |
+| Gitea 원격으로 전환 | 완료 | 완료 |
 | HUD 상태바 눈으로 확인 | 남음 | 남음 |
 | `/team` 동작 확인 + 연습 과제 | 남음 | 남음 |
 | JDK 21·Maven이 새 셸에서 잡히는지 | 해당 없음(원래 설치됨) | **남음** — 아래 참고 |
-
-### 사내망 PC — Gitea 전환
-
-**사내망에서 Gitea에 접근되는지는 아직 확인하지 않았다.** [docs/handoff/office-pc.md](docs/handoff/office-pc.md)의 0단계(읽기 전용 점검)만 먼저 하고, 결과를 사람에게 보고한 뒤 **진행 여부를 묻는다.** 사람이 진행하라고 할 때만 1단계부터 이어간다.
-
-접근이 안 되면 저장소를 건드리지 않고 오류 문구를 그대로 보고한다. 회사 IT에 허용을 요청하는 것은 불가능한 구조이고, 차단 우회(IP 직접 지정, DNS 변경, 프록시)는 쓰지 않는다. 남는 대안은 git bundle 메일 전달, 또는 개인 도메인 + Cloudflare Tunnel이다. 결정은 사람이 한다.
 
 ### 개인 PC — JDK 21·Maven 환경 변수
 
@@ -66,11 +60,11 @@ HUD 상태바와 agent teams는 **Claude Code 시작 시** 읽힌다. 두 PC 모
 
 절차는 [CLAUDE.md의 "다른 PC로 옮기기"](CLAUDE.md#다른-pc로-옮기기)에 있다. 요약하면:
 
-1. 받는 PC: `git clone https://gitea.msjin.workers.dev/msjin-claude-lab/cp_workspace.git D:/dev/workspace` — 공개 저장소라 clone·pull은 로그인 없이 된다
+1. 받는 PC: `git clone http://222.112.172.253:9080/msjin-claude-lab/cp_workspace.git D:/dev/workspace` — 공개 저장소라 clone·pull은 로그인 없이 된다
 2. 작업 전 `git pull`, 작업 후 `git push` — push는 **Gitea에만** 한다. 처음 push할 때 Gitea 계정 이름 + 액세스 토큰으로 로그인한다. GitHub는 Gitea 푸시 미러가 맞춘다
 3. `~/.claude/` 전역 설정은 저장소에 없으므로 CLAUDE.md의 표대로 새 PC에서 따로 맞춘다
 
-이미 저장소가 있는 PC(사내망 PC, `D:\cp_workspace`)는 clone 대신 [docs/handoff/office-pc.md](docs/handoff/office-pc.md)를 따른다. Gitea에 접근할 수 없으면 CLAUDE.md의 "예비 수단 — git bundle"을 쓴다.
+Gitea에 접근할 수 없으면 CLAUDE.md의 "예비 수단 — git bundle"을 쓴다.
 
 새 세션은 이렇게 시작하면 된다:
 
