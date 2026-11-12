@@ -13,7 +13,10 @@ cp_workspace/
 │   └── omc-hud-gauge.mjs  ← OMC HUD 게이지를 블록 문자(█░)로 되돌리는 래퍼
 ├── projects/
 │   └── loan/              ← 연습 프로젝트 (Java 21 / Maven, 결함 의도적으로 심음)
-├── .claude/CLAUDE.md      ← OMC 관리 영역. 손대지 않는다
+├── .claude/
+│   ├── settings.json      ← Claude Code 프로젝트 설정 (모든 PC 공통: agent teams, HUD, hook)
+│   ├── hooks/             ← 세션 시작 HUD 갱신, 정시 구간별 pull/push 점검
+│   └── CLAUDE.md          ← OMC 관리 영역. 손대지 않는다
 └── .omc-workspace         ← OMC 상태 루트 앵커
 ```
 
@@ -33,7 +36,8 @@ git clone http://222.112.172.253:9080/msjin-claude-lab/cp_workspace.git D:/dev/w
 ```
 
 - clone·pull은 로그인 없이 된다(공개 저장소). push할 때만 Gitea 계정 + 액세스 토큰이 필요하다. 주소가 `http`라 토큰이 평문으로 오간다.
-- `~/.claude/` 전역 설정(OMC, HUD, agent teams)은 저장소에 없다. 새 PC에서는 [CLAUDE.md의 "저장소에 들어 있지 않은 것"](CLAUDE.md#저장소에-들어-있지-않은-것) 표대로 맞춘다.
+- Claude Code 설정(agent teams, HUD 상태바, hook)은 프로젝트 `.claude/settings.json`에 있어 clone하면 같이 온다. 새 PC에서 한 번 할 일(로그인, OMC·JDK·Maven 설치, Gitea 토큰)은 [CLAUDE.md의 "저장소에 들어 있지 않은 것"](CLAUDE.md#저장소에-들어-있지-않은-것--새-pc에서-한-번) 표에 있다.
+- 작업 중에는 정시 구간마다 한 번 Claude가 Gitea와 비교해, 받을 것이나 올릴 것이 있을 때만 pull/push 여부를 묻는다. 마칠 때는 HANDOFF.md를 갱신하고 push한다([CLAUDE.md의 "PC 간 이어가기"](CLAUDE.md#pc-간-이어가기--설정작업진행-현황)).
 - Gitea에 접근할 수 없으면 git bundle을 메일로 주고받는다([CLAUDE.md의 "예비 수단"](CLAUDE.md#예비-수단--git-bundle)).
 
 Claude Code 새 세션은 이렇게 시작한다:

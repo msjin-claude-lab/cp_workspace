@@ -16,3 +16,7 @@ node_modules/
 # OS
 Thumbs.db
 .DS_Store
+
+# OMC 실행 상태 (PC별). 프로젝트 스킬만 공유한다
+.omc/*
+!.omc/skills/

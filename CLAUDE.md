@@ -113,17 +113,44 @@ git pull update.bundle main
 
 > 양쪽에서 각자 커밋했다면 `git pull`에서 충돌이 날 수 있다. 일반 병합과 똑같이 처리하면 된다.
 
-### 저장소에 들어 있지 않은 것
+## PC 간 이어가기 — 설정·작업·진행 현황
 
-OMC 전역 설정은 `~/.claude/` 아래에 있어서 git 저장소에 포함되지 않는다. 새 PC에서는 따로 맞춰야 한다:
+어느 PC에서든 같은 상태로 이어가도록, PC에 묶이지 않는 것은 전부 저장소에 둔다.
+
+| 대상 | 어디에 | 이어지는 방법 |
+|---|---|---|
+| Claude Code 설정 (agent teams, HUD 상태바, 언어·스피너, hook) | 프로젝트 `.claude/settings.json` | 저장소와 함께 온다. `~/.claude/settings.json`보다 우선한다 |
+| 작업 (코드·문서) | git | Gitea push/pull. 하다 만 작업도 `wip:` 커밋으로 push한다 |
+| 진행 현황 (한 일, 멈춘 곳, 다음 할 일, 알아낸 것) | `HANDOFF.md` | 세션을 마칠 때 갱신하고 push한다. 새 세션은 HANDOFF.md를 읽고 시작한다 |
+| 공통 규칙 | 이 파일 | Claude 자동 메모리(`~/.claude/projects/…/memory`)는 PC별이라 넘어가지 않는다. 모든 PC가 알아야 할 사실은 여기에 쓴다 |
+
+Claude 대화 자체는 PC 간에 이어지지 않는다. 대화에서 정한 것은 HANDOFF.md나 이 파일에 남겨야 다른 PC가 안다.
+
+### hook (`.claude/hooks/`)
+
+| hook | 언제 | 하는 일 |
+|---|---|---|
+| `session-start.mjs` | 세션 시작·재개 | `tools/omc-hud-gauge.mjs`를 `~/.claude/hud/`에 맞춰 복사 |
+| `sync-check.mjs` | Claude가 대답을 마칠 때 | **정시 구간(예: 14:00:00~14:59:59)마다 한 번** Gitea를 fetch해 비교한다. 원격에만 커밋이 있으면 pull을, 로컬에만 커밋이 있거나 커밋 안 한 변경이 있으면 push를 묻게 한다. 둘 다 없으면 묻지 않는다. 그 구간에 이미 점검했으면 건너뛴다(기록: `.git/cp-sync-check.json`, 커밋되지 않음) |
+
+hook은 직접 pull/push/commit 하지 않는다. 물어서 사람이 고른 것만 Claude가 실행한다. hook과 설정은 Claude Code를 **시작할 때** 읽히므로 바꾼 뒤에는 재시작해야 반영된다.
+
+### 저장소에 들어 있지 않은 것 — 새 PC에서 한 번
 
 | 항목 | 새 PC에서 할 일 |
 |---|---|
-| OMC 설치 | `npm i -g oh-my-claude-sisyphus` |
-| HUD 상태바 | `/oh-my-claudecode:hud setup` |
-| HUD 게이지 문자 | 아래 "HUD 게이지" 참고. 스크립트는 저장소의 `tools/`에 있으므로 clone하면 같이 온다 |
-| agent teams | `~/.claude/settings.json`의 `env`에 `"CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"` |
-| `.omc/` 작업 상태 | 옮기지 않는다. PC별 로컬 상태이며 git에서도 제외돼 있다 |
+| Claude Code 로그인 | `claude` 실행 후 로그인 |
+| OMC 설치 | `npm i -g oh-my-claude-sisyphus` 후 `/oh-my-claudecode:omc-setup` (`~/.claude/hud/omc-hud.mjs`가 생긴다) |
+| JDK 21, Maven 3.9.x | 연습 프로젝트 빌드용 |
+| Gitea 액세스 토큰 | 처음 push할 때 Git Credential Manager 창에 입력. 저장소에 넣지 않는다 |
+| `.omc/` 작업 상태 | 옮기지 않는다. PC별 실행 상태(세션 기록·잠금·로그)이며 `.gitignore`로 제외한다. 예외: `.omc/skills/`(프로젝트 스킬)는 커밋한다 |
+
+## 작업 규칙
+
+- **사내망 PC의 저장소 경로는 `D:\cp_workspace`, 개인 PC는 `D:\dev\workspace`다.**
+- **회사 IT에 접근 허용을 요청하는 것은 불가능한 구조다.** 대안을 제시할 때 "IT에 요청"을 넣지 않는다.
+- **사내망 차단을 우회하지 않는다.** IP 직접 지정, DNS 변경, 프록시, GitHub 우회 프록시(`git.msjin.workers.dev` 등)는 쓰지도 제안하지도 않는다. 막혔으면 오류 문구를 그대로 보고하고 사람이 정한다.
+- 사내망 PC에서 환경을 바꾸는 작업(원격 전환 등)은 읽기 전용 점검까지만 먼저 하고, 결과를 보고한 뒤 사람의 승인을 받고 진행한다.
 
 ### HUD 게이지
 
@@ -131,21 +158,9 @@ OMC는 상태바 게이지를 `[##------]`처럼 ASCII로 그린다. 블록 문�
 
 OMC가 출력 직전 `sanitizeOutput()`에서 블록 문자를 무조건 치환하는데(`dist/hud/sanitize.js`의 `replaceUnicodeBlocks`), **설정으로 끌 수 없다.** `omc hud`에는 관련 옵션이 없고 HUD 설정 스키마에도 게이지 문자 항목이 없다. 그래서 출력을 후처리하는 래퍼를 둔다. 패키지를 직접 고치면 `npm i -g` 할 때마다 날아가므로 래퍼가 맞다.
 
-새 PC에서:
+**새 PC에서 따로 할 일은 없다.** `session-start.mjs` hook이 래퍼를 `~/.claude/hud/`에 복사하고, 프로젝트 `.claude/settings.json`의 `statusLine`이 홈 경로를 스스로 찾아 그 파일을 실행한다(PC마다 홈 경로가 달라도 된다).
 
-```bash
-cp tools/omc-hud-gauge.mjs ~/.claude/hud/
-```
-
-그리고 `~/.claude/settings.json`의 `statusLine.command`를 그 경로로 바꾼다:
-
-```json
-"statusLine": { "type": "command", "command": "node C:/Users/M/.claude/hud/omc-hud-gauge.mjs" }
-```
-
-되돌리려면 `omc-hud.mjs`를 가리키게 하면 된다.
-
-> `/oh-my-claudecode:hud setup`을 다시 돌리면 `statusLine`이 `omc-hud.mjs`로 되돌아간다. 그때는 위 경로로 다시 바꾼다.
+되돌리려면 프로젝트 `.claude/settings.json`의 `statusLine.command`에서 `omc-hud-gauge.mjs`를 `omc-hud.mjs`로 바꾼다. `/oh-my-claudecode:hud setup`은 `~/.claude/settings.json`만 고치므로 프로젝트 설정에는 영향이 없다.
 
 ## 설치된 도구
 

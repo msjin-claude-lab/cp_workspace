@@ -1,0 +1,83 @@
+{
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "node -e \"import(require('url').pathToFileURL(require('os').homedir()+'/.claude/hud/omc-hud-gauge.mjs'))\""
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"import(require('url').pathToFileURL((process.env.CLAUDE_PROJECT_DIR||process.cwd())+'/.claude/hooks/session-start.mjs'))\"",
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"import(require('url').pathToFileURL((process.env.CLAUDE_PROJECT_DIR||process.cwd())+'/.claude/hooks/sync-check.mjs'))\"",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  },
+  "language": "korean",
+  "spinnerVerbs": {
+    "mode": "replace",
+    "verbs": [
+      "생각하는 중",
+      "고민하는 중",
+      "분석하는 중",
+      "궁리하는 중",
+      "정리하는 중",
+      "살펴보는 중",
+      "따져보는 중",
+      "만드는 중",
+      "다듬는 중",
+      "엮는 중",
+      "끓이는 중",
+      "버무리는 중",
+      "굽는 중",
+      "반죽하는 중",
+      "뜸 들이는 중",
+      "숙성하는 중",
+      "조립하는 중",
+      "연구하는 중",
+      "탐색하는 중",
+      "계산하는 중"
+    ]
+  },
+  "spinnerTipsOverride": {
+    "excludeDefault": true,
+    "tips": [
+      "Shift+Tab으로 권한 모드(자동 수락·계획 모드)를 바꿀 수 있습니다",
+      "Esc를 두 번 누르면 이전 메시지로 돌아가 다시 작성할 수 있습니다",
+      "작업 중에도 메시지를 보내면 Claude가 진행하면서 반영합니다",
+      "!로 시작하면 셸 명령을 바로 실행합니다 (예: ! git status)",
+      "@파일경로 로 파일을 대화에 바로 첨부할 수 있습니다",
+      "/compact 로 대화를 요약해 컨텍스트를 확보할 수 있습니다",
+      "/clear 로 새 대화를 시작할 수 있습니다",
+      "/model 로 사용할 모델을 바꿀 수 있습니다",
+      "/config 로 테마와 각종 설정을 바꿀 수 있습니다",
+      "CLAUDE.md 에 프로젝트 규칙을 적어두면 매 세션 자동으로 읽힙니다",
+      "\"autopilot\" 을 요청에 넣으면 OMC가 처음부터 끝까지 자율 실행합니다",
+      "\"ralph:\" 로 시작하면 OMC가 작업이 끝날 때까지 반복해서 이어갑니다",
+      "\"ralplan\" 으로 실행 전에 합의된 계획부터 세울 수 있습니다",
+      "\"deep interview\" 로 코딩 전에 요구사항을 꼼꼼히 정리할 수 있습니다",
+      "\"ultrathink\" 를 넣으면 더 깊이 생각하고 답합니다",
+      "\"cancelomc\" 로 실행 중인 OMC 모드를 멈출 수 있습니다",
+      "/oh-my-claudecode:team 3:executor \"작업\" 으로 에이전트 팀을 띄울 수 있습니다",
+      "/oh-my-claudecode:hud 로 상태 표시줄 구성을 바꿀 수 있습니다"
+    ]
+  }
+}

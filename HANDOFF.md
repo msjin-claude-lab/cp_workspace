@@ -43,11 +43,11 @@ Claude Code를 Zed 터미널에서 띄우면 Zed가 시작될 때의 환경 변�
 게이지가 `[##------]`로 나오던 것을 `[██░░░░░░]`로 되돌렸다. 사용법은 [CLAUDE.md의 "HUD 게이지"](CLAUDE.md#hud-게이지)에 있다.
 
 - 스크립트: `tools/omc-hud-gauge.mjs` (저장소에 있으므로 clone하면 같이 온다)
-- 설치 위치: `~/.claude/hud/omc-hud-gauge.mjs`, `settings.json`의 `statusLine.command`가 이걸 가리킨다 (개인 PC는 2026-11-11에 설치·설정 완료)
+- 설치 위치: `~/.claude/hud/omc-hud-gauge.mjs` — 세션 시작 hook이 저장소 버전을 복사한다. 프로젝트 `.claude/settings.json`의 `statusLine.command`가 이걸 가리킨다(2026-11-12부터, 모든 PC 공통)
 
 원인은 `dist/hud/sanitize.js`의 `replaceUnicodeBlocks()`가 설정·터미널 감지 없이 `█`→`#`, `░`→`-`로 무조건 치환하는 것이었다. 공식 설정으로는 끌 수 없어 출력을 후처리한다.
 
-**아직 눈으로 확인 못 한 것:** `█`(U+2588)·`░`(U+2591)은 동아시아 환경에서 **폭이 모호한(Ambiguous) 문자**다. 한국어 로케일 터미널이 2칸으로 그리면 게이지 폭이 밀린다 — OMC가 ASCII로 바꾼 진짜 이유가 이것이다(`sanitize.js` 주석, issue #346). 재시작 후 상태바에서 폭이 밀리지 않는지 볼 것. 밀리면 `statusLine.command`를 `omc-hud.mjs`로 되돌린다.
+**아직 눈으로 확인 못 한 것:** `█`(U+2588)·`░`(U+2591)은 동아시아 환경에서 **폭이 모호한(Ambiguous) 문자**다. 한국어 로케일 터미널이 2칸으로 그리면 게이지 폭이 밀린다 — OMC가 ASCII로 바꾼 진짜 이유가 이것이다(`sanitize.js` 주석, issue #346). 재시작 후 상태바에서 폭이 밀리지 않는지 볼 것. 밀리면 프로젝트 `.claude/settings.json`의 `statusLine.command`를 `omc-hud.mjs`로 되돌린다.
 
 ## 재시작 후 확인할 것
 
