@@ -21,7 +21,7 @@ PC에 따라 다르다. **사내망 PC에서는 `github.com`이 차단**되고, 
 | 호스트 | 사내망 PC | 개인 PC |
 |---|---|---|
 | `github.com` | 차단 | 가용 |
-| `222.112.172.253:9080` (개인 Gitea) | 가용 — git clone·fetch 정상 (2026-11-12 실측) | 가용 |
+| `222.112.172.253:9080` (개인 Gitea) | 가용 — git clone·fetch·push 정상 (2026-11-12 실측) | 가용 |
 | `registry.npmjs.org` | 가용 | 가용 |
 | `repo.maven.apache.org` | 가용 | 가용 |
 
