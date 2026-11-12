@@ -21,11 +21,14 @@ PC에 따라 다르다. **사내망 PC에서는 `github.com`이 차단**되고, 
 | 호스트 | 사내망 PC | 개인 PC |
 |---|---|---|
 | `github.com` | 차단 | 가용 |
-| `gitea.msjin.workers.dev` (개인 Gitea) | 가용 | 가용 |
+| `gitea.msjin.workers.dev` (개인 Gitea) | 가용 — 단 git clone·fetch·push는 실패 (아래 참고) | 가용 |
+| `mjins.synology.me:9080` (NAS 직접) | 차단 — 사내 필터가 경고 페이지를 내려준다 | 가용 |
 | `registry.npmjs.org` | 가용 | 가용 |
 | `repo.maven.apache.org` | 가용 | 가용 |
 
 따라서 npm·Maven 의존성은 자유롭게 추가해도 된다. 사내망 PC에서 GitHub에서 받아오는 것만 안 된다.
+
+Gitea 주소는 열려 있지만 사내망 PC에서 git 명령만 `HTTP 524`로 실패한다. 망 차단이 아니라 Gitea 앞단 문제이며, 증상과 대응은 ["사내망 PC에서는 clone·fetch·push가 막혀 있다"](#사내망-pc에서는-clonefetchpush가-막혀-있다)에 있다.
 
 ### 사용할 수 없는 스킬
 
@@ -64,13 +67,43 @@ git remote set-url --push github DISABLED-gitea-mirror-only
 
 ## 다른 PC로 옮기기
 
-**Gitea에서 clone한다.** 사내망에서도 접근되므로 이것이 기본 방법이다:
+**Gitea에서 clone한다.**
 
 ```bash
 git clone https://gitea.msjin.workers.dev/msjin-claude-lab/cp_workspace.git D:/dev/workspace
 ```
 
 이후로는 평범하게 `git pull` / `git push`.
+
+### 사내망 PC에서는 clone·fetch·push가 막혀 있다
+
+**사내망 PC에서 위 clone은 실패한다.** `HTTP 524`가 난다 (2026-11-12 실측). 받는 것은 아래 `tools/gitea-pull.mjs` 로 우회할 수 있지만 **push는 방법이 없다.**
+
+사내망 차단이 아니다. 주소는 열려 있고 `CF-Cache-Status`가 `DYNAMIC`이라 NAS까지 실제로 다녀온 응답이 온다. 짧은 GET(웹·`/api/v1/version`·`/info/refs`·`archive/*`)은 전부 2초 안에 200인데, **본문이 실린 POST(`/git-upload-pack`)만** 100초 후 524가 난다. 빈 POST는 0.3초에 200이다.
+
+아래 네 조합 모두 같은 결과였다. 클라이언트 쪽에서 더 해볼 것은 없다:
+
+| 시도 | 결과 |
+|---|---|
+| 프로토콜 v2 / v0 | 524 |
+| HTTP/2 / HTTP/1.1 | 524 |
+
+NAS를 재시작해도 그대로다. Cloudflare Worker가 POST 본문을 Gitea로 넘기지 못하는 쪽이 유력하다 — 미확정. **근본 해결은 개인 PC에서 Worker를 Cloudflare Tunnel(`cloudflared`)로 바꾸는 것이다.** Tunnel은 git 트래픽을 그대로 통과시키므로 주소를 바꾸지 않고도 clone·fetch·push가 전부 살아난다.
+
+`mjins.synology.me:9080`(NAS 직접 주소)은 **사내망이 차단한다** — 사내 필터가 경고 페이지를 내려준다. IP 직접 지정 등으로 우회하지 않는다.
+
+### 사내망 PC에서 받기 — `tools/gitea-pull.mjs`
+
+Gitea가 브랜치를 번들 파일로 내려주는 GET 엔드포인트(`/archive/<branch>.bundle`)를 쓴다. 막힌 POST를 타지 않으면서 이력과 커밋 해시를 그대로 보존하므로 `git pull`과 결과가 같다.
+
+```bash
+node tools/gitea-pull.mjs          # 현재 브랜치
+node tools/gitea-pull.mjs main     # 브랜치 지정
+```
+
+받아서 검증하고 `origin/<브랜치>`를 갱신한 뒤, `ls-remote`(짧은 GET이라 정상 동작)로 서버 해시와 대조하고, 안전할 때만 `--ff-only` 병합한다. 다른 브랜치에 있거나·커밋되지 않은 변경이 있거나·로컬 커밋이 있어 ff가 불가하면 **병합하지 않고** 다음에 칠 명령을 안내한다.
+
+원격 주소는 `origin`에서 읽으므로 하드코딩이 없다. Tunnel로 바꾸면 그대로 따라가고, 그때는 이 스크립트가 필요 없어진다.
 
 ### 예비 수단 — git bundle
 
