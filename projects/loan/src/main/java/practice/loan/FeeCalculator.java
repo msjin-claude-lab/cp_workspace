@@ -38,7 +38,7 @@ public class FeeCalculator {
             return 0;
         }
 
-        long fee = daysLate * DAILY_FEE;
+        long fee = (daysLate - GRACE_DAYS) * DAILY_FEE;
         return (int) Math.min(fee, MAX_FEE);
     }
 }

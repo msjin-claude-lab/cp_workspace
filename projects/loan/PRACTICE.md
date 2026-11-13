@@ -7,7 +7,7 @@ cd projects/loan
 mvn -q test
 ```
 
-지금 상태: **14개 중 13개 통과, 1개 실패.** 이 실패는 정상이며 1번 과제의 출발점이다.
+지금 상태: **14개 모두 통과** — 1번 과제를 2026-11-13에 풀었다. 처음 상태는 13개 통과·1개 실패였다. 1번을 다시 연습하려면 `git checkout a3f27b4 -- projects/loan`으로 결함을 되살린다.
 
 언제든 되돌릴 수 있다:
 
@@ -51,7 +51,7 @@ FeeCalculatorTest.chargesOnlyDaysBeyondGrace:41 expected: <1000> but was: <2500>
 | 해볼 것 | 기대 |
 |---|---|
 | `/omc-review` | 심각도를 매긴 지적 목록 |
-| `/simplify` | 동작을 바꾸지 않고 정리 — 끝나고 `mvn -q test`가 여전히 13 통과여야 한다 |
+| `/simplify` | 동작을 바꾸지 않고 정리 — 끝나고 `mvn -q test`가 여전히 전부 통과여야 한다 |
 | `/ai-slop-cleaner` | 설명형 주석 같은 AI 슬롭 패턴 제거 |
 
 `/simplify` 뒤에 테스트가 더 깨졌다면 그것도 연습 재료다.

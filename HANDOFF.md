@@ -13,16 +13,26 @@
 | OMC | npm 전역 5.8.4, 글로벌·로컬 `CLAUDE.md` 모두 설치됨 |
 | 원격 저장소 | Gitea(기준) → GitHub(푸시 미러, 읽기 전용). 두 PC 모두 `origin` = Gitea. 구성은 [CLAUDE.md의 "git"](CLAUDE.md#git) |
 | Claude Code 설정 | 프로젝트 `.claude/settings.json`에 둠 — agent teams, HUD 상태바, hook. 모든 PC 공통 ([CLAUDE.md의 "PC 간 이어가기"](CLAUDE.md#pc-간-이어가기--설정작업진행-현황)) |
-| 연습 프로젝트 | `projects/loan/` — 결함 심어둔 상태 그대로, 고친 것 없음 |
-| `mvn -q test` | **14개 중 13개 통과, 1개 실패가 정상** |
+| 연습 프로젝트 | `projects/loan/` — **과제 1 완료**(2026-11-13). 과제 2~9의 결함은 그대로 |
+| `mvn -q test` | **14개 모두 통과** (과제 1 완료 후) |
 
-마지막으로 실제 실행해 확인한 실패 (개인 PC, JDK 21.0.13 / Maven 3.9.16, 2026-11-11):
+## 연습 과제 진행 ([PRACTICE.md](projects/loan/PRACTICE.md))
 
-```
-FeeCalculatorTest.chargesOnlyDaysBeyondGrace:41  expected: <1000> but was: <2500>
-```
+| 과제 | 상태 | 기록 |
+|---|---|---|
+| 1. 실패하는 테스트 — `/debug` | **완료** (2026-11-13, 개인 PC) | 아래 |
+| 2. 미구현 기능 — `/tdd` | 다음 차례 | `RenewalPolicy` |
+| 3~9 | 남음 | |
 
-유예기간(grace) 이후 일수만 과금해야 하는데 전체 일수를 과금하고 있다.
+### 과제 1 — 연체료 테스트 실패
+
+- 증상: `FeeCalculatorTest.chargesOnlyDaysBeyondGrace:41 expected: <1000> but was: <2500>` — 예외가 아니라 결과값 불일치(Failures 1, Errors 0)
+- 원인: `FeeCalculator.java:41`이 유예 3일을 빼지 않고 연체 일수 전체에 부과했다(5일 × 500 = 2500). 37줄의 유예 판정은 맞았다
+- 수정: `fee = (daysLate - GRACE_DAYS) * DAILY_FEE` 한 줄. 이후 `mvn -q test` 14/14 통과
+- 결함이 드러나는 범위: 4일 이상·상한(10,000원) 미만 연체만. 0~3일은 37줄에서 끝나고 365일은 상한에 걸려 결과가 같다
+- 하지 않은 것: 경계값 테스트(4일 연체 → 500원) 추가는 선택으로 남겼다
+- 참고: 실행한 `/debug`는 Claude Code 내장 명령(세션 디버그 로그)이었다. OMC 스킬은 `/oh-my-claudecode:debug`, `/oh-my-claudecode:trace`처럼 접두사를 붙여야 한다
+- 원래 결함 상태로 되돌려 다시 연습하려면: `git checkout a3f27b4 -- projects/loan`
 
 ## 남은 일
 
@@ -30,12 +40,12 @@ FeeCalculatorTest.chargesOnlyDaysBeyondGrace:41  expected: <1000> but was: <2500
 |---|---|---|
 | 프로젝트 설정·hook 받기 (커밋 `839895d` 이후) | **남음** — `git pull` 후 Claude Code 재시작. 처음에 프로젝트 hook 허용을 물으면 허용 | 완료 |
 | HUD 상태바 눈으로 확인 | 남음 | 남음 |
-| `/team` 동작 확인 + 첫 연습 과제 | 남음 | 남음 |
+| `/team` 동작 확인 | 남음 | 남음 |
 
 HUD와 `/team`은 사람이 직접 봐야 한다. 둘 다 Claude Code **시작 시** 읽힌다.
 
 1. 상태바가 2줄 OMC HUD로 나오고 게이지가 `[██░░░░░░]` 모양인지, 폭이 밀리지 않는지
-2. `/team 2:executor "FeeCalculatorTest 실패를 고쳐라"` 가 동작하는지 — 하나로 agent teams 확인과 첫 연습 과제가 같이 된다
+2. `/team` 이 동작하는지 — 과제 1은 끝났으니 PRACTICE.md 9번 과제(여러 작업 한 번에)에서 `/team 2:executor "..."`로 확인한다
 
 ## 해결된 것 — 기록
 
