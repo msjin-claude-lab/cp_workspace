@@ -5,8 +5,8 @@
  * - 그 구간에 이미 점검했으면(세션 시작 점검 포함) 아무것도 하지 않는다.
  * - pull 대상(원격에만 있는 커밋)이나 push 대상(로컬에만 있는 커밋·커밋 안 한 변경)이
  *   있으면 Stop을 막고(decision: block) Claude에게 질문을 맡긴다.
- * - 물을 것은 없지만 원격 확인(fetch)이 실패했으면 경고만 띄운다.
- * - 둘 다 아니면 조용히 끝난다.
+ * - 점검이 실제로 돌았으면 결과(원격과 같음 / 차이 / 원격 확인 실패)를 한 줄로 항상 띄운다.
+ * - 이미 점검한 구간이라 건너뛸 때는 아무것도 띄우지 않는다.
  */
 
 import { readFileSync } from "node:fs";
@@ -25,11 +25,10 @@ try {
   const r = compare();
   if (!r.ok) process.exit(0);
 
-  if (r.askPull || r.askPush) {
-    process.stdout.write(JSON.stringify({ decision: "block", reason: askInstruction(r, "대답 종료 시") }));
-  } else if (r.fetchError) {
-    process.stdout.write(JSON.stringify({ systemMessage: summaryLine(r) }));
-  }
+  // 점검이 실제로 돌았으면 결과와 상관없이 한 줄 안내를 띄운다.
+  const out = { systemMessage: summaryLine(r) };
+  if (r.askPull || r.askPush) Object.assign(out, { decision: "block", reason: askInstruction(r, "대답 종료 시") });
+  process.stdout.write(JSON.stringify(out));
 } catch {
   // git 저장소가 아니거나 git 실패 — 대화를 막지 않는다
 }

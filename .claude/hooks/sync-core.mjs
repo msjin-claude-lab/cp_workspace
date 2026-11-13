@@ -74,15 +74,16 @@ export function compare() {
   return { ok: true, upstream, behind, ahead, dirty, fetchError, askPull: behind > 0, askPush: ahead > 0 || dirty.length > 0 };
 }
 
-/** 사용자에게 보일 한 줄 요약 */
+/** 사용자에게 보일 한 줄 요약. 점검이 실제로 돌았을 때는 결과와 상관없이 항상 띄운다. */
 export function summaryLine(r) {
+  const tag = `[git 동기화 점검 · ${new Date().getHours()}시]`;
   const parts = [];
   if (r.askPull) parts.push(`받을 커밋 ${r.behind}개`);
   if (r.ahead) parts.push(`push 안 한 커밋 ${r.ahead}개`);
   if (r.dirty.length) parts.push(`커밋 안 한 변경 ${r.dirty.length}개`);
-  const head = r.fetchError ? `⚠ 원격 확인 실패: ${r.fetchError}` : null;
-  if (!parts.length) return head ? `${head} (로컬에는 올릴 것 없음)` : "✓ git 동기화: 원격과 같음";
-  return [head, `git 동기화: ${parts.join(", ")}`].filter(Boolean).join(" / ");
+  const fail = r.fetchError ? `⚠ 원격 확인 실패: ${r.fetchError}` : null;
+  if (!parts.length) return `${tag} ${fail ? `${fail} (로컬에는 올릴 것 없음)` : "✓ 원격과 같음"}`;
+  return `${tag} ${[fail, `${parts.join(", ")} → 어떻게 할지 묻습니다`].filter(Boolean).join(" / ")}`;
 }
 
 /** Claude에게 넘길 상세 사실 + 질문 지시 */
