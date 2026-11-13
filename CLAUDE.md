@@ -130,53 +130,6 @@ Claude 대화 자체는 PC 간에 이어지지 않는다. 대화에서 정한 �
 
 | hook | 언제 | 하는 일 |
 |---|---|---|
-| `session-start.mjs` | 세션 시작·재개 | `tools/omc-hud-gauge.mjs`를 `~/.claude/hud/`에 맞춰 복사 |
-| `sync-check.mjs` | Claude가 대답을 마칠 때 | **정시 구간(예: 14:00:00~14:59:59)마다 한 번** Gitea를 fetch해 비교한다. 원격에만 커밋이 있으면 pull을, 로컬에만 커밋이 있거나 커밋 안 한 변경이 있으면 push를 묻게 한다. 둘 다 없으면 묻지 않는다. 그 구간에 이미 점검했으면 건너뛴다(기록: `.git/cp-sync-check.json`, 커밋되지 않음) |
-
-hook은 직접 pull/push/commit 하지 않는다. 물어서 사람이 고른 것만 Claude가 실행한다. hook과 설정은 Claude Code를 **시작할 때** 읽히므로 바꾼 뒤에는 재시작해야 반영된다.
-
-### 저장소에 들어 있지 않은 것 — 새 PC에서 한 번
-
-| 항목 | 새 PC에서 할 일 |
-|---|---|
-| Claude Code 로그인 | `claude` 실행 후 로그인 |
-| OMC 설치 | `npm i -g oh-my-claude-sisyphus` 후 `/oh-my-claudecode:omc-setup` (`~/.claude/hud/omc-hud.mjs`가 생긴다) |
-| JDK 21, Maven 3.9.x | 연습 프로젝트 빌드용 |
-| Gitea 액세스 토큰 | 처음 push할 때 Git Credential Manager 창에 입력. 저장소에 넣지 않는다 |
-| `.omc/` 작업 상태 | 옮기지 않는다. PC별 실행 상태(세션 기록·잠금·로그)이며 `.gitignore`로 제외한다. 예외: `.omc/skills/`(프로젝트 스킬)는 커밋한다 |
-
-## 작업 규칙
-
-- **사내망 PC의 저장소 경로는 `D:\cp_workspace`, 개인 PC는 `D:\dev\workspace`다.**
-- **회사 IT에 접근 허용을 요청하는 것은 불가능한 구조다.** 대안을 제시할 때 "IT에 요청"을 넣지 않는다.
-- **사내망 차단을 우회하지 않는다.** IP 직접 지정, DNS 변경, 프록시, GitHub 우회 프록시(`git.msjin.workers.dev` 등)는 쓰지도 제안하지도 않는다. 막혔으면 오류 문구를 그대로 보고하고 사람이 정한다.
-- 사내망 PC에서 환경을 바꾸는 작업(원격 전환 등)은 읽기 전용 점검까지만 먼저 하고, 결과를 보고한 뒤 사람의 승인을 받고 진행한다.
-
-### HUD 게이지
-
-OMC는 상태바 게이지를 `[##------]`처럼 ASCII로 그린다. 블록 문자(`[██░░░░░░]`)로 되돌리려면 `tools/omc-hud-gauge.mjs`를 쓴다.
-
-OMC가 출력 직전 `sanitizeOutput()`에서 블록 문자를 무조건 치환하는데(`dist/hud/sanitize.js`의 `replaceUnicodeBlocks`), **설정으로 끌 수 없다.** `omc hud`에는 관련 옵션이 없고 HUD 설정 스키마에도 게이지 문자 항목이 없다. 그래서 출력을 후처리하는 래퍼를 둔다. 패키지를 직접 고치면 `npm i -g` 할 때마다 날아가므로 래퍼가 맞다.
-
-**새 PC에서 따로 할 일은 없다.** `session-start.mjs` hook이 래퍼를 `~/.claude/hud/`에 복사하고, 프로젝트 `.claude/settings.json`의 `statusLine`이 홈 경로를 스스로 찾아 그 파일을 실행한다(PC마다 홈 경로가 달라도 된다).
-
-되돌리려면 프로젝트 `.claude/settings.json`의 `statusLine.command`에서 `omc-hud-gauge.mjs`를 `omc-hud.mjs`로 바꾼다. `/oh-my-claudecode:hud setup`은 `~/.claude/settings.json`만 고치므로 프로젝트 설정에는 영향이 없다.
-
-## 설치된 도구
-
-| 도구 | 버전 |
-|---|---|
-| JDK | 21.0.11 (LTS) |
-| Maven | 3.9.11 |
-| Node | 24.18.0 / npm 11.16.0 |
-| Python | 3.12.10 |
-
-**`jq`는 없다.** JSON 파일은 Read/Edit 도구로 수정한다. `jq`에 의존하는 셸 스크립트는 실패하므로(OMC의 `setup-progress.sh`가 그렇다) 같은 변경을 Edit로 직접 재현한다.
-
-`gradle`, `gh`도 없다.
-
-## 새 프로젝트를 추가할 때
-
-1. `projects/<name>/` 생성
-2. 프로젝트 고유 규칙·빌드 명령은 `projects/<name>/CLAUDE.md`에
-3. 모든 프로젝트에 해당하는 사실을 알게 되면 이 파일에 추가한다
+| `session-start.mjs` | 세션 시작·재개 | Gitea와 비교해 결과를 화면에 한 줄로 띄운다(`✓ 원격과 같음` / 받을 것·올릴 것 / `⚠ 원격 확인 실패`). 받을 것이나 올릴 것이 있으면 Claude가 첫 대답에서 먼저 묻는다. 이 점검은 그 정시 구간의 점검으로 기록된다. 또 `tools/omc-hud-gauge.mjs`를 `~/.claude/hud/`에 맞춰 복사한다 |
+| `sync-check.mjs` | Claude가 대답을 마칠 때 | **정시 구간(예: 14:00:00~14:59:59)마다 한 번** Gitea를 fetch해 비교한다. 원격에만 커밋이 있으면 pull을, 로컬에만 커밋이 있거나 커밋 안 한 변경이 있으면 push를 묻게 한다. 물을 것은 없는데 원격 확인이 실패하면 경고만 띄운다. 그 구간에 이미 점검했으면 건너뛴다(기록: `.git/cp-sync-check.json`, 커밋되지 않음) |
+| `sync-core.mjs` | — | 위 두 hook이 쓰는 비교 로직 |
