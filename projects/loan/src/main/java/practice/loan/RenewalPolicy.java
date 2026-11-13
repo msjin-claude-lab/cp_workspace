@@ -3,7 +3,7 @@ package practice.loan;
 import java.time.LocalDate;
 
 /**
- * 대출 연장 정책. <b>아직 구현되지 않았다.</b>
+ * 대출 연장 정책.
  *
  * <p>규정:
  * <ul>
@@ -32,7 +32,22 @@ public class RenewalPolicy {
      */
     public boolean canRenew(Member member, LocalDate currentDueDate, LocalDate today,
                             int renewalCount, boolean reservedByOther) {
-        throw new UnsupportedOperationException("아직 구현되지 않았다");
+        if (member == null || currentDueDate == null || today == null) {
+            throw new IllegalArgumentException("member, currentDueDate, today는 필수다");
+        }
+        if (renewalCount >= MAX_RENEWALS) {
+            return false;
+        }
+        if (today.isAfter(currentDueDate)) {
+            return false;
+        }
+        if (member.isSuspended()) {
+            return false;
+        }
+        if (reservedByOther) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -42,6 +57,9 @@ public class RenewalPolicy {
      * @return 새 반납 예정일
      */
     public LocalDate renew(LocalDate currentDueDate) {
-        throw new UnsupportedOperationException("아직 구현되지 않았다");
+        if (currentDueDate == null) {
+            throw new IllegalArgumentException("currentDueDate는 필수다");
+        }
+        return currentDueDate.plusDays(EXTENSION_DAYS);
     }
 }

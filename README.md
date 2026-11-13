@@ -53,7 +53,7 @@ D:\cp_workspace 에서 작업을 이어서 한다. HANDOFF.md 를 읽고 시작�
 
 ```bash
 cd projects/loan
-mvn -q test     # 14개 모두 통과 (과제 1 완료 후. 처음은 13개 통과·1개 실패)
+mvn -q test     # 24개 모두 통과 (과제 2 완료 후. 처음은 13개 통과·1개 실패)
 ```
 
 필요한 도구: JDK 21, Maven 3.9.x.
@@ -64,4 +64,4 @@ mvn -q test     # 14개 모두 통과 (과제 1 완료 후. 처음은 13개 통�
 
 - 사내망 PC: 프로젝트 설정·hook 받기(`git pull` 후 재시작)
 - 두 PC 공통: HUD 상태바 모양 확인, `/team` 동작 확인
-- 연습 과제: 1번 완료, 다음은 2번(`/tdd` — `RenewalPolicy`)
+- 연습 과제: 1·2번 완료, 다음은 3번

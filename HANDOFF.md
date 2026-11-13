@@ -13,16 +13,17 @@
 | OMC | npm 전역 5.8.4, 글로벌·로컬 `CLAUDE.md` 모두 설치됨 |
 | 원격 저장소 | Gitea(기준) → GitHub(푸시 미러, 읽기 전용). 두 PC 모두 `origin` = Gitea. 구성은 [CLAUDE.md의 "git"](CLAUDE.md#git) |
 | Claude Code 설정 | 프로젝트 `.claude/settings.json`에 둠 — agent teams, HUD 상태바, hook. 모든 PC 공통 ([CLAUDE.md의 "PC 간 이어가기"](CLAUDE.md#pc-간-이어가기--설정작업진행-현황)) |
-| 연습 프로젝트 | `projects/loan/` — **과제 1 완료**(2026-11-13). 과제 2~9의 결함은 그대로 |
-| `mvn -q test` | **14개 모두 통과** (과제 1 완료 후) |
+| 연습 프로젝트 | `projects/loan/` — **과제 1·2 완료**(2026-11-13). 과제 3~9의 결함은 그대로 |
+| `mvn -q test` | **24개 모두 통과** (과제 2 완료 후. 연체료 6 + 대출·반납 8 + 연장 10) |
 
 ## 연습 과제 진행 ([PRACTICE.md](projects/loan/PRACTICE.md))
 
 | 과제 | 상태 | 기록 |
 |---|---|---|
 | 1. 실패하는 테스트 — `/debug` | **완료** (2026-11-13, 개인 PC) | 아래 |
-| 2. 미구현 기능 — `/tdd` | 다음 차례 | `RenewalPolicy` |
-| 3~9 | 남음 | |
+| 2. 미구현 기능 — `/tdd` | **완료** (2026-11-13, 개인 PC) | 아래 |
+| 3. | 다음 차례 | PRACTICE.md 3번 |
+| 4~9 | 남음 | |
 
 ### 과제 1 — 연체료 테스트 실패
 
@@ -33,6 +34,15 @@
 - 하지 않은 것: 경계값 테스트(4일 연체 → 500원) 추가는 선택으로 남겼다
 - 참고: 실행한 `/debug`는 Claude Code 내장 명령(세션 디버그 로그)이었다. OMC 스킬은 `/oh-my-claudecode:debug`, `/oh-my-claudecode:trace`처럼 접두사를 붙여야 한다
 - 원래 결함 상태로 되돌려 다시 연습하려면: `git checkout a3f27b4 -- projects/loan`
+
+### 과제 2 — `RenewalPolicy` 구현 (`/oh-my-claudecode:tdd`)
+
+- 테스트할 곳(seam)을 먼저 합의: `canRenew`, `renew` 두 메서드. 외부 의존 없는 순수 계산. null 처리도 포함하기로 정함
+- 기대값의 근거: `RenewalPolicy` javadoc 규정 5가지(최대 2회, 연체 중 불가, 정지 회원 불가, 타인 예약 시 불가, 기존 반납일 +14일). null 처리만 규정에 없어 `FeeCalculator` 방식(IllegalArgumentException)을 따름
+- 진행: 테스트 하나 → 실패(red) 확인 → 최소 구현 → 통과(green)를 10번 반복. `RenewalPolicyTest` 10개
+- 결과: `mvn -q test` 24/24 통과 (기존 14개도 깨지지 않음)
+- 남긴 것: 음수 연장 횟수는 테스트 안 함 / `renew`는 `canRenew`를 다시 확인하지 않음 / 아직 `RenewalPolicy`를 쓰는 곳이 없음
+- 원래 상태로 되돌려 다시 연습하려면: `git checkout 52a0a00 -- projects/loan` 후 `projects/loan/src/test/java/practice/loan/RenewalPolicyTest.java` 삭제
 
 ## 남은 일
 
