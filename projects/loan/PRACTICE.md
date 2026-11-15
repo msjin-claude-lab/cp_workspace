@@ -7,7 +7,7 @@ cd projects/loan
 mvn -q test
 ```
 
-지금 상태: **24개 모두 통과** — 1번·2번 과제를 2026-11-13에 풀었다(2번에서 `RenewalPolicyTest` 10개 추가). 2번을 다시 연습하려면 `git checkout 52a0a00 -- projects/loan` 후 `RenewalPolicyTest.java`를 지운다. 처음 상태는 13개 통과·1개 실패였다. 1번을 다시 연습하려면 `git checkout a3f27b4 -- projects/loan`으로 결함을 되살린다.
+지금 상태: **26개 모두 통과** — 1번·2번 과제를 2026-11-13, 3번을 2026-11-15에 풀었다(2번에서 `RenewalPolicyTest` 10개, 3번에서 `LoanServiceTest` 2개 추가). 3번을 다시 연습하려면 `git checkout fb42bcc -- projects/loan`. 2번을 다시 연습하려면 `git checkout 52a0a00 -- projects/loan` 후 `RenewalPolicyTest.java`를 지운다. 처음 상태는 13개 통과·1개 실패였다. 1번을 다시 연습하려면 `git checkout a3f27b4 -- projects/loan`으로 결함을 되살린다.
 
 언제든 되돌릴 수 있다:
 

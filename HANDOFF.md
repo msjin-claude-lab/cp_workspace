@@ -13,8 +13,8 @@
 | OMC | npm 전역 5.8.4, 글로벌·로컬 `CLAUDE.md` 모두 설치됨 |
 | 원격 저장소 | Gitea(기준) → GitHub(푸시 미러, 읽기 전용). 두 PC 모두 `origin` = Gitea. 구성은 [CLAUDE.md의 "git"](CLAUDE.md#git) |
 | Claude Code 설정 | 프로젝트 `.claude/settings.json`에 둠 — agent teams, HUD 상태바, hook. 모든 PC 공통 ([CLAUDE.md의 "PC 간 이어가기"](CLAUDE.md#pc-간-이어가기--설정작업진행-현황)) |
-| 연습 프로젝트 | `projects/loan/` — **과제 1·2 완료**(2026-11-13). 과제 3~9의 결함은 그대로 |
-| `mvn -q test` | **24개 모두 통과** (과제 2 완료 후. 연체료 6 + 대출·반납 8 + 연장 10) |
+| 연습 프로젝트 | `projects/loan/` — **과제 1~3 완료**(2026-11-13·15). 과제 4~9의 결함은 그대로 |
+| `mvn -q test` | **26개 모두 통과** (과제 3 완료 후. 연체료 6 + 대출·반납 10 + 연장 10) |
 
 ## 연습 과제 진행 ([PRACTICE.md](projects/loan/PRACTICE.md))
 
@@ -22,8 +22,9 @@
 |---|---|---|
 | 1. 실패하는 테스트 — `/debug` | **완료** (2026-11-13, 개인 PC) | 아래 |
 | 2. 미구현 기능 — `/tdd` | **완료** (2026-11-13, 개인 PC) | 아래 |
-| 3. | 다음 차례 | PRACTICE.md 3번 |
-| 4~9 | 남음 | |
+| 3. 지저분한 코드 — review·simplify·tdd·ai-slop-cleaner | **완료** (2026-11-15, 개인 PC) | 아래 |
+| 4. 보안 문제 — `/security-review` | 다음 차례 | `AdminGate` |
+| 5~9 | 남음 | |
 
 ### 과제 1 — 연체료 테스트 실패
 
@@ -43,6 +44,20 @@
 - 결과: `mvn -q test` 24/24 통과 (기존 14개도 깨지지 않음)
 - 남긴 것: 음수 연장 횟수는 테스트 안 함 / `renew`는 `canRenew`를 다시 확인하지 않음 / 아직 `RenewalPolicy`를 쓰는 곳이 없음
 - 원래 상태로 되돌려 다시 연습하려면: `git checkout 52a0a00 -- projects/loan` 후 `projects/loan/src/test/java/practice/loan/RenewalPolicyTest.java` 삭제
+
+### 과제 3 — `LoanService` 정리 (2026-11-15, 개인 PC)
+
+순서: review(점검) → simplify(정리) → tdd(버그 수정) → ai-slop-cleaner(군더더기 제거) → ai-slop-cleaner `--review`(독립 검토)
+
+- review: 지저분한 코드 5종(복사된 null 검사, 3번 반복된 반복문, 겹친 if/else, 매직 넘버 5·14, 코드를 읽어 주는 주석)과 **PRACTICE.md에 없던 버그 2개**를 찾음. 버그는 `jshell`로 재현
+  - ① 같은 ISBN의 다른 `Book` 객체로 반납하면 빌려 간 책이 계속 대출 불가로 남음
+  - ② `findActiveLoans(null)`이 거부하지 않음 — 대출 기록이 없으면 오류 없이 빈 목록, 있으면 NPE
+- simplify: 4관점(재사용·단순화·효율·구조 위치) 검토 후 정리. 125줄 → 86줄. 정리 중 조건 순서를 바꿔 null 동작이 달라진 것을 재현 스크립트로 잡아 되돌림(테스트 24개로는 안 잡혔다)
+- tdd: 버그마다 테스트를 먼저 쓰고 red 확인 후 수정. ①은 `target.getBook().setAvailable(true)`, ②는 null 검사 추가. `LoanServiceTest` 8 → 10개
+- ai-slop-cleaner: simplify 때 넣은 작업 기록 주석 1줄만 삭제
+- `--review` 독립 검토(code-reviewer): 승인. 의도한 버그 수정 2개 외 동작 변경 없음
+- 남긴 것(검토자 권장): 오류 **메시지**와 우선순위(정지 회원 + 대출 중 도서), `returnBook`의 null 거부, 같은 ISBN 중복 대출 시 선택을 고정하는 테스트가 없음. 지금 테스트는 예외 종류만 본다
+- 원래 상태로 되돌려 다시 연습하려면: `git checkout fb42bcc -- projects/loan`
 
 ## 남은 일
 

@@ -4,69 +4,34 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 대출/반납 처리.
- *
- * <p>동작은 하지만 코드 상태가 좋지 않다. /omc-review, /simplify, /ai-slop-cleaner 연습 재료다.
- */
+/** 대출/반납 처리. */
 public class LoanService {
 
-    // 대출 기록을 담는 리스트입니다.
-    private final List<Loan> loans = new ArrayList<Loan>();
+    public static final int MAX_ACTIVE_LOANS = 5;
+    public static final int LOAN_DAYS = 14;
 
-    // 연체료 계산기입니다.
+    private final List<Loan> loans = new ArrayList<>();
     private final FeeCalculator feeCalculator = new FeeCalculator();
 
     /**
-     * 도서를 대출한다.
-     *
-     * <p>회원 1명이 동시에 빌릴 수 있는 책은 5권까지다.
-     * 대출 기간은 14일이다.
+     * 도서를 대출한다. 회원당 동시 대출은 {@value #MAX_ACTIVE_LOANS}권, 대출 기간은 {@value #LOAN_DAYS}일이다.
      */
     public Loan checkout(Member member, Book book, LocalDate today) {
-        // member가 null인지 확인합니다.
-        if (member == null) {
-            throw new IllegalArgumentException("member는 필수다");
-        }
-        // book이 null인지 확인합니다.
-        if (book == null) {
-            throw new IllegalArgumentException("book은 필수다");
-        }
-        // today가 null인지 확인합니다.
-        if (today == null) {
-            throw new IllegalArgumentException("today는 필수다");
-        }
-
-        // 회원이 정지 상태인지 확인합니다.
+        requireArgs(member, book, today);
         if (member.isSuspended()) {
             throw new IllegalStateException("정지된 회원은 대출할 수 없다: " + member.getId());
-        } else {
-            // 정지 상태가 아니면 계속 진행합니다.
-            if (book.isAvailable()) {
-                // 대출 가능한 책입니다.
-                int count = 0;
-                for (int i = 0; i < loans.size(); i++) {
-                    Loan l = loans.get(i);
-                    if (l.getMember().getId().equals(member.getId())) {
-                        if (!l.isReturned()) {
-                            count = count + 1;
-                        }
-                    }
-                }
-                if (count >= 5) {
-                    throw new IllegalStateException("대출 한도 초과: " + member.getId());
-                }
-
-                LocalDate due = today.plusDays(14);
-                Loan loan = new Loan(member, book, today, due);
-                book.setAvailable(false);
-                loans.add(loan);
-                return loan;
-            } else {
-                // 대출 불가능한 책입니다.
-                throw new IllegalStateException("이미 대출 중인 도서다: " + book.getIsbn());
-            }
         }
+        if (!book.isAvailable()) {
+            throw new IllegalStateException("이미 대출 중인 도서다: " + book.getIsbn());
+        }
+        if (findActiveLoans(member).size() >= MAX_ACTIVE_LOANS) {
+            throw new IllegalStateException("대출 한도 초과: " + member.getId());
+        }
+
+        Loan loan = new Loan(member, book, today, today.plusDays(LOAN_DAYS));
+        book.setAvailable(false);
+        loans.add(loan);
+        return loan;
     }
 
     /**
@@ -75,51 +40,46 @@ public class LoanService {
      * @return 연체료(원)
      */
     public int returnBook(Member member, Book book, LocalDate today) {
-        // member가 null인지 확인합니다.
-        if (member == null) {
-            throw new IllegalArgumentException("member는 필수다");
-        }
-        // book이 null인지 확인합니다.
-        if (book == null) {
-            throw new IllegalArgumentException("book은 필수다");
-        }
-        // today가 null인지 확인합니다.
-        if (today == null) {
-            throw new IllegalArgumentException("today는 필수다");
-        }
+        requireArgs(member, book, today);
 
         Loan target = null;
-        for (int i = 0; i < loans.size(); i++) {
-            Loan l = loans.get(i);
-            if (l.getMember().getId().equals(member.getId())) {
-                if (l.getBook().getIsbn().equals(book.getIsbn())) {
-                    if (!l.isReturned()) {
-                        target = l;
-                    }
-                }
+        for (Loan loan : findActiveLoans(member)) {
+            if (loan.getBook().getIsbn().equals(book.getIsbn())) {
+                target = loan;
             }
         }
-
         if (target == null) {
             throw new IllegalStateException("대출 기록이 없다: " + book.getIsbn());
         }
 
         target.setReturnedOn(today);
-        book.setAvailable(true);
+        target.getBook().setAvailable(true);
         return feeCalculator.calculate(target.getDueDate(), today);
     }
 
     /** 반납되지 않은 대출 목록을 돌려준다. */
     public List<Loan> findActiveLoans(Member member) {
-        List<Loan> result = new ArrayList<Loan>();
-        for (int i = 0; i < loans.size(); i++) {
-            Loan l = loans.get(i);
-            if (l.getMember().getId().equals(member.getId())) {
-                if (!l.isReturned()) {
-                    result.add(l);
-                }
+        if (member == null) {
+            throw new IllegalArgumentException("member는 필수다");
+        }
+        List<Loan> result = new ArrayList<>();
+        for (Loan loan : loans) {
+            if (loan.getMember().getId().equals(member.getId()) && !loan.isReturned()) {
+                result.add(loan);
             }
         }
         return result;
+    }
+
+    private static void requireArgs(Member member, Book book, LocalDate today) {
+        if (member == null) {
+            throw new IllegalArgumentException("member는 필수다");
+        }
+        if (book == null) {
+            throw new IllegalArgumentException("book은 필수다");
+        }
+        if (today == null) {
+            throw new IllegalArgumentException("today는 필수다");
+        }
     }
 }

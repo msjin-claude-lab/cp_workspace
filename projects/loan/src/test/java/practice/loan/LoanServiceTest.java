@@ -99,4 +99,20 @@ class LoanServiceTest {
         assertThrows(IllegalArgumentException.class, () -> service.checkout(member, null, today));
         assertThrows(IllegalArgumentException.class, () -> service.checkout(member, book, null));
     }
+
+    @Test
+    @DisplayName("ISBN이 같은 다른 객체로 반납해도 빌려 간 도서가 다시 대출 가능해진다")
+    void returnWithEqualIsbnBookFreesLoanedBook() {
+        service.checkout(member, book, today);
+
+        service.returnBook(member, new Book("978-0", "리팩터링"), today.plusDays(1));
+
+        assertTrue(book.isAvailable());
+    }
+
+    @Test
+    @DisplayName("활성 대출 조회에 회원이 없으면 거부한다")
+    void findActiveLoansRejectsNullMember() {
+        assertThrows(IllegalArgumentException.class, () -> service.findActiveLoans(null));
+    }
 }
