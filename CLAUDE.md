@@ -64,6 +64,14 @@ git remote set-url --push github DISABLED-gitea-mirror-only
 
 주소가 `https`가 아니라 **`http`**다. 토큰이 평문으로 오간다 — 이 저장소 외의 자격 증명을 같은 주소에 쓰지 않는다.
 
+그래서 GCM이 git 명령마다 `warning: use of unencrypted HTTP remote URLs is not recommended`를 띄운다. 경고만 끄려면 PC마다 한 번 실행한다(2026-11-16 사내망 PC 적용):
+
+```bash
+git config --global credential.allowUnsafeRemotes true
+```
+
+경고만 사라지고 평문 전송은 그대로다. 근본 해결은 HTTPS인데, 공인 인증서는 도메인에 발급되고 NAS 도메인은 사내망에서 차단돼 IP로 접속하는 지금 구조에서는 쓸 수 없다.
+
 ## 다른 PC로 옮기기
 
 **Gitea에서 clone한다.**

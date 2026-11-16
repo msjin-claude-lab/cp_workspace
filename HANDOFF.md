@@ -64,6 +64,7 @@
 | 할 일 | 사내망 PC | 개인 PC |
 |---|---|---|
 | 프로젝트 설정·hook 받기 (커밋 `839895d` 이후) | **남음** — `git pull` 후 Claude Code 재시작. 처음에 프로젝트 hook 허용을 물으면 허용 | 완료 |
+| git HTTP 경고 끄기 — `git config --global credential.allowUnsafeRemotes true` ([CLAUDE.md의 "git"](CLAUDE.md#git)) | 완료 (2026-11-16) | **남음** |
 | HUD 상태바 눈으로 확인 | 남음 | 남음 |
 | `/team` 동작 확인 | 남음 | 남음 |
 
