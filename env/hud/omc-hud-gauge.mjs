@@ -165,11 +165,24 @@ function formatGit(porcelain) {
 }
 
 /**
+ * 사용량 라벨을 바꾼다: `5h:` → `5H:`, `wk:` → `WK:`, `fable:` → `Fable:`.
+ * OMC는 이 라벨을 설정(labels)이 아니라 코드에 고정해 둔다(dist/hud/elements/limits.js).
+ * 줄 맨 앞, 공백·구분자 뒤, 또는 색 제어 문자(`\x1b[2m` 등) 바로 뒤일 때만 바꿔
+ * `(6d19h)` 같은 남은 시간 표시는 건드리지 않는다.
+ */
+function relabelLimits(text) {
+  const lead = "(^|[\\s|\\]]|\\x1b\\[[0-9;]*m)";
+  return text
+    .replace(new RegExp(`${lead}5h:`, "gm"), "$15H:")
+    .replace(new RegExp(`${lead}wk:`, "gm"), "$1WK:")
+    .replace(new RegExp(`${lead}fable:`, "gm"), "$1Fable:");
+}
+
+/**
  * 줄 배치를 다시 짠다.
  *
- *   1줄: ctx
- *   2줄: [OMC#x] | 모델 effort | branch | git 상태
- *   3줄: 나머지(사용량 게이지 등)
+ *   1줄: [Claude#a | OMC#x] | ctx | 모델 effort | branch git 상태
+ *   2줄: 나머지(사용량 게이지 등) — 화면이 좁아지면 접힐 수 있다
  *
  * 못 찾은 조각은 건너뛰고, 아무것도 못 찾으면 원본을 그대로 돌려준다.
  */
@@ -185,12 +198,14 @@ export function moveCtxFirst(text, claudeVersion = null, gitPorcelain = null) {
   // OMC의 `branch:main | !2` 줄을 직접 조회한 git 상태로 바꾼다. 조회에 실패하면 OMC 것을 그대로 쓴다.
   const branch = (gitPorcelain && formatGit(gitPorcelain)) || omcBranch;
 
+  // Claude Code는 상태줄이 화면 예산보다 길면 `… (+N more lines)`로 접지만 첫 줄 하나는 항상 남기므로
+  // (Math.max(1, …)), 늘 봐야 할 ctx·버전·모델·git을 첫 줄에 모은다.
+  // ctx를 라벨 뒤에 두는 이유: 맨 앞이면 아래 줄 `5h:` 게이지와 같은 칸에서 시작해 두 게이지가 붙어 보였다.
   const out = [
-    c.ctx,
-    [l.label, m.model, branch].filter(Boolean).join(SEP) || null,
+    [l.label, c.ctx, m.model, branch].filter(Boolean).join(SEP) || null,
     ...rest,
   ].filter(Boolean);
-  return out.join("\n") + (text.endsWith("\n") ? "\n" : "");
+  return relabelLimits(out.join("\n")) + (text.endsWith("\n") ? "\n" : "");
 }
 
 // ---------------------------------------------------------------------------
