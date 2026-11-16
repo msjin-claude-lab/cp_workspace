@@ -289,8 +289,8 @@ try {
   for (let i = 0; i < 8 && dir; i++) {
     const sync = join(dir, "env", "sync.mjs");
     if (existsSync(sync) && existsSync(join(dir, ".omc-workspace"))) {
-      const { applyHud } = await import(pathToFileURL(sync).href);
-      applyHud();
+      const mod = await import(pathToFileURL(sync).href);
+      (mod.applyAuto ?? mod.applyHud)();
       break;
     }
     const up = dirname(dir);

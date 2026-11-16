@@ -150,6 +150,7 @@ PC마다 사용자 폴더에 저장돼 git으로 넘어가지 않는 설정은 `
 |---|---|---|
 | HUD 래퍼 | `env/hud/omc-hud-gauge.mjs` → `~/.claude/hud/` | 자동 — 세션 시작 때, 그리고 pull 직후 다음 상태줄 갱신 때 |
 | HUD 표시 항목 | `env/hud/hud-config.json` → `~/.claude/.omc/hud-config.json` (`~/.claude/settings.json`의 `omcHud`는 제거) | 자동 — 위와 같음 |
+| OMC 위키 | 실제 파일은 저장소 `wiki/`, `.omc/wiki`는 그 연결(정션) | 자동 — 위와 같음 |
 | git 설정 | `env/git/git-config.json` — Gitea 로그인 방식(`wincred`), `provider generic`, `allowUnsafeRemotes`, `origin` | **묻고 적용** — 세션 시작 때 차이가 있으면 Claude가 묻는다. 수동: `node env/sync.mjs --apply git` |
 
 `node env/sync.mjs`는 차이만 보여 준다. 덮어쓴 원본은 `<파일>.before-env-sync`로 남는다.

@@ -85,10 +85,23 @@
 
 | 할 일 | 사내망 PC | 개인 PC |
 |---|---|---|
-| 프로젝트 설정·hook 받기 (커밋 `839895d` 이후) | **남음** — `git pull` 후 Claude Code 재시작. 처음에 프로젝트 hook 허용을 물으면 허용 | 완료 |
-| git HTTP 경고 끄기 — `git config --global credential.allowUnsafeRemotes true` ([CLAUDE.md의 "git"](CLAUDE.md#git)) | 완료 (2026-11-16) | **남음** |
-| HUD 상태바 눈으로 확인 | 남음 | 남음 |
+| 환경 설정 공통화 받기 (`env/`, `wiki/`, 답변 형식 — 2026-11-16 개인 PC) | **남음** — 아래 "사내망 PC에서 받는 순서" | 완료 |
+| git HTTP 경고 끄기 (`credential.allowUnsafeRemotes`) | 완료 (2026-11-16) | 완료 (2026-11-16, `env/git` 기준으로 적용) |
+| HUD 상태바 눈으로 확인 — 1줄 ctx, 2줄 `[Claude# \| OMC#] \| 모델 \| main M2 +1 ↑1` | 남음 | 남음 |
 | `/team` 동작 확인 | 남음 | 남음 |
+
+### 사내망 PC에서 받는 순서 (환경 설정 공통화)
+
+1. `git pull`
+2. **Claude Code를 새로 시작한다.** 답변 형식 규칙(`CLAUDE.md`)은 세션을 시작할 때 읽힌다 — 기존 대화를 이어가면 반영되지 않는다
+3. 세션 시작 hook이 자동으로 맞춘다(`env/sync.mjs`)
+   - HUD 래퍼와 표시 항목(`env/hud/`) — session·callCounts 표시가 꺼지고, `~/.claude/settings.json`의 `omcHud`가 있으면 백업 후 지워진다
+   - `D:\cp_workspace\.omc\wiki`가 `D:\cp_workspace\wiki`를 가리키는 연결(정션)로 바뀐다. 이미 만든 위키 페이지는 `wiki/`로 옮겨지고, 같은 이름인데 내용이 다르면 `.omc/wiki-local-backup/`에 남는다
+4. git 설정 차이(`env/git/` — 특히 로그인 방식 `wincred`)가 있으면 Claude가 적용할지 묻는다. `wincred`를 적용하면 **별도 PowerShell 창**에서 `git push`(또는 `git fetch`)를 한 번 해서 계정 + Gitea 토큰을 넣는다
+5. 이후 사내망 PC에서 만든 위키 페이지는 `wiki/`에 저장된다. 다른 파일처럼 **커밋·push해야** 개인 PC로 넘어간다
+6. 확인: `node env/sync.mjs` → `HUD`, `위키 공유`, `git`이 모두 "기준과 같음"
+
+주의: 사내망 PC에 `OMC_STATE_DIR` 환경 변수가 있으면 OMC가 `.omc`를 다른 곳에 두므로 위키 연결이 쓰이지 않는다(개인 PC에는 없음, 사내망 PC는 미확인).
 
 HUD와 `/team`은 사람이 직접 봐야 한다. 둘 다 Claude Code **시작 시** 읽힌다.
 

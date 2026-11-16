@@ -41,7 +41,7 @@ try {
 // --- 2. 환경 설정 맞추기 (env/) ------------------------------------------------
 // HUD는 자동으로 맞추고, git 설정은 차이만 알려 사용자 승인을 받게 한다(env/sync.mjs 참고).
 try {
-  const { applyHud, diffGit, describeGitDiff } = await import(
+  const { applyHud, applyWikiLink, diffGit, describeGitDiff } = await import(
     pathToFileURL(join(root, "env", "sync.mjs")).href
   );
   const hudDir = join(process.env.CLAUDE_CONFIG_DIR?.trim() || join(homedir(), ".claude"), "hud");
@@ -51,6 +51,8 @@ try {
     const changed = applyHud();
     if (changed.length) messages.push(`HUD 설정을 저장소 기준(env/hud)으로 맞춤: ${changed.length}건`);
   }
+  const wiki = applyWikiLink();
+  if (wiki.length) messages.push(`OMC 위키를 저장소 wiki/ 로 연결함: ${wiki.join(", ")}`);
 
   const gitDiff = diffGit();
   if (gitDiff.length) {

@@ -9,6 +9,7 @@ cp_workspace/
 ├── README.md              ← 이 파일. 요약
 ├── CLAUDE.md              ← 공통 환경 사실·규칙 (망 제약, git 원격, 다른 PC로 옮기기, HUD)
 ├── HANDOFF.md             ← 이어서 할 일, PC별 남은 일
+├── wiki/                  ← OMC 위키 페이지 (.omc/wiki가 여기를 가리킨다. PC 간 공유)
 ├── env/                   ← 모든 PC에 맞출 환경 설정의 기준 (세션 시작·pull 직후 자동 반영)
 │   ├── sync.mjs           ← 비교·적용 공통 코드. `node env/sync.mjs`로 차이 확인
 │   ├── hud/               ← HUD 래퍼, HUD 표시 항목(hud-config.json)

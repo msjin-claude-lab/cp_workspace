@@ -13,11 +13,12 @@
 | `hud/omc-hud-gauge.mjs` | `~/.claude/hud/omc-hud-gauge.mjs` — HUD 래퍼(게이지 문자 복원, 줄 배치, git 상태 `main M2 +1 ↑1 ↓2`) | 자동 |
 | `hud/hud-config.json` | `~/.claude/.omc/hud-config.json` — HUD에 보일 항목과 순서 | 자동 |
 | (없음) | `~/.claude/settings.json`의 `omcHud` 키 — **제거**. 있으면 OMC가 hud-config.json보다 먼저 읽어 기준을 가린다 | 자동 |
+| (없음) | `.omc/wiki` → 저장소 `wiki/` 연결(Windows 정션). OMC는 위키 위치를 바꾸는 설정이 없어 연결로 저장소에 둔다. `.omc/wiki`가 진짜 폴더면 파일을 `wiki/`로 옮긴 뒤 연결로 바꾸고, 내용이 다른 같은 이름 파일은 `.omc/wiki-local-backup/`에 남긴다 | 자동 |
 | `git/git-config.json` | git config — Gitea 로그인 방식(`wincred`), `provider generic`, `allowUnsafeRemotes`, `origin` 주소 | **물어본 뒤** |
 
 ## 언제 맞춰지나
-- **세션 시작**: `.claude/hooks/session-start.mjs`가 HUD를 맞추고, git 설정 차이가 있으면 Claude가 적용 여부를 묻게 한다
-- **pull 직후**: 상태줄 래퍼가 갱신될 때마다 작업 폴더에서 저장소를 찾아 HUD를 맞춘다 → 재시작 없이 반영. 래퍼 자체가 바뀐 경우는 그다음 갱신부터 보인다
+- **세션 시작**: `.claude/hooks/session-start.mjs`가 HUD와 위키 연결을 맞추고, git 설정 차이가 있으면 Claude가 적용 여부를 묻게 한다
+- **pull 직후**: 상태줄 래퍼가 갱신될 때마다 작업 폴더에서 저장소를 찾아 HUD와 위키 연결을 맞춘다 → 재시작 없이 반영. 래퍼 자체가 바뀐 경우는 그다음 갱신부터 보인다
 - 정시 점검 hook(`sync-check.mjs`)이 원격 변경을 찾아 pull을 묻는다 → pull → 위 자동 반영으로 이어진다
 - 덮어쓰기 전 원본은 `<파일>.before-env-sync`로 백업된다(직전 하나만)
 

@@ -18,5 +18,6 @@ Thumbs.db
 .DS_Store
 
 # OMC 실행 상태 (PC별). 프로젝트 스킬만 공유한다
+# OMC 위키는 저장소 wiki/ 에 있고 .omc/wiki 는 그 연결이다(env/sync.mjs)
 .omc/*
 !.omc/skills/
