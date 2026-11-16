@@ -13,8 +13,8 @@
 | OMC | npm 전역 5.8.4, 글로벌·로컬 `CLAUDE.md` 모두 설치됨 |
 | 원격 저장소 | Gitea(기준) → GitHub(푸시 미러, 읽기 전용). 두 PC 모두 `origin` = Gitea. 구성은 [CLAUDE.md의 "git"](CLAUDE.md#git) |
 | Claude Code 설정 | 프로젝트 `.claude/settings.json`에 둠 — agent teams, HUD 상태바, hook. 모든 PC 공통 ([CLAUDE.md의 "PC 간 이어가기"](CLAUDE.md#pc-간-이어가기--설정작업진행-현황)) |
-| 연습 프로젝트 | `projects/loan/` — **과제 1~3 완료**(2026-11-13·15). 과제 4~9의 결함은 그대로 |
-| `mvn -q test` | **26개 모두 통과** (과제 3 완료 후. 연체료 6 + 대출·반납 10 + 연장 10) |
+| 연습 프로젝트 | `projects/loan/` — **과제 1~4 완료**(2026-11-13·15·16). 과제 5~9의 결함은 그대로 |
+| `mvn -q test` | **37개 모두 통과** (과제 4 완료 후. 연체료 6 + 대출·반납 10 + 연장 10 + 관리자 11) |
 
 ## 연습 과제 진행 ([PRACTICE.md](projects/loan/PRACTICE.md))
 
@@ -23,7 +23,7 @@
 | 1. 실패하는 테스트 — `/debug` | **완료** (2026-11-13, 개인 PC) | 아래 |
 | 2. 미구현 기능 — `/tdd` | **완료** (2026-11-13, 개인 PC) | 아래 |
 | 3. 지저분한 코드 — review·simplify·tdd·ai-slop-cleaner | **완료** (2026-11-15, 개인 PC) | 아래 |
-| 4. 보안 문제 — `/security-review` | 다음 차례 | `AdminGate` |
+| 4. 보안 문제 — `/security-review` | **완료** (2026-11-16, 사내망 PC) | 아래 |
 | 5~9 | 남음 | |
 
 ### 과제 1 — 연체료 테스트 실패
@@ -58,6 +58,15 @@
 - `--review` 독립 검토(code-reviewer): 승인. 의도한 버그 수정 2개 외 동작 변경 없음
 - 남긴 것(검토자 권장): 오류 **메시지**와 우선순위(정지 회원 + 대출 중 도서), `returnBook`의 null 거부, 같은 ISBN 중복 대출 시 선택을 고정하는 테스트가 없음. 지금 테스트는 예외 종류만 본다
 - 원래 상태로 되돌려 다시 연습하려면: `git checkout fb42bcc -- projects/loan`
+
+### 과제 4 — `AdminGate` 보안 (2026-11-16, 사내망 PC)
+
+- `/security-review AdminGate.java`: 변경 사항이 없어서 diff 대신 파일 전체를 검토했다. 결함 5개를 찾았지만, 확신도 8 이상만 보고하는 규칙 때문에 보고서에는 3개만 남았다(SQL 인젝션 7점, 개인정보 로그 6점은 빠짐). 연습용 결함을 다 보려면 이 기준을 감안해야 한다
+- 찾은 결함: ① 관리자 토큰 하드코딩(14행) ② 입력 토큰을 인증 판정 전에 로그에 기록(18-21·32행) ③ 감사 기록에 실제 토큰 포함(43행) ④ 이름·이메일 로그 기록 ⑤ 검색어를 SQL에 이어 붙임(38행)
+- 고침: 토큰은 생성자 또는 환경변수 `LOAN_ADMIN_TOKEN`에서 받고, 없으면 전부 거부한다. 비교는 `MessageDigest.isEqual`(상수 시간). 로그와 감사 기록에는 회원 id만 남긴다. 검색은 `buildMemberQuery()`(자리표시자) + `memberSearchParam()`(LIKE 이스케이프)로 나눴다
+- 테스트 우선: `AdminGateTest` 11개를 먼저 쓰고 실패(컴파일 실패)를 확인한 뒤 고쳤다. `mvn -q clean test` 37/37 통과
+- 바뀐 API: `buildMemberQuery(String)` → `buildMemberQuery()` + `memberSearchParam(String)`, `auditLine` 형식 `id | 행위`. 호출하는 곳이 없어 다른 코드는 영향 없음
+- 원래 결함 상태로 되돌려 다시 연습하려면: `git checkout f993665 -- projects/loan/src/main/java/practice/loan/AdminGate.java` 후 `AdminGateTest.java` 삭제
 
 ## 남은 일
 

@@ -24,10 +24,10 @@ OMC 스킬 연습용 도서 대출 모듈. 대출·반납·연체료·연장 규
 
 ### Working In This Directory
 - 지시받은 과제의 결함만 고친다. 연습으로 바꾼 것은 `git checkout projects/loan`으로 되돌린다
-- 남은 연습 결함(과제 4 `AdminGate` 보안 문제 등)은 테스트로 드러나지 않는다 — 테스트 green이 "결함 없음"이 아니다
+- 남은 연습 결함(과제 5~8)은 테스트로 드러나지 않는다 — 테스트 green이 "결함 없음"이 아니다
 
 ### Testing Requirements
-- `mvn -q clean test`(이 폴더에서). 현재 26개 통과(FeeCalculator 6, LoanService 10, RenewalPolicy 10)
+- `mvn -q clean test`(이 폴더에서). 현재 37개 통과(FeeCalculator 6, LoanService 10, RenewalPolicy 10, AdminGate 11)
 - 종료 코드로 판정한다. `target/surefire-reports`의 결과 파일은 빌드가 중간에 멈춰도 지난 것이 남아 있다
 - `-o`(오프라인)에서 `clean`은 clean 플러그인을 한 번 내려받은 뒤에만 된다
 
