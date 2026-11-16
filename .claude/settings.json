@@ -14,7 +14,7 @@
           {
             "type": "command",
             "command": "node -e \"import(require('url').pathToFileURL((process.env.CLAUDE_PROJECT_DIR||process.cwd())+'/.claude/hooks/session-start.mjs'))\"",
-            "timeout": 15
+            "timeout": 30
           }
         ]
       }

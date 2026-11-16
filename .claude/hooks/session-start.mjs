@@ -6,6 +6,7 @@
  *    점검으로 기록되므로, 같은 구간의 Stop hook(sync-check.mjs)은 다시 묻지 않는다.
  *    받을 것·올릴 것이 있으면 Claude가 첫 대답에서 먼저 묻도록 지시를 넘긴다.
  * 2. 저장소의 HUD 게이지 래퍼를 ~/.claude/hud/ 에 맞춰 둔다(statusLine이 그 파일을 쓴다).
+ * 3. winget에 새 Claude Code 버전이 올라왔으면 알린다(하루 한 번 조회).
  *
  * 직접 pull/push/commit 하지 않는다. 어떤 경우에도 세션 시작을 막지 않는다 — 항상 exit 0.
  */
@@ -14,6 +15,7 @@ import { copyFileSync, existsSync, readFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { join } from "node:path";
 import { askInstruction, compare, markChecked, root, summaryLine } from "./sync-core.mjs";
+import { checkClaudeUpdate } from "./version-check.mjs";
 
 const messages = [];
 const context = ["[cp_workspace 세션 시작 점검]"];
@@ -50,6 +52,18 @@ try {
   }
 } catch (e) {
   messages.push(`HUD 래퍼를 맞추지 못함: ${String(e?.message || e).slice(0, 120)}`);
+}
+
+// --- 3. Claude Code 업데이트 점검 ----------------------------------------------
+try {
+  const update = checkClaudeUpdate();
+  if (update) {
+    messages.push(update);
+    context.push(`- ${update}`);
+  }
+} catch (e) {
+  // 알림 하나 때문에 세션 시작을 방해하지 않는다 — 조용히 넘어간다
+  void e;
 }
 
 context.push("- 이어서 할 일은 HANDOFF.md에 있다.");
