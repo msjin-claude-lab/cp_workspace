@@ -24,7 +24,9 @@
 | 2. 미구현 기능 — `/tdd` | **완료** (2026-11-13, 개인 PC) | 아래 |
 | 3. 지저분한 코드 — review·simplify·tdd·ai-slop-cleaner | **완료** (2026-11-15, 개인 PC) | 아래 |
 | 4. 보안 문제 — `/security-review` | **완료** (2026-11-16, 사내망 PC) | 아래 |
-| 5~9 | 남음 | |
+| 5. 검증 습관 — `/verify`, `/create-verification-skill` | **완료** (2026-11-15, 개인 PC) | 아래 |
+| 6. 문서 없는 코드 — `/how`, `/deepinit`, `/wiki`, `/teach` | **진행 중** — `how`·`deepinit` 완료, **다음은 `/oh-my-claudecode:wiki`** | 아래 |
+| 7~9 | 남음 | |
 
 ### 과제 1 — 연체료 테스트 실패
 
@@ -67,6 +69,17 @@
 - 테스트 우선: `AdminGateTest` 11개를 먼저 쓰고 실패(컴파일 실패)를 확인한 뒤 고쳤다. `mvn -q clean test` 37/37 통과
 - 바뀐 API: `buildMemberQuery(String)` → `buildMemberQuery()` + `memberSearchParam(String)`, `auditLine` 형식 `id | 행위`. 호출하는 곳이 없어 다른 코드는 영향 없음
 - 원래 결함 상태로 되돌려 다시 연습하려면: `git checkout f993665 -- projects/loan/src/main/java/practice/loan/AdminGate.java` 후 `AdminGateTest.java` 삭제
+
+### 과제 5 — 검증 습관 (2026-11-15, 개인 PC)
+
+- `/oh-my-claudecode:verify`로 과제 3의 완료 주장을 다시 확인. 처음 실행은 `mvn -o clean`이 플러그인 미설치로 시작도 못 했는데, **지난 실행의 결과 파일 때문에 "26개 통과"로 보였다** — 종료 코드(1)로 잡아냄. `target`을 지우고 다시 돌려 통과 확인
+- `/oh-my-claudecode:create-verification-skill`로 이 저장소 전용 `/verify` 스킬(`.claude/skills/verify/SKILL.md`)을 만듦. 명령은 모두 실행해 확인, 판정은 종료 코드 + 새로 생성된 결과 파일
+
+### 과제 6 — 문서 없는 코드 (진행 중)
+
+- `/oh-my-claudecode:how 대출과 반납은 어떻게 동작하나`: 탐색 에이전트가 줄 번호 지도를 만들고, 그 지도로 설명을 씀 (2026-11-15)
+- `/oh-my-claudecode:deepinit`: 의미 있는 폴더 7곳에 `AGENTS.md` 생성 (2026-11-15). 하위 폴더 AGENTS.md는 OMC hook이 켜져 있어야 읽힌다
+- 다음: `/oh-my-claudecode:wiki`, 그다음 `/oh-my-claudecode:teach`
 
 ## 남은 일
 
