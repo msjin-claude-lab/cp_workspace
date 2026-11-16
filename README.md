@@ -9,13 +9,15 @@ cp_workspace/
 ├── README.md              ← 이 파일. 요약
 ├── CLAUDE.md              ← 공통 환경 사실·규칙 (망 제약, git 원격, 다른 PC로 옮기기, HUD)
 ├── HANDOFF.md             ← 이어서 할 일, PC별 남은 일
-├── tools/
-│   └── omc-hud-gauge.mjs  ← OMC HUD 게이지를 블록 문자(█░)로 되돌리는 래퍼
+├── env/                   ← 모든 PC에 맞출 환경 설정의 기준 (세션 시작·pull 직후 자동 반영)
+│   ├── sync.mjs           ← 비교·적용 공통 코드. `node env/sync.mjs`로 차이 확인
+│   ├── hud/               ← HUD 래퍼, HUD 표시 항목(hud-config.json)
+│   └── git/               ← git 설정 기준 (적용 전에 Claude가 묻는다)
 ├── projects/
 │   └── loan/              ← 연습 프로젝트 (Java 21 / Maven, 결함 의도적으로 심음)
 ├── .claude/
 │   ├── settings.json      ← Claude Code 프로젝트 설정 (모든 PC 공통: agent teams, HUD, hook)
-│   ├── hooks/             ← 세션 시작 HUD 갱신, 정시 구간별 pull/push 점검
+│   ├── hooks/             ← 세션 시작 환경 맞추기, 정시 구간별 pull/push 점검
 │   └── CLAUDE.md          ← OMC 관리 영역. 손대지 않는다
 └── .omc-workspace         ← OMC 상태 루트 앵커
 ```

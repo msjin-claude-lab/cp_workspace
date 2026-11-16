@@ -18,7 +18,7 @@ Claude Code + oh-my-claudecode(OMC) 연습 워크스페이스. 여러 프로젝�
 | Directory | Purpose |
 |-----------|---------|
 | `projects/` | 개별 프로젝트 (see `projects/AGENTS.md`) |
-| `tools/` | PC 설정에 복사해 쓰는 보조 스크립트 (see `tools/AGENTS.md`) |
+| `env/` | 모든 PC에 맞출 환경 설정의 기준 — HUD·git 설정. 세션 시작·pull 직후 자동 반영 (see `env/AGENTS.md`) |
 | `.claude/hooks/` | 세션 시작·대답 종료 시 git 동기화 점검 hook (see `.claude/hooks/AGENTS.md`) |
 | `.claude/skills/` | 프로젝트 전용 스킬 — `verify`(이 저장소의 검증 절차), `wiki` |
 | `.claude/` | `settings.json`(모든 PC 공통 설정). `.claude/CLAUDE.md`는 OMC 관리 영역이라 손대지 않는다 |

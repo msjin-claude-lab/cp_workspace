@@ -1,0 +1,38 @@
+{
+  "elements": {
+    "safeMode": false
+  },
+  "layout": {
+    "main": [
+      "omcLabel",
+      "model",
+      "effort",
+      "claudeLabel",
+      "enterpriseCost",
+      "rateLimits",
+      "customBuckets",
+      "permission",
+      "thinking",
+      "promptTime",
+      "tokens",
+      "ralph",
+      "autopilot",
+      "prd",
+      "skills",
+      "lastSkill",
+      "agents",
+      "background",
+      "lastTool",
+      "sessionSummary"
+    ],
+    "detail": [
+      "missionBoard",
+      "agents",
+      "contextWarning",
+      "payloadWarning",
+      "updateHint",
+      "todos",
+      "contextBar"
+    ]
+  }
+}

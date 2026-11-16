@@ -102,7 +102,7 @@ Maven은 그 전에도 `JAVA_HOME`을 따라 JDK 21로 돌았다. JDK 17 폴더�
 
 게이지가 `[##------]`로 나오던 것을 `[██░░░░░░]`로 되돌렸다. 사용법은 [CLAUDE.md의 "HUD 게이지"](CLAUDE.md#hud-게이지)에 있다.
 
-- 스크립트: `tools/omc-hud-gauge.mjs`
+- 스크립트: `env/hud/omc-hud-gauge.mjs` (2026-11-16 `tools/`에서 옮김, 환경 설정 공통화)
 - 설치 위치: `~/.claude/hud/omc-hud-gauge.mjs` — 세션 시작 hook이 저장소 버전을 복사한다. 프로젝트 `.claude/settings.json`의 `statusLine.command`가 이걸 가리킨다
 
 원인은 `dist/hud/sanitize.js`의 `replaceUnicodeBlocks()`가 설정·터미널 감지 없이 `█`→`#`, `░`→`-`로 무조건 치환하는 것이었다. 공식 설정으로는 끌 수 없어 출력을 후처리한다.
