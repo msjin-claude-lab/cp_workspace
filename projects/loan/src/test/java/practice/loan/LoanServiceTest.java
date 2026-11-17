@@ -111,6 +111,38 @@ class LoanServiceTest {
     }
 
     @Test
+    @DisplayName("ISBN이 같은 다른 객체로도 이미 대출 중인 도서는 다른 회원이 대출할 수 없다")
+    void cannotCheckoutOnLoanIsbnViaDifferentBookInstance() {
+        service.checkout(member, book, today);
+        Member other = new Member("M-002", "이연습", "other@example.com");
+
+        assertThrows(IllegalStateException.class,
+                () -> service.checkout(other, new Book("978-0", "리팩터링"), today));
+    }
+
+    @Test
+    @DisplayName("ISBN이 같은 다른 객체로도 같은 회원이 이중 대출할 수 없다")
+    void cannotCheckoutOnLoanIsbnTwiceBySameMember() {
+        service.checkout(member, book, today);
+
+        assertThrows(IllegalStateException.class,
+                () -> service.checkout(member, new Book("978-0", "리팩터링"), today));
+    }
+
+    @Test
+    @DisplayName("반납한 도서는 다른 객체로도 다시 대출할 수 있다")
+    void canCheckoutAgainAfterReturn() {
+        service.checkout(member, book, today);
+        service.returnBook(member, book, today.plusDays(1));
+        Member other = new Member("M-002", "이연습", "other@example.com");
+
+        Book again = new Book("978-0", "리팩터링");
+        service.checkout(other, again, today.plusDays(2));
+
+        assertFalse(again.isAvailable());
+    }
+
+    @Test
     @DisplayName("활성 대출 조회에 회원이 없으면 거부한다")
     void findActiveLoansRejectsNullMember() {
         assertThrows(IllegalArgumentException.class, () -> service.findActiveLoans(null));

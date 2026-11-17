@@ -21,7 +21,7 @@ public class LoanService {
         if (member.isSuspended()) {
             throw new IllegalStateException("정지된 회원은 대출할 수 없다: " + member.getId());
         }
-        if (!book.isAvailable()) {
+        if (isOnLoan(book.getIsbn())) {
             throw new IllegalStateException("이미 대출 중인 도서다: " + book.getIsbn());
         }
         if (findActiveLoans(member).size() >= MAX_ACTIVE_LOANS) {
@@ -69,6 +69,16 @@ public class LoanService {
             }
         }
         return result;
+    }
+
+    /** 대출 기록 기준으로, 해당 ISBN이 반납되지 않은 대출에 있는지 본다. */
+    private boolean isOnLoan(String isbn) {
+        for (Loan loan : loans) {
+            if (!loan.isReturned() && loan.getBook().getIsbn().equals(isbn)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static void requireArgs(Member member, Book book, LocalDate today) {
