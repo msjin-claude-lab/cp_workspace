@@ -131,6 +131,12 @@
 - 보류: 고정 입력 HUD 시험 스크립트, `commit-if-green` 스크립트(규칙으로 충분하다고 봄)
 - 미해결: 커밋할 때마다 `geometric-repack` … `Permission denied`(`.git/objects/pack` 쓰기). 커밋·push는 정상
 
+## 앱 (`projects/apps/`)
+
+시작 기준은 [projects/apps/CLAUDE.md](projects/apps/CLAUDE.md)(시작하는 법·지금 상태·순서). 여기에는 단계별 자세한 기록만 쌓는다.
+
+- 2026-11-17 사내망 PC: `projects/apps/` 그룹과 공통 규칙(새 앱 시작 순서 5단계, PC 역할) 마련. 앱은 아직 없음 — **1단계(만들 앱 정하기) 대기**. 이야기된 후보: 캘린더형·기록형(먼저), 게임형(나중). 언어·플랫폼은 1단계 뒤에 선택안으로 제시(참고로 비교했던 것: Flutter·React Native/Expo·Kotlin Multiplatform — 결정 아님)
+
 ## 남은 일
 
 | 할 일 | 사내망 PC | 개인 PC |
