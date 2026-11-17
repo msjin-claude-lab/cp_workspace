@@ -177,7 +177,7 @@ class AdminGateTest {
         try (Connection c = DriverManager.getConnection("jdbc:h2:mem:admingate")) {
             try (java.sql.Statement st = c.createStatement()) {
                 st.execute("CREATE TABLE member(id VARCHAR(10), name VARCHAR(50))");
-                st.execute("INSERT INTO member VALUES ('1','100%'),('2','100x'),('3','a_b'),('4','axb'),('5','홍길동')");
+                st.execute("INSERT INTO member VALUES ('1','100%'),('2','100x'),('3','a_b'),('4','axb'),('5','홍길동'),('6','a!b'),('7','ab'),('8','a\\b')");
             }
             PreparedStatement ps = c.prepareStatement(gate.buildMemberQuery());
             ps.setString(1, gate.memberSearchParam(keyword));
@@ -198,5 +198,9 @@ class AdminGateTest {
         assertEquals(List.of("a_b"), searchInH2("a_b"));
         assertEquals(List.of(), searchInH2("' OR '1'='1"));
         assertEquals(List.of("홍길동"), searchInH2("홍"));
+        // ESCAPE 문자 자체: '!'를 이스케이프하지 않으면 "!b"가 이스케이프로 읽혀 'ab'와 매칭되거나 오류가 난다
+        assertEquals(List.of("a!b"), searchInH2("a!b"));
+        // 백슬래시는 일반 문자로 다뤄야 한다 (ESCAPE를 '\'로 쓰던 이전 구현과 구분)
+        assertEquals(List.of("a\\b"), searchInH2("a\\b"));
     }
 }

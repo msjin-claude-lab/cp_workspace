@@ -15,7 +15,7 @@ description: cp_workspace 전용 검증 절차 — projects/loan의 빌드·테�
 | 2 | loan 컴파일만 | `mvn -q -o compile` (`projects/loan`) | 종료 코드 0 | 약 2초 |
 | 3 | hook·도구 스크립트 문법 | `node --check <파일>` — `.claude/hooks/*.mjs`, `env/sync.mjs`, `env/hud/*.mjs` | 각각 종료 코드 0 | 1초 미만 |
 
-현재 기대값: 테스트 **37개** (FeeCalculatorTest 6, LoanServiceTest 10, RenewalPolicyTest 10, AdminGateTest 11). 과제를 하며 늘어나면 이 숫자를 갱신한다.
+현재 기대값: 테스트 **41개** (FeeCalculatorTest 6, LoanServiceTest 13, RenewalPolicyTest 10, AdminGateTest 12). 과제를 하며 늘어나면 이 숫자를 갱신한다.
 
 ## 함정 (실제로 겪은 것)
 

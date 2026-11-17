@@ -13,8 +13,8 @@
 | OMC | npm 전역 5.8.4, 글로벌·로컬 `CLAUDE.md` 모두 설치됨. 두 PC 모두 **플러그인**으로 씀(`/oh-my-claudecode:` 접두사). 사내망 PC는 GitHub 차단 때문에 npm 패키지 폴더를 로컬 마켓플레이스로 등록해 설치(2026-11-17) — [CLAUDE.md의 "답변 형식"](CLAUDE.md#답변-형식--모든-pc-공통) |
 | 원격 저장소 | Gitea(기준) → GitHub(푸시 미러, 읽기 전용). 두 PC 모두 `origin` = Gitea. 구성은 [CLAUDE.md의 "git"](CLAUDE.md#git) |
 | Claude Code 설정 | 프로젝트 `.claude/settings.json`에 둠 — agent teams, HUD 상태바, hook. 모든 PC 공통 ([CLAUDE.md의 "PC 간 이어가기"](CLAUDE.md#pc-간-이어가기--설정작업진행-현황)) |
-| 연습 프로젝트 | `projects/loan/` — **과제 1~8 완료**(2026-11-13~17). 과제 9만 남음. 컴파일 타깃은 이제 Java 21 |
-| `mvn -q test` | **37개 모두 통과** (과제 4 완료 후. 연체료 6 + 대출·반납 10 + 연장 10 + 관리자 11) |
+| 연습 프로젝트 | `projects/loan/` — **과제 1~9 모두 완료**(2026-11-13~17). 컴파일 타깃은 Java 21 |
+| `mvn -q test` | **41개 모두 통과** (과제 9 완료 후. 연체료 6 + 대출·반납 13 + 연장 10 + 관리자 12) |
 
 ## 연습 과제 진행 ([PRACTICE.md](projects/loan/PRACTICE.md))
 
@@ -28,7 +28,7 @@
 | 6. 문서 없는 코드 — `/how`, `/deepinit`, `/wiki`, `/teach` | **완료** (2026-11-15 개인 PC · 2026-11-17 사내망 PC) | 아래 |
 | 7. 변경 파급 — `/blast-radius`, `/architect` | **완료** (2026-11-17, 사내망 PC) | 아래 |
 | 8. 레거시 버전 올리기 — `/triage`, `/to-java21` | **완료** (2026-11-17, 사내망 PC) | 아래 |
-| 9. 여러 작업 한 번에 — `/team` | **다음** — 주제: 겹치지 않는 남은 일 2개(① `AdminGate` 과제 4 검토 지적: `ESCAPE '!'`, LIKE 실제 동작 테스트 ② `LoanService` 이중 대출: 대출 기록 ISBN 조회). `/team`은 재시작 후 | |
+| 9. 여러 작업 한 번에 — `/team` | **완료** (2026-11-17, 사내망 PC) | 아래 |
 
 ### 과제 1 — 연체료 테스트 실패
 
@@ -106,6 +106,18 @@
 - 문서: `projects/loan/CLAUDE.md`·`AGENTS.md` 2개의 "Java 8 타깃, 올리지 말 것"을 현재 상태로 고침
 - 다시 연습하려면: `git checkout af2c8ad -- projects/loan/pom.xml`(8 상태)
 - **`/triage`·`/to-java21`은 OMC 스킬이 아니다.** 사내망 PC의 사용자 명령(`~/.claude/commands/triage.md`, `to-java21.md`, 2026-08-11 생성)으로, 사내 JDK 마이그레이션(SVN, `D:\dev\workspace\assistant` 대시보드) 업무용으로 보인다(추정). 저장소에는 없어 git으로 넘어가지 않는다 — 개인 PC에 같은 파일이 있는지 확인 필요
+
+### 과제 9 — 여러 작업 한 번에 (2026-11-17, 사내망 PC)
+
+주제는 앞 과제에서 남은, 파일이 겹치지 않는 두 가지: ① 과제 4 검토 지적(`AdminGate`) ② 과제 7에서 확인한 이중 대출(`LoanService`).
+
+- `/oh-my-claudecode:team 2:executor`: worker-1(`AdminGate`·`AdminGateTest`·`pom.xml`), worker-2(`LoanService`·`LoanServiceTest`). 같은 폴더에서 동시에 `mvn`을 돌리면 `target/`이 꼬이므로 **각자 git worktree**에서 작업 → 리더가 cherry-pick으로 main에 합침
+  - worker-1: `LIKE ? ESCAPE '!'`(MySQL/MariaDB에서 `\`는 문자열 이스케이프라 부적합), `!`→`!!` 먼저 이스케이프. H2 2.2.224(test)로 실제 쿼리 검증. red: 문자열 단정 2건 실패
+  - worker-2: `checkout`의 "대출 중" 판정을 대출 기록 ISBN 조회(`isOnLoan`)로. 테스트 3개 추가. red: 이중 대출 2건 `nothing was thrown`
+- team-verify(verifier 에이전트): **PASS-with-notes**. 지적 ① H2 테스트에 `!`·`\` 행이 없어 `!` 이스케이프 누락을 못 잡음 ② worker-1이 `pom.xml`·`AdminGate.java` 전체를 CRLF로 바꿔 diff가 280줄로 불어남
+- team-fix(리더): LF 복원, H2에 `a!b`·`ab`·`a` 행과 단정 추가. **변이 실험**: `!` 이스케이프 줄을 지우면 H2 테스트까지 실패(`Failures: 2`) → 원복 후 green
+- 결과: `mvn -q clean test` 41/41, exit 0. worktree 2개·브랜치 2개 정리
+- 알게 된 것: executor가 줄 끝을 바꿀 수 있다 → 병합 전 `git diff --ignore-space-at-eol --stat`와 비교해 볼 것. verifier가 "통과하지만 잡지 못하는" 테스트를 짚어 냈고, 변이 실험으로 보강 효과를 확인함
 
 ## 남은 일
 
