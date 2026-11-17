@@ -27,7 +27,7 @@ Claude Code + oh-my-claudecode(OMC) 연습 워크스페이스. 여러 프로젝�
 ## For AI Agents
 
 ### Working In This Directory
-- 규칙은 `CLAUDE.md`를 따른다. 특히: push는 Gitea(`origin`)에만, GitHub에 직접 push 금지. 사내망 차단 우회(프록시·DNS·우회 도메인) 금지. 토큰은 채팅·저장소에 넣지 않는다
+- 규칙은 `CLAUDE.md`를 따른다. 특히: push는 Gitea(`origin`)에만, GitHub에 직접 push 금지. 토큰은 채팅·저장소에 넣지 않는다
 - 커밋·push는 사용자가 요청할 때만 한다
 - 세션을 마칠 때 `HANDOFF.md`를 갱신한다
 

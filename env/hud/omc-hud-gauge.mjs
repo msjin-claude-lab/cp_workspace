@@ -16,7 +16,7 @@
  */
 
 import { spawnSync } from "node:child_process";
-import { existsSync, writeSync } from "node:fs";
+import { existsSync, readFileSync, writeSync } from "node:fs";
 import { Readable } from "node:stream";
 import { homedir } from "node:os";
 import { dirname, join } from "node:path";
@@ -228,7 +228,7 @@ function buildCtx(pct) {
  * 그래서 ctx가 OMC 출력에서 사라지면 ctxPercent로 다시 만들고, 사용량 줄은 항상 2줄로 끌어올린다.
  * 못 찾은 조각은 건너뛰고, 아무것도 못 찾으면 원본을 그대로 돌려준다.
  */
-export function moveCtxFirst(text, claudeVersion = null, gitPorcelain = null, ctxPercent = null) {
+export function moveCtxFirst(text, claudeVersion = null, gitPorcelain = null, ctxPercent = null, account = null) {
   const c = takeCtx(text);
   if (!c.ctx && typeof ctxPercent === "number" && isFinite(ctxPercent)) c.ctx = buildCtx(ctxPercent);
   const m = takeModel(c.text);
@@ -247,7 +247,7 @@ export function moveCtxFirst(text, claudeVersion = null, gitPorcelain = null, ct
   // Claude Code는 상태줄이 화면 예산보다 길면 `… (+N more lines)`로 접지만 첫 줄 하나는 항상 남기므로
   // (Math.max(1, …)), 늘 봐야 할 ctx·모델·git을 첫 줄에 모은다. 버전 라벨(l.label)은 잘라내기만 하고 쓰지 않는다.
   const out = [
-    [c.ctx, m.model, branch].filter(Boolean).join(SEP) || null,
+    [c.ctx, m.model, branch, account && `${DIM}${account}${RESET}`].filter(Boolean).join(SEP) || null,
     ...rest,
   ].filter(Boolean);
   // 사용량 줄(`5H:`로 시작)은 한 칸 들여 쓴다 — 2026-11-17 사용자 요청.
@@ -286,7 +286,7 @@ function flush() {
 
   let output;
   try {
-    output = moveCtxFirst(widenGauges(restoreGauges(raw)), claudeVersion, readGitStatus(), ctxPercent);
+    output = moveCtxFirst(widenGauges(restoreGauges(raw)), claudeVersion, readGitStatus(), ctxPercent, readAccountEmail());
   } catch {
     output = raw; // 변환이 실패하면 원본을 그대로 내보낸다. 상태바가 비는 것보다 낫다.
   }
@@ -309,6 +309,21 @@ process.on("exit", flush);
 let claudeVersion = null;
 let ctxPercent = null;
 let workDir = null;
+
+/**
+ * 지금 로그인한 Claude 계정 이메일. Claude Code가 `~/.claude.json`(CLAUDE_CONFIG_DIR가 있으면 그 안)의
+ * `oauthAccount.emailAddress`에 기록한다. 1줄 끝에 덧붙인다 — 2026-11-17 사용자 요청.
+ * 파일이 없거나 읽기 실패하면 null(표시 안 함). 약 200KB, 읽기 2ms 안팎.
+ */
+function readAccountEmail() {
+  try {
+    const dir = process.env.CLAUDE_CONFIG_DIR?.trim() || homedir();
+    const j = JSON.parse(readFileSync(join(dir, ".claude.json"), "utf8"));
+    return j.oauthAccount?.emailAddress ?? null;
+  } catch {
+    return null;
+  }
+}
 
 /**
  * 작업 폴더의 git 상태를 읽는다. fetch는 하지 않는다(↓는 마지막 fetch 기준).
