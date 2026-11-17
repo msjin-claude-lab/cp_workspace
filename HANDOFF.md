@@ -13,7 +13,7 @@
 | OMC | npm 전역 5.8.4, 글로벌·로컬 `CLAUDE.md` 모두 설치됨. 두 PC 모두 **플러그인**으로 씀(`/oh-my-claudecode:` 접두사). 사내망 PC는 GitHub 차단 때문에 npm 패키지 폴더를 로컬 마켓플레이스로 등록해 설치(2026-11-17) — [CLAUDE.md의 "답변 형식"](CLAUDE.md#답변-형식--모든-pc-공통) |
 | 원격 저장소 | Gitea(기준) → GitHub(푸시 미러, 읽기 전용). 두 PC 모두 `origin` = Gitea. 구성은 [CLAUDE.md의 "git"](CLAUDE.md#git) |
 | Claude Code 설정 | 프로젝트 `.claude/settings.json`에 둠 — agent teams, HUD 상태바, hook. 모든 PC 공통 ([CLAUDE.md의 "PC 간 이어가기"](CLAUDE.md#pc-간-이어가기--설정작업진행-현황)) |
-| 연습 프로젝트 | `projects/loan/` — **과제 1~6 완료**(2026-11-13~17). 과제 7~9는 남음 |
+| 연습 프로젝트 | `projects/loan/` — **과제 1~7 완료**(2026-11-13~17). 과제 8~9는 남음 |
 | `mvn -q test` | **37개 모두 통과** (과제 4 완료 후. 연체료 6 + 대출·반납 10 + 연장 10 + 관리자 11) |
 
 ## 연습 과제 진행 ([PRACTICE.md](projects/loan/PRACTICE.md))
@@ -26,8 +26,9 @@
 | 4. 보안 문제 — `/security-review` | **완료** (2026-11-16, 사내망 PC) | 아래 |
 | 5. 검증 습관 — `/verify`, `/create-verification-skill` | **완료** (2026-11-15, 개인 PC) | 아래 |
 | 6. 문서 없는 코드 — `/how`, `/deepinit`, `/wiki`, `/teach` | **완료** (2026-11-15 개인 PC · 2026-11-17 사내망 PC) | 아래 |
-| 7. 변경 파급 — `/blast-radius`, `/architect` | **다음** | |
-| 8~9 | 남음 | |
+| 7. 변경 파급 — `/blast-radius`, `/architect` | **완료** (2026-11-17, 사내망 PC) | 아래 |
+| 8. 레거시 버전 올리기 — `/triage`, `/to-java21` | **다음** | |
+| 9 | 남음 | |
 
 ### 과제 1 — 연체료 테스트 실패
 
@@ -83,6 +84,16 @@
 - `/oh-my-claudecode:wiki`: 소스 7개를 읽고 `wiki_ingest`로 [wiki/loan.md](wiki/loan.md)(대출·반납·연체료·연장 구조) 작성. `wiki_lint` 깨진 링크·모순 0 (2026-11-17)
 - `/oh-my-claudecode:teach 대출과 반납`: 수준 질문("Java 익숙, 도메인 처음") → How(코드 줄 인용) → Why 4가지(유예일 뺀 부과, 연장은 기존 예정일 기준, 반납은 대출 기록의 `Book`을 되돌림, 연장 정책이 서비스와 분리) → 예측 질문. 4일 연체 500원·연체 중 `canRenew` false 모두 맞힘 (2026-11-17)
 - 수업 중 드러난 것: 연체료 **납부 개념이 없다**(반납 때 금액만 계산). 유예 3일은 연체료에만 적용되고 연장에는 안 된다(예정일 하루만 지나도 `canRenew` false). **예약 기능이 없다** — `reservedByOther`는 `canRenew` 매개변수뿐이라 반납된 예약 도서를 아무나 `checkout`할 수 있다. 과제 7 재료로 쓸 만하다
+
+### 과제 7 — 변경 파급 (2026-11-17, 사내망 PC)
+
+주제는 과제 6 수업에서 드러난 "예약 기능 없음"을 이어받았다.
+
+- `/oh-my-claudecode:blast-radius Book에 예약자 필드를 추가한다면`: 쓰는 곳을 확실(`new Book` 테스트 4곳, `checkout`)·가능성 높음(`returnBook`, `canRenew`의 `reservedByOther`, `Loan.getBook`)·낮음으로 나눔. scratchpad 복사본에서 실제 실행: 필드만 추가 → 37/37 통과 / 생성자 변경 → 테스트 4곳 컴파일 실패(예측과 일치) / `checkout`에 예약 검사 → **탐침 실패**: 같은 ISBN의 다른 `Book` 객체로 예약을 우회
+- `/oh-my-claudecode:architect 예약 기능 — 별도 예약 기록만 둘지, 서지·소장본까지 나눌지`: architect 에이전트 3개로 A(Book 필드+정규화 맵)·B(ISBN 키 예약 대장)·C(서지·소장본 분리) 비교 → **B로 결정**. 결정 기록은 [wiki/isbn.md](wiki/isbn.md)
+- 덤으로 확인한 기존 버그: 같은 ISBN의 다른 `Book` 객체로 **대출 중인 책을 또 빌릴 수 있다**(탐침 `Tests run: 38, Failures: 1`). 결정 기록의 "허용한 변경 1"로 남김
+- 하지 않은 것: 예약 기능 구현(과제 범위 밖). 하려면 결정 기록의 탐침 2개를 첫 테스트로 `/oh-my-claudecode:tdd`
+- 주의: 에이전트 보고서의 줄 번호는 실제 파일과 맞지 않았다. 결정 기록에는 직접 확인한 근거만 적었다
 
 ## 남은 일
 

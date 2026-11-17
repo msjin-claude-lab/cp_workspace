@@ -206,20 +206,39 @@ function relabelLimits(text) {
 }
 
 /**
- * 줄 배치를 다시 짠다.
+ * OMC 출력에 ctx가 없을 때 Claude Code 입력의 사용률로 ctx 게이지를 직접 만든다.
+ * OMC는 출력을 maxOutputLines(4)줄로 자르는데(render.js limitOutputLines), 에이전트가 돌면
+ * agents 줄이 늘어 ctx(contextBar)가 잘려 나갔다(2026-11-17). 모양·색은 recolorCtx 결과와 같다.
+ */
+function buildCtx(pct) {
+  const p = Math.max(0, Math.min(100, Math.round(pct)));
+  const color = CTX_COLORS[p >= 85 ? 31 : p >= 70 ? 33 : 32];
+  const n = Math.round((p / 100) * GAUGE_WIDTH);
+  return `ctx:[${color}${"█".repeat(n)}${DIM}${"░".repeat(GAUGE_WIDTH - n)}${RESET}]${color}${p}%${RESET}`;
+}
+
+/**
+ * 줄 배치를 다시 짠다. **이 2줄 구조는 고정이다(2026-11-17 사용자 결정 — 구조를 깨는 변경은 거부한다).**
  *
- *   1줄: ctx | 모델 effort | branch git 상태  (`[OMC#x]` 버전 라벨은 지운다 — 2026-11-17 사용자 결정)
- *   2줄: 나머지(사용량 게이지 등) — 화면이 좁아지면 접힐 수 있다
+ *   1줄: ctx | 모델 effort | branch git 상태  (`[OMC#x]` 버전 라벨은 지운다)
+ *   2줄: 5H · WK · Fable 사용량 게이지 (+ OMC가 같은 줄에 붙이는 항목, 예: `| agents:3`)
+ *   3줄~: 그 밖의 OMC 출력(에이전트 목록 등). Claude Code가 접어도 1·2줄은 영향 없다
  *
+ * 줄 끝에 내용이 덧붙는 것은 괜찮지만, ctx가 1줄에서 빠지거나 사용량 줄이 2줄에서 밀려나면 안 된다.
+ * 그래서 ctx가 OMC 출력에서 사라지면 ctxPercent로 다시 만들고, 사용량 줄은 항상 2줄로 끌어올린다.
  * 못 찾은 조각은 건너뛰고, 아무것도 못 찾으면 원본을 그대로 돌려준다.
  */
-export function moveCtxFirst(text, claudeVersion = null, gitPorcelain = null) {
+export function moveCtxFirst(text, claudeVersion = null, gitPorcelain = null, ctxPercent = null) {
   const c = takeCtx(text);
+  if (!c.ctx && typeof ctxPercent === "number" && isFinite(ctxPercent)) c.ctx = buildCtx(ctxPercent);
   const m = takeModel(c.text);
   const l = takeLabel(m.text, claudeVersion);
   if (!c.ctx && !m.model && !l.label) return text;
 
   const rest = l.text.split("\n").map((s) => s.trimEnd()).filter((s) => s.replace(/\x1b\[[0-9;]*m/g, "").trim());
+  // 사용량 줄을 2줄 자리(rest 맨 앞)로 옮긴다
+  const usageIdx = rest.findIndex((s) => /(?:^|[\s|\]]|\x1b\[[0-9;]*m)5h:/.test(s));
+  if (usageIdx > 0) rest.unshift(rest.splice(usageIdx, 1)[0]);
   const branchIdx = rest.findIndex((s) => s.includes("branch:"));
   const omcBranch = branchIdx === -1 ? null : rest.splice(branchIdx, 1)[0];
   // OMC의 `branch:main | !2` 줄을 직접 조회한 git 상태로 바꾼다. 조회에 실패하면 OMC 것을 그대로 쓴다.
@@ -267,7 +286,7 @@ function flush() {
 
   let output;
   try {
-    output = moveCtxFirst(widenGauges(restoreGauges(raw)), claudeVersion, readGitStatus());
+    output = moveCtxFirst(widenGauges(restoreGauges(raw)), claudeVersion, readGitStatus(), ctxPercent);
   } catch {
     output = raw; // 변환이 실패하면 원본을 그대로 내보낸다. 상태바가 비는 것보다 낫다.
   }
@@ -288,6 +307,7 @@ process.on("exit", flush);
 // Claude Code는 상태줄 입력(JSON)의 `version`에 자기 버전을 넣어 준다. OMC도 같은 stdin을
 // 읽어야 하므로, 여기서 다 읽은 뒤 같은 내용을 담은 스트림으로 바꿔 끼워 넘긴다.
 let claudeVersion = null;
+let ctxPercent = null;
 let workDir = null;
 
 /**
@@ -319,6 +339,7 @@ if (!process.stdin.isTTY) {
     });
     const info = JSON.parse(input);
     claudeVersion = info.version ?? null;
+    ctxPercent = info.context_window?.used_percentage ?? null;
     workDir = info.workspace?.current_dir ?? info.cwd ?? null;
   } catch {
     /* 버전을 못 얻어도 라벨만 기존대로 나간다 */

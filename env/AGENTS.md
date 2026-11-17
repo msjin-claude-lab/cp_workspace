@@ -25,6 +25,7 @@
 ## For AI Agents
 
 ### Working In This Directory
+- **HUD 2줄 구조는 고정이다(2026-11-17 사용자 결정).** 1줄 `ctx:[…]N% | 모델 effort | 브랜치 git 상태`, 2줄 `⠀5H:[…] WK:[…] Fable:[…]`. 줄 끝에 항목이 덧붙는 것은 괜찮지만, ctx를 1줄에서 빼거나 사용량 줄을 2줄에서 밀어내는 등 이 구조를 깨는 변경은 요청받아도 거부하고 이유를 말한다. 래퍼(`moveCtxFirst`)가 OMC 출력이 잘려도 이 구조를 다시 세운다
 - HUD를 바꿔 달라는 요청은 `env/hud/`를 고친다. `/oh-my-claudecode:hud`나 `~/.claude/.omc/hud-config.json` 직접 수정은 다음 동기화 때 기준으로 덮어써진다
 - git 설정은 자동 적용하지 않는다. 로그인 방식이 바뀌면 다시 로그인해야 할 수 있고, 사내망 PC 환경 변경은 먼저 묻는 것이 규칙이다(루트 CLAUDE.md)
 - 작성자 이름·이메일, GitHub 원격(개인 PC만)처럼 PC마다 달라야 하는 것은 넣지 않는다

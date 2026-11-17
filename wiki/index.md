@@ -1,6 +1,6 @@
 # Wiki Index
 
-> 4 pages | Last updated: 2026-11-17T06:55:22.094Z
+> 5 pages | Last updated: 2026-11-17T07:55:46.479Z
 
 ## architecture
 
@@ -9,6 +9,10 @@
 ## debugging
 
 - [Gitea 로그인 - OAuth 만료와 wincred](gitea-oauth-wincred.md) — # Gitea 로그인 - OAuth 만료와 wincred
+
+## decision
+
+- [결정 - 예약 기능은 ISBN 키 예약 대장으로 둔다](isbn.md) — # 결정 - 예약 기능은 ISBN 키 예약 대장으로 둔다
 
 ## environment
 

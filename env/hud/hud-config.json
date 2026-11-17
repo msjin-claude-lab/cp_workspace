@@ -28,13 +28,13 @@
       "sessionSummary"
     ],
     "detail": [
+      "contextBar",
       "missionBoard",
       "agents",
       "contextWarning",
       "payloadWarning",
       "updateHint",
-      "todos",
-      "contextBar"
+      "todos"
     ]
   }
 }

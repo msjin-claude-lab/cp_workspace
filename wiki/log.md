@@ -28,3 +28,7 @@
 - **Pages:** loan.md
 - **Summary:** Lint: 1 issues (1 orphan, 0 stale, 0 broken, 0 contradictions)
 
+## [2026-11-17T07:55:46.334Z] ingest
+- **Pages:** isbn.md
+- **Summary:** Created new page "결정 - 예약 기능은 ISBN 키 예약 대장으로 둔다"
+
