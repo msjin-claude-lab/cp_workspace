@@ -115,7 +115,7 @@
   - worker-1: `LIKE ? ESCAPE '!'`(MySQL/MariaDB에서 `\`는 문자열 이스케이프라 부적합), `!`→`!!` 먼저 이스케이프. H2 2.2.224(test)로 실제 쿼리 검증. red: 문자열 단정 2건 실패
   - worker-2: `checkout`의 "대출 중" 판정을 대출 기록 ISBN 조회(`isOnLoan`)로. 테스트 3개 추가. red: 이중 대출 2건 `nothing was thrown`
 - team-verify(verifier 에이전트): **PASS-with-notes**. 지적 ① H2 테스트에 `!`·`\` 행이 없어 `!` 이스케이프 누락을 못 잡음 ② worker-1이 `pom.xml`·`AdminGate.java` 전체를 CRLF로 바꿔 diff가 280줄로 불어남
-- team-fix(리더): LF 복원, H2에 `a!b`·`ab`·`a` 행과 단정 추가. **변이 실험**: `!` 이스케이프 줄을 지우면 H2 테스트까지 실패(`Failures: 2`) → 원복 후 green
+- team-fix(리더): LF 복원, H2에 `a!b`·`ab`·`a\b` 행과 단정 추가. **변이 실험**: `!` 이스케이프 줄을 지우면 H2 테스트까지 실패(`Failures: 2`) → 원복 후 green
 - 결과: `mvn -q clean test` 41/41, exit 0. worktree 2개·브랜치 2개 정리
 - 알게 된 것: executor가 줄 끝을 바꿀 수 있다 → 병합 전 `git diff --ignore-space-at-eol --stat`와 비교해 볼 것. verifier가 "통과하지만 잡지 못하는" 테스트를 짚어 냈고, 변이 실험으로 보강 효과를 확인함
 
