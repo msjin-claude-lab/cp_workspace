@@ -9,9 +9,9 @@ OMC 스킬 연습용 도서 대출 모듈. 대출·반납·연체료·연장 규
 ## Key Files
 | File | Description |
 |------|-------------|
-| `CLAUDE.md` | 이 프로젝트의 규칙 — 결함을 지시 없이 고치지 말 것, Java 8 타깃을 올리지 말 것 |
+| `CLAUDE.md` | 이 프로젝트의 규칙 — 결함을 지시 없이 고치지 말 것 |
 | `PRACTICE.md` | 연습 과제 1~9와 각 과제에 쓰는 스킬 |
-| `pom.xml` | Maven 설정. 컴파일 타깃 Java 8(의도적), JUnit 5.7, compiler 3.13 / surefire 3.2.5 |
+| `pom.xml` | Maven 설정. 컴파일 타깃 Java 21(`maven.compiler.release`), JUnit 5.7, compiler 3.16 / surefire 3.2.5 |
 
 ## Subdirectories
 | Directory | Purpose |
@@ -38,6 +38,6 @@ OMC 스킬 연습용 도서 대출 모듈. 대출·반납·연체료·연장 규
 ## Dependencies
 
 ### External
-- JDK 21로 빌드(타깃 8), Maven 3.9.x, JUnit Jupiter 5.7.0
+- JDK 21로 빌드(타깃 21), Maven 3.9.x, JUnit Jupiter 5.7.0
 
 ## Manual Notes

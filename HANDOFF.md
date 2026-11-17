@@ -13,7 +13,7 @@
 | OMC | npm 전역 5.8.4, 글로벌·로컬 `CLAUDE.md` 모두 설치됨. 두 PC 모두 **플러그인**으로 씀(`/oh-my-claudecode:` 접두사). 사내망 PC는 GitHub 차단 때문에 npm 패키지 폴더를 로컬 마켓플레이스로 등록해 설치(2026-11-17) — [CLAUDE.md의 "답변 형식"](CLAUDE.md#답변-형식--모든-pc-공통) |
 | 원격 저장소 | Gitea(기준) → GitHub(푸시 미러, 읽기 전용). 두 PC 모두 `origin` = Gitea. 구성은 [CLAUDE.md의 "git"](CLAUDE.md#git) |
 | Claude Code 설정 | 프로젝트 `.claude/settings.json`에 둠 — agent teams, HUD 상태바, hook. 모든 PC 공통 ([CLAUDE.md의 "PC 간 이어가기"](CLAUDE.md#pc-간-이어가기--설정작업진행-현황)) |
-| 연습 프로젝트 | `projects/loan/` — **과제 1~7 완료**(2026-11-13~17). 과제 8~9는 남음 |
+| 연습 프로젝트 | `projects/loan/` — **과제 1~8 완료**(2026-11-13~17). 과제 9만 남음. 컴파일 타깃은 이제 Java 21 |
 | `mvn -q test` | **37개 모두 통과** (과제 4 완료 후. 연체료 6 + 대출·반납 10 + 연장 10 + 관리자 11) |
 
 ## 연습 과제 진행 ([PRACTICE.md](projects/loan/PRACTICE.md))
@@ -27,8 +27,8 @@
 | 5. 검증 습관 — `/verify`, `/create-verification-skill` | **완료** (2026-11-15, 개인 PC) | 아래 |
 | 6. 문서 없는 코드 — `/how`, `/deepinit`, `/wiki`, `/teach` | **완료** (2026-11-15 개인 PC · 2026-11-17 사내망 PC) | 아래 |
 | 7. 변경 파급 — `/blast-radius`, `/architect` | **완료** (2026-11-17, 사내망 PC) | 아래 |
-| 8. 레거시 버전 올리기 — `/triage`, `/to-java21` | **다음** | |
-| 9 | 남음 | |
+| 8. 레거시 버전 올리기 — `/triage`, `/to-java21` | **완료** (2026-11-17, 사내망 PC) | 아래 |
+| 9. 여러 작업 한 번에 — `/team` | **다음** | |
 
 ### 과제 1 — 연체료 테스트 실패
 
@@ -94,6 +94,17 @@
 - 덤으로 확인한 기존 버그: 같은 ISBN의 다른 `Book` 객체로 **대출 중인 책을 또 빌릴 수 있다**(탐침 `Tests run: 38, Failures: 1`). 결정 기록의 "허용한 변경 1"로 남김
 - 하지 않은 것: 예약 기능 구현(과제 범위 밖). 하려면 결정 기록의 탐침 2개를 첫 테스트로 `/oh-my-claudecode:tdd`
 - 주의: 에이전트 보고서의 줄 번호는 실제 파일과 맞지 않았다. 결정 기록에는 직접 확인한 근거만 적었다
+
+### 과제 8 — 레거시 버전 올리기 (2026-11-17, 사내망 PC)
+
+- `/triage projects/loan` → [projects/loan/TRIAGE_REPORT.md](projects/loan/TRIAGE_REPORT.md). 위험 요소(`sun.*`, Java EE 모듈, applet, Nashorn, SecurityManager, 예약어) 0건 → **21 직행 후보**. 루트에 `triage.sh`가 없어 grep으로 스캔. 대시보드 CLI는 개인 PC에만 있어 등록 생략
+- `/to-java21 projects/loan`: 스킬은 SVN 기준이지만 이 저장소는 git이라 `git diff`로 대신함
+  - 8 기준선: `source/target` → `maven.compiler.release=8`. 37/37, bootstrap 경고 사라짐
+  - 11: 37/37, 경고 없음. 추가할 의존성 없음
+  - 21: OpenRewrite `UpgradeToJava21` dryRun → 제안은 `release=21`, compiler 플러그인 3.13.0 → 3.16.0뿐(소스 변경 0). 적용 후 37/37, `Book.class` major version 65
+- 실수 1건: pom.xml 주석에 `--`를 넣어 XML 파싱 실패 → 주석 수정
+- 문서: `projects/loan/CLAUDE.md`·`AGENTS.md` 2개의 "Java 8 타깃, 올리지 말 것"을 현재 상태로 고침
+- 다시 연습하려면: `git checkout af2c8ad -- projects/loan/pom.xml`(8 상태)
 
 ## 남은 일
 

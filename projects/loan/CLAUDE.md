@@ -1,6 +1,6 @@
 # projects/loan
 
-OMC 연습용 도서 대출 모듈. Java 8 타깃, Maven, JUnit 5.
+OMC 연습용 도서 대출 모듈. Java 21 타깃(과제 8에서 8 → 21), Maven, JUnit 5.
 
 ```bash
 cd projects/loan
@@ -19,6 +19,6 @@ mvn -q test
 
 - 연습으로 바꾼 것은 `git checkout projects/loan`으로 되돌린다
 - 어떤 과제를 처리하든, 끝나고 `mvn -q test`로 **의도하지 않은 테스트가 깨지지 않았는지** 확인한다
-- 컴파일 타깃이 Java 8인 것도 의도적이다 (`/triage`, `/to-java21` 재료). 임의로 올리지 말 것
+- 컴파일 타깃은 과제 8(2026-11-17)에서 Java 8 → 11 → 21로 올렸다. 다시 연습하려면 `git checkout af2c8ad -- projects/loan/pom.xml`로 8 상태를 되살린다
 
 워크스페이스 공통 규칙은 루트 [CLAUDE.md](../../CLAUDE.md)에 있다.

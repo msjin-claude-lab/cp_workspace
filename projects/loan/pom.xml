@@ -14,9 +14,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <!-- 의도적으로 낮은 타깃. /triage, /to-java21 연습 재료다. -->
-    <maven.compiler.source>8</maven.compiler.source>
-    <maven.compiler.target>8</maven.compiler.target>
+    <!-- 과제 8(/to-java21, 2026-11-17)에서 8 → 11 → 21로 올렸다. 원래 8 상태는 커밋 af2c8ad의 pom.xml -->
+    <maven.compiler.release>21</maven.compiler.release>
     <junit.version>5.7.0</junit.version>
   </properties>
 
@@ -34,7 +33,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.13.0</version>
+        <version>3.16.0</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

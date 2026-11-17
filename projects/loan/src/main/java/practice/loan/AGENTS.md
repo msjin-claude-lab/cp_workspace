@@ -22,7 +22,7 @@
 ### Working In This Directory
 - 회원은 ID 문자열, 책은 ISBN 문자열로 구분한다(객체 동일성이 아님)
 - 하지 않는 것: 저장, 연장 연결, 연체료 청구, 날짜 순서 확인, 동시성 보호. 바꾸려면 과제·지시가 있어야 한다
-- Java 8 문법 범위로 쓴다(타깃 8). `var`, `List.of` 등은 컴파일되지 않는다
+- 타깃은 Java 21이다(과제 8). `var`, `List.of` 등을 쓸 수 있다. 값이 바뀌는 필드가 있는 `Book`·`Loan`·`Member`는 `record` 대상이 아니다
 
 ### Testing Requirements
 - 테스트는 `../../../../test/java/practice/loan/`. 동작을 바꾸면 그 규정을 담은 테스트를 먼저 쓴다
