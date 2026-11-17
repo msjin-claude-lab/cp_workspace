@@ -170,4 +170,10 @@ PC마다 사용자 폴더에 저장돼 git으로 넘어가지 않는 설정은 `
   | 6/9 | 문서 없는 코드 이해 | `/oh-my-claudecode:how ...` | 이 연습을 하는 이유 | 실무에서 이 스킬을 쓰는 때 |
 
 - OMC 스킬은 입력란에 `/oh-my-claudecode:` 접두사까지 적는다. 붙이지 않으면 Claude Code 기본 명령이 실행될 수 있다(예: `/debug`)
-  - **사내망 PC는 예외 — 접두사 없이** `/wiki`처럼 적는다. OMC가 플러그인이 아니라 npm 전역 패키지로 설치돼 스킬이 `~/.claude/skills/`에 접두사 없이 들어 있다(`/oh-my-claudecode:wiki`는 `Unknown command`). 플러그인은 GitHub 마켓플레이스에서 받는데 사내망은 `github.com`이 차단돼 바꿀 수 없다(2026-11-17 확인). 이름이 기본 명령과 겹치는 스킬(`/debug` 등)은 사내망 PC에서 쓸 수 없다고 본다
+  - 접두사는 OMC를 **플러그인**으로 설치해야 생긴다. npm 전역 설치만 하면 스킬이 `~/.claude/skills/`에 접두사 없이 들어가 `/oh-my-claudecode:wiki`가 `Unknown command`가 되고, `/debug`처럼 기본 명령과 이름이 겹치는 스킬은 쓸 수 없다
+  - 사내망 PC는 GitHub 마켓플레이스를 쓸 수 없으므로, npm 패키지 안의 마켓플레이스 파일로 설치한다(2026-11-17 사내망 PC 적용). 패키지는 npm 레지스트리에서 받은 것이라 차단 우회가 아니다:
+
+    ```bash
+    claude plugin marketplace add "<npm root -g>/oh-my-claude-sisyphus"
+    claude plugin install oh-my-claudecode@omc
+    ```

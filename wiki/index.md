@@ -1,6 +1,10 @@
 # Wiki Index
 
-> 3 pages | Last updated: 2026-11-16T12:16:40.513Z
+> 4 pages | Last updated: 2026-11-17T06:55:22.094Z
+
+## architecture
+
+- [loan 모듈 - 대출·반납·연장 구조](loan.md) — # loan 모듈 - 대출·반납·연장 구조
 
 ## debugging
 

@@ -1,6 +1,6 @@
 # 이어서 작업하기
 
-마지막 갱신: 2026-11-12
+마지막 갱신: 2026-11-17 (사내망 PC)
 
 워크스페이스 구성은 끝났다. 이 문서는 **다음에 이어서 할 일**과 **중단된 작업의 조사 결과**만 담는다.
 환경 사실·규칙은 [CLAUDE.md](CLAUDE.md), 연습 과제는 [projects/loan/PRACTICE.md](projects/loan/PRACTICE.md)에 있다.
@@ -10,10 +10,10 @@
 | 항목 | 상태 |
 |---|---|
 | 워크스페이스 구성 | 완료 |
-| OMC | npm 전역 5.8.4, 글로벌·로컬 `CLAUDE.md` 모두 설치됨 |
+| OMC | npm 전역 5.8.4, 글로벌·로컬 `CLAUDE.md` 모두 설치됨. 두 PC 모두 **플러그인**으로 씀(`/oh-my-claudecode:` 접두사). 사내망 PC는 GitHub 차단 때문에 npm 패키지 폴더를 로컬 마켓플레이스로 등록해 설치(2026-11-17) — [CLAUDE.md의 "답변 형식"](CLAUDE.md#답변-형식--모든-pc-공통) |
 | 원격 저장소 | Gitea(기준) → GitHub(푸시 미러, 읽기 전용). 두 PC 모두 `origin` = Gitea. 구성은 [CLAUDE.md의 "git"](CLAUDE.md#git) |
 | Claude Code 설정 | 프로젝트 `.claude/settings.json`에 둠 — agent teams, HUD 상태바, hook. 모든 PC 공통 ([CLAUDE.md의 "PC 간 이어가기"](CLAUDE.md#pc-간-이어가기--설정작업진행-현황)) |
-| 연습 프로젝트 | `projects/loan/` — **과제 1~4 완료**(2026-11-13·15·16). 과제 5~9의 결함은 그대로 |
+| 연습 프로젝트 | `projects/loan/` — **과제 1~6 완료**(2026-11-13~17). 과제 7~9는 남음 |
 | `mvn -q test` | **37개 모두 통과** (과제 4 완료 후. 연체료 6 + 대출·반납 10 + 연장 10 + 관리자 11) |
 
 ## 연습 과제 진행 ([PRACTICE.md](projects/loan/PRACTICE.md))
@@ -25,8 +25,9 @@
 | 3. 지저분한 코드 — review·simplify·tdd·ai-slop-cleaner | **완료** (2026-11-15, 개인 PC) | 아래 |
 | 4. 보안 문제 — `/security-review` | **완료** (2026-11-16, 사내망 PC) | 아래 |
 | 5. 검증 습관 — `/verify`, `/create-verification-skill` | **완료** (2026-11-15, 개인 PC) | 아래 |
-| 6. 문서 없는 코드 — `/how`, `/deepinit`, `/wiki`, `/teach` | **진행 중** — `how`·`deepinit` 완료, **다음은 `/oh-my-claudecode:wiki`** | 아래 |
-| 7~9 | 남음 | |
+| 6. 문서 없는 코드 — `/how`, `/deepinit`, `/wiki`, `/teach` | **완료** (2026-11-15 개인 PC · 2026-11-17 사내망 PC) | 아래 |
+| 7. 변경 파급 — `/blast-radius`, `/architect` | **다음** | |
+| 8~9 | 남음 | |
 
 ### 과제 1 — 연체료 테스트 실패
 
@@ -75,18 +76,21 @@
 - `/oh-my-claudecode:verify`로 과제 3의 완료 주장을 다시 확인. 처음 실행은 `mvn -o clean`이 플러그인 미설치로 시작도 못 했는데, **지난 실행의 결과 파일 때문에 "26개 통과"로 보였다** — 종료 코드(1)로 잡아냄. `target`을 지우고 다시 돌려 통과 확인
 - `/oh-my-claudecode:create-verification-skill`로 이 저장소 전용 `/verify` 스킬(`.claude/skills/verify/SKILL.md`)을 만듦. 명령은 모두 실행해 확인, 판정은 종료 코드 + 새로 생성된 결과 파일
 
-### 과제 6 — 문서 없는 코드 (진행 중)
+### 과제 6 — 문서 없는 코드 (2026-11-15 개인 PC · 2026-11-17 사내망 PC)
 
 - `/oh-my-claudecode:how 대출과 반납은 어떻게 동작하나`: 탐색 에이전트가 줄 번호 지도를 만들고, 그 지도로 설명을 씀 (2026-11-15)
 - `/oh-my-claudecode:deepinit`: 의미 있는 폴더 7곳에 `AGENTS.md` 생성 (2026-11-15). 하위 폴더 AGENTS.md는 OMC hook이 켜져 있어야 읽힌다
-- 다음: `/oh-my-claudecode:wiki`, 그다음 `/oh-my-claudecode:teach`
+- `/oh-my-claudecode:wiki`: 소스 7개를 읽고 `wiki_ingest`로 [wiki/loan.md](wiki/loan.md)(대출·반납·연체료·연장 구조) 작성. `wiki_lint` 깨진 링크·모순 0 (2026-11-17)
+- `/oh-my-claudecode:teach 대출과 반납`: 수준 질문("Java 익숙, 도메인 처음") → How(코드 줄 인용) → Why 4가지(유예일 뺀 부과, 연장은 기존 예정일 기준, 반납은 대출 기록의 `Book`을 되돌림, 연장 정책이 서비스와 분리) → 예측 질문. 4일 연체 500원·연체 중 `canRenew` false 모두 맞힘 (2026-11-17)
+- 수업 중 드러난 것: 연체료 **납부 개념이 없다**(반납 때 금액만 계산). 유예 3일은 연체료에만 적용되고 연장에는 안 된다(예정일 하루만 지나도 `canRenew` false). **예약 기능이 없다** — `reservedByOther`는 `canRenew` 매개변수뿐이라 반납된 예약 도서를 아무나 `checkout`할 수 있다. 과제 7 재료로 쓸 만하다
 
 ## 남은 일
 
 | 할 일 | 사내망 PC | 개인 PC |
 |---|---|---|
-| 환경 설정 공통화 받기 (`env/`, `wiki/`, 답변 형식 — 2026-11-16 개인 PC) | **남음** — 아래 "사내망 PC에서 받는 순서" | 완료 |
+| 환경 설정 공통화 받기 (`env/`, `wiki/`, 답변 형식 — 2026-11-16 개인 PC) | 완료 (2026-11-17). 처음 한 번은 설치돼 있던 이전 HUD 래퍼에 자동 맞춤 코드가 없어 `node env/sync.mjs --apply hud`로 수동 적용. `wincred` 적용 시 GCM이 남긴 OAuth 항목 3개를 `cmdkey /delete`로 지우고 토큰을 다시 넣음 | 완료 |
 | git HTTP 경고 끄기 (`credential.allowUnsafeRemotes`) | 완료 (2026-11-16) | 완료 (2026-11-16, `env/git` 기준으로 적용) |
+| OMC를 플러그인으로 전환 | 완료 (2026-11-17) — `claude plugin marketplace add <npm 전역>\oh-my-claude-sisyphus` → `claude plugin install oh-my-claudecode@omc`. **남음: npm 방식 복사본 정리**(`~/.claude/skills/` OMC 스킬 84개, `~/.claude/agents/` 19개, `~/.claude/settings.json`의 OMC hook 8개가 플러그인과 겹친다 — 백업 후 정리 예정) | 확인 필요 — 같은 중복이 있는지 |
 | HUD 상태바 눈으로 확인 — 1줄 ctx, 2줄 `[Claude# \| OMC#] \| 모델 \| main M2 +1 ↑1` | 남음 | 남음 |
 | `/team` 동작 확인 | 남음 | 남음 |
 

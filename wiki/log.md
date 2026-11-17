@@ -20,3 +20,11 @@
 - **Pages:** gitea-oauth-wincred.md, maven-surefire.md, hud.md
 - **Summary:** Query "push 로그인 실패" → 3 results (of 3 total)
 
+## [2026-11-17T06:55:21.836Z] ingest
+- **Pages:** loan.md
+- **Summary:** Created new page "loan 모듈 - 대출·반납·연장 구조"
+
+## [2026-11-17T06:55:26.603Z] lint
+- **Pages:** loan.md
+- **Summary:** Lint: 1 issues (1 orphan, 0 stale, 0 broken, 0 contradictions)
+
