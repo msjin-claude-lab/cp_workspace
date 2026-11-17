@@ -1,6 +1,8 @@
 {
   "elements": {
-    "safeMode": false
+    "safeMode": false,
+    "updateNotification": false,
+    "thinking": false
   },
   "layout": {
     "main": [
