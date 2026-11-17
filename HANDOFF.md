@@ -90,8 +90,8 @@
 |---|---|---|
 | 환경 설정 공통화 받기 (`env/`, `wiki/`, 답변 형식 — 2026-11-16 개인 PC) | 완료 (2026-11-17). 처음 한 번은 설치돼 있던 이전 HUD 래퍼에 자동 맞춤 코드가 없어 `node env/sync.mjs --apply hud`로 수동 적용. `wincred` 적용 시 GCM이 남긴 OAuth 항목 3개를 `cmdkey /delete`로 지우고 토큰을 다시 넣음 | 완료 |
 | git HTTP 경고 끄기 (`credential.allowUnsafeRemotes`) | 완료 (2026-11-16) | 완료 (2026-11-16, `env/git` 기준으로 적용) |
-| OMC를 플러그인으로 전환 | 완료 (2026-11-17) — `claude plugin marketplace add <npm 전역>\oh-my-claude-sisyphus` → `claude plugin install oh-my-claudecode@omc`. **남음: npm 방식 복사본 정리**(`~/.claude/skills/` OMC 스킬 84개, `~/.claude/agents/` 19개, `~/.claude/settings.json`의 OMC hook 8개가 플러그인과 겹친다 — 백업 후 정리 예정) | 확인 필요 — 같은 중복이 있는지 |
-| HUD 상태바 눈으로 확인 — 1줄 ctx, 2줄 `[Claude# \| OMC#] \| 모델 \| main M2 +1 ↑1` | 남음 | 남음 |
+| OMC를 플러그인으로 전환 | 완료 (2026-11-17) — `claude plugin marketplace add <npm 전역>\oh-my-claude-sisyphus` → `claude plugin install oh-my-claudecode@omc`. npm 방식 복사본(`~/.claude/skills/` OMC 스킬 84개, `~/.claude/agents/` 19개, `~/.claude/hooks/`와 `settings.json`의 OMC hook 8개)은 플러그인과 겹쳐 `~/.claude/backup-npm-omc-2026-11-17/`로 옮김(2026-11-17). 이후 저장소 전용 `/verify`가 OMC `verify`에 가려지지 않는다. `npm i -g oh-my-claude-sisyphus`로 OMC를 올린 뒤 복사본이 다시 생기면 같은 방식으로 정리 | 확인 필요 — 같은 중복이 있는지 |
+| HUD 상태바 눈으로 확인 — 1줄 `ctx \| 모델 \| main M2 +1 ↑1`(ctx는 하늘색·주황·자홍, 버전 라벨 없음 — 2026-11-17 변경), 2줄 5H·WK·Fable(초록·노랑·빨강) | 남음 | 남음 |
 | `/team` 동작 확인 | 남음 | 남음 |
 
 ### 사내망 PC에서 받는 순서 (환경 설정 공통화)

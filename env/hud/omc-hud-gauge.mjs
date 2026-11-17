@@ -60,6 +60,22 @@ export function restoreGauges(text) {
   });
 }
 
+/**
+ * 모든 게이지를 10칸으로 맞춘다. OMC는 ctx를 10칸(render.js), 사용량(5h·wk·fable)을 8칸(limits.js
+ * `barWidth = 8`)으로 그리고 바꾸는 설정이 없다. 게이지 뒤에 찍힌 퍼센트로 칸 수를 다시 계산하고,
+ * 색 코드는 OMC가 준 것을 그대로 쓴다. 이미 10칸이면 건드리지 않는다. — 2026-11-17 사용자 요청
+ */
+const GAUGE_WIDTH = 10;
+const BAR_WITH_PCT =
+  /\[((?:\x1b\[[0-9;]*m)*)(█*)((?:\x1b\[[0-9;]*m)*)(░*)((?:\x1b\[[0-9;]*m)*)\]((?:\x1b\[[0-9;]*m)*)(\d+)%/g;
+export function widenGauges(text) {
+  return text.replace(BAR_WITH_PCT, (all, pre, full, mid, empty, post, pctColor, pct) => {
+    if (full.length + empty.length === GAUGE_WIDTH) return all;
+    const n = Math.max(0, Math.min(GAUGE_WIDTH, Math.round((Number(pct) / 100) * GAUGE_WIDTH)));
+    return `[${pre}${"█".repeat(n)}${mid}${"░".repeat(GAUGE_WIDTH - n)}${post}]${pctColor}${pct}%`;
+  });
+}
+
 // ---------------------------------------------------------------------------
 // 첫 줄 재구성
 // ---------------------------------------------------------------------------
@@ -114,7 +130,18 @@ function takeCtx(text) {
   const head = lines[row].slice(0, at).replace(/(?:\x1b\[[0-9;]*m|\s)*\|(?:\x1b\[[0-9;]*m|\s)*$/, "");
 
   lines[row] = head; // ctx뿐인 줄이면 빈 줄이 되고, moveCtxFirst가 빈 줄을 버린다
-  return { text: lines.join("\n"), ctx };
+  return { text: lines.join("\n"), ctx: recolorCtx(ctx) };
+}
+
+/**
+ * ctx 게이지 색을 사용량 게이지(5H·WK·Fable — 초록·노랑·빨강)와 다르게 바꾼다.
+ * OMC는 ctx도 같은 3색을 쓴다(dist/hud/elements/context.js: 70% 노랑, 85% 빨강). 경계는 그대로 두고
+ * 색만 하늘색·주황·자홍(256색)으로 옮긴다. 빈 칸(dim)은 그대로다.
+ * 색 코드를 하나씩 보내는 이유: Zed 터미널은 색과 다른 속성을 한 코드에 묶으면 통째로 버린다(2026-11-17 실측).
+ */
+const CTX_COLORS = { 32: "\x1b[38;5;39m", 33: "\x1b[38;5;208m", 31: "\x1b[38;5;201m" };
+function recolorCtx(ctx) {
+  return ctx.replace(/\x1b\[(3[123])m/g, (_, code) => CTX_COLORS[code]);
 }
 
 /**
@@ -181,7 +208,7 @@ function relabelLimits(text) {
 /**
  * 줄 배치를 다시 짠다.
  *
- *   1줄: [Claude#a | OMC#x] | ctx | 모델 effort | branch git 상태
+ *   1줄: ctx | 모델 effort | branch git 상태  (`[OMC#x]` 버전 라벨은 지운다 — 2026-11-17 사용자 결정)
  *   2줄: 나머지(사용량 게이지 등) — 화면이 좁아지면 접힐 수 있다
  *
  * 못 찾은 조각은 건너뛰고, 아무것도 못 찾으면 원본을 그대로 돌려준다.
@@ -199,13 +226,18 @@ export function moveCtxFirst(text, claudeVersion = null, gitPorcelain = null) {
   const branch = (gitPorcelain && formatGit(gitPorcelain)) || omcBranch;
 
   // Claude Code는 상태줄이 화면 예산보다 길면 `… (+N more lines)`로 접지만 첫 줄 하나는 항상 남기므로
-  // (Math.max(1, …)), 늘 봐야 할 ctx·버전·모델·git을 첫 줄에 모은다.
-  // ctx를 라벨 뒤에 두는 이유: 맨 앞이면 아래 줄 `5h:` 게이지와 같은 칸에서 시작해 두 게이지가 붙어 보였다.
+  // (Math.max(1, …)), 늘 봐야 할 ctx·모델·git을 첫 줄에 모은다. 버전 라벨(l.label)은 잘라내기만 하고 쓰지 않는다.
   const out = [
-    [l.label, c.ctx, m.model, branch].filter(Boolean).join(SEP) || null,
+    [c.ctx, m.model, branch].filter(Boolean).join(SEP) || null,
     ...rest,
   ].filter(Boolean);
-  return relabelLimits(out.join("\n")) + (text.endsWith("\n") ? "\n" : "");
+  // 사용량 줄(`5H:`로 시작)은 한 칸 들여 쓴다 — 2026-11-17 사용자 요청.
+  // Claude Code는 줄 앞 공백을 잘라 낸다. 일반 공백도 U+00A0도 잘렸다(JS trim은 U+00A0도 공백으로 본다).
+  // 그래서 공백 문자가 아니면서 빈칸으로 보이는 U+2800(점자 빈칸)을 쓴다.
+  const lines = relabelLimits(out.join("\n"))
+    .split("\n")
+    .map((s) => (/^(?:\x1b\[[0-9;]*m)*5H:/.test(s) ? `\u2800${s}` : s));
+  return lines.join("\n") + (text.endsWith("\n") ? "\n" : "");
 }
 
 // ---------------------------------------------------------------------------
@@ -235,7 +267,7 @@ function flush() {
 
   let output;
   try {
-    output = moveCtxFirst(restoreGauges(raw), claudeVersion, readGitStatus());
+    output = moveCtxFirst(widenGauges(restoreGauges(raw)), claudeVersion, readGitStatus());
   } catch {
     output = raw; // 변환이 실패하면 원본을 그대로 내보낸다. 상태바가 비는 것보다 낫다.
   }
