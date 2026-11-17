@@ -15,6 +15,7 @@
 | Claude Code 설정 | 프로젝트 `.claude/settings.json`에 둠 — agent teams, HUD 상태바, hook. 모든 PC 공통 ([CLAUDE.md의 "PC 간 이어가기"](CLAUDE.md#pc-간-이어가기--설정작업진행-현황)) |
 | 연습 프로젝트 | `projects/loan/` — **과제 1~9 모두 완료**(2026-11-13~17). 컴파일 타깃은 Java 21 |
 | `mvn -q test` | **41개 모두 통과** (과제 9 완료 후. 연체료 6 + 대출·반납 13 + 연장 10 + 관리자 12) |
+| 앱 (`projects/apps/`) | 그룹·공통 규칙만 있음. **다음: 1단계 만들 앱 정하기** — 아래 "앱" 절, [projects/apps/CLAUDE.md](projects/apps/CLAUDE.md) |
 
 ## 연습 과제 진행 ([PRACTICE.md](projects/loan/PRACTICE.md))
 
@@ -141,31 +142,23 @@
 
 | 할 일 | 사내망 PC | 개인 PC |
 |---|---|---|
-| 환경 설정 공통화 받기 (`env/`, `wiki/`, 답변 형식 — 2026-11-16 개인 PC) | 완료 (2026-11-17). 처음 한 번은 설치돼 있던 이전 HUD 래퍼에 자동 맞춤 코드가 없어 `node env/sync.mjs --apply hud`로 수동 적용. `wincred` 적용 시 GCM이 남긴 OAuth 항목 3개를 `cmdkey /delete`로 지우고 토큰을 다시 넣음 | 완료 |
-| git HTTP 경고 끄기 (`credential.allowUnsafeRemotes`) | 완료 (2026-11-16) | 완료 (2026-11-16, `env/git` 기준으로 적용) |
-| OMC를 플러그인으로 전환 | 완료 (2026-11-17) — `claude plugin marketplace add <npm 전역>\oh-my-claude-sisyphus` → `claude plugin install oh-my-claudecode@omc`. npm 방식 복사본(`~/.claude/skills/` OMC 스킬 84개, `~/.claude/agents/` 19개, `~/.claude/hooks/`와 `settings.json`의 OMC hook 8개)은 플러그인과 겹쳐 `~/.claude/backup-npm-omc-2026-11-17/`로 옮김(2026-11-17). 이후 저장소 전용 `/verify`가 OMC `verify`에 가려지지 않는다. `npm i -g oh-my-claude-sisyphus`로 OMC를 올린 뒤 복사본이 다시 생기면 같은 방식으로 정리 | 확인 필요 — 같은 중복이 있는지 |
-| HUD 상태바 눈으로 확인 — 1줄 `ctx \| 모델 \| main M2 +1 ↑1`(ctx는 하늘색·주황·자홍, 버전 라벨 없음 — 2026-11-17 변경), 2줄 5H·WK·Fable(초록·노랑·빨강) | 남음 | 남음 |
-| `/team` 동작 확인 | 남음 | 남음 |
-
-### 사내망 PC에서 받는 순서 (환경 설정 공통화)
-
-1. `git pull`
-2. **Claude Code를 새로 시작한다.** 답변 형식 규칙(`CLAUDE.md`)은 세션을 시작할 때 읽힌다 — 기존 대화를 이어가면 반영되지 않는다
-3. 세션 시작 hook이 자동으로 맞춘다(`env/sync.mjs`)
-   - HUD 래퍼와 표시 항목(`env/hud/`) — session·callCounts 표시가 꺼지고, `~/.claude/settings.json`의 `omcHud`가 있으면 백업 후 지워진다
-   - `D:\cp_workspace\.omc\wiki`가 `D:\cp_workspace\wiki`를 가리키는 연결(정션)로 바뀐다. 이미 만든 위키 페이지는 `wiki/`로 옮겨지고, 같은 이름인데 내용이 다르면 `.omc/wiki-local-backup/`에 남는다
-4. git 설정 차이(`env/git/` — 특히 로그인 방식 `wincred`)가 있으면 Claude가 적용할지 묻는다. `wincred`를 적용하면 **별도 PowerShell 창**에서 `git push`(또는 `git fetch`)를 한 번 해서 계정 + Gitea 토큰을 넣는다
-5. 이후 사내망 PC에서 만든 위키 페이지는 `wiki/`에 저장된다. 다른 파일처럼 **커밋·push해야** 개인 PC로 넘어간다
-6. 확인: `node env/sync.mjs` → `HUD`, `위키 공유`, `git`이 모두 "기준과 같음"
-
-주의: 사내망 PC에 `OMC_STATE_DIR` 환경 변수가 있으면 OMC가 `.omc`를 다른 곳에 두므로 위키 연결이 쓰이지 않는다(개인 PC에는 없음, 사내망 PC는 미확인).
-
-HUD와 `/team`은 사람이 직접 봐야 한다. 둘 다 Claude Code **시작 시** 읽힌다.
-
-1. 상태바가 2줄 OMC HUD로 나오고 게이지가 `[██░░░░░░]` 모양인지, 폭이 밀리지 않는지
-2. `/team` 이 동작하는지 — 과제 1은 끝났으니 PRACTICE.md 9번 과제(여러 작업 한 번에)에서 `/team 2:executor "..."`로 확인한다
+| **앱 1단계 — 만들 앱 정하기** ([projects/apps/CLAUDE.md](projects/apps/CLAUDE.md)) | 어느 PC에서든 가능(이야기만) | 〃 |
+| `/apps:` 플러그인 스킬 만들기 — 앱 작업 시작(`start`)·상태(`status`)·새 앱(`new`) 후보. 콜론 이름은 플러그인에만 생겨 저장소 안 로컬 플러그인 + 로컬 마켓플레이스로 설치 예정. 프로젝트 설정으로 자동 활성화되는지 공식 문서 확인부터 | 미착수 | 미착수 |
+| OMC npm 복사본이 플러그인과 겹치는지 확인 | 완료 (2026-11-17, 아래 기록) | **확인 필요** |
+| `/triage`·`/to-java21` 명령 파일(`~/.claude/commands/`)이 있는지 | 있음 | **확인 필요** — 없으면 과제 8 재연습 불가 |
+| HUD 눈으로 확인 — 1줄 `ctx \| 모델 \| git \| 계정 이메일`, 2줄 `⠀5H·WK·Fable`(10칸) | 완료 (2026-11-17) | 남음 — pull 후 상태줄 확인 |
+| `wiki/environment.md` — OMC 프로젝트 자동 감지가 세션 시작 때마다 내용 없는 페이지(`scripts: [object Object]`)를 만들어 "커밋 안 한 변경"으로 잡힌다. 지금은 매번 커밋에서 뺌 | `.gitignore`에 넣을지 결정 필요 | 〃 |
+| 커밋 뒤 `geometric-repack … Permission denied` — git 자동 정리가 간헐적으로 실패(파일 잠금 추정). 커밋·push는 정상. 남은 임시 pack은 `git count-objects -v`의 garbage로 확인 후 삭제 | 가끔 발생 | 미확인 |
+| Zed 1.28.1 설치 — 서명 확인(Zed Industries, Valid)한 설치 파일 `~\Downloads\Zed-x86_64.exe` | 설치 여부 미확인 | — |
 
 ## 해결된 것 — 기록
+
+### 사내망 PC — 환경 설정 공통화 받기 (2026-11-17)
+
+- `git pull` 후 HUD가 안 맞았던 것: 설치돼 있던 **이전** 래퍼에는 자동 맞춤 코드가 없어 처음 한 번은 `node env/sync.mjs --apply hud`로 수동 적용. 이후는 pull 직후 자동
+- `wincred` 적용: GCM이 남긴 OAuth 항목 3개(`OAUTH_USER@…`, 주소, `refresh_token.…`)를 `cmdkey /delete`로 지우고 별도 창 `git push`에서 계정 + 액세스 토큰을 다시 넣음. 확인: `git credential fill`의 username이 `OAUTH_USER`가 아니라 계정 이름
+- OMC 플러그인 전환: `claude plugin marketplace add <npm root -g>\oh-my-claude-sisyphus` → `claude plugin install oh-my-claudecode@omc`. npm 방식 복사본(`~/.claude/skills/` OMC 스킬 84개, `~/.claude/agents/` 19개, `~/.claude/hooks/`와 `settings.json`의 OMC hook 8개)은 `~/.claude/backup-npm-omc-2026-11-17/`로 옮김 → 저장소 `/verify`가 OMC `verify`에 가려지지 않게 됨. `npm i -g`로 OMC를 올린 뒤 복사본이 다시 생기면 같은 방식으로 정리
+- `/team`: 과제 9에서 실제로 사용(executor 2개, worktree 격리) — 동작 확인됨
 
 ### 개인 PC — JDK 21이 `java`로 잡히지 않던 문제 (2026-11-12 해결)
 
@@ -183,14 +176,12 @@ Maven은 그 전에도 `JAVA_HOME`을 따라 JDK 21로 돌았다. JDK 17 폴더�
 
 ### HUD 게이지 — 래퍼 스크립트
 
-게이지가 `[##------]`로 나오던 것을 `[██░░░░░░]`로 되돌렸다. 사용법은 [CLAUDE.md의 "HUD 게이지"](CLAUDE.md#hud-게이지)에 있다.
+게이지가 `[##------]`로 나오던 것을 `[██░░░░░░]`로 되돌렸다. 기준과 적용 방식은 [CLAUDE.md의 "환경 설정 공통화"](CLAUDE.md)와 [env/AGENTS.md](env/AGENTS.md), 렌더링 사실은 [wiki/hud.md](wiki/hud.md).
 
-- 스크립트: `env/hud/omc-hud-gauge.mjs` (2026-11-16 `tools/`에서 옮김, 환경 설정 공통화)
-- 설치 위치: `~/.claude/hud/omc-hud-gauge.mjs` — 세션 시작 hook이 저장소 버전을 복사한다. 프로젝트 `.claude/settings.json`의 `statusLine.command`가 이걸 가리킨다
-
-원인은 `dist/hud/sanitize.js`의 `replaceUnicodeBlocks()`가 설정·터미널 감지 없이 `█`→`#`, `░`→`-`로 무조건 치환하는 것이었다. 공식 설정으로는 끌 수 없어 출력을 후처리한다.
-
-**아직 눈으로 확인 못 한 것:** `█`(U+2588)·`░`(U+2591)은 동아시아 환경에서 **폭이 모호한(Ambiguous) 문자**다. 한국어 로케일 터미널이 2칸으로 그리면 게이지 폭이 밀린다 — OMC가 ASCII로 바꾼 진짜 이유가 이것이다(`sanitize.js` 주석, issue #346). 밀리면 프로젝트 `.claude/settings.json`의 `statusLine.command`에서 `omc-hud-gauge.mjs`를 `omc-hud.mjs`로 되돌린다.
+- 스크립트: `env/hud/omc-hud-gauge.mjs` → `~/.claude/hud/`(세션 시작·pull 직후 자동 복사). 프로젝트 `.claude/settings.json`의 `statusLine.command`가 이걸 가리킨다
+- 원인은 `dist/hud/sanitize.js`의 `replaceUnicodeBlocks()`가 `█`→`#`, `░`→`-`로 무조건 치환하는 것. 공식 설정으로 끌 수 없어 출력을 후처리한다
+- 2026-11-17 사내망 PC(Zed 터미널)에서 블록 문자 폭이 밀리지 않음을 눈으로 확인. 밀리는 PC가 생기면 `statusLine.command`를 `omc-hud.mjs`로 되돌린다(`█`·`░`는 동아시아 환경에서 폭이 모호한 문자, OMC issue #346)
+- 2026-11-17 변경: 2줄 구조 고정(1줄 ctx·모델·git·계정, 2줄 5H·WK·Fable), ctx 색 하늘색·주황·자홍, 버전 라벨 제거, 게이지 모두 10칸, OMC가 ctx를 잘라도 사용률로 다시 그림
 
 ## 다른 PC에서 이어가기
 
@@ -199,7 +190,7 @@ Maven은 그 전에도 `JAVA_HOME`을 따라 JDK 21로 돌았다. JDK 17 폴더�
 1. 받는 PC: `git clone http://222.112.172.253:9080/msjin-claude-lab/cp_workspace.git D:/dev/workspace` — 공개 저장소라 clone·pull은 로그인 없이 된다
 2. push는 **Gitea에만** 한다. 처음 push할 때 Gitea 계정 이름 + 액세스 토큰으로 로그인한다. GitHub는 Gitea 푸시 미러가 맞춘다
 3. 작업 중에는 정시 구간마다 sync-check hook이 Gitea와 비교해 pull/push 여부를 묻는다. 마칠 때는 이 문서를 갱신하고 push한다
-4. Claude Code 설정은 저장소에 있다. 새 PC에서 한 번 할 일(로그인, OMC·JDK·Maven 설치, Gitea 토큰)은 [CLAUDE.md의 표](CLAUDE.md#저장소에-들어-있지-않은-것--새-pc에서-한-번)를 따른다
+4. Claude Code 설정은 저장소에 있다. 새 PC에서 한 번 할 일: Claude Code 로그인, OMC 설치(플러그인 — [CLAUDE.md "답변 형식"](CLAUDE.md)의 설치 명령), JDK 21·Maven 3.9, Gitea 액세스 토큰(`wincred`)
 
 Gitea에 접근할 수 없으면 CLAUDE.md의 "예비 수단 — git bundle"을 쓴다.
 
@@ -208,4 +199,5 @@ Gitea에 접근할 수 없으면 CLAUDE.md의 "예비 수단 — git bundle"을 
 ```
 D:\dev\workspace 에서 작업을 이어서 한다. HANDOFF.md 를 읽고 시작해라.      (개인 PC)
 D:\cp_workspace 에서 작업을 이어서 한다. HANDOFF.md 를 읽고 시작해라.      (사내망 PC)
+projects/apps/CLAUDE.md 를 읽고 앱 작업을 이어서 한다.                        (앱 작업만 할 때, 루트에서 연 뒤)
 ```
