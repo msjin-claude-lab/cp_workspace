@@ -10,28 +10,33 @@ cp-workspace/
 ├── .claude/CLAUDE.md    ← OMC 코디네이터 관리 영역. 손대지 말 것
 └── projects/
     ├── loan/            ← 개별 프로젝트
-    └── <그룹>/<앱>/      ← 앱을 여러 개 만들 때 (아래 "앱을 여러 개 만들 때")
+    └── apps/<앱>/        ← 앱 그룹 (아래 "앱을 여러 개 만들 때")
 ```
 
 `.omc-workspace` 마커 때문에 `projects/` 아래 프로젝트가 **자체 git 저장소**가 되더라도 OMC 상태(`.omc/`)는 여기 하나로 모인다. 프로젝트마다 상태가 흩어지지 않는다.
 
-### 앱을 여러 개 만들 때 — `projects/<그룹>/<앱>/` (2026-11-17 정함, 아직 만든 앱 없음)
+### 앱을 여러 개 만들 때 — `projects/<그룹>/<앱>/` (2026-11-17 정함. 첫 그룹 `projects/apps/`, 아직 만든 앱 없음)
 
 ```
 projects/
 ├── loan/                  ← 기존 연습 프로젝트 (그룹 없이 그대로)
-└── <그룹>/                ← 공통 규칙이 생길 때만 만든다
-    ├── CLAUDE.md          ← 그룹 공통 규칙 (같은 스택·배포 방식 등)
+└── <그룹>/                ← 예: apps/
+    ├── CLAUDE.md          ← 그룹 공통 규칙이 생겼을 때만 만든다 (같은 스택·배포 방식 등)
+    ├── .gitkeep           ← 앱도 규칙도 없을 때 빈 폴더를 git에 남기는 빈 파일. Claude가 읽지 않는다
     └── <앱>/
         └── CLAUDE.md      ← 앱 고유 규칙 + 빌드·테스트 명령
 ```
 
 - CLAUDE.md는 작업 위치에서 위로 올라가며 읽히므로 규칙이 **루트 → 그룹 → 앱** 순으로 겹친다. 같은 내용은 가장 위 한 곳에만 쓴다
-- **그룹은 공통 규칙이 생길 때 만든다.** 앱이 하나뿐이면 `projects/<앱>/`으로 충분하다
+- **그룹 `CLAUDE.md`는 공통 규칙이 생길 때 만든다.** 내용 없는 CLAUDE.md도 그 아래 작업 때마다 읽히므로, 그전에는 `.gitkeep`만 둔다(`projects/apps/`가 지금 이 상태)
 - **검증 명령은 앱마다** 그 앱 CLAUDE.md에 적는다. 저장소 `/verify` 스킬(`.claude/skills/verify`)은 지금 `projects/loan` 전용이라, 앱이 생기면 각 앱 명령을 참조하도록 고친다
 - **git은 저장소 하나로 시작한다.** 배포 주기·공개 범위가 다른 앱만 나중에 분리한다(분리해도 OMC 상태는 위 앵커 덕에 루트에 모인다)
 - 이름은 짧게 짓는다. Windows 경로 260자 제한에 `node_modules`가 걸릴 수 있다
-- **Claude는 루트(`D:\cp_workspace`)에서 열고** "`projects/<그룹>/<앱>`에서 작업한다"로 시작한다. HUD·git 동기화 hook·agent teams(루트 `.claude/settings.json`), 저장소 스킬(`.claude/skills/`), HANDOFF 흐름이 루트 기준이다. 앱 위치에서 열면 이것들이 읽히는지는 **확인하지 않았다** — 앱 위치에서 열려면 처음 한 번 상태줄과 `/verify`가 보이는지 확인하고 결과를 여기 적는다. 자동 메모리·대화 기록은 여는 폴더 경로별로 따로 쌓인다
+- **Claude는 루트(`D:\cp_workspace`)에서 열고** "`projects/<그룹>/<앱>`에서 작업한다"로 시작한다. 앱 폴더에서 열면 공식 문서 기준(2026-11-17 확인, PC에서 직접 시험은 아직)으로 이렇게 된다:
+  - **빠진다**: 루트 `.claude/settings.json` — 실행한 폴더에서만 읽고 위로 찾지 않는다(settings 문서 "to use a file committed at the repository root, start Claude Code there"). 이 저장소의 **HUD 상태줄·git 동기화 hook·agent teams가 꺼진다**
+  - **그대로 된다**: 저장소 스킬·에이전트(`.claude/skills`·`.claude/agents`를 저장소 루트까지 올라가며 찾음), 상위 CLAUDE.md(루트 → 그룹 → 앱), 자동 메모리(git 저장소 단위로 공유)
+  - **따로 쌓인다**: 대화 기록(실행 폴더별). 앱 폴더의 `claude --continue`에는 루트 대화가 안 보인다
+  - 앱 폴더에서 열어야 한다면 `claude --settings D:\cp_workspace\.claude\settings.json`(상태줄·hook 경로까지 동작하는지는 미확인). 실제로 무엇이 읽혔는지는 `/status`의 Setting sources와 `/context all`로 본다
 
 ## 네트워크 제약
 
