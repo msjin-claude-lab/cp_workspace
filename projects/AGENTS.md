@@ -10,7 +10,7 @@
 | Directory | Purpose |
 |-----------|---------|
 | `loan/` | OMC 연습용 도서 대출 모듈, Java/Maven (see `loan/AGENTS.md`) |
-| `apps/` | 앱 그룹. 앱은 `apps/<앱>/`에 둔다. 아직 앱 없음. 공통 규칙 파일 `apps/CLAUDE.md`는 비어 있음 |
+| `apps/` | 앱 그룹. 앱은 `apps/<앱>/`에 둔다. 아직 앱 없음. 앱 공통 규칙은 `apps/CLAUDE.md`(새 앱 시작 순서) |
 
 ## For AI Agents
 
