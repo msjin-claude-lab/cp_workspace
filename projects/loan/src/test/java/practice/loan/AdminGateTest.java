@@ -5,6 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Handler;
@@ -147,7 +152,7 @@ class AdminGateTest {
     @Test
     @DisplayName("검색 쿼리는 자리표시자를 쓰고 검색어를 이어 붙이지 않는다")
     void memberQueryUsesPlaceholder() {
-        assertEquals("SELECT * FROM member WHERE name LIKE ? ESCAPE '\\'", new AdminGate(SECRET).buildMemberQuery());
+        assertEquals("SELECT * FROM member WHERE name LIKE ? ESCAPE '!'", new AdminGate(SECRET).buildMemberQuery());
     }
 
     @Test
@@ -157,12 +162,41 @@ class AdminGateTest {
 
         assertEquals("%홍%", gate.memberSearchParam("홍"));
         assertEquals("%' OR '1'='1%", gate.memberSearchParam("' OR '1'='1"));
-        assertEquals("%100\\%\\_\\\\%", gate.memberSearchParam("100%_\\"));
+        assertEquals("%100!%!_!!%", gate.memberSearchParam("100%_!"));
+        assertEquals("%a\\b%", gate.memberSearchParam("a\\b"));
     }
 
     @Test
     @DisplayName("검색어가 null이면 거부한다")
     void rejectsNullKeyword() {
         assertThrows(IllegalArgumentException.class, () -> new AdminGate(SECRET).memberSearchParam(null));
+    }
+
+    private List<String> searchInH2(String keyword) throws SQLException {
+        AdminGate gate = new AdminGate(SECRET);
+        try (Connection c = DriverManager.getConnection("jdbc:h2:mem:admingate")) {
+            try (java.sql.Statement st = c.createStatement()) {
+                st.execute("CREATE TABLE member(id VARCHAR(10), name VARCHAR(50))");
+                st.execute("INSERT INTO member VALUES ('1','100%'),('2','100x'),('3','a_b'),('4','axb'),('5','홍길동')");
+            }
+            PreparedStatement ps = c.prepareStatement(gate.buildMemberQuery());
+            ps.setString(1, gate.memberSearchParam(keyword));
+            List<String> names = new ArrayList<>();
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    names.add(rs.getString("name"));
+                }
+            }
+            return names;
+        }
+    }
+
+    @Test
+    @DisplayName("실제 DB(H2)에서 와일드카드는 문자 그대로, 주입 문자열은 0건, 한글 부분 일치는 동작한다")
+    void queryWorksOnRealDb() throws SQLException {
+        assertEquals(List.of("100%"), searchInH2("100%"));
+        assertEquals(List.of("a_b"), searchInH2("a_b"));
+        assertEquals(List.of(), searchInH2("' OR '1'='1"));
+        assertEquals(List.of("홍길동"), searchInH2("홍"));
     }
 }

@@ -22,7 +22,7 @@ public class AdminGate {
     /** 관리자 토큰을 읽어 올 환경변수 이름. */
     public static final String TOKEN_ENV = "LOAN_ADMIN_TOKEN";
 
-    private static final String MEMBER_SEARCH_SQL = "SELECT * FROM member WHERE name LIKE ? ESCAPE '\\'";
+    private static final String MEMBER_SEARCH_SQL = "SELECT * FROM member WHERE name LIKE ? ESCAPE '!'";
 
     private final byte[] adminToken;
 
@@ -74,15 +74,16 @@ public class AdminGate {
         return MEMBER_SEARCH_SQL;
     }
 
-    /** 검색어를 LIKE 바인딩 값으로 만든다. {@code % _ \}는 문자 그대로 찾도록 이스케이프한다. */
+    /** 검색어를 LIKE 바인딩 값으로 만든다. {@code ! % _}는 문자 그대로 찾도록 {@code !}로 이스케이프한다(ESCAPE '!').
+     * 백슬래시는 MySQL/MariaDB 기본 설정에서 문자열 이스케이프라 ESCAPE 문자로 쓰지 않는다. */
     public String memberSearchParam(String nameKeyword) {
         if (nameKeyword == null) {
             throw new IllegalArgumentException("nameKeyword는 null일 수 없다");
         }
         String escaped = nameKeyword
-                .replace("\\", "\\\\")
-                .replace("%", "\\%")
-                .replace("_", "\\_");
+                .replace("!", "!!")
+                .replace("%", "!%")
+                .replace("_", "!_");
         return "%" + escaped + "%";
     }
 
