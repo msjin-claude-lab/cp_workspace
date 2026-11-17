@@ -23,6 +23,7 @@ description: cp_workspace 전용 검증 절차 — projects/loan의 빌드·테�
 - **오프라인 `-o`와 `clean`**: `maven-clean-plugin`을 한 번도 내려받지 않은 PC에서는 `mvn -q -o clean test`가 시작하자마자 실패한다(`Cannot access central ... in offline mode`). 처음 한 번은 `-o` 없이 실행한다.
 - **`mvn -q`는 성공하면 아무것도 출력하지 않는다.** 출력이 없다는 것만으로는 판정하지 않고 종료 코드를 본다.
 - 테스트가 실패하면 `Failures`(기대값 불일치)와 `Errors`(예외)를 구분해 보고한다.
+- **검증과 커밋을 한 명령에 묶을 때는 `&&`만 쓴다.** `mvn ... ; git commit`처럼 `;`로 이으면 실패해도 커밋된다. 2026-11-17에 `test exit=1`인 채 커밋·push한 적이 있다(이후 재실행은 green, 원인 미확인).
 - 사내망 PC는 경로가 `D:\cp_workspace`, JDK 21.0.11 / Maven 3.9.11이다. 명령은 같다.
 
 ## 명령으로 확인할 수 없는 것 (사람이 본다)

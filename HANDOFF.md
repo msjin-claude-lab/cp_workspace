@@ -119,6 +119,18 @@
 - 결과: `mvn -q clean test` 41/41, exit 0. worktree 2개·브랜치 2개 정리
 - 알게 된 것: executor가 줄 끝을 바꿀 수 있다 → 병합 전 `git diff --ignore-space-at-eol --stat`와 비교해 볼 것. verifier가 "통과하지만 잡지 못하는" 테스트를 짚어 냈고, 변이 실험으로 보강 효과를 확인함
 
+### 세션 회고 — `/oh-my-claudecode:reflect` (2026-11-17, 사내망 PC)
+
+검토 에이전트 3개(도구·판단·다른 길)가 오늘 대화 기록을 인용해 발견 9개 → 반복될 교훈 5개로 정리, 모두 반영:
+
+- 백슬래시·한글 파일은 Edit 도구로(heredoc+Python에서 `\a`·`\b`가 제어 문자로 바뀌어 커밋 2번 다시 함) → [CLAUDE.md "작업 규칙"](CLAUDE.md)
+- 테스트와 커밋은 `&&`로만(`;`로 이어 `test exit=1`인 채 push함) → CLAUDE.md, `.claude/skills/verify/SKILL.md`
+- 화면 결과는 사용자 확인 전 "적용함, 화면 확인 필요"로만 보고, 안내할 방법은 먼저 직접 시험 → CLAUDE.md
+- "기존대로" 정한 항목은 직접 언급 전까지 안 바꿈 → CLAUDE.md "답변 형식"
+- HUD 렌더링 사실(`!`는 색 없음, Zed는 묶은 SGR을 버림, 줄 앞 공백 trim, OMC 4줄 자르기) → `env/AGENTS.md`, [wiki/hud.md](wiki/hud.md)
+- 보류: 고정 입력 HUD 시험 스크립트, `commit-if-green` 스크립트(규칙으로 충분하다고 봄)
+- 미해결: 커밋할 때마다 `geometric-repack` … `Permission denied`(`.git/objects/pack` 쓰기). 커밋·push는 정상
+
 ## 남은 일
 
 | 할 일 | 사내망 PC | 개인 PC |
