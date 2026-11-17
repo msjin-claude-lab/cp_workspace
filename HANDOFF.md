@@ -28,7 +28,7 @@
 | 6. 문서 없는 코드 — `/how`, `/deepinit`, `/wiki`, `/teach` | **완료** (2026-11-15 개인 PC · 2026-11-17 사내망 PC) | 아래 |
 | 7. 변경 파급 — `/blast-radius`, `/architect` | **완료** (2026-11-17, 사내망 PC) | 아래 |
 | 8. 레거시 버전 올리기 — `/triage`, `/to-java21` | **완료** (2026-11-17, 사내망 PC) | 아래 |
-| 9. 여러 작업 한 번에 — `/team` | **다음** | |
+| 9. 여러 작업 한 번에 — `/team` | **다음** — 주제: 겹치지 않는 남은 일 2개(① `AdminGate` 과제 4 검토 지적: `ESCAPE '!'`, LIKE 실제 동작 테스트 ② `LoanService` 이중 대출: 대출 기록 ISBN 조회). `/team`은 재시작 후 | |
 
 ### 과제 1 — 연체료 테스트 실패
 
@@ -105,6 +105,7 @@
 - 실수 1건: pom.xml 주석에 `--`를 넣어 XML 파싱 실패 → 주석 수정
 - 문서: `projects/loan/CLAUDE.md`·`AGENTS.md` 2개의 "Java 8 타깃, 올리지 말 것"을 현재 상태로 고침
 - 다시 연습하려면: `git checkout af2c8ad -- projects/loan/pom.xml`(8 상태)
+- **`/triage`·`/to-java21`은 OMC 스킬이 아니다.** 사내망 PC의 사용자 명령(`~/.claude/commands/triage.md`, `to-java21.md`, 2026-08-11 생성)으로, 사내 JDK 마이그레이션(SVN, `D:\dev\workspacessistant` 대시보드) 업무용으로 보인다(추정). 저장소에는 없어 git으로 넘어가지 않는다 — 개인 PC에 같은 파일이 있는지 확인 필요
 
 ## 남은 일
 
