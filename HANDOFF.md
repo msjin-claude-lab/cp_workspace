@@ -143,7 +143,7 @@
 | 할 일 | 사내망 PC | 개인 PC |
 |---|---|---|
 | **앱 1단계 — 만들 앱 정하기** ([projects/apps/CLAUDE.md](projects/apps/CLAUDE.md)) | 어느 PC에서든 가능(이야기만) | 〃 |
-| `/apps:` 플러그인 스킬 만들기 — 앱 작업 시작(`start`)·상태(`status`)·새 앱(`new`) 후보. 콜론 이름은 플러그인에만 생겨 저장소 안 로컬 플러그인 + 로컬 마켓플레이스로 설치 예정. 프로젝트 설정으로 자동 활성화되는지 공식 문서 확인부터 | 미착수 | 미착수 |
+| `/apps:` 플러그인 스킬 — **필요할 때마다 하나씩 만든다(2026-11-18 사용자 결정).** 지금은 만들지 않음. 방법(공식 문서 확인, PC에서 시험은 아직): `plugins/apps/.claude-plugin/plugin.json`(`"name": "apps"`) + `plugins/apps/skills/<스킬>/SKILL.md` + 루트 `.claude-plugin/marketplace.json`(source `./plugins/apps`) → PC마다 `claude plugin marketplace add .` · `claude plugin install apps@<마켓플레이스>`. 로컬 경로 마켓플레이스라 스킬 수정은 재설치 없이 다음 세션·`/reload-plugins`로 반영. 개인 범위 설치, `claude plugin uninstall`로 삭제 | 필요 시 | 필요 시 |
 | OMC npm 복사본이 플러그인과 겹치는지 확인 | 완료 (2026-11-17, 아래 기록) | **확인 필요** |
 | `/triage`·`/to-java21` 명령 파일(`~/.claude/commands/`)이 있는지 | 있음 | **확인 필요** — 없으면 과제 8 재연습 불가 |
 | HUD 눈으로 확인 — 1줄 `ctx \| 모델 \| git \| 계정 이메일`, 2줄 `⠀5H·WK·Fable`(10칸) | 완료 (2026-11-17) | 남음 — pull 후 상태줄 확인 |
