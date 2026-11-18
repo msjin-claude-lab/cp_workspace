@@ -35,7 +35,7 @@ projects/
 - **검증 명령은 앱마다** 그 앱 CLAUDE.md에 적는다. 저장소 `/verify` 스킬(`.claude/skills/verify`)은 지금 `projects/loan` 전용이라, 앱이 생기면 각 앱 명령을 참조하도록 고친다
 - **git은 저장소 하나로 시작한다.** 배포 주기·공개 범위가 다른 앱만 나중에 분리한다(분리해도 OMC 상태는 위 앵커 덕에 루트에 모인다)
 - 이름은 짧게 짓는다. Windows 경로 260자 제한에 `node_modules`가 걸릴 수 있다
-- **PC 역할(2026-11-17 사용자 결정)**: **개인 PC는 전부**(코드 수정 + SDK 설치·빌드·테스트), **사내망 PC는 코드 수정·코드 점검까지만**. 사내망 PC에서 한 작업은 빌드·테스트로 확인하지 못하므로 HANDOFF에 "수정만 함, 개인 PC에서 테스트 필요"로 남기고, 개인 PC에서 pull해 확인한다
+- **PC 역할(2026-11-17 사용자 결정, 2026-11-18 바꿈)**: **개인 PC는 전부**(코드 수정 + SDK 설치·빌드·테스트). **사내망 PC도 가능한 데까지 똑같이 진행하고 한 것은 공유한다**(2026-11-18 — Flutter·Android SDK를 설치해 빌드·테스트가 됨). 사내망 PC에서 못 한 것(에뮬레이터 실행, github.com에서만 받는 파일 등)만 HANDOFF·인계에 "확인 못 함, 개인 PC에서 필요"로 남기고, 개인 PC에서 pull해 마저 한다
 - **Claude는 루트(`D:\cp_workspace`)에서 열고** "`projects/<그룹>/<앱>`에서 작업한다"로 시작한다. 앱 폴더에서 열면 공식 문서 기준(2026-11-17 확인, PC에서 직접 시험은 아직)으로 이렇게 된다:
   - **빠진다**: 루트 `.claude/settings.json` — 실행한 폴더에서만 읽고 위로 찾지 않는다(settings 문서 "to use a file committed at the repository root, start Claude Code there"). 이 저장소의 **HUD 상태줄·git 동기화 hook·agent teams가 꺼진다**
   - **그대로 된다**: 저장소 스킬·에이전트(`.claude/skills`·`.claude/agents`를 저장소 루트까지 올라가며 찾음), 상위 CLAUDE.md(루트 → 그룹 → 앱), 자동 메모리(git 저장소 단위로 공유)

@@ -11,12 +11,14 @@
 
 | 패키지 | 용도 | 추가 설정 | 상태 |
 |---|---|---|---|
-| `flutter_tts` | 영어 발음(TTS) — Android·iOS | Android: `minSdkVersion` 21 이상, `AndroidManifest.xml`에 `<queries><intent><action android:name="android.intent.action.TTS_SERVICE"/></intent></queries>` (pub.dev 문서) | 추가·빌드 확인함(2026-11-18 사내망, 임시 프로젝트). manifest 설정·실제 발음은 **아직** |
-| `sqflite` | 기기 안 저장(학습 기록·오답 노트·진도) — Android·iOS | 없음 | 추가·빌드 확인함(같은 날). 실제 읽기·쓰기는 **아직** |
+| `flutter_tts` | 영어 발음(TTS) — Android·iOS | Android: `minSdkVersion` 21 이상, `AndroidManifest.xml`에 `<queries><intent><action android:name="android.intent.action.TTS_SERVICE"/></intent></queries>` (pub.dev 문서) | manifest 설정 포함 빌드 확인함(2026-11-18 사내망, 4단계 시험용 프로젝트, 기본 minSdk 24). 실제 발음은 **아직**. Kotlin 패키지라 아래 `kotlin.incremental=false` 필요, KGP 경고 있음(verify.md "함정") |
+| `sqflite` (+ `path`) | 기기 안 저장(학습 기록·오답 노트·진도) — Android·iOS | 없음 | 빌드 확인함(같은 날). 실제 읽기·쓰기는 **아직** |
 
 ```bash
-flutter pub add flutter_tts sqflite
+flutter pub add flutter_tts sqflite path
 ```
+
+`android/gradle.properties`에 `kotlin.incremental=false` — 프로젝트(D:)와 pub 캐시(C:)가 다른 드라이브라서. 이유는 [apps/SETUP.md](../../SETUP.md) "함정"
 
 ## 가상 기기
 
@@ -27,9 +29,9 @@ flutter pub add flutter_tts sqflite
 
 | 항목 | 사내망 PC (2026-11-18) | 개인 PC |
 |---|---|---|
-| 패키지 추가 + `flutter analyze`·`flutter test` | exit 0 (임시 프로젝트) | 아직 |
-| `flutter build apk --debug` | exit 0 (임시 프로젝트, 첫 빌드 약 29.5분) | 아직 |
-| 가상 기기 실행 · TTS 소리 | 확인 못 함(WHPX 꺼짐) | 아직 — 4단계 |
+| 패키지 추가 + `flutter analyze`·`flutter test` | exit 0 (4단계 시험용 프로젝트 `D:\dev\tmp\vocab_probe`) | 아직 |
+| `flutter build apk --debug` | exit 0 (`kotlin.incremental=false` 뒤) | 아직 |
+| 가상 기기 실행 · TTS 소리 | 확인 못 함(WHPX 꺼짐) | 아직 |
 | iOS | 보류 | 보류 |
 
-4단계 검증 기록은 [verify.md](verify.md)(아직 없음)에 둔다. 이 파일은 "무엇을 어떻게 설치·설정하나", verify.md는 "실제로 돌려 본 결과"다.
+4단계 검증 기록은 [verify.md](verify.md)에 둔다. 이 파일은 "무엇을 어떻게 설치·설정하나", verify.md는 "실제로 돌려 본 결과"다.

@@ -93,6 +93,7 @@ Gradle 배포 파일은 github.com으로 넘겨져 사내망에서 못 받는다
 - **`avdmanager`의 `devices.xml` 오류** — "Could not load devices from …devices.xml"이 떠도 기기는 정상 생성됐다(`flutter emulators`로 확인)
 - **첫 `flutter build apk`는 오래 걸린다**(약 29.5분) — Maven 의존성과 build-tools 36.0.0·NDK를 자동으로 받는다. 백그라운드로 돌린다
 - `sdkmanager`가 "deprecated, Android CLI(`android sdk`)를 쓰라"는 경고를 낸다 — 이번에는 그대로 동작했다
+- **프로젝트가 D:, pub 캐시가 C:면 Kotlin 플러그인 빌드가 실패한다** — `flutter_tts`처럼 Kotlin 코드가 있는 패키지에서 `:<패키지>:compileDebugKotlin`이 "Could not close incremental caches"로 실패(vocab 4단계). **새 Flutter 앱마다 `android/gradle.properties`에 `kotlin.incremental=false`를 넣는다**(넣은 뒤 빌드 exit 0). 원인은 드라이브가 다른 경로를 Kotlin 증분 캐시가 다루지 못하는 것으로 추정 — C: 드라이브 프로젝트는 이 설정 없이 성공했다. `projects/apps/`가 D:에 있으므로 모든 앱에 해당
 
 ## 정리할 것
 

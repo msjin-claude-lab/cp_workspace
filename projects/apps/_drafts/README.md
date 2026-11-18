@@ -4,7 +4,7 @@
 
 ## 진행 중
 
-- [vocab](vocab/README.md) — 영단어 앱(초·중·고). Flutter 선택, 4단계(검증) 대기 — 개인 PC에서
+- [vocab](vocab/README.md) — 영단어 앱(초·중·고). Flutter 선택, 4단계(검증) 진행 중 — 안드로이드 명령 통과, 기기 실행·iOS 남음
 
 ## 후보 (시작 안 함)
 
