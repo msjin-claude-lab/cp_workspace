@@ -25,7 +25,7 @@ disable-model-invocation: true
 ## 바꿀 때마다
 
 - 한글·백슬래시가 든 파일은 Edit/Write 도구로만 고친다(루트 CLAUDE.md "작업 규칙")
-- 스킬을 추가·삭제하거나 동작을 바꾸면 `plugin.json`의 `version`을 올린다(추가·동작 변경은 minor, 문구만 고치면 patch)
+- `plugin.json`의 `version`(2026-11-18 사용자 결정 — `new` 추가가 0.1.0, `config` 추가가 0.2.0): **스킬을 추가하거나 스킬이 완성되면** 가운데 수치를 올리고 마지막을 0으로(0.2.0 → 0.3.0). 만드는 중인 스킬을 고칠 때마다 **마지막 수치만** 올린다(0.2.1, 0.2.2, … 0.2.11)
 - 확인: `claude plugin validate plugins/apps`와 `claude plugin validate .`가 종료 코드 0, 고친 파일에 제어 문자(`\x00-\x08`) 0개. LICENSE·아이콘 경고는 공개 목록 등록용이라 무시한다
 - 반영: 원본 폴더를 그대로 읽으므로 재설치 없이 `/reload-plugins`. 화면에 뜨는지는 사용자 확인 전까지 "화면 확인 필요"로 보고한다
 - HANDOFF의 `/apps:` 플러그인 행에 무엇을 바꿨는지 한 줄 덧붙인다

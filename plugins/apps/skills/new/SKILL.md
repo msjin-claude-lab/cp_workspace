@@ -21,5 +21,26 @@ argument-hint: "[앱 아이디어]"
 | 1. 앱 정의 | **이 대화 안에서** Skill 도구로 `/oh-my-claudecode:deep-interview`를 호출한다. 인자는 `$ARGUMENTS`, 비어 있으면 "지금 상태"의 후보. 정할 것: 기능·화면·데이터·대상 플랫폼. 언어·플랫폼은 정하지 않는다 | 인터뷰가 끝나 명세가 나오고, 그 요약이 HANDOFF "앱" 절에 있다(`.omc/specs/`는 git에 안 올라가 다른 PC에서 못 본다) |
 | 2. 선택안 | `/oh-my-claudecode:research`로 그 앱에 맞는 언어·플랫폼 후보 2~4개를 장단점과 함께 조사한다. 사내망 PC의 `github.com` 차단, npm·Maven 가용(루트 CLAUDE.md "네트워크 제약")을 장단점에 넣는다 | 후보와 장단점이 HANDOFF에 있다 |
 | 3. 선택 | AskUserQuestion으로 사용자가 고른다 | 고른 것과 이유가 HANDOFF에 있다 |
-| 4. 검증 | **개인 PC에서만.** 먼저 `github.com` 접속 가능 여부로 PC를 판단한다. 사내망 PC면 진행하지 않고 "개인 PC에서 4단계 필요"로 기록하고 멈춘다. 개인 PC면 SDK 설치·빈 프로젝트 빌드·간단한 실행을 실제 명령으로 하고 `/oh-my-claudecode:verify`로 판정한다 | 명령과 종료 코드가 HANDOFF에 있다. 출력 문구만으로 통과라 하지 않는다 |
-| 5. 최종 결정 | `projects/apps/<앱>/`와 그 `CLAUDE.md`(빌드·테스트 명령)를 만들고, 저장소 `/verify` 스킬(`.claude/skills/verify`)이 그 앱 명령도 보도록 고친다. 앱 이름은 짧게(Windows 경로 260자) | 앱 폴더·CLAUDE.md가 있고 `/verify`가 그 앱을 확인한다 |
+| 4. 검증 | **개인 PC에서만.** 먼저 공통 기록(아래 "검증 기록")을 읽는다. 그다음 `github.com` 접속 가능 여부로 PC를 판단한다. 사내망 PC면 진행하지 않고 "개인 PC에서 4단계 필요"로 기록하고 멈춘다. 개인 PC면 SDK 설치·빈 프로젝트 빌드·간단한 실행을 실제 명령으로 하고 `/oh-my-claudecode:verify`로 판정한다 | 명령·종료 코드·겪은 함정이 HANDOFF에 있다. 출력 문구만으로 통과라 하지 않는다 |
+| 5. 최종 결정 | `projects/apps/<앱>/`와 그 `CLAUDE.md`(빌드·테스트 명령), `VERIFY.md`(아래 "검증 기록")를 만든다. VERIFY.md는 4단계 기록으로 채운다. 저장소 `/verify`(loan 전용)는 고치지 않는다. 앱 이름은 짧게(Windows 경로 260자) | 앱 폴더에 CLAUDE.md·VERIFY.md가 있고, VERIFY.md의 명령으로 `/oh-my-claudecode:verify`가 한 번 통과했다 |
+
+## 검증 기록 — `projects/apps/<앱>/VERIFY.md`
+
+앱 검증은 저장소 `/verify`가 아니라 **`/oh-my-claudecode:verify` + 이 기록**으로 한다. OMC verify를 부르기 전에 이 파일을 읽어 명령과 기대값을 넘기고, 끝나면 결과를 이 파일에 적는다. 자동으로 읽히지 않으므로 앱 `CLAUDE.md`에 "검증은 VERIFY.md를 읽고 `/oh-my-claudecode:verify`로"라고 한 줄 둔다.
+
+| 절 | 내용 |
+|---|---|
+| 명령 | 대상·명령(작업 위치)·통과 판정(종료 코드 + 새로 생긴 결과 파일)·걸린 시간 |
+| 기대값 | 테스트 개수 등. 늘어나면 고친다 |
+| 함정 | 실제로 겪은 것만, 날짜와 PC를 붙여 |
+| 명령으로 못 잡는 것 | 사람이 눈으로 볼 항목(화면, 기기 동작) |
+| 마지막 결과 | 날짜·PC·명령별 종료 코드·통과/실패/확인 못 함. 최근 것이 위 |
+
+### 공통 기록 — apps 전체에서 쓸 것
+
+| 어디 | 무엇을 | 언제 |
+|---|---|---|
+| `projects/apps/VERIFY.md` | 여러 앱에 해당하는 함정·환경·검증 방법(같은 SDK·플랫폼, Windows 경로 260자, 사내망 차단, 에뮬레이터 등). 형식은 앱 VERIFY.md에서 "기대값·마지막 결과"를 뺀 것. 공통 항목이 처음 생길 때 만든다 | 앱 검증을 끝낼 때마다 새로 적은 항목을 보고 "다른 앱에도 해당하나"를 판단해 옮긴다. 앱 VERIFY.md에는 그 항목 대신 링크를 둔다 |
+| OMC wiki (`/oh-my-claudecode:wiki`, 저장소 `wiki/`) | 그중 오래 쓸 교훈만 — 원인과 해결이 확인된 것 | 공통 기록에 옮긴 항목이 원인·해결까지 확인됐을 때. 그룹 VERIFY.md 항목에 wiki 페이지 링크를 단다 |
+
+읽는 순서(4단계 시작, 그리고 앱 검증 전): 그룹 `projects/apps/VERIFY.md` → `wiki_query`로 "apps 검증" 관련 페이지 → 앱 `VERIFY.md`.
