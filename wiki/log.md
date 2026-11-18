@@ -32,3 +32,7 @@
 - **Pages:** isbn.md
 - **Summary:** Created new page "결정 - 예약 기능은 ISBN 키 예약 대장으로 둔다"
 
+## [2026-11-18T01:14:47.302Z] ingest
+- **Pages:** session-log-2026-11-18-1423dfd8.md
+- **Summary:** Auto-captured session log for 53e3af40-a626-4b2e-acdf-e4891ecf1661 (omc-wiki-capture:1b661c75b218872b67888af4673870a7dd5125d087f9b93755fbe2b3d4062601)
+
