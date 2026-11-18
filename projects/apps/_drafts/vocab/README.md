@@ -4,15 +4,15 @@
 
 ## 인계 — 새 세션은 여기부터 읽는다
 
-- 지금 단계: **3. 선택 (대기)** — 2단계(선택안) 완료 · 2026-11-18 사내망 PC
-- 멈춘 곳: `options.md`에 후보 4개(Expo·Flutter·KMP·.NET MAUI)와 장단점까지. 아직 고르지 않음
-- 다음 할 일: `/apps:selection-subject vocab` → 3단계 AskUserQuestion으로 고르고, 고른 것과 이유를 `options.md` "3단계" 절에. 고르기 전에 유료 Apple Developer Program(연 $99) 가입 여부를 정한다
-- 주의할 것: 어느 후보든 실제 아이폰 설치에는 유료 Apple 계정 또는 Mac이 필요하다(`options.md` "먼저 알아 둘 것"). 사내망 PC 설치 가능 여부는 어느 후보도 시험하지 않음. 4단계(검증)는 개인 PC에서만
+- 지금 단계: **4. 검증 (대기 — 개인 PC에서 4단계 필요)** — 3단계(선택) 완료: **Flutter** · 2026-11-18 사내망 PC
+- 멈춘 곳: `options.md` "3단계"에 Flutter와 이유까지. 사내망 PC(github.com 접속 시간 초과)라 4단계는 시작하지 않음
+- 다음 할 일: **개인 PC에서** `/apps:selection-subject vocab` → 4단계. 그룹 `projects/apps/VERIFY.md`(아직 없음)·wiki 확인 → Flutter SDK(zip)·Android Studio 설치, `flutter doctor`, 빈 프로젝트 `flutter create`·`flutter test`·`flutter build apk`, 에뮬레이터 실행을 실제 명령으로 → `/oh-my-claudecode:verify`로 판정 → `verify.md`에 안드로이드·iOS 따로 기록
+- 주의할 것: **iOS는 보류**(사용자 결정 — 무료 위주, Apple 계정·Mac은 나중에 정함). 4단계는 "안드로이드 통과, iOS 확인 못 함"으로 기록하고, 규칙상 iOS까지 확인되기 전에는 4단계 통과·5단계 진행이 아님. 사내망 PC에서는 Flutter SDK를 버전 고정 zip으로만(추정 — 설치 시 확인)
 
 ## 파일
 
 - [spec.md](spec.md) — 1단계 명세(deep-interview 원본 `.omc/specs/deep-interview-vocab.md` 복사)
-- [options.md](options.md) — 2단계 후보 4개와 장단점(3단계에서 고른 것과 이유를 덧붙임)
+- [options.md](options.md) — 2단계 후보 4개와 장단점, 3단계에서 고른 것(Flutter)과 이유
 - `verify.md` — 아직 없음(4단계)
 
 ## 진행 이력
@@ -23,3 +23,5 @@
 - 2026-11-18 사내망 · 수정 · 주제 폴더 방식으로 옮김 — 명세를 `spec.md`로 복사, 진행 상태를 이 README로. HANDOFF·`projects/apps/CLAUDE.md`의 vocab 내용은 정리
 - 2026-11-18 사내망 · 수정 · README에 "인계" 절을 둠(주제 인계 규칙). 다음 할 일은 `/apps:selection-subject vocab`로
 - 2026-11-18 사내망 · 2단계 완료 · `/apps:selection-subject vocab` → `/oh-my-claudecode:research`(공식 문서 조사 2갈래)로 후보 4개(Expo·Flutter·KMP·.NET MAUI)와 장단점을 `options.md`에. 어느 쪽이든 아이폰 설치에 유료 Apple 계정 또는 Mac 필요
+- 2026-11-18 사내망 · 3단계 완료 · **Flutter** 선택. 전제: 무료 위주, 안드로이드 먼저·iOS 보류, 모바일만, 나중에 2D 게임(Flame), AI로 개발. 사용 추세·RN 차이·카드 뒤집기 등을 비교한 뒤 정함(`options.md` "3단계")
+- 2026-11-18 사내망 · 4단계 멈춤 · github.com 접속 시간 초과로 사내망 PC 판단 → 개인 PC에서 4단계 필요
