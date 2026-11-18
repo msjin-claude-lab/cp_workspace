@@ -30,6 +30,7 @@ projects/
 ```
 
 - CLAUDE.md는 작업 위치에서 위로 올라가며 읽히므로 규칙이 **루트 → 그룹 → 앱** 순으로 겹친다. 같은 내용은 가장 위 한 곳에만 쓴다
+- **환경·검증 기록(`SETUP.md`, `VERIFY.md` 등)도 해당 범위에 맞는 층에 둔다(2026-11-18 사용자 결정)**: `projects/` 아래 모든 프로젝트에 해당 → `projects/` 바로 아래, 그룹 공통 → `projects/<그룹>/`, 그 앱·주제만 → 앱(주제) 폴더. 아래 층 내용이 더 넓게 해당하게 되면 위로 옮기고 아래에는 링크만 남긴다. 지금: [projects/SETUP.md](projects/SETUP.md) → [projects/apps/SETUP.md](projects/apps/SETUP.md) → `_drafts/<주제>/setup.md`
 - **그룹 `CLAUDE.md`는 공통 규칙이 생길 때 만든다.** 내용 없는 CLAUDE.md도 그 아래 작업 때마다 읽히므로, 그전에는 `.gitkeep`만 둔다. `projects/apps/CLAUDE.md`에는 앱 공통 규칙(새 앱 시작 순서: 앱 정의 → 선택안 → 선택 → 검증 → 최종 결정)이 있다
 - **검증 명령은 앱마다** 그 앱 CLAUDE.md에 적는다. 저장소 `/verify` 스킬(`.claude/skills/verify`)은 지금 `projects/loan` 전용이라, 앱이 생기면 각 앱 명령을 참조하도록 고친다
 - **git은 저장소 하나로 시작한다.** 배포 주기·공개 범위가 다른 앱만 나중에 분리한다(분리해도 OMC 상태는 위 앵커 덕에 루트에 모인다)

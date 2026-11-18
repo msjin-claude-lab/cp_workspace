@@ -1,6 +1,8 @@
 # 앱 개발 환경 구성 가이드 (Flutter · Android)
 
-`projects/apps/` 아래 모든 앱이 쓰는 개발 환경이다. 도구 선택 근거는 [_drafts/vocab/options.md](_drafts/vocab/options.md) "3단계" — Flutter, 안드로이드 먼저, iOS 보류.
+`projects/apps/` 아래 모든 앱이 쓰는 **공통** 개발 환경이다. 앱이 아닌 프로젝트까지 해당하는 내용(github.com 파일, Gradle, `!` 입력)은 한 층 위 [projects/SETUP.md](../SETUP.md)에 있다. 앱(주제)마다 다른 것 — 패키지, 패키지별 설정, 가상 기기, 확인 상태 — 은 주제 폴더의 `setup.md`(완성된 앱은 앱 폴더 `SETUP.md`)에 둔다. 예: [_drafts/vocab/setup.md](_drafts/vocab/setup.md). 여러 앱에 해당하게 된 항목은 이 파일로 옮긴다(VERIFY.md와 같은 방식).
+
+도구 선택 근거는 [_drafts/vocab/options.md](_drafts/vocab/options.md) "3단계" — Flutter, 안드로이드 먼저, iOS 보류.
 
 - **기준 PC**: 사내망 PC(Windows 11)에서 2026-11-18에 실제로 설치·확인했다. "확인함"이 붙은 것만 실제로 실행한 것이다
 - **개인 PC**: 아직 이 순서로 설치하지 않았다. github.com이 열려 있으므로 "사내망만" 표시된 우회는 필요 없을 것(추정)
@@ -69,18 +71,7 @@ Enable-WindowsOptionalFeature -Online -FeatureName HypervisorPlatform
 
 ### 5. Gradle — 사내망만, 확인함
 
-Flutter의 안드로이드 빌드는 Gradle 래퍼가 `services.gradle.org/distributions/gradle-<버전>-all.zip`을 받는데, 이 주소가 **github.com으로 넘겨진다(307)** → 사내망에서 막힌다.
-
-1. 필요한 버전: 프로젝트의 `android/gradle/wrapper/gradle-wrapper.properties` `distributionUrl`
-2. 공식 sha256: `https://services.gradle.org/distributions/gradle-<버전>-all.zip.sha256` (이건 사내망에서 받아진다)
-3. zip은 **사내망 밖에서** 받아 온다
-4. 래퍼 캐시에 넣는다 — 폴더 이름은 `distributionUrl` 문자열의 MD5를 36진수로 바꾼 것:
-   ```bash
-   node -e 'const c=require("crypto");const d=c.createHash("md5").update("https://services.gradle.org/distributions/gradle-9.5.0-all.zip").digest("hex");console.log(BigInt("0x"+d).toString(36))'
-   # → aca6g93cdtcf0oapcfka748qh
-   cp gradle-9.5.0-all.zip ~/.gradle/wrapper/dists/gradle-9.5.0-all/<위 값>/
-   ```
-   그 폴더에 실패한 빌드가 남긴 `.part`·`.lck`가 있으면 지운다. 이렇게 하면 프로젝트마다 설정을 고치지 않아도 된다
+Gradle 배포 파일은 github.com으로 넘겨져 사내망에서 못 받는다 — 받아 오는 법과 래퍼 캐시에 넣는 법은 모든 Gradle 프로젝트 공통이라 [projects/SETUP.md](../SETUP.md) "Gradle 배포 파일"에 있다. Flutter에서 필요한 버전은 `android/gradle/wrapper/gradle-wrapper.properties`의 `distributionUrl`(Flutter 3.50.0 템플릿은 `gradle-9.5.0-all`, 사내망 PC 캐시에 넣어 둠)
 
 ## 확인 (새 PC나 업데이트 뒤)
 
@@ -96,10 +87,9 @@ Flutter의 안드로이드 빌드는 Gradle 래퍼가 `services.gradle.org/distr
 
 ## 함정 (실제로 겪은 것, 2026-11-18 사내망 PC)
 
-- **Gradle 배포 파일이 github.com으로 리다이렉트** → 위 5번. `downloads.gradle.org`도 같다
+- 모든 프로젝트 공통 함정(github.com 리다이렉트, Gradle 배포 파일, `!` 입력은 bash)은 [projects/SETUP.md](../SETUP.md)
 - **`flutter doctor --android-licenses`가 "Unable to locate Android SDK"** — SDK 폴더에 `platform-tools`가 없으면 Flutter가 SDK로 인식하지 않는다(추정). `sdkmanager --licenses`나 위 3번처럼 동의한다
 - **라이선스를 따로 동의해도 설치 때 다시 묻는다** — `--licenses`로 동의한 뒤 `yes` 없이 설치했더니 "licenses … were not accepted"로 아무것도 설치되지 않았다(exit 0인데도). 동의와 설치를 한 명령으로
-- **Claude Code의 `!` 입력은 bash다** — PowerShell 문법(`$env:`, 백슬래시 경로)은 안 된다. PowerShell 명령은 바깥 PowerShell 창에서
 - **`avdmanager`의 `devices.xml` 오류** — "Could not load devices from …devices.xml"이 떠도 기기는 정상 생성됐다(`flutter emulators`로 확인)
 - **첫 `flutter build apk`는 오래 걸린다**(약 29.5분) — Maven 의존성과 build-tools 36.0.0·NDK를 자동으로 받는다. 백그라운드로 돌린다
 - `sdkmanager`가 "deprecated, Android CLI(`android sdk`)를 쓰라"는 경고를 낸다 — 이번에는 그대로 동작했다

@@ -8,7 +8,7 @@
 - 주제 목록·진행 보기: `/apps:view-subjects` (주제를 주면 자세히: `/apps:view-subjects vocab`)
 - 주제 골라 이어 가기: `/apps:selection-subject [주제]` (주제 없이 부르면 목록 + 신규 주제 시작)
 - 새 주제 시작: `/apps:new <주제>`
-- 개발 환경(Flutter·Android SDK) 설치·확인·함정: [SETUP.md](SETUP.md)
+- 개발 환경: 공통은 [SETUP.md](SETUP.md)(Flutter·Android SDK 설치·확인·함정), 주제별은 `_drafts/<주제>/setup.md`(그 앱의 패키지·설정·가상 기기). 5단계에서 앱 폴더 `SETUP.md`로 옮긴다
 
 ## 주제별 기록 — `_drafts/<주제>/` (2026-11-18 사용자 결정)
 
