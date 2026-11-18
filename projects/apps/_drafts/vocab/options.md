@@ -72,4 +72,4 @@
   - KMP·.NET MAUI — 모바일만 만들면 이점이 없고, Windows에서 iOS 길이 더 막힘
 - 감수할 것:
   - 사내망 PC는 SDK를 버전 고정 zip으로만 쓴다(`flutter upgrade`가 github.com에 걸릴 것으로 추정). 사내망 PC는 원래 코드 수정만 하므로 영향이 작다
-  - iOS는 Mac(무료 Apple ID, 7일 재설치) 또는 유료 Apple 계정 + Codemagic이 생길 때까지 "확인 못 함"
+  - iOS는 Mac(무료 Apple ID, 7일 재설치) 또는 유료 Apple 계정 + Codemagic이 생길 때까지 "확인 못 함" — **잠정 보류, 추후 지시까지 안드로이드만으로 5단계까지 진행**(2026-11-18 사용자 결정)
