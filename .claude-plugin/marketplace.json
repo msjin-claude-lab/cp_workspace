@@ -1,0 +1,12 @@
+{
+  "name": "cp-workspace",
+  "description": "cp_workspace 저장소 전용 로컬 플러그인",
+  "owner": { "name": "msjin-claude-lab" },
+  "plugins": [
+    {
+      "name": "apps",
+      "source": "./plugins/apps",
+      "description": "cp_workspace 앱 그룹(projects/apps) 작업용 스킬"
+    }
+  ]
+}
