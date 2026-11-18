@@ -1,6 +1,6 @@
 # 이어서 작업하기
 
-마지막 갱신: 2026-11-17 (사내망 PC)
+마지막 갱신: 2026-11-18 (사내망 PC)
 
 워크스페이스 구성은 끝났다. 이 문서는 **다음에 이어서 할 일**과 **중단된 작업의 조사 결과**만 담는다.
 환경 사실·규칙은 [CLAUDE.md](CLAUDE.md), 연습 과제는 [projects/loan/PRACTICE.md](projects/loan/PRACTICE.md)에 있다.
@@ -15,7 +15,7 @@
 | Claude Code 설정 | 프로젝트 `.claude/settings.json`에 둠 — agent teams, HUD 상태바, hook. 모든 PC 공통 ([CLAUDE.md의 "PC 간 이어가기"](CLAUDE.md#pc-간-이어가기--설정작업진행-현황)) |
 | 연습 프로젝트 | `projects/loan/` — **과제 1~9 모두 완료**(2026-11-13~17). 컴파일 타깃은 Java 21 |
 | `mvn -q test` | **41개 모두 통과** (과제 9 완료 후. 연체료 6 + 대출·반납 13 + 연장 10 + 관리자 12) |
-| 앱 (`projects/apps/`) | 그룹·공통 규칙만 있음. **다음: 1단계 만들 앱 정하기** — 아래 "앱" 절, [projects/apps/CLAUDE.md](projects/apps/CLAUDE.md) |
+| 앱 (`projects/apps/`) | **영단어 앱 1단계(앱 정의) 완료**(2026-11-18). **다음: 2단계 선택안** — 아래 "앱" 절, [projects/apps/CLAUDE.md](projects/apps/CLAUDE.md) |
 
 ## 연습 과제 진행 ([PRACTICE.md](projects/loan/PRACTICE.md))
 
@@ -137,12 +137,23 @@
 시작 기준은 [projects/apps/CLAUDE.md](projects/apps/CLAUDE.md)(시작하는 법·지금 상태·순서). 여기에는 단계별 자세한 기록만 쌓는다.
 
 - 2026-11-17 사내망 PC: `projects/apps/` 그룹과 공통 규칙(새 앱 시작 순서 5단계, PC 역할) 마련. 앱은 아직 없음 — **1단계(만들 앱 정하기) 대기**. 이야기된 후보: 캘린더형·기록형(먼저), 게임형(나중). 언어·플랫폼은 1단계 뒤에 선택안으로 제시(참고로 비교했던 것: Flutter·React Native/Expo·Kotlin Multiplatform — 결정 아님)
+- 2026-11-18 사내망 PC: **1단계 완료 — 영단어 앱(초·중·고)**. `/apps:new` → `/oh-my-claudecode:deep-interview` 7라운드, 모호도 약 19%(기준 20%, 기본값). 명세 원본 `.omc/specs/deep-interview-vocab.md`는 git에 안 올라가므로 요약을 여기 둔다
+  - **대상·플랫폼**: 초·중·고 학생, 안드로이드·iOS 둘 다
+  - **단어 데이터**: 학교급(초/중/고) × 난이도(하/중/상) = 9칸(학년별 구분 없음). 단어·뜻·예문·칸 배정은 Claude가 만들어 앱에 내장(인터넷 불필요). 예문은 새로 써서 저작권 회피, 칸마다 표본을 사용자가 확인
+  - **내 단어장**: 여러 개 만들 수 있음. 영단어 + 뜻(예문 선택). 학습·시험·오답 노트를 기본 단어와 똑같이 씀. 시험은 4개 이상부터
+  - **학습**: 칸 선택 → 카드(앞: 영단어 + 발음 TTS, 뒤: 뜻 + 예문) → '안다/모른다'. '모른다'는 오답 노트로
+  - **시험**: 4지선다, 영→뜻·뜻→영 두 방향. 오답 3개는 같은 칸에서. 답한 뒤 정답·예문 표시, 틀리면 오답 노트로
+  - **진도**: 폰 안에만 저장, **계정 없음**(서버·14세 미만 부모 동의 불필요). 칸별 외운 수/전체 + 오답 수('외웠다' = 시험에서 맞힘, 틀리면 해제), 날짜별 공부 수·맞힌 수·연속 학습일
+  - **플랫폼별 기능**: TTS만(양쪽 지원, 음질은 기기마다 다름). 알림·위젯·백그라운드·로그인 없음
+  - **범위 밖**: 계정·동기화, 철자 쓰기·발음 듣고 고르기, 간격 반복, 복습 알림
+  - **첫 버전 완성 기준**: 9칸 × 50단어 = 450개, 카드 학습 → 4지선다 → 오답 노트 → 진도(칸별·날짜별)가 안드로이드·iOS 양쪽에서 끝까지 동작, 내 단어장 생성·추가·학습·시험 가능
+  - **다음(2단계)**: `/oh-my-claudecode:research`로 양쪽 지원 후보 2~4개 — iOS 빌드의 macOS 필요 여부와 Windows 대안(클라우드 빌드), TTS 지원, 사내망 github.com 차단을 장단점에 넣는다
 
 ## 남은 일
 
 | 할 일 | 사내망 PC | 개인 PC |
 |---|---|---|
-| **앱 1단계 — 만들 앱 정하기** ([projects/apps/CLAUDE.md](projects/apps/CLAUDE.md)) | 어느 PC에서든 가능(이야기만) | 〃 |
+| **앱 2단계 — 영단어 앱 선택안**(`/apps:new` → `/oh-my-claudecode:research`, [projects/apps/CLAUDE.md](projects/apps/CLAUDE.md)) | 어느 PC에서든 가능(조사만) | 〃 |
 | `/apps:` 플러그인 — **스킬은 필요할 때마다 하나씩 만든다(2026-11-18 사용자 결정).** 2026-11-18 사내망 PC에서 플러그인 `apps`와 빈 스킬 `new`(내용은 나중에 채움)를 만들어 설치함: `plugins/apps/.claude-plugin/plugin.json` + `plugins/apps/skills/new/SKILL.md` + 루트 `.claude-plugin/marketplace.json`(마켓플레이스 `cp-workspace`). 둘 다 `claude plugin validate` 통과. **설치(PC마다 한 번, 루트에서)**: `claude plugin marketplace add ./`(`.`만 쓰면 `Invalid marketplace source format`) → `claude plugin install apps@cp-workspace`. 원본 폴더를 그대로 읽으므로(`Read from: D:\cp_workspace\plugins\apps`) 스킬 수정은 재설치 없이 다음 세션·`/reload-plugins`로 반영. 개인 범위(user), `claude plugin uninstall apps@cp-workspace`로 삭제. **2026-11-18 `new` 내용 채움(v0.2.0)**: `projects/apps/CLAUDE.md` 5단계를 "지금 상태"부터 한 단계씩 진행 — 1단계는 같은 대화에서 `/oh-my-claudecode:deep-interview`, 2단계 `/oh-my-claudecode:research`, 4단계는 개인 PC에서만. **2026-11-18 `config` 추가(v0.3.0)**: `/apps:config`를 부른 때부터 종료 지시("config 종료")까지 apps 플러그인 관리만 하는 모드. 자동 호출 막음(`disable-model-invocation`). **2026-11-18 버전 규칙 변경 — 지금 0.2.0**: `new` 추가 = 0.1.0, `config` 추가 = 0.2.0. 스킬 추가·완성은 가운데 수치, 만드는 중인 스킬 수정은 마지막 수치만(0.2.1, 0.2.2 …)(`/apps:config`에 적음). 앞의 v0.2.0·v0.3.0 표기는 이 규칙 전의 것. 같은 날 `new` 수정: 앱 검증은 저장소 `/verify` 대신 `/oh-my-claudecode:verify` + 앱별 `projects/apps/<앱>/VERIFY.md`(명령·기대값·함정·마지막 결과) — `/apps:new` 4·5단계 수정. 여러 앱에 해당하는 것은 검증을 끝낼 때마다 그룹 `projects/apps/VERIFY.md`로 옮기고(첫 공통 항목이 생길 때 만듦), 원인·해결이 확인된 교훈은 OMC wiki에도 올린다. **0.2.1**: 모든 앱은 안드로이드·iOS 호환(둘 다 동작) — `/apps:new` 1·2·4단계에 반영(2단계는 양쪽 지원 후보만, 4단계는 양쪽 따로 확인, Windows에서 iOS 못 하면 "확인 못 함") | 설치함, `new` 채움, `config` 추가 · `/reload-plugins` 후 `/apps:new`·`/apps:config` 화면 확인 필요 | 설치 필요 |
 | 루트 `CLAUDE.md` "앱을 여러 개 만들 때"의 "`/verify`는 … 앱이 생기면 각 앱 명령을 참조하도록 고친다" 줄 — 위 v0.4.0 결정(앱은 OMC verify + `VERIFY.md`, `/verify`는 loan 전용)과 어긋남. apps 플러그인 관리 세션 범위 밖이라 남겨 둠(2026-11-18) | 고칠 것 | 〃 |
 | OMC npm 복사본이 플러그인과 겹치는지 확인 | 완료 (2026-11-17, 아래 기록) | **확인 필요** |
