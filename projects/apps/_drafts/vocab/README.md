@@ -7,7 +7,7 @@
 - 지금 단계: **4. 검증 (대기 — 개인 PC에서 4단계 필요)** — 3단계(선택) 완료: **Flutter** · 2026-11-18 사내망 PC
 - 멈춘 곳: `options.md` "3단계"에 Flutter와 이유까지. 사내망 PC(github.com 접속 시간 초과)라 4단계는 시작하지 않음
 - 다음 할 일: **개인 PC에서** `/apps:selection-subject vocab` → 4단계. 그룹 `projects/apps/VERIFY.md`(아직 없음)·wiki 확인 → Flutter SDK(zip)·Android Studio 설치, `flutter doctor`, 빈 프로젝트 `flutter create`·`flutter test`·`flutter build apk`, 에뮬레이터 실행을 실제 명령으로 → `/oh-my-claudecode:verify`로 판정 → `verify.md`에 안드로이드·iOS 따로 기록
-- 주의할 것: **iOS는 보류**(사용자 결정 — 무료 위주, Apple 계정·Mac은 나중에 정함). 4단계는 "안드로이드 통과, iOS 확인 못 함"으로 기록하고, 규칙상 iOS까지 확인되기 전에는 4단계 통과·5단계 진행이 아님. 사내망 PC에서는 Flutter SDK를 버전 고정 zip으로만(추정 — 설치 시 확인)
+- 주의할 것: **iOS는 보류**(사용자 결정 — 무료 위주, Apple 계정·Mac은 나중에 정함). 4단계는 "안드로이드 통과, iOS 확인 못 함"으로 기록하고, 규칙상 iOS까지 확인되기 전에는 4단계 통과·5단계 진행이 아님. 사내망 PC에는 Flutter 3.50.0을 zip으로 설치함(`D:\dev\flutter`, 사용자 PATH). 거기서는 `flutter upgrade` 대신 새 zip으로 바꾼다. `flutter doctor`의 "Network resources ✗(github.com)"는 사내망 차단이라 무시. 안드로이드 SDK는 사내망 PC에 없음
 
 ## 파일
 
@@ -25,3 +25,4 @@
 - 2026-11-18 사내망 · 2단계 완료 · `/apps:selection-subject vocab` → `/oh-my-claudecode:research`(공식 문서 조사 2갈래)로 후보 4개(Expo·Flutter·KMP·.NET MAUI)와 장단점을 `options.md`에. 어느 쪽이든 아이폰 설치에 유료 Apple 계정 또는 Mac 필요
 - 2026-11-18 사내망 · 3단계 완료 · **Flutter** 선택. 전제: 무료 위주, 안드로이드 먼저·iOS 보류, 모바일만, 나중에 2D 게임(Flame), AI로 개발. 사용 추세·RN 차이·카드 뒤집기 등을 비교한 뒤 정함(`options.md` "3단계")
 - 2026-11-18 사내망 · 4단계 멈춤 · github.com 접속 시간 초과로 사내망 PC 판단 → 개인 PC에서 4단계 필요
+- 2026-11-18 사내망 · 수정 · 사용자 요청으로 사내망 PC에 Flutter 3.50.0 stable을 zip으로 설치(storage.googleapis.com, sha256 일치, `D:\dev\flutter`, 사용자 PATH 추가). 임시 프로젝트로 `flutter create`·`pub add flutter_tts sqflite`·`analyze`·`test` 모두 exit 0. 안드로이드 SDK 없음 — 4단계(안드로이드 빌드·에뮬레이터)는 여전히 개인 PC
