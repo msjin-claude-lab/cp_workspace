@@ -143,7 +143,7 @@
 | 할 일 | 사내망 PC | 개인 PC |
 |---|---|---|
 | **앱 1단계 — 만들 앱 정하기** ([projects/apps/CLAUDE.md](projects/apps/CLAUDE.md)) | 어느 PC에서든 가능(이야기만) | 〃 |
-| `/apps:` 플러그인 스킬 — **필요할 때마다 하나씩 만든다(2026-11-18 사용자 결정).** 지금은 만들지 않음. 방법(공식 문서 확인, PC에서 시험은 아직): `plugins/apps/.claude-plugin/plugin.json`(`"name": "apps"`) + `plugins/apps/skills/<스킬>/SKILL.md` + 루트 `.claude-plugin/marketplace.json`(source `./plugins/apps`) → PC마다 `claude plugin marketplace add .` · `claude plugin install apps@<마켓플레이스>`. 로컬 경로 마켓플레이스라 스킬 수정은 재설치 없이 다음 세션·`/reload-plugins`로 반영. 개인 범위 설치, `claude plugin uninstall`로 삭제 | 필요 시 | 필요 시 |
+| `/apps:` 플러그인 — **스킬은 필요할 때마다 하나씩 만든다(2026-11-18 사용자 결정).** 2026-11-18 사내망 PC에서 플러그인 `apps`와 빈 스킬 `new`(내용은 나중에 채움)를 만들어 설치함: `plugins/apps/.claude-plugin/plugin.json` + `plugins/apps/skills/new/SKILL.md` + 루트 `.claude-plugin/marketplace.json`(마켓플레이스 `cp-workspace`). 둘 다 `claude plugin validate` 통과. **설치(PC마다 한 번, 루트에서)**: `claude plugin marketplace add ./`(`.`만 쓰면 `Invalid marketplace source format`) → `claude plugin install apps@cp-workspace`. 원본 폴더를 그대로 읽으므로(`Read from: D:\cp_workspace\plugins\apps`) 스킬 수정은 재설치 없이 다음 세션·`/reload-plugins`로 반영. 개인 범위(user), `claude plugin uninstall apps@cp-workspace`로 삭제 | 설치함, `/apps:new` 화면 확인 필요 · `new` 내용 채우기 | 설치 필요 |
 | OMC npm 복사본이 플러그인과 겹치는지 확인 | 완료 (2026-11-17, 아래 기록) | **확인 필요** |
 | `/triage`·`/to-java21` 명령 파일(`~/.claude/commands/`)이 있는지 | 있음 | **확인 필요** — 없으면 과제 8 재연습 불가 |
 | HUD 눈으로 확인 — 1줄 `ctx \| 모델 \| git \| 계정 이메일`, 2줄 `⠀5H·WK·Fable`(10칸) | 완료 (2026-11-17) | 남음 — pull 후 상태줄 확인 |
