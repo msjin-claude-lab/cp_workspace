@@ -6,7 +6,7 @@
 
 - 지금 단계: **4. 검증 (진행 중 — 안드로이드 명령 통과, 기기 실행·iOS 남음)** · 2026-11-18 사내망 PC
 - 멈춘 곳: 사내망 PC에서 4단계를 할 수 있는 데까지 함 — `verify.md` "마지막 결과": doctor·analyze·test·build apk 통과(`/oh-my-claudecode:verify`), 에뮬레이터 실행·화면·TTS 소리는 WHPX가 꺼져 확인 못 함, iOS 보류
-- 다음 할 일: 기기 실행 확인 — **개인 PC**에서(또는 사내망 PC에서 WHPX를 켠 뒤) `/apps:selection-subject vocab` → 4단계 이어서: `setup.md`대로 시험용 프로젝트 준비 → `flutter emulators --launch vocab_api36` → `flutter run`으로 화면·TTS 소리 확인 → `verify.md`에 PC를 밝혀 기록. 개인 PC는 설치부터(세 층 SETUP.md)
+- 다음 할 일: 기기 실행 확인 — **에뮬레이터로만**(폰 연결 안 함, 사용자 결정). WHPX가 켜진 PC에서 — 개인 PC, 또는 사내망 PC에서 WHPX를 켜고 재부팅한 뒤 `/apps:selection-subject vocab` → 4단계 이어서: `setup.md`대로 시험용 프로젝트 준비 → `flutter emulators --launch vocab_api36` → `flutter run`으로 화면·TTS 소리 확인 → `verify.md`에 PC를 밝혀 기록. 개인 PC는 설치부터(세 층 SETUP.md)
 - 주의할 것: **iOS는 잠정 보류 — 추후 지시가 있을 때까지 안드로이드만으로 5단계까지 진행**(2026-11-18 사용자 결정). 안드로이드 기기 실행이 확인되면 4단계를 "안드로이드 통과, iOS 잠정 보류"로 닫고 5단계로 간다. 코드는 iOS도 지원하는 패키지만 쓰고, iOS 확인은 앱의 남은 일로 넘긴다. **새 Flutter 프로젝트마다 `android/gradle.properties`에 `kotlin.incremental=false`**(D:·C: 드라이브 문제, apps/SETUP.md). 사내망 PC에는 Flutter 3.50.0을 zip으로 설치함(`D:\dev\flutter`, 사용자 PATH). 거기서는 `flutter upgrade` 대신 새 zip으로 바꾼다. `flutter doctor`의 "Network resources ✗(github.com)"는 사내망 차단이라 무시. 사내망 PC에는 Android Studio(`D:\dev\android-studio`)·SDK 36(`D:\dev\android-sdk`, `ANDROID_HOME`)·가상 기기 `vocab_api36`도 있고 `flutter build apk` 됨. 단 **Gradle 배포 파일은 github.com으로 넘겨져 사내망에서 못 받는다** — 새 Gradle 버전이 필요하면 사내망 밖에서 받아 `~/.gradle/wrapper/dists/<이름>/<해시>/`에 넣는다(지금 9.5.0 넣어 둠). 에뮬레이터 실행은 WHPX를 켜야 함(지금 꺼짐)
 
 ## 파일
@@ -31,3 +31,4 @@
 - 2026-11-18 사내망 · 수정 · 개발 환경 가이드를 두 층으로 — 공통 `projects/apps/SETUP.md`, 주제별 `setup.md`(vocab 패키지·설정·가상 기기·확인 상태)
 - 2026-11-18 사내망 · 4단계 시작 · 사용자 결정으로 사내망 PC에서도 가능한 데까지 진행. 시험용 프로젝트 `D:\dev\tmp\vocab_probe`(flutter_tts·sqflite·TTS manifest). doctor·analyze·test exit 0, build apk는 Kotlin 증분 캐시 실패(D:·C: 드라이브) → `kotlin.incremental=false` 뒤 exit 0. `/oh-my-claudecode:verify`(verifier) 안드로이드 명령 통과. 기기 실행·TTS 소리(WHPX 꺼짐)·iOS(보류) 확인 못 함 → 4단계 통과 아님, `verify.md`
 - 2026-11-18 사내망 · 수정 · iOS 잠정 보류 — 추후 지시까지 안드로이드만으로 5단계까지 진행(사용자 결정). 4단계는 안드로이드 기기 실행 확인으로 닫는다
+- 2026-11-18 사내망 · 4단계 멈춤 · 기기 실행 확인 시도 — WHPX 여전히 꺼짐, 연결 기기 없음. 사용자 결정: 실제 폰은 앞으로도 연결 안 함 → 에뮬레이터로만(WHPX 켠 PC에서)
