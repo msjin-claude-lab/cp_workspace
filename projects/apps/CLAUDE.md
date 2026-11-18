@@ -5,7 +5,7 @@
 ## 시작하는 법
 
 - Claude Code는 **저장소 루트**에서 연다(앱 폴더에서 열면 HUD·hook 설정이 빠진다 — 루트 CLAUDE.md "앱을 여러 개 만들 때")
-- 첫 입력: `projects/apps/CLAUDE.md 를 읽고 앱 작업을 이어서 한다.`
+- 첫 입력: `projects/apps/CLAUDE.md 를 읽고 앱 작업을 이어서 한다.` — 또는 `/apps:new <앱 아이디어>`(이 파일을 읽고 "지금 상태"의 단계를 진행하는 스킬, `plugins/apps/skills/new`)
 - 읽은 뒤 아래 **"지금 상태"**의 단계부터 이어 간다. 단계 하나를 끝낼 때마다 "지금 상태"를 고치고, 자세한 기록은 루트 `HANDOFF.md`의 "앱" 절에 남긴다
 
 ## 지금 상태
