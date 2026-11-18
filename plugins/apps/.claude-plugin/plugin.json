@@ -1,6 +1,6 @@
 {
   "name": "apps",
   "description": "cp_workspace 앱 그룹(projects/apps) 작업용 스킬",
-  "version": "0.2.1",
+  "version": "0.4.0",
   "author": { "name": "msjin-claude-lab" }
 }

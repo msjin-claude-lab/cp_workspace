@@ -17,7 +17,7 @@ cp-workspace/
 
 ### 앱을 여러 개 만들 때 — `projects/<그룹>/<앱>/` (2026-11-17 정함. 첫 그룹 `projects/apps/`, 아직 만든 앱 없음)
 
-> **앱 작업을 할 때는 먼저 [projects/apps/CLAUDE.md](projects/apps/CLAUDE.md)를 읽는다.** 시작하는 법, 지금 상태(어느 단계인지), 시작 순서가 그 파일에 있다. 하위 폴더 CLAUDE.md는 그 폴더 파일을 건드릴 때에야 자동으로 읽히므로, 앱 작업 요청을 받으면 바로 직접 읽는다.
+> **앱 작업을 할 때는 먼저 [projects/apps/CLAUDE.md](projects/apps/CLAUDE.md)를 읽는다.** 시작하는 법과 시작 순서가 그 파일에 있다. 주제별 진행 상태는 `projects/apps/_drafts/<주제>/`에 있고 `/apps:view-subjects`로 본다. **주제를 이어 갈 때는 그 주제 `README.md`의 "인계"부터 읽고, 진행했으면 인계를 고쳐 남긴다**(같은 파일 "주제 인계"). 하위 폴더 CLAUDE.md는 그 폴더 파일을 건드릴 때에야 자동으로 읽히므로, 앱 작업 요청을 받으면 바로 직접 읽는다.
 
 ```
 projects/
