@@ -16,7 +16,7 @@ argument-hint: "[주제]"
    - 설명: README.md의 주제 한 줄(없으면 `spec.md` 앞부분)
    - 지금 단계·멈춘 곳·다음 할 일·주의할 것: README.md **인계**, **진행 이력**: README.md
    - **git 이력**: `git log --date=short --format="%ad %s" -- projects/apps/_drafts/<주제>` — README 이력에 빠진 작업이 있는지 맞춰 본다
-   - **파일 확인**: `spec.md` 있음 → 1단계 끝, `options.md`에 고른 것 있음 → 3단계 끝, `verify.md` 있음 → 4단계 진행. README의 단계와 다르면 알린다
+   - **파일 확인**: `spec.md` 있음 → 1단계 끝, `options.md`에 고른 것 있음 → 3단계 끝(이때 `setup.md`도 있어야 함 — 없으면 어긋남으로 알린다), `verify.md` 있음 → 4단계 진행. README의 단계와 다르면 알린다
 2. **완성된 앱** — `projects/apps/` 아래 `_drafts`가 아닌 폴더 중 `CLAUDE.md`가 있는 것. 1~5단계 모두 끝. 설명은 그 `CLAUDE.md`나 `docs/spec.md`, 진행 이력은 `docs/`로 옮겨진 README 이력과 git 이력, 마지막 검증은 `VERIFY.md` "마지막 결과" 맨 위 줄
 3. **옛 기록** — 주제 폴더 방식 전에 `HANDOFF.md` "앱" 절에만 적힌 주제 중 위 두 곳에 폴더가 없는 것(2026-11-18에 vocab을 옮겨 지금은 없음). "폴더 없음 — `/apps:new <주제>`로 옮길 수 있음"을 붙인다
 4. **이야기만 된 후보** — `projects/apps/_drafts/README.md`의 "후보" 목록. 언제 이야기됐는지만 보여 준다

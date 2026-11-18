@@ -17,6 +17,7 @@ argument-hint: "[앱 주제]"
 | `README.md` | 주제 한 줄, **인계**(아래), **진행 이력** | 매 단계 끝, 그리고 멈출 때 |
 | `spec.md` | 앱 명세 — deep-interview 결과(`.omc/specs/`의 파일)를 복사한다. `.omc/`는 git에 안 올라간다 | 1 |
 | `options.md` | 언어·플랫폼 후보와 장단점, 고른 것과 이유 | 2, 3 |
+| `setup.md` | 그 주제에만 해당하는 개발 환경 — 패키지와 패키지별 설정, 가상 기기, 확인 상태. 아래 "개발 환경 기록" | 3 끝(고른 도구로 처음 작성), 4 |
 | `verify.md` | 검증 기록 — 형식은 아래 "검증 기록"의 앱 VERIFY.md와 같다 | 4 |
 
 폴더 이름은 짧은 영문 소문자(예: `vocab`, Windows 경로 260자). `HANDOFF.md` "앱" 절에는 폴더 링크와 지금 단계 한 줄만 남긴다.
@@ -49,9 +50,23 @@ argument-hint: "[앱 주제]"
 |---|---|---|
 | 1. 앱 정의 | **이 대화 안에서** Skill 도구로 `/oh-my-claudecode:deep-interview`를 호출한다. 인자는 주제. 정할 것: 기능·화면·데이터. 대상 플랫폼은 안드로이드·iOS 둘 다로 정해져 있으니, 한쪽에서만 되거나 양쪽이 다르게 동작하는 기능(위젯, 알림, 백그라운드 실행, 기기 연동 등)이 필요한지를 확인한다. 언어·플랫폼은 정하지 않는다 | 인터뷰가 끝나 명세가 `spec.md`에 있다 |
 | 2. 선택안 | `/oh-my-claudecode:research`로 그 앱에 맞는 언어·플랫폼 후보 2~4개를 장단점과 함께 조사한다. **안드로이드·iOS 둘 다 지원하는 후보만** 넣는다. 장단점에 넣을 것: iOS 빌드에 macOS(Xcode)가 필요한지와 Windows PC만으로 할 수 있는 대안(클라우드 빌드 등), 1단계에서 확인한 플랫폼별 기능을 양쪽에서 쓸 수 있는지, 사내망 PC의 `github.com` 차단, npm·Maven 가용(루트 CLAUDE.md "네트워크 제약")을 장단점에 넣는다 | 후보와 장단점이 `options.md`에 있다 |
-| 3. 선택 | AskUserQuestion으로 사용자가 고른다 | 고른 것과 이유가 `options.md`에 있다 |
-| 4. 검증 | **개인 PC에서만.** 먼저 공통 기록(아래 "검증 기록")을 읽는다. 그다음 `github.com` 접속 가능 여부로 PC를 판단한다. 사내망 PC면 진행하지 않고 "개인 PC에서 4단계 필요"로 기록하고 멈춘다. 개인 PC면 SDK 설치·빈 프로젝트 빌드·간단한 실행을 실제 명령으로 하고 `/oh-my-claudecode:verify`로 판정한다. 안드로이드와 iOS를 **각각** 확인하고 따로 기록한다. 이 PC에서 iOS를 빌드할 수 없으면 "iOS 확인 못 함"과 2단계에서 조사한 대안을 적고, 둘 다 확인되기 전에는 통과라고 하지 않는다 | 명령·종료 코드·겪은 함정이 `verify.md`에 있다. 출력 문구만으로 통과라 하지 않는다 |
-| 5. 최종 결정 | `projects/apps/<앱>/`와 그 `CLAUDE.md`(빌드·테스트 명령)를 만든다. 주제 폴더의 `verify.md`는 앱 폴더 `VERIFY.md`로, `spec.md`·`options.md`는 앱 폴더 `docs/`로 옮기고 **주제 폴더를 지운다**. 저장소 `/verify`(loan 전용)는 고치지 않는다. 앱 이름은 짧게(Windows 경로 260자) | 앱 폴더에 CLAUDE.md·VERIFY.md·docs/가 있고 `_drafts/<주제>/`는 없다. VERIFY.md의 명령으로 `/oh-my-claudecode:verify`가 한 번 통과했다 |
+| 3. 선택 | AskUserQuestion으로 사용자가 고른다. 고른 뒤 `setup.md`를 만든다 — spec.md의 기능에 필요한 패키지와 그 설정(아래 "개발 환경 기록") | 고른 것과 이유가 `options.md`에, 그 주제 환경이 `setup.md`에 있다 |
+| 4. 검증 | **개인 PC에서만.** 먼저 세 층 환경 기록(아래 "개발 환경 기록")과 공통 기록(아래 "검증 기록")을 읽는다. 그다음 `github.com` 접속 가능 여부로 PC를 판단한다. 사내망 PC면 진행하지 않고 "개인 PC에서 4단계 필요"로 기록하고 멈춘다. 개인 PC면 SDK 설치·빈 프로젝트 빌드·간단한 실행을 실제 명령으로 하고 `/oh-my-claudecode:verify`로 판정한다. 안드로이드와 iOS를 **각각** 확인하고 따로 기록한다. 이 PC에서 iOS를 빌드할 수 없으면 "iOS 확인 못 함"과 2단계에서 조사한 대안을 적고, 둘 다 확인되기 전에는 통과라고 하지 않는다 | 명령·종료 코드·겪은 함정이 `verify.md`에 있다. 출력 문구만으로 통과라 하지 않는다 |
+| 5. 최종 결정 | `projects/apps/<앱>/`와 그 `CLAUDE.md`(빌드·테스트 명령)를 만든다. 주제 폴더의 `verify.md`는 앱 폴더 `VERIFY.md`로, `setup.md`는 앱 폴더 `SETUP.md`로, `spec.md`·`options.md`는 앱 폴더 `docs/`로 옮기고 **주제 폴더를 지운다**. 저장소 `/verify`(loan 전용)는 고치지 않는다. 앱 이름은 짧게(Windows 경로 260자) | 앱 폴더에 CLAUDE.md·VERIFY.md·SETUP.md·docs/가 있고 `_drafts/<주제>/`는 없다. VERIFY.md의 명령으로 `/oh-my-claudecode:verify`가 한 번 통과했다 |
+
+## 개발 환경 기록 — 세 층 `SETUP.md` (2026-11-18 사용자 결정, 루트 CLAUDE.md)
+
+환경 내용은 해당하는 범위의 층에 둔다. 같은 내용은 한 곳에만 두고 아래 층에는 링크만 남긴다.
+
+| 층 | 파일 | 무엇을 |
+|---|---|---|
+| 모든 프로젝트 | `projects/SETUP.md` | 앱이 아닌 프로젝트에도 해당하는 것 — github.com에서만 받는 파일, Gradle 배포 파일, `!` 입력은 bash 등 |
+| apps 그룹 | `projects/apps/SETUP.md` | 모든 앱이 쓰는 SDK·도구 설치·확인·함정(Flutter, Android SDK 등) |
+| 주제·앱 | `_drafts/<주제>/setup.md` → 5단계에서 `projects/apps/<앱>/SETUP.md` | 그 앱만의 패키지·패키지별 설정·가상 기기·확인 상태 |
+
+- 4단계에서 새로 겪은 환경 함정이나 설치 절차는 먼저 주제 `setup.md`에 적고, 검증을 끝낼 때 "다른 앱에도 해당하나 / 앱이 아닌 프로젝트에도 해당하나"를 판단해 위 층으로 옮긴다
+- `setup.md`는 "무엇을 어떻게 설치·설정하나", `verify.md`는 "실제로 돌려 본 결과"다
+- 읽는 순서(4단계 시작, 새 PC 설치 전): `projects/SETUP.md` → `projects/apps/SETUP.md` → 주제 `setup.md`
 
 ## 검증 기록 — `projects/apps/<앱>/VERIFY.md`
 
