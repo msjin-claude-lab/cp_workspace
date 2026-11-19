@@ -77,6 +77,8 @@ Enable-WindowsOptionalFeature -Online -FeatureName HypervisorPlatform
 /d/dev/android-sdk/emulator/emulator.exe -avd vocab_api36 -gpu swiftshader_indirect   # 첫 부팅 약 4~13분
 ```
 
+**Play 스토어용 가상 기기 `play_api36`**(사내망 PC, 2026-11-19, 일반 APK·스토어 앱 시험용 — 앱 개발은 `vocab_api36`): 이미지 `system-images;android-36;google_apis_playstore;x86_64`, `avdmanager create avd -n play_api36 … -d pixel_7`. avdmanager로 만들면 `config.ini`에 `PlayStore.enabled=no`로 들어가 **`yes`로 고쳐야 한다**. 같은 파일에 `hw.gpu.enabled=yes`, `hw.gpu.mode=swiftshader_indirect`도 넣어 둠(Android Studio에서 켜도 화면이 멈추지 않게, 확인 안 함). 바탕화면 바로가기 "Android 에뮬레이터 (Play)" = `emulator.exe -avd play_api36 -gpu swiftshader_indirect` — 더블클릭으로 부팅 466초, 홈 화면에 Play Store 확인. 스토어 로그인·사내망 접속은 확인 안 함
+
 화면 캡처는 `adb exec-out screencap`이 검은 화면만 줄 때가 있다 — `adb emu screenrecord screenshot <절대경로.png>`(에뮬레이터 쪽 캡처)를 쓴다.
 
 ### 5. Gradle — 사내망만, 확인함
