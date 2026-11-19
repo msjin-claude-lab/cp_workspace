@@ -108,6 +108,7 @@ Gradle 배포 파일은 github.com으로 넘겨져 사내망에서 못 받는다
 - **프로젝트가 D:, pub 캐시가 C:면 Kotlin 플러그인 빌드가 실패한다** — `flutter_tts`처럼 Kotlin 코드가 있는 패키지에서 `:<패키지>:compileDebugKotlin`이 "Could not close incremental caches"로 실패(vocab 4단계). **새 Flutter 앱마다 `android/gradle.properties`에 `kotlin.incremental=false`를 넣는다**(넣은 뒤 빌드 exit 0). 원인은 드라이브가 다른 경로를 Kotlin 증분 캐시가 다루지 못하는 것으로 추정 — C: 드라이브 프로젝트는 이 설정 없이 성공했다. `projects/apps/`가 D:에 있으므로 모든 앱에 해당
 - **WHPX를 켠 뒤 "시스템 종료 → 켜기"로는 적용되지 않는다**(2026-11-19) — Windows "빠른 시작"이 켜져 있으면 시스템 종료는 최대 절전에 가까워 실제 부팅이 아니다(마지막 부팅 시각 `(Get-CimInstance Win32_OperatingSystem).LastBootUpTime`이 그대로). **시작 → 전원 → 다시 시작**으로 한다
 - **기본 그래픽 모드면 에뮬레이터 화면이 멈춘다**(2026-11-19 사내망 PC) — 로그에 "unsupported Vulkan API level (1.3.235, min required: 1.3.240, Intel Iris Xe)". 앱은 실행 중인데 화면이 갱신되지 않았다. `-gpu swiftshader_indirect`(소프트웨어 그래픽)로 띄우자 정상. 그래픽 드라이버를 올리면 필요 없을 수 있음(확인 안 함)
+- **사내망 PC에서 에뮬레이터는 실용적이지 않다**(2026-11-19 사용자 판단) — 소프트웨어 그래픽이라 매우 느리고 "응답 없음" 창이 계속 뜬다. 부팅 후에도 부하(load 40 안팎)가 오래가 앱 화면이 몇 분씩 안 뜨거나 검은 화면이 된다. 이 PC에서는 analyze·test·build로 확인하고 화면을 눌러 보는 확인은 개인 PC에서 한다. 개선 후보(확인 안 함): 해상도 낮은 기기, 가벼운 이미지(API 34), Intel 그래픽 드라이버 업데이트
 - **첫 부팅 직후 "System UI isn't responding" 창이 여러 번 뜬다** — 부팅 직후 부하 때문(load 40 안팎). "Wait"를 누르고 부하가 내려갈 때까지 기다린다. `adb shell settings put global hide_error_dialogs 1`로 숨길 수 있다(시험용)
 - **에뮬레이터를 띄운 채 `flutter run`의 첫 빌드는 매우 느리다**(약 25분, Kotlin 데몬 연결 실패 후 대체 방식) — 에뮬레이터가 CPU를 많이 쓴다. 빌드(`flutter build apk`)를 먼저 하고 에뮬레이터를 띄우는 편이 낫다(추정)
 
