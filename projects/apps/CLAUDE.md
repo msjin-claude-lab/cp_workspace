@@ -23,7 +23,7 @@
 ## PC 역할
 
 - **개인 PC**: 전부 — 코드 수정, SDK 설치, 빌드, 기기·에뮬레이터 테스트
-- **사내망 PC**: **가능한 데까지 개인 PC와 똑같이 진행하고, 한 것은 공유한다**(2026-11-18 사용자 결정 — 사내망 PC에 Flutter·Android SDK를 설치해 `flutter build apk`까지 됨). 할 수 없는 것만 "확인 못 함"으로 남기고 개인 PC에서 마저 한다 — 지금은 에뮬레이터 실행(WHPX 꺼짐)과 github.com에서만 받는 파일([projects/SETUP.md](../SETUP.md))
+- **사내망 PC**: **가능한 데까지 개인 PC와 똑같이 진행하고, 한 것은 공유한다**(2026-11-18 사용자 결정 — 사내망 PC에 Flutter·Android SDK를 설치해 `flutter build apk`까지 됨). 할 수 없는 것만 "확인 못 함"으로 남기고 개인 PC에서 마저 한다 — 지금은 github.com에서만 받는 파일([projects/SETUP.md](../SETUP.md))과 소리 듣기(사무실). 에뮬레이터는 2026-11-19부터 사내망 PC에서도 됨(WHPX 켬, [SETUP.md](SETUP.md))
 - 그래서 4단계(검증)도 **두 PC 모두에서 한다**. 결과는 PC를 밝혀 `verify.md`에 따로 적는다
 - **기기 실행 확인은 에뮬레이터로만 한다 — 실제 폰은 연결하지 않는다**(2026-11-18 사용자 결정). 에뮬레이터는 Windows 하이퍼바이저 플랫폼(WHPX)이 켜진 PC에서만 뜬다(켜기: 관리자 PowerShell `Enable-WindowsOptionalFeature -Online -FeatureName HypervisorPlatform` + 재부팅). 대안으로 폰 연결을 권하지 않는다
 

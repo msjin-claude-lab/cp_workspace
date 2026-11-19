@@ -55,7 +55,7 @@ yes | /d/dev/android-sdk/cmdline-tools/latest/bin/sdkmanager.bat --sdk_root=D:/d
 
 설치할 최신 버전은 `sdkmanager.bat --list`로 고른다.
 
-### 4. 가상 기기 — 만들기 확인함, 실행은 확인 못 함
+### 4. 가상 기기 — 확인함(실행은 2026-11-19)
 
 ```bash
 echo no | /d/dev/android-sdk/cmdline-tools/latest/bin/avdmanager.bat create avd \
@@ -63,11 +63,21 @@ echo no | /d/dev/android-sdk/cmdline-tools/latest/bin/avdmanager.bat create avd 
 flutter emulators            # vocab_api36이 보이면 됨
 ```
 
-실행하려면 **Windows 하이퍼바이저 플랫폼(WHPX)**이 켜져 있어야 한다. 사내망 PC는 꺼져 있다(BIOS 가상화는 켜짐). 관리자 PowerShell에서 켜고 재부팅한다(회사 정책으로 막힐 수 있음). 그 뒤 `flutter emulators --launch vocab_api36` — **아직 확인 못 함**.
+실행하려면 **Windows 하이퍼바이저 플랫폼(WHPX)**이 켜져 있어야 한다. 관리자 PowerShell에서 켜고 **"다시 시작"으로** 재부팅한다(아래 "함정" — 시스템 종료 후 켜기는 재부팅이 아니다). 사내망 PC는 2026-11-19에 켬.
 
 ```powershell
 Enable-WindowsOptionalFeature -Online -FeatureName HypervisorPlatform
 ```
+
+확인: `(Get-CimInstance Win32_ComputerSystem).HypervisorPresent`가 `True`, `D:\dev\android-sdk\emulator\emulator.exe -accel-check`가 "WHPX(…) is installed and usable".
+
+실행(사내망 PC는 소프트웨어 그래픽으로 — 아래 "함정"):
+
+```bash
+/d/dev/android-sdk/emulator/emulator.exe -avd vocab_api36 -gpu swiftshader_indirect   # 첫 부팅 약 4~13분
+```
+
+화면 캡처는 `adb exec-out screencap`이 검은 화면만 줄 때가 있다 — `adb emu screenrecord screenshot <절대경로.png>`(에뮬레이터 쪽 캡처)를 쓴다.
 
 ### 5. Gradle — 사내망만, 확인함
 
@@ -83,7 +93,7 @@ Gradle 배포 파일은 github.com으로 넘겨져 사내망에서 못 받는다
 | `flutter analyze` | No issues | exit 0 |
 | `flutter test` | All tests passed | exit 0 |
 | `flutter build apk --debug` | exit 0 + `build/app/outputs/flutter-apk/app-debug.apk` 새로 생김 | exit 0, 첫 빌드 약 29.5분 |
-| `flutter emulators --launch vocab_api36` | 가상 폰이 뜸 | 확인 못 함(WHPX 꺼짐) |
+| `emulator -avd vocab_api36 -gpu swiftshader_indirect` | 가상 폰이 뜸 | 2026-11-19 뜸(부팅 266초), 기본 그래픽은 화면 멈춤 |
 
 ## 함정 (실제로 겪은 것, 2026-11-18 사내망 PC)
 
@@ -94,6 +104,10 @@ Gradle 배포 파일은 github.com으로 넘겨져 사내망에서 못 받는다
 - **첫 `flutter build apk`는 오래 걸린다**(약 29.5분) — Maven 의존성과 build-tools 36.0.0·NDK를 자동으로 받는다. 백그라운드로 돌린다
 - `sdkmanager`가 "deprecated, Android CLI(`android sdk`)를 쓰라"는 경고를 낸다 — 이번에는 그대로 동작했다
 - **프로젝트가 D:, pub 캐시가 C:면 Kotlin 플러그인 빌드가 실패한다** — `flutter_tts`처럼 Kotlin 코드가 있는 패키지에서 `:<패키지>:compileDebugKotlin`이 "Could not close incremental caches"로 실패(vocab 4단계). **새 Flutter 앱마다 `android/gradle.properties`에 `kotlin.incremental=false`를 넣는다**(넣은 뒤 빌드 exit 0). 원인은 드라이브가 다른 경로를 Kotlin 증분 캐시가 다루지 못하는 것으로 추정 — C: 드라이브 프로젝트는 이 설정 없이 성공했다. `projects/apps/`가 D:에 있으므로 모든 앱에 해당
+- **WHPX를 켠 뒤 "시스템 종료 → 켜기"로는 적용되지 않는다**(2026-11-19) — Windows "빠른 시작"이 켜져 있으면 시스템 종료는 최대 절전에 가까워 실제 부팅이 아니다(마지막 부팅 시각 `(Get-CimInstance Win32_OperatingSystem).LastBootUpTime`이 그대로). **시작 → 전원 → 다시 시작**으로 한다
+- **기본 그래픽 모드면 에뮬레이터 화면이 멈춘다**(2026-11-19 사내망 PC) — 로그에 "unsupported Vulkan API level (1.3.235, min required: 1.3.240, Intel Iris Xe)". 앱은 실행 중인데 화면이 갱신되지 않았다. `-gpu swiftshader_indirect`(소프트웨어 그래픽)로 띄우자 정상. 그래픽 드라이버를 올리면 필요 없을 수 있음(확인 안 함)
+- **첫 부팅 직후 "System UI isn't responding" 창이 여러 번 뜬다** — 부팅 직후 부하 때문(load 40 안팎). "Wait"를 누르고 부하가 내려갈 때까지 기다린다. `adb shell settings put global hide_error_dialogs 1`로 숨길 수 있다(시험용)
+- **에뮬레이터를 띄운 채 `flutter run`의 첫 빌드는 매우 느리다**(약 25분, Kotlin 데몬 연결 실패 후 대체 방식) — 에뮬레이터가 CPU를 많이 쓴다. 빌드(`flutter build apk`)를 먼저 하고 에뮬레이터를 띄우는 편이 낫다(추정)
 
 ## 정리할 것
 
