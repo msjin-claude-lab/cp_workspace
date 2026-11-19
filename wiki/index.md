@@ -1,6 +1,6 @@
 # Wiki Index
 
-> 5 pages | Last updated: 2026-11-17T09:38:36.545Z
+> 6 pages | Last updated: 2026-11-18T07:33:02.509Z
 
 ## architecture
 
@@ -21,3 +21,7 @@
 ## pattern
 
 - [Maven 검증 함정 - 오래된 surefire 결과 파일](maven-surefire.md) — # Maven 검증 함정 - 오래된 surefire 결과 파일
+
+## session-log
+
+- [Session Log 2026-11-18](session-log-2026-11-18-1423dfd8.md) — # Session Log 2026-11-18
