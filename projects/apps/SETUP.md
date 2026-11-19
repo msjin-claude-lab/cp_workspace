@@ -1,12 +1,12 @@
 # 앱 개발 환경 구성 가이드 (Flutter · Android)
 
-`projects/apps/` 아래 모든 앱이 쓰는 **공통** 개발 환경이다. 앱이 아닌 프로젝트까지 해당하는 내용(github.com 파일, Gradle, `!` 입력)은 한 층 위 [projects/SETUP.md](../SETUP.md)에 있다. 앱(주제)마다 다른 것 — 패키지, 패키지별 설정, 가상 기기, 확인 상태 — 은 주제 폴더의 `setup.md`(완성된 앱은 앱 폴더 `SETUP.md`)에 둔다. 예: [_drafts/vocab/setup.md](_drafts/vocab/setup.md). 여러 앱에 해당하게 된 항목은 이 파일로 옮긴다(VERIFY.md와 같은 방식).
+`projects/apps/` 아래 모든 앱이 쓰는 **공통** 개발 환경이다. 앱이 아닌 프로젝트까지 해당하는 내용(github.com 파일, Gradle, `!` 입력)은 한 층 위 [projects/SETUP.md](../SETUP.md)에 있다. 앱(주제)마다 다른 것 — 패키지, 패키지별 설정, 가상 기기, 확인 상태 — 은 주제 폴더의 `setup.md`(완성된 앱은 앱 폴더 `SETUP.md`)에 둔다. 예: [vocab/SETUP.md](vocab/SETUP.md). 여러 앱에 해당하게 된 항목은 이 파일로 옮긴다(VERIFY.md와 같은 방식).
 
-도구 선택 근거는 [_drafts/vocab/options.md](_drafts/vocab/options.md) "3단계" — Flutter, 안드로이드 먼저, iOS 보류.
+도구 선택 근거는 [vocab/docs/options.md](vocab/docs/options.md) "3단계" — Flutter, 안드로이드 먼저, iOS 보류.
 
 - **기준 PC**: 사내망 PC(Windows 11)에서 2026-11-18에 실제로 설치·확인했다. "확인함"이 붙은 것만 실제로 실행한 것이다
 - **개인 PC**: 아직 이 순서로 설치하지 않았다. github.com이 열려 있으므로 "사내망만" 표시된 우회는 필요 없을 것(추정)
-- **iOS**: 보류. Mac(무료 Apple ID) 또는 유료 Apple Developer Program이 필요하다([options.md](_drafts/vocab/options.md) "먼저 알아 둘 것")
+- **iOS**: 보류. Mac(무료 Apple ID) 또는 유료 Apple Developer Program이 필요하다([options.md](vocab/docs/options.md) "먼저 알아 둘 것")
 
 ## 설치 결과 (사내망 PC, 2026-11-18)
 
