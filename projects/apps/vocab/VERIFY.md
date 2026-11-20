@@ -24,7 +24,7 @@
 ## 기대값
 
 - 테스트 18개(2026-11-20): 칸·단어 읽기 3개(`test/data/word_repository_test.dart`), 실제 단어 파일 검사 5개(`test/data/word_assets_test.dart` — 칸마다 정확히 50개, id 형식, 빈 필드 없음, 칸 사이 영단어 중복 없음, 예문에 단어 포함, 같은 칸 같은 뜻 없음), 칸 선택 화면 1개(`test/widget_test.dart`), 카드 학습 9개(`test/features/study_screen_test.dart` — 앞면·자동 발음, 뒷면, 답·기록·결과, 칸 → 학습 이동, 연타 한 번만 기록, 저장 실패 표시, 없는 칸 주소, 날짜 키, 칸 id 찾기). 기능을 넣으면 늘린다
-- sqflite 실제 저장(`SqfliteStudyRecords`)은 PC 시험에 없다 — 기기(에뮬레이터)에서 확인
+- sqflite 실제 저장(`SqfliteStudyRecords`)은 PC 시험에 없다 — 기기(에뮬레이터)에서 확인. DB 내용은 `adb exec-out run-as dev.cp.vocab cat databases/vocab.db > <파일>` 후 sqlite로 읽는다
 - APK 약 158MB(debug, 시험용 프로젝트 기준)
 
 ## 함정
@@ -42,6 +42,14 @@
 
 ## 마지막 결과
 
+- **2026-11-20 개인 PC — 첫 환경 설치 후, 카드 학습 기기 확인** (i9-10900K · RTX 3080 · Windows 10 Home)
+  - `flutter analyze` exit 0(No issues), `flutter test` exit 0(18개 통과), `flutter build apk --debug` exit 0 + `app-debug.apk` 21:35 새로 생김(160,914,167바이트) — 391초(build-tools 36.0.0 자동 설치 포함)
+  - 에뮬레이터: **기본 그래픽(GPU host, RTX 3080)으로 정상** — `-gpu swiftshader_indirect` 불필요. 부팅 71초
+  - **칸 선택 화면 → 카드 학습: 통과** — 9칸 표시(캡처), 초등·하 → 1/50 apple, 뒤집기 → 안다/모른다 → 다음 카드
+  - **자동 발음: 통과** — 카드가 뜰 때 logcat `TTS dispatch: en-us-x-iog-lstm-embedded`, `Utterance ID has started` → `has completed`
+  - **TTS 귀로 듣기: 통과**(사용자 확인). 에뮬레이터 미디어 볼륨 기본값 5/15라 작게 들림 → 15로 올리자 충분. 가끔 소리가 깨짐 — 안드로이드 쪽 underrun 0건이라 에뮬레이터→Windows 오디오 구간으로 추정(확인 안 함)
+  - **기록 저장·유지: 통과** — `study_log` 8건 → `am force-stop` → `am start` → 8건 그대로. 이후 사용자가 눌러 48건(안다 24 · 모른다 24)
+  - **오답 노트: 통과** — 모른다 단어 23개 담김, 같은 단어를 두 번 모른다 하면 `hh-003` 틀린 횟수 2
 - **2026-11-19 사내망 PC — 5단계, 앱 프로젝트 `projects/apps/vocab`** — `/oh-my-claudecode:verify`(verifier 판정 APPROVE, analyze·test를 다시 돌려 확인)
   - `flutter analyze` exit 0(No issues), `flutter test` exit 0(1개 통과), `flutter build apk --debug` exit 0 + `app-debug.apk` 14:05 새로 생김(158,301,662바이트)
   - 앱 설정 확인: manifest `TTS_SERVICE`, `kotlin.incremental=false`, pubspec `flutter_tts` ^4.2.5·`sqflite` ^2.4.6·`path` ^1.9.1

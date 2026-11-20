@@ -15,7 +15,7 @@
 | Claude Code 설정 | 프로젝트 `.claude/settings.json`에 둠 — agent teams, HUD 상태바, hook. 모든 PC 공통 ([CLAUDE.md의 "PC 간 이어가기"](CLAUDE.md#pc-간-이어가기--설정작업진행-현황)) |
 | 연습 프로젝트 | `projects/loan/` — **과제 1~9 모두 완료**(2026-11-13~17). 컴파일 타깃은 Java 21 |
 | `mvn -q test` | **41개 모두 통과** (과제 9 완료 후. 연체료 6 + 대출·반납 13 + 연장 10 + 관리자 12) |
-| 앱 (`projects/apps/`) | **영단어 앱 — 5단계 끝, 앱 폴더 [projects/apps/vocab/](projects/apps/vocab/CLAUDE.md) 생성**(2026-11-19 사내망 PC, Flutter 뼈대 + 검증 명령 통과). **다음: 코드 구조 정하고 화면 개발 시작**(앱 CLAUDE.md 인계). TTS 소리 귀로 듣기는 개인 PC에서. iOS 잠정 보류 — 추후 지시까지 안드로이드만 — 목록은 `/apps:view-subjects` |
+| 앱 (`projects/apps/`) | **영단어 앱 — 5단계 끝, 앱 폴더 [projects/apps/vocab/](projects/apps/vocab/CLAUDE.md) 생성**(2026-11-19 사내망 PC, Flutter 뼈대 + 검증 명령 통과). 2026-11-20 카드 학습 화면 완성, 개인 PC에 개발 환경 설치 후 에뮬레이터에서 학습·발음·소리·저장 확인. **다음: 4지선다 시험 화면**(앱 CLAUDE.md 인계). iOS 잠정 보류 — 추후 지시까지 안드로이드만 — 목록은 `/apps:view-subjects` |
 
 ## 연습 과제 진행 ([PRACTICE.md](projects/loan/PRACTICE.md))
 

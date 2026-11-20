@@ -5,7 +5,7 @@
 도구 선택 근거는 [vocab/docs/options.md](vocab/docs/options.md) "3단계" — Flutter, 안드로이드 먼저, iOS 보류.
 
 - **기준 PC**: 사내망 PC(Windows 11)에서 2026-11-18에 실제로 설치·확인했다. "확인함"이 붙은 것만 실제로 실행한 것이다
-- **개인 PC**: 아직 이 순서로 설치하지 않았다. github.com이 열려 있으므로 "사내망만" 표시된 우회는 필요 없을 것(추정)
+- **개인 PC**(`D:\dev\workspace`, 2026-11-20 설치): 같은 순서로 설치했고 아래 "개인 PC 설치 기록"의 차이만 있다. Gradle은 자동으로 받아져 "사내망만" 우회는 필요 없었다
 - **iOS**: 보류. Mac(무료 Apple ID) 또는 유료 Apple Developer Program이 필요하다([options.md](vocab/docs/options.md) "먼저 알아 둘 것")
 
 ## 설치 결과 (사내망 PC, 2026-11-18)
@@ -111,6 +111,15 @@ Gradle 배포 파일은 github.com으로 넘겨져 사내망에서 못 받는다
 - **사내망 PC에서 에뮬레이터는 실용적이지 않다**(2026-11-19 사용자 판단) — 소프트웨어 그래픽이라 매우 느리고 "응답 없음" 창이 계속 뜬다. 부팅 후에도 부하(load 40 안팎)가 오래가 앱 화면이 몇 분씩 안 뜨거나 검은 화면이 된다. 이 PC에서는 analyze·test·build로 확인하고 화면을 눌러 보는 확인은 개인 PC에서 한다. 개선 후보(확인 안 함): 해상도 낮은 기기, 가벼운 이미지(API 34), Intel 그래픽 드라이버 업데이트
 - **첫 부팅 직후 "System UI isn't responding" 창이 여러 번 뜬다** — 부팅 직후 부하 때문(load 40 안팎). "Wait"를 누르고 부하가 내려갈 때까지 기다린다. `adb shell settings put global hide_error_dialogs 1`로 숨길 수 있다(시험용)
 - **에뮬레이터를 띄운 채 `flutter run`의 첫 빌드는 매우 느리다**(약 25분, Kotlin 데몬 연결 실패 후 대체 방식) — 에뮬레이터가 CPU를 많이 쓴다. 빌드(`flutter build apk`)를 먼저 하고 에뮬레이터를 띄우는 편이 낫다(추정)
+
+## 개인 PC 설치 기록 (2026-11-20, Windows 10 Home · i9-10900K · RTX 3080)
+
+- **Android Studio는 설치하지 않았다** — Java는 이미 있던 JDK 21(`C:\Java\jdk-21.0.13.0.2+1`)을 `JAVA_HOME`으로 써서 `sdkmanager`·Gradle 빌드 모두 됐다. 약 1GB를 아낌
+- **Git Bash의 `tar`는 zip을 못 푼다**("This does not look like a tar archive") — Windows `tar`(`/c/Windows/System32/tar.exe`)로 푼다
+- **큰 다운로드가 중간에 끊긴다**(`curl: (56) Connection was reset`, `sdkmanager` "Failed to download package!") — curl은 `-C -`로 이어 받고, sdkmanager는 패키지를 하나씩 설치하며 실패하면 다시 한다. **sdkmanager를 두 개 동시에 돌리지 않는다**(둘 다 실패함)
+- `Enable-WindowsOptionalFeature … HypervisorPlatform`이 `RestartNeeded : False`라고 해도 재부팅 전에는 `HypervisorPresent=False`였다 — "다시 시작" 후 `True`
+- **에뮬레이터는 기본 그래픽으로 정상**(Vulkan host, RTX 3080) — `-gpu swiftshader_indirect`가 필요 없다. 부팅 71초, 첫 `flutter build apk --debug` 391초
+- 에뮬레이터 미디어 볼륨 기본값이 5/15라 TTS가 작게 들린다 — 볼륨 키(`adb shell input keyevent KEYCODE_VOLUME_UP`)로 올린다
 
 ## 정리할 것
 

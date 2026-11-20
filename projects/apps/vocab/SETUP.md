@@ -31,11 +31,11 @@ flutter pub add flutter_tts sqflite path
 
 | 항목 | 사내망 PC (2026-11-18~19) | 개인 PC |
 |---|---|---|
-| 앱 프로젝트 `projects/apps/vocab` analyze·test·build apk | exit 0 (2026-11-19) | 아직 |
-| 패키지 추가 + `flutter analyze`·`flutter test` | exit 0 (4단계 시험용 프로젝트 `D:\dev\tmp\vocab_probe`) | 아직 |
-| `flutter build apk --debug` | exit 0 (`kotlin.incremental=false` 뒤) | 아직 |
-| 가상 기기 실행 · 화면 · 저장 유지 | 확인함(2026-11-19, WHPX 켠 뒤) | 아직 |
-| TTS 소리 | 합성·오디오 출력은 확인함, 귀로 듣기는 확인 못 함(사무실) | 아직 — 귀로 확인 |
+| 앱 프로젝트 `projects/apps/vocab` analyze·test·build apk | exit 0 (2026-11-19) | exit 0 (2026-11-20) |
+| 패키지 추가 + `flutter analyze`·`flutter test` | exit 0 (4단계 시험용 프로젝트 `D:\dev\tmp\vocab_probe`) | 앱 프로젝트로 확인(위 줄) |
+| `flutter build apk --debug` | exit 0 (`kotlin.incremental=false` 뒤) | exit 0, 391초 |
+| 가상 기기 실행 · 화면 · 저장 유지 | 확인함(2026-11-19, WHPX 켠 뒤) | 확인함(2026-11-20, 기본 그래픽) |
+| TTS 소리 | 합성·오디오 출력은 확인함, 귀로 듣기는 확인 못 함(사무실) | 귀로 확인함(2026-11-20) — 에뮬레이터 미디어 볼륨을 15로 올려서 |
 | iOS | 보류 | 보류 |
 
 검증 기록은 [VERIFY.md](VERIFY.md)에 둔다. 이 파일은 "무엇을 어떻게 설치·설정하나", VERIFY.md는 "실제로 돌려 본 결과"다.
