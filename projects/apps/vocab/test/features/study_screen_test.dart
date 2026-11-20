@@ -84,6 +84,9 @@ class _FakeRecords implements StudyRecords {
 
   @override
   Future<void> removeWrongNote(String wordId) async => removed.add(wordId);
+
+  @override
+  Future<Progress> progress() async => const Progress();
 }
 
 class _FixedCellStore implements CellStore {

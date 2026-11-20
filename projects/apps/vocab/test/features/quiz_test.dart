@@ -74,6 +74,9 @@ class _FakeRecords implements StudyRecords {
     removed.add(wordId);
     notes.removeWhere((n) => n.wordId == wordId);
   }
+
+  @override
+  Future<Progress> progress() async => const Progress();
 }
 
 void main() {

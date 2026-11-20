@@ -261,6 +261,12 @@ class CellHomeScreen extends ConsumerWidget {
               ),
               onPressed: () => _open(context, ref, '/wrong-notes/${cell.id}'),
             ),
+            _HomeAction(
+              key: const ValueKey('home-progress'),
+              icon: Icons.bar_chart,
+              label: '진도',
+              onPressed: () => _open(context, ref, '/progress?cell=${cell.id}'),
+            ),
           ],
         ),
       ),

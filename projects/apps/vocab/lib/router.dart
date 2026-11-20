@@ -3,6 +3,7 @@ import 'package:material_ui/material_ui.dart';
 
 import 'data/cell.dart';
 import 'features/home/home_screen.dart';
+import 'features/progress/progress_screen.dart';
 import 'features/quiz/quiz_screen.dart';
 import 'features/study/study_screen.dart';
 import 'features/wrong_notes/wrong_notes_screen.dart';
@@ -44,6 +45,13 @@ GoRouter createRouter() => GoRouter(
       path: '/wrong-notes/:cellId',
       builder: (context, state) =>
           _withCell(state, (cell) => WrongNotesScreen(cell: cell)),
+    ),
+    // 진도. 지금 고른 칸을 강조하려면 ?cell=middle_medium
+    GoRoute(
+      path: '/progress',
+      builder: (context, state) => ProgressScreen(
+        current: Cell.byId(state.uri.queryParameters['cell'] ?? ''),
+      ),
     ),
     // 오답 노트 → 카드로 다시 보기 / 오답 시험. 예: /review/quiz/middle_easy
     GoRoute(

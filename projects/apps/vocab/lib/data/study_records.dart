@@ -30,6 +30,60 @@ abstract interface class StudyRecords {
   /// 오답 노트에서 뺀다 — 오답 시험에서 맞혔거나 사용자가 지웠을 때(2026-11-20 사용자 결정).
   /// 학습·시험 기록(`study_log`·`quiz_log`)은 그대로 둔다.
   Future<void> removeWrongNote(String wordId);
+
+  /// 진도 화면에 쓸 집계(난이도별 외운 수·오답 수, 날짜별 공부 수·맞힌 수).
+  Future<Progress> progress();
+}
+
+/// 하루의 기록. `day`는 기기 시간대 `YYYY-MM-DD`.
+class DayStat {
+  const DayStat({
+    required this.day,
+    required this.studied,
+    required this.correct,
+  });
+
+  final String day;
+
+  /// 그날 답한 횟수(카드 학습 + 시험).
+  final int studied;
+
+  /// 그날 시험에서 맞힌 횟수.
+  final int correct;
+}
+
+/// 진도 집계.
+class Progress {
+  const Progress({
+    this.memorized = const {},
+    this.wrong = const {},
+    this.days = const [],
+  });
+
+  /// 외운 단어 수. 외웠다 = 그 단어의 마지막 시험 답이 맞힘(틀리면 해제 — 명세).
+  final Map<Cell, int> memorized;
+
+  /// 오답 노트에 있는 단어 수.
+  final Map<Cell, int> wrong;
+
+  /// 공부한 날들. 최근 날짜가 앞.
+  final List<DayStat> days;
+
+  /// 연속 학습일: `today`(없으면 어제)부터 거슬러 올라가며 하루도 빠지지 않은 날 수.
+  /// 오늘 아직 안 했어도 어제까지 이어졌으면 끊긴 것으로 보지 않는다.
+  int streak(DateTime today) {
+    final done = {for (final d in days) d.day};
+    var day = DateTime(today.year, today.month, today.day);
+    if (!done.contains(dayKey(day))) {
+      day = DateTime(day.year, day.month, day.day - 1);
+    }
+    var count = 0;
+    while (done.contains(dayKey(day))) {
+      count++;
+      day = DateTime(day.year, day.month, day.day - 1);
+    }
+    return count;
+  }
 }
 
 /// 오답 노트의 한 단어.
@@ -76,7 +130,8 @@ class SqfliteStudyRecords implements StudyRecords {
 
   /// 지금 DB 판. 1: study_log·wrong_notes, 2: quiz_log 추가(2026-11-20).
   /// 올릴 때는 onUpgrade에 `oldVersion < N` 단계를 더한다 — 몇 판에서 오든 차례로 올라간다.
-  static const int schemaVersion = 2;
+  /// 3: 진도의 "단어별 마지막 시험 답"을 빨리 찾는 인덱스 `quiz_log(word_id, id)` 추가(2026-11-20).
+  static const int schemaVersion = 3;
 
   Future<Database> _open() async {
     final dbFactory = factory ?? databaseFactory;
@@ -89,15 +144,65 @@ class SqfliteStudyRecords implements StudyRecords {
         onCreate: (db, version) async {
           await createV1(db);
           await _createQuizLog(db);
+          await _createQuizWordIndex(db);
         },
         onUpgrade: (db, oldVersion, newVersion) async {
           if (oldVersion < 2) await _createQuizLog(db);
+          if (oldVersion < 3) await _createQuizWordIndex(db);
         },
       ),
     );
   }
 
   /// 시험 한 문제마다 한 줄. `correct` 1 = 맞힘.
+  static Future<void> _createQuizWordIndex(Database db) =>
+      db.execute('CREATE INDEX quiz_log_word ON quiz_log(word_id, id)');
+
+  @override
+  Future<Progress> progress() async {
+    final db = await _database;
+    // 단어별 마지막 시험 답은 id가 가장 큰 줄 — 시각은 같거나 기기 시계가 바뀔 수 있어 쓰지 않는다
+    final memorizedRows = await db.rawQuery(
+      'SELECT cell_id, COUNT(*) AS n FROM quiz_log q '
+      'WHERE correct = 1 AND id = '
+      '(SELECT MAX(id) FROM quiz_log WHERE word_id = q.word_id) '
+      'GROUP BY cell_id',
+    );
+    final wrongRows = await db.rawQuery(
+      'SELECT cell_id, COUNT(*) AS n FROM wrong_notes GROUP BY cell_id',
+    );
+    final dayRows = await db.rawQuery(
+      'SELECT day, SUM(n) AS studied, SUM(c) AS correct FROM ('
+      'SELECT answered_day AS day, COUNT(*) AS n, 0 AS c '
+      'FROM study_log GROUP BY answered_day '
+      'UNION ALL '
+      'SELECT answered_day AS day, COUNT(*) AS n, SUM(correct) AS c '
+      'FROM quiz_log GROUP BY answered_day'
+      ') GROUP BY day ORDER BY day DESC',
+    );
+    Map<Cell, int> byCell(List<Map<String, Object?>> rows) {
+      final result = <Cell, int>{};
+      for (final row in rows) {
+        final cell = Cell.byId(row['cell_id'] as String);
+        if (cell != null) result[cell] = row['n'] as int; // 모르는 칸 id는 건너뛴다
+      }
+      return result;
+    }
+
+    return Progress(
+      memorized: byCell(memorizedRows),
+      wrong: byCell(wrongRows),
+      days: [
+        for (final row in dayRows)
+          DayStat(
+            day: row['day'] as String,
+            studied: row['studied'] as int,
+            correct: row['correct'] as int,
+          ),
+      ],
+    );
+  }
+
   static Future<void> _createQuizLog(Database db) async {
     await db.execute('''
       CREATE TABLE quiz_log(
@@ -229,6 +334,11 @@ final studyRecordsProvider = Provider<StudyRecords>(
 
 /// 학교급의 오답 노트. 화면을 열 때마다 새로 읽는다(autoDispose).
 /// 오답 노트 화면은 다시 보기·오답 시험에서 돌아오면 invalidate 해 다시 읽는다.
+/// 진도 집계. 진도 화면을 열 때마다 새로 읽는다(autoDispose).
+final progressProvider = FutureProvider.autoDispose<Progress>(
+  (ref) => ref.watch(studyRecordsProvider).progress(),
+);
+
 final wrongNotesProvider = FutureProvider.autoDispose
     .family<List<WrongNote>, SchoolLevel>(
       (ref, level) => ref.watch(studyRecordsProvider).wrongNotes(level),

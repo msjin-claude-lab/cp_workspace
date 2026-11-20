@@ -177,7 +177,7 @@ void main() {
     );
 
     final db = await databaseFactoryFfi.openDatabase(path);
-    expect(await db.getVersion(), 2);
+    expect(await db.getVersion(), SqfliteStudyRecords.schemaVersion);
     expect(await db.rawQuery('SELECT word_id FROM study_log'), [
       {'word_id': 'ee-002'},
     ]);
@@ -188,5 +188,103 @@ void main() {
       {'word_id': 'ee-001', 'miss_count': 1},
     ]);
     await db.close();
+  });
+
+  test('2판 사용자의 DB는 시험 기록을 그대로 둔 채 3판(단어별 인덱스)으로 올라간다', () async {
+    // 2판: 1판 표 + quiz_log(인덱스 quiz_log_word 없음)
+    final v2 = await databaseFactoryFfi.openDatabase(
+      path,
+      options: OpenDatabaseOptions(
+        version: 2,
+        onCreate: (db, _) async {
+          await SqfliteStudyRecords.createV1(db);
+          await db.execute(
+            'CREATE TABLE quiz_log(id INTEGER PRIMARY KEY AUTOINCREMENT, '
+            'word_id TEXT NOT NULL, cell_id TEXT NOT NULL, '
+            'correct INTEGER NOT NULL, answered_at INTEGER NOT NULL, '
+            'answered_day TEXT NOT NULL)',
+          );
+        },
+      ),
+    );
+    await v2.insert('quiz_log', {
+      'word_id': 'ee-001',
+      'cell_id': 'elementary_easy',
+      'correct': 1,
+      'answered_at': 1,
+      'answered_day': '2026-11-20',
+    });
+    await v2.close();
+
+    final records = SqfliteStudyRecords(
+      factory: databaseFactoryFfi,
+      path: path,
+    );
+    final progress = await records.progress();
+    expect(progress.memorized, {Cell.elementaryEasy: 1});
+
+    final db = await databaseFactoryFfi.openDatabase(path);
+    expect(await db.getVersion(), 3);
+    expect(
+      await db.rawQuery(
+        "SELECT name FROM sqlite_master WHERE type = 'index' "
+        "AND name = 'quiz_log_word'",
+      ),
+      hasLength(1),
+    );
+    await db.close();
+  });
+
+  test('진도: 외운 수는 단어별 마지막 시험 답으로 세고, 오답 수와 날짜별 기록을 모은다', () async {
+    final records = SqfliteStudyRecords(
+      factory: databaseFactoryFfi,
+      path: path,
+    );
+    Word w(String id) =>
+        Word(id: id, word: id, meaning: id, example: 'x', exampleMeaning: 'y');
+    Future<void> quiz(
+      String id,
+      bool correct, [
+      Cell cell = Cell.elementaryEasy,
+    ]) => records.recordQuizAnswer(cell: cell, word: w(id), correct: correct);
+
+    await quiz('ee-001', false); // 틀렸다가
+    await quiz('ee-001', true); // 맞힘 → 외움
+    await quiz('ee-002', true); // 맞혔다가
+    await quiz('ee-002', false); // 틀림 → 해제
+    await quiz('ee-003', true); // 외움
+    await quiz('mh-001', true, Cell.middleHard);
+    await records.recordAnswer(
+      cell: Cell.elementaryEasy,
+      word: w('ee-004'),
+      known: true, // 카드 학습의 '안다'는 외운 수에 들어가지 않는다
+    );
+
+    final p = await records.progress();
+    expect(p.memorized, {Cell.elementaryEasy: 2, Cell.middleHard: 1});
+    // 오답 노트: ee-001(틀린 적 있음 — 일반 시험에서 맞혀도 남는다), ee-002
+    expect(p.wrong, {Cell.elementaryEasy: 2});
+    final today = dayKey(DateTime.now());
+    expect(p.days.map((d) => (d.day, d.studied, d.correct)), [(today, 7, 4)]);
+    expect(p.streak(DateTime.now()), 1);
+    // 임시 폴더를 지울 수 있게 DB를 닫는다(같은 파일은 연결 하나를 함께 쓴다)
+    await (await databaseFactoryFfi.openDatabase(path)).close();
+  });
+
+  test('연속 학습일은 오늘(없으면 어제)부터 빠진 날 전까지 센다', () {
+    Progress days(List<String> list) => Progress(
+      days: [for (final d in list) DayStat(day: d, studied: 1, correct: 0)],
+    );
+    final today = DateTime(2026, 11, 20);
+
+    expect(days([]).streak(today), 0);
+    expect(days(['2026-11-20', '2026-11-19', '2026-11-18']).streak(today), 3);
+    // 오늘 아직 안 했어도 어제까지 이어졌으면 유지
+    expect(days(['2026-11-19', '2026-11-18']).streak(today), 2);
+    // 하루 빠지면 거기서 끊긴다
+    expect(days(['2026-11-20', '2026-11-18']).streak(today), 1);
+    expect(days(['2026-11-17']).streak(today), 0);
+    // 달이 바뀌어도 이어진다
+    expect(days(['2026-11-01', '2026-10-31']).streak(DateTime(2026, 11, 1)), 2);
   });
 }

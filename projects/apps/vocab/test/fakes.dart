@@ -57,6 +57,12 @@ class FakeRecords implements StudyRecords {
   final List<String> removed = [];
   int _clock = 0;
 
+  /// 진도 화면에 돌려줄 집계. 시험이 채운다.
+  Progress progressValue = const Progress();
+
+  @override
+  Future<Progress> progress() async => progressValue;
+
   void _miss(Cell cell, Word word) {
     final i = notes.indexWhere((n) => n.wordId == word.id);
     final count = i < 0 ? 1 : notes[i].missCount + 1;
