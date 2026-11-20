@@ -23,7 +23,7 @@
 
 ## 기대값
 
-- 테스트 8개(2026-11-20): 칸·단어 읽기 3개(`test/data/word_repository_test.dart`), 실제 단어 파일 검사 4개(`test/data/word_assets_test.dart` — 쓴 칸은 50개, id 형식, 빈 필드 없음, 칸 사이 영단어 중복 없음, 예문에 단어 포함), 칸 선택 화면 1개(`test/widget_test.dart`). 기능을 넣으면 늘린다
+- 테스트 9개(2026-11-20): 칸·단어 읽기 3개(`test/data/word_repository_test.dart`), 실제 단어 파일 검사 5개(`test/data/word_assets_test.dart` — 칸마다 정확히 50개, id 형식, 빈 필드 없음, 칸 사이 영단어 중복 없음, 예문에 단어 포함, 같은 칸 같은 뜻 없음), 칸 선택 화면 1개(`test/widget_test.dart`). 기능을 넣으면 늘린다
 - APK 약 158MB(debug, 시험용 프로젝트 기준)
 
 ## 함정

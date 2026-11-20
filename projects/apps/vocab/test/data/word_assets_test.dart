@@ -6,7 +6,7 @@ import 'package:vocab/data/cell.dart';
 import 'package:vocab/data/word.dart';
 
 /// 실제 내장 단어 파일(assets/words/*.json)을 검사한다.
-/// 아직 안 쓴 칸은 빈 목록이어도 되고, 쓴 칸은 정확히 50개여야 한다.
+/// 명세: 9칸 × 50단어 = 450개.
 List<Word> _read(Cell cell) {
   final text = File(cell.assetPath).readAsStringSync();
   final list = jsonDecode(text) as List<dynamic>;
@@ -17,10 +17,20 @@ List<Word> _read(Cell cell) {
 String _prefix(Cell cell) => '${cell.level.name[0]}${cell.difficulty.name[0]}';
 
 void main() {
-  test('모든 칸의 단어 파일이 읽히고, 쓴 칸은 50개다', () {
+  test('모든 칸의 단어 파일이 읽히고 칸마다 정확히 50개다', () {
     for (final cell in Cell.values) {
-      final words = _read(cell);
-      expect(words.length, anyOf(0, Cell.targetWordCount), reason: cell.id);
+      expect(_read(cell), hasLength(Cell.targetWordCount), reason: cell.id);
+    }
+  });
+
+  test('같은 칸 안에 뜻이 같은 단어가 없다(4지선다 보기가 겹치지 않게)', () {
+    for (final cell in Cell.values) {
+      final seen = <String, String>{};
+      for (final w in _read(cell)) {
+        expect(seen[w.meaning], isNull,
+            reason: '${cell.id} "${w.meaning}": ${seen[w.meaning]}와 ${w.id}');
+        seen[w.meaning] = w.id;
+      }
     }
   });
 
