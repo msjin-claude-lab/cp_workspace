@@ -23,8 +23,8 @@
 
 ## 기대값
 
-- 테스트 18개(2026-11-20): 칸·단어 읽기 3개(`test/data/word_repository_test.dart`), 실제 단어 파일 검사 5개(`test/data/word_assets_test.dart` — 칸마다 정확히 50개, id 형식, 빈 필드 없음, 칸 사이 영단어 중복 없음, 예문에 단어 포함, 같은 칸 같은 뜻 없음), 칸 선택 화면 1개(`test/widget_test.dart`), 카드 학습 9개(`test/features/study_screen_test.dart` — 앞면·자동 발음, 뒷면, 답·기록·결과, 칸 → 학습 이동, 연타 한 번만 기록, 저장 실패 표시, 없는 칸 주소, 날짜 키, 칸 id 찾기). 기능을 넣으면 늘린다
-- sqflite 실제 저장(`SqfliteStudyRecords`)은 PC 시험에 없다 — 기기(에뮬레이터)에서 확인. DB 내용은 `adb exec-out run-as dev.cp.vocab cat databases/vocab.db > <파일>` 후 sqlite로 읽는다
+- 테스트 36개(2026-11-20): 칸·단어 읽기 3개(`test/data/word_repository_test.dart`), 실제 단어 파일 검사 5개(`test/data/word_assets_test.dart` — 칸마다 정확히 50개, id 형식, 빈 필드 없음, 칸 사이 영단어 중복 없음, 예문에 단어 포함, 같은 칸 같은 뜻 없음), **실제 DB 2개**(`test/data/study_records_test.dart` — sqflite_common_ffi, 새 설치 2판 표·시험 기록·오답 노트, 1판 → 2판 이행 시 기록 유지), 첫 화면 6개(`test/widget_test.dart` — 첫 실행 학교급 선택·저장, 저장된 학교급으로 시작, ☰ 메뉴로 변경, 메뉴 빠른 두 번 누름, 저장 실패 알림, 칸 → 학습/시험 창), 카드 학습 9개(`test/features/study_screen_test.dart`), 시험 11개(`test/features/quiz_test.dart` — 10문제·서로 다른 단어·보기 4개 같은 칸, 매번 새로 섞기, 두 방향, 단어 적을 때, 맞힘·틀림 기록, 한 번만 답함, 영→뜻만 자동 발음, 결과·다시 하기 새로 섞기, 저장 실패, 50단어면 10문제, 4개 미만 안내). 기능을 넣으면 늘린다
+- sqflite 실제 저장은 PC에서 sqflite_common_ffi로 시험한다(Windows에서 별도 설치 없이 동작함, 2026-11-20). 기기 저장 유지는 에뮬레이터에서 확인. DB 내용은 `adb exec-out run-as dev.cp.vocab cat databases/vocab.db > <파일>` 후 sqlite로 읽는다
 - APK 약 158MB(debug, 시험용 프로젝트 기준)
 
 ## 함정
@@ -42,6 +42,12 @@
 
 ## 마지막 결과
 
+- **2026-11-20 개인 PC — 4지선다 시험·학교급 선택**
+  - `flutter analyze` exit 0(No issues), `flutter test` exit 0(36개 통과), `flutter build apk --debug` exit 0 + `app-debug.apk` 22:07 새로 생김(171,285,100바이트)
+  - code-reviewer(별도 에이전트) APPROVE — MEDIUM 2건(메뉴 연타로 첫 화면이 닫힘, 실제 DB·이행 시험 없음)과 LOW 1건(저장 실패 문구) 반영
+  - 에뮬레이터: 덮어 설치 → **첫 실행 학교급 선택 화면** → 중등 → 앱 강제 종료·재실행 → **"영단어 · 중등" 3칸으로 바로 시작** → 칸 → "카드 학습 / 4지선다 시험" 창 → 시험 **1/10, 영→뜻 문제와 보기 4개**(캡처)
+  - **DB 이행: 통과** — 기기 DB `user_version` 2, 기존 `study_log` 기록 유지(71건), 사용자가 푼 시험 4문제가 `quiz_log`에 기록(맞힘 1 · 틀림 3)
+  - 소리: 빌드·시험을 돌리는 동안 에뮬레이터 소리가 깨지고 끝나면 정상(사용자 보고). 안드로이드 쪽 끊김 기록 0건 → 앱 원인 아님으로 추정
 - **2026-11-20 개인 PC — 첫 환경 설치 후, 카드 학습 기기 확인** (i9-10900K · RTX 3080 · Windows 10 Home)
   - `flutter analyze` exit 0(No issues), `flutter test` exit 0(18개 통과), `flutter build apk --debug` exit 0 + `app-debug.apk` 21:35 새로 생김(160,914,167바이트) — 391초(build-tools 36.0.0 자동 설치 포함)
   - 에뮬레이터: **기본 그래픽(GPU host, RTX 3080)으로 정상** — `-gpu swiftshader_indirect` 불필요. 부팅 71초

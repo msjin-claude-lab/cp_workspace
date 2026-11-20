@@ -14,9 +14,12 @@
 |---|---|---|---|
 | `flutter_tts` | 영어 발음(TTS) — Android·iOS | Android: `minSdkVersion` 21 이상, `AndroidManifest.xml`에 `<queries><intent><action android:name="android.intent.action.TTS_SERVICE"/></intent></queries>` (pub.dev 문서) | manifest 설정 포함 빌드 확인함(2026-11-18 사내망, 4단계 시험용 프로젝트, 기본 minSdk 24). 에뮬레이터에서 영어 합성·오디오 출력 확인함(2026-11-19), 귀로 듣기는 **아직**(사무실). Kotlin 패키지라 아래 `kotlin.incremental=false` 필요, KGP 경고 있음(VERIFY.md "함정"). 앱 프로젝트에 manifest 설정 넣음(2026-11-19) |
 | `sqflite` (+ `path`) | 기기 안 저장(학습 기록·오답 노트·진도) — Android·iOS | 없음 | 빌드 확인함(같은 날). 에뮬레이터에서 쓰기 → 앱 강제 종료·재실행 뒤 남아 있음 확인(2026-11-19) |
+| `shared_preferences` | 작은 설정 값(고른 학교급) — Android·iOS, Flutter 팀 공식 | 없음(`SharedPreferencesAsync` 사용) | 2026-11-20 추가, 에뮬레이터에서 재실행 후 유지 확인 |
+| `sqflite_common_ffi` (dev) | PC 시험에서 실제 sqflite 코드를 돌림 | 없음 — Windows에서 별도 sqlite 설치 없이 동작(2026-11-20 개인 PC) | 시험 전용, 앱에는 안 들어감 |
 
 ```bash
-flutter pub add flutter_tts sqflite path
+flutter pub add flutter_tts sqflite path shared_preferences
+flutter pub add --dev sqflite_common_ffi
 ```
 
 `android/gradle.properties`에 `kotlin.incremental=false` — 프로젝트(D:)와 pub 캐시(C:)가 다른 드라이브라서. 이유는 [apps/SETUP.md](../SETUP.md) "함정". 앱 프로젝트에 넣음(2026-11-19)

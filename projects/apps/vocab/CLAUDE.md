@@ -6,13 +6,15 @@
 
 ## 인계 — 새 세션은 여기부터 읽는다
 
-- 지금 단계: **개발 — 카드 학습 화면 만들고 기기에서 확인함** · 2026-11-20 개인 PC
+- 지금 단계: **개발 — 4지선다 시험·학교급 선택 만들고 기기에서 확인함** · 2026-11-20 개인 PC
+- 첫 화면(사용자 결정): 처음 실행하면 학교급 고르기 → 값은 shared_preferences(`lib/data/level_store.dart`, 키 `school_level`)에 남아 다음 실행부터 바로 그 학교급 3칸. ☰ 옆 메뉴에서 바꾼다(앞으로 오답 노트·진도·내 단어장도 이 메뉴에). 칸을 누르면 아래에서 "카드 학습 / 4지선다 시험" 고르는 창
+- 4지선다 시험(`lib/features/quiz/`): 할 때마다 새로 섞음(사용자 결정), 10문제·방향은 문제마다 무작위·한 회차에 같은 단어 한 번(Claude가 정함). 영→뜻만 자동 발음(뜻→영은 발음이 답을 알려 줌). 답하면 정답 초록·고른 오답 빨강 + 단어·뜻·예문·해석. 결과는 sqflite `quiz_log`(DB 2판, 1판 사용자는 기록 유지한 채 올라감 — 기기·PC 시험으로 확인), 틀리면 `wrong_notes`. 진도의 "외웠다"는 단어별 `quiz_log` 마지막 줄(`MAX(id)` — 시각은 같거나 바뀔 수 있음)로 센다
 - 카드 학습: 칸 누르기 → `/study/<칸 id>` → 앞면 영단어(카드가 뜰 때 한 번 자동 발음, 🔊 버튼) → 누르면 뒷면 뜻·예문·해석 → 안다/모른다 → 끝나면 결과(안다 N · 모른다 M, 다시 하기, 칸 선택으로). 기록은 sqflite `vocab.db`(`lib/data/study_records.dart` — `study_log`에 답마다 한 줄 + 기기 날짜 `answered_day`, `wrong_notes`에 모른다 단어와 틀린 횟수). **사용자 확정(2026-11-20)**: 카드는 파일 순서(섞지 않음), 안다로 답해도 오답 노트에서 빼지 않음, 중간에 나가면 처음부터, 안다/모른다는 뜻을 본 뒤에만(Anki 방식 — 앞면 판정 안 함)
 - 멈춘 곳: 개인 PC에 개발 환경을 처음 설치하고(세 층 SETUP.md, [../SETUP.md](../SETUP.md) "개인 PC 설치 기록") 에뮬레이터에서 칸 선택·카드 학습·자동 발음·소리·기록 저장 유지·오답 노트를 모두 확인([VERIFY.md](VERIFY.md) "마지막 결과" 2026-11-20). 9칸 × 50개 단어는 끝
-- 다음 할 일: **4지선다 시험 화면**(영→뜻·뜻→영, 오답 보기는 같은 칸, 답한 뒤 정답·예문, 틀리면 오답 노트) — `/apps:selection-subject vocab`. 화면 확인은 개인 PC 에뮬레이터에서(기본 그래픽으로 빠름). 단어 표본은 원하면 언제든 사용자가 더 볼 수 있다
+- 다음 할 일: **오답 노트 화면**(☰ 메뉴에서, 오답 단어로 다시 학습·시험 — 명세 기준. 오답 노트에서 빼는 방법도 이때 정한다) — `/apps:selection-subject vocab`. 화면 확인은 개인 PC 에뮬레이터에서(기본 그래픽으로 빠름)
 - 주의할 것:
   - **iOS는 잠정 보류**(2026-11-18 사용자 결정, 추후 지시까지 안드로이드만). 패키지는 iOS도 지원하는 것만 쓴다
-  - TTS 소리는 개인 PC에서 귀로 확인함(2026-11-20). 에뮬레이터 미디어 볼륨 기본값 5/15라 작게 들리니 올려서 듣는다. 가끔 깨지는 것은 에뮬레이터 오디오 구간으로 추정(앱 원인 아님, 확인 안 함)
+  - TTS 소리는 개인 PC에서 귀로 확인함(2026-11-20). 에뮬레이터 미디어 볼륨 기본값 5/15라 작게 들리니 올려서 듣는다. **PC에서 빌드·시험(flutter test 등)을 돌리는 동안 에뮬레이터 소리가 깨진다**(끝나면 정상, 안드로이드 쪽 끊김 기록 0건) — 에뮬레이터→Windows 오디오 구간으로 추정, 앱 원인 아님(실제 폰 확인 안 함). 소리 확인은 빌드·시험이 끝난 뒤에
   - 기기 확인은 **에뮬레이터로만**(폰 연결 안 함). **사내망 PC 에뮬레이터는 너무 느려 실용적이지 않다**(2026-11-19) — 사내망 PC는 analyze·test·build까지, 화면을 눌러 보는 확인은 개인 PC에서([../SETUP.md](../SETUP.md) "함정")
   - 개인 PC에서 에뮬레이터 창을 사용자가 직접 누를 수 있다 — adb로 확인할 때 사용자 터치가 섞이니 강제 종료 등은 먼저 알린다
   - 사내망 PC에서는 github.com이 막혀 Gradle 새 버전 등은 밖에서 받아 와야 한다([../../SETUP.md](../../SETUP.md))
@@ -21,7 +23,7 @@
 ## 남은 일
 
 - **단어 데이터 작성** — 9칸 × 50개(명세: Claude가 작성, 예문·해석은 새로 씀, 칸마다 표본을 사람이 확인). 2026-11-20 450개 끝(중등 중·상, 고등 3칸은 사람 표본 확인 없이 에이전트 검토만)
-- 화면: ~~카드 학습~~(2026-11-20) → 4지선다 시험 → 오답 노트 → 진도 → 내 단어장
+- 화면: ~~카드 학습~~ → ~~4지선다 시험·학교급 선택~~(2026-11-20) → 오답 노트 → 진도 → 내 단어장
 - ~~기기에서 확인: 카드 학습 DB 저장·자동 발음~~ · ~~TTS 소리 귀로 확인~~ · ~~개인 PC 개발 환경 설치~~(모두 2026-11-20 개인 PC)
 - iOS 확인(보류 해제 시 — 대안은 [docs/options.md](docs/options.md) "먼저 알아 둘 것")
 - release 빌드 확인
@@ -45,13 +47,15 @@ PATH에 `D:\dev\flutter\bin`(두 PC 같은 경로). 작업 위치: `projects/app
 
 | 무엇 | 정한 것 | 이유 |
 |---|---|---|
-| 폴더 | **기능별** — `lib/features/<기능>/`(home, 앞으로 study·quiz·wrong_notes·progress·my_words), 공통 데이터는 `lib/data/` | 기능 하나를 고칠 때 그 폴더만 본다 |
+| 폴더 | **기능별** — `lib/features/<기능>/`(home·study·quiz, 앞으로 wrong_notes·progress·my_words), 공통 데이터는 `lib/data/` | 기능 하나를 고칠 때 그 폴더만 본다 |
 | 화면 이동 | **go_router** — 경로 목록은 `lib/router.dart` 한 곳 | 화면 관계를 한 파일에서 본다 |
 | 상태 관리 | **Riverpod**(`flutter_riverpod`, 코드 생성 없이) — 시험에서는 `overrideWithValue`로 가짜를 넣는다 | 정형화돼 있고 시험하기 쉽다 |
 | 단어 데이터 | **칸별 JSON** `assets/words/<학교급>_<난이도>.json`(필드 `id`·`word`·`meaning`·`example`·`exampleMeaning` — 예문 해석은 2026-11-20 사용자 결정으로 추가), 바뀌는 기록(학습·오답·내 단어장·진도)은 **sqflite** | 단어를 사람이 읽고 고치기 쉽고 git에서 바뀐 것이 보인다. 수만 개 규모가 되면 미리 만든 DB 파일로 바꾼다 |
 
 - 칸은 `lib/data/cell.dart`의 `Cell`(학교급 × 난이도 9개). 화면 이름 `초등 · 하`, 파일 이름 `elementary_easy`
 - 단어 읽기는 `lib/data/word_repository.dart`(`cellWordsProvider(cell)`)
+- 작은 설정 값(지금은 고른 학교급)은 **shared_preferences**, 기록은 sqflite. DB 판을 올릴 때는 `SqfliteStudyRecords.schemaVersion`과 onUpgrade의 `oldVersion < N` 단계를 더하고 `test/data/study_records_test.dart`(sqflite_common_ffi)에 이행 시험을 더한다
+- 시험 섞기는 `quizRandomProvider` — 시험에서는 씨앗을 고정한 Random을 넣는다
 - 시험(`test/`)은 기능·데이터마다 하나씩 늘린다
 
 ## 파일
@@ -86,3 +90,4 @@ PATH에 `D:\dev\flutter\bin`(두 PC 같은 경로). 작업 위치: `projects/app
 - 2026-11-20 사내망 · 개발 · 사용자 지시 "단어는 끝까지"로 중등·고등 6칸 300개를 마저 써 450개 완성. code-reviewer 검토로 뜻 20여 곳 수정(incentive "동기"→"유인", scrutiny "감시" 삭제, 보기가 겹치는 뜻 구분). 시험을 "칸마다 정확히 50개"·"같은 칸 같은 뜻 없음"으로 조임 — 시험 9개 통과
 - 2026-11-20 사내망 · 개발 · 카드 학습 화면(`lib/features/study/`), 칸 → 학습 연결, TTS(`speaker.dart`), sqflite 학습 기록·오답 노트(`study_records.dart`). code-reviewer REQUEST CHANGES 반영(연타 중복 기록 막기, TTS 오류 삼키기, 진도용 날짜 칸·인덱스, 저장 실패 표시 — 스낵바가 답 버튼을 덮어 화면 안 문구로). 시험 18개 통과, build apk exit 0
 - 2026-11-20 개인 PC · 확인 · `/apps:selection-subject vocab`. 학습 세부 3가지 사용자 확정(파일 순서·오답 노트 유지·처음부터) + 판정은 뜻을 본 뒤(Anki 방식). 개인 PC에 Flutter 3.50.0·Android SDK·`vocab_api36` 설치(Android Studio 없이 JDK 21), WHPX 켜고 재부팅. analyze·test(18)·build apk exit 0. 에뮬레이터(기본 그래픽)에서 칸 선택·카드 학습·자동 발음·소리(볼륨 올려서)·저장 유지·오답 노트 모두 확인
+- 2026-11-20 개인 PC · 개발 · 사용자 결정: 시험은 매번 섞기, 첫 실행에 학교급 선택·저장·☰ 메뉴로 변경. 4지선다 시험(`lib/features/quiz/`), 학교급(`level_store.dart`, shared_preferences), 칸 → 학습/시험 선택 창, DB 2판(`quiz_log`). code-reviewer APPROVE + 권고 반영(메뉴 닫기를 `closeDrawer`로, sqflite_common_ffi로 실제 DB·1→2판 시험). 시험 36개 통과, 에뮬레이터에서 첫 실행 선택·재실행 유지·학습/시험 창·시험 문제·DB 2판(기존 기록 유지) 확인
