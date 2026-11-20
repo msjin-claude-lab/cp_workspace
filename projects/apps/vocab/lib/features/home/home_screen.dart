@@ -84,17 +84,32 @@ class _PickButton extends StatelessWidget {
 }
 
 /// ① 학교급 고르기. 처음 실행 때는 첫 화면, 그 뒤에는 "칸 바꾸기"로 연다.
+/// 선택 버튼들 위에 두는 안내 문구.
+class _Guide extends StatelessWidget {
+  const _Guide(this.text);
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) => Padding(
+    padding: const EdgeInsets.only(bottom: 16),
+    child: Text(text, style: Theme.of(context).textTheme.titleMedium),
+  );
+}
+
 class LevelPickerScreen extends StatelessWidget {
   const LevelPickerScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('학교급 고르기')),
+      // 제목은 앱 이름, 할 일은 버튼 위 안내 문구로(2026-11-20 사용자 결정 — "학교급 고르기"는 어색)
+      appBar: AppBar(title: const Text(appTitle), centerTitle: true),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.all(24),
           children: [
+            const _Guide('어느 단계를 공부할까요?'),
             for (final level in SchoolLevel.values)
               _PickButton(
                 key: ValueKey('pick-${level.name}'),
@@ -117,11 +132,12 @@ class DifficultyPickerScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: AppBar(title: Text('${level.label} - 난이도 고르기')),
+      appBar: AppBar(title: Text(level.label)),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.all(24),
           children: [
+            const _Guide('난이도를 골라 주세요'),
             for (final difficulty in Difficulty.values)
               _DifficultyButton(cell: Cell.of(level, difficulty)),
           ],

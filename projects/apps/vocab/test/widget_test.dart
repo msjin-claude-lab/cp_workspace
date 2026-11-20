@@ -62,6 +62,8 @@ void main() {
     await pumpApp(tester);
 
     expect(find.byType(LevelPickerScreen), findsOneWidget);
+    expect(find.text('영단어'), findsOneWidget); // 제목은 앱 이름
+    expect(find.text('어느 단계를 공부할까요?'), findsOneWidget);
     // 세로: 초등·중등·고등 버튼이 위에서 아래로
     final y = [
       for (final level in SchoolLevel.values)
@@ -71,6 +73,7 @@ void main() {
 
     await tap(tester, 'pick-middle');
     expect(find.byType(DifficultyPickerScreen), findsOneWidget);
+    expect(find.text('난이도를 골라 주세요'), findsOneWidget);
     expect(
       find.descendant(
         of: find.byKey(const ValueKey('pick-middle_hard')),
