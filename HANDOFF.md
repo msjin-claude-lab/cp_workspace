@@ -15,7 +15,7 @@
 | Claude Code 설정 | 프로젝트 `.claude/settings.json`에 둠 — agent teams, HUD 상태바, hook. 모든 PC 공통 ([CLAUDE.md의 "PC 간 이어가기"](CLAUDE.md#pc-간-이어가기--설정작업진행-현황)) |
 | 연습 프로젝트 | `projects/loan/` — **과제 1~9 모두 완료**(2026-11-13~17). 컴파일 타깃은 Java 21 |
 | `mvn -q test` | **41개 모두 통과** (과제 9 완료 후. 연체료 6 + 대출·반납 13 + 연장 10 + 관리자 12) |
-| 앱 (`projects/apps/`) | **영단어 앱 — 5단계 끝, 앱 폴더 [projects/apps/vocab/](projects/apps/vocab/CLAUDE.md) 생성**(2026-11-19 사내망 PC, Flutter 뼈대 + 검증 명령 통과). 2026-11-20 카드 학습, 개인 PC 개발 환경, 4지선다 시험(20문항), 화면 구조(학교급 → 난이도 → 칸 홈, 고른 칸 유지, ☰ 2단계 메뉴, ← 뒤로·⌂ 홈), 오답 노트, 진도 화면 완성 — 에뮬레이터 확인. **다음: 내 단어장**(마지막 화면, 앱 CLAUDE.md 인계 — 단어 선정 지적과 앱 이름은 사용자 확인 대기). iOS 잠정 보류 — 추후 지시까지 안드로이드만 — 목록은 `/apps:view-subjects` |
+| 앱 (`projects/apps/`) | **영단어 앱 — 5단계 끝, 앱 폴더 [projects/apps/vocab/](projects/apps/vocab/CLAUDE.md) 생성**(2026-11-19 사내망 PC, Flutter 뼈대 + 검증 명령 통과). 2026-11-20 카드 학습, 개인 PC 개발 환경, 4지선다 시험(20문항), 화면 구조(학교급 → 난이도 → 칸 홈, 고른 칸 유지, ☰ 2단계 메뉴, ← 뒤로·⌂ 홈), 오답 노트, 진도 화면 완성 — 에뮬레이터 확인. 2026-11-21 내 단어장(☰ 메뉴) 완성 — 명세의 화면은 모두 만듦. **다음: 사용자가 내 단어장을 써 보고 고칠 점, 앱 이름, 단어 늘리기**(앱 CLAUDE.md 인계). iOS 잠정 보류 — 추후 지시까지 안드로이드만 — 목록은 `/apps:view-subjects` |
 
 ## 연습 과제 진행 ([PRACTICE.md](projects/loan/PRACTICE.md))
 

@@ -10,8 +10,9 @@ import 'word.dart';
 /// 시험(test)에서는 가짜로 바꾼다.
 abstract interface class StudyRecords {
   /// 카드 하나에 답한 것을 남긴다. 모른다(`known == false`)면 오답 노트에도 넣는다.
+  /// `deck`은 칸 또는 내 단어장 — 기록의 `cell_id`에 `deck.id`가 들어간다.
   Future<void> recordAnswer({
-    required Cell cell,
+    required Deck deck,
     required Word word,
     required bool known,
   });
@@ -19,19 +20,23 @@ abstract interface class StudyRecords {
   /// 4지선다 한 문제의 결과를 남긴다. 틀리면(`correct == false`) 오답 노트에도 넣는다.
   /// 진도의 "외웠다"(시험에서 맞힘, 틀리면 해제)는 이 기록의 단어별 마지막 결과로 센다.
   Future<void> recordQuizAnswer({
-    required Cell cell,
+    required Deck deck,
     required Word word,
     required bool correct,
   });
 
-  /// 학교급의 오답 노트. 최근에 틀린 단어가 위.
+  /// 학교급의 오답 노트(내장 칸만). 최근에 틀린 단어가 위.
   Future<List<WrongNote>> wrongNotes(SchoolLevel level);
+
+  /// 내 단어장 하나의 오답 노트. 최근에 틀린 단어가 위.
+  Future<List<WrongNote>> bookWrongNotes(BookDeck book);
 
   /// 오답 노트에서 뺀다 — 오답 시험에서 맞혔거나 사용자가 지웠을 때(2026-11-20 사용자 결정).
   /// 학습·시험 기록(`study_log`·`quiz_log`)은 그대로 둔다.
   Future<void> removeWrongNote(String wordId);
 
   /// 진도 화면에 쓸 집계(난이도별 외운 수·오답 수, 날짜별 공부 수·맞힌 수).
+  /// 내장 9칸의 기록만 센다 — 내 단어장 기록은 들어가지 않는다.
   Future<Progress> progress();
 }
 
@@ -90,13 +95,15 @@ class Progress {
 class WrongNote {
   const WrongNote({
     required this.wordId,
-    required this.cell,
+    required this.deck,
     required this.missCount,
     required this.lastMissedAt,
   });
 
   final String wordId;
-  final Cell cell;
+
+  /// 단어가 속한 칸 또는 내 단어장.
+  final Deck deck;
 
   /// 모른다·틀림을 받은 횟수.
   final int missCount;
@@ -118,6 +125,9 @@ String dayKey(DateTime t) =>
 /// - `wrong_notes`: 단어 하나에 한 줄. 다시 모른다고 하면 `miss_count`를 올리고
 ///   `last_missed_at`을 고친다. '안다'로 답해도 지우지 않는다 — 빼는 방법은 오답 노트 화면에서 정한다.
 ///   `word_id`는 칸 머리글자가 붙어(예: ee-001) 칸이 달라도 겹치지 않는다(단어 파일 검사 시험)
+/// - `word_books`·`book_words`: 내 단어장과 그 단어(4판). 읽고 쓰는 것은 `SqfliteWordBooks`
+///   (`word_books.dart`)가 이 객체의 [database]로 한다 — DB 파일·연결·판은 여기 하나다.
+///   내 단어장 기록은 `cell_id`가 `book_<번호>`, `word_id`가 `bw-<번호>`라 내장 단어와 겹치지 않는다
 class SqfliteStudyRecords implements StudyRecords {
   /// `factory`·`path`는 PC 시험에서 sqflite_common_ffi와 임시 파일을 넣을 때만 쓴다.
   SqfliteStudyRecords({this.factory, this.path});
@@ -126,12 +136,16 @@ class SqfliteStudyRecords implements StudyRecords {
   final String? path;
   Future<Database>? _db;
 
-  Future<Database> get _database => _db ??= _open();
+  /// 연 DB. 처음 부를 때 한 번 열고 이후로는 같은 연결을 쓴다(내 단어장도 이것을 함께 쓴다).
+  Future<Database> get database => _db ??= _open();
+
+  Future<Database> get _database => database;
 
   /// 지금 DB 판. 1: study_log·wrong_notes, 2: quiz_log 추가(2026-11-20).
   /// 올릴 때는 onUpgrade에 `oldVersion < N` 단계를 더한다 — 몇 판에서 오든 차례로 올라간다.
   /// 3: 진도의 "단어별 마지막 시험 답"을 빨리 찾는 인덱스 `quiz_log(word_id, id)` 추가(2026-11-20).
-  static const int schemaVersion = 3;
+  /// 4: 내 단어장 `word_books`·`book_words` 추가(2026-11-20).
+  static const int schemaVersion = 4;
 
   Future<Database> _open() async {
     final dbFactory = factory ?? databaseFactory;
@@ -142,21 +156,50 @@ class SqfliteStudyRecords implements StudyRecords {
       options: OpenDatabaseOptions(
         version: schemaVersion,
         onCreate: (db, version) async {
-          await createV1(db);
-          await _createQuizLog(db);
-          await _createQuizWordIndex(db);
+          await createV3(db);
+          await _createWordBooks(db);
         },
         onUpgrade: (db, oldVersion, newVersion) async {
           if (oldVersion < 2) await _createQuizLog(db);
           if (oldVersion < 3) await _createQuizWordIndex(db);
+          if (oldVersion < 4) await _createWordBooks(db);
         },
       ),
     );
   }
 
+  /// 3판까지의 표. 시험에서 "3판 사용자"의 DB를 만들 때도 쓴다 — 4판 이후의 표는 여기에 더하지 않는다.
+  @visibleForTesting
+  static Future<void> createV3(Database db) async {
+    await createV1(db);
+    await _createQuizLog(db);
+    await _createQuizWordIndex(db);
+  }
+
   /// 시험 한 문제마다 한 줄. `correct` 1 = 맞힘.
   static Future<void> _createQuizWordIndex(Database db) =>
       db.execute('CREATE INDEX quiz_log_word ON quiz_log(word_id, id)');
+
+  /// 내 단어장(4판). 예문·해석은 선택이라 비어 있으면 빈 문자열.
+  static Future<void> _createWordBooks(Database db) async {
+    await db.execute('''
+      CREATE TABLE word_books(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        created_at INTEGER NOT NULL
+      )''');
+    await db.execute('''
+      CREATE TABLE book_words(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        book_id INTEGER NOT NULL,
+        word TEXT NOT NULL,
+        meaning TEXT NOT NULL,
+        example TEXT NOT NULL DEFAULT '',
+        example_meaning TEXT NOT NULL DEFAULT '',
+        created_at INTEGER NOT NULL
+      )''');
+    await db.execute('CREATE INDEX book_words_book ON book_words(book_id)');
+  }
 
   @override
   Future<Progress> progress() async {
@@ -171,14 +214,19 @@ class SqfliteStudyRecords implements StudyRecords {
     final wrongRows = await db.rawQuery(
       'SELECT cell_id, COUNT(*) AS n FROM wrong_notes GROUP BY cell_id',
     );
+    // 진도는 내장 9칸만 센다 — 내 단어장(`book_N`) 기록은 날짜별 집계에서도 뺀다
+    final cellIds = [for (final c in Cell.values) c.id];
+    final inCells =
+        'cell_id IN (${List.filled(cellIds.length, '?').join(', ')})';
     final dayRows = await db.rawQuery(
       'SELECT day, SUM(n) AS studied, SUM(c) AS correct FROM ('
       'SELECT answered_day AS day, COUNT(*) AS n, 0 AS c '
-      'FROM study_log GROUP BY answered_day '
+      'FROM study_log WHERE $inCells GROUP BY answered_day '
       'UNION ALL '
       'SELECT answered_day AS day, COUNT(*) AS n, SUM(correct) AS c '
-      'FROM quiz_log GROUP BY answered_day'
+      'FROM quiz_log WHERE $inCells GROUP BY answered_day'
       ') GROUP BY day ORDER BY day DESC',
+      [...cellIds, ...cellIds],
     );
     Map<Cell, int> byCell(List<Map<String, Object?>> rows) {
       final result = <Cell, int>{};
@@ -245,17 +293,17 @@ class SqfliteStudyRecords implements StudyRecords {
 
   @override
   Future<void> recordAnswer({
-    required Cell cell,
+    required Deck deck,
     required Word word,
     required bool known,
-  }) => _record('study_log', 'known', cell: cell, word: word, ok: known);
+  }) => _record('study_log', 'known', deck: deck, word: word, ok: known);
 
   @override
   Future<void> recordQuizAnswer({
-    required Cell cell,
+    required Deck deck,
     required Word word,
     required bool correct,
-  }) => _record('quiz_log', 'correct', cell: cell, word: word, ok: correct);
+  }) => _record('quiz_log', 'correct', deck: deck, word: word, ok: correct);
 
   @override
   Future<List<WrongNote>> wrongNotes(SchoolLevel level) async {
@@ -275,10 +323,30 @@ class SqfliteStudyRecords implements StudyRecords {
         if (Cell.byId(row['cell_id'] as String) case final cell?)
           WrongNote(
             wordId: row['word_id'] as String,
-            cell: cell,
+            deck: cell,
             missCount: row['miss_count'] as int,
             lastMissedAt: row['last_missed_at'] as int,
           ),
+    ];
+  }
+
+  @override
+  Future<List<WrongNote>> bookWrongNotes(BookDeck book) async {
+    final db = await _database;
+    final rows = await db.query(
+      'wrong_notes',
+      where: 'cell_id = ?',
+      whereArgs: [book.id],
+      orderBy: 'last_missed_at DESC, word_id',
+    );
+    return [
+      for (final row in rows)
+        WrongNote(
+          wordId: row['word_id'] as String,
+          deck: book,
+          missCount: row['miss_count'] as int,
+          lastMissedAt: row['last_missed_at'] as int,
+        ),
     ];
   }
 
@@ -292,7 +360,7 @@ class SqfliteStudyRecords implements StudyRecords {
   Future<void> _record(
     String table,
     String okColumn, {
-    required Cell cell,
+    required Deck deck,
     required Word word,
     required bool ok,
   }) async {
@@ -302,7 +370,7 @@ class SqfliteStudyRecords implements StudyRecords {
     await db.transaction((txn) async {
       await txn.insert(table, {
         'word_id': word.id,
-        'cell_id': cell.id,
+        'cell_id': deck.id,
         okColumn: ok ? 1 : 0,
         'answered_at': ms,
         'answered_day': dayKey(now),
@@ -317,7 +385,7 @@ class SqfliteStudyRecords implements StudyRecords {
         if (updated == 0) {
           await txn.insert('wrong_notes', {
             'word_id': word.id,
-            'cell_id': cell.id,
+            'cell_id': deck.id,
             'miss_count': 1,
             'first_missed_at': ms,
             'last_missed_at': ms,
@@ -328,18 +396,31 @@ class SqfliteStudyRecords implements StudyRecords {
   }
 }
 
-final studyRecordsProvider = Provider<StudyRecords>(
+/// 앱의 sqflite DB(`vocab.db`) 하나. 학습 기록과 내 단어장(`wordBooksProvider`)이 이 객체를 함께 써
+/// DB 연결·판이 하나로 유지된다.
+final vocabDatabaseProvider = Provider<SqfliteStudyRecords>(
   (ref) => SqfliteStudyRecords(),
 );
 
-/// 학교급의 오답 노트. 화면을 열 때마다 새로 읽는다(autoDispose).
-/// 오답 노트 화면은 다시 보기·오답 시험에서 돌아오면 invalidate 해 다시 읽는다.
+final studyRecordsProvider = Provider<StudyRecords>(
+  (ref) => ref.watch(vocabDatabaseProvider),
+);
+
 /// 진도 집계. 진도 화면을 열 때마다 새로 읽는다(autoDispose).
 final progressProvider = FutureProvider.autoDispose<Progress>(
   (ref) => ref.watch(studyRecordsProvider).progress(),
 );
 
-final wrongNotesProvider = FutureProvider.autoDispose
-    .family<List<WrongNote>, SchoolLevel>(
-      (ref, level) => ref.watch(studyRecordsProvider).wrongNotes(level),
-    );
+/// 칸 또는 내 단어장 하나의 오답 노트(최근에 틀린 것이 위). 화면을 열 때마다 새로 읽는다(autoDispose).
+/// 칸 홈·단어장 화면·오답 노트 화면은 안쪽 화면에서 돌아오면 이것을 invalidate 해 다시 읽는다.
+final deckWrongNotesProvider = FutureProvider.autoDispose
+    .family<List<WrongNote>, Deck>((ref, deck) async {
+      final records = ref.watch(studyRecordsProvider);
+      return switch (deck) {
+        Cell() => [
+          for (final n in await records.wrongNotes(deck.level))
+            if (n.deck == deck) n,
+        ],
+        BookDeck() => records.bookWrongNotes(deck),
+      };
+    });

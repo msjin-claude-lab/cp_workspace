@@ -9,14 +9,14 @@ import '../../data/word.dart';
 import '../../data/word_repository.dart';
 import '../wrong_notes/review_words.dart';
 
-/// 카드 학습: 칸의 단어를 한 장씩 본다.
+/// 카드 학습: 칸·내 단어장의 단어를 한 장씩 본다.
 /// 앞면 영단어 + 발음, 누르면 뒷면 뜻·예문·해석 → 안다/모른다 → 다음 카드.
-/// `review`면 그 칸의 오답 노트 단어만 본다(오답 노트 → 카드로 다시 보기).
+/// `review`면 그 칸·단어장의 오답 노트 단어만 본다(오답 노트 → 카드로 다시 보기).
 /// '안다'로 답해도 오답 노트에서 빼지 않는다(사용자 결정 — 빠지는 것은 오답 시험에서 맞혔을 때).
 class StudyScreen extends ConsumerStatefulWidget {
-  const StudyScreen({super.key, required this.cell, this.review = false});
+  const StudyScreen({super.key, required this.deck, this.review = false});
 
-  final Cell cell;
+  final Deck deck;
   final bool review;
 
   @override
@@ -49,7 +49,7 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
     try {
       await ref
           .read(studyRecordsProvider)
-          .recordAnswer(cell: widget.cell, word: word, known: known);
+          .recordAnswer(deck: widget.deck, word: word, known: known);
     } catch (_) {
       // 스낵바는 아래 버튼을 덮으므로 쓰지 않고, 진행 표시 아래에 문구로 알린다
       _saveFailed = true;
@@ -84,8 +84,8 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
   @override
   Widget build(BuildContext context) {
     final source = widget.review
-        ? ref.watch(reviewWordsProvider(widget.cell))
-        : ref.watch(cellWordsProvider(widget.cell));
+        ? ref.watch(reviewWordsProvider(widget.deck))
+        : ref.watch(deckWordsProvider(widget.deck));
     // 다시 보기는 처음 받은 오답 목록을 회차 동안 붙잡는다 — 노트가 다시 읽혀도 카드가 건너뛰지 않게
     final words = switch (source) {
       AsyncData(:final value) when widget.review => AsyncData(
@@ -98,8 +98,8 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
       appBar: AppBar(
         title: Text(
           widget.review
-              ? '${widget.cell.label} - 오답 다시 보기'
-              : '${widget.cell.label} - 카드 학습',
+              ? '${widget.deck.label} - 오답 다시 보기'
+              : '${widget.deck.label} - 카드 학습',
         ),
       ),
       body: SafeArea(
@@ -110,7 +110,8 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
             if (list.isEmpty) {
               return Center(
                 child: Text(
-                  widget.review ? '오답 노트에 단어가 없습니다' : '이 칸에는 아직 단어가 없습니다',
+                  // 화면에는 "칸"이라는 말을 쓰지 않는다(2026-11-20 사용자 결정)
+                  widget.review ? '오답 노트에 단어가 없습니다' : '아직 단어가 없습니다',
                 ),
               );
             }
@@ -234,18 +235,23 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
           textAlign: TextAlign.center,
           style: text.headlineSmall,
         ),
-        const SizedBox(height: 24),
-        Text(
-          word.example,
-          textAlign: TextAlign.center,
-          style: text.bodyLarge?.copyWith(fontStyle: FontStyle.italic),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          word.exampleMeaning,
-          textAlign: TextAlign.center,
-          style: text.bodyMedium,
-        ),
+        // 내 단어장 단어는 예문·해석이 없을 수 있다(선택) — 빈 줄은 그리지 않는다
+        if (word.example.isNotEmpty) ...[
+          const SizedBox(height: 24),
+          Text(
+            word.example,
+            textAlign: TextAlign.center,
+            style: text.bodyLarge?.copyWith(fontStyle: FontStyle.italic),
+          ),
+        ],
+        if (word.exampleMeaning.isNotEmpty) ...[
+          const SizedBox(height: 4),
+          Text(
+            word.exampleMeaning,
+            textAlign: TextAlign.center,
+            style: text.bodyMedium,
+          ),
+        ],
       ],
     );
   }

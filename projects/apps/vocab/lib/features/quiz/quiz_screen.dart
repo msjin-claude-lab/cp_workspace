@@ -10,14 +10,14 @@ import '../../data/word_repository.dart';
 import '../wrong_notes/review_words.dart';
 import 'quiz.dart';
 
-/// 4지선다 시험: 칸의 단어 20개를 섞어 영→뜻·뜻→영으로 묻는다.
+/// 4지선다 시험: 칸·내 단어장의 단어 20개를 섞어 영→뜻·뜻→영으로 묻는다.
 /// 보기를 누르면 맞았는지와 정답·예문·해석을 보여 주고, 틀리면 오답 노트에 넣는다.
-/// `review`면 오답 시험: 그 칸의 오답 노트 단어만 묻고(보기는 칸 전체에서), 맞힌 단어는 노트에서 뺀다
-/// (2026-11-20 사용자 결정).
+/// `review`면 오답 시험: 그 칸·단어장의 오답 노트 단어만 묻고(보기는 그 묶음 전체에서), 맞힌 단어는
+/// 노트에서 뺀다(2026-11-20 사용자 결정).
 class QuizScreen extends ConsumerStatefulWidget {
-  const QuizScreen({super.key, required this.cell, this.review = false});
+  const QuizScreen({super.key, required this.deck, this.review = false});
 
-  final Cell cell;
+  final Deck deck;
   final bool review;
 
   @override
@@ -57,7 +57,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
     final records = ref.read(studyRecordsProvider);
     try {
       await records.recordQuizAnswer(
-        cell: widget.cell,
+        deck: widget.deck,
         word: q.word,
         correct: correct,
       );
@@ -97,17 +97,17 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final all = ref.watch(cellWordsProvider(widget.cell));
-    // 오답 시험은 노트 단어만 묻는다. 일반 시험은 칸 전체
+    final all = ref.watch(deckWordsProvider(widget.deck));
+    // 오답 시험은 노트 단어만 묻는다. 일반 시험은 칸·단어장 전체
     final asked = widget.review
-        ? ref.watch(reviewWordsProvider(widget.cell))
+        ? ref.watch(reviewWordsProvider(widget.deck))
         : all;
     return Scaffold(
       appBar: AppBar(
         title: Text(
           widget.review
-              ? '${widget.cell.label} - 오답 시험'
-              : '${widget.cell.label} - 시험',
+              ? '${widget.deck.label} - 오답 시험'
+              : '${widget.deck.label} - 시험',
         ),
       ),
       body: SafeArea(
@@ -132,11 +132,15 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
       pool: pool,
     );
     if (questions.isEmpty) {
+      // 시험을 낼 수 없는 까닭이 있으면 그것을, 아니면(오답 시험에서 다 맞힘) 남은 단어가 없다고 알린다
+      final reason = quizBlockReason(pool);
       return Center(
-        child: Text(
-          widget.review
-              ? '오답 노트에 남은 단어가 없습니다'
-              : '단어가 $quizOptionCount개 이상 있어야 시험을 볼 수 있습니다',
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Text(
+            reason ?? '오답 노트에 남은 단어가 없습니다',
+            textAlign: TextAlign.center,
+          ),
         ),
       );
     }
@@ -283,18 +287,23 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
                 ),
               ],
             ),
-            const SizedBox(height: 8),
-            Text(
-              q.word.example,
-              textAlign: TextAlign.center,
-              style: text.bodyLarge?.copyWith(fontStyle: FontStyle.italic),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              q.word.exampleMeaning,
-              textAlign: TextAlign.center,
-              style: text.bodyMedium,
-            ),
+            // 내 단어장 단어는 예문·해석이 없을 수 있다(선택) — 빈 줄은 그리지 않는다
+            if (q.word.example.isNotEmpty) ...[
+              const SizedBox(height: 8),
+              Text(
+                q.word.example,
+                textAlign: TextAlign.center,
+                style: text.bodyLarge?.copyWith(fontStyle: FontStyle.italic),
+              ),
+            ],
+            if (q.word.exampleMeaning.isNotEmpty) ...[
+              const SizedBox(height: 4),
+              Text(
+                q.word.exampleMeaning,
+                textAlign: TextAlign.center,
+                style: text.bodyMedium,
+              ),
+            ],
           ],
         ),
       ),

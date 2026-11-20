@@ -184,7 +184,7 @@ class CellHomeScreen extends ConsumerWidget {
   Future<void> _open(BuildContext context, WidgetRef ref, String path) async {
     if (ModalRoute.of(context)?.isCurrent != true) return; // 빠른 두 번 누름
     await context.push(path);
-    if (context.mounted) ref.invalidate(wrongNotesProvider(cell.level));
+    if (context.mounted) ref.invalidate(deckWrongNotesProvider(cell));
   }
 
   @override
@@ -340,6 +340,8 @@ class _MenuDrawer extends ConsumerWidget {
                     _menuCell(context, ref, Cell.of(level, difficulty)),
                 ],
               ),
+            const Divider(),
+            const _MyWordsMenuItem(),
           ],
         ),
       ),
@@ -358,6 +360,28 @@ class _MenuDrawer extends ConsumerWidget {
         // 메뉴를 닫는다. pop()은 닫히는 중에 다시 누르면 첫 화면까지 닫으므로 쓰지 않는다
         Scaffold.of(context).closeDrawer();
         if (!selected) _selectCell(context, ref, cell);
+      },
+    );
+  }
+}
+
+/// ☰ 메뉴의 "내 단어장". 일단 메뉴에 두고 나중에 다른 곳으로 옮길 예정이라(2026-11-20 사용자 결정)
+/// 이 위젯 하나만 옮기면 되게 따로 둔다.
+class _MyWordsMenuItem extends StatelessWidget {
+  const _MyWordsMenuItem();
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      key: const ValueKey('menu-my-words'),
+      leading: const Icon(Icons.collections_bookmark_outlined),
+      title: const Text('내 단어장'),
+      onTap: () {
+        // 이미 열었으면(메뉴가 닫히는 중 빠른 두 번 누름) 다시 열지 않는다
+        if (ModalRoute.of(context)?.isCurrent != true) return;
+        // pop()은 닫히는 중에 다시 누르면 첫 화면까지 닫으므로 closeDrawer로 닫는다
+        Scaffold.of(context).closeDrawer();
+        context.push('/books');
       },
     );
   }

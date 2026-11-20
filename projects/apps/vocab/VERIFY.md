@@ -43,6 +43,11 @@
 
 ## 마지막 결과
 
+- **2026-11-21 개인 PC — 내 단어장**
+  - `flutter analyze` exit 0, `flutter test` exit 0(70개 — 실제 DB `test/data/word_books_test.dart` 5개, 화면 `test/features/my_words_test.dart` 11개, 보기 글자 겹침 2개가 늘어남), `flutter build apk --debug` exit 0
+  - code-reviewer REQUEST CHANGES(HIGH 1 · MEDIUM 1) → 고친 뒤 시험 통과. 고친 뒤 다시 검토받지는 않았다
+  - 에뮬레이터: ☰ 메뉴에 "내 단어장"(캡처), **기기 DB `user_version` 4, 시험 기록 18건 유지, `word_books`·`book_words` 생김**. 단어장 만들기 → 단어 추가 → 시험은 기기에서 눌러 보지 않음
+
 - **2026-11-20 개인 PC — 화면 이름 정리·진도 화면**
   - `flutter analyze` exit 0, `flutter test` exit 0(52개 — 진도 화면 2개, 실제 DB에 2 → 3판 이행·진도 집계·연속 학습일 3개, 버전 표시 1개 등이 늘어남), `flutter build apk --debug` exit 0
   - 에뮬레이터: 홈(제목 `중등 [난이도 : 중간]`, 시험 버튼, 맨 아래 고정 메인화면), 메뉴(`영단어 v1.0.0`, 쉬움·중간·어려움), 메인화면(제목 가운데, 안내 문구, ← 뒤로 없음), **진도**(연속 학습 1일, 9줄, 지금 칸 강조, 중등 중간 외움 9/50) 캡처로 확인

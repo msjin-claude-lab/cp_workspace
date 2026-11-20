@@ -43,17 +43,17 @@ void main() {
       path: path,
     );
     await records.recordQuizAnswer(
-      cell: Cell.elementaryEasy,
+      deck: Cell.elementaryEasy,
       word: word,
       correct: true,
     );
     await records.recordQuizAnswer(
-      cell: Cell.elementaryEasy,
+      deck: Cell.elementaryEasy,
       word: word,
       correct: false,
     );
     await records.recordAnswer(
-      cell: Cell.elementaryEasy,
+      deck: Cell.elementaryEasy,
       word: word,
       known: false,
     );
@@ -97,19 +97,19 @@ void main() {
       exampleMeaning: 'y',
     );
     await records.recordAnswer(
-      cell: Cell.elementaryEasy,
+      deck: Cell.elementaryEasy,
       word: word,
       known: false,
     );
     await Future<void>.delayed(const Duration(milliseconds: 5));
     await records.recordQuizAnswer(
-      cell: Cell.middleHard,
+      deck: Cell.middleHard,
       word: middle,
       correct: false,
     );
 
     final elementary = await records.wrongNotes(SchoolLevel.elementary);
-    expect(elementary.map((n) => (n.wordId, n.cell, n.missCount)), [
+    expect(elementary.map((n) => (n.wordId, n.deck, n.missCount)), [
       ('ee-001', Cell.elementaryEasy, 1),
     ]);
     expect(
@@ -128,7 +128,7 @@ void main() {
       exampleMeaning: 'y',
     );
     await records.recordQuizAnswer(
-      cell: Cell.elementaryHard,
+      deck: Cell.elementaryHard,
       word: later,
       correct: false,
     );
@@ -171,7 +171,7 @@ void main() {
       path: path,
     );
     await records.recordQuizAnswer(
-      cell: Cell.elementaryEasy,
+      deck: Cell.elementaryEasy,
       word: word,
       correct: false,
     );
@@ -224,7 +224,8 @@ void main() {
     expect(progress.memorized, {Cell.elementaryEasy: 1});
 
     final db = await databaseFactoryFfi.openDatabase(path);
-    expect(await db.getVersion(), 3);
+    // 2판에서 3판(인덱스)을 거쳐 지금 판까지 차례로 올라간다
+    expect(await db.getVersion(), SqfliteStudyRecords.schemaVersion);
     expect(
       await db.rawQuery(
         "SELECT name FROM sqlite_master WHERE type = 'index' "
@@ -246,7 +247,7 @@ void main() {
       String id,
       bool correct, [
       Cell cell = Cell.elementaryEasy,
-    ]) => records.recordQuizAnswer(cell: cell, word: w(id), correct: correct);
+    ]) => records.recordQuizAnswer(deck: cell, word: w(id), correct: correct);
 
     await quiz('ee-001', false); // 틀렸다가
     await quiz('ee-001', true); // 맞힘 → 외움
@@ -255,7 +256,7 @@ void main() {
     await quiz('ee-003', true); // 외움
     await quiz('mh-001', true, Cell.middleHard);
     await records.recordAnswer(
-      cell: Cell.elementaryEasy,
+      deck: Cell.elementaryEasy,
       word: w('ee-004'),
       known: true, // 카드 학습의 '안다'는 외운 수에 들어가지 않는다
     );

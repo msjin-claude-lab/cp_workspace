@@ -44,14 +44,14 @@ class _FakeRecords implements StudyRecords {
 
   @override
   Future<void> recordAnswer({
-    required Cell cell,
+    required Deck deck,
     required Word word,
     required bool known,
   }) => throw UnimplementedError('시험은 학습 기록을 쓰지 않는다');
 
   @override
   Future<void> recordQuizAnswer({
-    required Cell cell,
+    required Deck deck,
     required Word word,
     required bool correct,
   }) async {
@@ -66,7 +66,13 @@ class _FakeRecords implements StudyRecords {
   @override
   Future<List<WrongNote>> wrongNotes(SchoolLevel level) async => [
     for (final n in notes)
-      if (n.cell.level == level) n,
+      if (n.deck case Cell(level: final l) when l == level) n,
+  ];
+
+  @override
+  Future<List<WrongNote>> bookWrongNotes(BookDeck book) async => [
+    for (final n in notes)
+      if (n.deck == book) n,
   ];
 
   @override
@@ -120,6 +126,51 @@ void main() {
       expect(toWord.optionText(toWord.word), toWord.word.word);
     });
 
+    test('뜻이나 영단어가 같은 단어가 있어도 보기 글자는 서로 겹치지 않는다(내 단어장)', () {
+      Word w(String id, String word, String meaning) => Word(
+        id: id,
+        word: word,
+        meaning: meaning,
+        example: '',
+        exampleMeaning: '',
+      );
+      final words = [
+        w('bw-1', 'big', '큰'),
+        w('bw-2', 'large', '큰'), // 뜻이 같다
+        w('bw-3', 'cat', '고양이'),
+        w('bw-4', 'cat', '고양잇과 동물'), // 영단어가 같다
+        w('bw-5', 'dog', '개'),
+        w('bw-6', 'bird', '새'),
+      ];
+      // 씨앗을 바꿔 가며 여러 번 — 한 번이라도 같은 글자의 보기가 둘이면 안 된다
+      for (var seed = 0; seed < 200; seed++) {
+        for (final q in buildQuiz(words, Random(seed))) {
+          final texts = q.options.map(q.optionText).toList();
+          expect(texts.toSet(), hasLength(quizOptionCount), reason: '$texts');
+          expect(q.options[q.answerIndex], same(q.word));
+        }
+      }
+    });
+
+    test('서로 다른 영단어·뜻이 4개가 안 되면 시험을 내지 않고 까닭을 알려 준다', () {
+      Word w(String word, String meaning) => Word(
+        id: word + meaning,
+        word: word,
+        meaning: meaning,
+        example: '',
+        exampleMeaning: '',
+      );
+      expect(quizBlockReason(_words(3)), contains('4개 이상'));
+      expect(quizBlockReason(_words(4)), isNull);
+      // 4단어지만 뜻이 3가지뿐
+      final sameMeaning = [w('a', '큰'), w('b', '큰'), w('c', '개'), w('d', '새')];
+      expect(quizBlockReason(sameMeaning), contains('서로 다른'));
+      expect(buildQuiz(sameMeaning, Random(1)), isEmpty);
+      // 4단어지만 영단어가 3가지뿐
+      final sameWord = [w('a', '1'), w('a', '2'), w('c', '3'), w('d', '4')];
+      expect(quizBlockReason(sameWord), contains('서로 다른'));
+    });
+
     test('단어가 20개보다 적으면 전부, 4개보다 적으면 시험을 내지 않는다', () {
       expect(buildQuiz(_words(19), Random(1)), hasLength(19));
       expect(buildQuiz(_words(6), Random(1)), hasLength(6));
@@ -156,7 +207,7 @@ void main() {
             quizRandomProvider.overrideWithValue(Random(seed)),
           ],
           child: MaterialApp(
-            home: QuizScreen(cell: Cell.elementaryEasy, review: review),
+            home: QuizScreen(deck: Cell.elementaryEasy, review: review),
           ),
         ),
       );
@@ -165,7 +216,7 @@ void main() {
 
     WrongNote note(String id) => WrongNote(
       wordId: id,
-      cell: Cell.elementaryEasy,
+      deck: Cell.elementaryEasy,
       missCount: 1,
       lastMissedAt: 0,
     );

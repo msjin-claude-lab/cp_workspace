@@ -54,7 +54,7 @@ class _FakeRecords implements StudyRecords {
 
   @override
   Future<void> recordAnswer({
-    required Cell cell,
+    required Deck deck,
     required Word word,
     required bool known,
   }) async {
@@ -65,7 +65,7 @@ class _FakeRecords implements StudyRecords {
 
   @override
   Future<void> recordQuizAnswer({
-    required Cell cell,
+    required Deck deck,
     required Word word,
     required bool correct,
   }) => throw UnimplementedError('카드 학습은 시험 기록을 쓰지 않는다');
@@ -76,7 +76,13 @@ class _FakeRecords implements StudyRecords {
   @override
   Future<List<WrongNote>> wrongNotes(SchoolLevel level) async => [
     for (final n in notes)
-      if (n.cell.level == level) n,
+      if (n.deck case Cell(level: final l) when l == level) n,
+  ];
+
+  @override
+  Future<List<WrongNote>> bookWrongNotes(BookDeck book) async => [
+    for (final n in notes)
+      if (n.deck == book) n,
   ];
 
   /// 카드 학습은 노트에서 빼면 안 된다 — 불리면 남겨 두고 시험이 확인한다.
@@ -124,7 +130,7 @@ void main() {
 
   Future<void> pumpStudy(WidgetTester tester) async {
     await tester.pumpWidget(
-      scoped(const MaterialApp(home: StudyScreen(cell: Cell.elementaryEasy))),
+      scoped(const MaterialApp(home: StudyScreen(deck: Cell.elementaryEasy))),
     );
     await tester.pumpAndSettle();
   }
@@ -237,7 +243,7 @@ void main() {
     records.notes.add(
       const WrongNote(
         wordId: 'ee-002',
-        cell: Cell.elementaryEasy,
+        deck: Cell.elementaryEasy,
         missCount: 1,
         lastMissedAt: 0,
       ),
@@ -245,7 +251,7 @@ void main() {
     await tester.pumpWidget(
       scoped(
         const MaterialApp(
-          home: StudyScreen(cell: Cell.elementaryEasy, review: true),
+          home: StudyScreen(deck: Cell.elementaryEasy, review: true),
         ),
       ),
     );
@@ -276,7 +282,7 @@ void main() {
     router.go('/study/nope');
     await tester.pumpAndSettle();
 
-    expect(find.text('없는 칸입니다'), findsOneWidget);
+    expect(find.text('찾을 수 없는 화면입니다'), findsOneWidget);
   });
 
   test('날짜 키는 기기 시간대의 YYYY-MM-DD', () {
