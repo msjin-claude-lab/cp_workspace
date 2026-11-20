@@ -50,4 +50,12 @@ enum Cell {
 
   static Cell of(SchoolLevel level, Difficulty difficulty) =>
       values.firstWhere((c) => c.level == level && c.difficulty == difficulty);
+
+  /// `id`로 칸을 찾는다. 없으면 null(잘못된 주소).
+  static Cell? byId(String id) {
+    for (final c in values) {
+      if (c.id == id) return c;
+    }
+    return null;
+  }
 }

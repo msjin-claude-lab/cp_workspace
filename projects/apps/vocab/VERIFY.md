@@ -23,7 +23,8 @@
 
 ## 기대값
 
-- 테스트 9개(2026-11-20): 칸·단어 읽기 3개(`test/data/word_repository_test.dart`), 실제 단어 파일 검사 5개(`test/data/word_assets_test.dart` — 칸마다 정확히 50개, id 형식, 빈 필드 없음, 칸 사이 영단어 중복 없음, 예문에 단어 포함, 같은 칸 같은 뜻 없음), 칸 선택 화면 1개(`test/widget_test.dart`). 기능을 넣으면 늘린다
+- 테스트 18개(2026-11-20): 칸·단어 읽기 3개(`test/data/word_repository_test.dart`), 실제 단어 파일 검사 5개(`test/data/word_assets_test.dart` — 칸마다 정확히 50개, id 형식, 빈 필드 없음, 칸 사이 영단어 중복 없음, 예문에 단어 포함, 같은 칸 같은 뜻 없음), 칸 선택 화면 1개(`test/widget_test.dart`), 카드 학습 9개(`test/features/study_screen_test.dart` — 앞면·자동 발음, 뒷면, 답·기록·결과, 칸 → 학습 이동, 연타 한 번만 기록, 저장 실패 표시, 없는 칸 주소, 날짜 키, 칸 id 찾기). 기능을 넣으면 늘린다
+- sqflite 실제 저장(`SqfliteStudyRecords`)은 PC 시험에 없다 — 기기(에뮬레이터)에서 확인
 - APK 약 158MB(debug, 시험용 프로젝트 기준)
 
 ## 함정

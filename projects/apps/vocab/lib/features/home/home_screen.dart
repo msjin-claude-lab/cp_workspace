@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:material_ui/material_ui.dart';
 
 import '../../data/cell.dart';
@@ -59,7 +60,7 @@ class _LevelRow extends StatelessWidget {
   }
 }
 
-/// 칸 하나: 난이도와 들어 있는 단어 수.
+/// 칸 하나: 난이도와 들어 있는 단어 수. 누르면 그 칸의 카드 학습으로 간다.
 class CellTile extends ConsumerWidget {
   const CellTile({super.key, required this.cell});
 
@@ -75,15 +76,19 @@ class CellTile extends ConsumerWidget {
     );
     return Card(
       key: ValueKey('cell-${cell.id}'),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20),
-        child: Column(
-          children: [
-            Text(cell.difficulty.label,
-                style: Theme.of(context).textTheme.headlineSmall),
-            const SizedBox(height: 4),
-            Text(countText, style: Theme.of(context).textTheme.bodySmall),
-          ],
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: () => context.push('/study/${cell.id}'),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          child: Column(
+            children: [
+              Text(cell.difficulty.label,
+                  style: Theme.of(context).textTheme.headlineSmall),
+              const SizedBox(height: 4),
+              Text(countText, style: Theme.of(context).textTheme.bodySmall),
+            ],
+          ),
         ),
       ),
     );
