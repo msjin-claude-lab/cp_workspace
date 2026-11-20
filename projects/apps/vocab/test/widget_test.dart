@@ -83,9 +83,9 @@ void main() {
 
     expect(store.saved, Cell.middleHard);
     expect(find.byType(CellHomeScreen), findsOneWidget);
-    expect(find.text('중등 · 상'), findsOneWidget);
+    expect(find.text('중등 [난이도 : 어려움]'), findsOneWidget);
     expect(find.text('4단어'), findsOneWidget);
-    expect(find.text('4지선다 시험'), findsOneWidget); // 문항 수는 보이지 않는다
+    expect(find.text('시험'), findsOneWidget); // 문항 수는 보이지 않는다
     expect(find.text('오답 노트 · 0단어'), findsOneWidget);
   });
 
@@ -95,7 +95,7 @@ void main() {
     await pumpApp(tester);
 
     expect(find.byType(LevelPickerScreen), findsNothing);
-    expect(find.text('초등 · 하'), findsOneWidget);
+    expect(find.text('초등 [난이도 : 쉬움]'), findsOneWidget);
     expect(find.text('오답 노트 · 1단어'), findsOneWidget);
   });
 
@@ -104,6 +104,12 @@ void main() {
     await pumpApp(tester);
 
     await tap(tester, 'menu');
+    // 메뉴 맨 위에 앱 제목과 그보다 작은 글씨의 버전
+    final title = tester.widget<Text>(find.byKey(const ValueKey('menu-title')));
+    final span = title.textSpan! as TextSpan;
+    final version = span.children!.single as TextSpan;
+    expect(span.toPlainText(), '영단어 v1.0.0');
+    expect(version.style!.fontSize!, lessThan(span.style!.fontSize!));
     // 지금 학교급(초등)은 펼쳐져 있다
     expect(
       find.byKey(const ValueKey('menu-cell-elementary_hard')),
@@ -115,7 +121,7 @@ void main() {
     await tap(tester, 'menu-cell-high_easy');
 
     expect(store.saved, Cell.highEasy);
-    expect(find.text('고등 · 하'), findsOneWidget);
+    expect(find.text('고등 [난이도 : 쉬움]'), findsOneWidget);
     expect(find.text('5단어'), findsOneWidget);
   });
 
@@ -131,7 +137,7 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(tester.takeException(), isNull);
-    expect(find.text('초등 · 중'), findsOneWidget);
+    expect(find.text('초등 [난이도 : 중간]'), findsOneWidget);
     expect(find.byType(CellHomeScreen), findsOneWidget);
   });
 
@@ -142,20 +148,20 @@ void main() {
     await tap(tester, 'pick-elementary');
     await tap(tester, 'pick-elementary_easy');
 
-    expect(find.text('초등 · 하'), findsOneWidget);
+    expect(find.text('초등 [난이도 : 쉬움]'), findsOneWidget);
     expect(find.textContaining('저장하지 못했습니다'), findsOneWidget);
     expect(store.saved, isNull);
   });
 
-  testWidgets('칸 홈에서 학습·시험·오답 노트를 열고, 안쪽 화면의 ⌂ 홈과 ← 뒤로로 칸 홈에 돌아온다', (
-    tester,
-  ) async {
+  testWidgets('칸 홈에서 학습·시험·오답 노트를 열고, 안쪽 화면의 ← 뒤로로 칸 홈에 돌아온다', (tester) async {
     store.saved = Cell.elementaryEasy;
     await pumpApp(tester);
 
     await tap(tester, 'home-study');
     expect(find.byType(StudyScreen), findsOneWidget);
-    await tap(tester, 'go-home');
+    expect(find.text('홈으로'), findsNothing); // 안쪽 화면에 홈으로 버튼은 없다
+    await tester.pageBack();
+    await tester.pumpAndSettle();
     expect(find.byType(CellHomeScreen), findsOneWidget);
 
     await tap(tester, 'home-quiz');
@@ -166,14 +172,17 @@ void main() {
 
     await tap(tester, 'home-wrong');
     expect(find.byType(WrongNotesScreen), findsOneWidget);
-    await tap(tester, 'go-home');
+    await tester.pageBack();
+    await tester.pumpAndSettle();
 
-    // 칸 바꾸기 → 학교급 → 난이도 → 새 칸 홈(뒤로 쌓이지 않고 홈 하나만)
+    // 학교급·난이도 바꾸기 → 학교급 → 난이도 → 새 칸 홈(뒤로 쌓이지 않고 홈 하나만)
+    expect(find.text('메인화면'), findsOneWidget);
     await tap(tester, 'home-change');
     expect(find.byType(LevelPickerScreen), findsOneWidget);
+    expect(find.byType(BackButton), findsNothing); // 메인화면에는 ← 뒤로가 없다
     await tap(tester, 'pick-high');
     await tap(tester, 'pick-high_easy');
-    expect(find.text('고등 · 하'), findsOneWidget);
+    expect(find.text('고등 [난이도 : 쉬움]'), findsOneWidget);
     expect(find.byType(BackButton), findsNothing);
   });
 

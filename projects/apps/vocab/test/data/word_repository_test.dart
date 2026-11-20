@@ -27,7 +27,7 @@ void main() {
     expect(Cell.values, hasLength(9));
     expect(Cell.middleHard.id, 'middle_hard');
     expect(Cell.middleHard.assetPath, 'assets/words/middle_hard.json');
-    expect(Cell.middleHard.label, '중등 · 상');
+    expect(Cell.middleHard.label, '중등 [난이도 : 어려움]');
     expect(Cell.of(SchoolLevel.high, Difficulty.easy), Cell.highEasy);
     expect(Cell.values.map((c) => c.id).toSet(), hasLength(9));
   });

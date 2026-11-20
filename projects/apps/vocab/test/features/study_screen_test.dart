@@ -129,7 +129,7 @@ void main() {
   testWidgets('앞면에 영단어가 보이고 자동으로 한 번 발음한다', (tester) async {
     await pumpStudy(tester);
 
-    expect(find.text('초등 · 하'), findsOneWidget);
+    expect(find.text('초등 [난이도 : 쉬움] - 카드 학습'), findsOneWidget);
     expect(find.text('apple'), findsOneWidget);
     expect(find.text('1 / 2'), findsOneWidget);
     expect(find.text('사과'), findsNothing);
@@ -248,7 +248,7 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    expect(find.text('초등 · 하 오답'), findsOneWidget);
+    expect(find.text('초등 [난이도 : 쉬움] - 오답 다시 보기'), findsOneWidget);
     expect(find.text('1 / 1'), findsOneWidget);
     expect(find.text('book'), findsOneWidget);
     expect(find.text('apple'), findsNothing);

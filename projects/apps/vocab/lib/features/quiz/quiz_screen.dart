@@ -7,7 +7,6 @@ import '../../data/speaker.dart';
 import '../../data/study_records.dart';
 import '../../data/word.dart';
 import '../../data/word_repository.dart';
-import '../common/home_button.dart';
 import '../wrong_notes/review_words.dart';
 import 'quiz.dart';
 
@@ -107,10 +106,9 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
       appBar: AppBar(
         title: Text(
           widget.review
-              ? '${widget.cell.label} 오답 시험'
-              : '${widget.cell.label} 시험',
+              ? '${widget.cell.label} - 오답 시험'
+              : '${widget.cell.label} - 시험',
         ),
-        actions: const [HomeButton()],
       ),
       body: SafeArea(
         child: switch ((asked, all)) {
@@ -359,11 +357,14 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
             onPressed: _restart,
             child: Text(widget.review ? '남은 오답 다시 하기' : '다시 하기 (새로 섞기)'),
           ),
-          const SizedBox(height: 8),
-          OutlinedButton(
-            onPressed: _backToCells,
-            child: Text(widget.review ? '오답 노트로' : '칸 홈으로'),
-          ),
+          // 돌아가기는 위쪽 ← 뒤로. 오답 노트에서 열었으면 노트로 돌아가는 버튼을 하나 더 둔다
+          if (widget.review) ...[
+            const SizedBox(height: 8),
+            OutlinedButton(
+              onPressed: _backToCells,
+              child: const Text('오답 노트로'),
+            ),
+          ],
         ],
       ),
     );

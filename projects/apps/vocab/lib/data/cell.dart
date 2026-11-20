@@ -11,9 +11,10 @@ enum SchoolLevel {
 
 /// 난이도.
 enum Difficulty {
-  easy('하'),
-  medium('중'),
-  hard('상');
+  // 화면 이름은 쉬움·중간·어려움(2026-11-20 사용자 결정 — 전에는 하·중·상)
+  easy('쉬움'),
+  medium('중간'),
+  hard('어려움');
 
   const Difficulty(this.label);
 
@@ -43,8 +44,9 @@ enum Cell {
   /// 파일 이름·주소에 쓰는 이름. 예: `elementary_easy`.
   String get id => '${level.name}_${difficulty.name}';
 
-  /// 화면에 보이는 이름. 예: `초등 · 하`.
-  String get label => '${level.label} · ${difficulty.label}';
+  /// 화면 제목에 보이는 이름. 예: `중등 [난이도 : 중간]`(2026-11-20 사용자 결정).
+  /// 안쪽 화면 제목은 여기에 ` - 시험`처럼 붙인다.
+  String get label => '${level.label} [난이도 : ${difficulty.label}]';
 
   String get assetPath => 'assets/words/$id.json';
 

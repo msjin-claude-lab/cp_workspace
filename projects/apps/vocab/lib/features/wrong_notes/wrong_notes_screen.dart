@@ -4,7 +4,6 @@ import 'package:material_ui/material_ui.dart';
 
 import '../../data/cell.dart';
 import '../../data/study_records.dart';
-import '../common/home_button.dart';
 import 'review_words.dart';
 
 /// 오답 노트(칸 홈 → 오답 노트): 그 칸의 오답을 최근에 틀린 것부터 보여 준다.
@@ -44,10 +43,7 @@ class WrongNotesScreen extends ConsumerWidget {
     final entries = ref.watch(wrongEntriesProvider(cell));
     final text = Theme.of(context).textTheme;
     return Scaffold(
-      appBar: AppBar(
-        title: Text('${cell.label} 오답 노트'),
-        actions: const [HomeButton()],
-      ),
+      appBar: AppBar(title: Text('${cell.label} - 오답 노트')),
       body: SafeArea(
         child: entries.when(
           loading: () => const Center(child: CircularProgressIndicator()),
@@ -94,7 +90,7 @@ class WrongNotesScreen extends ConsumerWidget {
                       Expanded(
                         child: FilledButton.icon(
                           key: const ValueKey('wrong-quiz'),
-                          icon: const Icon(Icons.quiz),
+                          icon: const Icon(Icons.edit_note),
                           label: const Text('오답 시험'),
                           onPressed: () =>
                               _open(context, ref, '/review/quiz/${cell.id}'),

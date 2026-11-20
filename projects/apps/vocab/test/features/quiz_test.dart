@@ -276,7 +276,7 @@ void main() {
       final quiz = buildQuiz([words[1], words[4]], Random(seed), pool: words);
       await pumpQuiz(tester, words, review: true);
 
-      expect(find.text('초등 · 하 오답 시험'), findsOneWidget);
+      expect(find.text('초등 [난이도 : 쉬움] - 오답 시험'), findsOneWidget);
       expect(find.text('1 / 2'), findsOneWidget);
       for (final q in quiz) {
         expect(q.options, hasLength(quizOptionCount)); // 노트는 2단어여도 보기는 4개

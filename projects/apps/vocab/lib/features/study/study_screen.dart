@@ -7,7 +7,6 @@ import '../../data/speaker.dart';
 import '../../data/study_records.dart';
 import '../../data/word.dart';
 import '../../data/word_repository.dart';
-import '../common/home_button.dart';
 import '../wrong_notes/review_words.dart';
 
 /// 카드 학습: 칸의 단어를 한 장씩 본다.
@@ -98,9 +97,10 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.review ? '${widget.cell.label} 오답' : widget.cell.label,
+          widget.review
+              ? '${widget.cell.label} - 오답 다시 보기'
+              : '${widget.cell.label} - 카드 학습',
         ),
-        actions: const [HomeButton()],
       ),
       body: SafeArea(
         child: words.when(
@@ -297,11 +297,11 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
           ],
           const SizedBox(height: 24),
           FilledButton(onPressed: _restart, child: const Text('다시 하기')),
-          const SizedBox(height: 8),
-          OutlinedButton(
-            onPressed: _leave,
-            child: Text(widget.review ? '오답 노트로' : '칸 홈으로'),
-          ),
+          // 돌아가기는 위쪽 ← 뒤로. 오답 노트에서 열었으면 노트로 돌아가는 버튼을 하나 더 둔다
+          if (widget.review) ...[
+            const SizedBox(height: 8),
+            OutlinedButton(onPressed: _leave, child: const Text('오답 노트로')),
+          ],
         ],
       ),
     );

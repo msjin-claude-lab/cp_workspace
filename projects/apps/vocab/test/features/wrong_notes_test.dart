@@ -33,7 +33,7 @@ void main() {
 
   setUp(() => records = FakeRecords());
 
-  /// 칸 홈(초등 · 하)에서 오답 노트로 들어간다.
+  /// 칸 홈(초등 [난이도 : 쉬움])에서 오답 노트로 들어간다.
   Future<void> openWrongNotes(WidgetTester tester) async {
     await tester.pumpWidget(
       ProviderScope(
@@ -70,7 +70,7 @@ void main() {
     await openWrongNotes(tester);
 
     expect(find.byType(WrongNotesScreen), findsOneWidget);
-    expect(find.text('초등 · 하 오답 노트'), findsOneWidget);
+    expect(find.text('초등 [난이도 : 쉬움] - 오답 노트'), findsOneWidget);
     expect(find.text('2단어'), findsOneWidget);
     expect(find.text('castle'), findsNothing);
     expect(find.text('틀림 2'), findsOneWidget);
@@ -96,7 +96,7 @@ void main() {
     expect(find.text('1단어'), findsOneWidget);
     expect(find.text('apple — 오답 노트에서 지웠습니다'), findsOneWidget);
 
-    await tester.tap(find.byKey(const ValueKey('go-home')));
+    await tester.pageBack();
     await tester.pumpAndSettle();
     expect(find.text('오답 노트 · 1단어'), findsOneWidget);
   });

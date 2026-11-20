@@ -2,18 +2,19 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:material_ui/material_ui.dart';
 
+import '../../app_info.dart';
 import '../../data/cell.dart';
 import '../../data/cell_store.dart';
 import '../../data/study_records.dart';
 import '../../data/word_repository.dart';
-import '../common/home_button.dart';
 import '../wrong_notes/review_words.dart';
 
 // 화면 구조(2026-11-20 사용자 결정):
 // - 학교급 고르기 → 난이도 고르기 → 칸 홈. 선택은 세로 버튼
 // - 고른 칸(학교급 + 난이도)은 기기에 남아, 앱을 열면 그 칸 홈으로 바로 간다
-// - 칸 홈의 ☰ 메뉴(학교급 ▸ 난이도 2단계)나 "칸 바꾸기"로 칸을 바꾼다
-// - 학습·시험·오답 노트 등 안쪽 화면은 ← 뒤로와 ⌂ 홈(칸 홈)을 둔다
+// - 칸 홈의 ☰ 메뉴(학교급 ▸ 난이도 2단계)나 "학교급·난이도 바꾸기"로 칸을 바꾼다
+//   ("칸"은 개발용 말 — 화면에는 쓰지 않는다. 제목은 `중등 [난이도 : 중간] - 시험` 꼴)
+// - 학습·시험·오답 노트 등 안쪽 화면은 위쪽 ← 뒤로로 돌아온다(따로 "홈으로" 버튼은 두지 않는다)
 
 /// 앱 첫 화면: 고른 칸이 있으면 칸 홈, 없으면(첫 실행) 학교급 고르기.
 class HomeScreen extends ConsumerWidget {
@@ -116,10 +117,7 @@ class DifficultyPickerScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('${level.label} · 난이도 고르기'),
-        actions: const [HomeButton()],
-      ),
+      appBar: AppBar(title: Text('${level.label} - 난이도 고르기')),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.all(24),
@@ -191,6 +189,25 @@ class CellHomeScreen extends ConsumerWidget {
         title: Text(cell.label),
       ),
       drawer: _MenuDrawer(current: cell),
+      // "메인화면"(학교급 고르기로 감)은 화면 맨 아래에 고정한다(2026-11-20 사용자 결정)
+      bottomNavigationBar: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(24, 8, 24, 16),
+          child: OutlinedButton.icon(
+            key: const ValueKey('home-change'),
+            style: OutlinedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+            ),
+            icon: const Icon(Icons.home_outlined),
+            label: const Text('메인화면'),
+            onPressed: () {
+              if (ModalRoute.of(context)?.isCurrent != true) return;
+              // 메인화면은 맨 위 화면이라 ← 뒤로가 없다 — 쌓지 않고 바꿔 연다
+              context.go('/pick');
+            },
+          ),
+        ),
+      ),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.all(24),
@@ -214,8 +231,8 @@ class CellHomeScreen extends ConsumerWidget {
             ),
             _HomeAction(
               key: const ValueKey('home-quiz'),
-              icon: Icons.quiz,
-              label: '4지선다 시험',
+              icon: Icons.edit_note, // 종이와 연필(사용자: 물음표 아이콘은 어색)
+              label: '시험',
               onPressed: () => _open(context, ref, '/quiz/${cell.id}'),
             ),
             _HomeAction(
@@ -227,19 +244,6 @@ class CellHomeScreen extends ConsumerWidget {
                 error: (_, _) => '오답 노트',
               ),
               onPressed: () => _open(context, ref, '/wrong-notes/${cell.id}'),
-            ),
-            const SizedBox(height: 12),
-            OutlinedButton.icon(
-              key: const ValueKey('home-change'),
-              style: OutlinedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 16),
-              ),
-              icon: const Icon(Icons.swap_horiz),
-              label: const Text('칸 바꾸기'),
-              onPressed: () {
-                if (ModalRoute.of(context)?.isCurrent != true) return;
-                context.push('/pick');
-              },
             ),
           ],
         ),
@@ -289,9 +293,19 @@ class _MenuDrawer extends ConsumerWidget {
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
-              child: Text(
-                '칸 바꾸기',
-                style: Theme.of(context).textTheme.titleSmall,
+              // 앱 제목 + 작은 글씨의 버전. 예: 영단어 v1.0.0
+              child: Text.rich(
+                key: const ValueKey('menu-title'),
+                TextSpan(
+                  text: appTitle,
+                  style: Theme.of(context).textTheme.titleLarge,
+                  children: [
+                    TextSpan(
+                      text: ' v$appVersion',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ],
+                ),
               ),
             ),
             for (final level in SchoolLevel.values)

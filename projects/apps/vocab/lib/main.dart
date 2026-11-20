@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_ui/material_ui.dart';
 
+import 'app_info.dart';
 import 'router.dart';
 
 void main() {
@@ -13,7 +14,7 @@ class VocabApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: '영단어',
+      title: appTitle,
       theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.indigo)),
       routerConfig: appRouter,
     );
