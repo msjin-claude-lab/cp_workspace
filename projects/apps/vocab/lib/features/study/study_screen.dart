@@ -7,13 +7,18 @@ import '../../data/speaker.dart';
 import '../../data/study_records.dart';
 import '../../data/word.dart';
 import '../../data/word_repository.dart';
+import '../common/home_button.dart';
+import '../wrong_notes/review_words.dart';
 
 /// 카드 학습: 칸의 단어를 한 장씩 본다.
 /// 앞면 영단어 + 발음, 누르면 뒷면 뜻·예문·해석 → 안다/모른다 → 다음 카드.
+/// `review`면 그 칸의 오답 노트 단어만 본다(오답 노트 → 카드로 다시 보기).
+/// '안다'로 답해도 오답 노트에서 빼지 않는다(사용자 결정 — 빠지는 것은 오답 시험에서 맞혔을 때).
 class StudyScreen extends ConsumerStatefulWidget {
-  const StudyScreen({super.key, required this.cell});
+  const StudyScreen({super.key, required this.cell, this.review = false});
 
   final Cell cell;
+  final bool review;
 
   @override
   ConsumerState<StudyScreen> createState() => _StudyScreenState();
@@ -33,6 +38,9 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
 
   /// 이번 회차에 저장하지 못한 답이 있었나.
   bool _saveFailed = false;
+
+  /// 다시 보기(review)에서 처음 받은 오답 단어 목록.
+  List<Word>? _reviewWords;
 
   void _speak(Word word) => ref.read(speakerProvider).speak(word.word);
 
@@ -57,15 +65,16 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
   }
 
   void _restart() => setState(() {
-        _index = 0;
-        _flipped = false;
-        _known = 0;
-        _unknown = 0;
-        _spokenIndex = null;
-        _saveFailed = false;
-      });
+    _index = 0;
+    _flipped = false;
+    _known = 0;
+    _unknown = 0;
+    _spokenIndex = null;
+    _saveFailed = false;
+  });
 
-  void _backToCells() {
+  /// 결과 화면의 돌아가기: 연 화면(칸 홈·오답 노트)으로. 주소로 바로 열었으면 칸 홈으로.
+  void _leave() {
     if (context.canPop()) {
       context.pop();
     } else {
@@ -75,16 +84,35 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final words = ref.watch(cellWordsProvider(widget.cell));
+    final source = widget.review
+        ? ref.watch(reviewWordsProvider(widget.cell))
+        : ref.watch(cellWordsProvider(widget.cell));
+    // 다시 보기는 처음 받은 오답 목록을 회차 동안 붙잡는다 — 노트가 다시 읽혀도 카드가 건너뛰지 않게
+    final words = switch (source) {
+      AsyncData(:final value) when widget.review => AsyncData(
+        _reviewWords ??= value,
+      ),
+      _ when _reviewWords != null => AsyncData(_reviewWords!),
+      _ => source,
+    };
     return Scaffold(
-      appBar: AppBar(title: Text(widget.cell.label)),
+      appBar: AppBar(
+        title: Text(
+          widget.review ? '${widget.cell.label} 오답' : widget.cell.label,
+        ),
+        actions: const [HomeButton()],
+      ),
       body: SafeArea(
         child: words.when(
           loading: () => const Center(child: CircularProgressIndicator()),
           error: (_, _) => const Center(child: Text('단어를 읽지 못했습니다')),
           data: (list) {
             if (list.isEmpty) {
-              return const Center(child: Text('이 칸에는 아직 단어가 없습니다'));
+              return Center(
+                child: Text(
+                  widget.review ? '오답 노트에 단어가 없습니다' : '이 칸에는 아직 단어가 없습니다',
+                ),
+              );
             }
             if (_index >= list.length) return _summary(list.length);
             return _card(list[_index], list.length);
@@ -110,16 +138,21 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
         children: [
           LinearProgressIndicator(value: _index / total),
           const SizedBox(height: 8),
-          Text('${_index + 1} / $total',
-              key: const ValueKey('study-progress'),
-              textAlign: TextAlign.center,
-              style: theme.textTheme.bodySmall),
+          Text(
+            '${_index + 1} / $total',
+            key: const ValueKey('study-progress'),
+            textAlign: TextAlign.center,
+            style: theme.textTheme.bodySmall,
+          ),
           if (_saveFailed)
-            Text('기록을 저장하지 못했습니다',
-                key: const ValueKey('study-save-error'),
-                textAlign: TextAlign.center,
-                style: theme.textTheme.bodySmall
-                    ?.copyWith(color: theme.colorScheme.error)),
+            Text(
+              '기록을 저장하지 못했습니다',
+              key: const ValueKey('study-save-error'),
+              textAlign: TextAlign.center,
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: theme.colorScheme.error,
+              ),
+            ),
           const SizedBox(height: 16),
           Expanded(
             child: Card(
@@ -143,8 +176,9 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
                 Expanded(
                   child: FilledButton.tonal(
                     key: const ValueKey('study-unknown'),
-                    onPressed:
-                        _answering ? null : () => _answer(word, known: false),
+                    onPressed: _answering
+                        ? null
+                        : () => _answer(word, known: false),
                     child: const Text('모른다'),
                   ),
                 ),
@@ -152,16 +186,20 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
                 Expanded(
                   child: FilledButton(
                     key: const ValueKey('study-known'),
-                    onPressed:
-                        _answering ? null : () => _answer(word, known: true),
+                    onPressed: _answering
+                        ? null
+                        : () => _answer(word, known: true),
                     child: const Text('안다'),
                   ),
                 ),
               ],
             )
           else
-            Text('카드를 누르면 뜻이 보입니다',
-                textAlign: TextAlign.center, style: theme.textTheme.bodyMedium),
+            Text(
+              '카드를 누르면 뜻이 보입니다',
+              textAlign: TextAlign.center,
+              style: theme.textTheme.bodyMedium,
+            ),
         ],
       ),
     );
@@ -191,15 +229,23 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
       children: [
         Text(word.word, style: text.titleMedium),
         const SizedBox(height: 8),
-        Text(word.meaning,
-            textAlign: TextAlign.center, style: text.headlineSmall),
+        Text(
+          word.meaning,
+          textAlign: TextAlign.center,
+          style: text.headlineSmall,
+        ),
         const SizedBox(height: 24),
-        Text(word.example,
-            textAlign: TextAlign.center,
-            style: text.bodyLarge?.copyWith(fontStyle: FontStyle.italic)),
+        Text(
+          word.example,
+          textAlign: TextAlign.center,
+          style: text.bodyLarge?.copyWith(fontStyle: FontStyle.italic),
+        ),
         const SizedBox(height: 4),
-        Text(word.exampleMeaning,
-            textAlign: TextAlign.center, style: text.bodyMedium),
+        Text(
+          word.exampleMeaning,
+          textAlign: TextAlign.center,
+          style: text.bodyMedium,
+        ),
       ],
     );
   }
@@ -212,31 +258,50 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text('$total단어를 모두 봤습니다',
-              textAlign: TextAlign.center, style: text.titleLarge),
+          Text(
+            '$total단어를 모두 봤습니다',
+            textAlign: TextAlign.center,
+            style: text.titleLarge,
+          ),
           const SizedBox(height: 8),
-          Text('안다 $_known · 모른다 $_unknown',
-              key: const ValueKey('study-summary'),
-              textAlign: TextAlign.center,
-              style: text.titleMedium),
+          Text(
+            '안다 $_known · 모른다 $_unknown',
+            key: const ValueKey('study-summary'),
+            textAlign: TextAlign.center,
+            style: text.titleMedium,
+          ),
           if (_saveFailed) ...[
             const SizedBox(height: 4),
-            Text('일부 기록을 저장하지 못했습니다',
-                key: const ValueKey('study-save-failed'),
-                textAlign: TextAlign.center,
-                style: text.bodyMedium
-                    ?.copyWith(color: Theme.of(context).colorScheme.error)),
-          ] else if (_unknown > 0) ...[
+            Text(
+              '일부 기록을 저장하지 못했습니다',
+              key: const ValueKey('study-save-failed'),
+              textAlign: TextAlign.center,
+              style: text.bodyMedium?.copyWith(
+                color: Theme.of(context).colorScheme.error,
+              ),
+            ),
+          ] else if (_unknown > 0 && !widget.review) ...[
             const SizedBox(height: 4),
-            Text("'모른다' 단어는 오답 노트에 담았습니다",
-                textAlign: TextAlign.center, style: text.bodyMedium),
+            Text(
+              "'모른다' 단어는 오답 노트에 담았습니다",
+              textAlign: TextAlign.center,
+              style: text.bodyMedium,
+            ),
+          ] else if (widget.review) ...[
+            const SizedBox(height: 4),
+            Text(
+              '오답 노트에서 빼려면 오답 시험에서 맞히세요',
+              textAlign: TextAlign.center,
+              style: text.bodyMedium,
+            ),
           ],
           const SizedBox(height: 24),
           FilledButton(onPressed: _restart, child: const Text('다시 하기')),
           const SizedBox(height: 8),
           OutlinedButton(
-              onPressed: _backToCells,
-              child: const Text('칸 선택으로')),
+            onPressed: _leave,
+            child: Text(widget.review ? '오답 노트로' : '칸 홈으로'),
+          ),
         ],
       ),
     );

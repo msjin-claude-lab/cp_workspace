@@ -84,6 +84,70 @@ void main() {
     await db.close();
   });
 
+  test('오답 노트는 학교급별로 최근에 틀린 것부터 읽히고, 빼면 노트만 지워지고 기록은 남는다', () async {
+    final records = SqfliteStudyRecords(
+      factory: databaseFactoryFfi,
+      path: path,
+    );
+    const middle = Word(
+      id: 'mh-001',
+      word: 'improve',
+      meaning: '나아지다',
+      example: 'x',
+      exampleMeaning: 'y',
+    );
+    await records.recordAnswer(
+      cell: Cell.elementaryEasy,
+      word: word,
+      known: false,
+    );
+    await Future<void>.delayed(const Duration(milliseconds: 5));
+    await records.recordQuizAnswer(
+      cell: Cell.middleHard,
+      word: middle,
+      correct: false,
+    );
+
+    final elementary = await records.wrongNotes(SchoolLevel.elementary);
+    expect(elementary.map((n) => (n.wordId, n.cell, n.missCount)), [
+      ('ee-001', Cell.elementaryEasy, 1),
+    ]);
+    expect(
+      (await records.wrongNotes(SchoolLevel.middle)).map((n) => n.wordId),
+      ['mh-001'],
+    );
+    expect(await records.wrongNotes(SchoolLevel.high), isEmpty);
+
+    // 같은 학교급에 나중에 틀린 단어는 위로 온다(SQL의 최근순 정렬)
+    await Future<void>.delayed(const Duration(milliseconds: 5));
+    const later = Word(
+      id: 'eh-001',
+      word: 'castle',
+      meaning: '성',
+      example: 'x',
+      exampleMeaning: 'y',
+    );
+    await records.recordQuizAnswer(
+      cell: Cell.elementaryHard,
+      word: later,
+      correct: false,
+    );
+    expect(
+      (await records.wrongNotes(SchoolLevel.elementary)).map((n) => n.wordId),
+      ['eh-001', 'ee-001'],
+    );
+    await records.removeWrongNote('eh-001');
+
+    await records.removeWrongNote('ee-001');
+    expect(await records.wrongNotes(SchoolLevel.elementary), isEmpty);
+
+    final db = await databaseFactoryFfi.openDatabase(path);
+    expect(await db.rawQuery('SELECT word_id FROM study_log'), [
+      {'word_id': 'ee-001'},
+    ], reason: '오답 노트에서 빼도 학습 기록은 남는다');
+    await db.close();
+  });
+
   test('1판 사용자의 DB는 기록을 그대로 둔 채 2판으로 올라가 시험 기록을 쓸 수 있다', () async {
     // 1판(카드 학습만 있던 때)으로 만든 DB에 기록 하나
     final v1 = await databaseFactoryFfi.openDatabase(

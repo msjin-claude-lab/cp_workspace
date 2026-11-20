@@ -58,6 +58,22 @@ class _FakeRecords implements StudyRecords {
     quiz.add((word.id, correct));
     if (fail) throw StateError('db');
   }
+
+  /// 가짜 오답 노트. 오답 시험 시험이 채운다.
+  final List<WrongNote> notes = [];
+  final List<String> removed = [];
+
+  @override
+  Future<List<WrongNote>> wrongNotes(SchoolLevel level) async => [
+    for (final n in notes)
+      if (n.cell.level == level) n,
+  ];
+
+  @override
+  Future<void> removeWrongNote(String wordId) async {
+    removed.add(wordId);
+    notes.removeWhere((n) => n.wordId == wordId);
+  }
 }
 
 void main() {
@@ -123,7 +139,11 @@ void main() {
     List<QuizQuestion> expected(List<Word> words) =>
         buildQuiz(words, Random(seed));
 
-    Future<void> pumpQuiz(WidgetTester tester, List<Word> words) async {
+    Future<void> pumpQuiz(
+      WidgetTester tester,
+      List<Word> words, {
+      bool review = false,
+    }) async {
       await tester.pumpWidget(
         ProviderScope(
           overrides: [
@@ -132,11 +152,20 @@ void main() {
             studyRecordsProvider.overrideWithValue(records),
             quizRandomProvider.overrideWithValue(Random(seed)),
           ],
-          child: const MaterialApp(home: QuizScreen(cell: Cell.elementaryEasy)),
+          child: MaterialApp(
+            home: QuizScreen(cell: Cell.elementaryEasy, review: review),
+          ),
         ),
       );
       await tester.pumpAndSettle();
     }
+
+    WrongNote note(String id) => WrongNote(
+      wordId: id,
+      cell: Cell.elementaryEasy,
+      missCount: 1,
+      lastMissedAt: 0,
+    );
 
     Finder option(int i) => find.byKey(ValueKey('quiz-option-$i'));
 
@@ -236,6 +265,47 @@ void main() {
 
       expect(find.byKey(const ValueKey('quiz-save-error')), findsOneWidget);
       expect(find.byKey(const ValueKey('quiz-next')), findsOneWidget);
+    });
+
+    testWidgets('오답 시험은 노트 단어만 묻고 보기는 칸 전체에서 고르며, 맞힌 단어만 노트에서 뺀다', (
+      tester,
+    ) async {
+      final words = _words(6);
+      records.notes.addAll([note('ee-001'), note('ee-004')]);
+      // 화면과 같은 입력(노트 단어를 파일 순서로, 보기 후보는 칸 전체)으로 정답 위치를 미리 안다
+      final quiz = buildQuiz([words[1], words[4]], Random(seed), pool: words);
+      await pumpQuiz(tester, words, review: true);
+
+      expect(find.text('초등 · 하 오답 시험'), findsOneWidget);
+      expect(find.text('1 / 2'), findsOneWidget);
+      for (final q in quiz) {
+        expect(q.options, hasLength(quizOptionCount)); // 노트는 2단어여도 보기는 4개
+      }
+
+      // 첫 문제는 맞히고, 둘째 문제는 틀린다
+      await tapShown(tester, option(quiz[0].answerIndex));
+      await tapShown(tester, find.byKey(const ValueKey('quiz-next')));
+      await tapShown(tester, option((quiz[1].answerIndex + 1) % 4));
+      await tapShown(tester, find.byKey(const ValueKey('quiz-next')));
+
+      expect(records.removed, [quiz[0].word.id]);
+      expect(find.text('맞힌 1단어는 오답 노트에서 뺐습니다'), findsOneWidget);
+      expect(find.text('틀린 1단어는 오답 노트에 남았습니다'), findsOneWidget);
+
+      // 다시 하기는 남은 오답만
+      await tapShown(tester, find.text('남은 오답 다시 하기'));
+      expect(find.text('1 / 1'), findsOneWidget); // 맞혀서 뺀 단어는 다시 묻지 않는다
+    });
+
+    testWidgets('일반 시험에서 맞혀도 오답 노트에서 빼지 않는다', (tester) async {
+      final words = _words(4);
+      final q = expected(words).first;
+      records.notes.add(note(q.word.id));
+      await pumpQuiz(tester, words);
+
+      await tapShown(tester, option(q.answerIndex));
+
+      expect(records.removed, isEmpty);
     });
 
     testWidgets('칸에 50단어가 있으면 20문제를 낸다', (tester) async {

@@ -23,7 +23,8 @@
 
 ## 기대값
 
-- 테스트 36개(2026-11-20): 칸·단어 읽기 3개(`test/data/word_repository_test.dart`), 실제 단어 파일 검사 5개(`test/data/word_assets_test.dart` — 칸마다 정확히 50개, id 형식, 빈 필드 없음, 칸 사이 영단어 중복 없음, 예문에 단어 포함, 같은 칸 같은 뜻 없음), **실제 DB 2개**(`test/data/study_records_test.dart` — sqflite_common_ffi, 새 설치 2판 표·시험 기록·오답 노트, 1판 → 2판 이행 시 기록 유지), 첫 화면 6개(`test/widget_test.dart` — 첫 실행 학교급 선택·저장, 저장된 학교급으로 시작, ☰ 메뉴로 변경, 메뉴 빠른 두 번 누름, 저장 실패 알림, 칸 → 학습/시험 창), 카드 학습 9개(`test/features/study_screen_test.dart`), 시험 11개(`test/features/quiz_test.dart` — 20문제·서로 다른 단어·보기 4개 같은 칸, 매번 새로 섞기, 두 방향, 단어 적을 때, 맞힘·틀림 기록, 한 번만 답함, 영→뜻만 자동 발음, 결과·다시 하기 새로 섞기, 저장 실패, 50단어면 20문제, 4개 미만 안내). 기능을 넣으면 늘린다
+- 테스트 46개(2026-11-20 화면 구조·오답 노트 뒤): 아래 36개를 바꾸고 늘림 — 첫 화면 7개(`test/widget_test.dart` — 학교급 → 난이도 세로 선택·저장·칸 홈, 저장된 칸으로 시작·오답 수, ☰ 2단계 메뉴, 메뉴 빠른 두 번 누름, 저장 실패, 칸 홈 → 학습·시험·오답 노트·⌂ 홈·← 뒤로·칸 바꾸기, 모른다 뒤 오답 수 갱신), 오답 노트 5개(`test/features/wrong_notes_test.dart`), 시험에 오답 시험 2개, 카드 학습에 다시 보기 1개, 실제 DB에 오답 노트 읽기·최근순·빼기 1개. 시험용 가짜는 `test/fakes.dart`
+- (이전) 테스트 36개(2026-11-20): 칸·단어 읽기 3개(`test/data/word_repository_test.dart`), 실제 단어 파일 검사 5개(`test/data/word_assets_test.dart` — 칸마다 정확히 50개, id 형식, 빈 필드 없음, 칸 사이 영단어 중복 없음, 예문에 단어 포함, 같은 칸 같은 뜻 없음), **실제 DB 2개**(`test/data/study_records_test.dart` — sqflite_common_ffi, 새 설치 2판 표·시험 기록·오답 노트, 1판 → 2판 이행 시 기록 유지), 첫 화면 6개(`test/widget_test.dart` — 첫 실행 학교급 선택·저장, 저장된 학교급으로 시작, ☰ 메뉴로 변경, 메뉴 빠른 두 번 누름, 저장 실패 알림, 칸 → 학습/시험 창), 카드 학습 9개(`test/features/study_screen_test.dart`), 시험 11개(`test/features/quiz_test.dart` — 20문제·서로 다른 단어·보기 4개 같은 칸, 매번 새로 섞기, 두 방향, 단어 적을 때, 맞힘·틀림 기록, 한 번만 답함, 영→뜻만 자동 발음, 결과·다시 하기 새로 섞기, 저장 실패, 50단어면 20문제, 4개 미만 안내). 기능을 넣으면 늘린다
 - sqflite 실제 저장은 PC에서 sqflite_common_ffi로 시험한다(Windows에서 별도 설치 없이 동작함, 2026-11-20). 기기 저장 유지는 에뮬레이터에서 확인. DB 내용은 `adb exec-out run-as dev.cp.vocab cat databases/vocab.db > <파일>` 후 sqlite로 읽는다
 - APK 약 158MB(debug, 시험용 프로젝트 기준)
 
@@ -42,6 +43,10 @@
 
 ## 마지막 결과
 
+- **2026-11-20 개인 PC — 화면 구조(학교급 → 난이도 → 칸 홈)·오답 노트**
+  - `flutter analyze` exit 0, `flutter test` exit 0(46개), `flutter build apk --debug` exit 0 + `app-debug.apk` 22:37 새로 생김
+  - code-reviewer APPROVE(오답 노트) — MEDIUM 2건(다시 보기·오답 시험 중복 열림, 다시 보기 목록이 회차 중 바뀜)과 LOW(맞힌 단어 표시 시점, 문구, 테스트 빈틈 3건) 반영
+  - 에뮬레이터: 학교급·난이도 고르기가 세로 버튼(캡처) → 중등 · 중 → 앱 강제 종료·재실행 → **"중등 · 중" 칸 홈이 바로 뜸** → ☰ 메뉴가 학교급 ▸ 난이도 2단계, 지금 학교급 펼침(캡처). 직전 버전에서 사용자가 오답 시험을 풀어 **맞힌 단어가 `wrong_notes`에서 빠지고 `quiz_log`는 남음**(DB 확인)
 - **2026-11-20 개인 PC — 4지선다 시험·학교급 선택**
   - `flutter analyze` exit 0(No issues), `flutter test` exit 0(36개 통과), `flutter build apk --debug` exit 0 + `app-debug.apk` 22:07 새로 생김(171,285,100바이트)
   - code-reviewer(별도 에이전트) APPROVE — MEDIUM 2건(메뉴 연타로 첫 화면이 닫힘, 실제 DB·이행 시험 없음)과 LOW 1건(저장 실패 문구) 반영

@@ -23,6 +23,32 @@ abstract interface class StudyRecords {
     required Word word,
     required bool correct,
   });
+
+  /// 학교급의 오답 노트. 최근에 틀린 단어가 위.
+  Future<List<WrongNote>> wrongNotes(SchoolLevel level);
+
+  /// 오답 노트에서 뺀다 — 오답 시험에서 맞혔거나 사용자가 지웠을 때(2026-11-20 사용자 결정).
+  /// 학습·시험 기록(`study_log`·`quiz_log`)은 그대로 둔다.
+  Future<void> removeWrongNote(String wordId);
+}
+
+/// 오답 노트의 한 단어.
+class WrongNote {
+  const WrongNote({
+    required this.wordId,
+    required this.cell,
+    required this.missCount,
+    required this.lastMissedAt,
+  });
+
+  final String wordId;
+  final Cell cell;
+
+  /// 모른다·틀림을 받은 횟수.
+  final int missCount;
+
+  /// 마지막으로 틀린 시각(밀리초).
+  final int lastMissedAt;
 }
 
 /// 날짜별 집계용 키: 기기 시간대 기준 `YYYY-MM-DD`.
@@ -126,6 +152,37 @@ class SqfliteStudyRecords implements StudyRecords {
     required bool correct,
   }) => _record('quiz_log', 'correct', cell: cell, word: word, ok: correct);
 
+  @override
+  Future<List<WrongNote>> wrongNotes(SchoolLevel level) async {
+    final db = await _database;
+    final cells = [
+      for (final c in Cell.values)
+        if (c.level == level) c,
+    ];
+    final rows = await db.query(
+      'wrong_notes',
+      where: 'cell_id IN (${List.filled(cells.length, '?').join(', ')})',
+      whereArgs: [for (final c in cells) c.id],
+      orderBy: 'last_missed_at DESC, word_id',
+    );
+    return [
+      for (final row in rows)
+        if (Cell.byId(row['cell_id'] as String) case final cell?)
+          WrongNote(
+            wordId: row['word_id'] as String,
+            cell: cell,
+            missCount: row['miss_count'] as int,
+            lastMissedAt: row['last_missed_at'] as int,
+          ),
+    ];
+  }
+
+  @override
+  Future<void> removeWrongNote(String wordId) async {
+    final db = await _database;
+    await db.delete('wrong_notes', where: 'word_id = ?', whereArgs: [wordId]);
+  }
+
   /// 기록 표에 한 줄 넣고, 실패(`ok == false`)면 오답 노트에도 넣는다.
   Future<void> _record(
     String table,
@@ -169,3 +226,10 @@ class SqfliteStudyRecords implements StudyRecords {
 final studyRecordsProvider = Provider<StudyRecords>(
   (ref) => SqfliteStudyRecords(),
 );
+
+/// 학교급의 오답 노트. 화면을 열 때마다 새로 읽는다(autoDispose).
+/// 오답 노트 화면은 다시 보기·오답 시험에서 돌아오면 invalidate 해 다시 읽는다.
+final wrongNotesProvider = FutureProvider.autoDispose
+    .family<List<WrongNote>, SchoolLevel>(
+      (ref, level) => ref.watch(studyRecordsProvider).wrongNotes(level),
+    );

@@ -51,13 +51,18 @@ const int quizOptionCount = 4;
 /// - 방향(영→뜻, 뜻→영)은 문제마다 무작위
 /// - 오답 보기 3개는 같은 칸의 다른 단어에서 무작위로(명세). 같은 칸에는 같은 뜻이 없다(단어 파일 검사 시험)
 ///
-/// 단어가 [quizOptionCount]개보다 적으면 빈 목록을 돌려준다.
+/// `pool`을 주면 오답 보기를 거기서 고른다 — 오답 시험은 노트 단어(`words`)만 묻되 보기는 칸 전체에서(명세: 같은 칸).
+/// `pool`의 단어 객체는 `words`와 같은 것이어야 한다(정답을 보기 후보에서 빼려고 같은 객체인지로 비교).
+///
+/// 보기 후보가 [quizOptionCount]개보다 적거나 낼 단어가 없으면 빈 목록을 돌려준다.
 List<QuizQuestion> buildQuiz(
   List<Word> words,
   Random random, {
   int length = quizLength,
+  List<Word>? pool,
 }) {
-  if (words.length < quizOptionCount) return const [];
+  final choices = pool ?? words;
+  if (words.isEmpty || choices.length < quizOptionCount) return const [];
   final order = [...words]..shuffle(random);
   return [
     for (final word in order.take(length))
@@ -66,7 +71,7 @@ List<QuizQuestion> buildQuiz(
         direction: QuizDirection.values[random.nextInt(2)],
         options: [
           word,
-          ...([...words]
+          ...([...choices]
                 ..remove(word)
                 ..shuffle(random))
               .take(quizOptionCount - 1),

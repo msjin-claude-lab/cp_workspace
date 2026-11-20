@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:vocab/data/cell.dart';
-import 'package:vocab/data/level_store.dart';
+import 'package:vocab/data/cell_store.dart';
 import 'package:vocab/data/speaker.dart';
 import 'package:vocab/data/study_records.dart';
 import 'package:vocab/data/word.dart';
@@ -69,14 +69,29 @@ class _FakeRecords implements StudyRecords {
     required Word word,
     required bool correct,
   }) => throw UnimplementedError('카드 학습은 시험 기록을 쓰지 않는다');
+
+  /// 가짜 오답 노트(오답 다시 보기 시험용).
+  final List<WrongNote> notes = [];
+
+  @override
+  Future<List<WrongNote>> wrongNotes(SchoolLevel level) async => [
+    for (final n in notes)
+      if (n.cell.level == level) n,
+  ];
+
+  /// 카드 학습은 노트에서 빼면 안 된다 — 불리면 남겨 두고 시험이 확인한다.
+  final List<String> removed = [];
+
+  @override
+  Future<void> removeWrongNote(String wordId) async => removed.add(wordId);
 }
 
-class _FixedLevelStore implements LevelStore {
+class _FixedCellStore implements CellStore {
   @override
-  Future<SchoolLevel?> load() async => SchoolLevel.elementary;
+  Future<Cell?> load() async => Cell.elementaryEasy;
 
   @override
-  Future<void> save(SchoolLevel level) async {}
+  Future<void> save(Cell cell) async {}
 }
 
 void main() {
@@ -94,7 +109,7 @@ void main() {
       speakerProvider.overrideWithValue(speaker),
       studyRecordsProvider.overrideWithValue(records),
       // 주소로 시작하면 첫 화면을 지나므로, 학교급을 골라 둔 것으로 한다
-      levelStoreProvider.overrideWithValue(_FixedLevelStore()),
+      cellStoreProvider.overrideWithValue(_FixedCellStore()),
     ],
     child: child,
   );
@@ -213,6 +228,41 @@ void main() {
 
     expect(find.byKey(const ValueKey('study-save-failed')), findsOneWidget);
     expect(find.text("'모른다' 단어는 오답 노트에 담았습니다"), findsNothing);
+  });
+
+  testWidgets('오답 다시 보기는 그 칸의 오답 노트 단어만 보여 준다', (tester) async {
+    records.notes.add(
+      const WrongNote(
+        wordId: 'ee-002',
+        cell: Cell.elementaryEasy,
+        missCount: 1,
+        lastMissedAt: 0,
+      ),
+    );
+    await tester.pumpWidget(
+      scoped(
+        const MaterialApp(
+          home: StudyScreen(cell: Cell.elementaryEasy, review: true),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('초등 · 하 오답'), findsOneWidget);
+    expect(find.text('1 / 1'), findsOneWidget);
+    expect(find.text('book'), findsOneWidget);
+    expect(find.text('apple'), findsNothing);
+
+    // '안다'로 답해도 오답 노트에서 빼지 않는다(빠지는 것은 오답 시험에서 맞혔을 때만)
+    await tester.tap(find.byKey(const ValueKey('study-card')));
+    await tester.pump();
+    await tester.tap(find.byKey(const ValueKey('study-known')));
+    await tester.pumpAndSettle();
+
+    expect(records.answers, [('ee-002', true)]);
+    expect(records.removed, isEmpty);
+    expect(find.byKey(const ValueKey('study-save-failed')), findsNothing);
+    expect(find.text('오답 노트에서 빼려면 오답 시험에서 맞히세요'), findsOneWidget);
   });
 
   testWidgets('없는 칸 주소는 안내만 보인다', (tester) async {
