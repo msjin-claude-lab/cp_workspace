@@ -9,7 +9,7 @@ import '../../data/word.dart';
 import '../../data/word_repository.dart';
 import 'quiz.dart';
 
-/// 4지선다 시험: 칸의 단어 10개를 섞어 영→뜻·뜻→영으로 묻는다.
+/// 4지선다 시험: 칸의 단어 20개를 섞어 영→뜻·뜻→영으로 묻는다.
 /// 보기를 누르면 맞았는지와 정답·예문·해석을 보여 주고, 틀리면 오답 노트에 넣는다.
 class QuizScreen extends ConsumerStatefulWidget {
   const QuizScreen({super.key, required this.cell});

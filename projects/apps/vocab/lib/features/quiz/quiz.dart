@@ -38,8 +38,9 @@ class QuizQuestion {
       direction == QuizDirection.wordToMeaning ? option.meaning : option.word;
 }
 
-/// 한 번에 내는 문제 수(2026-11-20 — 사용자가 정하지 않아 Claude가 정함, 바꾸기 쉬움).
-const int quizLength = 10;
+/// 한 번에 내는 문제 수. 난이도와 상관없이 20(2026-11-20 사용자 결정 — 보편적인 방식, 난이도는 단어로 조절).
+/// 단어는 앞으로 영단어 책 수준으로 늘릴 예정이라 "전부" 같은 선택지는 두지 않는다.
+const int quizLength = 20;
 
 /// 보기 수. 단어가 이보다 적은 칸은 시험을 낼 수 없다(명세: 내 단어장은 4개 이상이면 시험 가능).
 const int quizOptionCount = 4;

@@ -62,7 +62,7 @@ class _FakeRecords implements StudyRecords {
 
 void main() {
   group('buildQuiz', () {
-    test('50단어에서 서로 다른 10단어를 내고, 보기 4개는 같은 칸의 서로 다른 단어이며 정답을 포함한다', () {
+    test('50단어에서 서로 다른 20단어를 내고, 보기 4개는 같은 칸의 서로 다른 단어이며 정답을 포함한다', () {
       final words = _words(50);
       final quiz = buildQuiz(words, Random(1));
 
@@ -101,7 +101,8 @@ void main() {
       expect(toWord.optionText(toWord.word), toWord.word.word);
     });
 
-    test('단어가 10개보다 적으면 전부, 4개보다 적으면 시험을 내지 않는다', () {
+    test('단어가 20개보다 적으면 전부, 4개보다 적으면 시험을 내지 않는다', () {
+      expect(buildQuiz(_words(19), Random(1)), hasLength(19));
       expect(buildQuiz(_words(6), Random(1)), hasLength(6));
       expect(buildQuiz(_words(4), Random(1)), hasLength(4));
       expect(buildQuiz(_words(3), Random(1)), isEmpty);
@@ -237,9 +238,9 @@ void main() {
       expect(find.byKey(const ValueKey('quiz-next')), findsOneWidget);
     });
 
-    testWidgets('칸에 50단어가 있으면 10문제를 낸다', (tester) async {
+    testWidgets('칸에 50단어가 있으면 20문제를 낸다', (tester) async {
       await pumpQuiz(tester, _words(50));
-      expect(find.text('1 / 10'), findsOneWidget);
+      expect(find.text('1 / 20'), findsOneWidget);
     });
 
     testWidgets('단어가 4개보다 적으면 시험을 낼 수 없다고 알린다', (tester) async {
