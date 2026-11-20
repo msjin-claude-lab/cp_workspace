@@ -15,7 +15,12 @@ class _FakeRepository implements WordRepository {
   @override
   Future<List<Word>> wordsOf(Cell cell) async => [
         for (var i = 0; i < (counts[cell] ?? 0); i++)
-          Word(id: '$i', word: 'w$i', meaning: 'm$i', example: 'e$i'),
+          Word(
+              id: '$i',
+              word: 'w$i',
+              meaning: 'm$i',
+              example: 'e$i',
+              exampleMeaning: 'em$i'),
       ];
 }
 

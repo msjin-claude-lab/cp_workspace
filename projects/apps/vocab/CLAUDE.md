@@ -6,9 +6,9 @@
 
 ## 인계 — 새 세션은 여기부터 읽는다
 
-- 지금 단계: **개발 — 첫 화면(칸 선택) 만듦** · 2026-11-19 사내망 PC
-- 멈춘 곳: 코드 구조를 정해 아래 "코드 구조"에 적음. 칸 선택 화면(학교급 3줄 × 난이도 3칸, 칸별 단어 수)과 단어 읽기(`WordRepository`)를 만들고 시험 4개 통과. 단어 파일은 아직 빈 목록이라 모든 칸이 "0단어". 칸을 눌러도 아직 아무 일도 없다(학습 화면 전)
-- 다음 할 일: **단어 데이터 작성**(칸 하나씩 50개, 사용자가 표본 확인) 또는 **카드 학습 화면** — 사용자와 순서를 정한다. 화면은 에뮬레이터 캡처로 보여 주며 디자인을 정한다
+- 지금 단계: **개발 — 단어 데이터 작성 중(초등 3칸 끝, 9칸 중 3칸)** · 2026-11-20 사내망 PC
+- 멈춘 곳: 사용자가 "단어 먼저"를 골라 칸 하나씩 50개를 쓰고 표본을 확인받는 중. `초등 · 하`·`초등 · 중`은 확인 끝, `초등 · 상`은 써 두고 표본 확인 대기. 단어에 예문 해석(`exampleMeaning`)을 더함(사용자 결정). 단어 파일 검사 시험(`test/data/word_assets_test.dart`)이 형식·중복·예문 포함을 잡는다. 칸 선택 화면은 칸을 눌러도 아직 아무 일도 없다(학습 화면 전)
+- 다음 할 일: `초등 · 상` 표본 확인 → `중등 · 하`부터 같은 방식으로 6칸 더(id 머리글자 me·mm·mh·he·hm·hh). 9칸이 끝나면 **카드 학습 화면**. 칸마다 작성 기준(그 칸 수준) 한 줄과 표본 5~6개를 보여 주고 확인받는다
 - 주의할 것:
   - **iOS는 잠정 보류**(2026-11-18 사용자 결정, 추후 지시까지 안드로이드만). 패키지는 iOS도 지원하는 것만 쓴다
   - **TTS 소리를 귀로 확인하지 않았다** — 합성·오디오 출력까지만 확인(사무실). 개인 PC에서 들어 본다. 안 들리면 그때 설정·코드를 고친다(사용자 결정)
@@ -18,7 +18,7 @@
 
 ## 남은 일
 
-- **단어 데이터 작성** — 9칸 × 50개(명세: Claude가 작성, 예문은 새로 씀, 칸마다 표본을 사람이 확인). 지금 `assets/words/*.json`은 모두 빈 목록(`[]`)
+- **단어 데이터 작성** — 9칸 × 50개(명세: Claude가 작성, 예문·해석은 새로 씀, 칸마다 표본을 사람이 확인). 초등 3칸 끝, 중등·고등 6칸은 아직 빈 목록(`[]`)
 - 화면: 카드 학습 → 4지선다 시험 → 오답 노트 → 진도 → 내 단어장
 - TTS 소리 귀로 확인(개인 PC)
 - iOS 확인(보류 해제 시 — 대안은 [docs/options.md](docs/options.md) "먼저 알아 둘 것")
@@ -47,7 +47,7 @@ PATH에 `D:\dev\flutter\bin`(사내망 PC). 작업 위치: `projects/apps/vocab`
 | 폴더 | **기능별** — `lib/features/<기능>/`(home, 앞으로 study·quiz·wrong_notes·progress·my_words), 공통 데이터는 `lib/data/` | 기능 하나를 고칠 때 그 폴더만 본다 |
 | 화면 이동 | **go_router** — 경로 목록은 `lib/router.dart` 한 곳 | 화면 관계를 한 파일에서 본다 |
 | 상태 관리 | **Riverpod**(`flutter_riverpod`, 코드 생성 없이) — 시험에서는 `overrideWithValue`로 가짜를 넣는다 | 정형화돼 있고 시험하기 쉽다 |
-| 단어 데이터 | **칸별 JSON** `assets/words/<학교급>_<난이도>.json`(필드 `id`·`word`·`meaning`·`example`), 바뀌는 기록(학습·오답·내 단어장·진도)은 **sqflite** | 단어를 사람이 읽고 고치기 쉽고 git에서 바뀐 것이 보인다. 수만 개 규모가 되면 미리 만든 DB 파일로 바꾼다 |
+| 단어 데이터 | **칸별 JSON** `assets/words/<학교급>_<난이도>.json`(필드 `id`·`word`·`meaning`·`example`·`exampleMeaning` — 예문 해석은 2026-11-20 사용자 결정으로 추가), 바뀌는 기록(학습·오답·내 단어장·진도)은 **sqflite** | 단어를 사람이 읽고 고치기 쉽고 git에서 바뀐 것이 보인다. 수만 개 규모가 되면 미리 만든 DB 파일로 바꾼다 |
 
 - 칸은 `lib/data/cell.dart`의 `Cell`(학교급 × 난이도 9개). 화면 이름 `초등 · 하`, 파일 이름 `elementary_easy`
 - 단어 읽기는 `lib/data/word_repository.dart`(`cellWordsProvider(cell)`)
@@ -80,3 +80,5 @@ PATH에 `D:\dev\flutter\bin`(사내망 PC). 작업 위치: `projects/apps/vocab`
 - 2026-11-18 사내망 · 4단계 멈춤 · 기기 실행 확인 시도 — WHPX 여전히 꺼짐, 연결 기기 없음. 사용자 결정: 실제 폰은 앞으로도 연결 안 함 → 에뮬레이터로만(WHPX 켠 PC에서)
 - 2026-11-19 사내망 · 4단계 완료 · WHPX 켜고 "다시 시작"으로 재부팅(시스템 종료 후 켜기는 빠른 시작 때문에 적용 안 됨). 에뮬레이터는 기본 그래픽에서 화면이 멈춰 `-gpu swiftshader_indirect`로. 시험 화면을 붙여 앱 실행·저장 유지·TTS 합성·오디오 출력 확인, `/oh-my-claudecode:verify`(verifier) APPROVE. TTS 귀로 듣기는 사무실이라 확인 못 함 → 사용자 결정으로 나중에(개인 PC). **4단계 통과(안드로이드), iOS 잠정 보류**
 - 2026-11-19 사내망 · 5단계 완료 · `projects/apps/vocab/`에 Flutter 프로젝트(`flutter create --platforms=android,ios --org dev.cp`) + `flutter_tts`·`sqflite`·`path` + TTS manifest + `kotlin.incremental=false`. 기록을 옮김(verify.md → VERIFY.md, setup.md → SETUP.md, spec·options → docs/, 이 README → CLAUDE.md), `_drafts/vocab/` 지움. VERIFY.md 명령 통과(`/oh-my-claudecode:verify`)
+- 2026-11-19 사내망 · 개발 · 코드 구조(기능별 폴더·go_router·Riverpod·칸별 JSON) 결정, 칸 선택 화면과 단어 읽기. 사내망 PC 에뮬레이터는 너무 느려 화면 확인은 개인 PC로
+- 2026-11-20 사내망 · 개발 · "단어 먼저". 예문 해석 필드를 더함(사용자 결정, 명세에 추가). 초등 하·중·상 150개 작성(하·중 표본 확인), 단어 파일 검사 시험 4개 — 시험 8개 통과

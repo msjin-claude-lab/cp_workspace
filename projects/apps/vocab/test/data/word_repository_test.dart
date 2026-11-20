@@ -36,8 +36,8 @@ void main() {
     final bundle = _FakeBundle({
       'assets/words/elementary_easy.json': '''
 [
-  {"id": "ee-001", "word": "apple", "meaning": "사과", "example": "I eat an apple."},
-  {"id": "ee-002", "word": "book", "meaning": "책", "example": "This is my book."}
+  {"id": "ee-001", "word": "apple", "meaning": "사과", "example": "I eat an apple.", "exampleMeaning": "나는 사과를 먹는다."},
+  {"id": "ee-002", "word": "book", "meaning": "책", "example": "This is my book.", "exampleMeaning": "이것은 내 책이다."}
 ]''',
     });
 
@@ -48,6 +48,7 @@ void main() {
     expect(words.first.id, 'ee-001');
     expect(words.first.meaning, '사과');
     expect(words.first.example, 'I eat an apple.');
+    expect(words.first.exampleMeaning, '나는 사과를 먹는다.');
   });
 
   test('필드가 빠진 단어는 읽기에 실패한다', () async {
