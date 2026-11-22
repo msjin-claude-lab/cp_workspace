@@ -55,7 +55,16 @@
 
 1. (끝남 — 직접 단어장 삭제 + DB 6판을 표준·의도 두 축으로 검토, 둘 다 COMMENT. 정리 기준 지적은 고쳤고 그 수정 자체는 다시 검토받지 않았다) 앱 이름·아이콘은 release 빌드 전에 정하기로 함(2026-11-22 사용자 결정)
 2. (끝남 — 에뮬레이터 설치·DB 6판 이행·화면 확인) **사용자가 직접 써 보기**: 에뮬레이터에 새 빌드가 깔려 있다. 2026-11-22 UX 점검이 "초등 쉬움" 단어장 이름을 긴 영문(`LongNameDeckNumberOne …`)으로 바꿔 두었고, 이름이 `😀`인 단어장도 하나 있다(둘 다 사용자가 메뉴 ⋮로 되돌리거나 지울 것 — adb로는 한글을 입력할 수 없다)
-3. (끝남 — 두 번의 검토에서 남았던 LOW 지적 9건을 모두 고침, 단어장별 설정 + DB 7판을 만듦, 2026-11-22. 이미 지운 단어장이 DB에 남긴 줄(`deck_3`·`deck_5`)은 그대로 둠) **이 둘은 별도 코드 검토를 받지 않았다**: `/oh-my-claudecode:review projects/apps/vocab 5dba40b..HEAD`. 확인할 판단 하나 — 옛 칸 기록을 옮겨 만든 단어장(`migrateLegacy`)은 설정 열을 NULL로 두어 옛 공통값을 물려받는다(새로 만든 단어장처럼 50/20을 넣지 않음)
+3. (끝남 — 두 번의 검토에서 남았던 LOW 지적 9건을 모두 고침, 단어장별 설정 + DB 7판을 만듦, 2026-11-22. 이미 지운 단어장이 DB에 남긴 줄(`deck_3`·`deck_5`)은 그대로 둠) 이 둘은 표준·의도 두 축으로 검토받음(2026-11-22 — 의도 축 APPROVE, 표준 축 COMMENT, 막는 지적 없음). 옛 칸 기록을 옮겨 만든 단어장(`migrateLegacy`)은 설정 열을 NULL로 두어 옛 공통값을 물려받는다 — 검토자는 요구에 맞다고 봄
+   - **사용자에게 물을 것**: 카드만 보고 시험을 안 푼 날은 진도 달력에 `카드 N장 · 시험 0/0문제 맞힘`으로 나온다 — 그대로 둘지, 시험을 안 푼 날은 시험 부분을 빼거나 `시험 안 봄`으로 할지
+   - **남은 검토 지적(모두 LOW, 안 고침)**
+     - `lib/features/home/home_screen.dart`의 단어장 지우기 확인 창 옆 주석이 "기록은 DB에 남지만"이라고 옛 동작을 말한다(동작·창 문구는 맞음)
+     - `deckSettingsProvider`만 autoDispose가 아니고 고유 값 읽기 실패를 삼킨다 — 처음 읽기가 한 번 실패하면 그 단어장이 앱을 끌 때까지 옛 공통값·기본값으로 굳는다(`lib/data/app_settings.dart`)
+     - `lib/data/app_settings.dart`와 `lib/data/study_decks.dart`가 서로를 import한다 — 기본값·범위 상수를 의존 없는 파일로 빼면 풀린다
+     - `study_decks.dart`가 id 문자열을 얻으려고 이름·바탕 칸이 가짜인 `StudyDeck`을 만든다(`StudyDeck.idOf(int)` 같은 것으로)
+     - 이름이 뜻을 못 따라감: `AppSettings`(이제 단어장 하나의 설정), `AppSettingsStore`·`appSettingsStoreProvider`(이제 옛 공통값 읽기 전용)
+     - `test/fakes.dart`의 `FakeStudyDecks`가 없는 단어장 id에서 실제와 다르게 동작한다(저장은 값이 남고, 이름 바꾸기는 `RangeError`) — 지금 그 동작에 기대는 시험은 없음
+     - `DeckSettingsNotifier._set`은 두 값을 같은 순간에 바꾸면 메모리 값이 덮어써질 수 있다(DB는 맞음, 지금 화면으로는 일어나지 않음 — 재현 안 함)
 4. **UX 점검의 사소한 지적**: 카드 뒷면 발음 버튼, "다음 문제" 버튼 위치 고정, 첫 문제 진행 막대, "1회 틀림", 말투 통일
 5. 단어를 영단어 책 수준으로 늘리기 → release 빌드 → iOS(보류)
 
@@ -104,7 +113,7 @@ PATH에 `D:\dev\flutter\bin`(두 PC 같은 경로). 작업 위치: `projects/app
 
 - 칸은 `lib/data/cell.dart`의 `Cell`(학교급 × 난이도 9개). 화면 이름 `초등 · 하`, 파일 이름 `elementary_easy`
 - 단어 읽기는 `lib/data/word_repository.dart`(`cellWordsProvider(cell)`)
-- 작은 설정 값(지금은 고른 칸)은 **shared_preferences**, 기록은 sqflite. DB 판을 올릴 때는 `SqfliteStudyRecords.schemaVersion`과 onUpgrade의 `oldVersion < N` 단계를 더하고 `test/data/study_records_test.dart`(sqflite_common_ffi)에 이행 시험을 더한다
+- 고른 단어장 번호는 **shared_preferences**, 기록과 단어장별 설정은 sqflite(옛 공통 설정 `card_count`·`quiz_count`는 shared_preferences에서 읽기만 한다). DB 판을 올릴 때는 `SqfliteStudyRecords.schemaVersion`과 onUpgrade의 `oldVersion < N` 단계를 더하고 `test/data/study_records_test.dart`(sqflite_common_ffi)에 이행 시험을 더한다
 - 시험 섞기는 `quizRandomProvider` — 시험에서는 씨앗을 고정한 Random을 넣는다
 - 시험(`test/`)은 기능·데이터마다 하나씩 늘린다
 
@@ -160,3 +169,4 @@ PATH에 `D:\dev\flutter\bin`(두 PC 같은 경로). 작업 위치: `projects/app
 - 2026-11-22 개인 PC · 확인 · 에뮬레이터를 띄워 기기 DB(5판)를 PC로 백업 → `6505547` 빌드를 덮어 설치 → **DB 6판 이행 통과**(파이썬으로 따로 계산한 기대값과 일치: 오답 노트 40 → 1줄, 직접 단어장 표 삭제, 학습·시험 기록 그대로). adb로 새 등록·메뉴 ⋮·도중 나가기(뒤로 키)·설정 직접 입력·시험 결과와 두 버튼 뒤 오답 수·오답 되돌리기·진도 달력·카드 이전 → 다음을 눌러 확인, logcat 오류 0건. 확인용 단어장은 지우고 설정은 되돌림. 오답 시험·뒤로 제스처·소리는 확인 안 함
 - 2026-11-22 개인 PC · 수정 · 남은 LOW 지적 9건을 executor가 고치고 Claude가 analyze·test(122개)·build로 확인. 사용자 결정 2가지 반영: 단어장을 지울 때 학습·시험 기록도 지움 / 진도 날짜 줄을 `카드 N장 · 시험 M/K문제 맞힘`으로. 그 밖에 이전으로 첫 카드에 와도 나가기 확인, 오답 시험 문항 수 시험, 경로별 `sqlite_master` 비교 시험, `showDeckNameDialog` 이름, 안 쓰는 `wrongNotes(SchoolLevel)` 삭제, `defaultQuizCount`를 `app_settings.dart`로, `_total` 없앰. 기기 설치·별도 검토는 안 함. 같은 날 사용자 결정: 설정은 단어장마다 따로(아직 안 만듦)
 - 2026-11-22 개인 PC · 개발 · **단어장별 설정 + DB 7판**(사용자 결정 "설정은 그 단어장의 고유 설정"). executor(opus)가 시험 먼저 쓰고 구현: `study_decks`에 `card_count`·`quiz_count` 열, 값은 고유 → 옛 공통 → 기본 순, 새 단어장은 50/20 저장, 경로 `/settings/<단어장>`·제목 `<이름> - 설정`·안내 문구 "이 단어장에만 적용됩니다". Claude가 analyze·test(137개)·build로 확인하고 에뮬레이터에 설치해 확인(기기 DB 6 → 7판, 기록 그대로, 한 단어장을 10으로 바꾸면 그 단어장만 `1 / 10`이고 다른 단어장은 물려받은 25). 사용자가 에뮬레이터에서 직접 써 보는 중(단어장 `ddxd`를 새로 만듦). 별도 코드 검토는 안 함
+- 2026-11-22 개인 PC · 검토 · `/oh-my-claudecode:review`로 `40fc56d`·`930fd32`를 두 축 검토 — 의도 축 APPROVE(LOW 1: 낡은 주석), 표준 축 COMMENT(LOW 6 + 확신 낮은 것 1). 막는 지적 없음, 코드는 고치지 않음. 남은 지적과 물을 것(`시험 0/0문제 맞힘`)을 인계에 적고 "코드 구조"의 옛 설명 한 줄을 고침
