@@ -136,9 +136,9 @@ void main() {
       (await records.wrongNotes(SchoolLevel.elementary)).map((n) => n.wordId),
       ['eh-001', 'ee-001'],
     );
-    await records.removeWrongNote('eh-001');
+    await records.removeWrongNote(Cell.elementaryHard, 'eh-001');
 
-    await records.removeWrongNote('ee-001');
+    await records.removeWrongNote(Cell.elementaryEasy, 'ee-001');
     expect(await records.wrongNotes(SchoolLevel.elementary), isEmpty);
 
     final db = await databaseFactoryFfi.openDatabase(path);
@@ -220,16 +220,17 @@ void main() {
       factory: databaseFactoryFfi,
       path: path,
     );
-    final progress = await records.progress();
-    expect(progress.memorized, {Cell.elementaryEasy: 1});
+    final progress = await records.progress(Cell.elementaryEasy);
+    expect(progress.memorized, 1);
 
     final db = await databaseFactoryFfi.openDatabase(path);
-    // 2판에서 3판(인덱스)을 거쳐 지금 판까지 차례로 올라간다
+    // 2판에서 3판(인덱스)을 거쳐 지금 판까지 차례로 올라간다. 단어별 인덱스는 5판에서
+    // 단어장별(cell_id, word_id, id)로 바뀐다
     expect(await db.getVersion(), SqfliteStudyRecords.schemaVersion);
     expect(
       await db.rawQuery(
         "SELECT name FROM sqlite_master WHERE type = 'index' "
-        "AND name = 'quiz_log_word'",
+        "AND name = 'quiz_log_deck_word'",
       ),
       hasLength(1),
     );
@@ -261,21 +262,176 @@ void main() {
       known: true, // 카드 학습의 '안다'는 외운 수에 들어가지 않는다
     );
 
-    final p = await records.progress();
-    expect(p.memorized, {Cell.elementaryEasy: 2, Cell.middleHard: 1});
+    final easy = await records.progress(Cell.elementaryEasy);
+    expect(easy.memorized, 2);
     // 오답 노트: ee-001(틀린 적 있음 — 일반 시험에서 맞혀도 남는다), ee-002
-    expect(p.wrong, {Cell.elementaryEasy: 2});
+    expect(easy.wrong, 2);
     final today = dayKey(DateTime.now());
-    expect(p.days.map((d) => (d.day, d.studied, d.correct)), [(today, 7, 4)]);
-    expect(p.elapsedDays(DateTime.now()), 1);
-    // 칸 하나만: 날짜별 기록은 그 칸 것만 센다(초등 쉬움 6건 · 맞힘 3, 중등 어려움 1건 · 맞힘 1)
-    final easy = await records.progress(only: Cell.elementaryEasy);
-    expect(easy.days.map((d) => (d.studied, d.correct)), [(6, 3)]);
-    final hard = await records.progress(only: Cell.middleHard);
+    // 날짜별 기록은 그 묶음 것만 센다(초등 쉬움 6건 · 맞힘 3, 중등 어려움 1건 · 맞힘 1)
+    expect(easy.days.map((d) => (d.day, d.studied, d.correct)), [
+      (today, 6, 3),
+    ]);
+    expect(easy.elapsedDays(DateTime.now()), 1);
+    final hard = await records.progress(Cell.middleHard);
+    expect((hard.memorized, hard.wrong), (1, 0));
     expect(hard.days.map((d) => (d.studied, d.correct)), [(1, 1)]);
-    expect((await records.progress(only: Cell.highEasy)).days, isEmpty);
+    final none = await records.progress(Cell.highEasy);
+    expect((none.memorized, none.wrong), (0, 0));
+    expect(none.days, isEmpty);
     // 임시 폴더를 지울 수 있게 DB를 닫는다(같은 파일은 연결 하나를 함께 쓴다)
     await (await databaseFactoryFfi.openDatabase(path)).close();
+  });
+
+  test('4판 사용자의 DB는 기록을 모두 둔 채 5판으로 올라가고, 오답 노트 기본 키가 (cell_id, word_id)가 된다', () async {
+    final v4 = await databaseFactoryFfi.openDatabase(
+      path,
+      options: OpenDatabaseOptions(
+        version: 4,
+        onCreate: (db, _) => SqfliteStudyRecords.createV4(db),
+      ),
+    );
+    await v4.insert('study_log', {
+      'word_id': 'mm-001',
+      'cell_id': 'middle_medium',
+      'known': 0,
+      'answered_at': 1,
+      'answered_day': '2026-11-21',
+    });
+    await v4.insert('quiz_log', {
+      'word_id': 'mm-001',
+      'cell_id': 'middle_medium',
+      'correct': 1,
+      'answered_at': 2,
+      'answered_day': '2026-11-21',
+    });
+    for (final (wordId, cellId, miss) in [
+      ('mm-001', 'middle_medium', 3),
+      ('bw-1', 'book_1', 1),
+    ]) {
+      await v4.insert('wrong_notes', {
+        'word_id': wordId,
+        'cell_id': cellId,
+        'miss_count': miss,
+        'first_missed_at': 1,
+        'last_missed_at': 5,
+      });
+    }
+    await v4.insert('word_books', {'name': '내 것', 'created_at': 1});
+    await v4.close();
+
+    final records = SqfliteStudyRecords(
+      factory: databaseFactoryFfi,
+      path: path,
+    );
+    final db = await records.database;
+    expect(await db.getVersion(), 5);
+    expect(
+      await tables(db),
+      containsAll(['study_decks', 'app_meta', 'wrong_notes', 'word_books']),
+    );
+    expect(await db.rawQuery('SELECT COUNT(*) AS n FROM study_log'), [
+      {'n': 1},
+    ]);
+    expect(await db.rawQuery('SELECT COUNT(*) AS n FROM quiz_log'), [
+      {'n': 1},
+    ]);
+    expect(await db.rawQuery('SELECT name FROM word_books'), [
+      {'name': '내 것'},
+    ]);
+    expect(
+      await db.rawQuery(
+        'SELECT word_id, cell_id, miss_count, first_missed_at, last_missed_at '
+        'FROM wrong_notes ORDER BY word_id',
+      ),
+      [
+        {
+          'word_id': 'bw-1',
+          'cell_id': 'book_1',
+          'miss_count': 1,
+          'first_missed_at': 1,
+          'last_missed_at': 5,
+        },
+        {
+          'word_id': 'mm-001',
+          'cell_id': 'middle_medium',
+          'miss_count': 3,
+          'first_missed_at': 1,
+          'last_missed_at': 5,
+        },
+      ],
+    );
+    // 기본 키: cell_id(pk 1), word_id(pk 2)
+    final columns = await db.rawQuery('PRAGMA table_info(wrong_notes)');
+    expect({
+      for (final c in columns) c['name']: c['pk'],
+    }, containsPair('cell_id', 1));
+    expect({
+      for (final c in columns) c['name']: c['pk'],
+    }, containsPair('word_id', 2));
+    // 같은 단어를 다른 단어장 id로 넣을 수 있다(4판에서는 word_id 하나가 기본 키라 막혔다)
+    await db.insert('wrong_notes', {
+      'word_id': 'mm-001',
+      'cell_id': 'deck_1',
+      'miss_count': 1,
+      'first_missed_at': 9,
+      'last_missed_at': 9,
+    });
+    expect(await db.rawQuery('SELECT COUNT(*) AS n FROM wrong_notes'), [
+      {'n': 3},
+    ]);
+    await db.close();
+  });
+
+  test('같은 칸으로 만든 단어장 둘은 오답 노트·외운 수·날짜별 기록이 따로 쌓인다', () async {
+    final records = SqfliteStudyRecords(
+      factory: databaseFactoryFfi,
+      path: path,
+    );
+    const a = StudyDeck(deckId: 1, name: '아침', base: Cell.elementaryEasy);
+    const b = StudyDeck(deckId: 2, name: '저녁', base: Cell.elementaryEasy);
+    const book = Word(
+      id: 'ee-002',
+      word: 'book',
+      meaning: '책',
+      example: 'x',
+      exampleMeaning: 'y',
+    );
+
+    await records.recordQuizAnswer(deck: a, word: word, correct: false);
+    await records.recordQuizAnswer(deck: a, word: word, correct: false);
+    await records.recordQuizAnswer(deck: a, word: book, correct: true);
+    // b에서는 같은 단어를 맞힌 뒤 한 번 모른다
+    await records.recordQuizAnswer(deck: b, word: word, correct: true);
+    await records.recordAnswer(deck: b, word: book, known: false);
+
+    final notesA = await records.deckWrongNotes(a);
+    expect(notesA.map((n) => (n.wordId, n.deck, n.missCount)), [
+      ('ee-001', a, 2),
+    ]);
+    final notesB = await records.deckWrongNotes(b);
+    expect(notesB.map((n) => (n.wordId, n.deck, n.missCount)), [
+      ('ee-002', b, 1),
+    ]);
+
+    // 외운 수: a는 book(마지막 답 맞힘), b는 apple — b의 맞힘이 a의 apple을 외움으로 바꾸지 않는다
+    final pa = await records.progress(a);
+    final pb = await records.progress(b);
+    expect((pa.memorized, pa.wrong), (1, 1));
+    expect((pb.memorized, pb.wrong), (1, 1));
+    expect(pa.days.map((d) => (d.studied, d.correct)), [(3, 1)]);
+    expect(pb.days.map((d) => (d.studied, d.correct)), [(2, 1)]);
+
+    // 한 단어장에서 빼도 다른 단어장의 같은 단어는 남는다
+    await records.recordQuizAnswer(deck: b, word: word, correct: false);
+    await records.removeWrongNote(a, 'ee-001');
+    expect(await records.deckWrongNotes(a), isEmpty);
+    expect(
+      (await records.deckWrongNotes(b)).map((n) => n.wordId),
+      containsAll(['ee-001', 'ee-002']),
+    );
+    // 칸 id로 쌓인 것이 없으므로 학교급 오답 노트(칸 기록)에도 섞이지 않는다
+    expect(await records.wrongNotes(SchoolLevel.elementary), isEmpty);
+    await (await records.database).close();
   });
 
   test('진행 일수는 처음 공부한 날을 1일로 치고 오늘까지 달력 날짜로 센다', () {

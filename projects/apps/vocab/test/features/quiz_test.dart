@@ -70,19 +70,19 @@ class _FakeRecords implements StudyRecords {
   ];
 
   @override
-  Future<List<WrongNote>> bookWrongNotes(BookDeck book) async => [
+  Future<List<WrongNote>> deckWrongNotes(Deck deck) async => [
     for (final n in notes)
-      if (n.deck == book) n,
+      if (n.deck.id == deck.id) n,
   ];
 
   @override
-  Future<void> removeWrongNote(String wordId) async {
+  Future<void> removeWrongNote(Deck deck, String wordId) async {
     removed.add(wordId);
-    notes.removeWhere((n) => n.wordId == wordId);
+    notes.removeWhere((n) => n.deck.id == deck.id && n.wordId == wordId);
   }
 
   @override
-  Future<Progress> progress({Cell? only}) async => const Progress();
+  Future<Progress> progress(Deck deck) async => const Progress();
 }
 
 void main() {

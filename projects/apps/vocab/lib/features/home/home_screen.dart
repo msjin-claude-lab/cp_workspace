@@ -4,54 +4,98 @@ import 'package:material_ui/material_ui.dart';
 
 import '../../app_info.dart';
 import '../../data/cell.dart';
-import '../../data/cell_store.dart';
+import '../../data/study_decks.dart';
 import '../../data/study_records.dart';
 import '../../data/word_repository.dart';
+import '../my_words/dialogs.dart';
 import '../wrong_notes/review_words.dart';
 
-// 화면 구조(2026-11-20 사용자 결정):
-// - 학교급 고르기 → 난이도 고르기 → 칸 홈. 선택은 세로 버튼
-// - 고른 칸(학교급 + 난이도)은 기기에 남아, 앱을 열면 그 칸 홈으로 바로 간다
-// - 칸 홈의 ☰ 메뉴(학교급 ▸ 난이도 2단계)나 "학교급·난이도 바꾸기"로 칸을 바꾼다
-//   ("칸"은 개발용 말 — 화면에는 쓰지 않는다. 제목은 `중등 [난이도 : 중간] - 시험` 꼴)
+// 화면 구조(2026-11-22 사용자 결정):
+// - 단어장 = 이름 + 학교급 + 난이도. "새 등록"(홈 오른쪽 아래 동그란 버튼)은 무조건 새 단어장을 만든다:
+//   이름 입력 → 학교급 고르기 → 난이도 고르기. 같은 학교급+난이도도 여러 개 만들 수 있고
+//   학습 기록·오답 노트·진도는 단어장마다 따로 쌓인다
+// - 고른 단어장은 기기에 남아, 앱을 열면 그 단어장 홈으로 바로 간다. 단어장이 없으면 시작 화면
+// - ☰ 메뉴에는 내 단어장만(이름, ✓ 지금 것, ⋮ 이름 바꾸기·지우기). "메인화면"·"기본 단어장"·
+//   직접 단어를 넣는 "내 단어장"(/books)은 메뉴에 없다
 // - 학습·시험·오답 노트 등 안쪽 화면은 위쪽 ← 뒤로로 돌아온다(따로 "홈으로" 버튼은 두지 않는다)
+//   ("칸"은 개발용 말 — 화면에는 쓰지 않는다. 제목은 `<단어장 이름> - 시험` 꼴)
 
-/// 앱 첫 화면: 고른 칸이 있으면 칸 홈, 없으면(첫 실행) 학교급 고르기.
+/// 앱 첫 화면: 고른 단어장이 있으면 그 홈, 단어장이 하나도 없으면 시작 화면.
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final cell = ref.watch(selectedCellProvider);
-    return cell.when(
+    final list = ref.watch(deckListProvider);
+    return list.when(
       loading: () =>
           const Scaffold(body: Center(child: CircularProgressIndicator())),
-      // 저장된 값을 못 읽으면 처음 실행처럼 다시 고르게 한다
-      error: (_, _) => const LevelPickerScreen(),
-      data: (value) => value == null
-          ? const LevelPickerScreen()
-          : CellHomeScreen(cell: value),
+      error: (_, _) =>
+          const Scaffold(body: Center(child: Text('단어장을 읽지 못했습니다'))),
+      data: (value) => switch (value.current) {
+        final deck? => DeckHomeScreen(deck: deck),
+        null => const StartScreen(),
+      },
     );
   }
 }
 
-/// 칸을 고르고(등록 목록에 없으면 등록도 하고) 저장한다.
-/// 저장에 실패하면 알린다(이번 실행에서는 고른 칸으로 쓴다).
-Future<void> _selectCell(BuildContext context, WidgetRef ref, Cell cell) async {
-  final messenger = ScaffoldMessenger.of(context);
-  final registered = ref.read(registeredCellsProvider.notifier);
-  final selected = ref.read(selectedCellProvider.notifier);
-  try {
-    await registered.add(cell);
-    await selected.select(cell);
-  } catch (_) {
-    // 등록 저장이 실패했어도 이번 실행에서는 고른 칸으로 쓴다
-    try {
-      await selected.select(cell);
-    } catch (_) {}
-    messenger.showSnackBar(
-      const SnackBar(
-        content: Text('고른 칸을 저장하지 못했습니다. 다음 실행 때는 전에 저장된 칸으로 시작합니다'),
+/// 새 단어장 만들기를 시작한다: 이름을 받고 학교급 고르기로 간다.
+/// 어느 단계에서든 취소·← 뒤로면 아무것도 만들지 않는다 — 만드는 것은 난이도를 고를 때다.
+Future<void> startCreateDeck(BuildContext context) async {
+  if (ModalRoute.of(context)?.isCurrent != true) return; // 빠른 두 번 누름
+  final router = GoRouter.of(context);
+  final name = await showBookNameDialog(context, title: '새 단어장');
+  if (name == null) return;
+  router.push(Uri(path: '/pick', queryParameters: {'name': name}).toString());
+}
+
+/// 고른 것 저장에 실패했을 때 알린다(이번 실행에서는 고른 단어장으로 쓴다).
+void _showNotSaved(ScaffoldMessengerState messenger) => messenger.showSnackBar(
+  const SnackBar(
+    content: Text('고른 단어장을 저장하지 못했습니다. 다음 실행 때는 전에 고른 단어장으로 시작합니다'),
+  ),
+);
+
+/// 단어장이 하나도 없을 때(처음 실행, 모두 지웠을 때): 앱 제목과 첫 단어장 만들기 버튼.
+class StartScreen extends StatelessWidget {
+  const StartScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final text = Theme.of(context).textTheme;
+    return Scaffold(
+      appBar: AppBar(title: const Text(appTitle), centerTitle: true),
+      body: SafeArea(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  '단어장을 만들어 공부를 시작하세요',
+                  textAlign: TextAlign.center,
+                  style: text.titleMedium,
+                ),
+                const SizedBox(height: 24),
+                FilledButton.icon(
+                  key: const ValueKey('start-create'),
+                  style: FilledButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 20,
+                      horizontal: 32,
+                    ),
+                    textStyle: text.titleMedium,
+                  ),
+                  icon: const Icon(Icons.edit_square),
+                  label: const Text('새 단어장 만들기'),
+                  onPressed: () => startCreateDeck(context),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -91,7 +135,6 @@ class _PickButton extends StatelessWidget {
   }
 }
 
-/// ① 학교급 고르기. 처음 실행 때는 첫 화면, 그 뒤에는 "칸 바꾸기"로 연다.
 /// 선택 버튼들 위에 두는 안내 문구.
 class _Guide extends StatelessWidget {
   const _Guide(this.text);
@@ -105,8 +148,12 @@ class _Guide extends StatelessWidget {
   );
 }
 
+/// 새 단어장 ② 학교급 고르기(① 이름은 창으로 받았다). 홈 위에 쌓아 ← 뒤로로 그만둘 수 있다.
 class LevelPickerScreen extends StatelessWidget {
-  const LevelPickerScreen({super.key});
+  const LevelPickerScreen({super.key, required this.name});
+
+  /// 만들 단어장 이름.
+  final String name;
 
   @override
   Widget build(BuildContext context) {
@@ -122,7 +169,12 @@ class LevelPickerScreen extends StatelessWidget {
               _PickButton(
                 key: ValueKey('pick-${level.name}'),
                 label: level.label,
-                onPressed: () => context.push('/pick/${level.name}'),
+                onPressed: () => context.push(
+                  Uri(
+                    path: '/pick/${level.name}',
+                    queryParameters: {'name': name},
+                  ).toString(),
+                ),
               ),
           ],
         ),
@@ -131,23 +183,59 @@ class LevelPickerScreen extends StatelessWidget {
   }
 }
 
-/// ② 난이도 고르기. 고르면 그 칸을 저장하고 칸 홈으로 간다.
-class DifficultyPickerScreen extends ConsumerWidget {
-  const DifficultyPickerScreen({super.key, required this.level});
+/// 새 단어장 ③ 난이도 고르기. 고르면 단어장을 만들고 고른 뒤 그 홈으로 간다.
+class DifficultyPickerScreen extends ConsumerStatefulWidget {
+  const DifficultyPickerScreen({
+    super.key,
+    required this.level,
+    required this.name,
+  });
 
   final SchoolLevel level;
+  final String name;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<DifficultyPickerScreen> createState() =>
+      _DifficultyPickerScreenState();
+}
+
+class _DifficultyPickerScreenState
+    extends ConsumerState<DifficultyPickerScreen> {
+  /// 만드는 중. 빠르게 두 번 누르면 단어장이 둘 생기므로 한 번만 만든다.
+  bool _creating = false;
+
+  Future<void> _create(Cell cell) async {
+    if (_creating || ModalRoute.of(context)?.isCurrent != true) return;
+    _creating = true;
+    final router = GoRouter.of(context);
+    final messenger = ScaffoldMessenger.of(context);
+    final decks = ref.read(deckListProvider.notifier);
+    try {
+      await decks.create(widget.name, cell);
+    } on DeckSelectionNotSaved {
+      _showNotSaved(messenger);
+    } catch (_) {
+      _creating = false;
+      messenger.showSnackBar(const SnackBar(content: Text('단어장을 만들지 못했습니다')));
+      return;
+    }
+    router.go('/');
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(level.label)),
+      appBar: AppBar(title: Text(widget.level.label)),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.all(24),
           children: [
             const _Guide('난이도를 골라 주세요'),
             for (final difficulty in Difficulty.values)
-              _DifficultyButton(cell: Cell.of(level, difficulty)),
+              _DifficultyButton(
+                cell: Cell.of(widget.level, difficulty),
+                onPressed: _create,
+              ),
           ],
         ),
       ),
@@ -156,9 +244,10 @@ class DifficultyPickerScreen extends ConsumerWidget {
 }
 
 class _DifficultyButton extends ConsumerWidget {
-  const _DifficultyButton({required this.cell});
+  const _DifficultyButton({required this.cell, required this.onPressed});
 
   final Cell cell;
+  final void Function(Cell cell) onPressed;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -171,35 +260,29 @@ class _DifficultyButton extends ConsumerWidget {
         loading: () => '…',
         error: (_, _) => '읽기 실패',
       ),
-      onPressed: () async {
-        // 이미 칸 홈으로 갔으면(빠른 두 번 누름) 다시 하지 않는다
-        if (ModalRoute.of(context)?.isCurrent != true) return;
-        final router = GoRouter.of(context);
-        await _selectCell(context, ref, cell);
-        router.go('/');
-      },
+      onPressed: () => onPressed(cell),
     );
   }
 }
 
-/// ③ 칸 홈: 고른 칸에서 카드 학습·시험·오답 노트를 연다.
-class CellHomeScreen extends ConsumerWidget {
-  const CellHomeScreen({super.key, required this.cell});
+/// 단어장 홈: 고른 단어장에서 카드 학습·시험·오답 노트·진도를 연다.
+class DeckHomeScreen extends ConsumerWidget {
+  const DeckHomeScreen({super.key, required this.deck});
 
-  final Cell cell;
+  final StudyDeck deck;
 
   /// 안쪽 화면에서 돌아오면 오답 수를 다시 읽는다.
   Future<void> _open(BuildContext context, WidgetRef ref, String path) async {
     if (ModalRoute.of(context)?.isCurrent != true) return; // 빠른 두 번 누름
     await context.push(path);
-    if (context.mounted) ref.invalidate(deckWrongNotesProvider(cell));
+    if (context.mounted) ref.invalidate(deckWrongNotesProvider(deck));
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final text = Theme.of(context).textTheme;
-    final words = ref.watch(cellWordsProvider(cell));
-    final wrong = ref.watch(wrongEntriesProvider(cell));
+    final words = ref.watch(deckWordsProvider(deck));
+    final wrong = ref.watch(wrongEntriesProvider(deck));
     return Scaffold(
       appBar: AppBar(
         leading: Builder(
@@ -210,26 +293,30 @@ class CellHomeScreen extends ConsumerWidget {
             onPressed: () => Scaffold.of(context).openDrawer(),
           ),
         ),
-        title: Text(cell.label),
+        title: Text(deck.name),
       ),
-      drawer: _MenuDrawer(current: cell),
-      // "메인화면"(학교급 고르기로 감)은 화면 맨 아래에 고정한다(2026-11-20 사용자 결정)
-      // 오른쪽 아래 동그란 버튼(글쓰기 아이콘): 새 등록 — 학교급 → 난이도를 골라 메뉴 목록에 더한다
-      // (2026-11-22 사용자 결정). 고르는 화면은 홈 위에 쌓아 ← 뒤로로 그만둘 수 있다
+      drawer: _MenuDrawer(current: deck),
+      // 오른쪽 아래 동그란 버튼(글쓰기 아이콘): 새 등록 — 무조건 새 단어장을 만든다(2026-11-22 사용자 결정).
+      // 고르는 화면은 홈 위에 쌓아 ← 뒤로로 그만둘 수 있다
       floatingActionButton: FloatingActionButton(
         key: const ValueKey('home-register'),
         tooltip: '새 등록',
         shape: const CircleBorder(),
-        onPressed: () {
-          if (ModalRoute.of(context)?.isCurrent != true) return;
-          context.push('/pick');
-        },
+        onPressed: () => startCreateDeck(context),
         child: const Icon(Icons.edit_square),
       ),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.all(24),
           children: [
+            // 단어장 이름 아래에 바탕 학교급·난이도(예: 중등 [난이도 : 중간])
+            Text(
+              deck.base.label,
+              key: const ValueKey('home-base'),
+              textAlign: TextAlign.center,
+              style: text.titleMedium,
+            ),
+            const SizedBox(height: 4),
             Text(
               words.when(
                 data: (list) => '${list.length}단어',
@@ -245,13 +332,13 @@ class CellHomeScreen extends ConsumerWidget {
               key: const ValueKey('home-study'),
               icon: Icons.style,
               label: '카드 학습',
-              onPressed: () => _open(context, ref, '/study/${cell.id}'),
+              onPressed: () => _open(context, ref, '/study/${deck.id}'),
             ),
             _HomeAction(
               key: const ValueKey('home-quiz'),
               icon: Icons.edit_note, // 종이와 연필(사용자: 물음표 아이콘은 어색)
               label: '시험',
-              onPressed: () => _open(context, ref, '/quiz/${cell.id}'),
+              onPressed: () => _open(context, ref, '/quiz/${deck.id}'),
             ),
             _HomeAction(
               key: const ValueKey('home-wrong'),
@@ -261,13 +348,13 @@ class CellHomeScreen extends ConsumerWidget {
                 loading: () => '오답 노트',
                 error: (_, _) => '오답 노트',
               ),
-              onPressed: () => _open(context, ref, '/wrong-notes/${cell.id}'),
+              onPressed: () => _open(context, ref, '/wrong-notes/${deck.id}'),
             ),
             _HomeAction(
               key: const ValueKey('home-progress'),
               icon: Icons.bar_chart,
               label: '진도',
-              onPressed: () => _open(context, ref, '/progress?cell=${cell.id}'),
+              onPressed: () => _open(context, ref, '/progress/${deck.id}'),
             ),
           ],
         ),
@@ -303,23 +390,62 @@ class _HomeAction extends StatelessWidget {
   );
 }
 
-/// ☰ 메뉴: 앱 제목·버전과 **내가 등록한 학교급+난이도만**(2026-11-22 사용자 결정).
-/// 누르면 그것이 홈이 되고 저장된다. 등록은 홈 오른쪽 아래 동그란 버튼(학교급 → 난이도).
-/// 9개를 미리 다 보여 주지 않고, "메인화면" 버튼·"내 단어장" 목록도 두지 않는다.
+/// ☰ 메뉴: 앱 제목·버전과 **내 단어장만**(2026-11-22 사용자 결정 — 이름, 아래에 학교급·난이도).
+/// 누르면 그것이 홈이 되고 저장된다. ⋮로 이름 바꾸기·지우기. 만들기는 홈 오른쪽 아래 동그란 버튼.
+/// "메인화면" 버튼·"기본 단어장"·"내 단어장"(/books) 목록은 두지 않는다.
 class _MenuDrawer extends ConsumerWidget {
   const _MenuDrawer({required this.current});
 
-  /// 지금 홈인 칸.
-  final Cell current;
+  /// 지금 홈인 단어장.
+  final StudyDeck current;
+
+  Future<void> _rename(
+    BuildContext context,
+    WidgetRef ref,
+    StudyDeck deck,
+  ) async {
+    final messenger = ScaffoldMessenger.of(context);
+    final decks = ref.read(deckListProvider.notifier);
+    final name = await showBookNameDialog(
+      context,
+      initial: deck.name,
+      title: '이름 바꾸기',
+    );
+    if (name == null || name == deck.name) return;
+    try {
+      await decks.rename(deck, name);
+    } catch (_) {
+      messenger.showSnackBar(const SnackBar(content: Text('이름을 바꾸지 못했습니다')));
+    }
+  }
+
+  Future<void> _delete(
+    BuildContext context,
+    WidgetRef ref,
+    StudyDeck deck,
+  ) async {
+    final messenger = ScaffoldMessenger.of(context);
+    final decks = ref.read(deckListProvider.notifier);
+    final ok = await confirmDelete(
+      context,
+      title: '단어장 지우기',
+      message: '"${deck.name}" 단어장과 그 오답 노트를 지웁니다.',
+    );
+    if (!ok) return;
+    try {
+      await decks.delete(deck);
+    } on DeckSelectionNotSaved {
+      _showNotSaved(messenger);
+    } catch (_) {
+      messenger.showSnackBar(const SnackBar(content: Text('단어장을 지우지 못했습니다')));
+    }
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // 못 읽으면 지금 칸만이라도 보여 준다
-    final registered =
-        ref.watch(registeredCellsProvider).value ?? const <Cell>[];
-    final cells = registered.contains(current)
-        ? registered
-        : [...registered, current];
+    // 못 읽으면 지금 단어장만이라도 보여 준다
+    final listed = ref.watch(deckListProvider).value?.decks ?? const [];
+    final decks = listed.contains(current) ? listed : [...listed, current];
     return Drawer(
       child: SafeArea(
         child: ListView(
@@ -342,21 +468,88 @@ class _MenuDrawer extends ConsumerWidget {
               ),
             ),
             const Divider(),
-            for (final cell in cells)
+            for (final deck in decks)
               ListTile(
-                key: ValueKey('menu-cell-${cell.id}'),
-                title: Text(cell.label),
-                selected: cell == current,
-                trailing: cell == current ? const Icon(Icons.check) : null,
+                key: ValueKey('menu-deck-${deck.deckId}'),
+                title: Text(deck.name),
+                subtitle: Text(deck.base.label),
+                selected: deck == current,
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (deck == current) const Icon(Icons.check),
+                    PopupMenuButton<String>(
+                      key: ValueKey('menu-deck-more-${deck.deckId}'),
+                      tooltip: '더 보기',
+                      onSelected: (action) => action == 'rename'
+                          ? _rename(context, ref, deck)
+                          : _delete(context, ref, deck),
+                      itemBuilder: (_) => const [
+                        PopupMenuItem(
+                          key: ValueKey('deck-rename'),
+                          value: 'rename',
+                          child: Text('이름 바꾸기'),
+                        ),
+                        PopupMenuItem(
+                          key: ValueKey('deck-delete'),
+                          value: 'delete',
+                          child: Text('지우기'),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
                 onTap: () {
                   // 메뉴를 닫는다. pop()은 닫히는 중에 다시 누르면 첫 화면까지 닫으므로 쓰지 않는다
                   Scaffold.of(context).closeDrawer();
-                  if (cell != current) _selectCell(context, ref, cell);
+                  if (deck != current) _select(context, ref, deck);
                 },
               ),
           ],
         ),
       ),
+    );
+  }
+
+  Future<void> _select(
+    BuildContext context,
+    WidgetRef ref,
+    StudyDeck deck,
+  ) async {
+    final messenger = ScaffoldMessenger.of(context);
+    try {
+      await ref.read(deckListProvider.notifier).select(deck);
+    } on DeckSelectionNotSaved {
+      _showNotSaved(messenger);
+    }
+  }
+}
+
+/// 주소의 `deck_<번호>`로 이름 있는 단어장을 찾아 화면을 만든다. 없으면(지워졌으면) 안내만 보인다.
+class StudyDeckLoader extends ConsumerWidget {
+  const StudyDeckLoader({
+    super.key,
+    required this.deckId,
+    required this.builder,
+  });
+
+  final int deckId;
+  final Widget Function(StudyDeck deck) builder;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final list = ref.watch(deckListProvider);
+    const missing = Scaffold(body: Center(child: Text('찾을 수 없는 화면입니다')));
+    return list.when(
+      loading: () =>
+          const Scaffold(body: Center(child: CircularProgressIndicator())),
+      error: (_, _) => missing,
+      data: (value) {
+        for (final deck in value.decks) {
+          if (deck.deckId == deckId) return builder(deck);
+        }
+        return missing;
+      },
     );
   }
 }

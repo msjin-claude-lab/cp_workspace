@@ -62,7 +62,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
         correct: correct,
       );
       // 기록 저장이 실패하면 노트에서도 빼지 않는다(기록 없이 노트만 빠지지 않게)
-      if (remove) await records.removeWrongNote(q.word.id);
+      if (remove) await records.removeWrongNote(widget.deck, q.word.id);
     } catch (_) {
       if (mounted) {
         setState(() {

@@ -12,22 +12,31 @@ import 'features/wrong_notes/wrong_notes_screen.dart';
 
 /// 화면 목록. 화면을 추가하면 여기에 경로를 더한다.
 ///
-/// 카드 학습·시험·오답 노트 주소의 `:deckId`는 칸 id(`elementary_easy`) 또는 내 단어장 id(`book_3`).
+/// 카드 학습·시험·오답 노트·진도 주소의 `:deckId`는 이름 있는 단어장 id(`deck_2`),
+/// 칸 id(`elementary_easy`) 또는 내 단어장 id(`book_3`).
 GoRouter createRouter() => GoRouter(
   routes: [
-    // 칸 홈(처음 실행이면 학교급 고르기)
+    // 단어장 홈(단어장이 없으면 시작 화면)
     GoRoute(path: '/', builder: (context, state) => const HomeScreen()),
-    // 칸 바꾸기: 학교급 → 난이도. 예: /pick, /pick/middle
+    // 새 단어장: 이름(창) → 학교급 → 난이도. 예: /pick?name=단어장, /pick/middle?name=단어장
     GoRoute(
       path: '/pick',
-      builder: (context, state) => const LevelPickerScreen(),
+      builder: (context, state) {
+        final name = state.uri.queryParameters['name'];
+        if (name == null || name.trim().isEmpty) return const _NotFound();
+        return LevelPickerScreen(name: name);
+      },
     ),
     GoRoute(
       path: '/pick/:level',
       builder: (context, state) {
-        final name = state.pathParameters['level'];
+        final name = state.uri.queryParameters['name'];
+        final levelName = state.pathParameters['level'];
+        if (name == null || name.trim().isEmpty) return const _NotFound();
         for (final level in SchoolLevel.values) {
-          if (level.name == name) return DifficultyPickerScreen(level: level);
+          if (level.name == levelName) {
+            return DifficultyPickerScreen(level: level, name: name);
+          }
         }
         return const Scaffold(body: Center(child: Text('없는 학교급입니다')));
       },
@@ -50,16 +59,11 @@ GoRouter createRouter() => GoRouter(
       builder: (context, state) =>
           _withDeck(state, (deck) => WrongNotesScreen(deck: deck)),
     ),
-    // 진도(지금 고른 칸 하나). 예: /progress?cell=middle_medium
+    // 진도(지금 단어장 하나). 예: /progress/deck_2
     GoRoute(
-      path: '/progress',
-      builder: (context, state) {
-        final cell = Cell.byId(state.uri.queryParameters['cell'] ?? '');
-        if (cell == null) {
-          return const Scaffold(body: Center(child: Text('찾을 수 없는 화면입니다')));
-        }
-        return ProgressScreen(cell: cell);
-      },
+      path: '/progress/:deckId',
+      builder: (context, state) =>
+          _withDeck(state, (deck) => ProgressScreen(deck: deck)),
     ),
     // 오답 노트 → 카드로 다시 보기 / 오답 시험. 예: /review/quiz/middle_easy
     GoRoute(
@@ -72,7 +76,8 @@ GoRouter createRouter() => GoRouter(
       builder: (context, state) =>
           _withDeck(state, (deck) => QuizScreen(deck: deck, review: true)),
     ),
-    // 내 단어장 목록(☰ 메뉴 → 내 단어장)과 단어장 하나. 예: /books/3
+    // 직접 단어를 넣는 내 단어장 목록과 단어장 하나. 예: /books/3
+    // (2026-11-22 사용자 결정으로 ☰ 메뉴에서 뺐다 — 지금은 화면에서 들어가는 길이 없다)
     GoRoute(
       path: '/books',
       builder: (context, state) => const WordBooksScreen(),
@@ -88,16 +93,27 @@ GoRouter createRouter() => GoRouter(
   ],
 );
 
-/// 주소의 칸·내 단어장 id로 화면을 만든다. 없는 칸이면 안내만 보인다.
-/// 내 단어장은 이름(제목)을 DB에서 읽은 뒤 만든다.
+/// 주소의 단어장·칸·내 단어장 id로 화면을 만든다. 없는 것이면 안내만 보인다.
+/// 이름 있는 단어장·내 단어장은 이름(제목)을 읽은 뒤 만든다.
 Widget _withDeck(GoRouterState state, Widget Function(Deck deck) build) {
   final id = state.pathParameters['deckId']!;
+  if (StudyDeck.parseId(id) case final deckId?) {
+    return StudyDeckLoader(deckId: deckId, builder: build);
+  }
   if (Cell.byId(id) case final cell?) return build(cell);
   if (BookDeck.parseId(id) case final bookId?) {
     return BookDeckLoader(bookId: bookId, builder: build);
   }
-  // 화면에 "칸"이라는 말은 쓰지 않는다
-  return const Scaffold(body: Center(child: Text('찾을 수 없는 화면입니다')));
+  return const _NotFound();
+}
+
+/// 없는 주소. 화면에 "칸"이라는 말은 쓰지 않는다.
+class _NotFound extends StatelessWidget {
+  const _NotFound();
+
+  @override
+  Widget build(BuildContext context) =>
+      const Scaffold(body: Center(child: Text('찾을 수 없는 화면입니다')));
 }
 
 final appRouter = createRouter();

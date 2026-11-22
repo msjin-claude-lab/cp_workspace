@@ -6,11 +6,14 @@ import 'package:material_ui/material_ui.dart';
 import 'package:vocab/data/cell.dart';
 import 'package:vocab/data/cell_store.dart';
 import 'package:vocab/data/speaker.dart';
+import 'package:vocab/data/study_decks.dart';
 import 'package:vocab/data/study_records.dart';
 import 'package:vocab/data/word.dart';
 import 'package:vocab/data/word_repository.dart';
 import 'package:vocab/features/study/study_screen.dart';
 import 'package:vocab/router.dart';
+
+import '../fakes.dart' show FakeCellStore, FakeStudyDecks;
 
 const _apple = Word(
   id: 'ee-001',
@@ -46,6 +49,9 @@ class _FakeSpeaker implements Speaker {
 class _FakeRecords implements StudyRecords {
   final List<(String, bool)> answers = [];
 
+  /// 답을 남긴 단어장 id(기록 주소가 맞는지 본다).
+  final List<String> decks = [];
+
   /// 있으면 저장이 이것이 끝날 때까지 걸린다(느린 DB 흉내).
   Completer<void>? gate;
 
@@ -59,6 +65,7 @@ class _FakeRecords implements StudyRecords {
     required bool known,
   }) async {
     answers.add((word.id, known));
+    decks.add(deck.id);
     if (gate != null) await gate!.future;
     if (fail) throw StateError('db');
   }
@@ -80,33 +87,20 @@ class _FakeRecords implements StudyRecords {
   ];
 
   @override
-  Future<List<WrongNote>> bookWrongNotes(BookDeck book) async => [
+  Future<List<WrongNote>> deckWrongNotes(Deck deck) async => [
     for (final n in notes)
-      if (n.deck == book) n,
+      if (n.deck.id == deck.id) n,
   ];
 
   /// 카드 학습은 노트에서 빼면 안 된다 — 불리면 남겨 두고 시험이 확인한다.
   final List<String> removed = [];
 
   @override
-  Future<void> removeWrongNote(String wordId) async => removed.add(wordId);
+  Future<void> removeWrongNote(Deck deck, String wordId) async =>
+      removed.add(wordId);
 
   @override
-  Future<Progress> progress({Cell? only}) async => const Progress();
-}
-
-class _FixedCellStore implements CellStore {
-  @override
-  Future<Cell?> load() async => Cell.elementaryEasy;
-
-  @override
-  Future<void> save(Cell cell) async {}
-
-  @override
-  Future<List<Cell>> loadRegistered() async => const [Cell.elementaryEasy];
-
-  @override
-  Future<void> saveRegistered(List<Cell> cells) async {}
+  Future<Progress> progress(Deck deck) async => const Progress();
 }
 
 void main() {
@@ -123,8 +117,11 @@ void main() {
       ),
       speakerProvider.overrideWithValue(speaker),
       studyRecordsProvider.overrideWithValue(records),
-      // 주소로 시작하면 첫 화면을 지나므로, 학교급을 골라 둔 것으로 한다
-      cellStoreProvider.overrideWithValue(_FixedCellStore()),
+      // 주소로 시작하면 첫 화면을 지나므로, 단어장을 만들어 골라 둔 것으로 한다
+      cellStoreProvider.overrideWithValue(FakeCellStore(selectedDeck: 1)),
+      studyDecksProvider.overrideWithValue(
+        FakeStudyDecks()..seed('아침 단어', Cell.elementaryEasy),
+      ),
     ],
     child: child,
   );
@@ -205,6 +202,24 @@ void main() {
 
     expect(find.byType(StudyScreen), findsOneWidget);
     expect(find.text('apple'), findsOneWidget);
+  });
+
+  testWidgets('단어장 주소(deck_1)로 가면 바탕 칸의 단어로 학습하고, 제목과 기록은 그 단어장 것이다', (
+    tester,
+  ) async {
+    final router = createRouter();
+    await tester.pumpWidget(scoped(MaterialApp.router(routerConfig: router)));
+    await tester.pumpAndSettle();
+    router.go('/study/deck_1');
+    await tester.pumpAndSettle();
+
+    expect(find.text('아침 단어 - 카드 학습'), findsOneWidget);
+    expect(find.text('apple'), findsOneWidget);
+    await tester.tap(find.byKey(const ValueKey('study-card')));
+    await tester.pump();
+    await tester.tap(find.byKey(const ValueKey('study-unknown')));
+    await tester.pumpAndSettle();
+    expect(records.decks, ['deck_1']);
   });
 
   testWidgets('저장 중에 연타해도 한 번만 기록되고 카드가 건너뛰지 않는다', (tester) async {
@@ -299,5 +314,10 @@ void main() {
   test('칸 id로 칸을 찾고, 없는 id는 null', () {
     expect(Cell.byId('high_medium'), Cell.highMedium);
     expect(Cell.byId('nope'), isNull);
+    // 이름 있는 단어장·내 단어장 id는 칸이 아니다
+    expect(Cell.byId('deck_1'), isNull);
+    expect(Cell.byId('book_1'), isNull);
+    expect(StudyDeck.parseId('deck_12'), 12);
+    expect(StudyDeck.parseId('middle_medium'), isNull);
   });
 }

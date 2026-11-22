@@ -7,6 +7,7 @@ import 'package:material_ui/material_ui.dart';
 import 'package:vocab/data/cell.dart';
 import 'package:vocab/data/cell_store.dart';
 import 'package:vocab/data/speaker.dart';
+import 'package:vocab/data/study_decks.dart';
 import 'package:vocab/data/study_records.dart';
 import 'package:vocab/data/word.dart';
 import 'package:vocab/data/word_books.dart';
@@ -32,9 +33,9 @@ void main() {
     books = FakeWordBooks(records);
   });
 
-  /// 칸 홈(초등 [난이도 : 쉬움])에서 시작한다. 내 단어장은 [books]에 있는 것.
+  /// 단어장 홈(초등 [난이도 : 쉬움]으로 만든 것)에서 시작한다. 내 단어장은 [books]에 있는 것.
   Future<void> pumpApp(WidgetTester tester) async {
-    // ☰ 메뉴는 기본 단어장 9개 아래에 내 단어장이 온다 — 목록은 보이는 줄만 만들므로 화면을 길게 한다
+    // 목록은 보이는 줄만 만들므로 화면을 길게 한다
     tester.view.physicalSize = const Size(800, 1600);
     tester.view.devicePixelRatio = 1;
     addTearDown(tester.view.reset);
@@ -47,8 +48,9 @@ void main() {
               Cell.elementaryEasy: [fakeWord('ee-001', 'apple', '사과')],
             }),
           ),
-          cellStoreProvider.overrideWithValue(
-            FakeCellStore(Cell.elementaryEasy),
+          cellStoreProvider.overrideWithValue(FakeCellStore(selectedDeck: 1)),
+          studyDecksProvider.overrideWithValue(
+            FakeStudyDecks(records)..seed('아침 단어', Cell.elementaryEasy),
           ),
           speakerProvider.overrideWithValue(FakeSpeaker()),
           studyRecordsProvider.overrideWithValue(records),
@@ -61,7 +63,7 @@ void main() {
     await tester.pumpAndSettle();
   }
 
-  /// 단어장 하나를 칸 홈 위에 연다(☰ 메뉴 → 내 단어장 → 단어장과 같은 쌓임).
+  /// 단어장 하나를 단어장 홈 위에 연다(목록 → 단어장과 같은 쌓임).
   Future<void> openBook(WidgetTester tester, int id) async {
     await pumpApp(tester);
     router.push('/books');
@@ -143,12 +145,12 @@ void main() {
     expect(find.byType(WordBookScreen), findsOneWidget);
     expect(find.widgetWithText(AppBar, '여행 영어'), findsOneWidget);
 
-    // ← 뒤로 두 번이면 칸 홈
+    // ← 뒤로 두 번이면 단어장 홈
     await tester.pageBack();
     await tester.pumpAndSettle();
     await tester.pageBack();
     await tester.pumpAndSettle();
-    expect(find.byType(CellHomeScreen), findsOneWidget);
+    expect(find.byType(DeckHomeScreen), findsOneWidget);
   });
 
   testWidgets('목록에서 단어장 이름을 바꾸고, 물어본 뒤 지운다', (tester) async {
@@ -358,8 +360,14 @@ void main() {
       ('sun', '해'),
       ('moon', '달'),
     ]);
-    // 다른 칸의 오답은 이 단어장 노트에 보이지 않는다
-    records.notes.add(fakeNote('ee-001', Cell.elementaryEasy));
+    // 다른 칸·이름 있는 단어장의 오답은 이 단어장 노트에 보이지 않는다
+    records.notes.addAll([
+      fakeNote('ee-001', Cell.elementaryEasy),
+      fakeNote(
+        'ee-001',
+        const StudyDeck(deckId: 1, name: '아침 단어', base: Cell.elementaryEasy),
+      ),
+    ]);
     final words = books.bookWords[id]!;
     await openBook(tester, id);
     expect(find.text('오답 노트 · 0단어'), findsOneWidget);
@@ -393,8 +401,11 @@ void main() {
 
     expect(records.removed, [missed]);
     expect(find.byKey(const ValueKey('wrong-empty')), findsOneWidget);
-    // 다른 칸의 오답은 그대로
-    expect(records.notes.map((n) => n.wordId), ['ee-001']);
+    // 다른 칸·이름 있는 단어장의 오답은 그대로
+    expect(records.notes.map((n) => (n.wordId, n.deck.id)), [
+      ('ee-001', 'elementary_easy'),
+      ('ee-001', 'deck_1'),
+    ]);
 
     await tester.pageBack();
     await tester.pumpAndSettle();

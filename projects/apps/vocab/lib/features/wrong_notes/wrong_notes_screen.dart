@@ -30,7 +30,9 @@ class WrongNotesScreen extends ConsumerWidget {
   ) async {
     final messenger = ScaffoldMessenger.of(context);
     try {
-      await ref.read(studyRecordsProvider).removeWrongNote(e.note.wordId);
+      await ref
+          .read(studyRecordsProvider)
+          .removeWrongNote(e.note.deck, e.note.wordId);
       messenger.showSnackBar(
         SnackBar(content: Text('${e.word.word} — 오답 노트에서 지웠습니다')),
       );

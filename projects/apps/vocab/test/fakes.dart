@@ -1,6 +1,7 @@
 import 'package:vocab/data/cell.dart';
 import 'package:vocab/data/cell_store.dart';
 import 'package:vocab/data/speaker.dart';
+import 'package:vocab/data/study_decks.dart';
 import 'package:vocab/data/study_records.dart';
 import 'package:vocab/data/word.dart';
 import 'package:vocab/data/word_books.dart';
@@ -26,32 +27,82 @@ class FakeRepository implements WordRepository {
   Future<List<Word>> wordsOf(Cell cell) async => words[cell] ?? const [];
 }
 
-/// `saved`가 기기에 저장된 칸 역할.
+/// `selectedDeck`이 기기에 저장된 고른 단어장 번호 역할. `legacyCell`·`legacyRegistered`는
+/// 옛 버전이 남긴 고른 칸·등록 목록.
 class FakeCellStore implements CellStore {
-  FakeCellStore([this.saved]);
+  FakeCellStore({this.selectedDeck, this.legacyCell});
 
-  Cell? saved;
+  int? selectedDeck;
+  Cell? legacyCell;
+  List<Cell> legacyRegistered = [];
   bool fail = false;
 
   @override
-  Future<Cell?> load() async => saved;
+  Future<int?> loadSelectedDeck() async => selectedDeck;
 
   @override
-  Future<void> save(Cell cell) async {
+  Future<void> saveSelectedDeck(int deckId) async {
     if (fail) throw StateError('prefs');
-    saved = cell;
+    selectedDeck = deckId;
   }
 
-  /// 기기에 저장된 등록 목록 역할.
-  List<Cell> registered = [];
+  @override
+  Future<Cell?> loadLegacyCell() async => legacyCell;
 
   @override
-  Future<List<Cell>> loadRegistered() async => [...registered];
+  Future<List<Cell>> loadLegacyRegistered() async => [...legacyRegistered];
+}
+
+/// 이름 있는 단어장을 메모리에 둔다. 지울 때 오답 노트도 지우는 것을 흉내 내려면 `records`를 준다.
+class FakeStudyDecks implements StudyDecks {
+  FakeStudyDecks([this.records]);
+
+  final FakeRecords? records;
+  final List<StudyDeck> list = [];
+  int _next = 1;
+  bool migrated = false;
+
+  /// 시험이 단어장을 미리 만들어 둘 때 쓴다.
+  StudyDeck seed(String name, Cell base) {
+    final deck = StudyDeck(deckId: _next++, name: name, base: base);
+    list.add(deck);
+    return deck;
+  }
 
   @override
-  Future<void> saveRegistered(List<Cell> cells) async {
-    if (fail) throw StateError('prefs');
-    registered = [...cells];
+  Future<List<StudyDeck>> decks() async => [...list];
+
+  @override
+  Future<StudyDeck> createDeck(String name, Cell base) async =>
+      seed(name, base);
+
+  @override
+  Future<void> renameDeck(int deckId, String name) async {
+    final i = list.indexWhere((d) => d.deckId == deckId);
+    list[i] = list[i].renamed(name);
+  }
+
+  @override
+  Future<void> deleteDeck(int deckId) async {
+    final id = 'deck_$deckId';
+    records?.notes.removeWhere((n) => n.deck.id == id);
+    list.removeWhere((d) => d.deckId == deckId);
+  }
+
+  /// 실제 이행은 DB 시험(`study_decks_test.dart`)이 본다. 여기서는 한 번만 단어장을 만든다.
+  @override
+  Future<int?> migrateLegacy({
+    required List<Cell> cells,
+    Cell? selected,
+  }) async {
+    if (migrated) return null;
+    migrated = true;
+    int? selectedDeck;
+    for (final cell in cells.toSet()) {
+      final deck = seed(legacyDeckName(cell), cell);
+      if (cell == selected) selectedDeck = deck.deckId;
+    }
+    return selectedDeck;
   }
 }
 
@@ -62,7 +113,7 @@ class FakeSpeaker implements Speaker {
   Future<void> speak(String text) async => spoken.add(text);
 }
 
-/// 기록과 오답 노트를 메모리에 둔다. 실제 구현처럼 '모른다'·틀림이면 노트에 넣는다.
+/// 기록과 오답 노트를 메모리에 둔다. 실제 구현처럼 '모른다'·틀림이면 그 단어장의 노트에 넣는다.
 class FakeRecords implements StudyRecords {
   final List<(String, bool)> studied = [];
   final List<(String, bool)> quizzed = [];
@@ -70,14 +121,43 @@ class FakeRecords implements StudyRecords {
   final List<String> removed = [];
   int _clock = 0;
 
-  /// 진도 화면에 돌려줄 집계. 시험이 채운다.
-  Progress progressValue = const Progress();
+  /// 시험 답: (단어장 id, 단어 id, 맞힘). 진도를 계산할 때 쓴다.
+  final List<(String, String, bool)> _quizLog = [];
 
+  /// 답한 단어장 id(카드 학습 + 시험).
+  final List<String> _answeredDecks = [];
+
+  /// 진도 화면에 돌려줄 집계(단어장 id별). 시험이 채운다. 없는 단어장은 기록으로 계산한다.
+  final Map<String, Progress> progressValues = {};
+
+  /// 실제 구현처럼 그 단어장 것만 센다: 외움 = 단어별 마지막 시험 답이 맞힘, 오답 = 노트 수,
+  /// 날짜별 = 답이 있으면 오늘 하루.
   @override
-  Future<Progress> progress({Cell? only}) async => progressValue;
+  Future<Progress> progress(Deck deck) async {
+    if (progressValues[deck.id] case final p?) return p;
+    final last = <String, bool>{};
+    for (final (d, w, ok) in _quizLog) {
+      if (d == deck.id) last[w] = ok;
+    }
+    final answered = _answeredDecks.where((d) => d == deck.id).length;
+    return Progress(
+      memorized: last.values.where((ok) => ok).length,
+      wrong: notes.where((n) => n.deck.id == deck.id).length,
+      days: [
+        if (answered > 0)
+          DayStat(
+            day: dayKey(DateTime.now()),
+            studied: answered,
+            correct: _quizLog.where((e) => e.$1 == deck.id && e.$3).length,
+          ),
+      ],
+    );
+  }
 
   void _miss(Deck deck, Word word) {
-    final i = notes.indexWhere((n) => n.wordId == word.id);
+    final i = notes.indexWhere(
+      (n) => n.deck.id == deck.id && n.wordId == word.id,
+    );
     final count = i < 0 ? 1 : notes[i].missCount + 1;
     if (i >= 0) notes.removeAt(i);
     notes.add(
@@ -97,6 +177,7 @@ class FakeRecords implements StudyRecords {
     required bool known,
   }) async {
     studied.add((word.id, known));
+    _answeredDecks.add(deck.id);
     if (!known) _miss(deck, word);
   }
 
@@ -107,10 +188,12 @@ class FakeRecords implements StudyRecords {
     required bool correct,
   }) async {
     quizzed.add((word.id, correct));
+    _quizLog.add((deck.id, word.id, correct));
+    _answeredDecks.add(deck.id);
     if (!correct) _miss(deck, word);
   }
 
-  /// 실제 구현처럼 내장 칸의 노트만 학교급으로 거른다(내 단어장 노트는 빠진다).
+  /// 실제 구현처럼 내장 칸의 노트만 학교급으로 거른다(단어장·내 단어장 노트는 빠진다).
   @override
   Future<List<WrongNote>> wrongNotes(SchoolLevel level) async => [
     for (final n in notes)
@@ -118,15 +201,15 @@ class FakeRecords implements StudyRecords {
   ]..sort((a, b) => b.lastMissedAt.compareTo(a.lastMissedAt));
 
   @override
-  Future<List<WrongNote>> bookWrongNotes(BookDeck book) async => [
+  Future<List<WrongNote>> deckWrongNotes(Deck deck) async => [
     for (final n in notes)
-      if (n.deck == book) n,
+      if (n.deck.id == deck.id) n,
   ]..sort((a, b) => b.lastMissedAt.compareTo(a.lastMissedAt));
 
   @override
-  Future<void> removeWrongNote(String wordId) async {
+  Future<void> removeWrongNote(Deck deck, String wordId) async {
     removed.add(wordId);
-    notes.removeWhere((n) => n.wordId == wordId);
+    notes.removeWhere((n) => n.deck.id == deck.id && n.wordId == wordId);
   }
 }
 

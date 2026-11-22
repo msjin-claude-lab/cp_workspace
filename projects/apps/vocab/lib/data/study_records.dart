@@ -25,21 +25,21 @@ abstract interface class StudyRecords {
     required bool correct,
   });
 
-  /// 학교급의 오답 노트(내장 칸만). 최근에 틀린 단어가 위.
+  /// 학교급의 오답 노트(내장 칸 id로 쌓인 것만). 최근에 틀린 단어가 위.
   Future<List<WrongNote>> wrongNotes(SchoolLevel level);
 
-  /// 내 단어장 하나의 오답 노트. 최근에 틀린 단어가 위.
-  Future<List<WrongNote>> bookWrongNotes(BookDeck book);
+  /// 단어 묶음 하나(칸·이름 있는 단어장·내 단어장)의 오답 노트. 최근에 틀린 단어가 위.
+  Future<List<WrongNote>> deckWrongNotes(Deck deck);
 
   /// 오답 노트에서 뺀다 — 오답 시험에서 맞혔거나 사용자가 지웠을 때(2026-11-20 사용자 결정).
+  /// 같은 단어가 다른 단어장의 노트에도 있을 수 있어 `deck`의 것만 뺀다.
   /// 학습·시험 기록(`study_log`·`quiz_log`)은 그대로 둔다.
-  Future<void> removeWrongNote(String wordId);
+  Future<void> removeWrongNote(Deck deck, String wordId);
 
-  /// 진도 화면에 쓸 집계(난이도별 외운 수·오답 수, 날짜별 공부 수·맞힌 수).
-  /// 내장 9칸의 기록만 센다 — 내 단어장 기록은 들어가지 않는다.
-  /// `only`를 주면 날짜별 기록을 그 칸 것만 센다(진도 화면은 지금 난이도만 보여 준다 —
-  /// 2026-11-22 사용자 결정). 외운 수·오답 수는 늘 칸별 지도로 준다.
-  Future<Progress> progress({Cell? only});
+  /// 진도 화면에 쓸 집계: `deck` 하나의 외운 수·오답 수·날짜별 공부 수·맞힌 수.
+  /// 진도는 지금 단어장 것만 보여 준다(2026-11-22 사용자 결정 — 같은 칸으로 만든 다른 단어장의
+  /// 기록도 섞지 않는다).
+  Future<Progress> progress(Deck deck);
 }
 
 /// 하루의 기록. `day`는 기기 시간대 `YYYY-MM-DD`.
@@ -59,19 +59,15 @@ class DayStat {
   final int correct;
 }
 
-/// 진도 집계.
+/// 단어 묶음 하나의 진도 집계.
 class Progress {
-  const Progress({
-    this.memorized = const {},
-    this.wrong = const {},
-    this.days = const [],
-  });
+  const Progress({this.memorized = 0, this.wrong = 0, this.days = const []});
 
-  /// 외운 단어 수. 외웠다 = 그 단어의 마지막 시험 답이 맞힘(틀리면 해제 — 명세).
-  final Map<Cell, int> memorized;
+  /// 외운 단어 수. 외웠다 = 이 묶음에서 그 단어의 마지막 시험 답이 맞힘(틀리면 해제 — 명세).
+  final int memorized;
 
   /// 오답 노트에 있는 단어 수.
-  final Map<Cell, int> wrong;
+  final int wrong;
 
   /// 공부한 날들. 최근 날짜가 앞.
   final List<DayStat> days;
@@ -125,12 +121,15 @@ String dayKey(DateTime t) =>
 ///
 /// - `study_log`: 답할 때마다 한 줄. 진도 화면의 칸별·날짜별 집계에 쓴다
 ///   (`answered_day`는 기기 시간대 날짜라 자정 경계가 어긋나지 않는다)
-/// - `wrong_notes`: 단어 하나에 한 줄. 다시 모른다고 하면 `miss_count`를 올리고
-///   `last_missed_at`을 고친다. '안다'로 답해도 지우지 않는다 — 빼는 방법은 오답 노트 화면에서 정한다.
-///   `word_id`는 칸 머리글자가 붙어(예: ee-001) 칸이 달라도 겹치지 않는다(단어 파일 검사 시험)
+/// - `wrong_notes`: 단어 묶음(`cell_id`)마다 단어 하나에 한 줄(5판부터 기본 키 `(cell_id, word_id)` —
+///   같은 칸으로 만든 단어장 둘이 같은 `word_id`를 쓰므로). 다시 모른다고 하면 `miss_count`를 올리고
+///   `last_missed_at`을 고친다. '안다'로 답해도 지우지 않는다 — 빼는 방법은 오답 노트 화면에서 정한다
 /// - `word_books`·`book_words`: 내 단어장과 그 단어(4판). 읽고 쓰는 것은 `SqfliteWordBooks`
 ///   (`word_books.dart`)가 이 객체의 [database]로 한다 — DB 파일·연결·판은 여기 하나다.
 ///   내 단어장 기록은 `cell_id`가 `book_<번호>`, `word_id`가 `bw-<번호>`라 내장 단어와 겹치지 않는다
+/// - `study_decks`: 이름 있는 단어장(5판, `study_decks.dart`의 `SqfliteStudyDecks`가 읽고 쓴다).
+///   기록은 `cell_id = deck_<번호>`, `word_id`는 바탕 칸의 내장 단어 id(`mm-001` 등)
+/// - `app_meta`: 한 번만 하는 일의 표시(5판). 지금은 옛 칸 기록을 단어장으로 옮겼는지
 class SqfliteStudyRecords implements StudyRecords {
   /// `factory`·`path`는 PC 시험에서 sqflite_common_ffi와 임시 파일을 넣을 때만 쓴다.
   SqfliteStudyRecords({this.factory, this.path});
@@ -148,7 +147,9 @@ class SqfliteStudyRecords implements StudyRecords {
   /// 올릴 때는 onUpgrade에 `oldVersion < N` 단계를 더한다 — 몇 판에서 오든 차례로 올라간다.
   /// 3: 진도의 "단어별 마지막 시험 답"을 빨리 찾는 인덱스 `quiz_log(word_id, id)` 추가(2026-11-20).
   /// 4: 내 단어장 `word_books`·`book_words` 추가(2026-11-20).
-  static const int schemaVersion = 4;
+  /// 5: 이름 있는 단어장 `study_decks`·`app_meta` 추가, `wrong_notes` 기본 키를 `(cell_id, word_id)`로,
+  ///    단어별 마지막 시험 답 인덱스를 단어장별 `quiz_log(cell_id, word_id, id)`로(2026-11-22).
+  static const int schemaVersion = 5;
 
   Future<Database> _open() async {
     final dbFactory = factory ?? databaseFactory;
@@ -158,16 +159,65 @@ class SqfliteStudyRecords implements StudyRecords {
       dbPath,
       options: OpenDatabaseOptions(
         version: schemaVersion,
+        // 새로 설치해도 올라오는 사용자와 같은 단계를 밟는다 — 5판 이행이 한 길로만 검증되게
         onCreate: (db, version) async {
-          await createV3(db);
-          await _createWordBooks(db);
+          await createV4(db);
+          await _upgradeToV5(db);
         },
         onUpgrade: (db, oldVersion, newVersion) async {
           if (oldVersion < 2) await _createQuizLog(db);
           if (oldVersion < 3) await _createQuizWordIndex(db);
           if (oldVersion < 4) await _createWordBooks(db);
+          if (oldVersion < 5) await _upgradeToV5(db);
         },
       ),
+    );
+  }
+
+  /// 4판까지의 표. 시험에서 "4판 사용자"의 DB를 만들 때도 쓴다 — 5판 이후의 표는 여기에 더하지 않는다.
+  @visibleForTesting
+  static Future<void> createV4(Database db) async {
+    await createV3(db);
+    await _createWordBooks(db);
+  }
+
+  /// 5판: 이름 있는 단어장(2026-11-22 사용자 결정 — 같은 학교급+난이도로 여러 개, 기록은 따로).
+  /// onUpgrade는 트랜잭션 안에서 돌아 중간에 끊겨도 4판 그대로 남는다.
+  static Future<void> _upgradeToV5(Database db) async {
+    await db.execute('''
+      CREATE TABLE study_decks(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        cell_id TEXT NOT NULL,
+        created_at INTEGER NOT NULL
+      )''');
+    await db.execute('''
+      CREATE TABLE app_meta(
+        key TEXT PRIMARY KEY,
+        value TEXT NOT NULL
+      )''');
+    // 기본 키가 word_id 하나면 같은 칸으로 만든 단어장 둘의 오답이 한 줄로 겹친다 — 줄은 모두 옮긴다
+    await db.execute('''
+      CREATE TABLE wrong_notes_v5(
+        word_id TEXT NOT NULL,
+        cell_id TEXT NOT NULL,
+        miss_count INTEGER NOT NULL,
+        first_missed_at INTEGER NOT NULL,
+        last_missed_at INTEGER NOT NULL,
+        PRIMARY KEY (cell_id, word_id)
+      )''');
+    await db.execute(
+      'INSERT INTO wrong_notes_v5 '
+      '(word_id, cell_id, miss_count, first_missed_at, last_missed_at) '
+      'SELECT word_id, cell_id, miss_count, first_missed_at, last_missed_at '
+      'FROM wrong_notes',
+    );
+    await db.execute('DROP TABLE wrong_notes');
+    await db.execute('ALTER TABLE wrong_notes_v5 RENAME TO wrong_notes');
+    // "외웠다"는 단어장마다 그 단어의 마지막 시험 답 — 찾는 조건에 cell_id가 붙는다
+    await db.execute('DROP INDEX IF EXISTS quiz_log_word');
+    await db.execute(
+      'CREATE INDEX quiz_log_deck_word ON quiz_log(cell_id, word_id, id)',
     );
   }
 
@@ -205,47 +255,35 @@ class SqfliteStudyRecords implements StudyRecords {
   }
 
   @override
-  Future<Progress> progress({Cell? only}) async {
+  Future<Progress> progress(Deck deck) async {
     final db = await _database;
-    // 단어별 마지막 시험 답은 id가 가장 큰 줄 — 시각은 같거나 기기 시계가 바뀔 수 있어 쓰지 않는다
+    // 그 단어장에서 단어별 마지막 시험 답은 id가 가장 큰 줄 — 시각은 같거나 기기 시계가 바뀔 수 있어
+    // 쓰지 않는다. 같은 칸으로 만든 다른 단어장의 답은 보지 않는다(같은 word_id라도 cell_id가 다르다)
     final memorizedRows = await db.rawQuery(
-      'SELECT cell_id, COUNT(*) AS n FROM quiz_log q '
-      'WHERE correct = 1 AND id = '
-      '(SELECT MAX(id) FROM quiz_log WHERE word_id = q.word_id) '
-      'GROUP BY cell_id',
+      'SELECT COUNT(*) AS n FROM quiz_log q '
+      'WHERE cell_id = ? AND correct = 1 AND id = '
+      '(SELECT MAX(id) FROM quiz_log '
+      'WHERE cell_id = q.cell_id AND word_id = q.word_id)',
+      [deck.id],
     );
     final wrongRows = await db.rawQuery(
-      'SELECT cell_id, COUNT(*) AS n FROM wrong_notes GROUP BY cell_id',
+      'SELECT COUNT(*) AS n FROM wrong_notes WHERE cell_id = ?',
+      [deck.id],
     );
-    // 진도는 내장 9칸만 센다 — 내 단어장(`book_N`) 기록은 날짜별 집계에서도 뺀다
-    final cellIds = [
-      for (final c in Cell.values)
-        if (only == null || c == only) c.id,
-    ];
-    final inCells =
-        'cell_id IN (${List.filled(cellIds.length, '?').join(', ')})';
     final dayRows = await db.rawQuery(
       'SELECT day, SUM(n) AS studied, SUM(c) AS correct FROM ('
       'SELECT answered_day AS day, COUNT(*) AS n, 0 AS c '
-      'FROM study_log WHERE $inCells GROUP BY answered_day '
+      'FROM study_log WHERE cell_id = ? GROUP BY answered_day '
       'UNION ALL '
       'SELECT answered_day AS day, COUNT(*) AS n, SUM(correct) AS c '
-      'FROM quiz_log WHERE $inCells GROUP BY answered_day'
+      'FROM quiz_log WHERE cell_id = ? GROUP BY answered_day'
       ') GROUP BY day ORDER BY day DESC',
-      [...cellIds, ...cellIds],
+      [deck.id, deck.id],
     );
-    Map<Cell, int> byCell(List<Map<String, Object?>> rows) {
-      final result = <Cell, int>{};
-      for (final row in rows) {
-        final cell = Cell.byId(row['cell_id'] as String);
-        if (cell != null) result[cell] = row['n'] as int; // 모르는 칸 id는 건너뛴다
-      }
-      return result;
-    }
 
     return Progress(
-      memorized: byCell(memorizedRows),
-      wrong: byCell(wrongRows),
+      memorized: memorizedRows.single['n'] as int,
+      wrong: wrongRows.single['n'] as int,
       days: [
         for (final row in dayRows)
           DayStat(
@@ -337,19 +375,19 @@ class SqfliteStudyRecords implements StudyRecords {
   }
 
   @override
-  Future<List<WrongNote>> bookWrongNotes(BookDeck book) async {
+  Future<List<WrongNote>> deckWrongNotes(Deck deck) async {
     final db = await _database;
     final rows = await db.query(
       'wrong_notes',
       where: 'cell_id = ?',
-      whereArgs: [book.id],
+      whereArgs: [deck.id],
       orderBy: 'last_missed_at DESC, word_id',
     );
     return [
       for (final row in rows)
         WrongNote(
           wordId: row['word_id'] as String,
-          deck: book,
+          deck: deck,
           missCount: row['miss_count'] as int,
           lastMissedAt: row['last_missed_at'] as int,
         ),
@@ -357,9 +395,13 @@ class SqfliteStudyRecords implements StudyRecords {
   }
 
   @override
-  Future<void> removeWrongNote(String wordId) async {
+  Future<void> removeWrongNote(Deck deck, String wordId) async {
     final db = await _database;
-    await db.delete('wrong_notes', where: 'word_id = ?', whereArgs: [wordId]);
+    await db.delete(
+      'wrong_notes',
+      where: 'cell_id = ? AND word_id = ?',
+      whereArgs: [deck.id, wordId],
+    );
   }
 
   /// 기록 표에 한 줄 넣고, 실패(`ok == false`)면 오답 노트에도 넣는다.
@@ -382,11 +424,12 @@ class SqfliteStudyRecords implements StudyRecords {
         'answered_day': dayKey(now),
       });
       if (!ok) {
-        // 안드로이드 옛 SQLite에는 UPSERT가 없어 UPDATE 뒤 없으면 INSERT 한다
+        // 안드로이드 옛 SQLite에는 UPSERT가 없어 UPDATE 뒤 없으면 INSERT 한다.
+        // 같은 단어가 다른 단어장의 노트에 있어도 이 단어장 줄만 고친다
         final updated = await txn.rawUpdate(
           'UPDATE wrong_notes SET miss_count = miss_count + 1, '
-          'last_missed_at = ? WHERE word_id = ?',
-          [ms, word.id],
+          'last_missed_at = ? WHERE cell_id = ? AND word_id = ?',
+          [ms, deck.id, word.id],
         );
         if (updated == 0) {
           await txn.insert('wrong_notes', {
@@ -412,21 +455,15 @@ final studyRecordsProvider = Provider<StudyRecords>(
   (ref) => ref.watch(vocabDatabaseProvider),
 );
 
-/// 칸 하나의 진도 집계(날짜별 기록·진행 일차는 그 칸 것만). 진도 화면을 열 때마다 새로 읽는다(autoDispose).
-final progressProvider = FutureProvider.autoDispose.family<Progress, Cell>(
-  (ref, cell) => ref.watch(studyRecordsProvider).progress(only: cell),
+/// 단어장 하나의 진도 집계(외운 수·오답 수·날짜별 기록 모두 그 단어장 것만).
+/// 진도 화면을 열 때마다 새로 읽는다(autoDispose).
+final progressProvider = FutureProvider.autoDispose.family<Progress, Deck>(
+  (ref, deck) => ref.watch(studyRecordsProvider).progress(deck),
 );
 
-/// 칸 또는 내 단어장 하나의 오답 노트(최근에 틀린 것이 위). 화면을 열 때마다 새로 읽는다(autoDispose).
-/// 칸 홈·단어장 화면·오답 노트 화면은 안쪽 화면에서 돌아오면 이것을 invalidate 해 다시 읽는다.
+/// 단어장 하나의 오답 노트(최근에 틀린 것이 위). 화면을 열 때마다 새로 읽는다(autoDispose).
+/// 홈·단어장 화면·오답 노트 화면은 안쪽 화면에서 돌아오면 이것을 invalidate 해 다시 읽는다.
 final deckWrongNotesProvider = FutureProvider.autoDispose
-    .family<List<WrongNote>, Deck>((ref, deck) async {
-      final records = ref.watch(studyRecordsProvider);
-      return switch (deck) {
-        Cell() => [
-          for (final n in await records.wrongNotes(deck.level))
-            if (n.deck == deck) n,
-        ],
-        BookDeck() => records.bookWrongNotes(deck),
-      };
-    });
+    .family<List<WrongNote>, Deck>(
+      (ref, deck) => ref.watch(studyRecordsProvider).deckWrongNotes(deck),
+    );

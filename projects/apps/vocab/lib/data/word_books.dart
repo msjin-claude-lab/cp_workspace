@@ -189,11 +189,23 @@ class SqfliteWordBooks implements WordBooks {
   Future<void> deleteWord(String wordId) async {
     final db = await _owner.database;
     await db.transaction((txn) async {
-      await txn.delete(
-        'wrong_notes',
-        where: 'word_id = ?',
-        whereArgs: [wordId],
+      // 오답 노트의 기본 키는 (cell_id, word_id)(5판) — 그 단어가 든 단어장의 줄만 지운다
+      final owner = await txn.query(
+        'book_words',
+        columns: ['book_id'],
+        where: 'id = ?',
+        whereArgs: [_rowId(wordId)],
       );
+      if (owner.isNotEmpty) {
+        await txn.delete(
+          'wrong_notes',
+          where: 'cell_id = ? AND word_id = ?',
+          whereArgs: [
+            BookDeck(bookId: owner.single['book_id'] as int, name: '').id,
+            wordId,
+          ],
+        );
+      }
       await txn.delete(
         'book_words',
         where: 'id = ?',

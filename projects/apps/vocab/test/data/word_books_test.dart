@@ -72,8 +72,9 @@ void main() {
     ]);
 
     final db = await records.database;
-    expect(await db.getVersion(), 4);
-    expect(SqfliteStudyRecords.schemaVersion, 4);
+    // 4판을 거쳐 지금 판(5판)까지 차례로 올라간다
+    expect(await db.getVersion(), 5);
+    expect(SqfliteStudyRecords.schemaVersion, 5);
     expect(
       await names(db, 'table'),
       containsAll(['word_books', 'book_words', 'study_log', 'quiz_log']),
@@ -92,7 +93,8 @@ void main() {
   });
 
   test('새로 설치하면 내 단어장 표가 함께 생긴다', () async {
-    await records.progress(); // 기록 쪽에서 먼저 열어도 같은 DB·같은 판
+    // 기록 쪽에서 먼저 열어도 같은 DB·같은 판
+    await records.progress(Cell.elementaryEasy);
     final db = await records.database;
     expect(await db.getVersion(), SqfliteStudyRecords.schemaVersion);
     expect(
@@ -151,12 +153,12 @@ void main() {
     // 단어를 지우면 그 단어의 오답 노트도 지우고, 학습 기록은 남긴다
     final deck = BookDeck(bookId: a, name: '동물');
     await records.recordAnswer(deck: deck, word: words[1], known: false);
-    expect((await records.bookWrongNotes(deck)).map((n) => n.wordId), [
+    expect((await records.deckWrongNotes(deck)).map((n) => n.wordId), [
       words[1].id,
     ]);
     await books.deleteWord(words[1].id);
     expect((await books.words(a)).map((w) => w.word), ['kitten']);
-    expect(await records.bookWrongNotes(deck), isEmpty);
+    expect(await records.deckWrongNotes(deck), isEmpty);
     final db = await records.database;
     expect(await db.rawQuery('SELECT word_id FROM study_log'), [
       {'word_id': words[1].id},
@@ -194,8 +196,8 @@ void main() {
     expect((await books.books()).map((x) => x.id), [b]);
     expect(await books.book(a), isNull);
     expect(await books.words(a), isEmpty);
-    expect(await records.bookWrongNotes(deckA), isEmpty);
-    expect((await records.bookWrongNotes(deckB)).map((n) => n.wordId), [
+    expect(await records.deckWrongNotes(deckA), isEmpty);
+    expect((await records.deckWrongNotes(deckB)).map((n) => n.wordId), [
       sun.id,
     ]);
     expect(
@@ -258,17 +260,22 @@ void main() {
     expect(Cell.byId(deck.id), isNull);
 
     // 단어장의 오답 노트에는 들어가고(최근에 틀린 것이 위)
-    expect((await records.bookWrongNotes(deck)).map((n) => n.wordId), [
+    expect((await records.deckWrongNotes(deck)).map((n) => n.wordId), [
       'bw-1',
       'bw-2',
     ]);
     // 진도(외운 수·오답 수·날짜별)와 학교급 오답 노트에는 나오지 않는다
-    final progress = await records.progress();
-    expect(progress.memorized, isEmpty);
-    expect(progress.wrong, isEmpty);
-    expect(progress.days, isEmpty);
+    for (final cell in Cell.values) {
+      final progress = await records.progress(cell);
+      expect(progress.memorized, 0);
+      expect(progress.wrong, 0);
+      expect(progress.days, isEmpty);
+    }
     for (final level in SchoolLevel.values) {
       expect(await records.wrongNotes(level), isEmpty);
     }
+    // 그 단어장의 진도에는 그 단어장 것만 들어간다
+    final own = await records.progress(deck);
+    expect((own.memorized, own.wrong), (1, 2));
   });
 }

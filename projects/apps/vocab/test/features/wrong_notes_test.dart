@@ -6,6 +6,7 @@ import 'package:material_ui/material_ui.dart';
 import 'package:vocab/data/cell.dart';
 import 'package:vocab/data/cell_store.dart';
 import 'package:vocab/data/speaker.dart';
+import 'package:vocab/data/study_decks.dart';
 import 'package:vocab/data/study_records.dart';
 import 'package:vocab/data/word_repository.dart';
 import 'package:vocab/features/quiz/quiz.dart';
@@ -30,18 +31,30 @@ void main() {
   };
 
   late FakeRecords records;
+  late FakeStudyDecks decks;
+  // 홈 단어장(초등 쉬움), 같은 초등 쉬움으로 만든 다른 단어장, 초등 어려움 단어장
+  late StudyDeck home;
+  late StudyDeck twin;
+  late StudyDeck hard;
 
-  setUp(() => records = FakeRecords());
+  setUp(() {
+    records = FakeRecords();
+    decks = FakeStudyDecks(records);
+    home = decks.seed('아침 단어', Cell.elementaryEasy);
+    twin = decks.seed('저녁 단어', Cell.elementaryEasy);
+    hard = decks.seed('어려운 단어', Cell.elementaryHard);
+  });
 
-  /// 칸 홈(초등 [난이도 : 쉬움])에서 오답 노트로 들어간다.
+  /// 단어장 홈(아침 단어 — 초등 [난이도 : 쉬움])에서 오답 노트로 들어간다.
   Future<void> openWrongNotes(WidgetTester tester) async {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
           wordRepositoryProvider.overrideWithValue(FakeRepository(words)),
           cellStoreProvider.overrideWithValue(
-            FakeCellStore(Cell.elementaryEasy),
+            FakeCellStore(selectedDeck: home.deckId),
           ),
+          studyDecksProvider.overrideWithValue(decks),
           speakerProvider.overrideWithValue(FakeSpeaker()),
           studyRecordsProvider.overrideWithValue(records),
           quizRandomProvider.overrideWithValue(Random(seed)),
@@ -61,18 +74,20 @@ void main() {
     await tester.pumpAndSettle();
   }
 
-  testWidgets('오답 노트는 그 칸의 오답만, 최근에 틀린 것부터 틀린 횟수와 함께 보여 준다', (tester) async {
+  testWidgets('오답 노트는 그 단어장의 오답만, 최근에 틀린 것부터 틀린 횟수와 함께 보여 준다', (tester) async {
     records.notes.addAll([
-      fakeNote('ee-001', Cell.elementaryEasy, miss: 2, at: 1),
-      fakeNote('ee-003', Cell.elementaryEasy, at: 5),
-      fakeNote('eh-001', Cell.elementaryHard, at: 9), // 다른 칸 — 안 보인다
+      fakeNote('ee-001', home, miss: 2, at: 1),
+      fakeNote('ee-003', home, at: 5),
+      fakeNote('eh-001', hard, at: 9), // 다른 단어장 — 안 보인다
+      fakeNote('ee-004', twin, at: 7), // 같은 초등 쉬움이라도 다른 단어장 — 안 보인다
     ]);
     await openWrongNotes(tester);
 
     expect(find.byType(WrongNotesScreen), findsOneWidget);
-    expect(find.text('초등 [난이도 : 쉬움] - 오답 노트'), findsOneWidget);
+    expect(find.text('아침 단어 - 오답 노트'), findsOneWidget);
     expect(find.text('2단어'), findsOneWidget);
     expect(find.text('castle'), findsNothing);
+    expect(find.text('desk'), findsNothing);
     expect(find.text('틀림 2'), findsOneWidget);
     // 최근에 틀린 cup(5)이 apple(1)보다 위
     expect(
@@ -81,10 +96,13 @@ void main() {
     );
   });
 
-  testWidgets('지우기를 누르면 오답 노트에서 빠지고, 칸 홈의 오답 수도 바뀐다', (tester) async {
+  testWidgets('지우기를 누르면 오답 노트에서 빠지고, 홈의 오답 수도 바뀐다(다른 단어장의 같은 단어는 남는다)', (
+    tester,
+  ) async {
     records.notes.addAll([
-      fakeNote('ee-001', Cell.elementaryEasy),
-      fakeNote('ee-002', Cell.elementaryEasy),
+      fakeNote('ee-001', home),
+      fakeNote('ee-002', home),
+      fakeNote('ee-001', twin),
     ]);
     await openWrongNotes(tester);
 
@@ -99,10 +117,13 @@ void main() {
     await tester.pageBack();
     await tester.pumpAndSettle();
     expect(find.text('오답 노트 · 1단어'), findsOneWidget);
+    expect(records.notes.where((n) => n.deck == twin).map((n) => n.wordId), [
+      'ee-001',
+    ]);
   });
 
   testWidgets('오답 시험에서 맞히면 돌아온 오답 노트에서 그 단어가 사라진다', (tester) async {
-    records.notes.add(fakeNote('ee-002', Cell.elementaryEasy));
+    records.notes.add(fakeNote('ee-002', home));
     // 화면과 같은 입력으로 만든 문제 — 정답 위치를 미리 안다
     final q = buildQuiz([easy[1]], Random(seed), pool: easy).single;
     await openWrongNotes(tester);
@@ -124,10 +145,11 @@ void main() {
     expect(find.byKey(const ValueKey('wrong-empty')), findsOneWidget);
   });
 
-  testWidgets('카드로 다시 보기는 그 칸의 오답 단어만 연다', (tester) async {
+  testWidgets('카드로 다시 보기는 그 단어장의 오답 단어만 연다', (tester) async {
     records.notes.addAll([
-      fakeNote('ee-001', Cell.elementaryEasy),
-      fakeNote('ee-004', Cell.elementaryEasy),
+      fakeNote('ee-001', home),
+      fakeNote('ee-004', home),
+      fakeNote('ee-002', twin),
     ]);
     await openWrongNotes(tester);
 
@@ -140,7 +162,8 @@ void main() {
   });
 
   testWidgets('오답이 없으면 비어 있다고 알린다', (tester) async {
-    records.notes.add(fakeNote('eh-001', Cell.elementaryHard)); // 다른 칸만 있음
+    // 다른 단어장에만 있음
+    records.notes.addAll([fakeNote('eh-001', hard), fakeNote('ee-001', twin)]);
     await openWrongNotes(tester);
 
     expect(find.byKey(const ValueKey('wrong-empty')), findsOneWidget);

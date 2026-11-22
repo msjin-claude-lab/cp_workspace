@@ -4,6 +4,7 @@ import 'package:material_ui/material_ui.dart';
 import 'package:vocab/data/cell.dart';
 import 'package:vocab/data/cell_store.dart';
 import 'package:vocab/data/speaker.dart';
+import 'package:vocab/data/study_decks.dart';
 import 'package:vocab/data/study_records.dart';
 import 'package:vocab/data/word_repository.dart';
 import 'package:vocab/features/progress/progress_calendar.dart';
@@ -24,9 +25,19 @@ void main() {
     ],
   };
 
-  setUp(() => records = FakeRecords());
+  late FakeStudyDecks decks;
+  // 홈 단어장(초등 쉬움)과 같은 초등 쉬움으로 만든 다른 단어장
+  late StudyDeck home;
+  late StudyDeck twin;
 
-  /// 홈(초등 쉬움)에서 진도 버튼으로 들어간다.
+  setUp(() {
+    records = FakeRecords();
+    decks = FakeStudyDecks(records);
+    home = decks.seed('아침 단어', Cell.elementaryEasy);
+    twin = decks.seed('저녁 단어', Cell.elementaryEasy);
+  });
+
+  /// 홈(아침 단어 — 초등 쉬움)에서 진도 버튼으로 들어간다.
   Future<void> openProgress(WidgetTester tester) async {
     // 목록은 보이는 줄만 만든다 — 9줄과 날짜가 한 번에 보이도록 시험용 화면을 길게 한다
     tester.view.physicalSize = const Size(800, 3000);
@@ -37,8 +48,9 @@ void main() {
         overrides: [
           wordRepositoryProvider.overrideWithValue(FakeRepository(words)),
           cellStoreProvider.overrideWithValue(
-            FakeCellStore(Cell.elementaryEasy),
+            FakeCellStore(selectedDeck: home.deckId),
           ),
+          studyDecksProvider.overrideWithValue(decks),
           speakerProvider.overrideWithValue(FakeSpeaker()),
           studyRecordsProvider.overrideWithValue(records),
         ],
@@ -50,27 +62,29 @@ void main() {
     await tester.pumpAndSettle();
   }
 
-  testWidgets('진도는 지금 난이도의 외운 수/전체·오답 수만 보여 주고, 날짜별 기록과 진행 일차를 보여 준다', (
+  testWidgets('진도는 지금 단어장의 외운 수/전체·오답 수만 보여 주고, 날짜별 기록과 진행 일차를 보여 준다', (
     tester,
   ) async {
     final now = DateTime.now();
     final today = dayKey(now);
     // 사흘 전에 시작하고 그 사이 이틀은 쉬었다 → 진행 4일차
     final firstDay = dayKey(DateTime(now.year, now.month, now.day - 3));
-    records.progressValue = Progress(
-      memorized: {Cell.elementaryEasy: 3, Cell.middleHard: 9}, // 9는 전체(2)를 넘음
-      wrong: {Cell.elementaryEasy: 1},
+    records.progressValues[home.id] = Progress(
+      memorized: 3,
+      wrong: 1,
       days: [
         DayStat(day: today, studied: 12, correct: 5),
         DayStat(day: firstDay, studied: 4, correct: 0),
       ],
     );
+    // 같은 초등 쉬움으로 만든 다른 단어장 — 9는 전체(5)를 넘는다
+    records.progressValues[twin.id] = const Progress(memorized: 9, wrong: 4);
     await openProgress(tester);
 
     expect(find.byType(ProgressScreen), findsOneWidget);
-    expect(find.text('초등 [난이도 : 쉬움] - 진도'), findsOneWidget);
+    expect(find.text('아침 단어 - 진도'), findsOneWidget);
     expect(find.text('진행 4일차'), findsOneWidget);
-    // 지금 난이도(초등 쉬움) 것만 — 다른 난이도(중등 어려움 2/2)는 보이지 않는다
+    // 지금 단어장 것만 — 다른 단어장(외움 5/5 · 오답 4)은 보이지 않는다
     expect(find.text('외움 3/5 · 오답 1'), findsOneWidget);
     expect(find.textContaining('외움'), findsOneWidget);
 
