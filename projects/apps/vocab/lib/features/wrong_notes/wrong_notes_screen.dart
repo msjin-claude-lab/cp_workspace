@@ -66,7 +66,7 @@ class WrongNotesScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final entries = ref.watch(wrongEntriesProvider(deck));
     final text = Theme.of(context).textTheme;
-    // 오답 시험의 보기는 묶음 전체에서 고른다 — 묶음으로 시험을 낼 수 없으면(내 단어장 단어가 4개 미만 등)
+    // 오답 시험의 보기는 묶음 전체에서 고른다 — 묶음으로 시험을 낼 수 없으면(단어가 4개 미만 등)
     // 버튼을 막고 까닭을 보여 준다. 그때는 직접 지우기로만 노트에서 뺄 수 있다
     final pool = ref.watch(deckWordsProvider(deck)).value;
     final quizBlocked = pool == null ? null : quizBlockReason(pool);

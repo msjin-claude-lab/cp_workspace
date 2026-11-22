@@ -18,8 +18,7 @@ abstract interface class StudyDecks {
 
   Future<void> renameDeck(int deckId, String name);
 
-  /// 단어장과 그 오답 노트를 지운다. 학습·시험 기록(`study_log`·`quiz_log`)은 남긴다
-  /// (내 단어장 지우기와 같은 규칙).
+  /// 단어장과 그 오답 노트를 지운다. 학습·시험 기록(`study_log`·`quiz_log`)은 남긴다.
   Future<void> deleteDeck(int deckId);
 
   /// 옛 버전(칸 id로 기록을 쌓던 때)의 기록을 단어장으로 옮긴다. 한 번만 한다.

@@ -12,7 +12,7 @@ import '../common/leave_guard.dart';
 import '../wrong_notes/review_words.dart';
 import 'quiz.dart';
 
-/// 4지선다 시험: 칸·내 단어장의 단어 20개를 섞어 영→뜻·뜻→영으로 묻는다.
+/// 4지선다 시험: 칸·단어장의 단어 20개를 섞어 영→뜻·뜻→영으로 묻는다.
 /// 보기를 누르면 맞았는지와 정답·예문·해석을 보여 주고, 틀리면 오답 노트에 넣는다.
 /// `review`면 오답 시험: 그 칸·단어장의 오답 노트 단어만 묻고(보기는 그 묶음 전체에서), 맞힌 단어는
 /// 노트에서 뺀다(2026-11-20 사용자 결정).
@@ -316,23 +316,18 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
                 ),
               ],
             ),
-            // 내 단어장 단어는 예문·해석이 없을 수 있다(선택) — 빈 줄은 그리지 않는다
-            if (q.word.example.isNotEmpty) ...[
-              const SizedBox(height: 8),
-              Text(
-                q.word.example,
-                textAlign: TextAlign.center,
-                style: text.bodyLarge?.copyWith(fontStyle: FontStyle.italic),
-              ),
-            ],
-            if (q.word.exampleMeaning.isNotEmpty) ...[
-              const SizedBox(height: 4),
-              Text(
-                q.word.exampleMeaning,
-                textAlign: TextAlign.center,
-                style: text.bodyMedium,
-              ),
-            ],
+            const SizedBox(height: 8),
+            Text(
+              q.word.example,
+              textAlign: TextAlign.center,
+              style: text.bodyLarge?.copyWith(fontStyle: FontStyle.italic),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              q.word.exampleMeaning,
+              textAlign: TextAlign.center,
+              style: text.bodyMedium,
+            ),
           ],
         ),
       ),

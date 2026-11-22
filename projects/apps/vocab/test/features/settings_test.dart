@@ -8,7 +8,6 @@ import 'package:vocab/data/speaker.dart';
 import 'package:vocab/data/study_decks.dart';
 import 'package:vocab/data/study_records.dart';
 import 'package:vocab/data/word.dart';
-import 'package:vocab/data/word_books.dart';
 import 'package:vocab/data/word_repository.dart';
 import 'package:vocab/features/quiz/quiz.dart' show quizRandomProvider;
 import 'package:vocab/features/quiz/quiz_screen.dart';
@@ -48,7 +47,6 @@ void main() {
           studyDecksProvider.overrideWithValue(
             FakeStudyDecks()..seed('아침 단어', Cell.elementaryEasy),
           ),
-          wordBooksProvider.overrideWithValue(FakeWordBooks(records)),
         ],
         child: home == null
             ? MaterialApp.router(routerConfig: createRouter())

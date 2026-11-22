@@ -45,15 +45,15 @@ void main() {
     hard = decks.seed('어려운 단어', Cell.elementaryHard);
   });
 
-  /// 단어장 홈(아침 단어 — 초등 [난이도 : 쉬움])에서 오답 노트로 들어간다.
-  Future<void> openWrongNotes(WidgetTester tester) async {
+  /// 단어장 홈(기본은 아침 단어 — 초등 [난이도 : 쉬움])에서 오답 노트로 들어간다.
+  Future<void> openWrongNotes(WidgetTester tester, {StudyDeck? deck}) async {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
           appSettingsStoreProvider.overrideWithValue(FakeAppSettingsStore()),
           wordRepositoryProvider.overrideWithValue(FakeRepository(words)),
           cellStoreProvider.overrideWithValue(
-            FakeCellStore(selectedDeck: home.deckId),
+            FakeCellStore(selectedDeck: (deck ?? home).deckId),
           ),
           studyDecksProvider.overrideWithValue(decks),
           speakerProvider.overrideWithValue(FakeSpeaker()),
@@ -187,6 +187,24 @@ void main() {
     records.notes.addAll([fakeNote('eh-001', hard), fakeNote('ee-001', twin)]);
     await openWrongNotes(tester);
 
+    expect(find.byKey(const ValueKey('wrong-empty')), findsOneWidget);
+  });
+
+  // my_words_test.dart(내 단어장, 2026-11-22 지움)에서 옮겼다 — 보기 4개를 만들 수 없는 묶음
+  testWidgets('단어가 4개보다 적은 단어장의 오답 노트는 오답 시험이 막히고 까닭을 알려 준다(지우기는 된다)', (
+    tester,
+  ) async {
+    // 어려운 단어 단어장의 바탕 칸(초등 어려움)에는 단어가 1개뿐
+    records.notes.add(fakeNote('eh-001', hard));
+    await openWrongNotes(tester, deck: hard);
+
+    expect(find.byKey(const ValueKey('wrong-quiz-locked')), findsOneWidget);
+    expect(find.text('단어가 4개 이상 있어야 시험을 볼 수 있습니다'), findsOneWidget);
+    await tapShown(tester, find.byKey(const ValueKey('wrong-quiz')));
+    expect(find.byType(QuizScreen), findsNothing);
+
+    await tapShown(tester, find.byKey(const ValueKey('wrong-delete-eh-001')));
+    expect(records.removed, ['eh-001']);
     expect(find.byKey(const ValueKey('wrong-empty')), findsOneWidget);
   });
 }

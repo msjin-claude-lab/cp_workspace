@@ -11,7 +11,7 @@ import 'word.dart';
 abstract interface class StudyRecords {
   /// 카드 하나를 넘겨 본 것을 남긴다. 오답 노트에는 넣지 않는다 — 카드 학습은 스스로 채점하지 않고,
   /// 오답 노트는 시험에서 틀린 단어만 담는다(2026-11-22 사용자 결정).
-  /// `deck`은 칸 또는 내 단어장 — 기록의 `cell_id`에 `deck.id`가 들어간다.
+  /// `deck`은 칸 또는 이름 있는 단어장 — 기록의 `cell_id`에 `deck.id`가 들어간다.
   Future<void> recordCardViewed({required Deck deck, required Word word});
 
   /// 4지선다 한 문제의 결과를 남긴다. 틀리면(`correct == false`) 오답 노트에도 넣는다.
@@ -25,7 +25,7 @@ abstract interface class StudyRecords {
   /// 학교급의 오답 노트(내장 칸 id로 쌓인 것만). 최근에 틀린 단어가 위.
   Future<List<WrongNote>> wrongNotes(SchoolLevel level);
 
-  /// 단어 묶음 하나(칸·이름 있는 단어장·내 단어장)의 오답 노트. 최근에 틀린 단어가 위.
+  /// 단어 묶음 하나(칸·이름 있는 단어장)의 오답 노트. 최근에 틀린 단어가 위.
   Future<List<WrongNote>> deckWrongNotes(Deck deck);
 
   /// 오답 노트에서 뺀다 — 오답 시험에서 맞혔거나 사용자가 지웠을 때(2026-11-20 사용자 결정).
@@ -107,10 +107,10 @@ class WrongNote {
 
   final String wordId;
 
-  /// 단어가 속한 칸 또는 내 단어장.
+  /// 단어가 속한 칸 또는 이름 있는 단어장.
   final Deck deck;
 
-  /// 틀린 횟수(옛 카드 학습 '모른다'도 한 번으로 센 줄이 있다).
+  /// 틀린 횟수(시험에서 틀린 수 — 6판 이행 때 옛 카드 학습 '모른다'는 빼고 다시 셌다).
   final int missCount;
 
   /// 마지막으로 틀린 시각(밀리초).
@@ -133,9 +133,6 @@ String dayKey(DateTime t) =>
 /// - `wrong_notes`: 단어 묶음(`cell_id`)마다 단어 하나에 한 줄(5판부터 기본 키 `(cell_id, word_id)` —
 ///   같은 칸으로 만든 단어장 둘이 같은 `word_id`를 쓰므로). 다시 틀리면 `miss_count`를 올리고
 ///   `last_missed_at`을 고친다. 시험에서 틀린 단어만 담는다(카드 학습은 담지 않음 — 2026-11-22 사용자 결정)
-/// - `word_books`·`book_words`: 내 단어장과 그 단어(4판). 읽고 쓰는 것은 `SqfliteWordBooks`
-///   (`word_books.dart`)가 이 객체의 [database]로 한다 — DB 파일·연결·판은 여기 하나다.
-///   내 단어장 기록은 `cell_id`가 `book_<번호>`, `word_id`가 `bw-<번호>`라 내장 단어와 겹치지 않는다
 /// - `study_decks`: 이름 있는 단어장(5판, `study_decks.dart`의 `SqfliteStudyDecks`가 읽고 쓴다).
 ///   기록은 `cell_id = deck_<번호>`, `word_id`는 바탕 칸의 내장 단어 id(`mm-001` 등)
 /// - `app_meta`: 한 번만 하는 일의 표시(5판). 지금은 옛 칸 기록을 단어장으로 옮겼는지
@@ -147,7 +144,7 @@ class SqfliteStudyRecords implements StudyRecords {
   final String? path;
   Future<Database>? _db;
 
-  /// 연 DB. 처음 부를 때 한 번 열고 이후로는 같은 연결을 쓴다(내 단어장도 이것을 함께 쓴다).
+  /// 연 DB. 처음 부를 때 한 번 열고 이후로는 같은 연결을 쓴다(이름 있는 단어장도 이것을 함께 쓴다).
   Future<Database> get database => _db ??= _open();
 
   Future<Database> get _database => database;
@@ -158,7 +155,9 @@ class SqfliteStudyRecords implements StudyRecords {
   /// 4: 내 단어장 `word_books`·`book_words` 추가(2026-11-20).
   /// 5: 이름 있는 단어장 `study_decks`·`app_meta` 추가, `wrong_notes` 기본 키를 `(cell_id, word_id)`로,
   ///    단어별 마지막 시험 답 인덱스를 단어장별 `quiz_log(cell_id, word_id, id)`로(2026-11-22).
-  static const int schemaVersion = 5;
+  /// 6: 시험에서 틀린 적 없는 오답 노트(옛 카드 '모른다')를 지우고 틀린 횟수를 시험 오답 수로 맞춤,
+  ///    내 단어장 `word_books`·`book_words` 표와 `book_` 기록을 지움(2026-11-22 사용자 결정).
+  static const int schemaVersion = 6;
 
   Future<Database> _open() async {
     final dbFactory = factory ?? databaseFactory;
@@ -168,16 +167,19 @@ class SqfliteStudyRecords implements StudyRecords {
       dbPath,
       options: OpenDatabaseOptions(
         version: schemaVersion,
-        // 새로 설치해도 올라오는 사용자와 같은 단계를 밟는다 — 5판 이행이 한 길로만 검증되게
+        // 새로 설치해도 올라오는 사용자와 같은 단계를 밟는다 — 5판 이행이 한 길로만 검증되게.
+        // 4판의 내 단어장 표는 6판에서 지우므로 새 설치는 만들지 않는다
         onCreate: (db, version) async {
-          await createV4(db);
+          await createV3(db);
           await _upgradeToV5(db);
+          await _upgradeToV6(db);
         },
         onUpgrade: (db, oldVersion, newVersion) async {
           if (oldVersion < 2) await _createQuizLog(db);
           if (oldVersion < 3) await _createQuizWordIndex(db);
           if (oldVersion < 4) await _createWordBooks(db);
           if (oldVersion < 5) await _upgradeToV5(db);
+          if (oldVersion < 6) await _upgradeToV6(db);
         },
       ),
     );
@@ -188,6 +190,13 @@ class SqfliteStudyRecords implements StudyRecords {
   static Future<void> createV4(Database db) async {
     await createV3(db);
     await _createWordBooks(db);
+  }
+
+  /// 5판까지의 표. 시험에서 "5판 사용자"의 DB를 만들 때 쓴다 — 6판 이후의 변경은 여기에 더하지 않는다.
+  @visibleForTesting
+  static Future<void> createV5(Database db) async {
+    await createV4(db);
+    await _upgradeToV5(db);
   }
 
   /// 5판: 이름 있는 단어장(2026-11-22 사용자 결정 — 같은 학교급+난이도로 여러 개, 기록은 따로).
@@ -230,6 +239,35 @@ class SqfliteStudyRecords implements StudyRecords {
     );
   }
 
+  /// 6판(2026-11-22 사용자 결정): 오답 노트는 시험에서 틀린 단어만 — 옛 카드 학습 '모른다'로
+  /// 들어간 줄을 지우고, 남은 줄의 틀린 횟수를 그 단어장의 시험 오답 수로 맞춘다(시각은 그대로).
+  /// 직접 단어를 넣는 내 단어장은 기능째 지웠으므로 표와 `book_` 기록을 지운다.
+  /// 등록하지 않았던 칸의 옛 기록(칸 id 그대로인 줄)은 건드리지 않는다.
+  /// onUpgrade는 트랜잭션 안에서 돌아 중간에 끊겨도 5판 그대로 남는다.
+  static Future<void> _upgradeToV6(Database db) async {
+    // `book_`은 LIKE로 쓰면 `_`가 아무 글자이므로 앞 5글자를 그대로 비교한다
+    for (final table in ['study_log', 'quiz_log', 'wrong_notes']) {
+      await db.execute(
+        "DELETE FROM $table WHERE substr(cell_id, 1, 5) = 'book_'",
+      );
+    }
+    await db.execute('DROP INDEX IF EXISTS book_words_book');
+    await db.execute('DROP TABLE IF EXISTS book_words');
+    await db.execute('DROP TABLE IF EXISTS word_books');
+    await db.execute(
+      'DELETE FROM wrong_notes WHERE NOT EXISTS ('
+      'SELECT 1 FROM quiz_log q WHERE q.cell_id = wrong_notes.cell_id '
+      'AND q.word_id = wrong_notes.word_id AND q.correct = 0)',
+    );
+    // 옛 카드 '모른다'로 센 만큼만 덜어 낸다. 시험 오답 수가 더 많은 노트(오답 시험에서 맞혀 빠졌다가
+    // 다시 틀려 새로 생긴 것)는 그대로 둔다 — 빠지기 전의 오답까지 다시 세지 않게
+    await db.execute(
+      'UPDATE wrong_notes SET miss_count = MIN(miss_count, ('
+      'SELECT COUNT(*) FROM quiz_log q WHERE q.cell_id = wrong_notes.cell_id '
+      'AND q.word_id = wrong_notes.word_id AND q.correct = 0))',
+    );
+  }
+
   /// 3판까지의 표. 시험에서 "3판 사용자"의 DB를 만들 때도 쓴다 — 4판 이후의 표는 여기에 더하지 않는다.
   @visibleForTesting
   static Future<void> createV3(Database db) async {
@@ -242,7 +280,8 @@ class SqfliteStudyRecords implements StudyRecords {
   static Future<void> _createQuizWordIndex(Database db) =>
       db.execute('CREATE INDEX quiz_log_word ON quiz_log(word_id, id)');
 
-  /// 내 단어장(4판). 예문·해석은 선택이라 비어 있으면 빈 문자열.
+  /// 4판의 내 단어장 표. 6판에서 지우지만, 옛 판에서 차례로 올라오는 단계와 "4판 사용자" 시험 DB가
+  /// 4판 그대로의 모양을 갖도록 남겨 둔다.
   static Future<void> _createWordBooks(Database db) async {
     await db.execute('''
       CREATE TABLE word_books(
@@ -470,7 +509,7 @@ class SqfliteStudyRecords implements StudyRecords {
   }
 }
 
-/// 앱의 sqflite DB(`vocab.db`) 하나. 학습 기록과 내 단어장(`wordBooksProvider`)이 이 객체를 함께 써
+/// 앱의 sqflite DB(`vocab.db`) 하나. 학습 기록과 이름 있는 단어장(`studyDecksProvider`)이 이 객체를 함께 써
 /// DB 연결·판이 하나로 유지된다.
 final vocabDatabaseProvider = Provider<SqfliteStudyRecords>(
   (ref) => SqfliteStudyRecords(),

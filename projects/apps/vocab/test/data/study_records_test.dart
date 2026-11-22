@@ -60,6 +60,9 @@ void main() {
       await tables(db),
       containsAll(['quiz_log', 'study_log', 'wrong_notes']),
     );
+    // 직접 단어를 넣는 내 단어장 표는 6판부터 만들지 않는다
+    expect(await tables(db), isNot(contains('word_books')));
+    expect(await tables(db), isNot(contains('book_words')));
     expect(
       await db.rawQuery(
         'SELECT word_id, cell_id, correct FROM quiz_log '
@@ -280,7 +283,7 @@ void main() {
     await (await databaseFactoryFfi.openDatabase(path)).close();
   });
 
-  test('4판 사용자의 DB는 기록을 모두 둔 채 5판으로 올라가고, 오답 노트 기본 키가 (cell_id, word_id)가 된다', () async {
+  test('4판 사용자의 DB는 5판을 거쳐 6판으로 올라가고, 오답 노트 기본 키가 (cell_id, word_id)가 되며 내 단어장은 지워진다', () async {
     final v4 = await databaseFactoryFfi.openDatabase(
       path,
       options: OpenDatabaseOptions(
@@ -295,13 +298,16 @@ void main() {
       'answered_at': 1,
       'answered_day': '2026-11-21',
     });
-    await v4.insert('quiz_log', {
-      'word_id': 'mm-001',
-      'cell_id': 'middle_medium',
-      'correct': 1,
-      'answered_at': 2,
-      'answered_day': '2026-11-21',
-    });
+    // 맞힘 1번, 틀림 3번(6판은 오답 노트 틀린 횟수를 시험 오답 수로 맞춘다)
+    for (final correct in [1, 0, 0, 0]) {
+      await v4.insert('quiz_log', {
+        'word_id': 'mm-001',
+        'cell_id': 'middle_medium',
+        'correct': correct,
+        'answered_at': 2,
+        'answered_day': '2026-11-21',
+      });
+    }
     for (final (wordId, cellId, miss) in [
       ('mm-001', 'middle_medium', 3),
       ('bw-1', 'book_1', 1),
@@ -322,33 +328,25 @@ void main() {
       path: path,
     );
     final db = await records.database;
-    expect(await db.getVersion(), 5);
+    expect(await db.getVersion(), SqfliteStudyRecords.schemaVersion);
     expect(
       await tables(db),
-      containsAll(['study_decks', 'app_meta', 'wrong_notes', 'word_books']),
+      containsAll(['study_decks', 'app_meta', 'wrong_notes']),
     );
+    expect(await tables(db), isNot(contains('word_books')));
     expect(await db.rawQuery('SELECT COUNT(*) AS n FROM study_log'), [
       {'n': 1},
     ]);
     expect(await db.rawQuery('SELECT COUNT(*) AS n FROM quiz_log'), [
-      {'n': 1},
+      {'n': 4},
     ]);
-    expect(await db.rawQuery('SELECT name FROM word_books'), [
-      {'name': '내 것'},
-    ]);
+    // 내 단어장(book_1)의 오답 노트는 6판에서 지워진다
     expect(
       await db.rawQuery(
         'SELECT word_id, cell_id, miss_count, first_missed_at, last_missed_at '
         'FROM wrong_notes ORDER BY word_id',
       ),
       [
-        {
-          'word_id': 'bw-1',
-          'cell_id': 'book_1',
-          'miss_count': 1,
-          'first_missed_at': 1,
-          'last_missed_at': 5,
-        },
         {
           'word_id': 'mm-001',
           'cell_id': 'middle_medium',
@@ -375,8 +373,159 @@ void main() {
       'last_missed_at': 9,
     });
     expect(await db.rawQuery('SELECT COUNT(*) AS n FROM wrong_notes'), [
-      {'n': 3},
+      {'n': 2},
     ]);
+    await db.close();
+  });
+
+  test('5판 사용자의 DB는 6판으로 올라가며 시험에서 틀린 적 없는 오답 노트와 내 단어장(book_) 기록·표를 지운다', () async {
+    final v5 = await databaseFactoryFfi.openDatabase(
+      path,
+      options: OpenDatabaseOptions(
+        version: 5,
+        onCreate: (db, _) => SqfliteStudyRecords.createV5(db),
+      ),
+    );
+    var at = 0;
+    Future<void> quiz(String cellId, String wordId, bool correct) =>
+        v5.insert('quiz_log', {
+          'word_id': wordId,
+          'cell_id': cellId,
+          'correct': correct ? 1 : 0,
+          'answered_at': ++at,
+          'answered_day': '2026-11-21',
+        });
+    Future<void> study(String cellId, String wordId) =>
+        v5.insert('study_log', {
+          'word_id': wordId,
+          'cell_id': cellId,
+          'known': 0,
+          'answered_at': ++at,
+          'answered_day': '2026-11-21',
+        });
+    Future<void> note(String cellId, String wordId, int miss) =>
+        v5.insert('wrong_notes', {
+          'word_id': wordId,
+          'cell_id': cellId,
+          'miss_count': miss,
+          'first_missed_at': 100,
+          'last_missed_at': 200,
+        });
+
+    // deck_1: mm-001은 시험에서 두 번 틀림(옛 카드 '모른다'까지 세어 노트는 5회)
+    await quiz('deck_1', 'mm-001', false);
+    await quiz('deck_1', 'mm-001', true);
+    await quiz('deck_1', 'mm-001', false);
+    await quiz('deck_1', 'mm-002', true);
+    // mm-003은 deck_2 시험에서만 틀림
+    await quiz('deck_2', 'mm-003', false);
+    await quiz('elementary_easy', 'ee-001', false);
+    await quiz('book_1', 'bw-1', false);
+    await study('deck_1', 'mm-002');
+    await study('elementary_easy', 'ee-002');
+    await study('book_1', 'bw-1');
+    // LIKE의 `_`처럼 아무 글자로 읽으면 지워질 id — 지우면 안 된다
+    await study('bookx1', 'x-1');
+    await note('deck_1', 'mm-001', 5); // 시험에서 틀림 → 남고 2회로
+    await note('deck_1', 'mm-002', 1); // 카드 '모른다'만 → 지움
+    await note('deck_1', 'mm-003', 1); // 다른 단어장(deck_2)에서만 틀림 → 지움
+    await note('deck_2', 'mm-003', 1); // 남음
+    // mm-004: 시험에서 세 번 틀렸지만, 오답 시험에서 맞혀 노트에서 빠졌다가 다시 틀려 새로 생긴 노트(1회).
+    // 빠지기 전의 오답까지 다시 세어 횟수가 늘면 안 된다
+    await quiz('deck_2', 'mm-004', false);
+    await quiz('deck_2', 'mm-004', false);
+    await quiz('deck_2', 'mm-004', true);
+    await quiz('deck_2', 'mm-004', false);
+    await note('deck_2', 'mm-004', 1); // 남고 1회 그대로
+    await note('elementary_easy', 'ee-001', 3); // 남고 1회로
+    await note('elementary_easy', 'ee-002', 1); // 카드 '모른다'만 → 지움
+    await note('book_1', 'bw-1', 1); // 내 단어장 → 지움
+    await v5.insert('word_books', {'name': '내 것', 'created_at': 1});
+    await v5.insert('book_words', {
+      'book_id': 1,
+      'word': 'cat',
+      'meaning': '고양이',
+      'created_at': 1,
+    });
+    await v5.close();
+
+    final records = SqfliteStudyRecords(
+      factory: databaseFactoryFfi,
+      path: path,
+    );
+    final db = await records.database;
+    expect(await db.getVersion(), 6);
+    expect(SqfliteStudyRecords.schemaVersion, 6);
+    final names = await tables(db);
+    expect(names, isNot(contains('word_books')));
+    expect(names, isNot(contains('book_words')));
+    expect(
+      await db.rawQuery(
+        "SELECT name FROM sqlite_master WHERE name = 'book_words_book'",
+      ),
+      isEmpty,
+    );
+    expect(
+      await db.rawQuery(
+        'SELECT cell_id, word_id, miss_count, first_missed_at, last_missed_at '
+        'FROM wrong_notes ORDER BY cell_id, word_id',
+      ),
+      [
+        {
+          'cell_id': 'deck_1',
+          'word_id': 'mm-001',
+          'miss_count': 2,
+          'first_missed_at': 100,
+          'last_missed_at': 200,
+        },
+        {
+          'cell_id': 'deck_2',
+          'word_id': 'mm-003',
+          'miss_count': 1,
+          'first_missed_at': 100,
+          'last_missed_at': 200,
+        },
+        {
+          'cell_id': 'deck_2',
+          'word_id': 'mm-004',
+          'miss_count': 1,
+          'first_missed_at': 100,
+          'last_missed_at': 200,
+        },
+        {
+          'cell_id': 'elementary_easy',
+          'word_id': 'ee-001',
+          'miss_count': 1,
+          'first_missed_at': 100,
+          'last_missed_at': 200,
+        },
+      ],
+    );
+    expect(
+      await db.rawQuery(
+        'SELECT cell_id, word_id, correct FROM quiz_log ORDER BY id',
+      ),
+      [
+        {'cell_id': 'deck_1', 'word_id': 'mm-001', 'correct': 0},
+        {'cell_id': 'deck_1', 'word_id': 'mm-001', 'correct': 1},
+        {'cell_id': 'deck_1', 'word_id': 'mm-001', 'correct': 0},
+        {'cell_id': 'deck_1', 'word_id': 'mm-002', 'correct': 1},
+        {'cell_id': 'deck_2', 'word_id': 'mm-003', 'correct': 0},
+        {'cell_id': 'elementary_easy', 'word_id': 'ee-001', 'correct': 0},
+        {'cell_id': 'deck_2', 'word_id': 'mm-004', 'correct': 0},
+        {'cell_id': 'deck_2', 'word_id': 'mm-004', 'correct': 0},
+        {'cell_id': 'deck_2', 'word_id': 'mm-004', 'correct': 1},
+        {'cell_id': 'deck_2', 'word_id': 'mm-004', 'correct': 0},
+      ],
+    );
+    expect(
+      await db.rawQuery('SELECT cell_id, word_id FROM study_log ORDER BY id'),
+      [
+        {'cell_id': 'deck_1', 'word_id': 'mm-002'},
+        {'cell_id': 'elementary_easy', 'word_id': 'ee-002'},
+        {'cell_id': 'bookx1', 'word_id': 'x-1'},
+      ],
+    );
     await db.close();
   });
 

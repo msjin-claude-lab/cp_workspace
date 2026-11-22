@@ -7,7 +7,6 @@ import 'package:vocab/data/cell_store.dart';
 import 'package:vocab/data/speaker.dart';
 import 'package:vocab/data/study_decks.dart';
 import 'package:vocab/data/study_records.dart';
-import 'package:vocab/data/word_books.dart';
 import 'package:vocab/data/word_repository.dart';
 import 'package:vocab/features/home/home_screen.dart';
 import 'package:vocab/features/progress/progress_screen.dart';
@@ -58,7 +57,6 @@ void main() {
           quizRandomProvider.overrideWithValue(NoShuffleRandom()),
           studyDecksProvider.overrideWithValue(decks),
           speakerProvider.overrideWithValue(FakeSpeaker()),
-          wordBooksProvider.overrideWithValue(FakeWordBooks(records)),
         ],
         child: MaterialApp.router(routerConfig: createRouter()),
       ),
@@ -296,7 +294,7 @@ void main() {
     expect(span.toPlainText(), '영단어 v1.0.0');
     expect(version.style!.fontSize!, lessThan(span.style!.fontSize!));
 
-    // 메뉴에는 내 단어장만 — 메인화면·기본 단어장·내 단어장(/books)·새 단어장 버튼은 없다
+    // 메뉴에는 내 단어장만 — 메인화면·기본 단어장·"내 단어장" 항목·새 단어장 버튼은 없다
     expect(find.text('새 단어장'), findsNothing);
     expect(find.text('메인화면'), findsNothing);
     expect(find.text('내 단어장'), findsNothing);

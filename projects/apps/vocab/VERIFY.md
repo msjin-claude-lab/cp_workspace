@@ -43,6 +43,11 @@
 
 ## 마지막 결과
 
+- **2026-11-22 개인 PC — 직접 단어장 삭제 + DB 6판**
+  - `flutter analyze` exit 0(No issues), `flutter test` exit 0(118개 — 직접 단어장 시험 2파일을 지워 줄고, 5 → 6판 이행 시험 1개와 옮긴 오답 시험 막힘 시험 1개가 늘어남), `flutter build apk --debug` exit 0 + `app-debug.apk` 20:24 새로 생김(171,370,080바이트, `build/app/outputs`를 지운 뒤)
+  - 이행 시험은 구현 전에 실패를 먼저 확인함(`Expected: <6> Actual: <5>`, 틀린 횟수 `<3> instead of <1>`). 실제 DB(sqflite_common_ffi)로 1·2·4·5판 → 6판을 본다
+  - **기기 DB 이행: 확인 안 함** — 에뮬레이터(지금 5판)에 설치하지 않았다. 설치하면 오답 노트 정리와 표 삭제가 실제로 돈다. 별도 검토 에이전트도 돌리지 않았다
+
 - **2026-11-22 개인 PC — 검토 지적 2건 수정(시험 결과 뒤 오답 노트 갱신, 카드 중복 기록)**
   - `flutter analyze` exit 0(No issues), `flutter test` exit 0(130개 — 실제 라우터로 홈 → 시험 → `오답 노트 보기`/`홈으로` 2개, 학습 화면 다음 → 이전 → 다음 1개가 늘어남), `flutter build apk --debug` exit 0 + `app-debug.apk` 20:09 새로 생김(171,392,376바이트, `build/app/outputs`를 지운 뒤)
   - 새 시험 3개는 고치기 전에 실패하는 것을 먼저 확인함(홈에 `오답 노트 · 4단어` 없음, 기록 `['ee-001', 'ee-001']`)

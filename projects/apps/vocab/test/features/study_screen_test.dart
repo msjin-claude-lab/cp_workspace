@@ -468,9 +468,8 @@ void main() {
   test('칸 id로 칸을 찾고, 없는 id는 null', () {
     expect(Cell.byId('high_medium'), Cell.highMedium);
     expect(Cell.byId('nope'), isNull);
-    // 이름 있는 단어장·내 단어장 id는 칸이 아니다
+    // 이름 있는 단어장 id는 칸이 아니다
     expect(Cell.byId('deck_1'), isNull);
-    expect(Cell.byId('book_1'), isNull);
     expect(StudyDeck.parseId('deck_12'), 12);
     expect(StudyDeck.parseId('middle_medium'), isNull);
   });

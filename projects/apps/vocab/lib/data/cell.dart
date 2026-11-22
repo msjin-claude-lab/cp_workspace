@@ -21,47 +21,15 @@ enum Difficulty {
   final String label;
 }
 
-/// 카드 학습·시험·오답 노트를 할 단어 묶음: 내장 칸([Cell]), 이름 있는 단어장([StudyDeck])
-/// 또는 직접 단어를 넣는 내 단어장([BookDeck]).
+/// 카드 학습·시험·오답 노트를 할 단어 묶음: 내장 칸([Cell]) 또는 이름 있는 단어장([StudyDeck]).
 /// 화면은 이것 하나로 모두 다룬다. 기록 표의 `cell_id`에는 [id]가 들어간다.
 sealed class Deck {
   /// 기록 표(`study_log`·`quiz_log`·`wrong_notes`)의 `cell_id`이자 주소에 쓰는 이름.
-  /// 칸은 `elementary_easy`, 이름 있는 단어장은 `deck_2`, 내 단어장은 `book_3` — 서로 겹치지 않는다.
+  /// 칸은 `elementary_easy`, 이름 있는 단어장은 `deck_2` — 서로 겹치지 않는다.
   String get id;
 
   /// 화면 제목. 안쪽 화면은 여기에 ` - 시험`처럼 붙인다.
   String get label;
-}
-
-/// 내 단어장 하나. 같은 단어장인지는 번호로만 본다 — 이름을 바꿔도 같은 묶음이다.
-///
-/// [Cell.byId]는 `book_N`을 모르므로 null을 돌려준다. 그래서 내 단어장 기록은
-/// 진도 화면과 학교급별 오답 노트에 섞이지 않는다.
-final class BookDeck implements Deck {
-  const BookDeck({required this.bookId, required this.name});
-
-  final int bookId;
-  final String name;
-
-  static const String _prefix = 'book_';
-
-  @override
-  String get id => '$_prefix$bookId';
-
-  /// 제목은 단어장 이름(2026-11-20 사용자 결정 — `<이름> - 시험` 꼴).
-  @override
-  String get label => name;
-
-  /// `book_3` → 3. 내 단어장 id가 아니면 null.
-  static int? parseId(String id) => id.startsWith(_prefix)
-      ? int.tryParse(id.substring(_prefix.length))
-      : null;
-
-  @override
-  bool operator ==(Object other) => other is BookDeck && other.bookId == bookId;
-
-  @override
-  int get hashCode => bookId.hashCode;
 }
 
 /// 이름 있는 단어장 하나: 사용자가 이름을 짓고 학교급 → 난이도를 골라 만든다(2026-11-22 사용자 결정 —

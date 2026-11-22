@@ -232,23 +232,18 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
           textAlign: TextAlign.center,
           style: text.headlineSmall,
         ),
-        // 내 단어장 단어는 예문·해석이 없을 수 있다(선택) — 빈 줄은 그리지 않는다
-        if (word.example.isNotEmpty) ...[
-          const SizedBox(height: 24),
-          Text(
-            word.example,
-            textAlign: TextAlign.center,
-            style: text.bodyLarge?.copyWith(fontStyle: FontStyle.italic),
-          ),
-        ],
-        if (word.exampleMeaning.isNotEmpty) ...[
-          const SizedBox(height: 4),
-          Text(
-            word.exampleMeaning,
-            textAlign: TextAlign.center,
-            style: text.bodyMedium,
-          ),
-        ],
+        const SizedBox(height: 24),
+        Text(
+          word.example,
+          textAlign: TextAlign.center,
+          style: text.bodyLarge?.copyWith(fontStyle: FontStyle.italic),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          word.exampleMeaning,
+          textAlign: TextAlign.center,
+          style: text.bodyMedium,
+        ),
       ],
     );
   }
