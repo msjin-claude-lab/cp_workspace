@@ -33,7 +33,7 @@
 
 - 내장 단어: 9칸 × 50개 = 450개(`assets/words/`). 중등 중·상과 고등 3칸은 사람 표본 확인 없이 에이전트 검토만 받았다
 - 기록: sqflite `vocab.db` **6판**(`study_log`·`quiz_log`·`wrong_notes`(기본 키 `cell_id` + `word_id`)·`study_decks`·`app_meta`). 옛 판 사용자는 기록을 유지한 채 올라온다 — 옛 등록·고른 칸은 첫 실행 때 "초등 쉬움" 같은 이름의 단어장으로 옮긴다(`migrateLegacy`)
-- **6판 이행(2026-11-22 사용자 결정, `_upgradeToV6`)**: ① 시험에서 틀린 적 없는 오답 노트 단어(옛 카드 학습 '모른다')를 지우고, 남은 것의 틀린 횟수는 시험 오답 수보다 크면 그 수로 줄인다 ② 직접 단어를 넣는 단어장의 표(`word_books`·`book_words`)와 그 기록(`cell_id`가 `book_`로 시작)을 지운다. 1~5판 어디서든 6판으로 올라온다(실제 DB 시험 `test/data/study_records_test.dart`)
+- **6판 이행(2026-11-22 사용자 결정, `_upgradeToV6`)**: ① 오답 노트에서 **지금 노트가 생긴 뒤(`first_missed_at` 이후) 시험에서 틀린 적이 없는** 단어(옛 카드 학습 '모른다')를 지우고, 남은 것의 틀린 횟수·마지막 틀린 시각을 그 시험 오답 기준으로 맞춘다. 등록하지 않았던 칸의 오답 노트도 같이 정리한다(사용자 결정). 기기 시계를 되돌린 적이 있으면 어긋날 수 있다 ② 직접 단어를 넣는 단어장의 표(`word_books`·`book_words`)와 그 기록(`cell_id`가 `book_`로 시작)을 지운다. 실제 DB 시험(`test/data/study_records_test.dart`)은 4판·5판 → 6판의 내용까지, 1판·2판은 판 번호만 본다(3판에서 올라오는 시험은 없음)
 - **직접 단어를 넣는 단어장은 없다**(2026-11-22 사용자 결정 — 필요 없음. `/books`·`lib/features/my_words/`·`BookDeck`을 지움). 이름 입력 창은 `lib/features/home/dialogs.dart`. 명세의 해당 항목도 뺌([docs/spec.md](docs/spec.md))
 - **등록하지 않았던 칸의 옛 기록은 그대로 둔다**(2026-11-22 사용자 결정) — 칸 id 그대로 DB에 남고 화면에는 안 보인다
 - 단어의 예문·해석은 비지 않는다고 보고 화면이 그대로 그린다(직접 단어장을 지우며 빈 줄 분기를 없앰 — `test/data/word_assets_test.dart`가 지킴). 단어 출처를 늘릴 때 유의
@@ -50,9 +50,12 @@
 
 ### 다음 할 일 (순서대로)
 
-1. **직접 단어장 삭제 + DB 6판 코드 검토**(커밋은 했음) — executor가 만들고 Claude가 analyze·test·build로 확인했지만 별도 코드 검토는 받지 않았다: `/oh-my-claudecode:review projects/apps/vocab d442292..HEAD`. 앱 이름·아이콘은 release 빌드 전에 정하기로 함(2026-11-22 사용자 결정)
+1. (끝남 — 직접 단어장 삭제 + DB 6판을 표준·의도 두 축으로 검토, 둘 다 COMMENT. 정리 기준 지적은 고쳤고 그 수정 자체는 다시 검토받지 않았다) 앱 이름·아이콘은 release 빌드 전에 정하기로 함(2026-11-22 사용자 결정)
 2. **에뮬레이터에 새 빌드를 설치하고 위 "눌러 보지 않은 것"과 DB 6판 이행(기기 DB `user_version` 6, 오답 노트 정리)을 확인.** 2026-11-22 UX 점검이 에뮬레이터의 "초등 쉬움" 단어장 이름을 긴 영문으로 바꿔 두었다(사용자가 되돌릴 것)
 3. **남은 검토 지적(2026-11-22, 모두 LOW)**
+   - 이행 시험 보강: 새 설치와 옛 판(1·3판)에서 올린 DB의 `sqlite_master`가 같은지 보는 시험. `study_records_test.dart`의 "3판으로 올라간다" 시험 이름도 옛것
+   - 지운 기능의 이름이 남음: `lib/features/home/dialogs.dart`의 `showBookNameDialog`·`bookNameMaxLength`, `quiz.dart`의 "뜻이나 영단어가 같은 단어가 들어올 수 있고" 주석, `quiz_test.dart`의 "(내 단어장)" 시험 이름
+   - `StudyRecords.wrongNotes(SchoolLevel)`은 앱에서 부르는 곳이 없다(시험·가짜만)
    - 카드를 넘긴 뒤 이전으로 첫 카드 앞면에 오면 "그만할까요?"가 안 뜸(`study_screen.dart` `_inProgress`)
    - `DayStat.answered`를 화면에 안 써서, 시험만 보고 다 틀린 날이 빈 날처럼 보임
    - `lib/data/app_settings.dart`가 `features/quiz`의 `quizLength`를 가져다 씀(방향 거꾸로), `build` 안의 `ref.read`
@@ -99,10 +102,10 @@ PATH에 `D:\dev\flutter\bin`(두 PC 같은 경로). 작업 위치: `projects/app
 
 | 무엇 | 정한 것 | 이유 |
 |---|---|---|
-| 폴더 | **기능별** — `lib/features/<기능>/`(home·study·quiz, 앞으로 wrong_notes·progress·my_words), 공통 데이터는 `lib/data/` | 기능 하나를 고칠 때 그 폴더만 본다 |
+| 폴더 | **기능별** — `lib/features/<기능>/`(home·study·quiz·wrong_notes·progress·settings·common), 공통 데이터는 `lib/data/` | 기능 하나를 고칠 때 그 폴더만 본다 |
 | 화면 이동 | **go_router** — 경로 목록은 `lib/router.dart` 한 곳 | 화면 관계를 한 파일에서 본다 |
 | 상태 관리 | **Riverpod**(`flutter_riverpod`, 코드 생성 없이) — 시험에서는 `overrideWithValue`로 가짜를 넣는다 | 정형화돼 있고 시험하기 쉽다 |
-| 단어 데이터 | **칸별 JSON** `assets/words/<학교급>_<난이도>.json`(필드 `id`·`word`·`meaning`·`example`·`exampleMeaning` — 예문 해석은 2026-11-20 사용자 결정으로 추가), 바뀌는 기록(학습·오답·내 단어장·진도)은 **sqflite** | 단어를 사람이 읽고 고치기 쉽고 git에서 바뀐 것이 보인다. 수만 개 규모가 되면 미리 만든 DB 파일로 바꾼다 |
+| 단어 데이터 | **칸별 JSON** `assets/words/<학교급>_<난이도>.json`(필드 `id`·`word`·`meaning`·`example`·`exampleMeaning` — 예문 해석은 2026-11-20 사용자 결정으로 추가), 바뀌는 기록(학습·시험·오답·단어장)은 **sqflite** | 단어를 사람이 읽고 고치기 쉽고 git에서 바뀐 것이 보인다. 수만 개 규모가 되면 미리 만든 DB 파일로 바꾼다 |
 
 - 칸은 `lib/data/cell.dart`의 `Cell`(학교급 × 난이도 9개). 화면 이름 `초등 · 하`, 파일 이름 `elementary_easy`
 - 단어 읽기는 `lib/data/word_repository.dart`(`cellWordsProvider(cell)`)
@@ -158,3 +161,4 @@ PATH에 `D:\dev\flutter\bin`(두 PC 같은 경로). 작업 위치: `projects/app
 - 2026-11-22 개인 PC · 검토·수정 · `/oh-my-claudecode:review`로 `b3bc511`을 표준·의도 두 축(code-reviewer 2개)으로 검토 — 의도 축 REQUEST CHANGES(HIGH: 시험 결과의 `오답 노트 보기`·`홈으로` 뒤 방금 틀린 단어가 노트·홈에 안 보임), 표준 축 COMMENT(MEDIUM: 이전 → 다음 때 카드 중복 기록). `/oh-my-claudecode:tdd`로 실패하는 시험 3개를 먼저 쓰고 고침(실제 라우터 시험 2개 + 학습 화면 시험 1개). 시험 130개 통과. LOW 지적은 인계 "한눈에"에 남김. `/oh-my-claudecode:verify`로 analyze·test·build apk 통과([VERIFY.md](VERIFY.md)) 뒤 커밋·push
 - 2026-11-22 개인 PC · 수정 · 인계를 지금 상태만 남기고 다시 씀(옛 화면 구조·메뉴 설명, 만들기 전 계획, 끝난 할 일은 지움 — 경과는 이 이력에). "남은 일"도 큰 일 3개로 줄임. HANDOFF.md의 vocab 줄·마지막 갱신 날짜를 맞춤
 - 2026-11-22 개인 PC · 개발 · `/apps:selection-subject vocab` → 사용자 결정 4가지: 등록 안 한 칸의 옛 기록은 그대로 / 옛 카드 '모른다' 오답은 지움 / 직접 단어를 넣는 단어장은 필요 없음 / 앱 이름·아이콘은 나중에. executor(opus)가 이행 시험을 먼저 쓰고 DB 6판과 직접 단어장 삭제(`/books`, `my_words`, `BookDeck`, 시험 2파일)를 구현, Claude가 틀린 횟수를 "시험 오답 수보다 크면 줄이기"로 고침(다시 생긴 노트의 횟수가 늘지 않게, 실패하는 시험 먼저). analyze 문제없음, 시험 118개 통과, build apk 성공. 별도 코드 검토·기기 확인은 안 함. 사용자 확인 뒤 커밋·push
+- 2026-11-22 개인 PC · 검토·수정 · `/oh-my-claudecode:review`로 `b48f60d`를 두 축 검토 — 둘 다 COMMENT. 지적: 6판 정리가 노트가 생긴 시점을 안 봐 "시험 오답 → 빠짐 → 카드 '모른다'로 다시 생긴 노트"가 남고 횟수가 커질 수 있음(두 검토자가 재현), 정리가 등록 안 한 칸의 오답 노트에도 적용되는데 주석·인계는 "건드리지 않는다"고 적음. 사용자 결정: 등록 안 한 칸의 오답 노트도 같이 정리 / 노트가 생긴 뒤의 시험 오답만 센다. 실패하는 시험 먼저 쓰고 이행 SQL을 고침(횟수·마지막 시각을 `first_missed_at` 이후 시험 오답으로). analyze 문제없음, 시험 118개 통과, build apk 성공. 이 수정은 다시 검토받지 않음

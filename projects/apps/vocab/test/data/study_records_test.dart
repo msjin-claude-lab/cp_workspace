@@ -298,7 +298,7 @@ void main() {
       'answered_at': 1,
       'answered_day': '2026-11-21',
     });
-    // 맞힘 1번, 틀림 3번(6판은 오답 노트 틀린 횟수를 시험 오답 수로 맞춘다)
+    // 맞힘 1번, 틀림 3번(6판은 틀린 횟수·마지막 시각을 노트가 생긴 뒤의 시험 오답으로 맞춘다)
     for (final correct in [1, 0, 0, 0]) {
       await v4.insert('quiz_log', {
         'word_id': 'mm-001',
@@ -352,7 +352,7 @@ void main() {
           'cell_id': 'middle_medium',
           'miss_count': 3,
           'first_missed_at': 1,
-          'last_missed_at': 5,
+          'last_missed_at': 2,
         },
       ],
     );
@@ -403,43 +403,62 @@ void main() {
           'answered_at': ++at,
           'answered_day': '2026-11-21',
         });
-    Future<void> note(String cellId, String wordId, int miss) =>
-        v5.insert('wrong_notes', {
-          'word_id': wordId,
-          'cell_id': cellId,
-          'miss_count': miss,
-          'first_missed_at': 100,
-          'last_missed_at': 200,
-        });
+    // first·last: 노트가 생긴 시각과 마지막으로 틀린 시각. 시험 답의 시각은 넣은 순서대로 1, 2, 3 …
+    Future<void> note(
+      String cellId,
+      String wordId,
+      int miss, {
+      required int first,
+      required int last,
+    }) => v5.insert('wrong_notes', {
+      'word_id': wordId,
+      'cell_id': cellId,
+      'miss_count': miss,
+      'first_missed_at': first,
+      'last_missed_at': last,
+    });
 
-    // deck_1: mm-001은 시험에서 두 번 틀림(옛 카드 '모른다'까지 세어 노트는 5회)
-    await quiz('deck_1', 'mm-001', false);
-    await quiz('deck_1', 'mm-001', true);
-    await quiz('deck_1', 'mm-001', false);
-    await quiz('deck_1', 'mm-002', true);
+    // deck_1: mm-001은 시험에서 두 번 틀림(시각 1, 3). 옛 카드 '모른다'까지 세어 노트는 5회
+    await quiz('deck_1', 'mm-001', false); // 1
+    await quiz('deck_1', 'mm-001', true); // 2
+    await quiz('deck_1', 'mm-001', false); // 3
+    await quiz('deck_1', 'mm-002', true); // 4
     // mm-003은 deck_2 시험에서만 틀림
-    await quiz('deck_2', 'mm-003', false);
-    await quiz('elementary_easy', 'ee-001', false);
-    await quiz('book_1', 'bw-1', false);
-    await study('deck_1', 'mm-002');
-    await study('elementary_easy', 'ee-002');
-    await study('book_1', 'bw-1');
+    await quiz('deck_2', 'mm-003', false); // 5
+    await quiz('elementary_easy', 'ee-001', false); // 6
+    await quiz('book_1', 'bw-1', false); // 7
+    await study('deck_1', 'mm-002'); // 8
+    await study('elementary_easy', 'ee-002'); // 9
+    await study('book_1', 'bw-1'); // 10
     // LIKE의 `_`처럼 아무 글자로 읽으면 지워질 id — 지우면 안 된다
-    await study('bookx1', 'x-1');
-    await note('deck_1', 'mm-001', 5); // 시험에서 틀림 → 남고 2회로
-    await note('deck_1', 'mm-002', 1); // 카드 '모른다'만 → 지움
-    await note('deck_1', 'mm-003', 1); // 다른 단어장(deck_2)에서만 틀림 → 지움
-    await note('deck_2', 'mm-003', 1); // 남음
-    // mm-004: 시험에서 세 번 틀렸지만, 오답 시험에서 맞혀 노트에서 빠졌다가 다시 틀려 새로 생긴 노트(1회).
+    await study('bookx1', 'x-1'); // 11
+    // 카드 '모른다'(0)로 생기고 마지막도 카드(200) → 남고, 횟수 2·마지막 3(시험 기준)으로
+    await note('deck_1', 'mm-001', 5, first: 0, last: 200);
+    await note('deck_1', 'mm-002', 1, first: 0, last: 0); // 카드 '모른다'만 → 지움
+    // 다른 단어장(deck_2)에서만 틀림 → 지움
+    await note('deck_1', 'mm-003', 1, first: 0, last: 0);
+    await note('deck_2', 'mm-003', 1, first: 5, last: 5); // 남음
+    // mm-004: 시험에서 세 번 틀렸지만, 오답 시험에서 맞혀 노트에서 빠졌다가 다시 틀려(15) 새로 생긴 노트(1회).
     // 빠지기 전의 오답까지 다시 세어 횟수가 늘면 안 된다
-    await quiz('deck_2', 'mm-004', false);
-    await quiz('deck_2', 'mm-004', false);
-    await quiz('deck_2', 'mm-004', true);
-    await quiz('deck_2', 'mm-004', false);
-    await note('deck_2', 'mm-004', 1); // 남고 1회 그대로
-    await note('elementary_easy', 'ee-001', 3); // 남고 1회로
-    await note('elementary_easy', 'ee-002', 1); // 카드 '모른다'만 → 지움
-    await note('book_1', 'bw-1', 1); // 내 단어장 → 지움
+    await quiz('deck_2', 'mm-004', false); // 12
+    await quiz('deck_2', 'mm-004', false); // 13
+    await quiz('deck_2', 'mm-004', true); // 14
+    await quiz('deck_2', 'mm-004', false); // 15
+    await note('deck_2', 'mm-004', 1, first: 15, last: 15); // 남고 1회 그대로
+    // mm-005: 시험에서 틀리고(16) 오답 시험에서 맞혀 빠진 뒤, 카드 '모른다'(50)로 다시 생긴 노트.
+    // 지금 노트가 생긴 뒤에는 시험에서 틀린 적이 없다 → 지움
+    await quiz('deck_1', 'mm-005', false); // 16
+    await note('deck_1', 'mm-005', 1, first: 50, last: 50);
+    // mm-006: 시험에서 틀리고(17) 빠졌다가, 다시 시험에서 틀려(18) 생긴 노트에 카드 '모른다' 3번(마지막 300).
+    // 노트가 생긴 뒤의 시험 오답은 한 번 → 1회, 마지막 18
+    await quiz('deck_1', 'mm-006', false); // 17
+    await quiz('deck_1', 'mm-006', false); // 18
+    await note('deck_1', 'mm-006', 4, first: 18, last: 300);
+    // 등록하지 않았던 칸의 오답 노트도 같이 정리한다(2026-11-22 사용자 결정) → 남고 1회·마지막 6
+    await note('elementary_easy', 'ee-001', 3, first: 0, last: 200);
+    // 카드 '모른다'만 → 지움
+    await note('elementary_easy', 'ee-002', 1, first: 0, last: 0);
+    await note('book_1', 'bw-1', 1, first: 7, last: 7); // 내 단어장 → 지움
     await v5.insert('word_books', {'name': '내 것', 'created_at': 1});
     await v5.insert('book_words', {
       'book_id': 1,
@@ -475,29 +494,36 @@ void main() {
           'cell_id': 'deck_1',
           'word_id': 'mm-001',
           'miss_count': 2,
-          'first_missed_at': 100,
-          'last_missed_at': 200,
+          'first_missed_at': 0,
+          'last_missed_at': 3,
+        },
+        {
+          'cell_id': 'deck_1',
+          'word_id': 'mm-006',
+          'miss_count': 1,
+          'first_missed_at': 18,
+          'last_missed_at': 18,
         },
         {
           'cell_id': 'deck_2',
           'word_id': 'mm-003',
           'miss_count': 1,
-          'first_missed_at': 100,
-          'last_missed_at': 200,
+          'first_missed_at': 5,
+          'last_missed_at': 5,
         },
         {
           'cell_id': 'deck_2',
           'word_id': 'mm-004',
           'miss_count': 1,
-          'first_missed_at': 100,
-          'last_missed_at': 200,
+          'first_missed_at': 15,
+          'last_missed_at': 15,
         },
         {
           'cell_id': 'elementary_easy',
           'word_id': 'ee-001',
           'miss_count': 1,
-          'first_missed_at': 100,
-          'last_missed_at': 200,
+          'first_missed_at': 0,
+          'last_missed_at': 6,
         },
       ],
     );
@@ -516,6 +542,9 @@ void main() {
         {'cell_id': 'deck_2', 'word_id': 'mm-004', 'correct': 0},
         {'cell_id': 'deck_2', 'word_id': 'mm-004', 'correct': 1},
         {'cell_id': 'deck_2', 'word_id': 'mm-004', 'correct': 0},
+        {'cell_id': 'deck_1', 'word_id': 'mm-005', 'correct': 0},
+        {'cell_id': 'deck_1', 'word_id': 'mm-006', 'correct': 0},
+        {'cell_id': 'deck_1', 'word_id': 'mm-006', 'correct': 0},
       ],
     );
     expect(

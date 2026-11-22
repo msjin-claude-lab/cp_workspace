@@ -240,10 +240,14 @@ class SqfliteStudyRecords implements StudyRecords {
   }
 
   /// 6판(2026-11-22 사용자 결정): 오답 노트는 시험에서 틀린 단어만 — 옛 카드 학습 '모른다'로
-  /// 들어간 줄을 지우고, 남은 줄의 틀린 횟수를 그 단어장의 시험 오답 수로 맞춘다(시각은 그대로).
+  /// 들어간 줄을 지우고, 남은 줄의 틀린 횟수와 마지막으로 틀린 시각을 시험 오답 기준으로 맞춘다.
+  /// 세는 것은 **지금 노트가 생긴 뒤(`first_missed_at` 이후)의 시험 오답만**이다 — 오답 시험에서 맞혀
+  /// 빠지기 전의 오답은 지금 노트의 것이 아니다. 기록과 노트는 같은 시각(ms)으로 쓰므로 노트를 만든
+  /// 시험 오답도 들어간다. 기기 시계를 되돌린 적이 있으면 어긋날 수 있다.
   /// 직접 단어를 넣는 내 단어장은 기능째 지웠으므로 표와 `book_` 기록을 지운다.
-  /// 등록하지 않았던 칸의 옛 기록(칸 id 그대로인 줄)은 건드리지 않는다.
-  /// onUpgrade는 트랜잭션 안에서 돌아 중간에 끊겨도 5판 그대로 남는다.
+  /// 등록하지 않았던 칸의 옛 기록(칸 id 그대로인 줄)은 `study_log`·`quiz_log`는 건드리지 않고,
+  /// 오답 노트만 위 정리를 똑같이 받는다(이 시점에는 등록한 칸의 줄도 칸 id라 가를 수 없다).
+  /// onUpgrade는 트랜잭션 안에서 돌아 중간에 끊겨도 옛 판 그대로 남는다.
   static Future<void> _upgradeToV6(Database db) async {
     // `book_`은 LIKE로 쓰면 `_`가 아무 글자이므로 앞 5글자를 그대로 비교한다
     for (final table in ['study_log', 'quiz_log', 'wrong_notes']) {
@@ -254,17 +258,18 @@ class SqfliteStudyRecords implements StudyRecords {
     await db.execute('DROP INDEX IF EXISTS book_words_book');
     await db.execute('DROP TABLE IF EXISTS book_words');
     await db.execute('DROP TABLE IF EXISTS word_books');
+    // 지금 노트가 생긴 뒤에 그 단어장 시험에서 틀린 답
+    const missesSinceNote =
+        'FROM quiz_log q WHERE q.cell_id = wrong_notes.cell_id '
+        'AND q.word_id = wrong_notes.word_id AND q.correct = 0 '
+        'AND q.answered_at >= wrong_notes.first_missed_at';
     await db.execute(
-      'DELETE FROM wrong_notes WHERE NOT EXISTS ('
-      'SELECT 1 FROM quiz_log q WHERE q.cell_id = wrong_notes.cell_id '
-      'AND q.word_id = wrong_notes.word_id AND q.correct = 0)',
+      'DELETE FROM wrong_notes WHERE NOT EXISTS (SELECT 1 $missesSinceNote)',
     );
-    // 옛 카드 '모른다'로 센 만큼만 덜어 낸다. 시험 오답 수가 더 많은 노트(오답 시험에서 맞혀 빠졌다가
-    // 다시 틀려 새로 생긴 것)는 그대로 둔다 — 빠지기 전의 오답까지 다시 세지 않게
     await db.execute(
-      'UPDATE wrong_notes SET miss_count = MIN(miss_count, ('
-      'SELECT COUNT(*) FROM quiz_log q WHERE q.cell_id = wrong_notes.cell_id '
-      'AND q.word_id = wrong_notes.word_id AND q.correct = 0))',
+      'UPDATE wrong_notes SET '
+      'miss_count = (SELECT COUNT(*) $missesSinceNote), '
+      'last_missed_at = (SELECT MAX(q.answered_at) $missesSinceNote)',
     );
   }
 

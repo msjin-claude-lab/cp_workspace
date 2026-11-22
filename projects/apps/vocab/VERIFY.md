@@ -46,7 +46,8 @@
 - **2026-11-22 개인 PC — 직접 단어장 삭제 + DB 6판**
   - `flutter analyze` exit 0(No issues), `flutter test` exit 0(118개 — 직접 단어장 시험 2파일을 지워 줄고, 5 → 6판 이행 시험 1개와 옮긴 오답 시험 막힘 시험 1개가 늘어남), `flutter build apk --debug` exit 0 + `app-debug.apk` 20:24 새로 생김(171,370,080바이트, `build/app/outputs`를 지운 뒤)
   - 이행 시험은 구현 전에 실패를 먼저 확인함(`Expected: <6> Actual: <5>`, 틀린 횟수 `<3> instead of <1>`). 실제 DB(sqflite_common_ffi)로 1·2·4·5판 → 6판을 본다
-  - **기기 DB 이행: 확인 안 함** — 에뮬레이터(지금 5판)에 설치하지 않았다. 설치하면 오답 노트 정리와 표 삭제가 실제로 돈다. 별도 검토 에이전트도 돌리지 않았다
+  - 같은 날 두 축 코드 검토(둘 다 COMMENT) 뒤 정리 기준을 "노트가 생긴 뒤의 시험 오답만"으로 고침 — 이행 시험 2개가 먼저 실패(`last_missed_at is <200> instead of <3>`), 고친 뒤 analyze exit 0 · test exit 0(118개) · build apk exit 0(`app-debug.apk` 20:38 새로 생김). 검토자가 확인한 것: 이행은 한 트랜잭션(sqflite_common 2.5.17 소스), 새 설치와 1~5판 경로의 최종 스키마가 같음(같은 SQL을 sqlite로 재현)
+  - **기기 DB 이행: 확인 안 함** — 에뮬레이터(지금 5판)에 설치하지 않았다. 설치하면 오답 노트 정리와 표 삭제가 실제로 돈다(되돌릴 수 없음). 고친 정리 기준은 다시 검토받지 않았다
 
 - **2026-11-22 개인 PC — 검토 지적 2건 수정(시험 결과 뒤 오답 노트 갱신, 카드 중복 기록)**
   - `flutter analyze` exit 0(No issues), `flutter test` exit 0(130개 — 실제 라우터로 홈 → 시험 → `오답 노트 보기`/`홈으로` 2개, 학습 화면 다음 → 이전 → 다음 1개가 늘어남), `flutter build apk --debug` exit 0 + `app-debug.apk` 20:09 새로 생김(171,392,376바이트, `build/app/outputs`를 지운 뒤)
