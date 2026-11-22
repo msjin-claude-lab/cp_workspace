@@ -237,6 +237,26 @@ void main() {
     expect(find.text('apple'), findsOneWidget);
   });
 
+  testWidgets('이전으로 돌아갔다가 다시 다음을 눌러도 같은 카드는 한 회차에 한 번만 기록하고, 다시 하기 뒤에는 새로 센다', (
+    tester,
+  ) async {
+    await pumpStudy(tester);
+
+    await tapKey(tester, 'study-next');
+    await tapKey(tester, 'study-previous');
+    await tapKey(tester, 'study-next');
+    expect(find.text('book'), findsOneWidget);
+    expect(records.viewed, ['ee-001']);
+
+    await tapKey(tester, 'study-next');
+    expect(records.viewed, ['ee-001', 'ee-002']);
+
+    await tester.tap(find.text('다시 하기'));
+    await tester.pumpAndSettle();
+    await tapKey(tester, 'study-next');
+    expect(records.viewed, ['ee-001', 'ee-002', 'ee-001']);
+  });
+
   /// 앞 화면에서 학습 화면을 밀어 올려 ← 뒤로가 되게 한다.
   Future<void> pumpPushedStudy(WidgetTester tester) async {
     await tester.pumpWidget(

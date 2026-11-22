@@ -607,6 +607,75 @@ void main() {
     expect(records.notes, isEmpty);
     expect(records.studied, ['ee-001']);
   });
+
+  /// 지금 문제에서 틀린 보기를 골라 답하고 다음으로 넘긴다.
+  /// 단어는 `m<N>`·`뜻<N>`이라 문제 글자의 끝 숫자와 다른 보기가 오답이다.
+  Future<void> answerWrong(WidgetTester tester) async {
+    final prompt = tester
+        .widget<Text>(find.byKey(const ValueKey('quiz-prompt')))
+        .data!;
+    final n = prompt[prompt.length - 1];
+    for (var i = 0; i < 4; i++) {
+      final option = find.byKey(ValueKey('quiz-option-$i'));
+      final text = tester
+          .widget<Text>(
+            find.descendant(of: option, matching: find.byType(Text)),
+          )
+          .data!;
+      if (text.endsWith(n)) continue;
+      await tester.ensureVisible(option);
+      await tester.tap(option);
+      await tester.pumpAndSettle();
+      break;
+    }
+    await tester.ensureVisible(find.byKey(const ValueKey('quiz-next')));
+    await tap(tester, 'quiz-next');
+  }
+
+  /// 홈에서 시험을 열어 4문제를 모두 틀리고 결과 화면까지 간다.
+  Future<void> failWholeQuiz(WidgetTester tester) async {
+    final deck = decks.seed('저녁 단어', Cell.middleHard);
+    store.selectedDeck = deck.deckId;
+    await pumpApp(tester);
+    expect(find.text('오답 노트 · 0단어'), findsOneWidget);
+
+    await tap(tester, 'home-quiz');
+    for (var i = 0; i < 4; i++) {
+      await answerWrong(tester);
+    }
+    expect(find.text('4문제 중 0문제 맞혔습니다'), findsOneWidget);
+    expect(records.notes, hasLength(4));
+  }
+
+  testWidgets('시험을 마치고 오답 노트 보기를 누르면 방금 틀린 단어가 노트에 있고, 홈의 오답 수도 맞다', (
+    tester,
+  ) async {
+    await failWholeQuiz(tester);
+
+    await tester.ensureVisible(find.byKey(const ValueKey('quiz-to-notes')));
+    await tap(tester, 'quiz-to-notes');
+
+    expect(find.byType(WrongNotesScreen), findsOneWidget);
+    expect(find.text('오답 노트가 비어 있습니다'), findsNothing);
+    for (var i = 0; i < 4; i++) {
+      expect(find.textContaining('m$i'), findsWidgets);
+    }
+
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+    expect(find.byType(DeckHomeScreen), findsOneWidget);
+    expect(find.text('오답 노트 · 4단어'), findsOneWidget);
+  });
+
+  testWidgets('시험을 마치고 홈으로를 누르면 홈의 오답 수가 방금 틀린 만큼 늘어 있다', (tester) async {
+    await failWholeQuiz(tester);
+
+    await tester.ensureVisible(find.byKey(const ValueKey('quiz-home')));
+    await tap(tester, 'quiz-home');
+
+    expect(find.byType(DeckHomeScreen), findsOneWidget);
+    expect(find.text('오답 노트 · 4단어'), findsOneWidget);
+  });
 }
 
 /// `fail`이 true인 동안 단어장 목록 읽기가 실패한다.

@@ -43,6 +43,11 @@
 
 ## 마지막 결과
 
+- **2026-11-22 개인 PC — 검토 지적 2건 수정(시험 결과 뒤 오답 노트 갱신, 카드 중복 기록)**
+  - `flutter analyze` exit 0(No issues), `flutter test` exit 0(130개 — 실제 라우터로 홈 → 시험 → `오답 노트 보기`/`홈으로` 2개, 학습 화면 다음 → 이전 → 다음 1개가 늘어남), `flutter build apk --debug` exit 0 + `app-debug.apk` 20:09 새로 생김(171,392,376바이트, `build/app/outputs`를 지운 뒤)
+  - 새 시험 3개는 고치기 전에 실패하는 것을 먼저 확인함(홈에 `오답 노트 · 4단어` 없음, 기록 `['ee-001', 'ee-001']`)
+  - **기기 실행: 확인 안 함** — 에뮬레이터에 설치하지 않았고 눌러 보지 않았다. 고친 뒤 별도 검토 에이전트도 돌리지 않았다
+
 - **2026-11-21 개인 PC — 내 단어장**
   - `flutter analyze` exit 0, `flutter test` exit 0(70개 — 실제 DB `test/data/word_books_test.dart` 5개, 화면 `test/features/my_words_test.dart` 11개, 보기 글자 겹침 2개가 늘어남), `flutter build apk --debug` exit 0
   - code-reviewer REQUEST CHANGES(HIGH 1 · MEDIUM 1) → 고친 뒤 시험 통과. 고친 뒤 다시 검토받지는 않았다

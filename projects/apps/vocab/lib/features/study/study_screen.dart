@@ -37,17 +37,23 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
 
   void _speak(Word word) => ref.read(speakerProvider).speak(word.word);
 
-  /// 다음: 지나는 카드를 본 것으로 기록한다(공부 수 = 넘겨 본 카드 수).
+  /// 이번 회차에 이미 기록한 단어 id. 이전으로 돌아갔다가 다시 넘겨도 또 기록하지 않는다.
+  final Set<String> _recorded = {};
+
+  /// 다음: 지나는 카드를 본 것으로 기록한다(공부 수 = 넘겨 본 카드 수, 한 회차에 카드당 한 번).
   Future<void> _next(Word word) async {
     if (_saving) return;
     setState(() => _saving = true);
-    try {
-      await ref
-          .read(studyRecordsProvider)
-          .recordCardViewed(deck: widget.deck, word: word);
-    } catch (_) {
-      // 스낵바는 아래 버튼을 덮으므로 쓰지 않고, 진행 표시 아래에 문구로 알린다
-      _saveFailed = true;
+    if (!_recorded.contains(word.id)) {
+      try {
+        await ref
+            .read(studyRecordsProvider)
+            .recordCardViewed(deck: widget.deck, word: word);
+        _recorded.add(word.id); // 저장에 실패한 카드는 다시 지날 때 한 번 더 해 본다
+      } catch (_) {
+        // 스낵바는 아래 버튼을 덮으므로 쓰지 않고, 진행 표시 아래에 문구로 알린다
+        _saveFailed = true;
+      }
     }
     if (!mounted) return;
     setState(() {
@@ -68,6 +74,7 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
 
   void _restart() => setState(() {
     _order = null; // 다음 build에서 새로 섞는다
+    _recorded.clear(); // 새 회차는 새로 센다
     _index = 0;
     _flipped = false;
     _spokenIndex = null;

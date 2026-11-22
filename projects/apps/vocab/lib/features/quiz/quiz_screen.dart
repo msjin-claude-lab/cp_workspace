@@ -343,10 +343,19 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
   /// (시험 화면을 남겨 두면 뒤로가 끝난 시험으로 돌아온다).
   void _openWrongNotes() {
     if (ModalRoute.of(context)?.isCurrent != true) return; // 빠른 두 번 누름
+    _refreshWrongNotes();
     context.pushReplacement('/wrong-notes/${widget.deck.id}');
   }
 
-  void _goHome() => context.go('/');
+  void _goHome() {
+    _refreshWrongNotes();
+    context.go('/');
+  }
+
+  /// 결과 화면의 버튼은 ← 뒤로가 아니라서 홈의 "돌아오면 노트를 다시 읽기"가 돌지 않는다
+  /// (pushReplacement·go는 홈이 기다리는 push를 끝내지 않는다). 떠나기 전에 직접 다시 읽게 한다.
+  void _refreshWrongNotes() =>
+      ref.invalidate(deckWrongNotesProvider(widget.deck));
 
   Widget _summary(int total) {
     final text = Theme.of(context).textTheme;
