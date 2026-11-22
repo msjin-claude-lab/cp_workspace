@@ -43,6 +43,12 @@
 
 ## 마지막 결과
 
+- **2026-11-22 개인 PC — 단어장별 설정 + DB 7판**
+  - `flutter analyze` exit 0(No issues), `flutter test` exit 0(137개 — 규칙(고유 → 옛 공통 → 기본) 시험, 실제 DB 6 → 7판·단어장별 저장, 실제 라우터로 단어장 A·B 설정이 따로인지 등이 늘어남), `flutter build apk --debug` exit 0 + `app-debug.apk` 21:17 새로 생김
+  - 새 시험은 구현 전에 컴파일 단계에서 실패했다고 executor가 보고(새 API가 없어서 — 단정이 틀려 실패한 것은 아님). 새 설치와 1·3·6판에서 올린 DB의 `sqlite_master` 비교 시험 통과(새 설치도 같은 `ALTER TABLE`을 밟는다)
+  - **에뮬레이터: 통과** — 설치 전 기기 DB 백업(`D:\dev\tmp\vocab_db_backup\before_v7\vocab.db`) → 덮어 설치 → `user_version` 7, `study_log` 147·`quiz_log` 62·`wrong_notes` 1 그대로, `study_decks`에 두 열이 NULL로 생김. 설정 화면 제목 `초등 중간 - 설정`·안내 문구 `이 단어장에만 적용됩니다. …`, 옛 공통값을 물려받아 `직접 입력 (25)`. "초등 중간"만 10으로 바꾸니 그 단어장 카드 학습 `1 / 10`, DB 그 줄만 `card_count = 10`, 다른 단어장(`😀`)은 설정·카드 학습 모두 25. logcat 오류 0건. 확인 뒤 25로 되돌림(그 단어장은 이제 고유 값 25)
+  - **확인 안 한 것**: 새 단어장이 50/20으로 시작하는지는 기기에서 안 봄(자동 시험만), 시험 문항 수 쪽 기기 확인, 별도 코드 검토
+
 - **2026-11-22 개인 PC — 남은 검토 지적(LOW) 9건 수정**
   - `flutter analyze` exit 0(No issues), `flutter test` exit 0(122개 — 오답 시험 문항 수 2개, 이전으로 돌아온 뒤 나가기 확인, 경로별 `sqlite_master` 비교 등이 늘어남), `flutter build apk --debug` exit 0 + `app-debug.apk` 21:06 새로 생김
   - 동작이 바뀐 것은 시험이 먼저 실패하는 것을 executor가 확인했다고 보고(단어장 삭제 시 기록 `Expected: <0> Actual: <1>`, 달력 문구, 나가기 확인). Claude가 다시 돌린 것은 최종 통과뿐이다
