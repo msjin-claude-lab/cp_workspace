@@ -9,14 +9,14 @@ import '../quiz/quiz.dart';
 import 'review_words.dart';
 
 /// 오답 노트(칸 홈·단어장 화면 → 오답 노트): 그 칸·단어장의 오답을 최근에 틀린 것부터 보여 준다.
-/// 카드로 다시 보기·오답 시험을 하고, 단어를 직접 지울 수 있다.
+/// 오답 시험을 하고, 단어를 직접 지울 수 있다(카드로 다시 보기는 2026-11-22 사용자 결정으로 뺐다).
 /// 오답 시험에서 맞힌 단어는 노트에서 빠진다(2026-11-20 사용자 결정).
 class WrongNotesScreen extends ConsumerWidget {
   const WrongNotesScreen({super.key, required this.deck});
 
   final Deck deck;
 
-  /// 다시 보기·오답 시험에서 돌아오면 노트를 다시 읽는다(맞혀서 빠진 단어 반영).
+  /// 오답 시험에서 돌아오면 노트를 다시 읽는다(맞혀서 빠진 단어 반영).
   Future<void> _open(BuildContext context, WidgetRef ref, String path) async {
     if (ModalRoute.of(context)?.isCurrent != true) return; // 빠른 두 번 누름
     await context.push(path);
@@ -29,12 +29,32 @@ class WrongNotesScreen extends ConsumerWidget {
     WrongEntry e,
   ) async {
     final messenger = ScaffoldMessenger.of(context);
+    final records = ref.read(studyRecordsProvider);
+    // 되돌리기는 화면을 나간 뒤에도 눌릴 수 있어 ref 대신 컨테이너로 다시 읽게 한다
+    final container = ProviderScope.containerOf(context);
     try {
-      await ref
-          .read(studyRecordsProvider)
-          .removeWrongNote(e.note.deck, e.note.wordId);
+      await records.removeWrongNote(e.note.deck, e.note.wordId);
+      messenger.hideCurrentSnackBar();
       messenger.showSnackBar(
-        SnackBar(content: Text('${e.word.word} — 오답 노트에서 지웠습니다')),
+        SnackBar(
+          // 떠 있는 스낵바가 목록 마지막 줄을 덮지 않게 한다(목록 아래 여백도 둔다)
+          behavior: SnackBarBehavior.floating,
+          content: Text('${e.word.word} — 오답 노트에서 지웠습니다'),
+          action: SnackBarAction(
+            key: const ValueKey('wrong-undo'),
+            label: '되돌리기', // 2026-11-22 사용자 결정(UX 점검) — 틀린 횟수·시각 그대로 되살린다
+            onPressed: () async {
+              try {
+                await records.restoreWrongNote(e.note);
+              } catch (_) {
+                messenger.showSnackBar(
+                  const SnackBar(content: Text('되돌리지 못했습니다')),
+                );
+              }
+              container.invalidate(deckWrongNotesProvider(deck));
+            },
+          ),
+        ),
       );
     } catch (_) {
       messenger.showSnackBar(const SnackBar(content: Text('지우지 못했습니다')));
@@ -51,7 +71,13 @@ class WrongNotesScreen extends ConsumerWidget {
     final pool = ref.watch(deckWordsProvider(deck)).value;
     final quizBlocked = pool == null ? null : quizBlockReason(pool);
     return Scaffold(
-      appBar: AppBar(title: Text('${deck.label} - 오답 노트')),
+      appBar: AppBar(
+        title: Text(
+          '${deck.label} - 오답 노트',
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
+      ),
       body: SafeArea(
         child: entries.when(
           loading: () => const Center(child: CircularProgressIndicator()),
@@ -63,14 +89,15 @@ class WrongNotesScreen extends ConsumerWidget {
                 child: Padding(
                   padding: EdgeInsets.all(24),
                   child: Text(
-                    "오답 노트가 비어 있습니다.\n카드 학습의 '모른다'나 시험에서 틀린 단어가 여기에 모입니다",
+                    '오답 노트가 비어 있습니다.\n시험에서 틀린 단어가 여기에 모입니다',
                     textAlign: TextAlign.center,
                   ),
                 ),
               );
             }
             return ListView(
-              padding: const EdgeInsets.symmetric(vertical: 16),
+              // 아래 여백: 스낵바가 떠 있어도 마지막 줄을 끝까지 올려 볼 수 있게
+              padding: const EdgeInsets.fromLTRB(0, 16, 0, 96),
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -83,33 +110,13 @@ class WrongNotesScreen extends ConsumerWidget {
                 const SizedBox(height: 12),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: OutlinedButton.icon(
-                          key: const ValueKey('wrong-study'),
-                          icon: const Icon(Icons.style),
-                          label: const Text('카드로 다시 보기'),
-                          onPressed: () =>
-                              _open(context, ref, '/review/study/${deck.id}'),
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: FilledButton.icon(
-                          key: const ValueKey('wrong-quiz'),
-                          icon: const Icon(Icons.edit_note),
-                          label: const Text('오답 시험'),
-                          onPressed: quizBlocked != null
-                              ? null
-                              : () => _open(
-                                  context,
-                                  ref,
-                                  '/review/quiz/${deck.id}',
-                                ),
-                        ),
-                      ),
-                    ],
+                  child: FilledButton.icon(
+                    key: const ValueKey('wrong-quiz'),
+                    icon: const Icon(Icons.edit_note),
+                    label: const Text('오답 시험'),
+                    onPressed: quizBlocked != null
+                        ? null
+                        : () => _open(context, ref, '/review/quiz/${deck.id}'),
                   ),
                 ),
                 if (quizBlocked != null)

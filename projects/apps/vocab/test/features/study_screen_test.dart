@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
+import 'package:vocab/data/app_settings.dart';
 import 'package:vocab/data/cell.dart';
 import 'package:vocab/data/cell_store.dart';
 import 'package:vocab/data/speaker.dart';
@@ -13,7 +15,10 @@ import 'package:vocab/data/word_repository.dart';
 import 'package:vocab/features/study/study_screen.dart';
 import 'package:vocab/router.dart';
 
-import '../fakes.dart' show FakeCellStore, FakeStudyDecks;
+import 'package:vocab/features/quiz/quiz.dart' show quizRandomProvider;
+
+import '../fakes.dart'
+    show FakeAppSettingsStore, FakeCellStore, FakeStudyDecks, NoShuffleRandom;
 
 const _apple = Word(
   id: 'ee-001',
@@ -47,9 +52,10 @@ class _FakeSpeaker implements Speaker {
 }
 
 class _FakeRecords implements StudyRecords {
-  final List<(String, bool)> answers = [];
+  /// 넘겨 본 카드 단어 id.
+  final List<String> viewed = [];
 
-  /// 답을 남긴 단어장 id(기록 주소가 맞는지 본다).
+  /// 기록을 남긴 단어장 id(기록 주소가 맞는지 본다).
   final List<String> decks = [];
 
   /// 있으면 저장이 이것이 끝날 때까지 걸린다(느린 DB 흉내).
@@ -59,12 +65,11 @@ class _FakeRecords implements StudyRecords {
   bool fail = false;
 
   @override
-  Future<void> recordAnswer({
+  Future<void> recordCardViewed({
     required Deck deck,
     required Word word,
-    required bool known,
   }) async {
-    answers.add((word.id, known));
+    viewed.add(word.id);
     decks.add(deck.id);
     if (gate != null) await gate!.future;
     if (fail) throw StateError('db');
@@ -77,7 +82,7 @@ class _FakeRecords implements StudyRecords {
     required bool correct,
   }) => throw UnimplementedError('카드 학습은 시험 기록을 쓰지 않는다');
 
-  /// 가짜 오답 노트(오답 다시 보기 시험용).
+  /// 가짜 오답 노트(카드 학습이 건드리지 않는지 본다).
   final List<WrongNote> notes = [];
 
   @override
@@ -92,12 +97,15 @@ class _FakeRecords implements StudyRecords {
       if (n.deck.id == deck.id) n,
   ];
 
-  /// 카드 학습은 노트에서 빼면 안 된다 — 불리면 남겨 두고 시험이 확인한다.
+  /// 카드 학습은 노트를 바꾸면 안 된다 — 불리면 남겨 두고 시험이 확인한다.
   final List<String> removed = [];
 
   @override
   Future<void> removeWrongNote(Deck deck, String wordId) async =>
       removed.add(wordId);
+
+  @override
+  Future<void> restoreWrongNote(WrongNote note) async => notes.add(note);
 
   @override
   Future<Progress> progress(Deck deck) async => const Progress();
@@ -110,6 +118,7 @@ void main() {
   /// 가짜 단어·발음·기록을 넣은 ProviderScope로 감싼다.
   Widget scoped(Widget child) => ProviderScope(
     overrides: [
+      appSettingsStoreProvider.overrideWithValue(FakeAppSettingsStore()),
       wordRepositoryProvider.overrideWithValue(
         _FakeRepository({
           Cell.elementaryEasy: [_apple, _book],
@@ -117,6 +126,8 @@ void main() {
       ),
       speakerProvider.overrideWithValue(speaker),
       studyRecordsProvider.overrideWithValue(records),
+      // 카드는 무작위 순서로 나온다 — 순서를 확인하는 시험이라 섞이지 않게 한다
+      quizRandomProvider.overrideWithValue(NoShuffleRandom()),
       // 주소로 시작하면 첫 화면을 지나므로, 단어장을 만들어 골라 둔 것으로 한다
       cellStoreProvider.overrideWithValue(FakeCellStore(selectedDeck: 1)),
       studyDecksProvider.overrideWithValue(
@@ -138,14 +149,22 @@ void main() {
     await tester.pumpAndSettle();
   }
 
-  testWidgets('앞면에 영단어가 보이고 자동으로 한 번 발음한다', (tester) async {
+  Future<void> tapKey(WidgetTester tester, String key) async {
+    await tester.tap(find.byKey(ValueKey(key)));
+    await tester.pumpAndSettle();
+  }
+
+  testWidgets('앞면에 영단어가 보이고 자동으로 한 번 발음하며, 이전/다음이 늘 보인다', (tester) async {
     await pumpStudy(tester);
 
     expect(find.text('초등 [난이도 : 쉬움] - 카드 학습'), findsOneWidget);
     expect(find.text('apple'), findsOneWidget);
     expect(find.text('1 / 2'), findsOneWidget);
     expect(find.text('사과'), findsNothing);
-    expect(find.byKey(const ValueKey('study-known')), findsNothing);
+    expect(find.byKey(const ValueKey('study-next')), findsOneWidget);
+    expect(find.byKey(const ValueKey('study-previous')), findsOneWidget);
+    expect(find.text('안다'), findsNothing);
+    expect(find.text('모른다'), findsNothing);
     expect(speaker.spoken, ['apple']);
 
     await tester.tap(find.byKey(const ValueKey('study-speak')));
@@ -153,27 +172,33 @@ void main() {
     expect(speaker.spoken, ['apple', 'apple']);
   });
 
-  testWidgets('카드를 누르면 뒷면에 뜻·예문·해석과 안다/모른다가 보인다', (tester) async {
+  testWidgets('카드를 누르면 뒷면에 뜻·예문·해석이 보이고, 다시 누르면 앞면으로 돌아온다', (tester) async {
     await pumpStudy(tester);
 
     await tester.tap(find.byKey(const ValueKey('study-card')));
     await tester.pump();
-
     expect(find.text('사과'), findsOneWidget);
     expect(find.text('I eat an apple.'), findsOneWidget);
     expect(find.text('나는 사과를 먹는다.'), findsOneWidget);
-    expect(find.byKey(const ValueKey('study-known')), findsOneWidget);
-    expect(find.byKey(const ValueKey('study-unknown')), findsOneWidget);
-  });
-
-  testWidgets('답하면 기록되고 다음 카드로, 끝나면 결과를 보여 준다', (tester) async {
-    await pumpStudy(tester);
 
     await tester.tap(find.byKey(const ValueKey('study-card')));
     await tester.pump();
-    await tester.tap(find.byKey(const ValueKey('study-unknown')));
-    await tester.pumpAndSettle();
+    expect(find.text('사과'), findsNothing);
+    expect(records.viewed, isEmpty); // 뒤집기만으로는 기록하지 않는다
+  });
 
+  testWidgets('이전은 첫 카드에서 막혀 있고, 다음·이전으로 옮기면 앞면이 보인다', (tester) async {
+    await pumpStudy(tester);
+    expect(
+      tester
+          .widget<OutlinedButton>(find.byKey(const ValueKey('study-previous')))
+          .onPressed,
+      isNull,
+    );
+
+    await tester.tap(find.byKey(const ValueKey('study-card')));
+    await tester.pump();
+    await tapKey(tester, 'study-next');
     expect(find.text('book'), findsOneWidget);
     expect(find.text('2 / 2'), findsOneWidget);
     expect(find.text('책'), findsNothing); // 다음 카드는 앞면부터
@@ -181,17 +206,111 @@ void main() {
 
     await tester.tap(find.byKey(const ValueKey('study-card')));
     await tester.pump();
-    await tester.tap(find.byKey(const ValueKey('study-known')));
-    await tester.pumpAndSettle();
+    expect(find.text('책'), findsOneWidget);
+    await tapKey(tester, 'study-previous');
+    expect(find.text('apple'), findsOneWidget);
+    expect(find.text('1 / 2'), findsOneWidget);
+    expect(find.text('사과'), findsNothing);
+    // 되돌아가도 기록은 늘지 않는다(넘긴 것은 apple 하나)
+    expect(records.viewed, ['ee-001']);
+  });
 
-    expect(records.answers, [('ee-001', false), ('ee-002', true)]);
-    expect(find.text('안다 1 · 모른다 1'), findsOneWidget);
-    expect(find.text("'모른다' 단어는 오답 노트에 담았습니다"), findsOneWidget);
+  testWidgets('다음으로 카드마다 한 번 기록하고, 끝나면 결과를 보여 주며, 오답 노트는 건드리지 않는다', (
+    tester,
+  ) async {
+    await pumpStudy(tester);
+
+    await tapKey(tester, 'study-next');
+    await tapKey(tester, 'study-next');
+
+    expect(records.viewed, ['ee-001', 'ee-002']);
+    expect(find.text('2단어를 모두 봤습니다'), findsOneWidget);
+    expect(find.textContaining('모른다'), findsNothing);
+    expect(find.textContaining('오답 노트'), findsNothing);
+    expect(find.text('오답 노트로'), findsNothing);
+    expect(records.notes, isEmpty);
+    expect(records.removed, isEmpty);
 
     await tester.tap(find.text('다시 하기'));
     await tester.pumpAndSettle();
     expect(find.text('1 / 2'), findsOneWidget);
     expect(find.text('apple'), findsOneWidget);
+  });
+
+  /// 앞 화면에서 학습 화면을 밀어 올려 ← 뒤로가 되게 한다.
+  Future<void> pumpPushedStudy(WidgetTester tester) async {
+    await tester.pumpWidget(
+      scoped(
+        MaterialApp(
+          home: Builder(
+            builder: (context) => Scaffold(
+              body: TextButton(
+                key: const ValueKey('open'),
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (_) =>
+                        const StudyScreen(deck: Cell.elementaryEasy),
+                  ),
+                ),
+                child: const Text('열기'),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.tap(find.byKey(const ValueKey('open')));
+    await tester.pumpAndSettle();
+  }
+
+  testWidgets('첫 카드에서 아무것도 안 했으면 ← 뒤로는 묻지 않고 나간다', (tester) async {
+    await pumpPushedStudy(tester);
+
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+
+    expect(find.text('그만할까요?'), findsNothing);
+    expect(find.byType(StudyScreen), findsNothing);
+  });
+
+  testWidgets('도중에 ← 뒤로(앱바·시스템)를 누르면 먼저 묻고, 계속하기면 남고 나가기면 나간다', (tester) async {
+    await pumpPushedStudy(tester);
+    await tapKey(tester, 'study-next');
+
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+    expect(find.text('그만할까요?'), findsOneWidget);
+    expect(find.textContaining('처음부터'), findsOneWidget);
+    await tapKey(tester, 'leave-continue');
+    expect(find.text('그만할까요?'), findsNothing);
+    expect(find.byType(StudyScreen), findsOneWidget);
+    expect(find.text('2 / 2'), findsOneWidget);
+
+    // 시스템 뒤로도 같다
+    await tester.binding.handlePopRoute();
+    await tester.pumpAndSettle();
+    expect(find.text('그만할까요?'), findsOneWidget);
+    await tapKey(tester, 'leave-exit');
+    expect(find.byType(StudyScreen), findsNothing);
+    expect(records.viewed, ['ee-001']); // 지금까지 본 기록은 남아 있다
+  });
+
+  testWidgets('첫 카드라도 뒷면을 봤으면 묻고, 끝 화면에서는 묻지 않는다', (tester) async {
+    await pumpPushedStudy(tester);
+    await tester.tap(find.byKey(const ValueKey('study-card')));
+    await tester.pump();
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+    expect(find.text('그만할까요?'), findsOneWidget);
+    await tapKey(tester, 'leave-continue');
+
+    await tapKey(tester, 'study-next');
+    await tapKey(tester, 'study-next');
+    expect(find.text('2단어를 모두 봤습니다'), findsOneWidget);
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+    expect(find.text('그만할까요?'), findsNothing);
+    expect(find.byType(StudyScreen), findsNothing);
   });
 
   testWidgets('학습 주소로 가면 그 칸의 학습 화면이 열린다', (tester) async {
@@ -215,10 +334,7 @@ void main() {
 
     expect(find.text('아침 단어 - 카드 학습'), findsOneWidget);
     expect(find.text('apple'), findsOneWidget);
-    await tester.tap(find.byKey(const ValueKey('study-card')));
-    await tester.pump();
-    await tester.tap(find.byKey(const ValueKey('study-unknown')));
-    await tester.pumpAndSettle();
+    await tapKey(tester, 'study-next');
     expect(records.decks, ['deck_1']);
   });
 
@@ -226,17 +342,15 @@ void main() {
     records.gate = Completer<void>();
     await pumpStudy(tester);
 
-    await tester.tap(find.byKey(const ValueKey('study-card')));
+    await tester.tap(find.byKey(const ValueKey('study-next')));
     await tester.pump();
-    await tester.tap(find.byKey(const ValueKey('study-known')));
-    await tester.pump();
-    await tester.tap(find.byKey(const ValueKey('study-known')));
+    await tester.tap(find.byKey(const ValueKey('study-next')));
     await tester.pump();
 
     records.gate!.complete();
     await tester.pumpAndSettle();
 
-    expect(records.answers, [('ee-001', true)]);
+    expect(records.viewed, ['ee-001']);
     expect(find.text('2 / 2'), findsOneWidget);
   });
 
@@ -244,55 +358,75 @@ void main() {
     records.fail = true;
     await pumpStudy(tester);
 
-    await tester.tap(find.byKey(const ValueKey('study-card')));
-    await tester.pump();
-    await tester.tap(find.byKey(const ValueKey('study-unknown')));
-    await tester.pumpAndSettle();
+    await tapKey(tester, 'study-next');
     expect(find.byKey(const ValueKey('study-save-error')), findsOneWidget);
     expect(find.text('2 / 2'), findsOneWidget);
 
-    await tester.tap(find.byKey(const ValueKey('study-card')));
-    await tester.pump();
-    await tester.tap(find.byKey(const ValueKey('study-unknown')));
-    await tester.pumpAndSettle();
-
+    await tapKey(tester, 'study-next');
     expect(find.byKey(const ValueKey('study-save-failed')), findsOneWidget);
-    expect(find.text("'모른다' 단어는 오답 노트에 담았습니다"), findsNothing);
   });
 
-  testWidgets('오답 다시 보기는 그 칸의 오답 노트 단어만 보여 준다', (tester) async {
-    records.notes.add(
-      const WrongNote(
-        wordId: 'ee-002',
-        deck: Cell.elementaryEasy,
-        missCount: 1,
-        lastMissedAt: 0,
-      ),
-    );
-    await tester.pumpWidget(
-      scoped(
-        const MaterialApp(
-          home: StudyScreen(deck: Cell.elementaryEasy, review: true),
+  testWidgets('카드는 회차마다 섞여 나오고, 한 회차 안에서는 이전/다음이 같은 순서를 오간다', (tester) async {
+    final words = [
+      for (var i = 0; i < 12; i++)
+        Word(
+          id: 'ee-1$i',
+          word: 'w$i',
+          meaning: 'm$i',
+          example: '',
+          exampleMeaning: '',
         ),
+    ];
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          appSettingsStoreProvider.overrideWithValue(FakeAppSettingsStore()),
+          wordRepositoryProvider.overrideWithValue(
+            _FakeRepository({Cell.elementaryEasy: words}),
+          ),
+          speakerProvider.overrideWithValue(speaker),
+          studyRecordsProvider.overrideWithValue(records),
+          quizRandomProvider.overrideWithValue(Random(3)),
+        ],
+        child: const MaterialApp(home: StudyScreen(deck: Cell.elementaryEasy)),
       ),
     );
     await tester.pumpAndSettle();
 
-    expect(find.text('초등 [난이도 : 쉬움] - 오답 다시 보기'), findsOneWidget);
-    expect(find.text('1 / 1'), findsOneWidget);
-    expect(find.text('book'), findsOneWidget);
-    expect(find.text('apple'), findsNothing);
+    String shown() => words
+        .map((w) => w.word)
+        .firstWhere((w) => find.text(w).evaluate().isNotEmpty);
 
-    // '안다'로 답해도 오답 노트에서 빼지 않는다(빠지는 것은 오답 시험에서 맞혔을 때만)
-    await tester.tap(find.byKey(const ValueKey('study-card')));
-    await tester.pump();
-    await tester.tap(find.byKey(const ValueKey('study-known')));
+    // 끝까지 넘기며 본 순서: 모든 단어가 한 번씩, 저장된 순서와는 다르게
+    final seen = <String>[];
+    for (var i = 0; i < words.length; i++) {
+      seen.add(shown());
+      if (i == 1) {
+        // 이전으로 갔다 와도 같은 카드다
+        await tester.tap(find.byKey(const ValueKey('study-previous')));
+        await tester.pumpAndSettle();
+        expect(shown(), seen[0]);
+        await tester.tap(find.byKey(const ValueKey('study-next')));
+        await tester.pumpAndSettle();
+        expect(shown(), seen[1]);
+      }
+      await tester.tap(find.byKey(const ValueKey('study-next')));
+      await tester.pumpAndSettle();
+    }
+    expect(seen.toSet(), {for (final w in words) w.word});
+    expect(seen, isNot([for (final w in words) w.word]));
+
+    // 다시 하기는 새로 섞는다
+    await tester.tap(find.text('다시 하기'));
     await tester.pumpAndSettle();
-
-    expect(records.answers, [('ee-002', true)]);
-    expect(records.removed, isEmpty);
-    expect(find.byKey(const ValueKey('study-save-failed')), findsNothing);
-    expect(find.text('오답 노트에서 빼려면 오답 시험에서 맞히세요'), findsOneWidget);
+    final again = <String>[];
+    for (var i = 0; i < words.length; i++) {
+      again.add(shown());
+      await tester.tap(find.byKey(const ValueKey('study-next')));
+      await tester.pumpAndSettle();
+    }
+    expect(again.toSet(), seen.toSet());
+    expect(again, isNot(seen));
   });
 
   testWidgets('없는 칸 주소는 안내만 보인다', (tester) async {

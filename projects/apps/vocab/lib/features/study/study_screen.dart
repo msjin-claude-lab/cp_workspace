@@ -1,23 +1,22 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:material_ui/material_ui.dart';
 
+import '../../data/app_settings.dart';
 import '../../data/cell.dart';
 import '../../data/speaker.dart';
 import '../../data/study_records.dart';
 import '../../data/word.dart';
 import '../../data/word_repository.dart';
-import '../wrong_notes/review_words.dart';
+import '../common/leave_guard.dart';
+import '../quiz/quiz.dart' show quizRandomProvider;
 
-/// 카드 학습: 칸·내 단어장의 단어를 한 장씩 본다.
-/// 앞면 영단어 + 발음, 누르면 뒷면 뜻·예문·해석 → 안다/모른다 → 다음 카드.
-/// `review`면 그 칸·단어장의 오답 노트 단어만 본다(오답 노트 → 카드로 다시 보기).
-/// '안다'로 답해도 오답 노트에서 빼지 않는다(사용자 결정 — 빠지는 것은 오답 시험에서 맞혔을 때).
+/// 카드 학습: 칸·단어장의 단어를 한 장씩 넘겨 본다.
+/// 앞면 영단어 + 발음, 누르면 뒷면 뜻·예문·해석. 이전/다음으로 오가며 스스로 채점하지 않는다
+/// (2026-11-22 사용자 결정 — 안다/모른다를 없앴다. 오답 노트는 시험에서 틀린 단어만 담는다).
 class StudyScreen extends ConsumerStatefulWidget {
-  const StudyScreen({super.key, required this.deck, this.review = false});
+  const StudyScreen({super.key, required this.deck});
 
   final Deck deck;
-  final bool review;
 
   @override
   ConsumerState<StudyScreen> createState() => _StudyScreenState();
@@ -26,101 +25,103 @@ class StudyScreen extends ConsumerStatefulWidget {
 class _StudyScreenState extends ConsumerState<StudyScreen> {
   int _index = 0;
   bool _flipped = false;
-  int _known = 0;
-  int _unknown = 0;
 
   /// 마지막으로 자동 발음한 카드 번호. 같은 카드를 다시 그릴 때 또 읽지 않게 한다.
   int? _spokenIndex;
 
-  /// 답을 저장하는 중. 이때는 버튼을 막아 연타로 두 번 기록되지 않게 한다.
-  bool _answering = false;
+  /// 기록을 저장하는 중. 이때는 버튼을 막아 연타로 두 번 기록되지 않게 한다.
+  bool _saving = false;
 
-  /// 이번 회차에 저장하지 못한 답이 있었나.
+  /// 이번 회차에 저장하지 못한 기록이 있었나.
   bool _saveFailed = false;
-
-  /// 다시 보기(review)에서 처음 받은 오답 단어 목록.
-  List<Word>? _reviewWords;
 
   void _speak(Word word) => ref.read(speakerProvider).speak(word.word);
 
-  Future<void> _answer(Word word, {required bool known}) async {
-    if (_answering) return;
-    setState(() => _answering = true);
+  /// 다음: 지나는 카드를 본 것으로 기록한다(공부 수 = 넘겨 본 카드 수).
+  Future<void> _next(Word word) async {
+    if (_saving) return;
+    setState(() => _saving = true);
     try {
       await ref
           .read(studyRecordsProvider)
-          .recordAnswer(deck: widget.deck, word: word, known: known);
+          .recordCardViewed(deck: widget.deck, word: word);
     } catch (_) {
       // 스낵바는 아래 버튼을 덮으므로 쓰지 않고, 진행 표시 아래에 문구로 알린다
       _saveFailed = true;
     }
     if (!mounted) return;
     setState(() {
-      known ? _known++ : _unknown++;
       _index++;
       _flipped = false;
-      _answering = false;
+      _saving = false;
     });
   }
 
+  /// 이전: 기록하지 않고 앞 카드의 앞면으로.
+  void _previous() => setState(() {
+    _index--;
+    _flipped = false;
+  });
+
+  /// 이번 회차의 카드 순서. 처음 단어를 읽을 때 섞고, 다시 하기 때 새로 섞는다.
+  List<Word>? _order;
+
   void _restart() => setState(() {
+    _order = null; // 다음 build에서 새로 섞는다
     _index = 0;
     _flipped = false;
-    _known = 0;
-    _unknown = 0;
     _spokenIndex = null;
     _saveFailed = false;
   });
 
-  /// 결과 화면의 돌아가기: 연 화면(칸 홈·오답 노트)으로. 주소로 바로 열었으면 칸 홈으로.
-  void _leave() {
-    if (context.canPop()) {
-      context.pop();
-    } else {
-      context.go('/');
-    }
-  }
+  /// 읽어 둔 단어 수. 도중인지(끝 화면이 아닌지) 가릴 때 쓴다.
+  int _total = 0;
+
+  /// 도중: 첫 카드에서 아직 아무것도 안 했거나 끝 화면이면 아니다.
+  bool get _inProgress => _index < _total && (_index > 0 || _flipped);
 
   @override
   Widget build(BuildContext context) {
-    final source = widget.review
-        ? ref.watch(reviewWordsProvider(widget.deck))
-        : ref.watch(deckWordsProvider(widget.deck));
-    // 다시 보기는 처음 받은 오답 목록을 회차 동안 붙잡는다 — 노트가 다시 읽혀도 카드가 건너뛰지 않게
-    final words = switch (source) {
-      AsyncData(:final value) when widget.review => AsyncData(
-        _reviewWords ??= value,
-      ),
-      _ when _reviewWords != null => AsyncData(_reviewWords!),
-      _ => source,
-    };
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          widget.review
-              ? '${widget.deck.label} - 오답 다시 보기'
-              : '${widget.deck.label} - 카드 학습',
+    // 설정을 읽은 뒤에야 카드를 만든다(읽는 동안 엉뚱한 개수가 보이지 않게)
+    final words = ref.watch(deckWordsProvider(widget.deck));
+    final settings = ref.watch(appSettingsProvider);
+    return LeaveGuard(
+      // 도중에 ← 뒤로(앱바·시스템)를 누르면 먼저 묻는다(2026-11-22 사용자 결정(UX 점검))
+      inProgress: _inProgress,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            '${widget.deck.label} - 카드 학습',
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
-      ),
-      body: SafeArea(
-        child: words.when(
-          loading: () => const Center(child: CircularProgressIndicator()),
-          error: (_, _) => const Center(child: Text('단어를 읽지 못했습니다')),
-          data: (list) {
-            if (list.isEmpty) {
-              return Center(
-                child: Text(
-                  // 화면에는 "칸"이라는 말을 쓰지 않는다(2026-11-20 사용자 결정)
-                  widget.review ? '오답 노트에 단어가 없습니다' : '아직 단어가 없습니다',
-                ),
-              );
-            }
-            if (_index >= list.length) return _summary(list.length);
-            return _card(list[_index], list.length);
+        body: SafeArea(
+          child: switch ((words, settings)) {
+            (AsyncError(), _) => const Center(child: Text('단어를 읽지 못했습니다')),
+            (AsyncData(value: final loaded), AsyncData(value: final s)) =>
+              _content(loaded, s.cardCount),
+            _ => const Center(child: CircularProgressIndicator()),
           },
         ),
       ),
     );
+  }
+
+  Widget _content(List<Word> loaded, int cardCount) {
+    // 카드는 회차마다 무작위 순서로 나온다(2026-11-22 사용자 결정 — 전에는 저장된 순서).
+    // 한 회차 동안은 순서를 붙잡아 이전/다음이 같은 카드로 오간다.
+    // 설정한 수(없으면 있는 만큼)만 앞에서 잘라 쓴다 — 회차를 시작할 때 정해지고 도중에 바뀌지 않는다
+    final list = _order ??= ([
+      ...loaded,
+    ]..shuffle(ref.read(quizRandomProvider))).take(cardCount).toList();
+    _total = list.length;
+    if (list.isEmpty) {
+      // 화면에는 "칸"이라는 말을 쓰지 않는다(2026-11-20 사용자 결정)
+      return const Center(child: Text('아직 단어가 없습니다'));
+    }
+    if (_index >= list.length) return _summary(list.length);
+    return _card(list[_index], list.length);
   }
 
   Widget _card(Word word, int total) {
@@ -171,36 +172,25 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
             ),
           ),
           const SizedBox(height: 16),
-          if (_flipped)
-            Row(
-              children: [
-                Expanded(
-                  child: FilledButton.tonal(
-                    key: const ValueKey('study-unknown'),
-                    onPressed: _answering
-                        ? null
-                        : () => _answer(word, known: false),
-                    child: const Text('모른다'),
-                  ),
+          Row(
+            children: [
+              Expanded(
+                child: OutlinedButton(
+                  key: const ValueKey('study-previous'),
+                  onPressed: _index == 0 || _saving ? null : _previous,
+                  child: const Text('이전'),
                 ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: FilledButton(
-                    key: const ValueKey('study-known'),
-                    onPressed: _answering
-                        ? null
-                        : () => _answer(word, known: true),
-                    child: const Text('안다'),
-                  ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: FilledButton(
+                  key: const ValueKey('study-next'),
+                  onPressed: _saving ? null : () => _next(word),
+                  child: const Text('다음'),
                 ),
-              ],
-            )
-          else
-            Text(
-              '카드를 누르면 뜻이 보입니다',
-              textAlign: TextAlign.center,
-              style: theme.textTheme.bodyMedium,
-            ),
+              ),
+            ],
+          ),
         ],
       ),
     );
@@ -269,15 +259,8 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
             textAlign: TextAlign.center,
             style: text.titleLarge,
           ),
-          const SizedBox(height: 8),
-          Text(
-            '안다 $_known · 모른다 $_unknown',
-            key: const ValueKey('study-summary'),
-            textAlign: TextAlign.center,
-            style: text.titleMedium,
-          ),
           if (_saveFailed) ...[
-            const SizedBox(height: 4),
+            const SizedBox(height: 8),
             Text(
               '일부 기록을 저장하지 못했습니다',
               key: const ValueKey('study-save-failed'),
@@ -286,28 +269,10 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
                 color: Theme.of(context).colorScheme.error,
               ),
             ),
-          ] else if (_unknown > 0 && !widget.review) ...[
-            const SizedBox(height: 4),
-            Text(
-              "'모른다' 단어는 오답 노트에 담았습니다",
-              textAlign: TextAlign.center,
-              style: text.bodyMedium,
-            ),
-          ] else if (widget.review) ...[
-            const SizedBox(height: 4),
-            Text(
-              '오답 노트에서 빼려면 오답 시험에서 맞히세요',
-              textAlign: TextAlign.center,
-              style: text.bodyMedium,
-            ),
           ],
           const SizedBox(height: 24),
+          // 돌아가기는 위쪽 ← 뒤로
           FilledButton(onPressed: _restart, child: const Text('다시 하기')),
-          // 돌아가기는 위쪽 ← 뒤로. 오답 노트에서 열었으면 노트로 돌아가는 버튼을 하나 더 둔다
-          if (widget.review) ...[
-            const SizedBox(height: 8),
-            OutlinedButton(onPressed: _leave, child: const Text('오답 노트로')),
-          ],
         ],
       ),
     );

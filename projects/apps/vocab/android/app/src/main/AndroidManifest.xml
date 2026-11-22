@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 앱 이름은 임시로 "영단어"(2026-11-22 사용자 결정(UX 점검)). 최종 이름·아이콘은 미정 —
+         정해지면 lib/app_info.dart의 appTitle과 함께 바꾼다 -->
     <application
-        android:label="vocab"
+        android:label="영단어"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

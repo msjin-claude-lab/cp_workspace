@@ -67,15 +67,69 @@ class _ProgressCalendarState extends State<ProgressCalendar> {
                 : null,
           ),
           alignment: Alignment.center,
-          child: Text(
-            '$day',
-            style: theme.textTheme.bodyMedium?.copyWith(
-              fontWeight: studied ? FontWeight.bold : null,
-            ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                '$day',
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  fontWeight: studied ? FontWeight.bold : null,
+                ),
+              ),
+              // 공부한 날은 숫자 아래 작은 점도 찍는다 — 오늘·고른 날의 테두리와 겹쳐도 공부한 날임이 보인다
+              // (2026-11-22 사용자 결정(UX 점검)). 점이 없는 날도 같은 높이를 차지해 숫자가 흔들리지 않는다
+              const SizedBox(height: 2),
+              Container(
+                key: studied ? ValueKey('cal-dot-$key') : null,
+                width: 5,
+                height: 5,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: studied ? theme.colorScheme.primary : null,
+                ),
+              ),
+            ],
           ),
         ),
       );
     }
+
+    Widget legendMark({
+      Color? fill,
+      Color? border,
+      double borderWidth = 1,
+      bool dot = false,
+    }) => Container(
+      width: 16,
+      height: 16,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: fill,
+        border: border == null
+            ? null
+            : Border.all(color: border, width: borderWidth),
+      ),
+      child: dot
+          ? Container(
+              width: 4,
+              height: 4,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: theme.colorScheme.primary,
+              ),
+            )
+          : null,
+    );
+
+    Widget legendItem(Widget mark, String label) => Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        mark,
+        const SizedBox(width: 4),
+        Text(label, style: theme.textTheme.bodySmall),
+      ],
+    );
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -123,11 +177,30 @@ class _ProgressCalendarState extends State<ProgressCalendar> {
           ],
         ),
         const SizedBox(height: 8),
+        // 범례: 달력의 표시가 무엇인지
+        Wrap(
+          key: const ValueKey('cal-legend'),
+          alignment: WrapAlignment.center,
+          spacing: 16,
+          runSpacing: 4,
+          children: [
+            legendItem(
+              legendMark(fill: theme.colorScheme.primaryContainer, dot: true),
+              '공부한 날',
+            ),
+            legendItem(legendMark(border: theme.colorScheme.outline), '오늘'),
+            legendItem(
+              legendMark(border: theme.colorScheme.primary, borderWidth: 2),
+              '고른 날',
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
         Text(
           selectedStat == null
               ? '${_selected.month}월 ${_selected.day}일 · 공부한 기록이 없습니다'
-              : '${_selected.month}월 ${_selected.day}일 · 공부 ${selectedStat.studied} · '
-                    '시험 맞힘 ${selectedStat.correct}',
+              : '${_selected.month}월 ${_selected.day}일 · 카드 ${selectedStat.cards}장 · '
+                    '시험 맞힘 ${selectedStat.correct}문제',
           key: const ValueKey('cal-selected'),
           textAlign: TextAlign.center,
           style: theme.textTheme.bodyLarge,

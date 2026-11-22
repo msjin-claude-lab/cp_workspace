@@ -2,11 +2,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:material_ui/material_ui.dart';
 
+import '../../data/app_settings.dart';
 import '../../data/cell.dart';
 import '../../data/speaker.dart';
 import '../../data/study_records.dart';
 import '../../data/word.dart';
 import '../../data/word_repository.dart';
+import '../common/leave_guard.dart';
 import '../wrong_notes/review_words.dart';
 import 'quiz.dart';
 
@@ -42,6 +44,15 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
   /// 오답 시험에서 맞혀 노트에서 뺀 단어 id. 다시 하기 때 이 단어는 묻지 않는다.
   final Set<String> _removed = {};
 
+  /// 이번 회차에 틀린 단어(결과 화면에 보인다).
+  final List<Word> _wrongWords = [];
+
+  /// 이번 회차 문제 수. 도중인지(결과 화면이 아닌지) 가릴 때 쓴다.
+  int _total = 0;
+
+  /// 도중: 첫 문제에서 아직 답하지 않았거나 결과 화면이면 아니다.
+  bool get _inProgress => _index < _total && (_index > 0 || _chosen != null);
+
   void _speak(Word word) => ref.read(speakerProvider).speak(word.word);
 
   Future<void> _choose(QuizQuestion q, int option) async {
@@ -50,7 +61,11 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
     final remove = widget.review && correct;
     setState(() {
       _chosen = option;
-      if (correct) _correct++;
+      if (correct) {
+        _correct++;
+      } else {
+        _wrongWords.add(q.word);
+      }
       // 저장이 끝나기 전에 다시 하기를 눌러도 맞힌 단어가 다시 나오지 않게 먼저 표시한다
       if (remove) _removed.add(q.word.id);
     });
@@ -83,6 +98,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
     _index = 0;
     _chosen = null;
     _correct = 0;
+    _wrongWords.clear();
     _spokenIndex = null;
     _saveFailed = false;
   });
@@ -102,33 +118,45 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
     final asked = widget.review
         ? ref.watch(reviewWordsProvider(widget.deck))
         : all;
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          widget.review
-              ? '${widget.deck.label} - 오답 시험'
-              : '${widget.deck.label} - 시험',
+    return LeaveGuard(
+      // 도중에 ← 뒤로(앱바·시스템)를 누르면 먼저 묻는다(2026-11-22 사용자 결정(UX 점검))
+      inProgress: _inProgress,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            widget.review
+                ? '${widget.deck.label} - 오답 시험'
+                : '${widget.deck.label} - 시험',
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
-      ),
-      body: SafeArea(
-        child: switch ((asked, all)) {
-          (AsyncData(value: final words), AsyncData(value: final pool)) =>
-            _body(words, pool),
-          (AsyncError(), _) ||
-          (_, AsyncError()) => const Center(child: Text('단어를 읽지 못했습니다')),
-          _ => const Center(child: CircularProgressIndicator()),
-        },
+        body: SafeArea(
+          // 설정을 읽은 뒤에야 문제를 만든다(읽는 동안 엉뚱한 문항 수가 보이지 않게)
+          child: switch ((asked, all, ref.watch(appSettingsProvider))) {
+            (
+              AsyncData(value: final words),
+              AsyncData(value: final pool),
+              AsyncData(value: final s),
+            ) =>
+              _body(words, pool, s.quizCount),
+            (AsyncError(), _, _) ||
+            (_, AsyncError(), _) => const Center(child: Text('단어를 읽지 못했습니다')),
+            _ => const Center(child: CircularProgressIndicator()),
+          },
+        ),
       ),
     );
   }
 
-  Widget _body(List<Word> words, List<Word> pool) {
+  Widget _body(List<Word> words, List<Word> pool, int length) {
     final questions = _questions ??= buildQuiz(
       [
         for (final w in words)
           if (!_removed.contains(w.id)) w,
       ],
       ref.read(quizRandomProvider),
+      length: length,
       pool: pool,
     );
     if (questions.isEmpty) {
@@ -144,6 +172,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
         ),
       );
     }
+    _total = questions.length;
     if (_index >= questions.length) return _summary(questions.length);
     return _question(questions[_index], questions.length);
   }
@@ -310,72 +339,126 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
     );
   }
 
+  /// 오답 노트 보기: 시험 화면을 노트로 바꿔 열어 ← 뒤로가 홈으로 가게 한다
+  /// (시험 화면을 남겨 두면 뒤로가 끝난 시험으로 돌아온다).
+  void _openWrongNotes() {
+    if (ModalRoute.of(context)?.isCurrent != true) return; // 빠른 두 번 누름
+    context.pushReplacement('/wrong-notes/${widget.deck.id}');
+  }
+
+  void _goHome() => context.go('/');
+
   Widget _summary(int total) {
     final text = Theme.of(context).textTheme;
     final wrong = total - _correct;
-    return Padding(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text(
-            '$total문제 중 $_correct문제 맞혔습니다',
-            key: const ValueKey('quiz-summary'),
-            textAlign: TextAlign.center,
-            style: text.titleLarge,
-          ),
-          if (_saveFailed) ...[
+    final percent = total == 0 ? 0 : (_correct * 100 / total).round();
+    return Center(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              '$total문제 중 $_correct문제 맞혔습니다',
+              key: const ValueKey('quiz-summary'),
+              textAlign: TextAlign.center,
+              style: text.titleLarge,
+            ),
             const SizedBox(height: 4),
             Text(
-              '일부 기록을 저장하지 못했습니다',
-              key: const ValueKey('quiz-save-failed'),
+              '$percent%',
+              key: const ValueKey('quiz-percent'),
               textAlign: TextAlign.center,
-              style: text.bodyMedium?.copyWith(
-                color: Theme.of(context).colorScheme.error,
-              ),
+              style: text.headlineMedium,
             ),
-          ] else if (widget.review) ...[
-            if (_correct > 0) ...[
-              const SizedBox(height: 4),
-              Text(
-                '맞힌 $_correct단어는 오답 노트에서 뺐습니다',
-                key: const ValueKey('quiz-review-removed'),
-                textAlign: TextAlign.center,
-                style: text.bodyMedium,
-              ),
-            ],
-            if (wrong > 0) ...[
-              const SizedBox(height: 4),
-              Text(
-                '틀린 $wrong단어는 오답 노트에 남았습니다',
-                textAlign: TextAlign.center,
-                style: text.bodyMedium,
-              ),
-            ],
-          ] else if (wrong > 0) ...[
-            const SizedBox(height: 4),
-            Text(
-              '틀린 단어 $wrong개는 오답 노트에 담았습니다',
-              textAlign: TextAlign.center,
-              style: text.bodyMedium,
-            ),
+            ..._summaryBody(text, wrong),
           ],
-          const SizedBox(height: 24),
-          FilledButton(
-            onPressed: _restart,
-            child: Text(widget.review ? '남은 오답 다시 하기' : '다시 하기 (새로 섞기)'),
-          ),
-          // 돌아가기는 위쪽 ← 뒤로. 오답 노트에서 열었으면 노트로 돌아가는 버튼을 하나 더 둔다
-          if (widget.review) ...[
-            const SizedBox(height: 8),
-            OutlinedButton(
-              onPressed: _backToCells,
-              child: const Text('오답 노트로'),
-            ),
-          ],
-        ],
+        ),
       ),
     );
+  }
+
+  /// 결과의 나머지: 저장 실패·오답 노트 안내·이번에 틀린 단어·버튼.
+  List<Widget> _summaryBody(TextTheme text, int wrong) {
+    return [
+      if (_saveFailed) ...[
+        const SizedBox(height: 4),
+        Text(
+          '일부 기록을 저장하지 못했습니다',
+          key: const ValueKey('quiz-save-failed'),
+          textAlign: TextAlign.center,
+          style: text.bodyMedium?.copyWith(
+            color: Theme.of(context).colorScheme.error,
+          ),
+        ),
+      ] else if (widget.review) ...[
+        if (_correct > 0) ...[
+          const SizedBox(height: 4),
+          Text(
+            '맞힌 $_correct단어는 오답 노트에서 뺐습니다',
+            key: const ValueKey('quiz-review-removed'),
+            textAlign: TextAlign.center,
+            style: text.bodyMedium,
+          ),
+        ],
+        if (wrong > 0) ...[
+          const SizedBox(height: 4),
+          Text(
+            '틀린 $wrong단어는 오답 노트에 남았습니다',
+            textAlign: TextAlign.center,
+            style: text.bodyMedium,
+          ),
+        ],
+      ] else if (wrong > 0) ...[
+        const SizedBox(height: 4),
+        // 새로 담긴 개수는 말하지 않는다 — 이미 노트에 있던 단어도 있어 개수가 맞지 않는다
+        Text(
+          '틀린 단어는 오답 노트에 있습니다',
+          key: const ValueKey('quiz-wrong-in-notes'),
+          textAlign: TextAlign.center,
+          style: text.bodyMedium,
+        ),
+      ],
+      if (_wrongWords.isNotEmpty) ...[
+        const SizedBox(height: 16),
+        Text('이번에 틀린 단어', style: text.titleMedium),
+        const SizedBox(height: 4),
+        for (final w in _wrongWords)
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 2),
+            child: Text(
+              '${w.word} — ${w.meaning}',
+              key: ValueKey('quiz-wrong-${w.id}'),
+              style: text.bodyLarge,
+            ),
+          ),
+      ],
+      const SizedBox(height: 24),
+      FilledButton(
+        key: const ValueKey('quiz-again'),
+        onPressed: _restart,
+        child: Text(widget.review ? '남은 오답 다시 하기' : '다시 하기'),
+      ),
+      if (widget.review) ...[
+        // 오답 노트에서 열었으면 노트로 돌아가는 버튼을 하나 더 둔다
+        const SizedBox(height: 8),
+        OutlinedButton(onPressed: _backToCells, child: const Text('오답 노트로')),
+      ] else ...[
+        if (wrong > 0) ...[
+          const SizedBox(height: 8),
+          OutlinedButton(
+            key: const ValueKey('quiz-to-notes'),
+            onPressed: _openWrongNotes,
+            child: const Text('오답 노트 보기'),
+          ),
+        ],
+        const SizedBox(height: 8),
+        OutlinedButton(
+          key: const ValueKey('quiz-home'),
+          onPressed: _goHome,
+          child: const Text('홈으로'),
+        ),
+      ],
+    ];
   }
 }

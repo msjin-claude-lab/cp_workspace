@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:vocab/data/app_settings.dart';
 import 'package:vocab/data/cell.dart';
 import 'package:vocab/data/cell_store.dart';
 import 'package:vocab/data/speaker.dart';
@@ -8,6 +11,19 @@ import 'package:vocab/data/word_books.dart';
 import 'package:vocab/data/word_repository.dart';
 
 /// 시험(test)에서 함께 쓰는 가짜들. 모두 메모리에만 둔다.
+
+/// 섞어도 순서가 바뀌지 않게 하는 난수(`List.shuffle`이 늘 제자리와 바꾸게 한다).
+/// 카드 순서를 정해 두고 확인하는 시험에서 `quizRandomProvider`에 넣는다.
+class NoShuffleRandom implements Random {
+  @override
+  int nextInt(int max) => max - 1;
+
+  @override
+  bool nextBool() => false;
+
+  @override
+  double nextDouble() => 0;
+}
 
 Word fakeWord(String id, String word, String meaning) => Word(
   id: id,
@@ -113,9 +129,10 @@ class FakeSpeaker implements Speaker {
   Future<void> speak(String text) async => spoken.add(text);
 }
 
-/// 기록과 오답 노트를 메모리에 둔다. 실제 구현처럼 '모른다'·틀림이면 그 단어장의 노트에 넣는다.
+/// 기록과 오답 노트를 메모리에 둔다. 실제 구현처럼 틀림이면 그 단어장의 노트에 넣는다(카드 학습은 노트에 넣지 않는다).
 class FakeRecords implements StudyRecords {
-  final List<(String, bool)> studied = [];
+  /// 카드를 넘겨 본 단어 id.
+  final List<String> studied = [];
   final List<(String, bool)> quizzed = [];
   final List<WrongNote> notes = [];
   final List<String> removed = [];
@@ -124,8 +141,8 @@ class FakeRecords implements StudyRecords {
   /// 시험 답: (단어장 id, 단어 id, 맞힘). 진도를 계산할 때 쓴다.
   final List<(String, String, bool)> _quizLog = [];
 
-  /// 답한 단어장 id(카드 학습 + 시험).
-  final List<String> _answeredDecks = [];
+  /// 카드를 넘겨 본 단어장 id.
+  final List<String> _cardDecks = [];
 
   /// 진도 화면에 돌려줄 집계(단어장 id별). 시험이 채운다. 없는 단어장은 기록으로 계산한다.
   final Map<String, Progress> progressValues = {};
@@ -139,15 +156,17 @@ class FakeRecords implements StudyRecords {
     for (final (d, w, ok) in _quizLog) {
       if (d == deck.id) last[w] = ok;
     }
-    final answered = _answeredDecks.where((d) => d == deck.id).length;
+    final cards = _cardDecks.where((d) => d == deck.id).length;
+    final answered = _quizLog.where((e) => e.$1 == deck.id).length;
     return Progress(
       memorized: last.values.where((ok) => ok).length,
       wrong: notes.where((n) => n.deck.id == deck.id).length,
       days: [
-        if (answered > 0)
+        if (cards + answered > 0)
           DayStat(
             day: dayKey(DateTime.now()),
-            studied: answered,
+            cards: cards,
+            answered: answered,
             correct: _quizLog.where((e) => e.$1 == deck.id && e.$3).length,
           ),
       ],
@@ -171,14 +190,12 @@ class FakeRecords implements StudyRecords {
   }
 
   @override
-  Future<void> recordAnswer({
+  Future<void> recordCardViewed({
     required Deck deck,
     required Word word,
-    required bool known,
   }) async {
-    studied.add((word.id, known));
-    _answeredDecks.add(deck.id);
-    if (!known) _miss(deck, word);
+    studied.add(word.id);
+    _cardDecks.add(deck.id);
   }
 
   @override
@@ -189,7 +206,6 @@ class FakeRecords implements StudyRecords {
   }) async {
     quizzed.add((word.id, correct));
     _quizLog.add((deck.id, word.id, correct));
-    _answeredDecks.add(deck.id);
     if (!correct) _miss(deck, word);
   }
 
@@ -210,6 +226,14 @@ class FakeRecords implements StudyRecords {
   Future<void> removeWrongNote(Deck deck, String wordId) async {
     removed.add(wordId);
     notes.removeWhere((n) => n.deck.id == deck.id && n.wordId == wordId);
+  }
+
+  @override
+  Future<void> restoreWrongNote(WrongNote note) async {
+    notes.removeWhere(
+      (n) => n.deck.id == note.deck.id && n.wordId == note.wordId,
+    );
+    notes.add(note);
   }
 }
 
@@ -306,5 +330,32 @@ class FakeWordBooks implements WordBooks {
     for (final list in bookWords.values) {
       list.removeWhere((w) => w.id == wordId);
     }
+  }
+}
+
+/// 설정을 메모리에 둔다. `fail`이 true면 저장이 실패한다. 값이 null이면 저장된 것이 없는 처음 실행.
+class FakeAppSettingsStore implements AppSettingsStore {
+  FakeAppSettingsStore({this.cardCount, this.quizCount});
+
+  int? cardCount;
+  int? quizCount;
+  bool fail = false;
+
+  @override
+  Future<int?> loadCardCount() async => cardCount;
+
+  @override
+  Future<int?> loadQuizCount() async => quizCount;
+
+  @override
+  Future<void> saveCardCount(int count) async {
+    if (fail) throw StateError('prefs');
+    cardCount = count;
+  }
+
+  @override
+  Future<void> saveQuizCount(int count) async {
+    if (fail) throw StateError('prefs');
+    quizCount = count;
   }
 }

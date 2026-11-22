@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
+import 'package:vocab/data/app_settings.dart';
 import 'package:vocab/data/cell.dart';
 import 'package:vocab/data/cell_store.dart';
 import 'package:vocab/data/speaker.dart';
@@ -11,7 +12,6 @@ import 'package:vocab/data/study_records.dart';
 import 'package:vocab/data/word_repository.dart';
 import 'package:vocab/features/quiz/quiz.dart';
 import 'package:vocab/features/quiz/quiz_screen.dart';
-import 'package:vocab/features/study/study_screen.dart';
 import 'package:vocab/features/wrong_notes/wrong_notes_screen.dart';
 import 'package:vocab/router.dart';
 
@@ -50,6 +50,7 @@ void main() {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
+          appSettingsStoreProvider.overrideWithValue(FakeAppSettingsStore()),
           wordRepositoryProvider.overrideWithValue(FakeRepository(words)),
           cellStoreProvider.overrideWithValue(
             FakeCellStore(selectedDeck: home.deckId),
@@ -122,6 +123,33 @@ void main() {
     ]);
   });
 
+  testWidgets('지운 뒤 되돌리기를 누르면 틀린 횟수와 시각 그대로 다시 생기고, 스낵바는 떠 있어 목록을 덮지 않는다', (
+    tester,
+  ) async {
+    records.notes.addAll([
+      fakeNote('ee-001', home, miss: 3, at: 7),
+      fakeNote('ee-002', home, miss: 1, at: 5),
+    ]);
+    await openWrongNotes(tester);
+
+    await tester.tap(find.byKey(const ValueKey('wrong-delete-ee-001')));
+    await tester.pumpAndSettle();
+    expect(find.text('apple'), findsNothing);
+    expect(
+      tester.widget<SnackBar>(find.byType(SnackBar)).behavior,
+      SnackBarBehavior.floating,
+    );
+
+    await tester.tap(find.byKey(const ValueKey('wrong-undo')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('apple'), findsOneWidget);
+    expect(find.text('2단어'), findsOneWidget);
+    final back = records.notes.singleWhere((n) => n.wordId == 'ee-001');
+    expect((back.missCount, back.lastMissedAt), (3, 7));
+    expect(find.text('틀림 3'), findsOneWidget);
+  });
+
   testWidgets('오답 시험에서 맞히면 돌아온 오답 노트에서 그 단어가 사라진다', (tester) async {
     records.notes.add(fakeNote('ee-002', home));
     // 화면과 같은 입력으로 만든 문제 — 정답 위치를 미리 안다
@@ -145,20 +173,13 @@ void main() {
     expect(find.byKey(const ValueKey('wrong-empty')), findsOneWidget);
   });
 
-  testWidgets('카드로 다시 보기는 그 단어장의 오답 단어만 연다', (tester) async {
-    records.notes.addAll([
-      fakeNote('ee-001', home),
-      fakeNote('ee-004', home),
-      fakeNote('ee-002', twin),
-    ]);
+  testWidgets('오답 노트에는 오답 시험만 있고 카드로 다시 보기 버튼은 없다', (tester) async {
+    records.notes.addAll([fakeNote('ee-001', home), fakeNote('ee-004', home)]);
     await openWrongNotes(tester);
 
-    await tester.tap(find.byKey(const ValueKey('wrong-study')));
-    await tester.pumpAndSettle();
-
-    expect(find.byType(StudyScreen), findsOneWidget);
-    expect(find.text('1 / 2'), findsOneWidget);
-    expect(find.text('apple'), findsOneWidget); // 파일 순서
+    expect(find.byKey(const ValueKey('wrong-quiz')), findsOneWidget);
+    expect(find.text('카드로 다시 보기'), findsNothing);
+    expect(find.byKey(const ValueKey('wrong-study')), findsNothing);
   });
 
   testWidgets('오답이 없으면 비어 있다고 알린다', (tester) async {

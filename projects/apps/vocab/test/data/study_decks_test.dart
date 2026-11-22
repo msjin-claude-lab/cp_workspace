@@ -52,7 +52,7 @@ void main() {
     final a = await decks.createDeck('지울 것', Cell.elementaryEasy);
     final b = await decks.createDeck('남길 것', Cell.elementaryEasy);
     await records.recordQuizAnswer(deck: a, word: w('ee-001'), correct: false);
-    await records.recordAnswer(deck: a, word: w('ee-002'), known: false);
+    await records.recordCardViewed(deck: a, word: w('ee-002'));
     await records.recordQuizAnswer(deck: b, word: w('ee-001'), correct: false);
 
     await decks.deleteDeck(a.deckId);
@@ -90,20 +90,20 @@ void main() {
       word: w('mm-001'),
       correct: true,
     );
-    await records.recordAnswer(
+    await records.recordQuizAnswer(
       deck: Cell.middleMedium,
       word: w('mm-002'),
-      known: false,
+      correct: false,
     );
     await records.recordQuizAnswer(
       deck: Cell.elementaryEasy,
       word: w('ee-001'),
       correct: false,
     );
-    await records.recordAnswer(
+    await records.recordQuizAnswer(
       deck: Cell.highHard,
       word: w('hh-001'),
-      known: false,
+      correct: false,
     );
 
     final selected = await decks.migrateLegacy(
@@ -122,7 +122,7 @@ void main() {
     // 기록이 새 단어장 id로 옮겨졌다
     final pm = await records.progress(middle);
     expect((pm.memorized, pm.wrong), (1, 1));
-    expect(pm.days.map((d) => d.studied), [2]);
+    expect(pm.days.map((d) => d.cards + d.answered), [2]);
     expect(
       (await records.deckWrongNotes(easy)).map((n) => (n.wordId, n.missCount)),
       [('ee-001', 1)],
@@ -165,10 +165,10 @@ void main() {
   });
 
   test('옮기는 중에 실패하면 아무것도 바뀌지 않아 다음 실행에서 처음부터 다시 옮긴다', () async {
-    await records.recordAnswer(
+    await records.recordQuizAnswer(
       deck: Cell.middleMedium,
       word: w('mm-001'),
-      known: false,
+      correct: false,
     );
     final db = await records.database;
     // 단어장을 만들고 study_log를 옮긴 뒤 wrong_notes를 옮기다 실패하도록 표 이름을 잠시 바꿔 둔다
@@ -183,7 +183,10 @@ void main() {
     await db.execute('ALTER TABLE wrong_notes_off RENAME TO wrong_notes');
     expect(await decks.decks(), isEmpty);
     final old = await records.progress(Cell.middleMedium);
-    expect((old.wrong, old.days.single.studied), (1, 1));
+    expect(
+      (old.wrong, old.days.single.cards + old.days.single.answered),
+      (1, 1),
+    );
 
     final selected = await decks.migrateLegacy(
       cells: [Cell.middleMedium],

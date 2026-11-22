@@ -52,11 +52,7 @@ void main() {
       word: word,
       correct: false,
     );
-    await records.recordAnswer(
-      deck: Cell.elementaryEasy,
-      word: word,
-      known: false,
-    );
+    await records.recordCardViewed(deck: Cell.elementaryEasy, word: word);
 
     final db = await databaseFactoryFfi.openDatabase(path);
     expect(await db.getVersion(), SqfliteStudyRecords.schemaVersion);
@@ -75,11 +71,11 @@ void main() {
       ],
     );
     expect(await db.rawQuery('SELECT known FROM study_log'), [
-      {'known': 0},
+      {'known': 1},
     ]);
-    // 시험 오답 1번 + 학습 모른다 1번 → 같은 줄의 틀린 횟수 2
+    // 카드를 넘겨 본 것은 오답 노트에 넣지 않는다(시험 오답 1번만 센다)
     expect(await db.rawQuery('SELECT word_id, miss_count FROM wrong_notes'), [
-      {'word_id': 'ee-001', 'miss_count': 2},
+      {'word_id': 'ee-001', 'miss_count': 1},
     ]);
     await db.close();
   });
@@ -96,11 +92,12 @@ void main() {
       example: 'x',
       exampleMeaning: 'y',
     );
-    await records.recordAnswer(
+    await records.recordQuizAnswer(
       deck: Cell.elementaryEasy,
       word: word,
-      known: false,
+      correct: false,
     );
+    await records.recordCardViewed(deck: Cell.elementaryEasy, word: word);
     await Future<void>.delayed(const Duration(milliseconds: 5));
     await records.recordQuizAnswer(
       deck: Cell.middleHard,
@@ -256,10 +253,10 @@ void main() {
     await quiz('ee-002', false); // 틀림 → 해제
     await quiz('ee-003', true); // 외움
     await quiz('mh-001', true, Cell.middleHard);
-    await records.recordAnswer(
+    // 카드를 넘겨 본 것은 외운 수·오답 수에 들어가지 않고 공부 수에만 든다
+    await records.recordCardViewed(
       deck: Cell.elementaryEasy,
       word: w('ee-004'),
-      known: true, // 카드 학습의 '안다'는 외운 수에 들어가지 않는다
     );
 
     final easy = await records.progress(Cell.elementaryEasy);
@@ -267,14 +264,15 @@ void main() {
     // 오답 노트: ee-001(틀린 적 있음 — 일반 시험에서 맞혀도 남는다), ee-002
     expect(easy.wrong, 2);
     final today = dayKey(DateTime.now());
-    // 날짜별 기록은 그 묶음 것만 센다(초등 쉬움 6건 · 맞힘 3, 중등 어려움 1건 · 맞힘 1)
-    expect(easy.days.map((d) => (d.day, d.studied, d.correct)), [
-      (today, 6, 3),
+    // 날짜별 기록은 그 묶음 것만 세고, 카드 수와 시험 답 수를 따로 센다
+    // (초등 쉬움 카드 1장 · 시험 5문제 · 맞힘 3, 중등 어려움 시험 1문제 · 맞힘 1)
+    expect(easy.days.map((d) => (d.day, d.cards, d.answered, d.correct)), [
+      (today, 1, 5, 3),
     ]);
     expect(easy.elapsedDays(DateTime.now()), 1);
     final hard = await records.progress(Cell.middleHard);
     expect((hard.memorized, hard.wrong), (1, 0));
-    expect(hard.days.map((d) => (d.studied, d.correct)), [(1, 1)]);
+    expect(hard.days.map((d) => (d.cards, d.answered, d.correct)), [(0, 1, 1)]);
     final none = await records.progress(Cell.highEasy);
     expect((none.memorized, none.wrong), (0, 0));
     expect(none.days, isEmpty);
@@ -400,9 +398,9 @@ void main() {
     await records.recordQuizAnswer(deck: a, word: word, correct: false);
     await records.recordQuizAnswer(deck: a, word: word, correct: false);
     await records.recordQuizAnswer(deck: a, word: book, correct: true);
-    // b에서는 같은 단어를 맞힌 뒤 한 번 모른다
+    // b에서는 같은 단어를 맞힌 뒤 한 번 틀린다
     await records.recordQuizAnswer(deck: b, word: word, correct: true);
-    await records.recordAnswer(deck: b, word: book, known: false);
+    await records.recordQuizAnswer(deck: b, word: book, correct: false);
 
     final notesA = await records.deckWrongNotes(a);
     expect(notesA.map((n) => (n.wordId, n.deck, n.missCount)), [
@@ -418,8 +416,8 @@ void main() {
     final pb = await records.progress(b);
     expect((pa.memorized, pa.wrong), (1, 1));
     expect((pb.memorized, pb.wrong), (1, 1));
-    expect(pa.days.map((d) => (d.studied, d.correct)), [(3, 1)]);
-    expect(pb.days.map((d) => (d.studied, d.correct)), [(2, 1)]);
+    expect(pa.days.map((d) => (d.cards, d.answered, d.correct)), [(0, 3, 1)]);
+    expect(pb.days.map((d) => (d.cards, d.answered, d.correct)), [(0, 2, 1)]);
 
     // 한 단어장에서 빼도 다른 단어장의 같은 단어는 남는다
     await records.recordQuizAnswer(deck: b, word: word, correct: false);
@@ -434,9 +432,56 @@ void main() {
     await (await records.database).close();
   });
 
+  test('지운 오답 노트를 되살리면 틀린 횟수와 처음·마지막 시각이 그대로이고, 그 사이 생긴 줄은 덮어쓴다', () async {
+    final records = SqfliteStudyRecords(
+      factory: databaseFactoryFfi,
+      path: path,
+    );
+    const deck = StudyDeck(deckId: 1, name: '아침', base: Cell.elementaryEasy);
+    const other = StudyDeck(deckId: 2, name: '저녁', base: Cell.elementaryEasy);
+    await records.recordQuizAnswer(deck: deck, word: word, correct: false);
+    await records.recordQuizAnswer(deck: deck, word: word, correct: false);
+    await records.recordQuizAnswer(deck: other, word: word, correct: false);
+    // 시각을 알아볼 수 있는 값으로 바꿔 둔다
+    final db = await records.database;
+    await db.update(
+      'wrong_notes',
+      {'first_missed_at': 1000, 'last_missed_at': 2000},
+      where: 'cell_id = ?',
+      whereArgs: [deck.id],
+    );
+
+    final before = (await records.deckWrongNotes(deck)).single;
+    expect(
+      (before.missCount, before.firstMissedAt, before.lastMissedAt),
+      (2, 1000, 2000),
+    );
+    await records.removeWrongNote(deck, word.id);
+    expect(await records.deckWrongNotes(deck), isEmpty);
+
+    await records.restoreWrongNote(before);
+    final after = (await records.deckWrongNotes(deck)).single;
+    expect((after.wordId, after.missCount), (word.id, 2));
+    expect((after.firstMissedAt, after.lastMissedAt), (1000, 2000));
+    // 다른 단어장의 같은 단어는 건드리지 않는다
+    expect((await records.deckWrongNotes(other)).single.missCount, 1);
+
+    // 지운 사이에 다시 틀려 줄이 새로 생겼어도 되살린 값으로 덮어쓴다(줄이 둘이 되지 않는다)
+    await records.removeWrongNote(deck, word.id);
+    await records.recordQuizAnswer(deck: deck, word: word, correct: false);
+    await records.restoreWrongNote(before);
+    final again = await records.deckWrongNotes(deck);
+    expect(again, hasLength(1));
+    expect(again.single.missCount, 2);
+    await db.close();
+  });
+
   test('진행 일수는 처음 공부한 날을 1일로 치고 오늘까지 달력 날짜로 센다', () {
     Progress days(List<String> list) => Progress(
-      days: [for (final d in list) DayStat(day: d, studied: 1, correct: 0)],
+      days: [
+        for (final d in list)
+          DayStat(day: d, cards: 1, answered: 0, correct: 0),
+      ],
     );
     final today = DateTime(2026, 11, 22, 23, 59);
 

@@ -30,8 +30,23 @@ class HomeScreen extends ConsumerWidget {
     return list.when(
       loading: () =>
           const Scaffold(body: Center(child: CircularProgressIndicator())),
-      error: (_, _) =>
-          const Scaffold(body: Center(child: Text('단어장을 읽지 못했습니다'))),
+      error: (_, _) => Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text('단어장을 읽지 못했습니다'),
+              const SizedBox(height: 16),
+              // 다시 읽는 동안은 위 loading 분기의 진행 표시가 보인다
+              FilledButton(
+                key: const ValueKey('home-retry'),
+                onPressed: () => ref.invalidate(deckListProvider),
+                child: const Text('다시 시도'),
+              ),
+            ],
+          ),
+        ),
+      ),
       data: (value) => switch (value.current) {
         final deck? => DeckHomeScreen(deck: deck),
         null => const StartScreen(),
@@ -45,7 +60,11 @@ class HomeScreen extends ConsumerWidget {
 Future<void> startCreateDeck(BuildContext context) async {
   if (ModalRoute.of(context)?.isCurrent != true) return; // 빠른 두 번 누름
   final router = GoRouter.of(context);
-  final name = await showBookNameDialog(context, title: '새 단어장');
+  final name = await showBookNameDialog(
+    context,
+    title: '새 단어장',
+    confirmLabel: '다음', // 이름 다음에 학교급·난이도를 고른다. 이름 바꾸기는 '저장'
+  );
   if (name == null) return;
   router.push(Uri(path: '/pick', queryParameters: {'name': name}).toString());
 }
@@ -148,6 +167,17 @@ class _Guide extends StatelessWidget {
   );
 }
 
+/// 새 단어장 고르기 화면의 제목 `새 단어장 - <이름>`. 이름이 길면 줄임표로 줄인다.
+class _NewDeckTitle extends StatelessWidget {
+  const _NewDeckTitle(this.name);
+
+  final String name;
+
+  @override
+  Widget build(BuildContext context) =>
+      Text('새 단어장 - $name', maxLines: 1, overflow: TextOverflow.ellipsis);
+}
+
 /// 새 단어장 ② 학교급 고르기(① 이름은 창으로 받았다). 홈 위에 쌓아 ← 뒤로로 그만둘 수 있다.
 class LevelPickerScreen extends StatelessWidget {
   const LevelPickerScreen({super.key, required this.name});
@@ -158,13 +188,14 @@ class LevelPickerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // 제목은 앱 이름, 할 일은 버튼 위 안내 문구로(2026-11-20 사용자 결정 — "학교급 고르기"는 어색)
-      appBar: AppBar(title: const Text(appTitle), centerTitle: true),
+      // 제목은 만들고 있는 단어장 이름, 할 일은 버튼 위 안내 문구로
+      // (2026-11-22 사용자 결정(UX 점검) — 두 고르기 화면이 같은 제목으로 한 흐름임을 보인다)
+      appBar: AppBar(title: _NewDeckTitle(name)),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.all(24),
           children: [
-            const _Guide('어느 단계를 공부할까요?'),
+            const _Guide('학교급을 골라 주세요'),
             for (final level in SchoolLevel.values)
               _PickButton(
                 key: ValueKey('pick-${level.name}'),
@@ -225,7 +256,7 @@ class _DifficultyPickerScreenState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.level.label)),
+      appBar: AppBar(title: _NewDeckTitle(widget.name)),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.all(24),
@@ -293,7 +324,7 @@ class DeckHomeScreen extends ConsumerWidget {
             onPressed: () => Scaffold.of(context).openDrawer(),
           ),
         ),
-        title: Text(deck.name),
+        title: Text(deck.name, maxLines: 1, overflow: TextOverflow.ellipsis),
       ),
       drawer: _MenuDrawer(current: deck),
       // 오른쪽 아래 동그란 버튼(글쓰기 아이콘): 새 등록 — 무조건 새 단어장을 만든다(2026-11-22 사용자 결정).
@@ -355,6 +386,13 @@ class DeckHomeScreen extends ConsumerWidget {
               icon: Icons.bar_chart,
               label: '진도',
               onPressed: () => _open(context, ref, '/progress/${deck.id}'),
+            ),
+            // 진도 바로 아래(2026-11-22 사용자 결정): 카드 학습 단어 수·시험 문항 수
+            _HomeAction(
+              key: const ValueKey('home-settings'),
+              icon: Icons.settings,
+              label: '설정',
+              onPressed: () => _open(context, ref, '/settings'),
             ),
           ],
         ),
@@ -428,8 +466,9 @@ class _MenuDrawer extends ConsumerWidget {
     final decks = ref.read(deckListProvider.notifier);
     final ok = await confirmDelete(
       context,
-      title: '단어장 지우기',
-      message: '"${deck.name}" 단어장과 그 오답 노트를 지웁니다.',
+      // 무엇을 잃는지 밝힌다(2026-11-22 사용자 결정(UX 점검)). 기록은 DB에 남지만 다시 볼 길이 없다
+      title: '"${deck.name}" 단어장을 지울까요?',
+      message: '이 단어장의 오답 노트와 진도 기록이 사라지고 되돌릴 수 없습니다.',
     );
     if (!ok) return;
     try {
@@ -471,7 +510,12 @@ class _MenuDrawer extends ConsumerWidget {
             for (final deck in decks)
               ListTile(
                 key: ValueKey('menu-deck-${deck.deckId}'),
-                title: Text(deck.name),
+                // 긴 이름은 두 줄까지 보이고 그 뒤는 줄임표
+                title: Text(
+                  deck.name,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
                 subtitle: Text(deck.base.label),
                 selected: deck == current,
                 trailing: Row(

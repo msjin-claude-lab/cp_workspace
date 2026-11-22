@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:material_ui/material_ui.dart';
+import 'package:vocab/data/app_settings.dart';
 import 'package:vocab/data/cell.dart';
 import 'package:vocab/data/cell_store.dart';
 import 'package:vocab/data/speaker.dart';
@@ -43,6 +44,7 @@ void main() {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
+          appSettingsStoreProvider.overrideWithValue(FakeAppSettingsStore()),
           wordRepositoryProvider.overrideWithValue(
             FakeRepository({
               Cell.elementaryEasy: [fakeWord('ee-001', 'apple', '사과')],
@@ -288,7 +290,7 @@ void main() {
     expect(find.text('단어가 4개 이상 있어야 시험을 볼 수 있습니다'), findsOneWidget);
     await tapKey(tester, 'wrong-quiz');
     expect(find.byType(QuizScreen), findsNothing);
-    expect(find.byKey(const ValueKey('wrong-study')), findsOneWidget);
+    expect(find.text('카드로 다시 보기'), findsNothing);
   });
 
   testWidgets('시험은 단어가 4개보다 적으면 막혀 있고, 4개가 되면 열린다', (tester) async {
@@ -325,7 +327,9 @@ void main() {
     expect(find.text('1 / 4'), findsOneWidget);
   });
 
-  testWidgets('카드 학습은 단어장 단어를 넣은 순서대로 보여 주고, 빈 예문 줄은 그리지 않는다', (tester) async {
+  testWidgets('카드 학습은 단어장 단어를 한 번씩(무작위 순서로) 보여 주고, 빈 예문 줄은 그리지 않는다', (
+    tester,
+  ) async {
     final id = books.seed('내 것', [('cat', '고양이'), ('dog', '개')]);
     await openBook(tester, id);
 
@@ -333,22 +337,27 @@ void main() {
     expect(find.byType(StudyScreen), findsOneWidget);
     expect(find.text('내 것 - 카드 학습'), findsOneWidget);
     expect(find.text('1 / 2'), findsOneWidget);
-    expect(find.text('cat'), findsOneWidget);
+    // 순서는 섞이므로(2026-11-22 사용자 결정) 어느 단어가 먼저 나왔는지 보고 따라간다
+    final catFirst = find.text('cat').evaluate().isNotEmpty;
+    final words = books.bookWords[id]!;
+    final first = catFirst ? words.first : words.last;
+    final second = catFirst ? words.last : words.first;
+    expect(find.text(first.word), findsOneWidget);
+    expect(find.text(second.word), findsNothing);
 
     await tapKey(tester, 'study-card');
-    expect(find.text('고양이'), findsOneWidget);
+    expect(find.text(first.meaning), findsOneWidget);
     expect(find.text(''), findsNothing); // 예문·해석이 없으면 빈 글자를 두지 않는다
-    await tapKey(tester, 'study-unknown');
-    expect(find.text('dog'), findsOneWidget);
+    await tapKey(tester, 'study-next');
+    expect(find.text(second.word), findsOneWidget);
 
-    final cat = books.bookWords[id]!.first;
-    expect(records.studied, [(cat.id, false)]);
-    expect(records.notes.single.deck, BookDeck(bookId: id, name: '내 것'));
-
-    // 돌아오면 단어장 화면의 오답 수가 바뀐다
+    expect(records.studied, [first.id]);
+    // 카드 학습은 오답 노트에 넣지 않는다
+    expect(records.notes, isEmpty);
     await tester.pageBack();
     await tester.pumpAndSettle();
-    expect(find.text('오답 노트 · 1단어'), findsOneWidget);
+    await tapKey(tester, 'leave-exit'); // 도중이라 묻는다
+    expect(find.text('오답 노트 · 0단어'), findsOneWidget);
   });
 
   testWidgets('시험에서 틀린 단어는 그 단어장의 오답 노트에 들어가고, 오답 시험에서 맞히면 빠진다', (
@@ -410,19 +419,6 @@ void main() {
     await tester.pageBack();
     await tester.pumpAndSettle();
     expect(find.text('오답 노트 · 0단어'), findsOneWidget);
-  });
-
-  testWidgets('오답 다시 보기의 제목도 단어장 이름을 쓴다', (tester) async {
-    final id = books.seed('내 것', [('cat', '고양이'), ('dog', '개')]);
-    final dog = books.bookWords[id]![1];
-    records.notes.add(fakeNote(dog.id, BookDeck(bookId: id, name: '내 것')));
-    await openBook(tester, id);
-
-    await tapKey(tester, 'book-wrong');
-    await tapKey(tester, 'wrong-study');
-    expect(find.text('내 것 - 오답 다시 보기'), findsOneWidget);
-    expect(find.text('1 / 1'), findsOneWidget);
-    expect(find.text('dog'), findsOneWidget);
   });
 
   testWidgets('없는 단어장 주소는 안내만 보인다', (tester) async {

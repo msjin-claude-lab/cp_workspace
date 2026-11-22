@@ -152,7 +152,8 @@ void main() {
 
     // 단어를 지우면 그 단어의 오답 노트도 지우고, 학습 기록은 남긴다
     final deck = BookDeck(bookId: a, name: '동물');
-    await records.recordAnswer(deck: deck, word: words[1], known: false);
+    await records.recordQuizAnswer(deck: deck, word: words[1], correct: false);
+    await records.recordCardViewed(deck: deck, word: words[1]);
     expect((await records.deckWrongNotes(deck)).map((n) => n.wordId), [
       words[1].id,
     ]);
@@ -183,12 +184,12 @@ void main() {
     );
 
     await records.recordQuizAnswer(deck: deckA, word: cat, correct: false);
-    await records.recordAnswer(deck: deckA, word: cat, known: false);
+    await records.recordCardViewed(deck: deckA, word: cat);
     await records.recordQuizAnswer(deck: deckB, word: sun, correct: false);
-    await records.recordAnswer(
+    await records.recordQuizAnswer(
       deck: Cell.elementaryEasy,
       word: apple,
-      known: false,
+      correct: false,
     );
 
     await books.deleteBook(a);
@@ -244,7 +245,7 @@ void main() {
 
     await records.recordQuizAnswer(deck: deck, word: cat, correct: true);
     await records.recordQuizAnswer(deck: deck, word: dog, correct: false);
-    await records.recordAnswer(deck: deck, word: cat, known: false);
+    await records.recordCardViewed(deck: deck, word: cat);
 
     final db = await records.database;
     expect(
@@ -259,11 +260,8 @@ void main() {
     ]);
     expect(Cell.byId(deck.id), isNull);
 
-    // 단어장의 오답 노트에는 들어가고(최근에 틀린 것이 위)
-    expect((await records.deckWrongNotes(deck)).map((n) => n.wordId), [
-      'bw-1',
-      'bw-2',
-    ]);
+    // 단어장의 오답 노트에는 시험에서 틀린 것만 들어간다(카드로 본 cat은 안 들어감)
+    expect((await records.deckWrongNotes(deck)).map((n) => n.wordId), ['bw-2']);
     // 진도(외운 수·오답 수·날짜별)와 학교급 오답 노트에는 나오지 않는다
     for (final cell in Cell.values) {
       final progress = await records.progress(cell);
@@ -276,6 +274,6 @@ void main() {
     }
     // 그 단어장의 진도에는 그 단어장 것만 들어간다
     final own = await records.progress(deck);
-    expect((own.memorized, own.wrong), (1, 2));
+    expect((own.memorized, own.wrong), (1, 1));
   });
 }

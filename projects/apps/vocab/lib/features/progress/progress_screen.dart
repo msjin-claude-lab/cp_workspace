@@ -20,7 +20,13 @@ class ProgressScreen extends ConsumerWidget {
     final progress = ref.watch(progressProvider(deck));
     final text = Theme.of(context).textTheme;
     return Scaffold(
-      appBar: AppBar(title: Text('${deck.label} - 진도')),
+      appBar: AppBar(
+        title: Text(
+          '${deck.label} - 진도',
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
+      ),
       body: SafeArea(
         child: progress.when(
           loading: () => const Center(child: CircularProgressIndicator()),
@@ -82,12 +88,28 @@ class _Summary extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            '외움 $done/$total · 오답 $wrong',
+            '외운 단어 $done/$total',
+            key: const ValueKey('progress-memorized'),
             textAlign: TextAlign.center,
             style: theme.textTheme.titleMedium,
           ),
+          const SizedBox(height: 4),
+          // "외웠다"의 뜻을 밝힌다(2026-11-22 사용자 결정(UX 점검) — 숫자가 무엇인지 모르겠다는 지적)
+          Text(
+            '시험에서 맞힌 단어를 외운 것으로 셉니다',
+            key: const ValueKey('progress-caption'),
+            textAlign: TextAlign.center,
+            style: theme.textTheme.bodySmall,
+          ),
           const SizedBox(height: 12),
           LinearProgressIndicator(value: total == 0 ? 0 : done / total),
+          const SizedBox(height: 12),
+          Text(
+            '오답 노트 $wrong단어',
+            key: const ValueKey('progress-wrong'),
+            textAlign: TextAlign.center,
+            style: theme.textTheme.titleMedium,
+          ),
         ],
       ),
     );

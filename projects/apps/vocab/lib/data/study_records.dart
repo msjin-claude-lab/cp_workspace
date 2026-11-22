@@ -6,16 +6,13 @@ import 'package:sqflite/sqflite.dart';
 import 'cell.dart';
 import 'word.dart';
 
-/// 학습 기록(안다/모른다)·시험 기록(맞힘/틀림)과 오답 노트를 기기 안에 저장한다.
+/// 카드를 넘겨 본 기록·시험 기록(맞힘/틀림)과 오답 노트를 기기 안에 저장한다.
 /// 시험(test)에서는 가짜로 바꾼다.
 abstract interface class StudyRecords {
-  /// 카드 하나에 답한 것을 남긴다. 모른다(`known == false`)면 오답 노트에도 넣는다.
+  /// 카드 하나를 넘겨 본 것을 남긴다. 오답 노트에는 넣지 않는다 — 카드 학습은 스스로 채점하지 않고,
+  /// 오답 노트는 시험에서 틀린 단어만 담는다(2026-11-22 사용자 결정).
   /// `deck`은 칸 또는 내 단어장 — 기록의 `cell_id`에 `deck.id`가 들어간다.
-  Future<void> recordAnswer({
-    required Deck deck,
-    required Word word,
-    required bool known,
-  });
+  Future<void> recordCardViewed({required Deck deck, required Word word});
 
   /// 4지선다 한 문제의 결과를 남긴다. 틀리면(`correct == false`) 오답 노트에도 넣는다.
   /// 진도의 "외웠다"(시험에서 맞힘, 틀리면 해제)는 이 기록의 단어별 마지막 결과로 센다.
@@ -36,6 +33,10 @@ abstract interface class StudyRecords {
   /// 학습·시험 기록(`study_log`·`quiz_log`)은 그대로 둔다.
   Future<void> removeWrongNote(Deck deck, String wordId);
 
+  /// 지운 오답 노트를 틀린 횟수·시각 그대로 되살린다(지우기의 "되돌리기" — 2026-11-22 사용자 결정(UX 점검)).
+  /// 그 사이에 같은 단어가 다시 틀려 노트에 생겼으면 되살린 값으로 덮어쓴다.
+  Future<void> restoreWrongNote(WrongNote note);
+
   /// 진도 화면에 쓸 집계: `deck` 하나의 외운 수·오답 수·날짜별 공부 수·맞힌 수.
   /// 진도는 지금 단어장 것만 보여 준다(2026-11-22 사용자 결정 — 같은 칸으로 만든 다른 단어장의
   /// 기록도 섞지 않는다).
@@ -46,16 +47,20 @@ abstract interface class StudyRecords {
 class DayStat {
   const DayStat({
     required this.day,
-    required this.studied,
+    required this.cards,
+    required this.answered,
     required this.correct,
   });
 
   final String day;
 
-  /// 그날 답한 횟수(카드 학습 + 시험).
-  final int studied;
+  /// 그날 넘겨 본 카드 수(카드 학습).
+  final int cards;
 
-  /// 그날 시험에서 맞힌 횟수.
+  /// 그날 시험에서 답한 문제 수.
+  final int answered;
+
+  /// 그날 시험에서 맞힌 문제 수.
   final int correct;
 }
 
@@ -97,6 +102,7 @@ class WrongNote {
     required this.deck,
     required this.missCount,
     required this.lastMissedAt,
+    this.firstMissedAt,
   });
 
   final String wordId;
@@ -104,11 +110,14 @@ class WrongNote {
   /// 단어가 속한 칸 또는 내 단어장.
   final Deck deck;
 
-  /// 모른다·틀림을 받은 횟수.
+  /// 틀린 횟수(옛 카드 학습 '모른다'도 한 번으로 센 줄이 있다).
   final int missCount;
 
   /// 마지막으로 틀린 시각(밀리초).
   final int lastMissedAt;
+
+  /// 처음 틀린 시각(밀리초). 되살릴 때 쓴다 — 모르면 null(되살릴 때 마지막 시각을 쓴다).
+  final int? firstMissedAt;
 }
 
 /// 날짜별 집계용 키: 기기 시간대 기준 `YYYY-MM-DD`.
@@ -119,11 +128,11 @@ String dayKey(DateTime t) =>
 
 /// sqflite 구현. DB 파일은 앱 전용 폴더의 `vocab.db`.
 ///
-/// - `study_log`: 답할 때마다 한 줄. 진도 화면의 칸별·날짜별 집계에 쓴다
+/// - `study_log`: 카드를 넘겨 볼 때마다 한 줄(`known`은 늘 1, 옛 기록엔 0도 있다). 진도 화면의 칸별·날짜별 집계에 쓴다
 ///   (`answered_day`는 기기 시간대 날짜라 자정 경계가 어긋나지 않는다)
 /// - `wrong_notes`: 단어 묶음(`cell_id`)마다 단어 하나에 한 줄(5판부터 기본 키 `(cell_id, word_id)` —
-///   같은 칸으로 만든 단어장 둘이 같은 `word_id`를 쓰므로). 다시 모른다고 하면 `miss_count`를 올리고
-///   `last_missed_at`을 고친다. '안다'로 답해도 지우지 않는다 — 빼는 방법은 오답 노트 화면에서 정한다
+///   같은 칸으로 만든 단어장 둘이 같은 `word_id`를 쓰므로). 다시 틀리면 `miss_count`를 올리고
+///   `last_missed_at`을 고친다. 시험에서 틀린 단어만 담는다(카드 학습은 담지 않음 — 2026-11-22 사용자 결정)
 /// - `word_books`·`book_words`: 내 단어장과 그 단어(4판). 읽고 쓰는 것은 `SqfliteWordBooks`
 ///   (`word_books.dart`)가 이 객체의 [database]로 한다 — DB 파일·연결·판은 여기 하나다.
 ///   내 단어장 기록은 `cell_id`가 `book_<번호>`, `word_id`가 `bw-<번호>`라 내장 단어와 겹치지 않는다
@@ -270,12 +279,15 @@ class SqfliteStudyRecords implements StudyRecords {
       'SELECT COUNT(*) AS n FROM wrong_notes WHERE cell_id = ?',
       [deck.id],
     );
+    // 카드 수와 시험 답 수를 따로 센다(2026-11-22 사용자 결정(UX 점검) — 화면에 따로 보인다)
     final dayRows = await db.rawQuery(
-      'SELECT day, SUM(n) AS studied, SUM(c) AS correct FROM ('
-      'SELECT answered_day AS day, COUNT(*) AS n, 0 AS c '
-      'FROM study_log WHERE cell_id = ? GROUP BY answered_day '
+      'SELECT day, SUM(cards) AS cards, SUM(answered) AS answered, '
+      'SUM(correct) AS correct FROM ('
+      'SELECT answered_day AS day, COUNT(*) AS cards, 0 AS answered, '
+      '0 AS correct FROM study_log WHERE cell_id = ? GROUP BY answered_day '
       'UNION ALL '
-      'SELECT answered_day AS day, COUNT(*) AS n, SUM(correct) AS c '
+      'SELECT answered_day AS day, 0 AS cards, COUNT(*) AS answered, '
+      'SUM(correct) AS correct '
       'FROM quiz_log WHERE cell_id = ? GROUP BY answered_day'
       ') GROUP BY day ORDER BY day DESC',
       [deck.id, deck.id],
@@ -288,7 +300,8 @@ class SqfliteStudyRecords implements StudyRecords {
         for (final row in dayRows)
           DayStat(
             day: row['day'] as String,
-            studied: row['studied'] as int,
+            cards: row['cards'] as int,
+            answered: row['answered'] as int,
             correct: row['correct'] as int,
           ),
       ],
@@ -336,11 +349,9 @@ class SqfliteStudyRecords implements StudyRecords {
   }
 
   @override
-  Future<void> recordAnswer({
-    required Deck deck,
-    required Word word,
-    required bool known,
-  }) => _record('study_log', 'known', deck: deck, word: word, ok: known);
+  Future<void> recordCardViewed({required Deck deck, required Word word}) =>
+      // `known` 열은 옛 '안다' 기록 때문에 남겨 둔다(DB 이행을 피함) — 이제는 늘 1
+      _record('study_log', 'known', deck: deck, word: word, ok: true);
 
   @override
   Future<void> recordQuizAnswer({
@@ -370,6 +381,7 @@ class SqfliteStudyRecords implements StudyRecords {
             deck: cell,
             missCount: row['miss_count'] as int,
             lastMissedAt: row['last_missed_at'] as int,
+            firstMissedAt: row['first_missed_at'] as int,
           ),
     ];
   }
@@ -390,8 +402,21 @@ class SqfliteStudyRecords implements StudyRecords {
           deck: deck,
           missCount: row['miss_count'] as int,
           lastMissedAt: row['last_missed_at'] as int,
+          firstMissedAt: row['first_missed_at'] as int,
         ),
     ];
+  }
+
+  @override
+  Future<void> restoreWrongNote(WrongNote note) async {
+    final db = await _database;
+    await db.insert('wrong_notes', {
+      'word_id': note.wordId,
+      'cell_id': note.deck.id,
+      'miss_count': note.missCount,
+      'first_missed_at': note.firstMissedAt ?? note.lastMissedAt,
+      'last_missed_at': note.lastMissedAt,
+    }, conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
   @override

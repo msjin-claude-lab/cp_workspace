@@ -23,9 +23,9 @@ final wrongEntriesProvider = FutureProvider.autoDispose
       ];
     });
 
-/// 칸·내 단어장의 단어 중 오답 노트에 있는 것(단어 순서). 오답 다시 보기·오답 시험이 쓴다.
+/// 칸·내 단어장의 단어 중 오답 노트에 있는 것(단어 순서). 오답 시험이 쓴다.
 ///
-/// 오답 노트 화면에서 돌아올 때 노트를 다시 읽으면 이 값도 바뀐다 — 그래서 다시 보기·오답 시험 화면은
+/// 오답 노트 화면에서 돌아올 때 노트를 다시 읽으면 이 값도 바뀐다 — 그래서 오답 시험 화면은
 /// 처음 받은 목록을 회차 동안 붙잡아 쓴다(목록이 중간에 바뀌어 카드를 건너뛰지 않게).
 final reviewWordsProvider = FutureProvider.autoDispose.family<List<Word>, Deck>(
   (ref, deck) async {

@@ -6,8 +6,9 @@
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<!-- 앱 이름은 임시로 "영단어". 최종 이름·아이콘은 미정 — 정해지면 lib/app_info.dart의 appTitle과 함께 바꾼다 -->
 	<key>CFBundleDisplayName</key>
-	<string>Vocab</string>
+	<string>영단어</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -15,7 +16,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>vocab</string>
+	<string>영단어</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>

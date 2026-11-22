@@ -2,7 +2,9 @@ import 'dart:math';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:material_ui/material_ui.dart';
+import 'package:vocab/data/app_settings.dart';
 import 'package:vocab/data/cell.dart';
 import 'package:vocab/data/speaker.dart';
 import 'package:vocab/data/study_records.dart';
@@ -10,6 +12,8 @@ import 'package:vocab/data/word.dart';
 import 'package:vocab/data/word_repository.dart';
 import 'package:vocab/features/quiz/quiz.dart';
 import 'package:vocab/features/quiz/quiz_screen.dart';
+
+import '../fakes.dart' show FakeAppSettingsStore;
 
 List<Word> _words(int n) => [
   for (var i = 0; i < n; i++)
@@ -43,11 +47,8 @@ class _FakeRecords implements StudyRecords {
   bool fail = false;
 
   @override
-  Future<void> recordAnswer({
-    required Deck deck,
-    required Word word,
-    required bool known,
-  }) => throw UnimplementedError('시험은 학습 기록을 쓰지 않는다');
+  Future<void> recordCardViewed({required Deck deck, required Word word}) =>
+      throw UnimplementedError('시험은 학습 기록을 쓰지 않는다');
 
   @override
   Future<void> recordQuizAnswer({
@@ -80,6 +81,9 @@ class _FakeRecords implements StudyRecords {
     removed.add(wordId);
     notes.removeWhere((n) => n.deck.id == deck.id && n.wordId == wordId);
   }
+
+  @override
+  Future<void> restoreWrongNote(WrongNote note) async => notes.add(note);
 
   @override
   Future<Progress> progress(Deck deck) async => const Progress();
@@ -201,6 +205,7 @@ void main() {
       await tester.pumpWidget(
         ProviderScope(
           overrides: [
+            appSettingsStoreProvider.overrideWithValue(FakeAppSettingsStore()),
             wordRepositoryProvider.overrideWithValue(_FakeRepository(words)),
             speakerProvider.overrideWithValue(speaker),
             studyRecordsProvider.overrideWithValue(records),
@@ -297,9 +302,19 @@ void main() {
       }
 
       expect(find.text('4문제 중 3문제 맞혔습니다'), findsOneWidget);
-      expect(find.text('틀린 단어 1개는 오답 노트에 담았습니다'), findsOneWidget);
+      expect(find.text('75%'), findsOneWidget);
+      expect(find.text('틀린 단어는 오답 노트에 있습니다'), findsOneWidget);
+      // 이번에 틀린 단어(첫 문제)가 영단어 — 뜻으로 보인다
+      expect(find.text('이번에 틀린 단어'), findsOneWidget);
+      expect(
+        find.text('${quiz[0].word.word} — ${quiz[0].word.meaning}'),
+        findsOneWidget,
+      );
+      expect(find.text('다시 하기 (새로 섞기)'), findsNothing);
+      expect(find.text('오답 노트 보기'), findsOneWidget);
+      expect(find.text('홈으로'), findsOneWidget);
 
-      await tapShown(tester, find.text('다시 하기 (새로 섞기)'));
+      await tapShown(tester, find.byKey(const ValueKey('quiz-again')));
 
       // 같은 난수를 이어 쓰므로 두 번째 회차는 첫 회차와 다르게 섞인다
       final random = Random(seed);
@@ -360,6 +375,159 @@ void main() {
       await tapShown(tester, option(q.answerIndex));
 
       expect(records.removed, isEmpty);
+    });
+
+    /// 홈 → 시험 순으로 쌓은 라우터. 오답 노트 주소는 표시만 하는 가짜 화면.
+    Future<GoRouter> pumpQuizRoute(
+      WidgetTester tester,
+      List<Word> words, {
+      bool review = false,
+    }) async {
+      final router = GoRouter(
+        routes: [
+          GoRoute(
+            path: '/',
+            builder: (_, _) => const Scaffold(body: Text('홈 화면')),
+          ),
+          GoRoute(
+            path: '/quiz',
+            builder: (_, _) =>
+                QuizScreen(deck: Cell.elementaryEasy, review: review),
+          ),
+          GoRoute(
+            path: '/wrong-notes/:id',
+            builder: (_, state) => Scaffold(
+              appBar: AppBar(),
+              body: Text('노트 ${state.pathParameters['id']}'),
+            ),
+          ),
+        ],
+      );
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            appSettingsStoreProvider.overrideWithValue(FakeAppSettingsStore()),
+            wordRepositoryProvider.overrideWithValue(_FakeRepository(words)),
+            speakerProvider.overrideWithValue(speaker),
+            studyRecordsProvider.overrideWithValue(records),
+            quizRandomProvider.overrideWithValue(Random(seed)),
+          ],
+          child: MaterialApp.router(routerConfig: router),
+        ),
+      );
+      router.push('/quiz');
+      await tester.pumpAndSettle();
+      return router;
+    }
+
+    /// 문제를 모두 푼다. `wrongAt`에 든 번호는 틀린다.
+    Future<void> solveAll(
+      WidgetTester tester,
+      List<QuizQuestion> quiz, {
+      Set<int> wrongAt = const {},
+    }) async {
+      for (var i = 0; i < quiz.length; i++) {
+        final pick = wrongAt.contains(i)
+            ? (quiz[i].answerIndex + 1) % quizOptionCount
+            : quiz[i].answerIndex;
+        await tapShown(tester, option(pick));
+        await tapShown(tester, find.byKey(const ValueKey('quiz-next')));
+      }
+    }
+
+    testWidgets('결과에서 오답 노트 보기는 시험 화면을 노트로 바꿔 열어, 뒤로 가면 홈이다', (tester) async {
+      final words = _words(4);
+      final quiz = expected(words);
+      final router = await pumpQuizRoute(tester, words);
+      await solveAll(tester, quiz, wrongAt: {0});
+
+      await tapShown(tester, find.byKey(const ValueKey('quiz-to-notes')));
+      expect(find.text('노트 ${Cell.elementaryEasy.id}'), findsOneWidget);
+      expect(find.byType(QuizScreen), findsNothing);
+
+      router.pop();
+      await tester.pumpAndSettle();
+      expect(find.text('홈 화면'), findsOneWidget);
+    });
+
+    testWidgets('결과에서 홈으로는 홈에 간다', (tester) async {
+      final words = _words(4);
+      await pumpQuizRoute(tester, words);
+      await solveAll(tester, expected(words), wrongAt: {1});
+
+      await tapShown(tester, find.byKey(const ValueKey('quiz-home')));
+      expect(find.text('홈 화면'), findsOneWidget);
+    });
+
+    testWidgets('다 맞히면 오답 노트 보기와 틀린 단어 목록이 없고, 오답 시험 결과는 홈으로·노트 보기가 없다', (
+      tester,
+    ) async {
+      final words = _words(4);
+      final quiz = expected(words);
+      await pumpQuiz(tester, words);
+      await solveAll(tester, quiz);
+      expect(find.text('100%'), findsOneWidget);
+      expect(find.text('오답 노트 보기'), findsNothing);
+      expect(find.text('이번에 틀린 단어'), findsNothing);
+      expect(find.text('틀린 단어는 오답 노트에 있습니다'), findsNothing);
+    });
+
+    testWidgets('오답 시험 결과에는 홈으로·오답 노트 보기가 없고 남은 오답 다시 하기·오답 노트로가 있다', (
+      tester,
+    ) async {
+      final words = _words(4);
+      records.notes.add(note('ee-001'));
+      final reviewQuiz = buildQuiz([words[0]], Random(seed), pool: words);
+      await pumpQuiz(tester, words, review: true);
+      await solveAll(tester, reviewQuiz, wrongAt: {0});
+      expect(find.text('남은 오답 다시 하기'), findsOneWidget);
+      expect(find.text('오답 노트로'), findsOneWidget);
+      expect(find.text('오답 노트 보기'), findsNothing);
+      expect(find.text('홈으로'), findsNothing);
+      expect(find.text('이번에 틀린 단어'), findsOneWidget);
+    });
+
+    testWidgets('첫 문제에서 아직 답하지 않았으면 ← 뒤로는 묻지 않고 나간다', (tester) async {
+      final words = _words(4);
+      await pumpQuizRoute(tester, words);
+
+      // 첫 문제에서 아직 답하지 않았다 — 묻지 않고 나간다
+      await tester.pageBack();
+      await tester.pumpAndSettle();
+      expect(find.text('그만할까요?'), findsNothing);
+      expect(find.text('홈 화면'), findsOneWidget);
+    });
+
+    testWidgets('답한 뒤 뒤로를 누르면 묻고, 계속하기는 남고 나가기는 나간다', (tester) async {
+      final words = _words(4);
+      final quiz = expected(words);
+      await pumpQuizRoute(tester, words);
+      await tapShown(tester, option(quiz[0].answerIndex));
+
+      await tester.pageBack();
+      await tester.pumpAndSettle();
+      expect(find.text('그만할까요?'), findsOneWidget);
+      await tapShown(tester, find.byKey(const ValueKey('leave-continue')));
+      expect(find.byType(QuizScreen), findsOneWidget);
+
+      await tester.binding.handlePopRoute();
+      await tester.pumpAndSettle();
+      expect(find.text('그만할까요?'), findsOneWidget);
+      await tapShown(tester, find.byKey(const ValueKey('leave-exit')));
+      expect(find.byType(QuizScreen), findsNothing);
+      expect(find.text('홈 화면'), findsOneWidget);
+      expect(records.quiz, [(quiz[0].word.id, true)]); // 푼 기록은 남는다
+    });
+
+    testWidgets('결과 화면에서는 뒤로를 눌러도 묻지 않는다', (tester) async {
+      final words = _words(4);
+      await pumpQuizRoute(tester, words);
+      await solveAll(tester, expected(words));
+
+      await tester.pageBack();
+      await tester.pumpAndSettle();
+      expect(find.text('그만할까요?'), findsNothing);
+      expect(find.text('홈 화면'), findsOneWidget);
     });
 
     testWidgets('칸에 50단어가 있으면 20문제를 낸다', (tester) async {

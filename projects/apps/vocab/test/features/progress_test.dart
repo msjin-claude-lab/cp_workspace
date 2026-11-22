@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
+import 'package:vocab/data/app_settings.dart';
 import 'package:vocab/data/cell.dart';
 import 'package:vocab/data/cell_store.dart';
 import 'package:vocab/data/speaker.dart';
@@ -46,6 +47,7 @@ void main() {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
+          appSettingsStoreProvider.overrideWithValue(FakeAppSettingsStore()),
           wordRepositoryProvider.overrideWithValue(FakeRepository(words)),
           cellStoreProvider.overrideWithValue(
             FakeCellStore(selectedDeck: home.deckId),
@@ -73,8 +75,8 @@ void main() {
       memorized: 3,
       wrong: 1,
       days: [
-        DayStat(day: today, studied: 12, correct: 5),
-        DayStat(day: firstDay, studied: 4, correct: 0),
+        DayStat(day: today, cards: 7, answered: 5, correct: 5),
+        DayStat(day: firstDay, cards: 4, answered: 0, correct: 0),
       ],
     );
     // 같은 초등 쉬움으로 만든 다른 단어장 — 9는 전체(5)를 넘는다
@@ -85,13 +87,15 @@ void main() {
     expect(find.text('아침 단어 - 진도'), findsOneWidget);
     expect(find.text('진행 4일차'), findsOneWidget);
     // 지금 단어장 것만 — 다른 단어장(외움 5/5 · 오답 4)은 보이지 않는다
-    expect(find.text('외움 3/5 · 오답 1'), findsOneWidget);
-    expect(find.textContaining('외움'), findsOneWidget);
+    expect(find.text('외운 단어 3/5'), findsOneWidget);
+    expect(find.text('오답 노트 1단어'), findsOneWidget);
+    expect(find.text('시험에서 맞힌 단어를 외운 것으로 셉니다'), findsOneWidget);
+    expect(find.textContaining('외운 단어'), findsOneWidget);
 
-    // 날짜별 기록은 달력 — 처음에는 오늘이 골라져 있다
+    // 날짜별 기록은 달력 — 처음에는 오늘이 골라져 있다. 카드와 시험 맞힘을 따로 보인다
     expect(find.byType(ProgressCalendar), findsOneWidget);
     expect(
-      find.text('${now.month}월 ${now.day}일 · 공부 12 · 시험 맞힘 5'),
+      find.text('${now.month}월 ${now.day}일 · 카드 7장 · 시험 맞힘 5문제'),
       findsOneWidget,
     );
   });
@@ -108,8 +112,8 @@ void main() {
           body: ProgressCalendar(
             today: DateTime(2026, 11, 22),
             days: const [
-              DayStat(day: '2026-11-20', studied: 18, correct: 9),
-              DayStat(day: '2026-10-31', studied: 3, correct: 1),
+              DayStat(day: '2026-11-20', cards: 18, answered: 12, correct: 9),
+              DayStat(day: '2026-10-31', cards: 0, answered: 3, correct: 1),
             ],
           ),
         ),
@@ -130,14 +134,19 @@ void main() {
 
     await tester.tap(find.byKey(const ValueKey('cal-2026-11-20')));
     await tester.pump();
-    expect(find.text('11월 20일 · 공부 18 · 시험 맞힘 9'), findsOneWidget);
+    expect(find.text('11월 20일 · 카드 18장 · 시험 맞힘 9문제'), findsOneWidget);
+    // 공부한 날에는 숫자 아래 점이 있고, 오늘(22일)처럼 안 한 날에는 없다
+    expect(find.byKey(const ValueKey('cal-dot-2026-11-20')), findsOneWidget);
+    expect(find.byKey(const ValueKey('cal-dot-2026-11-22')), findsNothing);
+    expect(find.byKey(const ValueKey('cal-legend')), findsOneWidget);
+    expect(find.text('공부한 날'), findsOneWidget);
 
     await tester.tap(find.byKey(const ValueKey('cal-prev')));
     await tester.pump();
     expect(find.text('2026년 10월'), findsOneWidget);
     await tester.tap(find.byKey(const ValueKey('cal-2026-10-31')));
     await tester.pump();
-    expect(find.text('10월 31일 · 공부 3 · 시험 맞힘 1'), findsOneWidget);
+    expect(find.text('10월 31일 · 카드 0장 · 시험 맞힘 1문제'), findsOneWidget);
 
     // 12월에서 다음 달로 넘기면 해가 바뀐다
     for (var i = 0; i < 3; i++) {
@@ -151,7 +160,8 @@ void main() {
     await openProgress(tester);
 
     expect(find.text('아직 시작하지 않았습니다'), findsOneWidget);
-    expect(find.text('외움 0/5 · 오답 0'), findsOneWidget);
+    expect(find.text('외운 단어 0/5'), findsOneWidget);
+    expect(find.text('오답 노트 0단어'), findsOneWidget);
     expect(find.textContaining('공부한 기록이 없습니다'), findsOneWidget);
   });
 }

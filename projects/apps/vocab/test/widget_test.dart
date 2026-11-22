@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
+import 'package:vocab/data/app_settings.dart';
 import 'package:vocab/data/cell.dart';
 import 'package:vocab/data/cell_store.dart';
 import 'package:vocab/data/speaker.dart';
@@ -15,10 +16,13 @@ import 'package:vocab/features/study/study_screen.dart';
 import 'package:vocab/features/wrong_notes/wrong_notes_screen.dart';
 import 'package:vocab/router.dart';
 
+import 'package:vocab/features/quiz/quiz.dart' show quizRandomProvider;
+
 import 'fakes.dart';
 
 void main() {
   late FakeCellStore store;
+  late FakeAppSettingsStore settingsStore;
   late FakeRecords records;
   late FakeStudyDecks decks;
 
@@ -37,6 +41,7 @@ void main() {
 
   setUp(() {
     store = FakeCellStore();
+    settingsStore = FakeAppSettingsStore();
     records = FakeRecords();
     decks = FakeStudyDecks(records);
   });
@@ -45,9 +50,12 @@ void main() {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
+          appSettingsStoreProvider.overrideWithValue(settingsStore),
           wordRepositoryProvider.overrideWithValue(FakeRepository(words)),
           cellStoreProvider.overrideWithValue(store),
           studyRecordsProvider.overrideWithValue(records),
+          // 카드·시험은 무작위 순서 — 순서를 확인하는 시험이 있어 섞이지 않게 한다
+          quizRandomProvider.overrideWithValue(NoShuffleRandom()),
           studyDecksProvider.overrideWithValue(decks),
           speakerProvider.overrideWithValue(FakeSpeaker()),
           wordBooksProvider.overrideWithValue(FakeWordBooks(records)),
@@ -99,7 +107,8 @@ void main() {
     await enterName(tester, '  아침 단어  '); // 앞뒤 공백은 뗀다
 
     expect(find.byType(LevelPickerScreen), findsOneWidget);
-    expect(find.text('어느 단계를 공부할까요?'), findsOneWidget);
+    expect(find.text('학교급을 골라 주세요'), findsOneWidget);
+    expect(find.text('새 단어장 - 아침 단어'), findsOneWidget);
     // 세로: 초등·중등·고등 버튼이 위에서 아래로
     final y = [
       for (final level in SchoolLevel.values)
@@ -218,14 +227,13 @@ void main() {
   ) async {
     final first = decks.seed('아침 단어', Cell.elementaryEasy);
     store.selectedDeck = first.deckId;
+    // 아침 단어에는 시험에서 틀린 단어가 하나 있다 → 오답 1
+    records.notes.add(fakeNote('ee-001', first));
+    await records.recordCardViewed(
+      deck: first,
+      word: fakeWord('ee-001', 'apple', '사과'),
+    );
     await pumpApp(tester);
-
-    // 아침 단어에서 카드 하나를 모른다고 한다 → 오답 1
-    await tap(tester, 'home-study');
-    await tap(tester, 'study-card');
-    await tap(tester, 'study-unknown');
-    await tester.pageBack();
-    await tester.pumpAndSettle();
     expect(find.text('오답 노트 · 1단어'), findsOneWidget);
 
     expect(find.byTooltip('새 등록'), findsOneWidget);
@@ -256,7 +264,8 @@ void main() {
     expect(find.byType(ProgressScreen), findsOneWidget);
     expect(find.text('저녁 단어 - 진도'), findsOneWidget);
     expect(find.text('아직 시작하지 않았습니다'), findsOneWidget);
-    expect(find.text('외움 0/2 · 오답 0'), findsOneWidget);
+    expect(find.text('외운 단어 0/2'), findsOneWidget);
+    expect(find.text('오답 노트 0단어'), findsOneWidget);
     await tester.pageBack();
     await tester.pumpAndSettle();
 
@@ -267,7 +276,8 @@ void main() {
     await tap(tester, 'home-progress');
     expect(find.text('아침 단어 - 진도'), findsOneWidget);
     expect(find.text('진행 1일차'), findsOneWidget);
-    expect(find.text('외움 0/2 · 오답 1'), findsOneWidget);
+    expect(find.text('외운 단어 0/2'), findsOneWidget);
+    expect(find.text('오답 노트 1단어'), findsOneWidget);
   });
 
   testWidgets('☰ 메뉴에는 앱 제목·버전과 내 단어장만 이름으로 있고, 누르면 그것이 홈이 되어 저장된다', (
@@ -474,19 +484,140 @@ void main() {
     expect(find.text('메인화면'), findsNothing);
   });
 
-  testWidgets('카드 학습에서 모른다를 누르고 돌아오면 홈의 오답 수가 바로 바뀐다', (tester) async {
+  testWidgets('단어장 목록을 읽지 못하면 다시 시도 버튼이 있고, 누르면 다시 읽어 홈을 보여 준다', (
+    tester,
+  ) async {
+    final flaky = _FlakyDecks(records);
+    decks = flaky;
+    final deck = flaky.seed('아침 단어', Cell.elementaryEasy);
+    store.selectedDeck = deck.deckId;
+    flaky.fail = true;
+    await pumpApp(tester);
+
+    expect(find.text('단어장을 읽지 못했습니다'), findsOneWidget);
+    expect(find.byKey(const ValueKey('home-retry')), findsOneWidget);
+    expect(find.text('다시 시도'), findsOneWidget);
+
+    flaky.fail = false;
+    await tap(tester, 'home-retry');
+
+    expect(find.text('단어장을 읽지 못했습니다'), findsNothing);
+    expect(find.text('아침 단어'), findsOneWidget);
+    expect(find.byKey(const ValueKey('home-study')), findsOneWidget);
+  });
+
+  testWidgets('새 등록의 이름 창은 확인 버튼이 다음이고, 두 고르기 화면은 같은 제목과 안내 문구를 쓴다', (
+    tester,
+  ) async {
+    final a = decks.seed('아침 단어', Cell.elementaryEasy);
+    store.selectedDeck = a.deckId;
+    await pumpApp(tester);
+
+    await tap(tester, 'home-register');
+    expect(
+      find.descendant(
+        of: find.byKey(const ValueKey('book-name-save')),
+        matching: find.text('다음'),
+      ),
+      findsOneWidget,
+    );
+    expect(find.text('저장'), findsNothing);
+    await enterName(tester, '쉬는 시간 단어');
+
+    expect(find.text('새 단어장 - 쉬는 시간 단어'), findsOneWidget);
+    expect(find.text('학교급을 골라 주세요'), findsOneWidget);
+    await tap(tester, 'pick-middle');
+    expect(find.text('새 단어장 - 쉬는 시간 단어'), findsOneWidget);
+    expect(find.text('난이도를 골라 주세요'), findsOneWidget);
+  });
+
+  testWidgets('이름은 20자까지이고 글자 수가 보이며, 20자를 넘는 옛 이름도 보이고 고칠 수 있다', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(800, 1600);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+    const long = '아주 아주 긴 단어장 이름을 스물 글자보다 훨씬 더 길게 지어 둔 것';
+    expect(long.length, greaterThan(20));
+    final a = decks.seed(long, Cell.elementaryEasy);
+    store.selectedDeck = a.deckId;
+    await pumpApp(tester);
+
+    // 긴 이름도 제목에 한 줄로 줄여 보이고, 메뉴 줄은 두 줄까지
+    final title = tester.widget<Text>(
+      find.descendant(of: find.byType(AppBar), matching: find.text(long)),
+    );
+    expect(title.maxLines, 1);
+    expect(title.overflow, TextOverflow.ellipsis);
+    await tap(tester, 'menu');
+    final row = tester.widget<Text>(
+      find.descendant(
+        of: find.byKey(ValueKey('menu-deck-${a.deckId}')),
+        matching: find.text(long),
+      ),
+    );
+    expect(row.maxLines, 2);
+
+    // 새 이름은 20자까지만 들어가고(넘치게 쳐도 잘림), 앞뒤 공백을 뗀다
+    await tap(tester, 'menu-deck-more-${a.deckId}');
+    await tap(tester, 'deck-rename');
+    expect(find.text('저장'), findsOneWidget);
+    await tester.enterText(
+      find.byKey(const ValueKey('book-name-field')),
+      '  ${'가' * 30}',
+    );
+    await tester.pump();
+    final field = tester.widget<TextField>(find.byType(TextField));
+    expect(field.controller!.text.length, 20);
+    expect(find.text('20/20'), findsOneWidget);
+    // 빈 이름은 안 된다
+    await tester.enterText(find.byKey(const ValueKey('book-name-field')), '  ');
+    await tap(tester, 'book-name-save');
+    expect(find.text('이름을 입력하세요'), findsOneWidget);
+    await enterName(tester, '가나다');
+    expect(decks.list.single.name, '가나다');
+  });
+
+  testWidgets('단어장 지우기 확인 창은 무엇이 사라지는지 알려 준다', (tester) async {
+    final a = decks.seed('아침 단어', Cell.elementaryEasy);
+    store.selectedDeck = a.deckId;
+    await pumpApp(tester);
+
+    await tap(tester, 'menu');
+    await tap(tester, 'menu-deck-more-${a.deckId}');
+    await tap(tester, 'deck-delete');
+
+    expect(find.text('"아침 단어" 단어장을 지울까요?'), findsOneWidget);
+    expect(find.text('이 단어장의 오답 노트와 진도 기록이 사라지고 되돌릴 수 없습니다.'), findsOneWidget);
+  });
+
+  testWidgets('카드 학습을 하고 돌아와도 오답 노트에는 아무것도 담기지 않는다', (tester) async {
     final deck = decks.seed('아침 단어', Cell.elementaryEasy);
     store.selectedDeck = deck.deckId;
     await pumpApp(tester);
     expect(find.text('오답 노트 · 0단어'), findsOneWidget);
 
     await tap(tester, 'home-study');
-    await tap(tester, 'study-card');
-    await tap(tester, 'study-unknown');
+    await tap(tester, 'study-next');
     await tester.pageBack();
     await tester.pumpAndSettle();
+    await tap(tester, 'leave-exit'); // 도중이라 묻는다
 
-    expect(find.text('오답 노트 · 1단어'), findsOneWidget);
-    expect(records.notes.single.deck, deck);
+    expect(find.text('오답 노트 · 0단어'), findsOneWidget);
+    expect(records.notes, isEmpty);
+    expect(records.studied, ['ee-001']);
   });
+}
+
+/// `fail`이 true인 동안 단어장 목록 읽기가 실패한다.
+class _FlakyDecks extends FakeStudyDecks {
+  _FlakyDecks(super.records);
+
+  bool fail = false;
+
+  @override
+  Future<List<StudyDeck>> decks() async {
+    if (fail) throw StateError('db');
+    return super.decks();
+  }
 }

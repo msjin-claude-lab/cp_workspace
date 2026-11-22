@@ -7,6 +7,7 @@ import 'features/my_words/word_book_screen.dart';
 import 'features/my_words/word_books_screen.dart';
 import 'features/progress/progress_screen.dart';
 import 'features/quiz/quiz_screen.dart';
+import 'features/settings/settings_screen.dart';
 import 'features/study/study_screen.dart';
 import 'features/wrong_notes/wrong_notes_screen.dart';
 
@@ -65,12 +66,13 @@ GoRouter createRouter() => GoRouter(
       builder: (context, state) =>
           _withDeck(state, (deck) => ProgressScreen(deck: deck)),
     ),
-    // 오답 노트 → 카드로 다시 보기 / 오답 시험. 예: /review/quiz/middle_easy
+    // 설정: 카드 학습 단어 수·시험 문항 수(2026-11-22 사용자 결정)
     GoRoute(
-      path: '/review/study/:deckId',
-      builder: (context, state) =>
-          _withDeck(state, (deck) => StudyScreen(deck: deck, review: true)),
+      path: '/settings',
+      builder: (context, state) => const SettingsScreen(),
     ),
+    // 오답 노트 → 오답 시험. 예: /review/quiz/middle_easy
+    // (카드로 다시 보기는 2026-11-22 사용자 결정으로 뺐다)
     GoRoute(
       path: '/review/quiz/:deckId',
       builder: (context, state) =>

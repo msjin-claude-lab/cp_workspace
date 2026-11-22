@@ -127,7 +127,9 @@ class _WordBookScreenState extends ConsumerState<WordBookScreen> {
     final quizBlocked = quizBlockReason(list);
     final canQuiz = quizBlocked == null;
     return Scaffold(
-      appBar: AppBar(title: Text(deck.label)),
+      appBar: AppBar(
+        title: Text(deck.label, maxLines: 1, overflow: TextOverflow.ellipsis),
+      ),
       floatingActionButton: FloatingActionButton.extended(
         key: const ValueKey('book-add-word'),
         icon: const Icon(Icons.add),
