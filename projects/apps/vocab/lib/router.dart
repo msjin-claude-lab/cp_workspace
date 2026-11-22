@@ -64,10 +64,17 @@ GoRouter createRouter() => GoRouter(
       builder: (context, state) =>
           _withDeck(state, (deck) => ProgressScreen(deck: deck)),
     ),
-    // 설정: 카드 학습 단어 수·시험 문항 수(2026-11-22 사용자 결정)
+    // 설정: 그 단어장의 카드 학습 단어 수·시험 문항 수(2026-11-22 사용자 결정 — 단어장마다 따로).
+    // 예: /settings/deck_2. 내장 칸은 고유 설정이 없어 찾을 수 없는 화면
     GoRoute(
-      path: '/settings',
-      builder: (context, state) => const SettingsScreen(),
+      path: '/settings/:deckId',
+      builder: (context, state) => _withDeck(
+        state,
+        (deck) => switch (deck) {
+          StudyDeck() => SettingsScreen(deck: deck),
+          Cell() => const _NotFound(),
+        },
+      ),
     ),
     // 오답 노트 → 오답 시험. 예: /review/quiz/middle_easy
     // (카드로 다시 보기는 2026-11-22 사용자 결정으로 뺐다)

@@ -95,7 +95,7 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
   Widget build(BuildContext context) {
     // 설정을 읽은 뒤에야 카드를 만든다(읽는 동안 엉뚱한 개수가 보이지 않게)
     final words = ref.watch(deckWordsProvider(widget.deck));
-    final settings = ref.watch(appSettingsProvider);
+    final settings = ref.watch(deckSettingsProvider(widget.deck));
     return LeaveGuard(
       // 도중에 ← 뒤로(앱바·시스템)를 누르면 먼저 묻는다(2026-11-22 사용자 결정(UX 점검))
       inProgress: _inProgress,

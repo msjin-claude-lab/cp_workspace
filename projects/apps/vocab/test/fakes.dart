@@ -77,19 +77,49 @@ class FakeStudyDecks implements StudyDecks {
   int _next = 1;
   bool migrated = false;
 
-  /// 시험이 단어장을 미리 만들어 둘 때 쓴다.
-  StudyDeck seed(String name, Cell base) {
+  /// 단어장 번호별 고유 설정(7판 `card_count`·`quiz_count`). 없으면 NULL — 7판 전에 있던 단어장.
+  final Map<int, int> cardCounts = {};
+  final Map<int, int> quizCounts = {};
+
+  /// true면 설정 저장이 실패한다.
+  bool failSave = false;
+
+  /// 시험이 단어장을 미리 만들어 둘 때 쓴다. 설정을 주지 않으면 7판 전에 있던 단어장(열이 NULL).
+  StudyDeck seed(String name, Cell base, {int? cardCount, int? quizCount}) {
     final deck = StudyDeck(deckId: _next++, name: name, base: base);
     list.add(deck);
+    if (cardCount != null) cardCounts[deck.deckId] = cardCount;
+    if (quizCount != null) quizCounts[deck.deckId] = quizCount;
     return deck;
   }
 
   @override
   Future<List<StudyDeck>> decks() async => [...list];
 
+  /// 실제 구현처럼 새 단어장은 기본값을 명시적으로 저장한다.
   @override
-  Future<StudyDeck> createDeck(String name, Cell base) async =>
-      seed(name, base);
+  Future<StudyDeck> createDeck(String name, Cell base) async => seed(
+    name,
+    base,
+    cardCount: defaultCardCount,
+    quizCount: defaultQuizCount,
+  );
+
+  @override
+  Future<DeckCounts> loadCounts(int deckId) async =>
+      (cardCount: cardCounts[deckId], quizCount: quizCounts[deckId]);
+
+  @override
+  Future<void> saveCardCount(int deckId, int count) async {
+    if (failSave) throw StateError('db');
+    cardCounts[deckId] = count;
+  }
+
+  @override
+  Future<void> saveQuizCount(int deckId, int count) async {
+    if (failSave) throw StateError('db');
+    quizCounts[deckId] = count;
+  }
 
   @override
   Future<void> renameDeck(int deckId, String name) async {
@@ -102,6 +132,8 @@ class FakeStudyDecks implements StudyDecks {
     final id = 'deck_$deckId';
     records?.removeDeckRecords(id);
     list.removeWhere((d) => d.deckId == deckId);
+    cardCounts.remove(deckId);
+    quizCounts.remove(deckId);
   }
 
   /// 실제 이행은 DB 시험(`study_decks_test.dart`)이 본다. 여기서는 한 번만 단어장을 만든다.
@@ -239,29 +271,16 @@ class FakeRecords implements StudyRecords {
 WrongNote fakeNote(String id, Deck deck, {int miss = 1, int at = 0}) =>
     WrongNote(wordId: id, deck: deck, missCount: miss, lastMissedAt: at);
 
-/// 설정을 메모리에 둔다. `fail`이 true면 저장이 실패한다. 값이 null이면 저장된 것이 없는 처음 실행.
+/// 옛 공통 설정(7판 전, 읽기만 한다)을 메모리에 둔다. 값이 null이면 저장된 것이 없다.
 class FakeAppSettingsStore implements AppSettingsStore {
   FakeAppSettingsStore({this.cardCount, this.quizCount});
 
   int? cardCount;
   int? quizCount;
-  bool fail = false;
 
   @override
   Future<int?> loadCardCount() async => cardCount;
 
   @override
   Future<int?> loadQuizCount() async => quizCount;
-
-  @override
-  Future<void> saveCardCount(int count) async {
-    if (fail) throw StateError('prefs');
-    cardCount = count;
-  }
-
-  @override
-  Future<void> saveQuizCount(int count) async {
-    if (fail) throw StateError('prefs');
-    quizCount = count;
-  }
 }

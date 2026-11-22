@@ -200,6 +200,57 @@ void main() {
     expect((await records.progress(deck)).wrong, 1);
   });
 
+  group('단어장마다의 설정(7판 card_count·quiz_count)', () {
+    Future<List<Map<String, Object?>>> rows() async =>
+        (await records.database).rawQuery(
+          'SELECT id, card_count, quiz_count FROM study_decks ORDER BY id',
+        );
+
+    test('새로 만든 단어장은 카드 50·시험 20을 열에 명시적으로 저장한다', () async {
+      final a = await decks.createDeck('아침', Cell.middleMedium);
+      expect(await rows(), [
+        {'id': a.deckId, 'card_count': 50, 'quiz_count': 20},
+      ]);
+      expect(await decks.loadCounts(a.deckId), (cardCount: 50, quizCount: 20));
+    });
+
+    test('한 단어장의 값을 바꾸면 그 줄만 바뀐다', () async {
+      final a = await decks.createDeck('아침', Cell.middleMedium);
+      final b = await decks.createDeck('저녁', Cell.middleMedium);
+      await decks.saveCardCount(a.deckId, 10);
+      await decks.saveQuizCount(a.deckId, 30);
+      expect(await rows(), [
+        {'id': a.deckId, 'card_count': 10, 'quiz_count': 30},
+        {'id': b.deckId, 'card_count': 50, 'quiz_count': 20},
+      ]);
+      expect(await decks.loadCounts(a.deckId), (cardCount: 10, quizCount: 30));
+      expect(await decks.loadCounts(b.deckId), (cardCount: 50, quizCount: 20));
+    });
+
+    test('단어장을 지우면 그 설정도 함께 없어진다', () async {
+      final a = await decks.createDeck('아침', Cell.middleMedium);
+      final b = await decks.createDeck('저녁', Cell.middleMedium);
+      await decks.saveCardCount(a.deckId, 7);
+      await decks.deleteDeck(a.deckId);
+      expect(await rows(), [
+        {'id': b.deckId, 'card_count': 50, 'quiz_count': 20},
+      ]);
+      expect(await decks.loadCounts(a.deckId), (
+        cardCount: null,
+        quizCount: null,
+      ));
+    });
+
+    test('옛 칸 기록을 옮겨 만든 단어장은 설정 열이 비어 옛 공통 설정을 물려받는다', () async {
+      await decks.migrateLegacy(cells: [Cell.middleMedium]);
+      final [deck] = await decks.decks();
+      expect(await decks.loadCounts(deck.deckId), (
+        cardCount: null,
+        quizCount: null,
+      ));
+    });
+  });
+
   test('옛 칸 이름은 학교급 + 난이도', () {
     expect(legacyDeckName(Cell.middleMedium), '중등 중간');
     expect(legacyDeckName(Cell.elementaryHard), '초등 어려움');

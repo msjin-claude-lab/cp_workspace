@@ -387,12 +387,12 @@ class DeckHomeScreen extends ConsumerWidget {
               label: '진도',
               onPressed: () => _open(context, ref, '/progress/${deck.id}'),
             ),
-            // 진도 바로 아래(2026-11-22 사용자 결정): 카드 학습 단어 수·시험 문항 수
+            // 진도 바로 아래(2026-11-22 사용자 결정): 이 단어장의 카드 학습 단어 수·시험 문항 수
             _HomeAction(
               key: const ValueKey('home-settings'),
               icon: Icons.settings,
               label: '설정',
-              onPressed: () => _open(context, ref, '/settings'),
+              onPressed: () => _open(context, ref, '/settings/${deck.id}'),
             ),
           ],
         ),

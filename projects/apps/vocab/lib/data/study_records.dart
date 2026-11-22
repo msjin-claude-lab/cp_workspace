@@ -131,7 +131,8 @@ String dayKey(DateTime t) =>
 ///   같은 칸으로 만든 단어장 둘이 같은 `word_id`를 쓰므로). 다시 틀리면 `miss_count`를 올리고
 ///   `last_missed_at`을 고친다. 시험에서 틀린 단어만 담는다(카드 학습은 담지 않음 — 2026-11-22 사용자 결정)
 /// - `study_decks`: 이름 있는 단어장(5판, `study_decks.dart`의 `SqfliteStudyDecks`가 읽고 쓴다).
-///   기록은 `cell_id = deck_<번호>`, `word_id`는 바탕 칸의 내장 단어 id(`mm-001` 등)
+///   기록은 `cell_id = deck_<번호>`, `word_id`는 바탕 칸의 내장 단어 id(`mm-001` 등).
+///   7판부터 단어장마다의 설정 `card_count`·`quiz_count`(NULL이면 옛 공통 설정을 물려받음)
 /// - `app_meta`: 한 번만 하는 일의 표시(5판). 지금은 옛 칸 기록을 단어장으로 옮겼는지
 class SqfliteStudyRecords implements StudyRecords {
   /// `factory`·`path`는 PC 시험에서 sqflite_common_ffi와 임시 파일을 넣을 때만 쓴다.
@@ -154,7 +155,9 @@ class SqfliteStudyRecords implements StudyRecords {
   ///    단어별 마지막 시험 답 인덱스를 단어장별 `quiz_log(cell_id, word_id, id)`로(2026-11-22).
   /// 6: 시험에서 틀린 적 없는 오답 노트(옛 카드 '모른다')를 지우고 틀린 횟수를 시험 오답 수로 맞춤,
   ///    내 단어장 `word_books`·`book_words` 표와 `book_` 기록을 지움(2026-11-22 사용자 결정).
-  static const int schemaVersion = 6;
+  /// 7: 단어장마다의 설정 `study_decks.card_count`·`quiz_count`(NULL 허용 — 7판 전 단어장은 NULL이고
+  ///    옛 공통 설정을 물려받는다) 추가(2026-11-22 사용자 결정 — "설정은 그 단어장의 고유 설정이다").
+  static const int schemaVersion = 7;
 
   Future<Database> _open() async {
     final dbFactory = factory ?? databaseFactory;
@@ -170,6 +173,7 @@ class SqfliteStudyRecords implements StudyRecords {
           await createV3(db);
           await _upgradeToV5(db);
           await _upgradeToV6(db);
+          await _upgradeToV7(db);
         },
         onUpgrade: (db, oldVersion, newVersion) async {
           if (oldVersion < 2) await _createQuizLog(db);
@@ -177,6 +181,7 @@ class SqfliteStudyRecords implements StudyRecords {
           if (oldVersion < 4) await _createWordBooks(db);
           if (oldVersion < 5) await _upgradeToV5(db);
           if (oldVersion < 6) await _upgradeToV6(db);
+          if (oldVersion < 7) await _upgradeToV7(db);
         },
       ),
     );
@@ -194,6 +199,21 @@ class SqfliteStudyRecords implements StudyRecords {
   static Future<void> createV5(Database db) async {
     await createV4(db);
     await _upgradeToV5(db);
+  }
+
+  /// 6판까지의 표. 시험에서 "6판 사용자"의 DB를 만들 때 쓴다 — 7판 이후의 변경은 여기에 더하지 않는다.
+  @visibleForTesting
+  static Future<void> createV6(Database db) async {
+    await createV5(db);
+    await _upgradeToV6(db);
+  }
+
+  /// 7판: 단어장마다의 설정(2026-11-22 사용자 결정). 새로 만드는 단어장은 기본값을 넣고,
+  /// 7판 전에 있던 단어장은 NULL로 두어 옛 공통 설정을 물려받는다(`app_settings.dart`).
+  /// 단어장 줄을 지우면 설정도 함께 사라진다. 새 설치도 이 단계를 밟아 표 정의가 같다.
+  static Future<void> _upgradeToV7(Database db) async {
+    await db.execute('ALTER TABLE study_decks ADD COLUMN card_count INTEGER');
+    await db.execute('ALTER TABLE study_decks ADD COLUMN quiz_count INTEGER');
   }
 
   /// 5판: 이름 있는 단어장(2026-11-22 사용자 결정 — 같은 학교급+난이도로 여러 개, 기록은 따로).

@@ -132,7 +132,11 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
         ),
         body: SafeArea(
           // 설정을 읽은 뒤에야 문제를 만든다(읽는 동안 엉뚱한 문항 수가 보이지 않게)
-          child: switch ((asked, all, ref.watch(appSettingsProvider))) {
+          child: switch ((
+            asked,
+            all,
+            ref.watch(deckSettingsProvider(widget.deck)),
+          )) {
             (
               AsyncData(value: final words),
               AsyncData(value: final pool),

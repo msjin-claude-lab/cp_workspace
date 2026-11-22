@@ -3,11 +3,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_ui/material_ui.dart';
 
 import '../../data/app_settings.dart';
+import '../../data/cell.dart';
 
-/// 설정: 카드 학습 단어 수와 시험 문항 수(2026-11-22 사용자 결정).
+/// 설정: 그 단어장의 카드 학습 단어 수와 시험 문항 수(2026-11-22 사용자 결정 — 단어장마다 따로).
 /// 고르는 즉시 저장한다(저장 버튼 없음). 진행 중인 회차에는 영향이 없고 다음 회차부터 쓴다.
 class SettingsScreen extends ConsumerWidget {
-  const SettingsScreen({super.key});
+  const SettingsScreen({super.key, required this.deck});
+
+  final StudyDeck deck;
 
   Future<void> _change(
     BuildContext context,
@@ -26,10 +29,16 @@ class SettingsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final settings = ref.watch(appSettingsProvider);
-    final notifier = ref.read(appSettingsProvider.notifier);
+    final settings = ref.watch(deckSettingsProvider(deck));
+    final notifier = ref.read(deckSettingsProvider(deck).notifier);
     return Scaffold(
-      appBar: AppBar(title: const Text('설정')),
+      appBar: AppBar(
+        title: Text(
+          '${deck.label} - 설정',
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
+      ),
       body: SafeArea(
         child: switch (settings) {
           AsyncData(value: final s) => ListView(
@@ -54,7 +63,7 @@ class SettingsScreen extends ConsumerWidget {
               ),
               const SizedBox(height: 32),
               Text(
-                '모든 단어장에 똑같이 적용됩니다. 단어가 더 적은 단어장은 있는 단어를 모두 씁니다.',
+                '이 단어장에만 적용됩니다. 단어가 더 적으면 있는 단어를 모두 씁니다.',
                 key: const ValueKey('settings-note'),
                 style: Theme.of(context).textTheme.bodySmall,
               ),

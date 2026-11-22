@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'app_settings.dart';
 import 'cell.dart';
 import 'cell_store.dart';
 import 'study_records.dart';
@@ -8,15 +9,28 @@ import 'study_records.dart';
 String legacyDeckName(Cell cell) =>
     '${cell.level.label} ${cell.difficulty.label}';
 
+/// 단어장 하나의 고유 설정(7판 `card_count`·`quiz_count`). null이면 저장된 값이 없다 —
+/// 7판 전에 있던 단어장이거나 없는 단어장. 범위 확인과 물려받기는 `app_settings.dart`가 한다.
+typedef DeckCounts = ({int? cardCount, int? quizCount});
+
 /// 이름 있는 단어장(2026-11-22 사용자 결정 — "새 등록"은 무조건 새 단어장, 이름을 짓고
 /// 학교급 → 난이도를 고른다. 같은 학교급+난이도도 여러 개). 시험(test)에서는 가짜로 바꾼다.
 abstract interface class StudyDecks {
   /// 만든 순서대로.
   Future<List<StudyDeck>> decks();
 
+  /// 새 단어장은 설정 기본값(카드 [defaultCardCount]·시험 [defaultQuizCount])을 명시적으로 저장한다 —
+  /// 옛 공통 설정을 물려받지 않는다(2026-11-22 사용자 결정).
   Future<StudyDeck> createDeck(String name, Cell base);
 
   Future<void> renameDeck(int deckId, String name);
+
+  /// 단어장의 고유 설정. 저장된 값이 없으면(7판 전 단어장·없는 단어장) 그 값이 null.
+  Future<DeckCounts> loadCounts(int deckId);
+
+  Future<void> saveCardCount(int deckId, int count);
+
+  Future<void> saveQuizCount(int deckId, int count);
 
   /// 단어장과 그 오답 노트·학습·시험 기록(`wrong_notes`·`study_log`·`quiz_log`)을 지운다
   /// (2026-11-22 사용자 결정). 다른 단어장·칸 id의 줄은 건드리지 않는다.
@@ -63,8 +77,44 @@ class SqfliteStudyDecks implements StudyDecks {
       'name': name,
       'cell_id': base.id,
       'created_at': DateTime.now().millisecondsSinceEpoch,
+      'card_count': defaultCardCount,
+      'quiz_count': defaultQuizCount,
     });
     return StudyDeck(deckId: id, name: name, base: base);
+  }
+
+  @override
+  Future<DeckCounts> loadCounts(int deckId) async {
+    final db = await _owner.database;
+    final rows = await db.query(
+      'study_decks',
+      columns: ['card_count', 'quiz_count'],
+      where: 'id = ?',
+      whereArgs: [deckId],
+    );
+    if (rows.isEmpty) return (cardCount: null, quizCount: null);
+    return (
+      cardCount: rows.single['card_count'] as int?,
+      quizCount: rows.single['quiz_count'] as int?,
+    );
+  }
+
+  @override
+  Future<void> saveCardCount(int deckId, int count) =>
+      _saveCount(deckId, 'card_count', count);
+
+  @override
+  Future<void> saveQuizCount(int deckId, int count) =>
+      _saveCount(deckId, 'quiz_count', count);
+
+  Future<void> _saveCount(int deckId, String column, int count) async {
+    final db = await _owner.database;
+    await db.update(
+      'study_decks',
+      {column: count},
+      where: 'id = ?',
+      whereArgs: [deckId],
+    );
   }
 
   @override
