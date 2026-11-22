@@ -34,6 +34,10 @@ void main() {
 
   /// 칸 홈(초등 [난이도 : 쉬움])에서 시작한다. 내 단어장은 [books]에 있는 것.
   Future<void> pumpApp(WidgetTester tester) async {
+    // ☰ 메뉴는 기본 단어장 9개 아래에 내 단어장이 온다 — 목록은 보이는 줄만 만들므로 화면을 길게 한다
+    tester.view.physicalSize = const Size(800, 1600);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
     router = createRouter();
     await tester.pumpWidget(
       ProviderScope(
@@ -105,14 +109,19 @@ void main() {
     fail('고를 보기를 찾지 못했다');
   }
 
-  testWidgets('☰ 메뉴의 내 단어장으로 목록을 열고, 이름을 넣어 단어장을 만든다', (tester) async {
+  // 내 단어장(직접 단어를 넣는 기능)은 2026-11-22부터 화면에 들어가는 길이 없다 —
+  // 사용자가 메뉴에서 빼라고 했고, 어디에 둘지는 아직 정하지 않았다. 기능은 남아 있어 주소로 열어 시험한다.
+  testWidgets('단어장 목록(/books)에서 지우고, 이름을 넣어 단어장을 만든다', (tester) async {
+    books.seed('있던 것', const []);
     await pumpApp(tester);
 
-    await tapKey(tester, 'menu');
-    expect(find.text('내 단어장'), findsOneWidget);
-    await tapKey(tester, 'menu-my-words');
+    router.push('/books');
+    await tester.pumpAndSettle();
 
     expect(find.byType(WordBooksScreen), findsOneWidget);
+    await tapKey(tester, 'book-menu-1');
+    await tapKey(tester, 'book-delete');
+    await tapKey(tester, 'confirm-delete');
     expect(find.byKey(const ValueKey('books-empty')), findsOneWidget);
 
     // 빈 이름은 받지 않는다
@@ -137,23 +146,6 @@ void main() {
     // ← 뒤로 두 번이면 칸 홈
     await tester.pageBack();
     await tester.pumpAndSettle();
-    await tester.pageBack();
-    await tester.pumpAndSettle();
-    expect(find.byType(CellHomeScreen), findsOneWidget);
-  });
-
-  testWidgets('메뉴의 내 단어장을 빠르게 두 번 눌러도 한 번만 열린다', (tester) async {
-    await pumpApp(tester);
-
-    await tapKey(tester, 'menu');
-    final item = find.byKey(const ValueKey('menu-my-words'));
-    await tester.tap(item);
-    await tester.pump(const Duration(milliseconds: 50)); // 메뉴가 닫히는 중
-    await tester.tap(item, warnIfMissed: false);
-    await tester.pumpAndSettle();
-
-    expect(tester.takeException(), isNull);
-    expect(find.byType(WordBooksScreen), findsOneWidget);
     await tester.pageBack();
     await tester.pumpAndSettle();
     expect(find.byType(CellHomeScreen), findsOneWidget);

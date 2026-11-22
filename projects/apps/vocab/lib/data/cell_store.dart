@@ -10,6 +10,11 @@ abstract interface class CellStore {
   Future<Cell?> load();
 
   Future<void> save(Cell cell);
+
+  /// 등록한 칸들(☰ 메뉴에 보이는 목록, 등록한 순서). 없으면 빈 목록.
+  Future<List<Cell>> loadRegistered();
+
+  Future<void> saveRegistered(List<Cell> cells);
 }
 
 /// shared_preferences 구현. 값은 칸 id(`middle_medium` 등) 하나.
@@ -26,6 +31,18 @@ class PrefsCellStore implements CellStore {
 
   @override
   Future<void> save(Cell cell) => _prefs.setString(_key, cell.id);
+
+  static const _registeredKey = 'registered_cells';
+
+  @override
+  Future<List<Cell>> loadRegistered() async {
+    final ids = await _prefs.getStringList(_registeredKey) ?? const [];
+    return [for (final id in ids) ?Cell.byId(id)]; // 모르는 id는 건너뛴다
+  }
+
+  @override
+  Future<void> saveRegistered(List<Cell> cells) =>
+      _prefs.setStringList(_registeredKey, [for (final c in cells) c.id]);
 }
 
 final cellStoreProvider = Provider<CellStore>((ref) => PrefsCellStore());
@@ -46,3 +63,30 @@ class SelectedCell extends AsyncNotifier<Cell?> {
 final selectedCellProvider = AsyncNotifierProvider<SelectedCell, Cell?>(
   SelectedCell.new,
 );
+
+/// 등록한 칸 목록(2026-11-22 사용자 결정 — ☰ 메뉴에는 등록한 학교급+난이도만 보인다.
+/// 홈 오른쪽 아래 동그란 버튼으로 학교급 → 난이도를 골라 등록한다).
+class RegisteredCells extends AsyncNotifier<List<Cell>> {
+  @override
+  Future<List<Cell>> build() async {
+    final store = ref.read(cellStoreProvider);
+    final list = await store.loadRegistered();
+    if (list.isNotEmpty) return list;
+    // 등록 목록이 생기기 전 버전에서 고른 칸이 있으면 그것을 등록된 것으로 본다
+    final selected = await store.load();
+    return [?selected];
+  }
+
+  /// 목록 끝에 더한다(이미 있으면 그대로). 화면에는 바로 반영하고 기기에 저장한다 —
+  /// 저장이 실패하면 예외를 그대로 낸다.
+  Future<void> add(Cell cell) async {
+    final current = await future;
+    if (current.contains(cell)) return;
+    final next = [...current, cell];
+    state = AsyncData(next);
+    await ref.read(cellStoreProvider).saveRegistered(next);
+  }
+}
+
+final registeredCellsProvider =
+    AsyncNotifierProvider<RegisteredCells, List<Cell>>(RegisteredCells.new);

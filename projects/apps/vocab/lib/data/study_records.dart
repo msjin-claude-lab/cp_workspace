@@ -37,7 +37,9 @@ abstract interface class StudyRecords {
 
   /// 진도 화면에 쓸 집계(난이도별 외운 수·오답 수, 날짜별 공부 수·맞힌 수).
   /// 내장 9칸의 기록만 센다 — 내 단어장 기록은 들어가지 않는다.
-  Future<Progress> progress();
+  /// `only`를 주면 날짜별 기록을 그 칸 것만 센다(진도 화면은 지금 난이도만 보여 준다 —
+  /// 2026-11-22 사용자 결정). 외운 수·오답 수는 늘 칸별 지도로 준다.
+  Future<Progress> progress({Cell? only});
 }
 
 /// 하루의 기록. `day`는 기기 시간대 `YYYY-MM-DD`.
@@ -74,20 +76,21 @@ class Progress {
   /// 공부한 날들. 최근 날짜가 앞.
   final List<DayStat> days;
 
-  /// 연속 학습일: `today`(없으면 어제)부터 거슬러 올라가며 하루도 빠지지 않은 날 수.
-  /// 오늘 아직 안 했어도 어제까지 이어졌으면 끊긴 것으로 보지 않는다.
-  int streak(DateTime today) {
-    final done = {for (final d in days) d.day};
-    var day = DateTime(today.year, today.month, today.day);
-    if (!done.contains(dayKey(day))) {
-      day = DateTime(day.year, day.month, day.day - 1);
-    }
-    var count = 0;
-    while (done.contains(dayKey(day))) {
-      count++;
-      day = DateTime(day.year, day.month, day.day - 1);
-    }
-    return count;
+  /// 진행 일수: 처음 공부한 날을 1일로 치고 `today`까지 달력 날짜로 센 날 수.
+  /// 공부를 쉰 날도 센다. 기록이 없으면 0.
+  /// (2026-11-22 사용자 결정 — 전에는 "연속 학습일"이었는데, 하루 쉬면 0일이 되어 어색하다는 지적)
+  int elapsedDays(DateTime today) {
+    if (days.isEmpty) return 0;
+    final first = days
+        .map((d) => d.day)
+        .reduce((a, b) => a.compareTo(b) < 0 ? a : b);
+    final parts = first.split('-').map(int.parse).toList();
+    // 서머타임에 흔들리지 않게 UTC 날짜끼리 뺀다
+    final start = DateTime.utc(parts[0], parts[1], parts[2]);
+    final end = DateTime.utc(today.year, today.month, today.day);
+    final diff = end.difference(start).inDays;
+    // 기기 날짜를 과거로 돌린 경우에도 0 이하가 되지 않게 한다
+    return diff < 0 ? 1 : diff + 1;
   }
 }
 
@@ -202,7 +205,7 @@ class SqfliteStudyRecords implements StudyRecords {
   }
 
   @override
-  Future<Progress> progress() async {
+  Future<Progress> progress({Cell? only}) async {
     final db = await _database;
     // 단어별 마지막 시험 답은 id가 가장 큰 줄 — 시각은 같거나 기기 시계가 바뀔 수 있어 쓰지 않는다
     final memorizedRows = await db.rawQuery(
@@ -215,7 +218,10 @@ class SqfliteStudyRecords implements StudyRecords {
       'SELECT cell_id, COUNT(*) AS n FROM wrong_notes GROUP BY cell_id',
     );
     // 진도는 내장 9칸만 센다 — 내 단어장(`book_N`) 기록은 날짜별 집계에서도 뺀다
-    final cellIds = [for (final c in Cell.values) c.id];
+    final cellIds = [
+      for (final c in Cell.values)
+        if (only == null || c == only) c.id,
+    ];
     final inCells =
         'cell_id IN (${List.filled(cellIds.length, '?').join(', ')})';
     final dayRows = await db.rawQuery(
@@ -406,9 +412,9 @@ final studyRecordsProvider = Provider<StudyRecords>(
   (ref) => ref.watch(vocabDatabaseProvider),
 );
 
-/// 진도 집계. 진도 화면을 열 때마다 새로 읽는다(autoDispose).
-final progressProvider = FutureProvider.autoDispose<Progress>(
-  (ref) => ref.watch(studyRecordsProvider).progress(),
+/// 칸 하나의 진도 집계(날짜별 기록·진행 일차는 그 칸 것만). 진도 화면을 열 때마다 새로 읽는다(autoDispose).
+final progressProvider = FutureProvider.autoDispose.family<Progress, Cell>(
+  (ref, cell) => ref.watch(studyRecordsProvider).progress(only: cell),
 );
 
 /// 칸 또는 내 단어장 하나의 오답 노트(최근에 틀린 것이 위). 화면을 열 때마다 새로 읽는다(autoDispose).

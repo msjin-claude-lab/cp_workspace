@@ -35,12 +35,20 @@ class HomeScreen extends ConsumerWidget {
   }
 }
 
-/// 칸을 고르고 저장한다. 저장에 실패하면 알린다(이번 실행에서는 고른 칸으로 쓴다).
+/// 칸을 고르고(등록 목록에 없으면 등록도 하고) 저장한다.
+/// 저장에 실패하면 알린다(이번 실행에서는 고른 칸으로 쓴다).
 Future<void> _selectCell(BuildContext context, WidgetRef ref, Cell cell) async {
   final messenger = ScaffoldMessenger.of(context);
+  final registered = ref.read(registeredCellsProvider.notifier);
+  final selected = ref.read(selectedCellProvider.notifier);
   try {
-    await ref.read(selectedCellProvider.notifier).select(cell);
+    await registered.add(cell);
+    await selected.select(cell);
   } catch (_) {
+    // 등록 저장이 실패했어도 이번 실행에서는 고른 칸으로 쓴다
+    try {
+      await selected.select(cell);
+    } catch (_) {}
     messenger.showSnackBar(
       const SnackBar(
         content: Text('고른 칸을 저장하지 못했습니다. 다음 실행 때는 전에 저장된 칸으로 시작합니다'),
@@ -206,23 +214,17 @@ class CellHomeScreen extends ConsumerWidget {
       ),
       drawer: _MenuDrawer(current: cell),
       // "메인화면"(학교급 고르기로 감)은 화면 맨 아래에 고정한다(2026-11-20 사용자 결정)
-      bottomNavigationBar: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(24, 8, 24, 16),
-          child: OutlinedButton.icon(
-            key: const ValueKey('home-change'),
-            style: OutlinedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-            ),
-            icon: const Icon(Icons.home_outlined),
-            label: const Text('메인화면'),
-            onPressed: () {
-              if (ModalRoute.of(context)?.isCurrent != true) return;
-              // 메인화면은 맨 위 화면이라 ← 뒤로가 없다 — 쌓지 않고 바꿔 연다
-              context.go('/pick');
-            },
-          ),
-        ),
+      // 오른쪽 아래 동그란 버튼(글쓰기 아이콘): 새 등록 — 학교급 → 난이도를 골라 메뉴 목록에 더한다
+      // (2026-11-22 사용자 결정). 고르는 화면은 홈 위에 쌓아 ← 뒤로로 그만둘 수 있다
+      floatingActionButton: FloatingActionButton(
+        key: const ValueKey('home-register'),
+        tooltip: '새 등록',
+        shape: const CircleBorder(),
+        onPressed: () {
+          if (ModalRoute.of(context)?.isCurrent != true) return;
+          context.push('/pick');
+        },
+        child: const Icon(Icons.edit_square),
       ),
       body: SafeArea(
         child: ListView(
@@ -301,14 +303,23 @@ class _HomeAction extends StatelessWidget {
   );
 }
 
-/// ☰ 메뉴: 학교급 ▸ 난이도 2단계로 칸을 바로 바꾼다. 지금 학교급은 펼쳐 둔다.
+/// ☰ 메뉴: 앱 제목·버전과 **내가 등록한 학교급+난이도만**(2026-11-22 사용자 결정).
+/// 누르면 그것이 홈이 되고 저장된다. 등록은 홈 오른쪽 아래 동그란 버튼(학교급 → 난이도).
+/// 9개를 미리 다 보여 주지 않고, "메인화면" 버튼·"내 단어장" 목록도 두지 않는다.
 class _MenuDrawer extends ConsumerWidget {
   const _MenuDrawer({required this.current});
 
+  /// 지금 홈인 칸.
   final Cell current;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // 못 읽으면 지금 칸만이라도 보여 준다
+    final registered =
+        ref.watch(registeredCellsProvider).value ?? const <Cell>[];
+    final cells = registered.contains(current)
+        ? registered
+        : [...registered, current];
     return Drawer(
       child: SafeArea(
         child: ListView(
@@ -330,59 +341,22 @@ class _MenuDrawer extends ConsumerWidget {
                 ),
               ),
             ),
-            for (final level in SchoolLevel.values)
-              ExpansionTile(
-                key: ValueKey('menu-level-${level.name}'),
-                title: Text(level.label),
-                initiallyExpanded: level == current.level,
-                children: [
-                  for (final difficulty in Difficulty.values)
-                    _menuCell(context, ref, Cell.of(level, difficulty)),
-                ],
-              ),
             const Divider(),
-            const _MyWordsMenuItem(),
+            for (final cell in cells)
+              ListTile(
+                key: ValueKey('menu-cell-${cell.id}'),
+                title: Text(cell.label),
+                selected: cell == current,
+                trailing: cell == current ? const Icon(Icons.check) : null,
+                onTap: () {
+                  // 메뉴를 닫는다. pop()은 닫히는 중에 다시 누르면 첫 화면까지 닫으므로 쓰지 않는다
+                  Scaffold.of(context).closeDrawer();
+                  if (cell != current) _selectCell(context, ref, cell);
+                },
+              ),
           ],
         ),
       ),
-    );
-  }
-
-  Widget _menuCell(BuildContext context, WidgetRef ref, Cell cell) {
-    final selected = cell == current;
-    return ListTile(
-      key: ValueKey('menu-cell-${cell.id}'),
-      contentPadding: const EdgeInsets.only(left: 40, right: 16),
-      title: Text(cell.difficulty.label),
-      selected: selected,
-      trailing: selected ? const Icon(Icons.check) : null,
-      onTap: () {
-        // 메뉴를 닫는다. pop()은 닫히는 중에 다시 누르면 첫 화면까지 닫으므로 쓰지 않는다
-        Scaffold.of(context).closeDrawer();
-        if (!selected) _selectCell(context, ref, cell);
-      },
-    );
-  }
-}
-
-/// ☰ 메뉴의 "내 단어장". 일단 메뉴에 두고 나중에 다른 곳으로 옮길 예정이라(2026-11-20 사용자 결정)
-/// 이 위젯 하나만 옮기면 되게 따로 둔다.
-class _MyWordsMenuItem extends StatelessWidget {
-  const _MyWordsMenuItem();
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      key: const ValueKey('menu-my-words'),
-      leading: const Icon(Icons.collections_bookmark_outlined),
-      title: const Text('내 단어장'),
-      onTap: () {
-        // 이미 열었으면(메뉴가 닫히는 중 빠른 두 번 누름) 다시 열지 않는다
-        if (ModalRoute.of(context)?.isCurrent != true) return;
-        // pop()은 닫히는 중에 다시 누르면 첫 화면까지 닫으므로 closeDrawer로 닫는다
-        Scaffold.of(context).closeDrawer();
-        context.push('/books');
-      },
     );
   }
 }

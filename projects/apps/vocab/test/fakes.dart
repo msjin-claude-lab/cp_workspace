@@ -41,6 +41,18 @@ class FakeCellStore implements CellStore {
     if (fail) throw StateError('prefs');
     saved = cell;
   }
+
+  /// 기기에 저장된 등록 목록 역할.
+  List<Cell> registered = [];
+
+  @override
+  Future<List<Cell>> loadRegistered() async => [...registered];
+
+  @override
+  Future<void> saveRegistered(List<Cell> cells) async {
+    if (fail) throw StateError('prefs');
+    registered = [...cells];
+  }
 }
 
 class FakeSpeaker implements Speaker {
@@ -62,7 +74,7 @@ class FakeRecords implements StudyRecords {
   Progress progressValue = const Progress();
 
   @override
-  Future<Progress> progress() async => progressValue;
+  Future<Progress> progress({Cell? only}) async => progressValue;
 
   void _miss(Deck deck, Word word) {
     final i = notes.indexWhere((n) => n.wordId == word.id);

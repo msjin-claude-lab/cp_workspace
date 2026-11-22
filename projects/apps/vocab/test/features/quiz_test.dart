@@ -82,7 +82,7 @@ class _FakeRecords implements StudyRecords {
   }
 
   @override
-  Future<Progress> progress() async => const Progress();
+  Future<Progress> progress({Cell? only}) async => const Progress();
 }
 
 void main() {

@@ -92,7 +92,7 @@ class _FakeRecords implements StudyRecords {
   Future<void> removeWrongNote(String wordId) async => removed.add(wordId);
 
   @override
-  Future<Progress> progress() async => const Progress();
+  Future<Progress> progress({Cell? only}) async => const Progress();
 }
 
 class _FixedCellStore implements CellStore {
@@ -101,6 +101,12 @@ class _FixedCellStore implements CellStore {
 
   @override
   Future<void> save(Cell cell) async {}
+
+  @override
+  Future<List<Cell>> loadRegistered() async => const [Cell.elementaryEasy];
+
+  @override
+  Future<void> saveRegistered(List<Cell> cells) async {}
 }
 
 void main() {

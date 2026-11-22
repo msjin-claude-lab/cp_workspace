@@ -6,6 +6,7 @@ import 'package:vocab/data/cell_store.dart';
 import 'package:vocab/data/speaker.dart';
 import 'package:vocab/data/study_records.dart';
 import 'package:vocab/data/word_repository.dart';
+import 'package:vocab/features/progress/progress_calendar.dart';
 import 'package:vocab/features/progress/progress_screen.dart';
 import 'package:vocab/router.dart';
 
@@ -49,49 +50,94 @@ void main() {
     await tester.pumpAndSettle();
   }
 
-  Finder inRow(Cell cell, String text) => find.descendant(
-    of: find.byKey(ValueKey('progress-${cell.id}')),
-    matching: find.text(text),
-  );
-
-  testWidgets('진도는 9개 난이도마다 외운 수/전체와 오답 수를 보여 주고, 날짜별 기록과 연속 학습일을 보여 준다', (
+  testWidgets('진도는 지금 난이도의 외운 수/전체·오답 수만 보여 주고, 날짜별 기록과 진행 일차를 보여 준다', (
     tester,
   ) async {
     final now = DateTime.now();
     final today = dayKey(now);
-    final yesterday = dayKey(DateTime(now.year, now.month, now.day - 1));
+    // 사흘 전에 시작하고 그 사이 이틀은 쉬었다 → 진행 4일차
+    final firstDay = dayKey(DateTime(now.year, now.month, now.day - 3));
     records.progressValue = Progress(
       memorized: {Cell.elementaryEasy: 3, Cell.middleHard: 9}, // 9는 전체(2)를 넘음
       wrong: {Cell.elementaryEasy: 1},
       days: [
         DayStat(day: today, studied: 12, correct: 5),
-        DayStat(day: yesterday, studied: 4, correct: 0),
+        DayStat(day: firstDay, studied: 4, correct: 0),
       ],
     );
     await openProgress(tester);
 
     expect(find.byType(ProgressScreen), findsOneWidget);
-    expect(find.text('연속 학습 2일'), findsOneWidget);
-    for (final cell in Cell.values) {
-      expect(find.byKey(ValueKey('progress-${cell.id}')), findsOneWidget);
-    }
-    expect(inRow(Cell.elementaryEasy, '외움 3/5 · 오답 1'), findsOneWidget);
-    expect(inRow(Cell.middleHard, '외움 2/2 · 오답 0'), findsOneWidget);
-    expect(inRow(Cell.highEasy, '외움 0/0 · 오답 0'), findsOneWidget);
+    expect(find.text('초등 [난이도 : 쉬움] - 진도'), findsOneWidget);
+    expect(find.text('진행 4일차'), findsOneWidget);
+    // 지금 난이도(초등 쉬움) 것만 — 다른 난이도(중등 어려움 2/2)는 보이지 않는다
+    expect(find.text('외움 3/5 · 오답 1'), findsOneWidget);
+    expect(find.textContaining('외움'), findsOneWidget);
 
-    final dayTile = find.byKey(ValueKey('progress-day-$today'));
-    await tester.scrollUntilVisible(dayTile, 200);
+    // 날짜별 기록은 달력 — 처음에는 오늘이 골라져 있다
+    expect(find.byType(ProgressCalendar), findsOneWidget);
     expect(
-      find.descendant(of: dayTile, matching: find.text('공부 12 · 시험 맞힘 5')),
+      find.text('${now.month}월 ${now.day}일 · 공부 12 · 시험 맞힘 5'),
       findsOneWidget,
     );
   });
 
-  testWidgets('기록이 없으면 연속 학습 0일과 안내를 보여 준다', (tester) async {
+  testWidgets('달력: 공부한 날을 누르면 그날 기록이, 안 한 날은 기록 없음이 보이고 달을 넘길 수 있다', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(800, 1600);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: ProgressCalendar(
+            today: DateTime(2026, 11, 22),
+            days: const [
+              DayStat(day: '2026-11-20', studied: 18, correct: 9),
+              DayStat(day: '2026-10-31', studied: 3, correct: 1),
+            ],
+          ),
+        ),
+      ),
+    );
+
+    expect(find.text('2026년 11월'), findsOneWidget);
+    // 2026-11-01은 일요일 — 첫 줄 첫 칸
+    final first = tester.getTopLeft(
+      find.byKey(const ValueKey('cal-2026-11-01')),
+    );
+    final sunday = tester.getTopLeft(find.text('일'));
+    expect((first.dx - sunday.dx).abs(), lessThan(60));
+    expect(find.byKey(const ValueKey('cal-2026-11-30')), findsOneWidget);
+    expect(find.byKey(const ValueKey('cal-2026-11-31')), findsNothing);
+    // 오늘(22일)은 기록이 없다
+    expect(find.text('11월 22일 · 공부한 기록이 없습니다'), findsOneWidget);
+
+    await tester.tap(find.byKey(const ValueKey('cal-2026-11-20')));
+    await tester.pump();
+    expect(find.text('11월 20일 · 공부 18 · 시험 맞힘 9'), findsOneWidget);
+
+    await tester.tap(find.byKey(const ValueKey('cal-prev')));
+    await tester.pump();
+    expect(find.text('2026년 10월'), findsOneWidget);
+    await tester.tap(find.byKey(const ValueKey('cal-2026-10-31')));
+    await tester.pump();
+    expect(find.text('10월 31일 · 공부 3 · 시험 맞힘 1'), findsOneWidget);
+
+    // 12월에서 다음 달로 넘기면 해가 바뀐다
+    for (var i = 0; i < 3; i++) {
+      await tester.tap(find.byKey(const ValueKey('cal-next')));
+      await tester.pump();
+    }
+    expect(find.text('2027년 1월'), findsOneWidget);
+  });
+
+  testWidgets('기록이 없으면 아직 시작하지 않았다고 알린다', (tester) async {
     await openProgress(tester);
 
-    expect(find.text('연속 학습 0일'), findsOneWidget);
-    await tester.scrollUntilVisible(find.text('아직 공부한 기록이 없습니다'), 200);
-    expect(find.text('아직 공부한 기록이 없습니다'), findsOneWidget);
+    expect(find.text('아직 시작하지 않았습니다'), findsOneWidget);
+    expect(find.text('외움 0/5 · 오답 0'), findsOneWidget);
+    expect(find.textContaining('공부한 기록이 없습니다'), findsOneWidget);
   });
 }

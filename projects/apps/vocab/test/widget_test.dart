@@ -5,6 +5,7 @@ import 'package:vocab/data/cell.dart';
 import 'package:vocab/data/cell_store.dart';
 import 'package:vocab/data/speaker.dart';
 import 'package:vocab/data/study_records.dart';
+import 'package:vocab/data/word_books.dart';
 import 'package:vocab/data/word_repository.dart';
 import 'package:vocab/features/home/home_screen.dart';
 import 'package:vocab/features/quiz/quiz_screen.dart';
@@ -44,6 +45,7 @@ void main() {
           cellStoreProvider.overrideWithValue(store),
           studyRecordsProvider.overrideWithValue(records),
           speakerProvider.overrideWithValue(FakeSpeaker()),
+          wordBooksProvider.overrideWithValue(FakeWordBooks(records)),
         ],
         child: MaterialApp.router(routerConfig: createRouter()),
       ),
@@ -102,8 +104,10 @@ void main() {
     expect(find.text('오답 노트 · 1단어'), findsOneWidget);
   });
 
-  testWidgets('☰ 메뉴는 학교급 ▸ 난이도 2단계로 칸을 바꾸고, 바꾼 칸이 저장된다', (tester) async {
-    store.saved = Cell.elementaryEasy;
+  testWidgets('☰ 메뉴에는 앱 제목·버전과 등록한 학교급+난이도만 있고, 동그란 버튼으로 새로 등록하면 목록에 더해진다', (
+    tester,
+  ) async {
+    store.saved = Cell.elementaryEasy; // 등록 목록이 없던 버전에서 고른 칸 → 등록된 것으로 본다
     await pumpApp(tester);
 
     await tap(tester, 'menu');
@@ -113,23 +117,54 @@ void main() {
     final version = span.children!.single as TextSpan;
     expect(span.toPlainText(), '영단어 v1.0.0');
     expect(version.style!.fontSize!, lessThan(span.style!.fontSize!));
-    // 지금 학교급(초등)은 펼쳐져 있다
+
+    // 메뉴에는 등록한 것만 — 등록 버튼·메인화면·내 단어장·소제목은 없다
+    expect(find.text('새 단어장'), findsNothing);
+    expect(find.text('메인화면'), findsNothing);
+    expect(find.text('내 단어장'), findsNothing);
+    expect(find.text('기본 단어장'), findsNothing);
     expect(
-      find.byKey(const ValueKey('menu-cell-elementary_hard')),
-      findsOneWidget,
+      tester
+          .widget<ListTile>(
+            find.byKey(const ValueKey('menu-cell-elementary_easy')),
+          )
+          .selected,
+      isTrue,
     );
     expect(find.byKey(const ValueKey('menu-cell-high_easy')), findsNothing);
 
-    await tap(tester, 'menu-level-high');
-    await tap(tester, 'menu-cell-high_easy');
+    // 메뉴를 닫고(바깥을 눌러) 동그란 버튼(글쓰기 아이콘) → 학교급 → 난이도로 등록한다
+    await tester.tapAt(const Offset(780, 300));
+    await tester.pumpAndSettle();
+    expect(find.byTooltip('새 등록'), findsOneWidget);
+    await tap(tester, 'home-register');
+    expect(find.byType(LevelPickerScreen), findsOneWidget);
+    expect(find.byType(BackButton), findsOneWidget); // 그만두고 돌아갈 수 있다
+    await tap(tester, 'pick-high');
+    await tap(tester, 'pick-high_easy');
 
+    // 등록한 것이 홈이 되고 저장되며, 메뉴에 둘 다 보인다
     expect(store.saved, Cell.highEasy);
+    expect(store.registered, [Cell.elementaryEasy, Cell.highEasy]);
     expect(find.text('고등 [난이도 : 쉬움]'), findsOneWidget);
-    expect(find.text('5단어'), findsOneWidget);
+    expect(find.byType(BackButton), findsNothing);
+    await tap(tester, 'menu');
+    expect(find.byKey(const ValueKey('menu-cell-high_easy')), findsOneWidget);
+
+    // 목록의 다른 것을 누르면 그것이 홈이 된다
+    await tap(tester, 'menu-cell-elementary_easy');
+    expect(store.saved, Cell.elementaryEasy);
+    expect(find.text('초등 [난이도 : 쉬움]'), findsOneWidget);
+    // 같은 것을 다시 등록해도 목록이 늘지 않는다
+    await tap(tester, 'home-register');
+    await tap(tester, 'pick-high');
+    await tap(tester, 'pick-high_easy');
+    expect(store.registered, [Cell.elementaryEasy, Cell.highEasy]);
   });
 
-  testWidgets('메뉴에서 칸을 빠르게 두 번 눌러도 칸 홈이 닫히지 않는다', (tester) async {
+  testWidgets('메뉴에서 등록한 것을 빠르게 두 번 눌러도 홈이 닫히지 않는다', (tester) async {
     store.saved = Cell.elementaryEasy;
+    store.registered = [Cell.elementaryEasy, Cell.elementaryMedium];
     await pumpApp(tester);
 
     await tap(tester, 'menu');
@@ -178,15 +213,10 @@ void main() {
     await tester.pageBack();
     await tester.pumpAndSettle();
 
-    // 학교급·난이도 바꾸기 → 학교급 → 난이도 → 새 칸 홈(뒤로 쌓이지 않고 홈 하나만)
-    expect(find.text('메인화면'), findsOneWidget);
-    await tap(tester, 'home-change');
-    expect(find.byType(LevelPickerScreen), findsOneWidget);
-    expect(find.byType(BackButton), findsNothing); // 메인화면에는 ← 뒤로가 없다
-    await tap(tester, 'pick-high');
-    await tap(tester, 'pick-high_easy');
-    expect(find.text('고등 [난이도 : 쉬움]'), findsOneWidget);
-    expect(find.byType(BackButton), findsNothing);
+    // 오른쪽 아래 동그란 버튼은 새 등록(글쓰기 아이콘). "메인화면" 버튼은 없다
+    expect(find.byTooltip('새 등록'), findsOneWidget);
+    expect(find.byTooltip('메인화면'), findsNothing);
+    expect(find.text('메인화면'), findsNothing);
   });
 
   testWidgets('카드 학습에서 모른다를 누르고 돌아오면 칸 홈의 오답 수가 바로 바뀐다', (tester) async {

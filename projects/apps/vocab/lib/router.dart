@@ -50,12 +50,16 @@ GoRouter createRouter() => GoRouter(
       builder: (context, state) =>
           _withDeck(state, (deck) => WrongNotesScreen(deck: deck)),
     ),
-    // 진도. 지금 고른 칸을 강조하려면 ?cell=middle_medium
+    // 진도(지금 고른 칸 하나). 예: /progress?cell=middle_medium
     GoRoute(
       path: '/progress',
-      builder: (context, state) => ProgressScreen(
-        current: Cell.byId(state.uri.queryParameters['cell'] ?? ''),
-      ),
+      builder: (context, state) {
+        final cell = Cell.byId(state.uri.queryParameters['cell'] ?? '');
+        if (cell == null) {
+          return const Scaffold(body: Center(child: Text('찾을 수 없는 화면입니다')));
+        }
+        return ProgressScreen(cell: cell);
+      },
     ),
     // 오답 노트 → 카드로 다시 보기 / 오답 시험. 예: /review/quiz/middle_easy
     GoRoute(

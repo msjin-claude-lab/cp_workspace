@@ -267,25 +267,36 @@ void main() {
     expect(p.wrong, {Cell.elementaryEasy: 2});
     final today = dayKey(DateTime.now());
     expect(p.days.map((d) => (d.day, d.studied, d.correct)), [(today, 7, 4)]);
-    expect(p.streak(DateTime.now()), 1);
+    expect(p.elapsedDays(DateTime.now()), 1);
+    // 칸 하나만: 날짜별 기록은 그 칸 것만 센다(초등 쉬움 6건 · 맞힘 3, 중등 어려움 1건 · 맞힘 1)
+    final easy = await records.progress(only: Cell.elementaryEasy);
+    expect(easy.days.map((d) => (d.studied, d.correct)), [(6, 3)]);
+    final hard = await records.progress(only: Cell.middleHard);
+    expect(hard.days.map((d) => (d.studied, d.correct)), [(1, 1)]);
+    expect((await records.progress(only: Cell.highEasy)).days, isEmpty);
     // 임시 폴더를 지울 수 있게 DB를 닫는다(같은 파일은 연결 하나를 함께 쓴다)
     await (await databaseFactoryFfi.openDatabase(path)).close();
   });
 
-  test('연속 학습일은 오늘(없으면 어제)부터 빠진 날 전까지 센다', () {
+  test('진행 일수는 처음 공부한 날을 1일로 치고 오늘까지 달력 날짜로 센다', () {
     Progress days(List<String> list) => Progress(
       days: [for (final d in list) DayStat(day: d, studied: 1, correct: 0)],
     );
-    final today = DateTime(2026, 11, 20);
+    final today = DateTime(2026, 11, 22, 23, 59);
 
-    expect(days([]).streak(today), 0);
-    expect(days(['2026-11-20', '2026-11-19', '2026-11-18']).streak(today), 3);
-    // 오늘 아직 안 했어도 어제까지 이어졌으면 유지
-    expect(days(['2026-11-19', '2026-11-18']).streak(today), 2);
-    // 하루 빠지면 거기서 끊긴다
-    expect(days(['2026-11-20', '2026-11-18']).streak(today), 1);
-    expect(days(['2026-11-17']).streak(today), 0);
-    // 달이 바뀌어도 이어진다
-    expect(days(['2026-11-01', '2026-10-31']).streak(DateTime(2026, 11, 1)), 2);
+    expect(days([]).elapsedDays(today), 0);
+    expect(days(['2026-11-22']).elapsedDays(today), 1);
+    // 20일에만 공부하고 쉬었어도 22일에는 3일째
+    expect(days(['2026-11-20']).elapsedDays(today), 3);
+    // 가장 이른 날부터 센다(목록 순서와 상관없이)
+    expect(
+      days(['2026-11-21', '2026-11-18', '2026-11-20']).elapsedDays(today),
+      5,
+    );
+    // 달·해가 바뀌어도 센다
+    expect(days(['2026-10-31']).elapsedDays(DateTime(2026, 11, 1)), 2);
+    expect(days(['2025-12-31']).elapsedDays(DateTime(2026, 1, 1)), 2);
+    // 기기 날짜가 첫 기록보다 앞이어도 0 이하가 되지 않는다
+    expect(days(['2026-11-25']).elapsedDays(today), 1);
   });
 }
