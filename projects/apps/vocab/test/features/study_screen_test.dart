@@ -86,12 +86,6 @@ class _FakeRecords implements StudyRecords {
   final List<WrongNote> notes = [];
 
   @override
-  Future<List<WrongNote>> wrongNotes(SchoolLevel level) async => [
-    for (final n in notes)
-      if (n.deck case Cell(level: final l) when l == level) n,
-  ];
-
-  @override
   Future<List<WrongNote>> deckWrongNotes(Deck deck) async => [
     for (final n in notes)
       if (n.deck.id == deck.id) n,
@@ -327,6 +321,32 @@ void main() {
     await tapKey(tester, 'study-next');
     await tapKey(tester, 'study-next');
     expect(find.text('2단어를 모두 봤습니다'), findsOneWidget);
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+    expect(find.text('그만할까요?'), findsNothing);
+    expect(find.byType(StudyScreen), findsNothing);
+  });
+
+  testWidgets('한 번이라도 넘겼으면 이전으로 첫 카드 앞면에 돌아와도 묻고, 다시 하기 뒤에는 새 회차로 본다', (
+    tester,
+  ) async {
+    await pumpPushedStudy(tester);
+    await tapKey(tester, 'study-next');
+    await tapKey(tester, 'study-previous');
+    expect(find.text('1 / 2'), findsOneWidget);
+    expect(find.text('사과'), findsNothing); // 앞면
+
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+    expect(find.text('그만할까요?'), findsOneWidget);
+    await tapKey(tester, 'leave-continue');
+
+    // 끝까지 보고 다시 하기 — 새 회차의 아무것도 안 한 첫 카드에서는 묻지 않는다
+    await tapKey(tester, 'study-next');
+    await tapKey(tester, 'study-next');
+    await tester.tap(find.text('다시 하기'));
+    await tester.pumpAndSettle();
+    expect(find.text('1 / 2'), findsOneWidget);
     await tester.pageBack();
     await tester.pumpAndSettle();
     expect(find.text('그만할까요?'), findsNothing);

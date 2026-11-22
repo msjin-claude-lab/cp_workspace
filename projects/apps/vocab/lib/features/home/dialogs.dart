@@ -2,11 +2,11 @@ import 'package:material_ui/material_ui.dart';
 
 /// 단어장 이름 길이 제한(2026-11-22 사용자 결정(UX 점검)). 이미 있는 더 긴 이름은 그대로 보이고,
 /// 고칠 때만 이 길이까지 쓴다.
-const int bookNameMaxLength = 20;
+const int deckNameMaxLength = 20;
 
 /// 단어장 이름을 받는다(만들기·이름 바꾸기). 취소하면 null. 앞뒤 공백은 뗀다.
 /// `confirmLabel`은 확인 버튼 글자 — 새 단어장 만들기는 이름 다음에 고르는 단계가 이어지므로 `다음`.
-Future<String?> showBookNameDialog(
+Future<String?> showDeckNameDialog(
   BuildContext context, {
   String initial = '',
   required String title,
@@ -89,7 +89,7 @@ class _NameDialogState extends State<_NameDialog> {
           controller: _name,
           autofocus: true,
           // 글자 수 표시가 함께 나온다. 더 긴 옛 이름은 지우며 줄일 수 있다
-          maxLength: bookNameMaxLength,
+          maxLength: deckNameMaxLength,
           decoration: const InputDecoration(labelText: '단어장 이름'),
           validator: (v) => (v ?? '').trim().isEmpty ? '이름을 입력하세요' : null,
           onFieldSubmitted: (_) => _save(),

@@ -65,12 +65,6 @@ class _FakeRecords implements StudyRecords {
   final List<String> removed = [];
 
   @override
-  Future<List<WrongNote>> wrongNotes(SchoolLevel level) async => [
-    for (final n in notes)
-      if (n.deck case Cell(level: final l) when l == level) n,
-  ];
-
-  @override
   Future<List<WrongNote>> deckWrongNotes(Deck deck) async => [
     for (final n in notes)
       if (n.deck.id == deck.id) n,
@@ -95,8 +89,8 @@ void main() {
       final words = _words(50);
       final quiz = buildQuiz(words, Random(1));
 
-      expect(quiz, hasLength(quizLength));
-      expect(quiz.map((q) => q.word.id).toSet(), hasLength(quizLength));
+      expect(quiz, hasLength(defaultQuizCount));
+      expect(quiz.map((q) => q.word.id).toSet(), hasLength(defaultQuizCount));
       for (final q in quiz) {
         expect(q.options, hasLength(quizOptionCount));
         expect(q.options.toSet(), hasLength(quizOptionCount));
@@ -130,7 +124,7 @@ void main() {
       expect(toWord.optionText(toWord.word), toWord.word.word);
     });
 
-    test('뜻이나 영단어가 같은 단어가 있어도 보기 글자는 서로 겹치지 않는다(내 단어장)', () {
+    test('뜻이나 영단어가 같은 단어가 있어도 보기 글자는 서로 겹치지 않는다', () {
       Word w(String id, String word, String meaning) => Word(
         id: id,
         word: word,

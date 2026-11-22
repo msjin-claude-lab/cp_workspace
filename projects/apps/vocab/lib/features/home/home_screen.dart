@@ -60,7 +60,7 @@ class HomeScreen extends ConsumerWidget {
 Future<void> startCreateDeck(BuildContext context) async {
   if (ModalRoute.of(context)?.isCurrent != true) return; // 빠른 두 번 누름
   final router = GoRouter.of(context);
-  final name = await showBookNameDialog(
+  final name = await showDeckNameDialog(
     context,
     title: '새 단어장',
     confirmLabel: '다음', // 이름 다음에 학교급·난이도를 고른다. 이름 바꾸기는 '저장'
@@ -444,7 +444,7 @@ class _MenuDrawer extends ConsumerWidget {
   ) async {
     final messenger = ScaffoldMessenger.of(context);
     final decks = ref.read(deckListProvider.notifier);
-    final name = await showBookNameDialog(
+    final name = await showDeckNameDialog(
       context,
       initial: deck.name,
       title: '이름 바꾸기',

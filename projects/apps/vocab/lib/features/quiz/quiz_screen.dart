@@ -47,11 +47,10 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
   /// 이번 회차에 틀린 단어(결과 화면에 보인다).
   final List<Word> _wrongWords = [];
 
-  /// 이번 회차 문제 수. 도중인지(결과 화면이 아닌지) 가릴 때 쓴다.
-  int _total = 0;
-
   /// 도중: 첫 문제에서 아직 답하지 않았거나 결과 화면이면 아니다.
-  bool get _inProgress => _index < _total && (_index > 0 || _chosen != null);
+  /// 붙잡아 둔 문제 목록(`_questions`)의 길이로 결과 화면인지 가린다.
+  bool get _inProgress =>
+      _index < (_questions?.length ?? 0) && (_index > 0 || _chosen != null);
 
   void _speak(Word word) => ref.read(speakerProvider).speak(word.word);
 
@@ -172,7 +171,6 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
         ),
       );
     }
-    _total = questions.length;
     if (_index >= questions.length) return _summary(questions.length);
     return _question(questions[_index], questions.length);
   }

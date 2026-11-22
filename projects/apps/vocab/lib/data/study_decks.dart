@@ -18,7 +18,8 @@ abstract interface class StudyDecks {
 
   Future<void> renameDeck(int deckId, String name);
 
-  /// 단어장과 그 오답 노트를 지운다. 학습·시험 기록(`study_log`·`quiz_log`)은 남긴다.
+  /// 단어장과 그 오답 노트·학습·시험 기록(`wrong_notes`·`study_log`·`quiz_log`)을 지운다
+  /// (2026-11-22 사용자 결정). 다른 단어장·칸 id의 줄은 건드리지 않는다.
   Future<void> deleteDeck(int deckId);
 
   /// 옛 버전(칸 id로 기록을 쌓던 때)의 기록을 단어장으로 옮긴다. 한 번만 한다.
@@ -82,11 +83,9 @@ class SqfliteStudyDecks implements StudyDecks {
     final db = await _owner.database;
     final deck = StudyDeck(deckId: deckId, name: '', base: Cell.values.first);
     await db.transaction((txn) async {
-      await txn.delete(
-        'wrong_notes',
-        where: 'cell_id = ?',
-        whereArgs: [deck.id],
-      );
+      for (final table in const ['wrong_notes', 'study_log', 'quiz_log']) {
+        await txn.delete(table, where: 'cell_id = ?', whereArgs: [deck.id]);
+      }
       await txn.delete('study_decks', where: 'id = ?', whereArgs: [deckId]);
     });
   }

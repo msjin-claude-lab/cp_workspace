@@ -22,9 +22,6 @@ abstract interface class StudyRecords {
     required bool correct,
   });
 
-  /// 학교급의 오답 노트(내장 칸 id로 쌓인 것만). 최근에 틀린 단어가 위.
-  Future<List<WrongNote>> wrongNotes(SchoolLevel level);
-
   /// 단어 묶음 하나(칸·이름 있는 단어장)의 오답 노트. 최근에 틀린 단어가 위.
   Future<List<WrongNote>> deckWrongNotes(Deck deck);
 
@@ -403,32 +400,6 @@ class SqfliteStudyRecords implements StudyRecords {
     required Word word,
     required bool correct,
   }) => _record('quiz_log', 'correct', deck: deck, word: word, ok: correct);
-
-  @override
-  Future<List<WrongNote>> wrongNotes(SchoolLevel level) async {
-    final db = await _database;
-    final cells = [
-      for (final c in Cell.values)
-        if (c.level == level) c,
-    ];
-    final rows = await db.query(
-      'wrong_notes',
-      where: 'cell_id IN (${List.filled(cells.length, '?').join(', ')})',
-      whereArgs: [for (final c in cells) c.id],
-      orderBy: 'last_missed_at DESC, word_id',
-    );
-    return [
-      for (final row in rows)
-        if (Cell.byId(row['cell_id'] as String) case final cell?)
-          WrongNote(
-            wordId: row['word_id'] as String,
-            deck: cell,
-            missCount: row['miss_count'] as int,
-            lastMissedAt: row['last_missed_at'] as int,
-            firstMissedAt: row['first_missed_at'] as int,
-          ),
-    ];
-  }
 
   @override
   Future<List<WrongNote>> deckWrongNotes(Deck deck) async {

@@ -68,7 +68,7 @@ class FakeCellStore implements CellStore {
   Future<List<Cell>> loadLegacyRegistered() async => [...legacyRegistered];
 }
 
-/// 이름 있는 단어장을 메모리에 둔다. 지울 때 오답 노트도 지우는 것을 흉내 내려면 `records`를 준다.
+/// 이름 있는 단어장을 메모리에 둔다. 지울 때 오답 노트·학습·시험 기록도 지우는 것을 흉내 내려면 `records`를 준다.
 class FakeStudyDecks implements StudyDecks {
   FakeStudyDecks([this.records]);
 
@@ -100,7 +100,7 @@ class FakeStudyDecks implements StudyDecks {
   @override
   Future<void> deleteDeck(int deckId) async {
     final id = 'deck_$deckId';
-    records?.notes.removeWhere((n) => n.deck.id == id);
+    records?.removeDeckRecords(id);
     list.removeWhere((d) => d.deckId == deckId);
   }
 
@@ -172,6 +172,13 @@ class FakeRecords implements StudyRecords {
     );
   }
 
+  /// 단어장을 지울 때: 그 단어장의 노트·학습·시험 기록을 지운다.
+  void removeDeckRecords(String deckId) {
+    notes.removeWhere((n) => n.deck.id == deckId);
+    _quizLog.removeWhere((e) => e.$1 == deckId);
+    _cardDecks.removeWhere((d) => d == deckId);
+  }
+
   void _miss(Deck deck, Word word) {
     final i = notes.indexWhere(
       (n) => n.deck.id == deck.id && n.wordId == word.id,
@@ -207,13 +214,6 @@ class FakeRecords implements StudyRecords {
     _quizLog.add((deck.id, word.id, correct));
     if (!correct) _miss(deck, word);
   }
-
-  /// 실제 구현처럼 내장 칸의 노트만 학교급으로 거른다(단어장 노트는 빠진다).
-  @override
-  Future<List<WrongNote>> wrongNotes(SchoolLevel level) async => [
-    for (final n in notes)
-      if (n.deck case Cell(level: final l) when l == level) n,
-  ]..sort((a, b) => b.lastMissedAt.compareTo(a.lastMissedAt));
 
   @override
   Future<List<WrongNote>> deckWrongNotes(Deck deck) async => [

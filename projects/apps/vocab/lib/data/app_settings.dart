@@ -1,10 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../features/quiz/quiz.dart' show quizLength;
-
 /// 카드 학습 한 회차의 기본 단어 수(2026-11-22 사용자 결정).
 const int defaultCardCount = 50;
+
+/// 시험 한 회차의 기본 문항 수. 난이도와 상관없이 20(2026-11-20 사용자 결정 — 보편적인 방식, 난이도는 단어로 조절).
+const int defaultQuizCount = 20;
 
 /// 설정 화면에서 바로 고르는 수(카드 학습·시험 공통). 이 밖의 수는 "직접 입력"으로 넣는다.
 const List<int> countChoices = [10, 20, 30, 50];
@@ -21,7 +22,7 @@ bool isValidCount(int? n) => n != null && n >= minCount && n <= maxCount;
 class AppSettings {
   const AppSettings({
     this.cardCount = defaultCardCount,
-    this.quizCount = quizLength,
+    this.quizCount = defaultQuizCount,
   });
 
   final int cardCount;
@@ -87,11 +88,11 @@ final appSettingsProvider =
 class AppSettingsNotifier extends AsyncNotifier<AppSettings> {
   @override
   Future<AppSettings> build() async {
-    final store = ref.read(appSettingsStoreProvider);
+    final store = ref.watch(appSettingsStoreProvider);
     // 읽지 못해도 기본값으로 연다 — 설정 때문에 학습·시험이 막히면 안 된다
     return AppSettings(
       cardCount: await _load(store.loadCardCount, defaultCardCount),
-      quizCount: await _load(store.loadQuizCount, quizLength),
+      quizCount: await _load(store.loadQuizCount, defaultQuizCount),
     );
   }
 

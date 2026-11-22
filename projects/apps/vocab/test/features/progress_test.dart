@@ -95,7 +95,7 @@ void main() {
     // 날짜별 기록은 달력 — 처음에는 오늘이 골라져 있다. 카드와 시험 맞힘을 따로 보인다
     expect(find.byType(ProgressCalendar), findsOneWidget);
     expect(
-      find.text('${now.month}월 ${now.day}일 · 카드 7장 · 시험 맞힘 5문제'),
+      find.text('${now.month}월 ${now.day}일 · 카드 7장 · 시험 5/5문제 맞힘'),
       findsOneWidget,
     );
   });
@@ -114,6 +114,7 @@ void main() {
             days: const [
               DayStat(day: '2026-11-20', cards: 18, answered: 12, correct: 9),
               DayStat(day: '2026-10-31', cards: 0, answered: 3, correct: 1),
+              DayStat(day: '2026-10-30', cards: 0, answered: 5, correct: 0),
             ],
           ),
         ),
@@ -134,7 +135,7 @@ void main() {
 
     await tester.tap(find.byKey(const ValueKey('cal-2026-11-20')));
     await tester.pump();
-    expect(find.text('11월 20일 · 카드 18장 · 시험 맞힘 9문제'), findsOneWidget);
+    expect(find.text('11월 20일 · 카드 18장 · 시험 9/12문제 맞힘'), findsOneWidget);
     // 공부한 날에는 숫자 아래 점이 있고, 오늘(22일)처럼 안 한 날에는 없다
     expect(find.byKey(const ValueKey('cal-dot-2026-11-20')), findsOneWidget);
     expect(find.byKey(const ValueKey('cal-dot-2026-11-22')), findsNothing);
@@ -146,7 +147,11 @@ void main() {
     expect(find.text('2026년 10월'), findsOneWidget);
     await tester.tap(find.byKey(const ValueKey('cal-2026-10-31')));
     await tester.pump();
-    expect(find.text('10월 31일 · 카드 0장 · 시험 맞힘 1문제'), findsOneWidget);
+    expect(find.text('10월 31일 · 카드 0장 · 시험 1/3문제 맞힘'), findsOneWidget);
+    // 시험만 보고 다 틀린 날도 푼 문제 수가 보인다
+    await tester.tap(find.byKey(const ValueKey('cal-2026-10-30')));
+    await tester.pump();
+    expect(find.text('10월 30일 · 카드 0장 · 시험 0/5문제 맞힘'), findsOneWidget);
 
     // 12월에서 다음 달로 넘기면 해가 바뀐다
     for (var i = 0; i < 3; i++) {

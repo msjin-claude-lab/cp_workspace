@@ -60,6 +60,7 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
       _index++;
       _flipped = false;
       _saving = false;
+      _advanced = true;
     });
   }
 
@@ -77,15 +78,18 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
     _recorded.clear(); // 새 회차는 새로 센다
     _index = 0;
     _flipped = false;
+    _advanced = false;
     _spokenIndex = null;
     _saveFailed = false;
   });
 
-  /// 읽어 둔 단어 수. 도중인지(끝 화면이 아닌지) 가릴 때 쓴다.
-  int _total = 0;
+  /// 이번 회차에 카드를 한 번이라도 넘겼나. 이전으로 첫 카드에 돌아와도 도중으로 본다.
+  bool _advanced = false;
 
   /// 도중: 첫 카드에서 아직 아무것도 안 했거나 끝 화면이면 아니다.
-  bool get _inProgress => _index < _total && (_index > 0 || _flipped);
+  /// 붙잡아 둔 카드 목록(`_order`)의 길이로 끝 화면인지 가린다.
+  bool get _inProgress =>
+      _index < (_order?.length ?? 0) && (_advanced || _index > 0 || _flipped);
 
   @override
   Widget build(BuildContext context) {
@@ -122,7 +126,6 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
     final list = _order ??= ([
       ...loaded,
     ]..shuffle(ref.read(quizRandomProvider))).take(cardCount).toList();
-    _total = list.length;
     if (list.isEmpty) {
       // 화면에는 "칸"이라는 말을 쓰지 않는다(2026-11-20 사용자 결정)
       return const Center(child: Text('아직 단어가 없습니다'));

@@ -37,7 +37,7 @@ void main() {
       row['name'] as String,
   ];
 
-  test('새로 설치하면 2판 표가 모두 생기고, 시험 결과가 기록되며 틀리면 오답 노트에 들어간다', () async {
+  test('새로 설치하면 지금 판의 표가 모두 생기고, 시험 결과가 기록되며 틀리면 오답 노트에 들어간다', () async {
     final records = SqfliteStudyRecords(
       factory: databaseFactoryFfi,
       path: path,
@@ -83,7 +83,7 @@ void main() {
     await db.close();
   });
 
-  test('오답 노트는 학교급별로 최근에 틀린 것부터 읽히고, 빼면 노트만 지워지고 기록은 남는다', () async {
+  test('오답 노트는 단어 묶음마다 최근에 틀린 것부터 읽히고, 빼면 노트만 지워지고 기록은 남는다', () async {
     final records = SqfliteStudyRecords(
       factory: databaseFactoryFfi,
       path: path,
@@ -108,38 +108,38 @@ void main() {
       correct: false,
     );
 
-    final elementary = await records.wrongNotes(SchoolLevel.elementary);
+    final elementary = await records.deckWrongNotes(Cell.elementaryEasy);
     expect(elementary.map((n) => (n.wordId, n.deck, n.missCount)), [
       ('ee-001', Cell.elementaryEasy, 1),
     ]);
     expect(
-      (await records.wrongNotes(SchoolLevel.middle)).map((n) => n.wordId),
+      (await records.deckWrongNotes(Cell.middleHard)).map((n) => n.wordId),
       ['mh-001'],
     );
-    expect(await records.wrongNotes(SchoolLevel.high), isEmpty);
+    expect(await records.deckWrongNotes(Cell.highEasy), isEmpty);
 
-    // 같은 학교급에 나중에 틀린 단어는 위로 온다(SQL의 최근순 정렬)
+    // 같은 묶음에 나중에 틀린 단어는 위로 온다(SQL의 최근순 정렬)
     await Future<void>.delayed(const Duration(milliseconds: 5));
     const later = Word(
-      id: 'eh-001',
+      id: 'ee-002',
       word: 'castle',
       meaning: '성',
       example: 'x',
       exampleMeaning: 'y',
     );
     await records.recordQuizAnswer(
-      deck: Cell.elementaryHard,
+      deck: Cell.elementaryEasy,
       word: later,
       correct: false,
     );
     expect(
-      (await records.wrongNotes(SchoolLevel.elementary)).map((n) => n.wordId),
-      ['eh-001', 'ee-001'],
+      (await records.deckWrongNotes(Cell.elementaryEasy)).map((n) => n.wordId),
+      ['ee-002', 'ee-001'],
     );
-    await records.removeWrongNote(Cell.elementaryHard, 'eh-001');
+    await records.removeWrongNote(Cell.elementaryEasy, 'ee-002');
 
     await records.removeWrongNote(Cell.elementaryEasy, 'ee-001');
-    expect(await records.wrongNotes(SchoolLevel.elementary), isEmpty);
+    expect(await records.deckWrongNotes(Cell.elementaryEasy), isEmpty);
 
     final db = await databaseFactoryFfi.openDatabase(path);
     expect(await db.rawQuery('SELECT word_id FROM study_log'), [
@@ -148,7 +148,7 @@ void main() {
     await db.close();
   });
 
-  test('1판 사용자의 DB는 기록을 그대로 둔 채 2판으로 올라가 시험 기록을 쓸 수 있다', () async {
+  test('1판 사용자의 DB는 기록을 그대로 둔 채 지금 판으로 올라가 시험 기록을 쓸 수 있다', () async {
     // 1판(카드 학습만 있던 때)으로 만든 DB에 기록 하나
     final v1 = await databaseFactoryFfi.openDatabase(
       path,
@@ -190,7 +190,7 @@ void main() {
     await db.close();
   });
 
-  test('2판 사용자의 DB는 시험 기록을 그대로 둔 채 3판(단어별 인덱스)으로 올라간다', () async {
+  test('2판 사용자의 DB는 시험 기록을 그대로 둔 채 지금 판까지 올라가 단어장별 인덱스가 생긴다', () async {
     // 2판: 1판 표 + quiz_log(인덱스 quiz_log_word 없음)
     final v2 = await databaseFactoryFfi.openDatabase(
       path,
@@ -235,6 +235,49 @@ void main() {
       hasLength(1),
     );
     await db.close();
+  });
+
+  test('새 설치와 1판·3판 DB를 지금 판으로 올린 DB는 sqlite_master가 같다', () async {
+    Future<List<Map<String, Object?>>> master(String file) async {
+      final db = await databaseFactoryFfi.openDatabase(p.join(dir.path, file));
+      final rows = await db.rawQuery(
+        'SELECT type, name, tbl_name, sql FROM sqlite_master '
+        "WHERE name NOT LIKE 'sqlite_%' AND name <> 'android_metadata' "
+        'ORDER BY name',
+      );
+      await db.close();
+      return rows;
+    }
+
+    // 새 설치
+    await (await SqfliteStudyRecords(
+      factory: databaseFactoryFfi,
+      path: p.join(dir.path, 'fresh.db'),
+    ).database).close();
+
+    // 1판·3판 사용자의 DB(기록은 비어 있어도 판 번호가 옛것이면 올라온다)
+    for (final (file, version, create) in [
+      ('v1.db', 1, SqfliteStudyRecords.createV1),
+      ('v3.db', 3, SqfliteStudyRecords.createV3),
+    ]) {
+      final old = await databaseFactoryFfi.openDatabase(
+        p.join(dir.path, file),
+        options: OpenDatabaseOptions(
+          version: version,
+          onCreate: (db, _) => create(db),
+        ),
+      );
+      await old.close();
+      await (await SqfliteStudyRecords(
+        factory: databaseFactoryFfi,
+        path: p.join(dir.path, file),
+      ).database).close();
+    }
+
+    final fresh = await master('fresh.db');
+    expect(fresh, isNotEmpty);
+    expect(await master('v1.db'), fresh);
+    expect(await master('v3.db'), fresh);
   });
 
   test('진도: 외운 수는 단어별 마지막 시험 답으로 세고, 오답 수와 날짜별 기록을 모은다', () async {
@@ -605,8 +648,8 @@ void main() {
       (await records.deckWrongNotes(b)).map((n) => n.wordId),
       containsAll(['ee-001', 'ee-002']),
     );
-    // 칸 id로 쌓인 것이 없으므로 학교급 오답 노트(칸 기록)에도 섞이지 않는다
-    expect(await records.wrongNotes(SchoolLevel.elementary), isEmpty);
+    // 칸 id로 쌓인 것이 없으므로 칸의 오답 노트에도 섞이지 않는다
+    expect(await records.deckWrongNotes(Cell.elementaryEasy), isEmpty);
     await (await records.database).close();
   });
 

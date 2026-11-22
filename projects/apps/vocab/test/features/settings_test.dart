@@ -311,5 +311,29 @@ void main() {
       await pump(tester, screen, words: 12);
       expect(find.text('1 / 12'), findsOneWidget);
     });
+
+    testWidgets('오답 시험도 설정한 수만큼 낸다', (tester) async {
+      settings.quizCount = 10;
+      records.notes.addAll([
+        for (var i = 0; i < 30; i++) fakeNote('ee-$i', Cell.elementaryEasy),
+      ]);
+      await pump(
+        tester,
+        const QuizScreen(deck: Cell.elementaryEasy, review: true),
+      );
+      expect(find.text('1 / 10'), findsOneWidget);
+    });
+
+    testWidgets('오답 노트가 설정보다 적으면 노트의 단어를 모두 낸다', (tester) async {
+      settings.quizCount = 10;
+      records.notes.addAll([
+        for (var i = 0; i < 6; i++) fakeNote('ee-$i', Cell.elementaryEasy),
+      ]);
+      await pump(
+        tester,
+        const QuizScreen(deck: Cell.elementaryEasy, review: true),
+      );
+      expect(find.text('1 / 6'), findsOneWidget);
+    });
   });
 }

@@ -48,12 +48,23 @@ void main() {
     ]);
   });
 
-  test('단어장을 지우면 그 오답 노트만 지우고, 학습·시험 기록과 다른 단어장은 남긴다', () async {
+  test('단어장을 지우면 그 오답 노트와 학습·시험 기록도 지우고, 다른 단어장·칸 id 줄은 남긴다', () async {
     final a = await decks.createDeck('지울 것', Cell.elementaryEasy);
     final b = await decks.createDeck('남길 것', Cell.elementaryEasy);
     await records.recordQuizAnswer(deck: a, word: w('ee-001'), correct: false);
     await records.recordCardViewed(deck: a, word: w('ee-002'));
     await records.recordQuizAnswer(deck: b, word: w('ee-001'), correct: false);
+    await records.recordCardViewed(deck: b, word: w('ee-002'));
+    // 이미 지운 단어장이 남긴 줄이나 등록하지 않은 칸의 옛 기록은 건드리지 않는다
+    await records.recordQuizAnswer(
+      deck: Cell.elementaryEasy,
+      word: w('ee-003'),
+      correct: true,
+    );
+    await records.recordCardViewed(
+      deck: Cell.elementaryEasy,
+      word: w('ee-003'),
+    );
 
     await decks.deleteDeck(a.deckId);
 
@@ -61,26 +72,18 @@ void main() {
     expect(await records.deckWrongNotes(a), isEmpty);
     expect((await records.deckWrongNotes(b)).map((n) => n.wordId), ['ee-001']);
     final db = await records.database;
-    expect(
-      await db.rawQuery(
-        'SELECT COUNT(*) AS n FROM quiz_log WHERE cell_id = ?',
-        [a.id],
-      ),
-      [
-        {'n': 1},
-      ],
-      reason: '단어장을 지워도 시험 기록은 남는다',
-    );
-    expect(
-      await db.rawQuery(
-        'SELECT COUNT(*) AS n FROM study_log WHERE cell_id = ?',
-        [a.id],
-      ),
-      [
-        {'n': 1},
-      ],
-      reason: '단어장을 지워도 학습 기록은 남는다',
-    );
+    Future<int> count(String table, String cellId) async =>
+        (await db.rawQuery(
+              'SELECT COUNT(*) AS n FROM $table WHERE cell_id = ?',
+              [cellId],
+            )).single['n']
+            as int;
+    expect(await count('quiz_log', a.id), 0, reason: '지운 단어장의 시험 기록도 지운다');
+    expect(await count('study_log', a.id), 0, reason: '지운 단어장의 학습 기록도 지운다');
+    expect(await count('quiz_log', b.id), 1);
+    expect(await count('study_log', b.id), 1);
+    expect(await count('quiz_log', Cell.elementaryEasy.id), 1);
+    expect(await count('study_log', Cell.elementaryEasy.id), 1);
   });
 
   test('옛 칸 기록은 등록한 칸마다 만든 단어장으로 옮겨지고, 다시 불러도 한 번만 옮긴다', () async {
