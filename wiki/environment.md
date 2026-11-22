@@ -2,7 +2,7 @@
 title: "Project Environment"
 tags: ["environment", "auto-detected"]
 created: 2026-11-17T09:38:36.504Z
-updated: 2026-11-20T12:09:10.164Z
+updated: 2026-11-22T10:58:15.525Z
 sources: ["project-memory-auto-detect"]
 links: []
 category: environment
