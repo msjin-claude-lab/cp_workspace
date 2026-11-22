@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:vocab/data/app_settings.dart';
 import 'package:vocab/data/cell.dart';
+import 'package:vocab/data/counts.dart';
 import 'package:vocab/data/speaker.dart';
 import 'package:vocab/data/study_records.dart';
 import 'package:vocab/data/word.dart';
@@ -13,7 +14,7 @@ import 'package:vocab/data/word_repository.dart';
 import 'package:vocab/features/quiz/quiz.dart';
 import 'package:vocab/features/quiz/quiz_screen.dart';
 
-import '../fakes.dart' show FakeAppSettingsStore;
+import '../fakes.dart' show FakeLegacySettingsStore;
 
 List<Word> _words(int n) => [
   for (var i = 0; i < n; i++)
@@ -199,7 +200,7 @@ void main() {
       await tester.pumpWidget(
         ProviderScope(
           overrides: [
-            appSettingsStoreProvider.overrideWithValue(FakeAppSettingsStore()),
+            legacySettingsStoreProvider.overrideWithValue(FakeLegacySettingsStore()),
             wordRepositoryProvider.overrideWithValue(_FakeRepository(words)),
             speakerProvider.overrideWithValue(speaker),
             studyRecordsProvider.overrideWithValue(records),
@@ -400,7 +401,7 @@ void main() {
       await tester.pumpWidget(
         ProviderScope(
           overrides: [
-            appSettingsStoreProvider.overrideWithValue(FakeAppSettingsStore()),
+            legacySettingsStoreProvider.overrideWithValue(FakeLegacySettingsStore()),
             wordRepositoryProvider.overrideWithValue(_FakeRepository(words)),
             speakerProvider.overrideWithValue(speaker),
             studyRecordsProvider.overrideWithValue(records),

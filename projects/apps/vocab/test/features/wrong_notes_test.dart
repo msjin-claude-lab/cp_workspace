@@ -50,7 +50,7 @@ void main() {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
-          appSettingsStoreProvider.overrideWithValue(FakeAppSettingsStore()),
+          legacySettingsStoreProvider.overrideWithValue(FakeLegacySettingsStore()),
           wordRepositoryProvider.overrideWithValue(FakeRepository(words)),
           cellStoreProvider.overrideWithValue(
             FakeCellStore(selectedDeck: (deck ?? home).deckId),

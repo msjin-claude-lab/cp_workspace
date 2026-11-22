@@ -47,7 +47,9 @@ void main() {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
-          appSettingsStoreProvider.overrideWithValue(FakeAppSettingsStore()),
+          legacySettingsStoreProvider.overrideWithValue(
+            FakeLegacySettingsStore(),
+          ),
           wordRepositoryProvider.overrideWithValue(FakeRepository(words)),
           cellStoreProvider.overrideWithValue(
             FakeCellStore(selectedDeck: home.deckId),
@@ -115,6 +117,7 @@ void main() {
               DayStat(day: '2026-11-20', cards: 18, answered: 12, correct: 9),
               DayStat(day: '2026-10-31', cards: 0, answered: 3, correct: 1),
               DayStat(day: '2026-10-30', cards: 0, answered: 5, correct: 0),
+              DayStat(day: '2026-10-29', cards: 3, answered: 0, correct: 0),
             ],
           ),
         ),
@@ -152,6 +155,10 @@ void main() {
     await tester.tap(find.byKey(const ValueKey('cal-2026-10-30')));
     await tester.pump();
     expect(find.text('10월 30일 · 카드 0장 · 시험 0/5문제 맞힘'), findsOneWidget);
+    // 시험을 안 푼 날은 시험 부분을 뺀다
+    await tester.tap(find.byKey(const ValueKey('cal-2026-10-29')));
+    await tester.pump();
+    expect(find.text('10월 29일 · 카드 3장'), findsOneWidget);
 
     // 12월에서 다음 달로 넘기면 해가 바뀐다
     for (var i = 0; i < 3; i++) {

@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:vocab/data/app_settings.dart';
 import 'package:vocab/data/cell.dart';
 import 'package:vocab/data/cell_store.dart';
+import 'package:vocab/data/counts.dart';
 import 'package:vocab/data/speaker.dart';
 import 'package:vocab/data/study_decks.dart';
 import 'package:vocab/data/study_records.dart';
@@ -84,6 +85,9 @@ class FakeStudyDecks implements StudyDecks {
   /// true면 설정 저장이 실패한다.
   bool failSave = false;
 
+  /// true면 고유 설정 읽기가 실패한다.
+  bool failLoad = false;
+
   /// 시험이 단어장을 미리 만들어 둘 때 쓴다. 설정을 주지 않으면 7판 전에 있던 단어장(열이 NULL).
   StudyDeck seed(String name, Cell base, {int? cardCount, int? quizCount}) {
     final deck = StudyDeck(deckId: _next++, name: name, base: base);
@@ -106,25 +110,28 @@ class FakeStudyDecks implements StudyDecks {
   );
 
   @override
-  Future<DeckCounts> loadCounts(int deckId) async =>
-      (cardCount: cardCounts[deckId], quizCount: quizCounts[deckId]);
+  Future<DeckCounts> loadCounts(int deckId) async {
+    if (failLoad) throw StateError('db');
+    return (cardCount: cardCounts[deckId], quizCount: quizCounts[deckId]);
+  }
 
   @override
   Future<void> saveCardCount(int deckId, int count) async {
     if (failSave) throw StateError('db');
-    cardCounts[deckId] = count;
+    // 실제 구현(UPDATE)처럼 없는 단어장 번호면 아무것도 하지 않는다
+    if (list.any((d) => d.deckId == deckId)) cardCounts[deckId] = count;
   }
 
   @override
   Future<void> saveQuizCount(int deckId, int count) async {
     if (failSave) throw StateError('db');
-    quizCounts[deckId] = count;
+    if (list.any((d) => d.deckId == deckId)) quizCounts[deckId] = count;
   }
 
   @override
   Future<void> renameDeck(int deckId, String name) async {
     final i = list.indexWhere((d) => d.deckId == deckId);
-    list[i] = list[i].renamed(name);
+    if (i >= 0) list[i] = list[i].renamed(name);
   }
 
   @override
@@ -272,8 +279,8 @@ WrongNote fakeNote(String id, Deck deck, {int miss = 1, int at = 0}) =>
     WrongNote(wordId: id, deck: deck, missCount: miss, lastMissedAt: at);
 
 /// 옛 공통 설정(7판 전, 읽기만 한다)을 메모리에 둔다. 값이 null이면 저장된 것이 없다.
-class FakeAppSettingsStore implements AppSettingsStore {
-  FakeAppSettingsStore({this.cardCount, this.quizCount});
+class FakeLegacySettingsStore implements LegacySettingsStore {
+  FakeLegacySettingsStore({this.cardCount, this.quizCount});
 
   int? cardCount;
   int? quizCount;

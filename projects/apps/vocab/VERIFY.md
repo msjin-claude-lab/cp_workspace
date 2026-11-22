@@ -43,6 +43,11 @@
 
 ## 마지막 결과
 
+- **2026-11-22 개인 PC — 단어장별 설정 검토 지적 8건 수정**
+  - `flutter analyze` exit 0(No issues), `flutter test` exit 0(139개 — 시험을 안 푼 날의 날짜 줄, 설정 읽기 실패 뒤 다시 읽기, 두 설정을 잇달아 바꾸기 시험이 늘어남), `flutter build apk --debug` exit 0 + `app-debug.apk` 21:53 새로 생김
+  - 동작이 바뀐 3건은 시험이 먼저 실패하는 것을 executor가 확인했다고 보고. Claude가 다시 돌린 것은 최종 통과뿐이다
+  - **기기 확인 안 함** — 에뮬레이터에는 `930fd32` 빌드가 그대로다(사용자가 쓰는 중이라 다시 설치하지 않음)
+
 - **2026-11-22 개인 PC — 단어장별 설정 + DB 7판**
   - `flutter analyze` exit 0(No issues), `flutter test` exit 0(137개 — 규칙(고유 → 옛 공통 → 기본) 시험, 실제 DB 6 → 7판·단어장별 저장, 실제 라우터로 단어장 A·B 설정이 따로인지 등이 늘어남), `flutter build apk --debug` exit 0 + `app-debug.apk` 21:17 새로 생김
   - 새 시험은 구현 전에 컴파일 단계에서 실패했다고 executor가 보고(새 API가 없어서 — 단정이 틀려 실패한 것은 아님). 새 설치와 1·3·6판에서 올린 DB의 `sqlite_master` 비교 시험 통과(새 설치도 같은 `ALTER TABLE`을 밟는다)

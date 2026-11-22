@@ -18,7 +18,7 @@ import 'package:vocab/router.dart';
 import 'package:vocab/features/quiz/quiz.dart' show quizRandomProvider;
 
 import '../fakes.dart'
-    show FakeAppSettingsStore, FakeCellStore, FakeStudyDecks, NoShuffleRandom;
+    show FakeLegacySettingsStore, FakeCellStore, FakeStudyDecks, NoShuffleRandom;
 
 const _apple = Word(
   id: 'ee-001',
@@ -112,7 +112,7 @@ void main() {
   /// 가짜 단어·발음·기록을 넣은 ProviderScope로 감싼다.
   Widget scoped(Widget child) => ProviderScope(
     overrides: [
-      appSettingsStoreProvider.overrideWithValue(FakeAppSettingsStore()),
+      legacySettingsStoreProvider.overrideWithValue(FakeLegacySettingsStore()),
       wordRepositoryProvider.overrideWithValue(
         _FakeRepository({
           Cell.elementaryEasy: [_apple, _book],
@@ -420,7 +420,7 @@ void main() {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
-          appSettingsStoreProvider.overrideWithValue(FakeAppSettingsStore()),
+          legacySettingsStoreProvider.overrideWithValue(FakeLegacySettingsStore()),
           wordRepositoryProvider.overrideWithValue(
             _FakeRepository({Cell.elementaryEasy: words}),
           ),

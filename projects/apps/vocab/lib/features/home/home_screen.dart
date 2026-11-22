@@ -466,7 +466,7 @@ class _MenuDrawer extends ConsumerWidget {
     final decks = ref.read(deckListProvider.notifier);
     final ok = await confirmDelete(
       context,
-      // 무엇을 잃는지 밝힌다(2026-11-22 사용자 결정(UX 점검)). 기록은 DB에 남지만 다시 볼 길이 없다
+      // 무엇을 잃는지 밝힌다(2026-11-22 사용자 결정(UX 점검)). 그 단어장의 오답 노트·학습·시험 기록은 DB에서 함께 지운다
       title: '"${deck.name}" 단어장을 지울까요?',
       message: '이 단어장의 오답 노트와 진도 기록이 사라지고 되돌릴 수 없습니다.',
     );

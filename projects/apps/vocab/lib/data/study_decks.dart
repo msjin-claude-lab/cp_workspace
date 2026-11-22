@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'app_settings.dart';
 import 'cell.dart';
+import 'counts.dart';
 import 'cell_store.dart';
 import 'study_records.dart';
 
@@ -131,10 +131,13 @@ class SqfliteStudyDecks implements StudyDecks {
   @override
   Future<void> deleteDeck(int deckId) async {
     final db = await _owner.database;
-    final deck = StudyDeck(deckId: deckId, name: '', base: Cell.values.first);
     await db.transaction((txn) async {
       for (final table in const ['wrong_notes', 'study_log', 'quiz_log']) {
-        await txn.delete(table, where: 'cell_id = ?', whereArgs: [deck.id]);
+        await txn.delete(
+          table,
+          where: 'cell_id = ?',
+          whereArgs: [StudyDeck.idOf(deckId)],
+        );
       }
       await txn.delete('study_decks', where: 'id = ?', whereArgs: [deckId]);
     });
@@ -163,7 +166,7 @@ class SqfliteStudyDecks implements StudyDecks {
           'cell_id': cell.id,
           'created_at': now,
         });
-        final deckId = StudyDeck(deckId: id, name: '', base: cell).id;
+        final deckId = StudyDeck.idOf(id);
         // 그 칸의 첫 단어장이 지금까지의 기록을 이어받는다(사용자 승인)
         for (final table in const ['study_log', 'quiz_log', 'wrong_notes']) {
           await txn.update(

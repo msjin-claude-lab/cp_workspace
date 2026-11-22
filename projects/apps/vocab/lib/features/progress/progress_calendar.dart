@@ -199,8 +199,8 @@ class _ProgressCalendarState extends State<ProgressCalendar> {
         Text(
           selectedStat == null
               ? '${_selected.month}월 ${_selected.day}일 · 공부한 기록이 없습니다'
-              : '${_selected.month}월 ${_selected.day}일 · 카드 ${selectedStat.cards}장 · '
-                    '시험 ${selectedStat.correct}/${selectedStat.answered}문제 맞힘',
+              : '${_selected.month}월 ${_selected.day}일 · 카드 ${selectedStat.cards}장'
+                    '${selectedStat.answered == 0 ? '' : ' · 시험 ${selectedStat.correct}/${selectedStat.answered}문제 맞힘'}',
           key: const ValueKey('cal-selected'),
           textAlign: TextAlign.center,
           style: theme.textTheme.bodyLarge,

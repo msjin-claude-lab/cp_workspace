@@ -21,7 +21,7 @@ import 'fakes.dart';
 
 void main() {
   late FakeCellStore store;
-  late FakeAppSettingsStore settingsStore;
+  late FakeLegacySettingsStore settingsStore;
   late FakeRecords records;
   late FakeStudyDecks decks;
 
@@ -40,7 +40,7 @@ void main() {
 
   setUp(() {
     store = FakeCellStore();
-    settingsStore = FakeAppSettingsStore();
+    settingsStore = FakeLegacySettingsStore();
     records = FakeRecords();
     decks = FakeStudyDecks(records);
   });
@@ -49,7 +49,7 @@ void main() {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
-          appSettingsStoreProvider.overrideWithValue(settingsStore),
+          legacySettingsStoreProvider.overrideWithValue(settingsStore),
           wordRepositoryProvider.overrideWithValue(FakeRepository(words)),
           cellStoreProvider.overrideWithValue(store),
           studyRecordsProvider.overrideWithValue(records),

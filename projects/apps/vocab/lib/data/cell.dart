@@ -55,7 +55,10 @@ final class StudyDeck implements Deck {
 
   /// [Cell.byId]는 `deck_N`을 모르므로 null을 돌려준다.
   @override
-  String get id => '$_prefix$deckId';
+  String get id => idOf(deckId);
+
+  /// 단어장 번호의 id 문자열(`2` → `deck_2`).
+  static String idOf(int deckId) => '$_prefix$deckId';
 
   /// 제목은 단어장 이름(`<이름> - 시험` 꼴).
   @override

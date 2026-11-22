@@ -19,7 +19,7 @@ import '../fakes.dart';
 /// 설정은 단어장마다 따로(2026-11-22 사용자 결정 — "설정은 그 단어장의 고유 설정이다").
 void main() {
   /// 옛 공통 설정(7판 전, 읽기만).
-  late FakeAppSettingsStore legacy;
+  late FakeLegacySettingsStore legacy;
   late FakeRecords records;
   late FakeStudyDecks decks;
 
@@ -48,7 +48,7 @@ void main() {
           wordRepositoryProvider.overrideWithValue(
             FakeRepository({Cell.elementaryEasy: wordsOf(words)}),
           ),
-          appSettingsStoreProvider.overrideWithValue(legacy),
+          legacySettingsStoreProvider.overrideWithValue(legacy),
           studyRecordsProvider.overrideWithValue(records),
           speakerProvider.overrideWithValue(FakeSpeaker()),
           // 카드·시험 순서는 무작위 — 개수만 보는 시험이라 순서는 고정해 둔다
@@ -72,7 +72,7 @@ void main() {
   }
 
   setUp(() {
-    legacy = FakeAppSettingsStore();
+    legacy = FakeLegacySettingsStore();
     records = FakeRecords();
     decks = FakeStudyDecks(records);
     deck = decks.seed(

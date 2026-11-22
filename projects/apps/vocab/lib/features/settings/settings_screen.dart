@@ -4,6 +4,7 @@ import 'package:material_ui/material_ui.dart';
 
 import '../../data/app_settings.dart';
 import '../../data/cell.dart';
+import '../../data/counts.dart';
 
 /// 설정: 그 단어장의 카드 학습 단어 수와 시험 문항 수(2026-11-22 사용자 결정 — 단어장마다 따로).
 /// 고르는 즉시 저장한다(저장 버튼 없음). 진행 중인 회차에는 영향이 없고 다음 회차부터 쓴다.

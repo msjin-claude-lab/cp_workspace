@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../data/app_settings.dart' show defaultQuizCount;
+import '../../data/counts.dart' show defaultQuizCount;
 import '../../data/word.dart';
 
 /// 문제 방향.
