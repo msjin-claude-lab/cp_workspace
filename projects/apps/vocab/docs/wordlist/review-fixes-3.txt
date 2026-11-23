@@ -1,0 +1,19 @@
+# 초등 표본 확인(2026-11-23 사용자가 칸마다 20줄을 봄)에서 고친 줄. 형식: 번호|필드|새 값|근거
+# 적용: python tool/wordlist/cells.py fix docs/wordlist/review-fixes-3.txt  →  python tool/wordlist/cells.py check
+# --- 숫자 뜻 표기 통일: 쉬움·중간 칸처럼 "우리말, 숫자"로 (어려움 칸 10개) ---
+w-0564|meaning|열하나, 11|숫자 표기 통일
+w-0606|meaning|열셋, 13|숫자 표기 통일
+w-0581|meaning|열넷, 14|숫자 표기 통일
+w-0586|meaning|열여섯, 16|숫자 표기 통일
+w-0631|meaning|열일곱, 17|숫자 표기 통일
+w-0574|meaning|열여덟, 18|숫자 표기 통일
+w-0630|meaning|열아홉, 19|숫자 표기 통일
+w-0572|meaning|일흔, 70|숫자 표기 통일
+w-0593|meaning|여든, 80|숫자 표기 통일
+w-0607|meaning|아흔, 90|숫자 표기 통일
+# --- due: 뜻과 예문(아기 출산 예정)이 초등학생에게 어려움 → 숙제 내는 날로 ---
+w-0743|meaning|(언제까지) 내야 하는, 예정된|초등학생이 만나는 쓰임
+w-0743|example|My homework is due tomorrow.|쉬운 예문으로
+w-0743|exampleMeaning|내 숙제는 내일까지 내야 한다.|예문 변경
+# --- wear: 모자·신발·안경에 쓰는 뜻 누락 ---
+w-0530|meaning|입다, 신다, (모자·안경을) 쓰다|옷 말고도 쓰는 뜻

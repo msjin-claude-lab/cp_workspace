@@ -261,7 +261,7 @@
   {"id": "w-0527", "word": "hole", "meaning": "구멍", "example": "There is a hole in my sock.", "exampleMeaning": "내 양말에 구멍이 있다."},
   {"id": "w-0528", "word": "dollar", "meaning": "달러", "example": "This pen is one dollar.", "exampleMeaning": "이 펜은 1달러이다."},
   {"id": "w-0529", "word": "dream", "meaning": "꿈", "example": "I have a big dream.", "exampleMeaning": "나는 큰 꿈이 있다."},
-  {"id": "w-0530", "word": "wear", "meaning": "입다", "example": "I wear a coat in winter.", "exampleMeaning": "나는 겨울에 외투를 입는다."},
+  {"id": "w-0530", "word": "wear", "meaning": "입다, 신다, (모자·안경을) 쓰다", "example": "I wear a coat in winter.", "exampleMeaning": "나는 겨울에 외투를 입는다."},
   {"id": "w-0531", "word": "cloth", "meaning": "천", "example": "This cloth is soft.", "exampleMeaning": "이 천은 부드럽다."},
   {"id": "w-0532", "word": "afraid", "meaning": "무서워하는, 두려워하는", "example": "I am afraid of the dark.", "exampleMeaning": "나는 어둠이 두렵다."},
   {"id": "w-0533", "word": "sixty", "meaning": "예순, 60", "example": "There are sixty minutes in an hour.", "exampleMeaning": "한 시간에는 60분이 있다."},
