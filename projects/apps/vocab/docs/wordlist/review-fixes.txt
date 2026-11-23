@@ -1,0 +1,144 @@
+# 초등 800개 내용 검토(2026-11-23 code-reviewer, 칸마다 전체를 읽음)가 낸 고칠 줄. 형식: 번호|필드|새 값|근거
+# 적용: python tool/wordlist/cells.py fix docs/wordlist/review-fixes.txt  →  python tool/wordlist/cells.py check
+# --- elementary_medium (적용함) ---
+w-0393|meaning|전화하다, 부르다|예문은 전화 뜻
+w-0393|exampleMeaning|밤에 나에게 전화해 주세요.|해석 오역
+w-0491|example|I wait for one minute.|예문이 잠깐 뜻
+w-0491|exampleMeaning|나는 1분 동안 기다린다.|예문 변경
+w-0321|example|My parents work hard every day.|원형 아님 works
+w-0321|exampleMeaning|우리 부모님은 매일 열심히 일하신다.|예문 변경
+w-0309|meaning|시간, 시각|흔한 뜻 버림
+w-0410|meaning|단단한, 힘든|흔한 뜻 보충
+w-0346|meaning|얻다, 받다|예문은 받다
+w-0380|meaning|~ 가까이에, 가까운|예문은 전치사
+w-0301|meaning|~ 않다, ~ 아니다|예문은 않다
+w-0303|meaning|~에, ~에서|예문은 에서
+w-0298|meaning|~로, ~에게|흔한 뜻 보충
+w-0315|meaning|첫 번째의, 처음|예문은 형용사
+w-0350|meaning|떨어져, 꺼진|부사 품사
+w-0359|meaning|옆, 면|억지 뜻 옆면
+w-0395|meaning|페이지, 쪽|side와 구분
+w-0339|meaning|가져가다, (탈것을) 타다|흔한 뜻 보충
+w-0508|meaning|보다, 지켜보다, 손목시계|흔한 뜻 버림
+w-0333|meaning|옳은, 오른쪽|흔한 뜻 보충
+w-0324|meaning|해, 년|해(태양) 혼동
+w-0424|meaning|달, 개월|달(위성) 혼동
+w-0406|meaning|대답, 답|예문은 답
+w-0418|meaning|확신하는, 확실한|예문은 확신
+w-0532|meaning|무서워하는, 두려워하는|서술 형용사
+w-0312|meaning|또한, ~도|흔한 뜻 보충
+w-0312|exampleMeaning|나는 음악도 좋아한다.|도·또한 중복
+w-0413|exampleMeaning|나는 오늘 행복한 기분이 든다.|어색한 해석
+w-0488|example|The birth of the baby made us happy.|어색한 영어
+w-0488|exampleMeaning|아기가 태어나서 우리는 행복했다.|예문 변경
+w-0417|example|The cat is at the top of the tree.|관용 표현
+w-0357|example|I cannot find my key.|can not 표기
+w-0482|exampleMeaning|그 책은 50쪽이다.|어색한 해석
+w-0391|example|My room is below your room.|under가 자연스러움
+w-0391|exampleMeaning|내 방은 네 방 아래에 있다.|예문 변경
+w-0297|meaning|그리고, ~와|예문은 ~와
+w-0411|meaning|밖에, 바깥|예문은 부사
+w-0454|meaning|안에, 안쪽|예문은 부사
+w-0332|meaning|훌륭한, 굉장한|흔한 뜻 보충
+w-0387|meaning|단어, 낱말|흔한 뜻 보충
+w-0388|meaning|것, 물건|흔한 뜻 보충
+w-0523|meaning|일하는 사람, 노동자|근로자 딱딱함
+w-0361|meaning|일찍, 이른|품사 보충
+w-0456|meaning|그림, 사진|흔한 뜻 보충
+w-0310|meaning|오직, ~만|흔한 뜻 보충
+# --- elementary_hard (적용함) ---
+w-0783|meaning|판사, 심사위원|심판은 referee
+w-0783|exampleMeaning|그 심사위원은 그에게 높은 점수를 주었다.|점수 준 사람 오역
+w-0712|exampleMeaning|장난감 구역은 2층에 있다.|second floor 오역
+w-0727|meaning|판자, 칠판|흔한 뜻 누락
+w-0727|exampleMeaning|선생님은 칠판에 글을 쓰셨다.|판에 쓰다 어색
+w-0711|meaning|주문하다, 순서|예문은 동사
+w-0684|meaning|파도타기를 하다|예문은 동사
+w-0577|example|We had a lot of fun at the park.|예문이 형용사 쓰임
+w-0577|exampleMeaning|우리는 공원에서 아주 재미있게 놀았다.|예문 변경
+w-0702|meaning|~만큼, ~로서|as well as 관용구
+w-0702|example|I am as tall as my brother.|as well as 관용구
+w-0702|exampleMeaning|나는 우리 형만큼 키가 크다.|예문 변경
+w-0709|meaning|길, 방법|흔한 뜻 누락
+w-0709|example|Can you tell me the way to the station?|This way 어색
+w-0709|exampleMeaning|역으로 가는 길을 알려 줄래?|예문 변경
+w-0710|example|My grandma had a happy life.|사실과 다름
+w-0710|exampleMeaning|우리 할머니는 행복한 삶을 사셨다.|예문 변경
+w-0713|example|I have my own room.|내 자신의 어색
+w-0713|exampleMeaning|나는 나만의 방이 있다.|예문 변경
+w-0748|example|We are the same age.|What is your age 어색
+w-0748|exampleMeaning|우리는 나이가 같다.|예문 변경
+w-0697|example|A grandparent is your mom's or dad's parent.|one grandparent 어색
+w-0697|exampleMeaning|조부모는 엄마나 아빠의 부모다.|예문 변경
+w-0604|example|Children's Day is a holiday in Korea.|일요일≠holiday
+w-0604|exampleMeaning|어린이날은 한국의 휴일이다.|예문 변경
+w-0607|example|The old man is ninety years old.|아흔 쪽 어색
+w-0607|exampleMeaning|그 할아버지는 아흔 살이다.|예문 변경
+w-0555|example|Breakfast is an important meal.|가장 큰 식사 어색
+w-0555|exampleMeaning|아침밥은 중요한 식사다.|예문 변경
+w-0689|meaning|눈 오는, 눈 덮인|snowy road 뜻
+w-0689|exampleMeaning|눈 덮인 길은 미끄러웠다.|눈 오는 길 오역
+w-0666|meaning|수줍은|부끄러운은 ashamed
+w-0730|meaning|과정, 강좌|예문 뜻 누락
+w-0730|exampleMeaning|나는 요리 강좌를 듣고 있다.|요리 과정 어색
+w-0612|meaning|팬, 선풍기|흔한 뜻 누락
+w-0657|meaning|박쥐, 방망이|흔한 뜻 누락
+w-0740|meaning|문제 되는 일|일은 막연함
+w-0733|meaning|(부정문에서) 아직|still과 혼동
+w-0619|exampleMeaning|시험 잘 봐, 행운을 빌어!|해석 어색
+w-0688|example|I watched a funny cartoon on TV.|a cartoon 어색
+w-0688|exampleMeaning|나는 텔레비전에서 재미있는 만화를 봤다.|예문 변경
+w-0621|exampleMeaning|그 경기는 아주 신나는 경기였다.|경기가 신났다 어색
+w-0683|exampleMeaning|아빠는 요리할 때 앞치마를 두른다.|앞치마 입다 어색
+w-0598|meaning|숨다, 숨기다|타동사 뜻 누락
+w-0654|meaning|화장실, 변기|toilet 본뜻 누락
+# 어려움 칸 검토가 못 넣은 것: 뜻→영에서 정답이 둘로 보이는 쌍 — smart/clever, wonderful/super, still/yet, waiter/waitress(뜻 글자를 바꿔도 안 풀림 → 한쪽을 다른 칸으로 옮기거나 같은 시험에 함께 내지 않는 규칙이 필요. 미해결, 사용자에게 물을 것). 사소한 것: officer(경찰관, 관리)·moment(순간, 잠깐)의 뜻 덧붙이기, by·case·keep의 흔한 뜻 추가
+# --- elementary_easy (적용함) ---
+w-0245|example|My tooth hurts.|tooth로 이 닦기 오류
+w-0245|exampleMeaning|이가 아프다.|예문 변경
+w-0240|example|My knee hurts.|sick은 무릎에 못씀
+w-0240|exampleMeaning|무릎이 아프다.|예문 변경
+w-0230|meaning|솔, 솔질하다|예문은 동사로 씀
+w-0116|meaning|부디, ~해 주세요|제발은 과한 뜻
+w-0116|exampleMeaning|저를 도와주세요.|제발 빼기
+w-0095|example|Today is a bad day.|This≠오늘
+w-0095|exampleMeaning|오늘은 안 좋은 날이다.|예문 변경
+w-0034|example|Raise your hand.|hands가 맞음
+w-0034|exampleMeaning|손을 들어라.|예문 변경
+w-0217|example|Wash your hands.|hand 단수 오류
+w-0217|exampleMeaning|손을 씻어라.|예문 변경
+w-0098|example|Close one eye.|eyes가 맞음
+w-0098|exampleMeaning|한쪽 눈을 감아라.|예문 변경
+w-0221|example|I eat an apple.|the apple 어색
+w-0221|exampleMeaning|나는 사과를 먹는다.|예문 변경
+w-0250|example|This potato is big.|potatoes가 맞음
+w-0250|exampleMeaning|이 감자는 크다.|예문 변경
+w-0152|meaning|부모 중 한 분|단수 parent
+w-0152|example|Ask a parent for help.|My parent 어색
+w-0152|exampleMeaning|부모님께 도와 달라고 해라.|예문 변경
+w-0036|example|What is your name?|이름이 짧다 어색
+w-0036|exampleMeaning|네 이름은 뭐니?|예문 변경
+w-0103|example|I like this color.|Red is my color 어색
+w-0103|exampleMeaning|나는 이 색깔을 좋아한다.|예문 변경
+w-0101|meaning|유리, 유리잔|흔한 뜻 누락
+w-0101|example|The glass is full.|window is glass 오류
+w-0101|exampleMeaning|유리잔이 가득 차 있다.|예문 변경
+w-0045|exampleMeaning|나는 물을 좀 마시고 싶다.|직역 어색
+w-0077|exampleMeaning|나는 아침에 밥을 먹는다.|아침 중복
+w-0164|meaning|눈(내리는)|하얀 눈 억지
+w-0195|meaning|야구 모자|챙 모자 억지
+w-0195|exampleMeaning|나는 새 야구 모자가 있다.|뜻 변경 반영
+w-0035|meaning|집으로, 가정|우리 집 억지
+w-0010|meaning|보다, 보이다|흔한 뜻 누락
+w-0052|meaning|바라보다|쳐다보다 억지
+w-0090|meaning|들리다, 듣다|listen과 구분
+w-0191|meaning|귀 기울여 듣다|귀 기울이다 어색
+w-0223|meaning|웃다|소리 내어 억지
+w-0223|exampleMeaning|나는 친구와 함께 웃는다.|뜻 변경 반영
+w-0249|meaning|뛰어오르다, 점프하다|뛰다=달리다 혼동
+w-0228|meaning|이모, 고모|고모만은 좁음
+w-0092|meaning|추운, 차가운|예문들 차갑다
+w-0027|meaning|나이 든, 오래된|흔한 뜻 누락
+# 쉬움 칸 검토가 45줄에 못 넣은 것: 뜻 보충(there 거기에·저기에, brother 형·오빠·남동생 / sister 누나·언니·여동생, rice 쌀·밥, thin 얇은·마른, chicken 닭·닭고기), 해석 다듬기(nice, thank 예문), 색 뜻의 형태가 섞임(하얀 / 갈색)
+# 쉬움 칸: 뜻만 고쳐서는 풀리지 않는 유사어 쌍 — dad/father, mom/mother, little/small, house/home, hat/cap, pretty/beautiful, see/look, hear/listen, say/speak, dish/bowl. 뜻→영 문제에서 정답이 둘로 보일 수 있다 → 서로를 오답 보기로 내지 않게 하거나 한쪽을 다른 칸으로(미해결, 사용자에게 물을 것)
+# 중간 칸 검토가 45줄에 못 넣은 것(낮은 우선순위): back(뒤, 등)·light(가벼운)·kind(종류)·letter(글자)·poor(불쌍한)·talk(story와 비슷)·much(많은)의 뜻 보강, but·different 예문의 논리, fifteen 해석의 "오빠"

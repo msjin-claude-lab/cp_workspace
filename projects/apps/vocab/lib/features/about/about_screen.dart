@@ -2,13 +2,24 @@ import 'package:material_ui/material_ui.dart';
 
 import '../../app_info.dart';
 
-/// 앱 정보(☰ 메뉴 맨 아래 → 앱 정보): 앱 이름·버전과 오픈소스 라이선스
-/// (2026-11-23 사용자 결정). 단어 출처(인용 문구)는 그 목록으로 단어를 실제로 넣을 때 여기에 더한다.
+/// 단어 출처의 인용 문구. 형식은 각 자료가 정한 것이라 고치지 않는다
+/// (근거와 받은 날짜는 docs/wordlist/README.md).
+const String cefrjCitation =
+    'The CEFR-J Wordlist Version 1.6. Compiled by Yukio Tono, Tokyo University of '
+    'Foreign Studies. Retrieved from https://www.cefr-j.org/download.html on 23/11/26.';
+const String frequencyCitation =
+    'Word frequency: Google Books Ngram dataset (version 20200217), licensed under '
+    'CC BY 3.0 (https://creativecommons.org/licenses/by/3.0/), as compiled in '
+    'hackerb9/gwordlist (https://github.com/hackerb9/gwordlist).';
+
+/// 앱 정보(☰ 메뉴 맨 아래 → 앱 정보): 앱 이름·버전, 오픈소스 라이선스, 단어 출처
+/// (2026-11-23 사용자 결정). 나중에 문의 연락처·개인정보 처리방침도 여기에 둔다.
 class AboutScreen extends StatelessWidget {
   const AboutScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final text = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(title: const Text('앱 정보')),
       body: SafeArea(
@@ -32,6 +43,27 @@ class AboutScreen extends StatelessWidget {
                 context: context,
                 applicationName: appTitle,
                 applicationVersion: appVersion,
+              ),
+            ),
+            const Divider(height: 1),
+            // 단어 출처: 초등 단어는 CEFR-J에서 골랐다(중등·고등은 차례가 올 때 바꾼다 — docs/plan-words-phase1.md)
+            Padding(
+              key: const ValueKey('about-sources'),
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('단어 출처', style: text.titleMedium),
+                  const SizedBox(height: 8),
+                  Text(
+                    '초등 단어의 선정과 난이도 구분은 아래 자료를 바탕으로 했습니다. 뜻과 예문은 직접 썼습니다',
+                    style: text.bodyMedium,
+                  ),
+                  const SizedBox(height: 12),
+                  Text(cefrjCitation, style: text.bodySmall),
+                  const SizedBox(height: 8),
+                  Text(frequencyCitation, style: text.bodySmall),
+                ],
               ),
             ),
           ],

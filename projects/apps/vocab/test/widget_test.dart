@@ -409,6 +409,12 @@ void main() {
     );
     expect(find.text('영단어'), findsOneWidget);
     expect(find.text('버전 1.0.0'), findsOneWidget);
+    // 단어 출처: 두 자료의 인용 문구가 정해진 형식 그대로 보인다
+    expect(find.text('단어 출처'), findsOneWidget);
+    expect(find.text(cefrjCitation), findsOneWidget);
+    expect(find.text(frequencyCitation), findsOneWidget);
+    expect(cefrjCitation, startsWith('The CEFR-J Wordlist Version 1.6.'));
+    expect(frequencyCitation, contains('CC BY 3.0'));
 
     await tap(tester, 'about-licenses');
     expect(find.byType(LicensePage), findsOneWidget);

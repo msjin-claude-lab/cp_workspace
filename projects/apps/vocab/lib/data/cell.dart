@@ -97,9 +97,6 @@ enum Cell implements Deck {
   final SchoolLevel level;
   final Difficulty difficulty;
 
-  /// 칸마다 목표 단어 수(명세: 칸당 50개).
-  static const int targetWordCount = 50;
-
   /// 파일 이름·주소에 쓰는 이름. 예: `elementary_easy`.
   @override
   String get id => '${level.name}_${difficulty.name}';

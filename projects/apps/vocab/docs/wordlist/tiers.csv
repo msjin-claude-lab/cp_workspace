@@ -1,0 +1,932 @@
+# vocab 초등 단어 난이도 단계(1 쉬움 · 2 중간 · 3 어려움 · x 넣지 않음). Claude가 매겼다(2026-11-23). 기준은 docs/wordlist/README.md
+word,tier,reason
+about,2,검토: 전치사 뜻 추상
+above,2,일상 말
+action,3,추상 명사
+activity,3,추상 명사
+actor,2,직업
+add,2,일상 말
+afraid,2,감정
+afternoon,2,일상 말
+again,2,검토: 부사 카드 곤란
+age,3,추상 명사
+ago,2,일상 말
+airplane,1,물건
+airport,2,일상 말
+album,2,일상 말
+almost,3,검토: 추상 부사
+along,3,검토: 추상 전치사
+already,3,검토: 추상 부사
+also,2,검토: 부사 카드 곤란
+always,2,검토: 빈도 부사
+angry,1,기초 형용사
+animal,1,동물
+answer,2,일상 말
+apple,1,음식
+April,2,달 이름
+apron,2,일상 말
+arm,1,몸
+arrive,2,일상 말
+art,2,일상 말
+article,3,추상 명사
+ask,1,기초 동작
+August,2,달 이름
+aunt,1,가족
+autumn,2,계절
+awake,2,일상 말
+away,2,일상 말
+baby,1,가족
+back,2,일상 말
+bad,1,기초 형용사
+bag,1,물건
+ball,1,물건
+banana,1,음식
+band,2,일상 말
+bank,2,일상 말
+bar,x,어린이 앱에 부적절
+baseball,2,취미·운동
+basketball,2,취미·운동
+bat,2,일상 말
+bath,2,일상 말
+bathroom,1,장소
+beach,1,장소
+bean,1,음식
+bear,1,동물
+beautiful,1,기초 형용사
+become,3,검토: 추상 동사
+bed,1,물건
+bedroom,1,장소
+bee,1,동물
+beef,1,음식
+before,2,일상 말
+begin,2,일상 말
+behind,2,일상 말
+believe,3,고학년 말
+bell,2,일상 말
+below,2,일상 말
+best,x,검토: good 최상급
+better,x,검토: good 비교급
+bicycle,x,같은 뜻이 겹침
+big,1,기초 형용사
+bike,1,물건
+bird,1,동물
+birth,2,일상 말
+birthday,2,일상 말
+biscuit,x,검토: cookie와 뜻 같음
+black,1,색
+blank,3,추상·학습 말
+block,3,추상·학습 말
+blow,2,일상 말
+blue,1,색
+board,3,추상·학습 말
+boat,1,물건
+body,1,몸
+bone,2,일상 말
+book,1,물건
+bookstore,2,일상 말
+boring,2,감정
+borrow,2,일상 말
+both,2,일상 말
+bottle,1,물건
+bottom,3,추상·학습 말
+bowl,1,물건
+box,1,물건
+boy,1,가족
+boyfriend,x,어린이 앱에 부적절
+brain,2,일상 말
+bread,1,음식
+break,2,검토: 일상 동사
+breakfast,2,일상 말
+breathe,3,추상·학습 말
+bridge,2,일상 말
+broken,x,검토: 원형 break 있음
+brother,1,가족
+brown,1,색
+brush,1,물건
+bucket,2,일상 말
+build,2,검토: 일상 동사
+building,2,일상 말
+burger,x,같은 뜻이 겹침
+bus,1,물건
+business,3,고학년 말
+busy,2,일상 말
+butter,1,음식
+butterfly,1,동물
+button,2,일상 말
+buy,1,기초 동작
+bye,1,인사·기초 말
+cafe,2,일상 말
+cake,1,음식
+call,2,일상 말
+camera,2,일상 말
+camp,2,취미·운동
+candy,1,음식
+cap,1,물건
+car,1,물건
+card,1,물건
+care,3,추상·학습 말
+careful,2,일상 말
+carefully,x,원형과 겹침
+cartoon,2,일상 말
+case,3,뜻이 여러 갈래
+cat,1,동물
+catch,2,일상 말
+celebrate,3,고학년 말
+celebration,x,검토: celebrate와 겹침
+chair,1,물건
+change,3,추상 명사
+check,3,글·학습어
+cheese,1,음식
+chicken,1,음식
+child,1,가족
+chocolate,1,음식
+choose,2,일상 말
+church,x,겹치거나 맞지 않음
+cinema,x,같은 뜻이 겹침
+circle,2,검토: 도형 구체
+city,2,일상 말
+class,2,일상 말
+classmate,2,일상 말
+classroom,1,장소
+clean,1,기초 형용사
+clever,2,일상 말
+climb,2,일상 말
+clock,1,물건
+close,1,기초 동작
+closed,x,원형과 겹침
+cloth,2,일상 말
+clothes,1,물건
+cloud,1,자연
+cloudy,2,날씨
+club,2,일상 말
+coach,2,직업
+coat,1,물건
+code,3,추상·학습 말
+coffee,1,음식
+coke,x,어린이 앱에 부적절
+cold,1,온도
+collect,3,추상·학습 말
+collection,x,검토: collect와 겹침
+college,3,추상·학습 말
+color,1,색
+come,1,기초 동작
+computer,2,일상 말
+concert,2,일상 말
+conversation,3,추상 명사
+cook,1,기초 동작
+cookie,1,음식
+cool,2,일상 말
+cop,x,어린이 앱에 부적절
+copy,3,추상·학습 말
+corn,1,음식
+corner,2,일상 말
+correct,3,추상 형용사
+couch,x,검토: sofa와 뜻 같음
+course,3,뜻이 여러 갈래
+cousin,2,일상 말
+cover,3,추상·학습 말
+cow,1,동물
+cream,1,음식
+cry,1,기초 동작
+culture,3,추상 명사
+cup,1,물건
+cut,1,기초 동작
+cute,1,기초 형용사
+dad,1,가족
+daddy,x,같은 뜻이 겹침
+dance,1,기초 동작
+dancing,x,원형과 겹침
+dark,1,기초 형용사
+date,3,추상·학습 말
+daughter,1,가족
+day,1,시간·위치
+dear,2,검토: 편지 말 덜 기초
+December,2,달 이름
+delicious,2,일상 말
+design,3,추상 명사
+desk,1,물건
+dictionary,2,검토: 교실 물건
+difference,x,검토: different와 겹침
+different,2,검토: same(2)과 짝
+difficult,2,검토: easy(1)와 짝
+dig,2,일상 말
+dinner,2,일상 말
+dirty,1,기초 형용사
+discuss,3,글·학습어
+dish,1,물건
+dog,1,동물
+doll,1,물건
+dollar,2,일상 말
+door,1,물건
+down,2,일상 말
+drama,3,추상·학습 말
+draw,1,기초 동작
+dream,2,일상 말
+dress,1,물건
+drink,1,기초 동작
+drive,2,일상 말
+driver,2,직업
+drop,3,추상·학습 말
+drum,2,일상 말
+dry,2,일상 말
+due,3,추상 형용사
+ear,1,몸
+early,2,일상 말
+easy,1,기초 형용사
+eat,1,기초 동작
+egg,1,음식
+either,3,추상 형용사
+elementary,3,추상·학습 말
+else,3,추상·학습 말
+email,2,일상 말
+end,2,일상 말
+engineer,3,고학년 말
+evening,2,일상 말
+event,3,추상·학습 말
+everyday,x,겹치거나 맞지 않음
+everywhere,3,고학년 말
+example,3,추상 명사
+excellent,3,추상 형용사
+exciting,2,감정
+excuse,2,일상 말
+expensive,2,검토: 일상 형용사
+eye,1,몸
+face,1,몸
+factory,3,추상 명사
+fair,3,추상 형용사
+fairy,2,일상 말
+false,3,추상 형용사
+family,1,가족
+famous,2,일상 말
+fan,2,일상 말
+farm,1,장소
+farmer,2,직업
+fast,1,기초 형용사
+fat,1,기초 형용사
+father,1,가족
+favorite,2,검토: 초등 빈출 말
+February,2,달 이름
+feed,2,일상 말
+feel,2,일상 말
+feeling,x,검토: 원형 feel 있음
+festival,3,추상·학습 말
+fever,2,검토: 몸 상태
+field,3,뜻이 여러 갈래
+fight,2,일상 말
+file,3,글·학습어
+fill,3,추상·학습 말
+find,2,일상 말
+fine,2,일상 말
+finish,2,일상 말
+fire,2,일상 말
+first,2,검토: 서수 추상
+fish,1,동물
+fishing,x,원형과 겹침
+flag,2,일상 말
+flat,2,일상 말
+floor,2,일상 말
+flower,1,자연
+fly,2,일상 말
+focus,3,추상 명사
+foggy,2,날씨
+following,3,추상 형용사
+food,1,음식
+football,x,검토: soccer와 겹침
+foreigner,3,고학년 말
+forget,2,검토: remember(2)와 짝
+form,3,추상 명사
+Friday,2,요일
+friend,1,기초 말
+frog,1,동물
+front,2,일상 말
+fruit,1,음식
+full,1,기초 형용사
+fun,2,일상 말
+funny,2,일상 말
+future,3,추상 명사
+game,2,취미·운동
+garbage,2,검토: 구체 사물
+garden,1,장소
+get,2,검토: 뜻이 여러 갈래
+ghost,2,일상 말
+gift,2,검토: 구체 사물
+girl,1,가족
+girlfriend,x,어린이 앱에 부적절
+give,1,기초 동작
+glad,2,일상 말
+glass,1,물건
+glasses,1,물건
+go,1,기초 동작
+gold,2,일상 말
+good,1,기초 형용사
+grade,3,추상 명사
+grammar,3,글·학습어
+grandfather,1,가족
+grandma,x,같은 뜻이 겹침
+grandmother,1,가족
+grandpa,x,같은 뜻이 겹침
+grandparent,2,일상 말
+grape,1,음식
+grass,1,자연
+gray,1,색
+great,2,일상 말
+green,1,색
+greet,2,일상 말
+ground,2,일상 말
+group,3,추상 명사
+grow,3,추상·학습 말
+guess,3,고학년 말
+guest,3,추상·학습 말
+guitar,2,일상 말
+guy,x,겹치거나 맞지 않음
+hair,1,몸
+haircut,2,일상 말
+half,2,검토: 기초 수량
+hall,2,일상 말
+hamburger,1,음식
+hand,1,몸
+handsome,2,일상 말
+happen,3,추상·학습 말
+happy,1,기초 형용사
+hard,2,일상 말
+hat,1,물건
+head,1,몸
+headache,2,일상 말
+health,3,고학년 말
+healthy,2,일상 말
+hear,1,기초 동작
+heart,2,일상 말
+hello,1,인사·기초 말
+help,1,기초 동작
+here,1,시간·위치
+hide,2,검토: 놀이 동작
+high,1,기초 형용사
+hill,2,일상 말
+history,3,추상·학습 말
+hobby,2,취미·운동
+hold,3,추상·학습 말
+hole,2,검토: 구체 사물
+holiday,2,일상 말
+home,1,장소
+hometown,2,일상 말
+homework,2,일상 말
+horse,1,동물
+hospital,2,일상 말
+hot,1,온도
+hotel,2,일상 말
+hour,2,검토: 시간 말
+house,1,장소
+how,2,일상 말
+hungry,1,기초 형용사
+hurry,3,추상·학습 말
+hurt,2,일상 말
+husband,1,가족
+ice,1,음식
+idea,3,추상 명사
+ideal,3,추상 형용사
+imagine,3,추상 형용사
+important,3,추상 형용사
+interested,3,추상 형용사
+interesting,2,검토: 초등 빈출 말
+Internet,2,일상 말
+interview,3,글·학습어
+interviewer,x,검토: interview와 겹침
+introduce,3,글·학습어
+island,2,일상 말
+item,3,추상 명사
+jacket,1,물건
+January,2,달 이름
+jeans,1,물건
+jet,2,일상 말
+jewelry,2,일상 말
+job,2,일상 말
+judge,3,글·학습어
+juice,1,음식
+July,2,달 이름
+jump,1,기초 동작
+June,2,달 이름
+just,3,검토: 뜻이 여러 갈래
+keep,3,검토: 추상 동사
+key,1,물건
+kick,2,일상 말
+kid,x,검토: child와 뜻 같음
+kill,x,어린이 앱에 부적절
+kind,2,일상 말
+king,2,일상 말
+kiss,x,겹치거나 맞지 않음
+kitchen,1,장소
+kite,1,물건
+knee,1,몸
+knife,2,일상 말
+know,2,일상 말
+lady,2,일상 말
+large,2,일상 말
+late,2,일상 말
+later,3,추상·학습 말
+laugh,1,기초 동작
+lazy,2,일상 말
+leader,3,추상 명사
+leaf,1,자연
+learn,2,일상 말
+leave,3,추상·학습 말
+left,2,일상 말
+leg,1,몸
+lesson,2,검토: 학교생활 말
+let,3,검토: 추상 동사
+letter,2,검토: 편지 구체
+library,2,일상 말
+life,3,추상·학습 말
+light,2,일상 말
+like,1,기초 동작
+lily,2,일상 말
+line,2,일상 말
+lion,1,동물
+list,3,추상 명사
+listen,1,기초 동작
+little,1,기초 형용사
+live,2,일상 말
+living,x,원형과 겹침
+lonely,2,감정
+long,1,기초 형용사
+look,1,기초 동작
+lot,2,일상 말
+love,1,기초 동작
+lovely,2,일상 말
+luck,2,일상 말
+lucky,2,일상 말
+lunch,1,음식
+machine,3,추상·학습 말
+magazine,3,추상·학습 말
+mail,2,일상 말
+make,1,기초 동작
+man,1,가족
+map,2,일상 말
+March,2,달 이름
+match,3,추상·학습 말
+math,2,일상 말
+matter,3,뜻이 여러 갈래
+May,2,달 이름
+maybe,2,일상 말
+meal,2,일상 말
+mean,3,뜻이 여러 갈래
+meat,1,음식
+medicine,3,고학년 말
+meet,2,일상 말
+meeting,x,검토: 원형 meet 있음
+memory,3,추상 명사
+merry,x,겹치거나 맞지 않음
+middle,3,추상·학습 말
+milk,1,음식
+mind,3,추상 명사
+minute,2,일상 말
+mobile,x,검토: phone과 뜻 같음
+mom,1,가족
+moment,3,추상 명사
+mommy,x,같은 뜻이 겹침
+Monday,2,요일
+money,2,일상 말
+monkey,1,동물
+month,2,일상 말
+moon,1,자연
+morning,1,시간·위치
+mother,1,가족
+mountain,1,자연
+mouse,1,동물
+mouth,1,몸
+movie,2,취미·운동
+much,2,검토: 수량 부사
+mum,x,같은 뜻이 겹침
+music,2,취미·운동
+musician,2,직업
+name,1,기초 말
+nationality,3,추상 명사
+neck,1,몸
+neighbor,2,검토: 일상 사람
+never,2,검토: 빈도 부사
+new,1,기초 형용사
+news,2,일상 말
+newspaper,2,일상 말
+nice,1,기초 형용사
+night,1,시간·위치
+no,1,인사·기초 말
+noise,3,추상·학습 말
+nose,1,몸
+not,2,검토: 부정 부사 카드 곤란
+note,3,글·학습어
+notebook,1,물건
+November,2,달 이름
+now,1,시간·위치
+number,2,일상 말
+nurse,2,직업
+o'clock,2,일상 말
+October,2,달 이름
+off,2,일상 말
+office,2,일상 말
+officer,3,고학년 말
+often,2,일상 말
+old,1,기초 형용사
+Olympics,x,고유 이름
+once,3,추상·학습 말
+only,2,검토: 부사 카드 곤란
+open,1,기초 동작
+opera,3,추상·학습 말
+orange,1,색
+order,3,추상 명사
+out,2,일상 말
+outside,2,일상 말
+own,3,뜻이 여러 갈래
+owner,3,추상 명사
+page,2,검토: 책 구체
+paint,2,일상 말
+painting,x,검토: 원형 paint 있음
+pair,3,추상·학습 말
+palace,2,일상 말
+pants,1,물건
+paper,2,일상 말
+paragraph,3,글·학습어
+pardon,x,겹치거나 맞지 않음
+parent,1,가족
+park,1,장소
+partner,3,추상 명사
+party,2,일상 말
+past,3,추상 명사
+pay,2,일상 말
+peace,3,추상 명사
+pen,1,물건
+pencil,1,물건
+people,1,기초 말
+period,3,추상 명사
+person,2,일상 말
+personal,3,추상 형용사
+pet,2,일상 말
+phone,1,물건
+photo,2,일상 말
+piano,2,일상 말
+pick,2,일상 말
+picnic,2,취미·운동
+picture,2,일상 말
+piece,2,일상 말
+pig,1,동물
+pink,1,색
+pizza,1,음식
+place,2,일상 말
+plane,x,같은 뜻이 겹침
+play,1,기초 동작
+player,2,직업
+please,1,인사·기초 말
+pleasure,3,추상·학습 말
+pocket,2,일상 말
+poem,3,글·학습어
+point,3,추상 명사
+pool,2,일상 말
+poor,2,일상 말
+pop,3,뜻이 여러 갈래
+post,3,추상·학습 말
+poster,2,일상 말
+potato,1,음식
+practice,3,추상 명사
+pray,x,겹치거나 맞지 않음
+present,3,뜻이 여러 갈래
+pretty,1,기초 형용사
+price,3,추상 명사
+prince,2,일상 말
+princess,2,일상 말
+problem,3,추상 명사
+program,3,추상 명사
+purple,1,색
+push,1,기초 동작
+put,1,기초 동작
+quarter,3,뜻이 여러 갈래
+question,2,검토: answer(2)와 짝
+quickly,3,추상·학습 말
+quiet,1,기초 형용사
+rabbit,1,동물
+radio,2,일상 말
+rain,1,자연
+rainy,2,날씨
+rat,2,일상 말
+read,1,기초 동작
+reader,3,글·학습어
+reading,x,원형과 겹침
+ready,2,일상 말
+real,2,일상 말
+really,x,검토: real의 -ly형
+red,1,색
+remember,2,일상 말
+repeat,3,추상·학습 말
+reporter,3,고학년 말
+restaurant,2,일상 말
+review,3,글·학습어
+ribbon,2,일상 말
+rice,1,음식
+rich,2,일상 말
+ride,2,일상 말
+right,2,일상 말
+ring,2,일상 말
+river,1,자연
+role,3,추상 명사
+room,1,장소
+rose,2,일상 말
+row,3,뜻이 여러 갈래
+rude,3,추상·학습 말
+ruler,2,일상 말
+run,1,기초 동작
+sad,1,기초 형용사
+sailor,2,직업
+salad,1,음식
+sale,2,일상 말
+same,2,일상 말
+sandwich,1,음식
+Saturday,2,요일
+saw,x,원형과 겹침
+say,1,기초 동작
+school,1,장소
+science,2,검토: 교과 이름
+scientist,2,검토: 직업
+sea,1,자연
+seat,2,일상 말
+second,3,추상·학습 말
+section,3,추상 명사
+see,1,기초 동작
+self,x,검토: 단독으로 안 씀
+sell,2,일상 말
+sentence,3,추상 명사
+September,2,달 이름
+set,3,추상·학습 말
+shake,2,일상 말
+share,3,추상·학습 말
+sheep,1,동물
+shelf,2,일상 말
+ship,2,일상 말
+shirt,1,물건
+shoe,1,물건
+shop,1,장소
+shopping,x,원형과 겹침
+short,1,기초 형용사
+shoulder,2,일상 말
+show,2,일상 말
+shower,2,일상 말
+shy,2,일상 말
+sick,1,기초 형용사
+side,2,일상 말
+sight,3,추상 명사
+sign,3,추상·학습 말
+sing,1,기초 동작
+singer,2,직업
+sir,x,겹치거나 맞지 않음
+sister,1,가족
+sit,1,기초 동작
+site,3,추상 명사
+size,3,추상 명사
+skirt,1,물건
+sky,1,자연
+sleep,1,기초 동작
+slow,1,기초 형용사
+small,1,기초 형용사
+smart,2,일상 말
+smell,2,일상 말
+smile,1,기초 동작
+smith,x,사람 이름처럼 쓰임
+smoke,x,어린이 앱에 부적절
+smoking,x,어린이 앱에 부적절
+snake,1,동물
+snow,1,자연
+snowy,2,날씨
+soccer,2,취미·운동
+social,3,추상 형용사
+sofa,1,물건
+son,1,가족
+song,2,일상 말
+soon,2,일상 말
+sorry,1,인사·기초 말
+soup,1,음식
+speak,1,기초 동작
+special,3,추상 형용사
+speech,3,추상·학습 말
+spell,2,검토: 교실 빈출 말
+sport,2,일상 말
+spot,3,뜻이 여러 갈래
+spring,2,계절
+spy,2,일상 말
+stage,3,추상·학습 말
+stand,1,기초 동작
+star,1,자연
+start,1,기초 동작
+station,2,일상 말
+stay,2,일상 말
+step,3,뜻이 여러 갈래
+still,3,검토: 뜻이 여러 갈래
+stone,2,일상 말
+stop,1,기초 동작
+store,x,검토: shop과 뜻 같음
+story,2,일상 말
+straight,2,일상 말
+strange,3,추상·학습 말
+street,2,일상 말
+strict,3,추상·학습 말
+strong,2,일상 말
+student,2,일상 말
+study,2,일상 말
+subject,3,글·학습어
+subway,2,검토: 교통수단
+successful,3,추상 형용사
+sugar,1,음식
+suggestion,3,추상 형용사
+sum,3,추상 명사
+summer,2,계절
+sun,1,자연
+Sunday,2,요일
+sunny,2,날씨
+sunshine,2,일상 말
+super,2,일상 말
+supermarket,2,일상 말
+sure,2,검토: 대답 빈출 말
+surf,2,취미·운동
+surprise,2,감정
+survey,3,추상 명사
+sweet,2,일상 말
+swim,1,기초 동작
+swimming,x,원형과 겹침
+T-shirt,1,물건
+table,1,물건
+take,2,검토: 뜻이 여러 갈래
+talk,2,일상 말
+tall,1,기초 형용사
+taxi,1,물건
+tea,1,음식
+teach,2,일상 말
+teacher,2,직업
+team,2,일상 말
+telephone,x,같은 뜻이 겹침
+television,2,일상 말
+tell,2,일상 말
+temple,x,겹치거나 맞지 않음
+tennis,2,취미·운동
+terrible,2,감정
+test,2,일상 말
+thank,1,인사·기초 말
+thanks,x,겹치거나 맞지 않음
+theater,2,일상 말
+then,2,일상 말
+there,1,시간·위치
+thick,3,뜻이 여러 갈래
+thin,1,기초 형용사
+thing,2,일상 말
+think,2,일상 말
+throw,2,일상 말
+Thursday,2,요일
+ticket,2,일상 말
+tiger,1,동물
+tight,3,뜻이 여러 갈래
+time,2,일상 말
+tired,1,기초 형용사
+today,1,시간·위치
+together,2,일상 말
+toilet,2,일상 말
+tomato,1,음식
+tomorrow,1,시간·위치
+tonight,2,일상 말
+too,2,검토: 부사 카드 곤란
+tool,3,뜻이 여러 갈래
+tooth,1,몸
+top,2,일상 말
+topic,3,추상 명사
+touch,2,검토: 기초 동작
+towel,1,물건
+tower,2,일상 말
+town,2,일상 말
+toy,1,물건
+train,1,물건
+travel,2,검토: 일상 활동
+tree,1,자연
+trip,2,검토: 일상 활동
+trousers,x,검토: pants와 뜻 같음
+truck,1,물건
+true,2,일상 말
+try,2,일상 말
+tube,3,뜻이 여러 갈래
+Tuesday,2,요일
+turkey,2,일상 말
+turn,2,일상 말
+type,3,추상 명사
+ugly,2,일상 말
+umbrella,1,물건
+uncle,1,가족
+underline,3,글·학습어
+use,2,검토: 추상 동사
+usually,2,일상 말
+vacation,2,검토: 일상 시간
+vase,2,일상 말
+vegetable,2,일상 말
+very,2,검토: 부사 카드 곤란
+video,2,일상 말
+visit,2,일상 말
+volleyball,2,취미·운동
+vote,3,글·학습어
+wait,1,기초 동작
+waiter,2,직업
+waitress,2,직업
+wake,1,기초 동작
+walk,1,기초 동작
+wall,2,일상 말
+want,1,기초 동작
+war,x,어린이 앱에 부적절
+warm,1,온도
+wash,1,기초 동작
+watch,2,일상 말
+water,1,음식
+way,3,검토: 뜻이 여러 갈래
+wear,2,일상 말
+weather,2,날씨
+Wednesday,2,요일
+week,2,일상 말
+weekend,2,일상 말
+welcome,1,인사·기초 말
+well,2,일상 말
+wheel,2,검토: 덜 기초 사물
+when,2,일상 말
+where,2,일상 말
+white,1,색
+why,2,일상 말
+wife,1,가족
+win,2,일상 말
+wind,1,자연
+window,1,물건
+winter,2,계절
+wish,2,일상 말
+woman,1,가족
+wonderful,2,검토: 감정 형용사
+word,2,일상 말
+work,2,일상 말
+worker,2,직업
+world,2,일상 말
+worry,2,검토: 감정
+write,1,기초 동작
+writer,2,직업
+wrong,2,일상 말
+yard,3,추상·학습 말
+year,2,일상 말
+yellow,1,색
+yes,1,인사·기초 말
+yesterday,1,시간·위치
+yet,3,추상·학습 말
+yogurt,1,음식
+young,1,기초 형용사
+zoo,1,동물
+one,1,기초 숫자
+two,1,기초 숫자
+three,1,기초 숫자
+four,1,기초 숫자
+five,1,기초 숫자
+six,1,기초 숫자
+seven,1,기초 숫자
+eight,1,기초 숫자
+nine,1,기초 숫자
+ten,1,기초 숫자
+eleven,2,숫자
+twelve,2,숫자
+thirteen,2,숫자
+fourteen,2,숫자
+fifteen,2,숫자
+sixteen,2,숫자
+seventeen,2,숫자
+eighteen,2,숫자
+nineteen,2,숫자
+twenty,2,숫자
+thirty,2,숫자
+forty,2,숫자
+fifty,2,숫자
+sixty,2,숫자
+seventy,2,숫자
+eighty,2,숫자
+ninety,2,숫자
+and,2,검토: 접속사 but·or와 맞춤
+in,1,위치 전치사
+on,1,위치 전치사
+under,1,위치 전치사
+up,1,기초 방향 말
+at,2,기초 전치사
+to,2,기초 전치사
+with,2,기초 전치사
+for,2,기초 전치사
+from,2,기초 전치사
+of,3,검토: 기능어 카드 곤란
+by,3,검토: 뜻이 여러 갈래
+but,2,기초 접속사
+or,2,기초 접속사
+so,2,기초 접속사
+after,2,시간 전치사
+near,2,위치 전치사
+around,2,위치 전치사
+inside,2,위치 전치사
+into,2,방향 전치사
+over,2,위치 전치사
+because,2,기초 접속사
+beside,3,위치 전치사
+between,3,위치 전치사
+through,3,방향 전치사
+until,3,시간 전치사
+if,3,조건 접속사
+as,3,뜻이 여러 갈래
+than,3,비교 말
+that,3,뜻이 여러 갈래

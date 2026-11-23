@@ -1,0 +1,803 @@
+# The CEFR-J Wordlist Version 1.6. Compiled by Yukio Tono, Tokyo University of Foreign Studies. Retrieved from https://www.cefr-j.org/download.html on 23/11/26.
+# 위 목록을 고쳐 만든 것이다(tool/wordlist/select.py). 뜻·예문은 들어 있지 않다.
+word,freq_rank,tier,cell,tier_reason
+in,5,1,elementary_easy,위치 전치사
+on,16,1,elementary_easy,위치 전치사
+one,36,1,elementary_easy,기초 숫자
+there,41,1,elementary_easy,시간·위치
+no,46,1,elementary_easy,인사·기초 말
+new,58,1,elementary_easy,기초 형용사
+two,67,1,elementary_easy,기초 숫자
+up,74,1,elementary_easy,기초 방향 말
+under,78,1,elementary_easy,위치 전치사
+see,81,1,elementary_easy,기초 동작
+now,92,1,elementary_easy,시간·위치
+like,108,1,elementary_easy,기초 동작
+people,112,1,elementary_easy,기초 말
+three,121,1,elementary_easy,기초 숫자
+make,123,1,elementary_easy,기초 동작
+good,129,1,elementary_easy,기초 형용사
+day,130,1,elementary_easy,시간·위치
+man,132,1,elementary_easy,가족
+water,135,1,elementary_easy,음식
+long,140,1,elementary_easy,기초 형용사
+high,145,1,elementary_easy,기초 형용사
+here,151,1,elementary_easy,시간·위치
+house,159,1,elementary_easy,장소
+little,164,1,elementary_easy,기초 형용사
+small,175,1,elementary_easy,기초 형용사
+school,177,1,elementary_easy,장소
+old,189,1,elementary_easy,기초 형용사
+say,203,1,elementary_easy,기초 동작
+come,204,1,elementary_easy,기초 동작
+go,208,1,elementary_easy,기초 동작
+give,226,1,elementary_easy,기초 동작
+four,235,1,elementary_easy,기초 숫자
+table,237,1,elementary_easy,물건
+hand,240,1,elementary_easy,몸
+home,259,1,elementary_easy,장소
+name,273,1,elementary_easy,기초 말
+family,284,1,elementary_easy,가족
+five,294,1,elementary_easy,기초 숫자
+head,299,1,elementary_easy,몸
+put,305,1,elementary_easy,기초 동작
+full,310,1,elementary_easy,기초 형용사
+book,312,1,elementary_easy,물건
+body,320,1,elementary_easy,몸
+white,346,1,elementary_easy,색
+want,361,1,elementary_easy,기초 동작
+young,366,1,elementary_easy,기초 형용사
+open,399,1,elementary_easy,기초 동작
+help,408,1,elementary_easy,기초 동작
+child,413,1,elementary_easy,가족
+short,423,1,elementary_easy,기초 형용사
+room,427,1,elementary_easy,장소
+look,429,1,elementary_easy,기초 동작
+read,438,1,elementary_easy,기초 동작
+face,450,1,elementary_easy,몸
+river,451,1,elementary_easy,자연
+father,470,1,elementary_easy,가족
+love,473,1,elementary_easy,기초 동작
+black,474,1,elementary_easy,색
+six,483,1,elementary_easy,기초 숫자
+food,484,1,elementary_easy,음식
+night,513,1,elementary_easy,시간·위치
+mother,568,1,elementary_easy,가족
+close,577,1,elementary_easy,기초 동작
+woman,618,1,elementary_easy,가족
+son,643,1,elementary_easy,가족
+yes,648,1,elementary_easy,인사·기초 말
+red,663,1,elementary_easy,색
+ten,681,1,elementary_easy,기초 숫자
+sea,682,1,elementary_easy,자연
+today,711,1,elementary_easy,시간·위치
+wife,738,1,elementary_easy,가족
+run,758,1,elementary_easy,기초 동작
+cut,784,1,elementary_easy,기초 동작
+door,814,1,elementary_easy,물건
+play,840,1,elementary_easy,기초 동작
+ask,841,1,elementary_easy,기초 동작
+morning,855,1,elementary_easy,시간·위치
+brown,881,1,elementary_easy,색
+box,884,1,elementary_easy,물건
+big,888,1,elementary_easy,기초 형용사
+green,902,1,elementary_easy,색
+car,909,1,elementary_easy,물건
+seven,918,1,elementary_easy,기초 숫자
+friend,920,1,elementary_easy,기초 말
+eight,940,1,elementary_easy,기초 숫자
+farm,971,1,elementary_easy,장소
+key,1024,1,elementary_easy,물건
+stand,1055,1,elementary_easy,기초 동작
+dark,1064,1,elementary_easy,기초 형용사
+hear,1068,1,elementary_easy,기초 동작
+write,1076,1,elementary_easy,기초 동작
+cold,1082,1,elementary_easy,온도
+fish,1083,1,elementary_easy,동물
+start,1094,1,elementary_easy,기초 동작
+bad,1115,1,elementary_easy,기초 형용사
+park,1127,1,elementary_easy,장소
+bed,1145,1,elementary_easy,물건
+eye,1171,1,elementary_easy,몸
+easy,1174,1,elementary_easy,기초 형용사
+speak,1184,1,elementary_easy,기초 동작
+glass,1190,1,elementary_easy,물건
+blue,1193,1,elementary_easy,색
+color,1202,1,elementary_easy,색
+sun,1209,1,elementary_easy,자연
+brother,1262,1,elementary_easy,가족
+husband,1287,1,elementary_easy,가족
+animal,1292,1,elementary_easy,동물
+stop,1301,1,elementary_easy,기초 동작
+tree,1305,1,elementary_easy,자연
+boy,1324,1,elementary_easy,가족
+girl,1352,1,elementary_easy,가족
+milk,1379,1,elementary_easy,음식
+hot,1397,1,elementary_easy,온도
+nine,1453,1,elementary_easy,기초 숫자
+mouth,1456,1,elementary_easy,몸
+please,1475,1,elementary_easy,인사·기초 말
+daughter,1478,1,elementary_easy,가족
+beautiful,1484,1,elementary_easy,기초 형용사
+hair,1487,1,elementary_easy,몸
+wind,1502,1,elementary_easy,자연
+bear,1558,1,elementary_easy,동물
+horse,1584,1,elementary_easy,동물
+happy,1608,1,elementary_easy,기초 형용사
+arm,1658,1,elementary_easy,몸
+fast,1662,1,elementary_easy,기초 형용사
+thank,1679,1,elementary_easy,인사·기초 말
+fruit,1694,1,elementary_easy,음식
+window,1701,1,elementary_easy,물건
+sugar,1712,1,elementary_easy,음식
+mountain,1755,1,elementary_easy,자연
+ice,1757,1,elementary_easy,음식
+train,1772,1,elementary_easy,물건
+yellow,1784,1,elementary_easy,색
+phone,1824,1,elementary_easy,물건
+garden,1847,1,elementary_easy,장소
+chair,1870,1,elementary_easy,물건
+buy,1901,1,elementary_easy,기초 동작
+sister,1933,1,elementary_easy,가족
+thin,1934,1,elementary_easy,기초 형용사
+draw,1992,1,elementary_easy,기초 동작
+walk,1997,1,elementary_easy,기초 동작
+sleep,2003,1,elementary_easy,기초 동작
+slow,2009,1,elementary_easy,기초 형용사
+clean,2027,1,elementary_easy,기초 형용사
+pretty,2029,1,elementary_easy,기초 형용사
+gray,2132,1,elementary_easy,색
+card,2158,1,elementary_easy,물건
+warm,2189,1,elementary_easy,온도
+corn,2190,1,elementary_easy,음식
+wait,2199,1,elementary_easy,기초 동작
+shop,2239,1,elementary_easy,장소
+parent,2250,1,elementary_easy,가족
+star,2272,1,elementary_easy,자연
+boat,2293,1,elementary_easy,물건
+dog,2308,1,elementary_easy,동물
+sit,2325,1,elementary_easy,기초 동작
+meat,2374,1,elementary_easy,음식
+ball,2375,1,elementary_easy,물건
+eat,2381,1,elementary_easy,기초 동작
+baby,2416,1,elementary_easy,가족
+neck,2444,1,elementary_easy,몸
+fat,2466,1,elementary_easy,기초 형용사
+rice,2500,1,elementary_easy,음식
+snow,2504,1,elementary_easy,자연
+quiet,2515,1,elementary_easy,기초 형용사
+smile,2535,1,elementary_easy,기초 동작
+rain,2561,1,elementary_easy,자연
+beach,2609,1,elementary_easy,장소
+bird,2630,1,elementary_easy,동물
+grass,2631,1,elementary_easy,자연
+drink,2676,1,elementary_easy,기초 동작
+coffee,2698,1,elementary_easy,음식
+sick,2714,1,elementary_easy,기초 형용사
+cup,2718,1,elementary_easy,물건
+sky,2767,1,elementary_easy,자연
+ear,2812,1,elementary_easy,몸
+cook,2826,1,elementary_easy,기초 동작
+sheep,2876,1,elementary_easy,동물
+moon,2885,1,elementary_easy,자연
+sorry,2893,1,elementary_easy,인사·기초 말
+dance,2899,1,elementary_easy,기초 동작
+clothes,2912,1,elementary_easy,물건
+leaf,2915,1,elementary_easy,자연
+kitchen,2917,1,elementary_easy,장소
+truck,2921,1,elementary_easy,물건
+tea,2924,1,elementary_easy,음식
+dress,2940,1,elementary_easy,물건
+bread,2947,1,elementary_easy,음식
+welcome,3034,1,elementary_easy,인사·기초 말
+nice,3036,1,elementary_easy,기초 형용사
+listen,3115,1,elementary_easy,기초 동작
+orange,3117,1,elementary_easy,색
+bus,3129,1,elementary_easy,물건
+leg,3264,1,elementary_easy,몸
+cap,3309,1,elementary_easy,물건
+tall,3361,1,elementary_easy,기초 형용사
+uncle,3397,1,elementary_easy,가족
+cat,3432,1,elementary_easy,동물
+nose,3439,1,elementary_easy,몸
+flower,3448,1,elementary_easy,자연
+bag,3452,1,elementary_easy,물건
+egg,3468,1,elementary_easy,음식
+butter,3502,1,elementary_easy,음식
+cry,3543,1,elementary_easy,기초 동작
+cream,3579,1,elementary_easy,음식
+yesterday,3673,1,elementary_easy,시간·위치
+hat,3681,1,elementary_easy,물건
+coat,3725,1,elementary_easy,물건
+desk,3748,1,elementary_easy,물건
+cloud,3764,1,elementary_easy,자연
+tomorrow,3837,1,elementary_easy,시간·위치
+pen,3874,1,elementary_easy,물건
+bottle,3898,1,elementary_easy,물건
+classroom,3982,1,elementary_easy,장소
+sad,4033,1,elementary_easy,기초 형용사
+angry,4034,1,elementary_easy,기초 형용사
+wash,4107,1,elementary_easy,기초 동작
+dad,4113,1,elementary_easy,가족
+push,4121,1,elementary_easy,기초 동작
+tired,4140,1,elementary_easy,기초 형용사
+apple,4188,1,elementary_easy,음식
+sing,4200,1,elementary_easy,기초 동작
+laugh,4285,1,elementary_easy,기초 동작
+lunch,4300,1,elementary_easy,음식
+clock,4316,1,elementary_easy,물건
+cheese,4323,1,elementary_easy,음식
+pink,4584,1,elementary_easy,색
+aunt,4615,1,elementary_easy,가족
+beef,4655,1,elementary_easy,음식
+brush,4702,1,elementary_easy,물건
+cow,4733,1,elementary_easy,동물
+wake,4775,1,elementary_easy,기초 동작
+mom,4807,1,elementary_easy,가족
+mouse,4957,1,elementary_easy,동물
+pig,4960,1,elementary_easy,동물
+shirt,5020,1,elementary_easy,물건
+juice,5085,1,elementary_easy,음식
+bowl,5095,1,elementary_easy,물건
+chicken,5176,1,elementary_easy,음식
+knee,5267,1,elementary_easy,몸
+purple,5287,1,elementary_easy,색
+lion,5460,1,elementary_easy,동물
+bedroom,5473,1,elementary_easy,장소
+glasses,5520,1,elementary_easy,물건
+tooth,5572,1,elementary_easy,몸
+shoe,5586,1,elementary_easy,물건
+grandfather,5596,1,elementary_easy,가족
+dirty,5737,1,elementary_easy,기초 형용사
+jump,5757,1,elementary_easy,기초 동작
+potato,6020,1,elementary_easy,음식
+hungry,6023,1,elementary_easy,기초 형용사
+cake,6063,1,elementary_easy,음식
+bee,6209,1,elementary_easy,동물
+jacket,6396,1,elementary_easy,물건
+dish,6404,1,elementary_easy,물건
+rabbit,6482,1,elementary_easy,동물
+grandmother,6704,1,elementary_easy,가족
+snake,6738,1,elementary_easy,동물
+pencil,6744,1,elementary_easy,물건
+chocolate,6984,1,elementary_easy,음식
+bean,7250,1,elementary_easy,음식
+bathroom,7493,1,elementary_easy,장소
+airplane,7511,1,elementary_easy,물건
+soup,7572,1,elementary_easy,음식
+bye,8543,1,elementary_easy,인사·기초 말
+toy,8717,1,elementary_easy,물건
+hello,8787,1,elementary_easy,인사·기초 말
+tiger,8825,1,elementary_medium,동물
+tomato,8834,1,elementary_medium,음식
+candy,8842,1,elementary_medium,음식
+pants,8896,1,elementary_medium,물건
+monkey,9064,1,elementary_medium,동물
+swim,9067,1,elementary_medium,기초 동작
+salad,9189,1,elementary_medium,음식
+sandwich,9502,1,elementary_medium,음식
+grape,9515,1,elementary_medium,음식
+skirt,9518,1,elementary_medium,물건
+taxi,9870,1,elementary_medium,물건
+sofa,10179,1,elementary_medium,물건
+frog,10203,1,elementary_medium,동물
+doll,10515,1,elementary_medium,물건
+umbrella,11123,1,elementary_medium,물건
+towel,11425,1,elementary_medium,물건
+notebook,11559,1,elementary_medium,물건
+butterfly,11669,1,elementary_medium,동물
+bike,11773,1,elementary_medium,물건
+banana,11900,1,elementary_medium,음식
+zoo,12922,1,elementary_medium,동물
+pizza,13261,1,elementary_medium,음식
+cute,15204,1,elementary_medium,기초 형용사
+cookie,16657,1,elementary_medium,음식
+kite,18106,1,elementary_medium,물건
+yogurt,20497,1,elementary_medium,음식
+hamburger,21554,1,elementary_medium,음식
+jeans,,1,elementary_medium,물건
+T-shirt,,1,elementary_medium,물건
+and,3,2,elementary_medium,검토: 접속사 but·or와 맞춤
+to,4,2,elementary_medium,기초 전치사
+for,9,2,elementary_medium,기초 전치사
+with,14,2,elementary_medium,기초 전치사
+not,17,2,elementary_medium,검토: 부정 부사 카드 곤란
+or,18,2,elementary_medium,기초 접속사
+at,22,2,elementary_medium,기초 전치사
+from,23,2,elementary_medium,기초 전치사
+but,29,2,elementary_medium,기초 접속사
+May,48,2,elementary_medium,달 이름
+when,50,2,elementary_medium,일상 말
+so,51,2,elementary_medium,기초 접속사
+time,59,2,elementary_medium,일상 말
+only,64,2,elementary_medium,검토: 부사 카드 곤란
+into,65,2,elementary_medium,방향 전치사
+also,68,2,elementary_medium,검토: 부사 카드 곤란
+about,69,2,elementary_medium,검토: 전치사 뜻 추상
+out,70,2,elementary_medium,일상 말
+first,76,2,elementary_medium,검토: 서수 추상
+after,82,2,elementary_medium,시간 전치사
+then,84,2,elementary_medium,일상 말
+over,87,2,elementary_medium,위치 전치사
+very,88,2,elementary_medium,검토: 부사 카드 곤란
+where,91,2,elementary_medium,일상 말
+work,94,2,elementary_medium,일상 말
+same,96,2,elementary_medium,일상 말
+well,97,2,elementary_medium,일상 말
+year,103,2,elementary_medium,일상 말
+before,107,2,elementary_medium,일상 말
+use,109,2,elementary_medium,검토: 추상 동사
+because,113,2,elementary_medium,기초 접속사
+how,115,2,elementary_medium,일상 말
+much,117,2,elementary_medium,검토: 수량 부사
+both,119,2,elementary_medium,일상 말
+number,122,2,elementary_medium,일상 말
+great,125,2,elementary_medium,일상 말
+right,146,2,elementary_medium,일상 말
+world,153,2,elementary_medium,일상 말
+place,162,2,elementary_medium,일상 말
+know,163,2,elementary_medium,일상 말
+down,165,2,elementary_medium,일상 말
+back,169,2,elementary_medium,일상 말
+take,170,2,elementary_medium,검토: 뜻이 여러 갈래
+large,176,2,elementary_medium,일상 말
+city,182,2,elementary_medium,일상 말
+different,186,2,elementary_medium,검토: same(2)과 짝
+too,194,2,elementary_medium,검토: 부사 카드 곤란
+think,198,2,elementary_medium,일상 말
+end,199,2,elementary_medium,일상 말
+get,200,2,elementary_medium,검토: 뜻이 여러 갈래
+never,206,2,elementary_medium,검토: 빈도 부사
+above,217,2,elementary_medium,일상 말
+study,220,2,elementary_medium,일상 말
+off,221,2,elementary_medium,일상 말
+office,224,2,elementary_medium,일상 말
+again,227,2,elementary_medium,검토: 부사 카드 곤란
+question,230,2,elementary_medium,검토: answer(2)와 짝
+line,233,2,elementary_medium,일상 말
+left,257,2,elementary_medium,일상 말
+person,261,2,elementary_medium,일상 말
+find,274,2,elementary_medium,일상 말
+often,276,2,elementary_medium,일상 말
+side,285,2,elementary_medium,일상 말
+always,295,2,elementary_medium,검토: 빈도 부사
+early,314,2,elementary_medium,일상 말
+light,317,2,elementary_medium,일상 말
+why,345,2,elementary_medium,일상 말
+away,350,2,elementary_medium,일상 말
+around,358,2,elementary_medium,위치 전치사
+half,364,2,elementary_medium,검토: 기초 수량
+money,367,2,elementary_medium,일상 말
+class,370,2,elementary_medium,일상 말
+show,375,2,elementary_medium,일상 말
+party,378,2,elementary_medium,일상 말
+June,381,2,elementary_medium,달 이름
+together,395,2,elementary_medium,일상 말
+paper,401,2,elementary_medium,일상 말
+real,409,2,elementary_medium,일상 말
+true,424,2,elementary_medium,일상 말
+street,425,2,elementary_medium,일상 말
+building,426,2,elementary_medium,일상 말
+bank,432,2,elementary_medium,일상 말
+July,454,2,elementary_medium,달 이름
+near,456,2,elementary_medium,위치 전치사
+pay,460,2,elementary_medium,일상 말
+March,464,2,elementary_medium,달 이름
+king,465,2,elementary_medium,일상 말
+kind,478,2,elementary_medium,일상 말
+test,493,2,elementary_medium,일상 말
+ground,498,2,elementary_medium,일상 말
+word,503,2,elementary_medium,일상 말
+thing,512,2,elementary_medium,일상 말
+art,518,2,elementary_medium,일상 말
+science,523,2,elementary_medium,검토: 교과 이름
+below,548,2,elementary_medium,일상 말
+usually,563,2,elementary_medium,일상 말
+call,565,2,elementary_medium,일상 말
+April,578,2,elementary_medium,달 이름
+page,581,2,elementary_medium,검토: 책 구체
+heart,582,2,elementary_medium,일상 말
+letter,586,2,elementary_medium,검토: 편지 구체
+town,595,2,elementary_medium,일상 말
+soon,598,2,elementary_medium,일상 말
+tell,605,2,elementary_medium,일상 말
+fire,610,2,elementary_medium,일상 말
+January,622,2,elementary_medium,달 이름
+late,624,2,elementary_medium,일상 말
+strong,644,2,elementary_medium,일상 말
+December,653,2,elementary_medium,달 이름
+answer,672,2,elementary_medium,일상 말
+twenty,675,2,elementary_medium,숫자
+library,678,2,elementary_medium,일상 말
+October,693,2,elementary_medium,달 이름
+hard,702,2,elementary_medium,일상 말
+outside,703,2,elementary_medium,일상 말
+week,704,2,elementary_medium,일상 말
+feel,705,2,elementary_medium,일상 말
+September,710,2,elementary_medium,달 이름
+poor,724,2,elementary_medium,일상 말
+turn,727,2,elementary_medium,일상 말
+top,733,2,elementary_medium,일상 말
+sure,734,2,elementary_medium,검토: 대답 빈출 말
+difficult,740,2,elementary_medium,검토: easy(1)와 짝
+story,746,2,elementary_medium,일상 말
+meet,747,2,elementary_medium,일상 말
+front,749,2,elementary_medium,일상 말
+August,753,2,elementary_medium,달 이름
+month,767,2,elementary_medium,일상 말
+fine,770,2,elementary_medium,일상 말
+live,797,2,elementary_medium,일상 말
+behind,812,2,elementary_medium,일상 말
+job,813,2,elementary_medium,일상 말
+November,822,2,elementary_medium,달 이름
+sale,827,2,elementary_medium,일상 말
+hospital,851,2,elementary_medium,일상 말
+February,853,2,elementary_medium,달 이름
+hour,879,2,elementary_medium,검토: 시간 말
+music,882,2,elementary_medium,취미·운동
+station,887,2,elementary_medium,일상 말
+ago,932,2,elementary_medium,일상 말
+island,937,2,elementary_medium,일상 말
+wall,970,2,elementary_medium,일상 말
+student,989,2,elementary_medium,일상 말
+news,1021,2,elementary_medium,일상 말
+gold,1022,2,elementary_medium,일상 말
+lot,1042,2,elementary_medium,일상 말
+computer,1060,2,elementary_medium,일상 말
+spring,1070,2,elementary_medium,계절
+summer,1086,2,elementary_medium,계절
+ready,1088,2,elementary_medium,일상 말
+hall,1112,2,elementary_medium,일상 말
+add,1113,2,elementary_medium,일상 말
+try,1146,2,elementary_medium,일상 말
+talk,1183,2,elementary_medium,일상 말
+floor,1187,2,elementary_medium,일상 말
+wish,1204,2,elementary_medium,일상 말
+interesting,1219,2,elementary_medium,검토: 초등 빈출 말
+inside,1225,2,elementary_medium,위치 전치사
+hill,1226,2,elementary_medium,일상 말
+picture,1251,2,elementary_medium,일상 말
+remember,1259,2,elementary_medium,일상 말
+teacher,1261,2,elementary_medium,직업
+thirty,1267,2,elementary_medium,숫자
+stone,1274,2,elementary_medium,일상 말
+dry,1275,2,elementary_medium,일상 말
+ship,1302,2,elementary_medium,일상 말
+winter,1321,2,elementary_medium,계절
+lady,1354,2,elementary_medium,일상 말
+evening,1404,2,elementary_medium,일상 말
+wrong,1417,2,elementary_medium,일상 말
+learn,1427,2,elementary_medium,일상 말
+piece,1457,2,elementary_medium,일상 말
+rose,1459,2,elementary_medium,일상 말
+visit,1481,2,elementary_medium,일상 말
+begin,1482,2,elementary_medium,일상 말
+rich,1488,2,elementary_medium,일상 말
+game,1493,2,elementary_medium,취미·운동
+stay,1545,2,elementary_medium,일상 말
+bridge,1562,2,elementary_medium,일상 말
+mail,1572,2,elementary_medium,일상 말
+team,1595,2,elementary_medium,일상 말
+radio,1606,2,elementary_medium,일상 말
+drive,1614,2,elementary_medium,일상 말
+club,1645,2,elementary_medium,일상 말
+travel,1659,2,elementary_medium,검토: 일상 활동
+fifty,1704,2,elementary_medium,숫자
+brain,1705,2,elementary_medium,일상 말
+map,1720,2,elementary_medium,일상 말
+dear,1743,2,elementary_medium,검토: 편지 말 덜 기초
+build,1771,2,elementary_medium,검토: 일상 동사
+break,1787,2,elementary_medium,검토: 일상 동사
+birth,1789,2,elementary_medium,일상 말
+weather,1792,2,elementary_medium,날씨
+straight,1794,2,elementary_medium,일상 말
+minute,1804,2,elementary_medium,일상 말
+sell,1821,2,elementary_medium,일상 말
+twelve,1829,2,elementary_medium,숫자
+band,1848,2,elementary_medium,일상 말
+forty,1853,2,elementary_medium,숫자
+writer,1875,2,elementary_medium,직업
+maybe,1906,2,elementary_medium,일상 말
+prince,1919,2,elementary_medium,일상 말
+camp,1950,2,elementary_medium,취미·운동
+hotel,1975,2,elementary_medium,일상 말
+circle,2038,2,elementary_medium,검토: 도형 구체
+careful,2039,2,elementary_medium,일상 말
+ring,2046,2,elementary_medium,일상 말
+fight,2056,2,elementary_medium,일상 말
+feed,2081,2,elementary_medium,일상 말
+flat,2087,2,elementary_medium,일상 말
+corner,2091,2,elementary_medium,일상 말
+watch,2114,2,elementary_medium,일상 말
+seat,2126,2,elementary_medium,일상 말
+choose,2130,2,elementary_medium,일상 말
+television,2207,2,elementary_medium,일상 말
+touch,2212,2,elementary_medium,검토: 기초 동작
+famous,2213,2,elementary_medium,일상 말
+bone,2278,2,elementary_medium,일상 말
+sweet,2313,2,elementary_medium,일상 말
+Sunday,2409,2,elementary_medium,요일
+bell,2426,2,elementary_medium,일상 말
+song,2432,2,elementary_medium,일상 말
+afternoon,2445,2,elementary_medium,일상 말
+fifteen,2451,2,elementary_medium,숫자
+gift,2452,2,elementary_medium,검토: 구체 사물
+dinner,2488,2,elementary_medium,일상 말
+worker,2571,2,elementary_medium,직업
+newspaper,2621,2,elementary_medium,일상 말
+glad,2649,2,elementary_medium,일상 말
+trip,2668,2,elementary_medium,검토: 일상 활동
+hole,2672,2,elementary_medium,검토: 구체 사물
+dollar,2688,2,elementary_medium,일상 말
+dream,2699,2,elementary_medium,일상 말
+wear,2775,2,elementary_medium,일상 말
+cloth,2816,2,elementary_medium,일상 말
+afraid,2822,2,elementary_medium,감정
+sixty,2834,2,elementary_medium,숫자
+shoulder,2864,2,elementary_medium,일상 말
+teach,2867,2,elementary_hard,일상 말
+wheel,2871,2,elementary_hard,검토: 덜 기초 사물
+farmer,2872,2,elementary_hard,직업
+healthy,2973,2,elementary_hard,일상 말
+forget,2976,2,elementary_hard,검토: remember(2)와 짝
+catch,3045,2,elementary_hard,일상 말
+driver,3081,2,elementary_hard,직업
+wonderful,3100,2,elementary_hard,검토: 감정 형용사
+win,3105,2,elementary_hard,일상 말
+surprise,3150,2,elementary_hard,감정
+fly,3153,2,elementary_hard,일상 말
+Internet,3160,2,elementary_hard,일상 말
+fever,3162,2,elementary_hard,검토: 몸 상태
+cool,3172,2,elementary_hard,일상 말
+expensive,3198,2,elementary_hard,검토: 일상 형용사
+tower,3208,2,elementary_hard,일상 말
+pool,3210,2,elementary_hard,일상 말
+pick,3223,2,elementary_hard,일상 말
+video,3257,2,elementary_hard,일상 말
+Monday,3284,2,elementary_hard,요일
+meal,3315,2,elementary_hard,일상 말
+Saturday,3342,2,elementary_hard,요일
+nurse,3355,2,elementary_hard,직업
+hurt,3367,2,elementary_hard,일상 말
+busy,3418,2,elementary_hard,일상 말
+throw,3470,2,elementary_hard,일상 말
+palace,3517,2,elementary_hard,일상 말
+pocket,3538,2,elementary_hard,일상 말
+bath,3587,2,elementary_hard,일상 말
+eleven,3609,2,elementary_hard,숫자
+paint,3641,2,elementary_hard,일상 말
+finish,3661,2,elementary_hard,일상 말
+Friday,3699,2,elementary_hard,요일
+camera,3703,2,elementary_hard,일상 말
+blow,3730,2,elementary_hard,일상 말
+photo,3731,2,elementary_hard,일상 말
+turkey,3749,2,elementary_hard,일상 말
+seventy,3757,2,elementary_hard,숫자
+terrible,3768,2,elementary_hard,감정
+eighteen,3832,2,elementary_hard,숫자
+lesson,3881,2,elementary_hard,검토: 학교생활 말
+ride,3952,2,elementary_hard,일상 말
+fun,3970,2,elementary_hard,일상 말
+airport,3973,2,elementary_hard,일상 말
+arrive,3990,2,elementary_hard,일상 말
+flag,4083,2,elementary_hard,일상 말
+fourteen,4138,2,elementary_hard,숫자
+rat,4231,2,elementary_hard,일상 말
+breakfast,4234,2,elementary_hard,일상 말
+worry,4236,2,elementary_hard,검토: 감정
+autumn,4263,2,elementary_hard,계절
+sixteen,4276,2,elementary_hard,숫자
+sport,4321,2,elementary_hard,일상 말
+Tuesday,4335,2,elementary_hard,요일
+vegetable,4339,2,elementary_hard,일상 말
+excuse,4407,2,elementary_hard,일상 말
+button,4432,2,elementary_hard,일상 말
+restaurant,4433,2,elementary_hard,일상 말
+eighty,4453,2,elementary_hard,숫자
+knife,4477,2,elementary_hard,일상 말
+Thursday,4525,2,elementary_hard,요일
+player,4546,2,elementary_hard,직업
+favorite,4563,2,elementary_hard,검토: 초등 빈출 말
+hide,4581,2,elementary_hard,검토: 놀이 동작
+Wednesday,4649,2,elementary_hard,요일
+lovely,4742,2,elementary_hard,일상 말
+handsome,4787,2,elementary_hard,일상 말
+super,4802,2,elementary_hard,일상 말
+dictionary,4812,2,elementary_hard,검토: 교실 물건
+holiday,4819,2,elementary_hard,일상 말
+theater,4843,2,elementary_hard,일상 말
+thirteen,4872,2,elementary_hard,숫자
+ninety,4903,2,elementary_hard,숫자
+jet,4907,2,elementary_hard,일상 말
+movie,5017,2,elementary_hard,취미·운동
+piano,5031,2,elementary_hard,일상 말
+smell,5053,2,elementary_hard,일상 말
+fan,5138,2,elementary_hard,일상 말
+princess,5140,2,elementary_hard,일상 말
+tonight,5223,2,elementary_hard,일상 말
+coach,5226,2,elementary_hard,직업
+smart,5245,2,elementary_hard,일상 말
+cousin,5347,2,elementary_hard,일상 말
+math,5449,2,elementary_hard,일상 말
+luck,5488,2,elementary_hard,일상 말
+actor,5530,2,elementary_hard,직업
+exciting,5536,2,elementary_hard,감정
+shelf,5574,2,elementary_hard,일상 말
+ghost,5661,2,elementary_hard,일상 말
+ticket,5670,2,elementary_hard,일상 말
+vacation,5726,2,elementary_hard,검토: 일상 시간
+drum,5760,2,elementary_hard,일상 말
+concert,5768,2,elementary_hard,일상 말
+pet,5829,2,elementary_hard,일상 말
+shake,5931,2,elementary_hard,일상 말
+nineteen,5970,2,elementary_hard,숫자
+seventeen,6016,2,elementary_hard,숫자
+lucky,6039,2,elementary_hard,일상 말
+birthday,6215,2,elementary_hard,일상 말
+scientist,6403,2,elementary_hard,검토: 직업
+dig,6470,2,elementary_hard,일상 말
+funny,6542,2,elementary_hard,일상 말
+neighbor,6597,2,elementary_hard,검토: 일상 사람
+ruler,6649,2,elementary_hard,일상 말
+email,6699,2,elementary_hard,일상 말
+singer,6711,2,elementary_hard,직업
+climb,6714,2,elementary_hard,일상 말
+borrow,6765,2,elementary_hard,일상 말
+spell,6790,2,elementary_hard,검토: 교실 빈출 말
+lonely,6882,2,elementary_hard,감정
+clever,6934,2,elementary_hard,일상 말
+baseball,6953,2,elementary_hard,취미·운동
+awake,7030,2,elementary_hard,일상 말
+shower,7072,2,elementary_hard,일상 말
+sunshine,7141,2,elementary_hard,일상 말
+weekend,7150,2,elementary_hard,일상 말
+ugly,7686,2,elementary_hard,일상 말
+tennis,7804,2,elementary_hard,취미·운동
+fairy,8031,2,elementary_hard,일상 말
+toilet,8052,2,elementary_hard,일상 말
+headache,8118,2,elementary_hard,일상 말
+lily,8214,2,elementary_hard,일상 말
+bat,8330,2,elementary_hard,일상 말
+delicious,8404,2,elementary_hard,일상 말
+boring,8469,2,elementary_hard,감정
+ribbon,8827,2,elementary_hard,일상 말
+kick,8835,2,elementary_hard,일상 말
+jewelry,9016,2,elementary_hard,일상 말
+bucket,9076,2,elementary_hard,일상 말
+album,9175,2,elementary_hard,일상 말
+sunny,9303,2,elementary_hard,날씨
+shy,9542,2,elementary_hard,일상 말
+garbage,9586,2,elementary_hard,검토: 구체 사물
+basketball,9914,2,elementary_hard,취미·운동
+sailor,10062,2,elementary_hard,직업
+spy,10127,2,elementary_hard,일상 말
+rainy,10388,2,elementary_hard,날씨
+musician,10487,2,elementary_hard,직업
+guitar,10580,2,elementary_hard,일상 말
+lazy,10901,2,elementary_hard,일상 말
+cafe,11061,2,elementary_hard,일상 말
+poster,11411,2,elementary_hard,일상 말
+picnic,11560,2,elementary_hard,취미·운동
+greet,11708,2,elementary_hard,일상 말
+vase,12567,2,elementary_hard,일상 말
+homework,12623,2,elementary_hard,일상 말
+waiter,12636,2,elementary_hard,직업
+subway,12708,2,elementary_hard,검토: 교통수단
+apron,12854,2,elementary_hard,일상 말
+surf,12896,2,elementary_hard,취미·운동
+soccer,13102,2,elementary_hard,취미·운동
+cloudy,13297,2,elementary_hard,날씨
+hobby,13385,2,elementary_hard,취미·운동
+cartoon,14429,2,elementary_hard,일상 말
+snowy,15429,2,elementary_hard,날씨
+supermarket,15795,2,elementary_hard,일상 말
+bookstore,18001,2,elementary_hard,일상 말
+waitress,18622,2,elementary_hard,직업
+hometown,20783,2,elementary_hard,일상 말
+foggy,24290,2,elementary_hard,날씨
+volleyball,24892,2,elementary_hard,취미·운동
+classmate,26776,2,elementary_hard,일상 말
+grandparent,29434,2,elementary_hard,일상 말
+haircut,30359,2,elementary_hard,일상 말
+o'clock,,2,elementary_hard,일상 말
+of,2,3,elementary_hard,검토: 기능어 카드 곤란
+that,8,3,elementary_hard,뜻이 여러 갈래
+as,10,3,elementary_hard,뜻이 여러 갈래
+by,13,3,elementary_hard,검토: 뜻이 여러 갈래
+if,43,3,elementary_hard,조건 접속사
+than,60,3,elementary_hard,비교 말
+between,90,3,elementary_hard,위치 전치사
+through,104,3,elementary_hard,방향 전치사
+case,120,3,elementary_hard,뜻이 여러 갈래
+way,127,3,elementary_hard,검토: 뜻이 여러 갈래
+life,128,3,elementary_hard,추상·학습 말
+order,141,3,elementary_hard,추상 명사
+section,143,3,elementary_hard,추상 명사
+own,147,3,elementary_hard,뜻이 여러 갈래
+just,150,3,elementary_hard,검토: 뜻이 여러 갈래
+present,166,3,elementary_hard,뜻이 여러 갈래
+following,178,3,elementary_hard,추상 형용사
+still,179,3,elementary_hard,검토: 뜻이 여러 갈래
+second,183,3,elementary_hard,추상·학습 말
+form,190,3,elementary_hard,추상 명사
+point,191,3,elementary_hard,추상 명사
+business,197,3,elementary_hard,고학년 말
+set,201,3,elementary_hard,추상·학습 말
+social,214,3,elementary_hard,추상 형용사
+important,218,3,elementary_hard,추상 형용사
+group,225,3,elementary_hard,추상 명사
+period,232,3,elementary_hard,추상 명사
+board,238,3,elementary_hard,추상·학습 말
+until,239,3,elementary_hard,시간 전치사
+action,247,3,elementary_hard,추상 명사
+course,252,3,elementary_hard,뜻이 여러 갈래
+health,262,3,elementary_hard,고학년 말
+subject,264,3,elementary_hard,글·학습어
+yet,265,3,elementary_hard,추상·학습 말
+program,266,3,elementary_hard,추상 명사
+change,278,3,elementary_hard,추상 명사
+example,279,3,elementary_hard,추상 명사
+history,281,3,elementary_hard,추상·학습 말
+special,290,3,elementary_hard,추상 형용사
+either,300,3,elementary_hard,추상 형용사
+matter,315,3,elementary_hard,뜻이 여러 갈래
+let,318,3,elementary_hard,검토: 추상 동사
+type,326,3,elementary_hard,추상 명사
+due,329,3,elementary_hard,추상 형용사
+once,332,3,elementary_hard,추상·학습 말
+later,338,3,elementary_hard,추상·학습 말
+field,351,3,elementary_hard,뜻이 여러 갈래
+become,355,3,elementary_hard,검토: 추상 동사
+age,359,3,elementary_hard,추상 명사
+care,380,3,elementary_hard,추상·학습 말
+problem,391,3,elementary_hard,추상 명사
+almost,392,3,elementary_hard,검토: 추상 부사
+already,411,3,elementary_hard,검토: 추상 부사
+along,412,3,elementary_hard,검토: 추상 전치사
+date,421,3,elementary_hard,추상·학습 말
+price,422,3,elementary_hard,추상 명사
+mind,445,3,elementary_hard,추상 명사
+note,471,3,elementary_hard,글·학습어
+future,477,3,elementary_hard,추상 명사
+past,481,3,elementary_hard,추상 명사
+college,487,3,elementary_hard,추상·학습 말
+practice,511,3,elementary_hard,추상 명사
+believe,532,3,elementary_hard,고학년 말
+review,533,3,elementary_hard,글·학습어
+size,547,3,elementary_hard,추상 명사
+mean,553,3,elementary_hard,뜻이 여러 갈래
+personal,555,3,elementary_hard,추상 형용사
+design,558,3,elementary_hard,추상 명사
+keep,573,3,elementary_hard,검토: 추상 동사
+article,629,3,elementary_hard,추상 명사
+activity,646,3,elementary_hard,추상 명사
+role,692,3,elementary_hard,추상 명사
+leave,697,3,elementary_hard,추상·학습 말
+idea,720,3,elementary_hard,추상 명사
+list,721,3,elementary_hard,추상 명사
+moment,735,3,elementary_hard,추상 명사
+code,736,3,elementary_hard,추상·학습 말
+post,739,3,elementary_hard,추상·학습 말
+middle,760,3,elementary_hard,추상·학습 말
+officer,803,3,elementary_hard,고학년 말
+hold,817,3,elementary_hard,추상·학습 말
+stage,837,3,elementary_hard,추상·학습 말
+peace,865,3,elementary_hard,추상 명사
+judge,878,3,elementary_hard,글·학습어
+site,901,3,elementary_hard,추상 명사
+survey,907,3,elementary_hard,추상 명사
+culture,938,3,elementary_hard,추상 명사
+share,944,3,elementary_hard,추상·학습 말
+step,978,3,elementary_hard,뜻이 여러 갈래
+fair,1033,3,elementary_hard,추상 형용사
+machine,1050,3,elementary_hard,추상·학습 말
+else,1056,3,elementary_hard,추상·학습 말
+sum,1073,3,elementary_hard,추상 명사
+cover,1074,3,elementary_hard,추상·학습 말
+event,1234,3,elementary_hard,추상·학습 말
+copy,1238,3,elementary_hard,추상·학습 말
+successful,1242,3,elementary_hard,추상 형용사
+file,1257,3,elementary_hard,글·학습어
+paragraph,1309,3,elementary_hard,글·학습어
+correct,1314,3,elementary_hard,추상 형용사
+speech,1344,3,elementary_hard,추상·학습 말

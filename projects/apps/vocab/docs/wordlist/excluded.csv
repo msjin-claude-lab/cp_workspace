@@ -1,0 +1,253 @@
+# The CEFR-J Wordlist Version 1.6. Compiled by Yukio Tono, Tokyo University of Foreign Studies. Retrieved from https://www.cefr-j.org/download.html on 23/11/26.
+# 위 목록을 고쳐 만든 것이다(tool/wordlist/select.py). 뜻·예문은 들어 있지 않다.
+headword,level,pos,reason
+'m,A1,be-verb,기능어
+'re,A1,be-verb,기능어
+'s,A1,be-verb,기능어
+a,A1,determiner,기능어
+a.m./A.M./am/AM,A1,adverb,약어
+according to,B1,preposition,두 단어 이상
+air conditioning,B1,noun,두 단어 이상
+air force,B1,noun,두 단어 이상
+alarm clock,A2,noun,두 단어 이상
+all right,A1,adjective|adverb,두 단어 이상
+am,A1,be-verb,기능어
+an,A1,determiner,기능어
+another,A1,determiner|pronoun,기능어
+any,A1,determiner|pronoun,기능어
+anybody,A1,pronoun,기능어
+anyone,A1,pronoun,기능어
+anything,A1,pronoun,기능어
+are,A1,be-verb,기능어
+bank account,B1,noun,두 단어 이상
+be,A1,be-verb,기능어
+because of,B1,preposition,두 단어 이상
+been,A2,be-verb,기능어
+board game,A2,noun,두 단어 이상
+bus station,A2,noun,두 단어 이상
+bus stop,A2,noun,두 단어 이상
+capital letter,A2,noun,두 단어 이상
+car park,A2,noun,두 단어 이상
+carbon dioxide,B2,noun,두 단어 이상
+carbon footprint,B2,noun,두 단어 이상
+carbon monoxide,B2,noun,두 단어 이상
+CD,A1,noun,약어
+CD player,A1,noun,두 단어 이상
+central heating,B1,noun,두 단어 이상
+chat show,B1,noun,두 단어 이상
+check-in counter/check-in,B1,noun,두 단어 이상
+check-in desk/check-in,B1,noun,두 단어 이상
+chest of drawers,B1,noun,두 단어 이상
+chewing gum,B1,noun,두 단어 이상
+classical music,A2,noun,두 단어 이상
+climate change,B2,noun,두 단어 이상
+common sense,B1,noun,두 단어 이상
+could,A1,modal auxiliary,기능어
+credit card,A1,noun,두 단어 이상
+CV,B1,noun,약어
+de facto,B2,adjective,두 단어 이상
+debit card,B2,noun,두 단어 이상
+definite article,B1,noun,두 단어 이상
+department store,A2,noun,두 단어 이상
+did,A1,do-verb,기능어
+digital camera,A2,noun,두 단어 이상
+dining room,A1,noun,두 단어 이상
+disc jockey/disk jockey,B1,noun,두 단어 이상
+DJ,B1,noun,약어
+DNA,B2,noun,약어
+do,A1,do-verb,기능어
+doctor/Dr./Dr,A1,noun,약어
+does,A1,do-verb,기능어
+doing,A1,do-verb,기능어
+done,A2,do-verb,기능어
+driver's license/driving licence,A2,noun,두 단어 이상
+DVD,A1,noun,약어
+each,A1,determiner|pronoun,기능어
+each other,A1,pronoun,기능어
+environmentally friendly,B2,adjective,두 단어 이상
+every,A1,determiner,기능어
+everybody,A1,pronoun,기능어
+everyone,A1,pronoun,기능어
+everything,A1,pronoun,기능어
+exchange rate,B1,noun,두 단어 이상
+exclamation mark,B2,noun,두 단어 이상
+extreme sports,B1,noun,두 단어 이상
+face to face,B1,adverb,두 단어 이상
+fast food,A2,noun,두 단어 이상
+fed up,B2,adjective,두 단어 이상
+few,A2,determiner|pronoun,기능어
+fire brigade,B2,noun,두 단어 이상
+fire station,B1,noun,두 단어 이상
+first floor,B1,noun,두 단어 이상
+first lady,B1,noun,두 단어 이상
+first language,B2,noun,두 단어 이상
+first name,A2,noun,두 단어 이상
+first person,B2,noun,두 단어 이상
+frying pan,B1,noun,두 단어 이상
+full stop,B1,noun,두 단어 이상
+gee,B1,interjection,기능어
+global warming,B2,noun,두 단어 이상
+good afternoon,A1,interjection,기능어
+good morning,A1,interjection,기능어
+good night,A1,interjection,기능어
+goodness,B1,interjection,기능어
+grocery store,A2,noun,두 단어 이상
+ground floor,B1,noun,두 단어 이상
+had,A1,have-verb,기능어
+hard drive,B2,noun,두 단어 이상
+has,A1,have-verb,기능어
+have,A1,have-verb,기능어
+have to,A1,modal auxiliary,기능어
+having,A1,have-verb,기능어
+he,A1,pronoun,기능어
+health care,B2,noun,두 단어 이상
+heart attack,B1,noun,두 단어 이상
+her,A1,determiner|pronoun,기능어
+hers,A1,pronoun,기능어
+herself,A2,pronoun,기능어
+hey,A2,interjection,기능어
+hi,A1,interjection,기능어
+high school,A2,noun,두 단어 이상
+him,A1,pronoun,기능어
+himself,A2,pronoun,기능어
+hip hop/hip-hop/hiphop,A2,noun,두 단어 이상
+his,A1,determiner|pronoun,기능어
+HIV,B1,noun,약어
+human rights,B2,noun,두 단어 이상
+I,A1,pronoun,기능어
+ice cream,A1,noun,두 단어 이상
+ice hockey,B1,noun,두 단어 이상
+ice skating,B1,noun,두 단어 이상
+ID,A2,noun,약어
+ID card,A2,noun,두 단어 이상
+identity card,B1,noun,두 단어 이상
+indefinite article,B1,noun,두 단어 이상
+instead of,B1,preposition,두 단어 이상
+inverted commas,B2,noun,두 단어 이상
+is,A1,be-verb,기능어
+IT,A2,noun,약어
+it,A1,pronoun,기능어
+its,A1,determiner|pronoun,기능어
+itself,A2,pronoun,기능어
+junk food,B2,noun,두 단어 이상
+last minute,B2,noun,두 단어 이상
+last name,A1,noun,두 단어 이상
+living room,A1,noun,두 단어 이상
+main course,A2,noun,두 단어 이상
+many,A1,determiner|pronoun,기능어
+martial art,B2,noun,두 단어 이상
+may,A1,modal auxiliary,기능어
+me,A1,pronoun,기능어
+message board,B1,noun,두 단어 이상
+might,A2,modal auxiliary,기능어
+mineral water,A2,noun,두 단어 이상
+mixing bowl,B1,noun,두 단어 이상
+mobile phone,A1,noun,두 단어 이상
+modal verb/modal,B1,noun,두 단어 이상
+MP3 player,A2,noun,두 단어 이상
+Mr./Mr,A1,noun,약어
+Mrs./Mrs,A1,noun,약어
+Ms./Ms,A2,noun,약어
+must,A1,modal auxiliary,기능어
+my,A1,determiner,기능어
+myself,A2,pronoun,기능어
+native speaker,B2,noun,두 단어 이상
+navy blue,B1,adjective,두 단어 이상
+next door,B1,adverb,두 단어 이상
+next to,A2,preposition,두 단어 이상
+no one,A2,pronoun,기능어
+nobody,A2,pronoun,기능어
+none,B1,pronoun,기능어
+nothing,A1,pronoun,기능어
+OK/okay,A1,adjective|adverb,약어
+olive oil,A2,noun,두 단어 이상
+oneself,B1,pronoun,기능어
+other,A1,determiner|pronoun,기능어
+ought to,B1,modal auxiliary,기능어
+our,A1,determiner,기능어
+ours,A1,pronoun,기능어
+ourselves,A2,pronoun,기능어
+out of,A2,preposition,두 단어 이상
+owing to,B2,preposition,두 단어 이상
+p.m./P.M./pm/PM,A1,adverb,약어
+PC,A2,noun,약어
+petrol station,A2,noun,두 단어 이상
+phrasal verb,B1,noun,두 단어 이상
+pocket money,B1,noun,두 단어 이상
+point of view,B2,noun,두 단어 이상
+polar bear,B2,noun,두 단어 이상
+police officer,A2,noun,두 단어 이상
+police station,A2,noun,두 단어 이상
+post office,A2,noun,두 단어 이상
+primary school,B1,noun,두 단어 이상
+prime minister,B2,noun,두 단어 이상
+public transport,B1,noun,두 단어 이상
+question mark,B1,noun,두 단어 이상
+real estate,B2,noun,두 단어 이상
+remote control,B1,noun,두 단어 이상
+rush hour,B2,noun,두 단어 이상
+science fiction,B1,noun,두 단어 이상
+second person,B2,noun,두 단어 이상
+secondary school,B1,noun,두 단어 이상
+several,A2,determiner|pronoun,기능어
+shall,A2,modal auxiliary,기능어
+she,A1,pronoun,기능어
+shop assistant,A2,noun,두 단어 이상
+should,A1,modal auxiliary,기능어
+sitting room,A2,noun,두 단어 이상
+soap opera,B1,noun,두 단어 이상
+social networking,B1,noun,두 단어 이상
+soft drink,A2,noun,두 단어 이상
+some,A1,determiner|pronoun,기능어
+somebody,A2,pronoun,기능어
+someone,A1,pronoun,기능어
+something,A1,pronoun,기능어
+sports center/sports centre,A2,noun,두 단어 이상
+steering wheel,B2,noun,두 단어 이상
+stock market,B2,noun,두 단어 이상
+such,A2,determiner|pronoun,기능어
+swimming costume,A2,noun,두 단어 이상
+swimming pool,A1,noun,두 단어 이상
+table tennis,A2,noun,두 단어 이상
+text message,A2,noun,두 단어 이상
+the,A1,determiner,기능어
+their,A1,determiner,기능어
+theirs,A2,pronoun,기능어
+them,A1,pronoun,기능어
+themselves,A2,pronoun,기능어
+these,A1,determiner|pronoun,기능어
+they,A1,pronoun,기능어
+third person,B2,noun,두 단어 이상
+this,A1,determiner|pronoun,기능어
+those,A1,determiner|pronoun,기능어
+tour guide,A2,noun,두 단어 이상
+traffic jam,B1,noun,두 단어 이상
+traffic light,A2,noun,두 단어 이상
+travel agent,B1,noun,두 단어 이상
+TV,A1,noun,약어
+upside down,B2,adjective|adverb,두 단어 이상
+us,A1,pronoun,기능어
+used to,B1,modal auxiliary,기능어
+vice president,B1,noun,두 단어 이상
+video clip,B1,noun,두 단어 이상
+video game,A2,noun,두 단어 이상
+virtual reality,B2,noun,두 단어 이상
+was,A1,be-verb,기능어
+washing machine,A2,noun,두 단어 이상
+we,A1,pronoun,기능어
+weather forecast,B1,noun,두 단어 이상
+web page,A2,noun,두 단어 이상
+were,A1,be-verb,기능어
+what,A1,determiner|pronoun,기능어
+whatever,A2,determiner|pronoun,기능어
+which,A1,determiner|pronoun,기능어
+whichever,B1,determiner|pronoun,기능어
+who,A1,pronoun,기능어
+whoever,B1,pronoun,기능어
+whom,A2,pronoun,기능어
+whose,A1,determiner|pronoun,기능어
+would,A1,modal auxiliary,기능어
+you,A1,pronoun,기능어
+your,A1,determiner,기능어
+yours,A1,pronoun,기능어
+yourself,A1,pronoun,기능어

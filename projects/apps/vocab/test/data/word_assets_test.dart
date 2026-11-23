@@ -6,20 +6,59 @@ import 'package:vocab/data/cell.dart';
 import 'package:vocab/data/word.dart';
 
 /// 실제 내장 단어 파일(assets/words/*.json)을 검사한다.
-/// 명세: 9칸 × 50단어 = 450개.
+/// 칸마다 있어야 할 단어 수는 [_expectedCount](초등은 1차로 800개 — docs/plan-words-phase1.md).
+
+/// 칸마다 있어야 할 단어 수. 초등은 CEFR-J A1에서 고른 800개(267 · 267 · 266), 중등·고등은 차례가 올 때까지 50개.
+const _expectedCount = {
+  Cell.elementaryEasy: 267,
+  Cell.elementaryMedium: 267,
+  Cell.elementaryHard: 266,
+  Cell.middleEasy: 50,
+  Cell.middleMedium: 50,
+  Cell.middleHard: 50,
+  Cell.highEasy: 50,
+  Cell.highMedium: 50,
+  Cell.highHard: 50,
+};
+
+/// 단어를 묶음으로 나눠 넣는 동안에는 true — 개수를 "50개 이상, 기대값 이하"로만 본다.
+/// 마지막 묶음을 넣은 뒤 false로 바꿔 "정확히 기대값"을 확인한다(계획 3·4단계).
+const _filling = false;
+
+/// 단어 번호: 예전 번호(`ee-001`)이거나 칸과 무관한 새 번호(`w-0001`).
+final _idPattern = RegExp(r'^([emh][emh]-\d{3}|w-\d{4})$');
 List<Word> _read(Cell cell) {
   final text = File(cell.assetPath).readAsStringSync();
   final list = jsonDecode(text) as List<dynamic>;
   return list.map((e) => Word.fromJson(e as Map<String, dynamic>)).toList();
 }
 
-/// 칸 id의 머리글자: elementary_easy → ee
-String _prefix(Cell cell) => '${cell.level.name[0]}${cell.difficulty.name[0]}';
-
 void main() {
-  test('모든 칸의 단어 파일이 읽히고 칸마다 정확히 50개다', () {
+  test('모든 칸의 단어 파일이 읽히고 칸마다 정해진 개수다', () {
     for (final cell in Cell.values) {
-      expect(_read(cell), hasLength(Cell.targetWordCount), reason: cell.id);
+      final count = _read(cell).length;
+      final expected = _expectedCount[cell]!;
+      if (_filling) {
+        expect(count, inInclusiveRange(50, expected), reason: cell.id);
+      } else {
+        expect(count, expected, reason: cell.id);
+      }
+    }
+  });
+
+  test('뜻을 쉼표로 나눈 낱말이 같은 칸 안에서 겹치지 않는다(뜻→영 문제의 정답이 둘로 보이지 않게)', () {
+    for (final cell in Cell.values) {
+      final seen = <String, String>{};
+      for (final w in _read(cell)) {
+        for (final part in w.meaning.split(',').map((p) => p.trim())) {
+          expect(
+            seen[part],
+            isNull,
+            reason: '${cell.id} "$part": ${seen[part]}와 ${w.id}(${w.word})',
+          );
+          seen[part] = '${w.id}(${w.word})';
+        }
+      }
     }
   });
 
@@ -34,13 +73,15 @@ void main() {
     }
   });
 
-  test('단어마다 id가 칸 머리글자-번호이고 필드가 비어 있지 않다', () {
+  test('단어 번호가 형식에 맞고 전체에서 겹치지 않으며 필드가 비어 있지 않다', () {
+    final ids = <String, String>{};
     for (final cell in Cell.values) {
       final words = _read(cell);
       for (var i = 0; i < words.length; i++) {
         final w = words[i];
-        final no = (i + 1).toString().padLeft(3, '0');
-        expect(w.id, '${_prefix(cell)}-$no', reason: '${cell.id} ${w.word}');
+        expect(_idPattern.hasMatch(w.id), isTrue, reason: '${cell.id} ${w.id}');
+        expect(ids[w.id], isNull, reason: '${w.id}: ${ids[w.id]}와 ${cell.id}');
+        ids[w.id] = cell.id;
         expect(w.word.trim(), isNotEmpty, reason: w.id);
         expect(w.meaning.trim(), isNotEmpty, reason: w.id);
         expect(w.example.trim(), isNotEmpty, reason: w.id);
