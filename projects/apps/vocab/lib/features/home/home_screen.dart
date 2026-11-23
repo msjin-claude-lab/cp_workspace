@@ -1,8 +1,11 @@
+import 'dart:math' show min;
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:material_ui/material_ui.dart';
 
 import '../../app_info.dart';
+import '../../data/app_settings.dart';
 import '../../data/cell.dart';
 import '../../data/study_decks.dart';
 import '../../data/study_records.dart';
@@ -314,6 +317,8 @@ class DeckHomeScreen extends ConsumerWidget {
     final text = Theme.of(context).textTheme;
     final words = ref.watch(deckWordsProvider(deck));
     final wrong = ref.watch(wrongEntriesProvider(deck));
+    // 한 번에 하는 카드 수·문항 수(설정). 읽는 동안이나 읽지 못하면 단어 수만 보인다
+    final settings = ref.watch(deckSettingsProvider(deck)).value;
     return Scaffold(
       appBar: AppBar(
         leading: Builder(
@@ -345,7 +350,9 @@ class DeckHomeScreen extends ConsumerWidget {
               deck.base.label,
               key: const ValueKey('home-base'),
               textAlign: TextAlign.center,
-              style: text.titleMedium,
+              // 아래 두 줄(단어 수, 카드 수·문항 수 — 16)보다 크고 위의 단어장 이름(앱바 제목 — 22)보다
+              // 작게(2026-11-23 사용자 결정)
+              style: text.titleMedium?.copyWith(fontSize: 19),
             ),
             const SizedBox(height: 4),
             Text(
@@ -358,6 +365,18 @@ class DeckHomeScreen extends ConsumerWidget {
               textAlign: TextAlign.center,
               style: text.titleMedium,
             ),
+            // 셋째 줄: 한 번에 하는 카드 수·문항 수(2026-11-23 사용자 결정).
+            // 설정이 단어 수보다 크면 실제로 나오는 수(있는 만큼)를 보인다
+            if (settings != null && words.hasValue) ...[
+              const SizedBox(height: 4),
+              Text(
+                '한 번에 카드 ${min(settings.cardCount, words.requireValue.length)}장'
+                ' · 시험 ${min(settings.quizCount, words.requireValue.length)}문제',
+                key: const ValueKey('home-counts'),
+                textAlign: TextAlign.center,
+                style: text.titleMedium,
+              ),
+            ],
             const SizedBox(height: 24),
             _HomeAction(
               key: const ValueKey('home-study'),
@@ -487,7 +506,9 @@ class _MenuDrawer extends ConsumerWidget {
     final decks = listed.contains(current) ? listed : [...listed, current];
     return Drawer(
       child: SafeArea(
-        child: ListView(
+        // 위: 제목·버전(고정) / 가운데: 단어장 목록(이 부분만 스크롤) / 아래: 앱 정보(고정)
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
@@ -506,49 +527,71 @@ class _MenuDrawer extends ConsumerWidget {
                 ),
               ),
             ),
-            const Divider(),
-            for (final deck in decks)
-              ListTile(
-                key: ValueKey('menu-deck-${deck.deckId}'),
-                // 긴 이름은 두 줄까지 보이고 그 뒤는 줄임표
-                title: Text(
-                  deck.name,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                subtitle: Text(deck.base.label),
-                selected: deck == current,
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    if (deck == current) const Icon(Icons.check),
-                    PopupMenuButton<String>(
-                      key: ValueKey('menu-deck-more-${deck.deckId}'),
-                      tooltip: '더 보기',
-                      onSelected: (action) => action == 'rename'
-                          ? _rename(context, ref, deck)
-                          : _delete(context, ref, deck),
-                      itemBuilder: (_) => const [
-                        PopupMenuItem(
-                          key: ValueKey('deck-rename'),
-                          value: 'rename',
-                          child: Text('이름 바꾸기'),
-                        ),
-                        PopupMenuItem(
-                          key: ValueKey('deck-delete'),
-                          value: 'delete',
-                          child: Text('지우기'),
-                        ),
-                      ],
+            const Divider(height: 1),
+            Expanded(
+              child: ListView(
+                key: const ValueKey('menu-decks'),
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                children: [
+                  for (final deck in decks)
+                    ListTile(
+                      key: ValueKey('menu-deck-${deck.deckId}'),
+                      // 긴 이름은 두 줄까지 보이고 그 뒤는 줄임표
+                      title: Text(
+                        deck.name,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      subtitle: Text(deck.base.label),
+                      selected: deck == current,
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          if (deck == current) const Icon(Icons.check),
+                          PopupMenuButton<String>(
+                            key: ValueKey('menu-deck-more-${deck.deckId}'),
+                            tooltip: '더 보기',
+                            onSelected: (action) => action == 'rename'
+                                ? _rename(context, ref, deck)
+                                : _delete(context, ref, deck),
+                            itemBuilder: (_) => const [
+                              PopupMenuItem(
+                                key: ValueKey('deck-rename'),
+                                value: 'rename',
+                                child: Text('이름 바꾸기'),
+                              ),
+                              PopupMenuItem(
+                                key: ValueKey('deck-delete'),
+                                value: 'delete',
+                                child: Text('지우기'),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      onTap: () {
+                        // 메뉴를 닫는다. pop()은 닫히는 중에 다시 누르면 첫 화면까지 닫으므로 쓰지 않는다
+                        Scaffold.of(context).closeDrawer();
+                        if (deck != current) _select(context, ref, deck);
+                      },
                     ),
-                  ],
-                ),
-                onTap: () {
-                  // 메뉴를 닫는다. pop()은 닫히는 중에 다시 누르면 첫 화면까지 닫으므로 쓰지 않는다
-                  Scaffold.of(context).closeDrawer();
-                  if (deck != current) _select(context, ref, deck);
-                },
+                ],
               ),
+            ),
+            // 메뉴 맨 아래 고정: 앱 정보(버전·오픈소스 라이선스, 나중에 단어 출처) — 2026-11-23 사용자 결정
+            const Divider(height: 1),
+            ListTile(
+              key: const ValueKey('menu-about'),
+              leading: const Icon(Icons.info_outline),
+              title: const Text('앱 정보'),
+              onTap: () {
+                // 빠른 두 번 누름에 두 번 열리지 않게
+                if (ModalRoute.of(context)?.isCurrent != true) return;
+                final router = GoRouter.of(context);
+                Scaffold.of(context).closeDrawer();
+                router.push('/about');
+              },
+            ),
           ],
         ),
       ),

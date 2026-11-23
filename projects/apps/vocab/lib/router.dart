@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:material_ui/material_ui.dart';
 
 import 'data/cell.dart';
+import 'features/about/about_screen.dart';
 import 'features/home/home_screen.dart';
 import 'features/progress/progress_screen.dart';
 import 'features/quiz/quiz_screen.dart';
@@ -17,6 +18,8 @@ GoRouter createRouter() => GoRouter(
   routes: [
     // 단어장 홈(단어장이 없으면 시작 화면)
     GoRoute(path: '/', builder: (context, state) => const HomeScreen()),
+    // 앱 정보(☰ 메뉴 맨 아래): 버전·오픈소스 라이선스
+    GoRoute(path: '/about', builder: (context, state) => const AboutScreen()),
     // 새 단어장: 이름(창) → 학교급 → 난이도. 예: /pick?name=단어장, /pick/middle?name=단어장
     GoRoute(
       path: '/pick',

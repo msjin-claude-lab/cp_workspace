@@ -131,6 +131,38 @@ void main() {
     expect(find.byKey(const ValueKey('home-settings')), findsOneWidget);
   });
 
+  testWidgets('홈의 단어 수 아래 줄에 카드 수·문항 수가 보이고, 설정을 바꾸고 돌아오면 바로 바뀐다', (tester) async {
+    await pump(tester, null);
+    String line() =>
+        tester.widget<Text>(find.byKey(const ValueKey('home-counts'))).data!;
+    expect(find.text('50단어'), findsOneWidget);
+    expect(line(), '한 번에 카드 50장 · 시험 20문제');
+    // 단어 수 줄 바로 아래
+    expect(
+      tester.getTopLeft(find.byKey(const ValueKey('home-counts'))).dy,
+      greaterThan(
+        tester.getTopLeft(find.byKey(const ValueKey('home-word-count'))).dy,
+      ),
+    );
+
+    await tap(tester, 'home-settings');
+    await tap(tester, 'settings-card-10');
+    await tap(tester, 'settings-quiz-30');
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+
+    expect(line(), '한 번에 카드 10장 · 시험 30문제');
+  });
+
+  testWidgets('홈의 카드 수·문항 수는 단어가 설정보다 적으면 있는 만큼으로 보인다', (tester) async {
+    await pump(tester, null, words: 12);
+
+    expect(
+      tester.widget<Text>(find.byKey(const ValueKey('home-counts'))).data,
+      '한 번에 카드 12장 · 시험 12문제',
+    );
+  });
+
   testWidgets('값을 고르면 그 단어장에 바로 저장되고, 앱을 다시 만들어도 남아 있다', (tester) async {
     await pump(tester, null);
     await tap(tester, 'home-settings');

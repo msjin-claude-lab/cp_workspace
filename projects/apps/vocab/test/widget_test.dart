@@ -139,6 +139,8 @@ void main() {
     );
     expect(find.text('중등 [난이도 : 어려움]'), findsOneWidget);
     expect(find.text('4단어'), findsOneWidget);
+    // 단어 수 아래 줄에 한 번에 하는 카드 수·문항 수(설정 50·20이지만 단어가 4개뿐이라 있는 만큼)
+    expect(find.text('한 번에 카드 4장 · 시험 4문제'), findsOneWidget);
     expect(find.text('시험'), findsOneWidget); // 문항 수는 보이지 않는다
     expect(find.text('오답 노트 · 0단어'), findsOneWidget);
   });
@@ -321,6 +323,52 @@ void main() {
     expect(find.text('고등 연습'), findsOneWidget);
     expect(find.text('5단어'), findsOneWidget);
     expect(find.byType(Drawer), findsNothing);
+  });
+
+  testWidgets('메뉴 맨 아래에 앱 정보가 고정돼 있고, 단어장이 많아도 보이며 누르면 버전과 라이선스 화면이 열린다', (
+    tester,
+  ) async {
+    // 목록이 메뉴보다 길어지게 단어장을 많이 둔다
+    final first = decks.seed('단어장 1', Cell.elementaryEasy);
+    for (var i = 2; i <= 20; i++) {
+      decks.seed('단어장 $i', Cell.elementaryEasy);
+    }
+    store.selectedDeck = first.deckId;
+    await pumpApp(tester);
+
+    await tap(tester, 'menu');
+    final about = find.byKey(const ValueKey('menu-about'));
+    final drawer = tester.getRect(find.byType(Drawer));
+    // 스크롤하지 않아도 메뉴 바닥에 보인다(단어장 목록 아래, 목록과 겹치지 않음)
+    expect(tester.getRect(about).bottom, drawer.bottom);
+    expect(
+      tester.getRect(find.byKey(const ValueKey('menu-decks'))).bottom,
+      lessThanOrEqualTo(tester.getRect(about).top),
+    );
+    expect(
+      find.descendant(of: about, matching: find.text('앱 정보')),
+      findsOneWidget,
+    );
+
+    await tester.tap(about);
+    await tester.pumpAndSettle();
+    expect(find.byType(Drawer), findsNothing);
+    expect(
+      find.descendant(of: find.byType(AppBar), matching: find.text('앱 정보')),
+      findsOneWidget,
+    );
+    expect(find.text('영단어'), findsOneWidget);
+    expect(find.text('버전 1.0.0'), findsOneWidget);
+
+    await tap(tester, 'about-licenses');
+    expect(find.byType(LicensePage), findsOneWidget);
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+
+    // ← 뒤로로 홈에 돌아온다
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+    expect(find.byKey(const ValueKey('home-study')), findsOneWidget);
   });
 
   testWidgets('메뉴에서 단어장을 빠르게 두 번 눌러도 홈이 닫히지 않는다', (tester) async {
