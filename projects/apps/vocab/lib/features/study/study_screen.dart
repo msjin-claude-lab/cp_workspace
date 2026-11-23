@@ -9,6 +9,7 @@ import '../../data/word.dart';
 import '../../data/word_repository.dart';
 import '../common/leave_guard.dart';
 import '../quiz/quiz.dart' show quizRandomProvider;
+import 'card_pick.dart';
 
 /// 카드 학습: 칸·단어장의 단어를 한 장씩 넘겨 본다.
 /// 앞면 영단어 + 발음, 누르면 뒷면 뜻·예문·해석. 이전/다음으로 오가며 스스로 채점하지 않는다
@@ -40,6 +41,10 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
   /// 이번 회차에 이미 기록한 단어 id. 이전으로 돌아갔다가 다시 넘겨도 또 기록하지 않는다.
   final Set<String> _recorded = {};
 
+  /// 이 화면을 연 뒤 넘겨 본 단어 id(회차를 넘어 쌓인다). 다시 하기 때 DB를 다시 읽지 않고
+  /// 이것을 더해 "안 본 단어"를 가린다.
+  final Set<String> _viewedHere = {};
+
   /// 다음: 지나는 카드를 본 것으로 기록한다(공부 수 = 넘겨 본 카드 수, 한 회차에 카드당 한 번).
   Future<void> _next(Word word) async {
     if (_saving) return;
@@ -50,6 +55,7 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
             .read(studyRecordsProvider)
             .recordCardViewed(deck: widget.deck, word: word);
         _recorded.add(word.id); // 저장에 실패한 카드는 다시 지날 때 한 번 더 해 본다
+        _viewedHere.add(word.id);
       } catch (_) {
         // 스낵바는 아래 버튼을 덮으므로 쓰지 않고, 진행 표시 아래에 문구로 알린다
         _saveFailed = true;
@@ -96,6 +102,12 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
     // 설정을 읽은 뒤에야 카드를 만든다(읽는 동안 엉뚱한 개수가 보이지 않게)
     final words = ref.watch(deckWordsProvider(widget.deck));
     final settings = ref.watch(deckSettingsProvider(widget.deck));
+    // 넘겨 본 기록을 못 읽어도 학습은 막지 않는다 — 안 본 단어 구분 없이 뽑는다.
+    // Riverpod이 실패한 읽기를 다시 시도하는 동안은 AsyncError가 아니라 오류를 든 로딩이라
+    // hasError로 본다(AsyncError만 보면 다시 시도가 끝날 때까지 수십 초 로딩만 보인다)
+    final viewedAsync = ref.watch(viewedWordIdsProvider(widget.deck));
+    final viewed =
+        viewedAsync.value ?? (viewedAsync.hasError ? const <String>{} : null);
     return LeaveGuard(
       // 도중에 ← 뒤로(앱바·시스템)를 누르면 먼저 묻는다(2026-11-22 사용자 결정(UX 점검))
       inProgress: _inProgress,
@@ -110,8 +122,9 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
         body: SafeArea(
           child: switch ((words, settings)) {
             (AsyncError(), _) => const Center(child: Text('단어를 읽지 못했습니다')),
-            (AsyncData(value: final loaded), AsyncData(value: final s)) =>
-              _content(loaded, s.cardCount),
+            (AsyncData(value: final loaded), AsyncData(value: final s))
+                when viewed != null =>
+              _content(loaded, s.cardCount, viewed),
             _ => const Center(child: CircularProgressIndicator()),
           },
         ),
@@ -119,13 +132,15 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
     );
   }
 
-  Widget _content(List<Word> loaded, int cardCount) {
-    // 카드는 회차마다 무작위 순서로 나온다(2026-11-22 사용자 결정 — 전에는 저장된 순서).
+  Widget _content(List<Word> loaded, int cardCount, Set<String> viewed) {
+    // 카드는 회차마다 무작위로 나온다(2026-11-22 사용자 결정 — 전에는 저장된 순서).
+    // 20%는 전체에서, 80%는 안 본 단어 먼저(2026-11-23 사용자 결정 — pickCards).
     // 한 회차 동안은 순서를 붙잡아 이전/다음이 같은 카드로 오간다.
-    // 설정한 수(없으면 있는 만큼)만 앞에서 잘라 쓴다 — 회차를 시작할 때 정해지고 도중에 바뀌지 않는다
-    final list = _order ??= ([
-      ...loaded,
-    ]..shuffle(ref.read(quizRandomProvider))).take(cardCount).toList();
+    // 설정한 수(없으면 있는 만큼)만 낸다 — 회차를 시작할 때 정해지고 도중에 바뀌지 않는다
+    final list = _order ??= pickCards(loaded, {
+      ...viewed,
+      ..._viewedHere,
+    }, cardCount, ref.read(quizRandomProvider));
     if (list.isEmpty) {
       // 화면에는 "칸"이라는 말을 쓰지 않는다(2026-11-20 사용자 결정)
       return const Center(child: Text('아직 단어가 없습니다'));

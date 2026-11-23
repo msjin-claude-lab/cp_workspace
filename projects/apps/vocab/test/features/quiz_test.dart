@@ -52,6 +52,10 @@ class _FakeRecords implements StudyRecords {
       throw UnimplementedError('시험은 학습 기록을 쓰지 않는다');
 
   @override
+  Future<Set<String>> viewedWordIds(Deck deck) =>
+      throw UnimplementedError('시험은 학습 기록을 읽지 않는다');
+
+  @override
   Future<void> recordQuizAnswer({
     required Deck deck,
     required Word word,

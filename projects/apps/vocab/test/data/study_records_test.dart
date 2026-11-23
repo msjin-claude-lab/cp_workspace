@@ -53,6 +53,11 @@ void main() {
       correct: false,
     );
     await records.recordCardViewed(deck: Cell.elementaryEasy, word: word);
+    await records.recordCardViewed(deck: Cell.elementaryEasy, word: word);
+
+    // 넘겨 본 단어는 단어장별로, 여러 번 봐도 한 번만 나온다(시험만 본 단어는 아니다)
+    expect(await records.viewedWordIds(Cell.elementaryEasy), {'ee-001'});
+    expect(await records.viewedWordIds(Cell.elementaryMedium), isEmpty);
 
     final db = await databaseFactoryFfi.openDatabase(path);
     expect(await db.getVersion(), SqfliteStudyRecords.schemaVersion);
@@ -74,6 +79,7 @@ void main() {
       ],
     );
     expect(await db.rawQuery('SELECT known FROM study_log'), [
+      {'known': 1},
       {'known': 1},
     ]);
     // 카드를 넘겨 본 것은 오답 노트에 넣지 않는다(시험 오답 1번만 센다)

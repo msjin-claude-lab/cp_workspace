@@ -14,6 +14,9 @@ abstract interface class StudyRecords {
   /// `deck`은 칸 또는 이름 있는 단어장 — 기록의 `cell_id`에 `deck.id`가 들어간다.
   Future<void> recordCardViewed({required Deck deck, required Word word});
 
+  /// `deck`에서 카드로 한 번이라도 넘겨 본 단어의 id. 카드 학습이 안 본 단어를 먼저 내는 데 쓴다.
+  Future<Set<String>> viewedWordIds(Deck deck);
+
   /// 4지선다 한 문제의 결과를 남긴다. 틀리면(`correct == false`) 오답 노트에도 넣는다.
   /// 진도의 "외웠다"(시험에서 맞힘, 틀리면 해제)는 이 기록의 단어별 마지막 결과로 센다.
   Future<void> recordQuizAnswer({
@@ -415,6 +418,16 @@ class SqfliteStudyRecords implements StudyRecords {
       _record('study_log', 'known', deck: deck, word: word, ok: true);
 
   @override
+  Future<Set<String>> viewedWordIds(Deck deck) async {
+    final db = await _database;
+    final rows = await db.rawQuery(
+      'SELECT DISTINCT word_id FROM study_log WHERE cell_id = ?',
+      [deck.id],
+    );
+    return {for (final row in rows) row['word_id'] as String};
+  }
+
+  @override
   Future<void> recordQuizAnswer({
     required Deck deck,
     required Word word,
@@ -514,6 +527,12 @@ final vocabDatabaseProvider = Provider<SqfliteStudyRecords>(
 final studyRecordsProvider = Provider<StudyRecords>(
   (ref) => ref.watch(vocabDatabaseProvider),
 );
+
+/// 단어장 하나에서 카드로 넘겨 본 단어 id. 카드 학습을 열 때마다 새로 읽는다(autoDispose).
+final viewedWordIdsProvider = FutureProvider.autoDispose
+    .family<Set<String>, Deck>(
+      (ref, deck) => ref.watch(studyRecordsProvider).viewedWordIds(deck),
+    );
 
 /// 단어장 하나의 진도 집계(외운 수·오답 수·날짜별 기록 모두 그 단어장 것만).
 /// 진도 화면을 열 때마다 새로 읽는다(autoDispose).

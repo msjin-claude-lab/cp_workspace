@@ -1,0 +1,23 @@
+# 초등 800개 뜻 보충(2026-11-23 사용자 결정 "반영한다"). review-fixes.txt의 주석 줄(검토가 칸당 45줄 한도 때문에 못 넣은 것)을 Claude가 줄로 옮김. 형식: 번호|필드|새 값|근거
+# 적용: python tool/wordlist/cells.py fix docs/wordlist/review-fixes-2.txt  →  python tool/wordlist/cells.py check
+# 옮기지 않은 것(뜻 보충이 아님): nice·thank 예문 해석 다듬기, 색 뜻의 형태(하얀 / 갈색), talk·story, but·different 예문의 논리, fifteen 해석의 "오빠"
+# --- elementary_easy ---
+w-0004|meaning|거기에, 저기에|예문이 "저기"
+w-0105|meaning|형, 오빠, 남동생|우리말 호칭으로
+w-0138|meaning|누나, 언니, 여동생|우리말 호칭으로
+w-0163|meaning|쌀, 밥|예문 해석이 쌀밥
+w-0139|meaning|얇은, 마른|사람에게 쓰는 뜻 누락
+w-0239|meaning|닭, 닭고기|음식 뜻 누락
+# --- elementary_medium ---
+w-0338|meaning|뒤쪽, 등|몸의 등 누락
+w-0362|meaning|빛, 가벼운|형용사 뜻 누락
+w-0384|meaning|친절한, 종류|명사 뜻 누락
+w-0397|meaning|편지, 글자|글자 뜻 누락
+w-0415|meaning|가난한, 불쌍한|불쌍한 뜻 누락
+w-0329|meaning|많이, 많은|형용사 뜻 누락
+# --- elementary_hard ---
+w-0779|meaning|경찰관, 공무원|관리 뜻 누락 — "관리"는 '관리하다'로 읽히기 쉬워 공무원으로(2026-11-23 검토 지적)
+w-0775|meaning|순간, 잠깐|예문이 "잠깐"
+w-0703|meaning|~ 옆에, ~을 타고|by bus의 흔한 뜻
+w-0708|meaning|경우, 상자|물건을 넣는 case
+w-0768|meaning|간직하다, 계속하다|keep -ing의 흔한 뜻

@@ -226,6 +226,7 @@ class FakeRecords implements StudyRecords {
     notes.removeWhere((n) => n.deck.id == deckId);
     _quizLog.removeWhere((e) => e.$1 == deckId);
     _cardDecks.removeWhere((d) => d == deckId);
+    _cardLog.removeWhere((e) => e.$1 == deckId);
   }
 
   void _miss(Deck deck, Word word) {
@@ -251,7 +252,17 @@ class FakeRecords implements StudyRecords {
   }) async {
     studied.add(word.id);
     _cardDecks.add(deck.id);
+    _cardLog.add((deck.id, word.id));
   }
+
+  /// 카드를 넘겨 본 (단어장 id, 단어 id).
+  final List<(String, String)> _cardLog = [];
+
+  @override
+  Future<Set<String>> viewedWordIds(Deck deck) async => {
+    for (final (d, w) in _cardLog)
+      if (d == deck.id) w,
+  };
 
   @override
   Future<void> recordQuizAnswer({

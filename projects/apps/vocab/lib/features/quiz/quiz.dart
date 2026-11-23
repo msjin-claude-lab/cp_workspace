@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/counts.dart' show defaultQuizCount;
+import '../../data/similar_words.dart';
 import '../../data/word.dart';
 
 /// 문제 방향.
@@ -49,6 +50,8 @@ const int quizOptionCount = 4;
 /// - 오답 보기 3개는 같은 칸의 다른 단어에서 무작위로(명세). **화면에 보이는 글자가 정답과도, 서로도 겹치지
 ///   않는 것만** 고른다 — 내장 단어는 `word_assets_test`가 막지만 단어 출처가 늘 때를 대비한다. 뜻이나
 ///   영단어가 같은 단어가 들어오면 같은 글자의 보기가 둘이 되어 맞는 글자를 골라도 틀림이 된다
+/// - 뜻이 거의 같은 단어 쌍(`similarWordPairs` — dad/father 등)은 한 문제의 보기에 함께 내지
+///   않는다 — 정답과도, 오답 보기끼리도(2026-11-23 사용자 결정)
 ///
 /// `pool`을 주면 오답 보기를 거기서 고른다 — 오답 시험은 노트 단어(`words`)만 묻되 보기는 칸 전체에서(명세: 같은 칸).
 ///
@@ -78,10 +81,19 @@ QuizQuestion _question(
       direction == QuizDirection.wordToMeaning ? w.meaning : w.word;
   final seen = {text(word)};
   final options = [word];
-  // quizBlockReason을 지났으므로 글자가 다른 후보가 반드시 3개 이상 있다
-  for (final candidate in [...choices]..shuffle(random)) {
-    if (options.length == quizOptionCount) break;
-    if (seen.add(text(candidate))) options.add(candidate);
+  // quizBlockReason을 지났으므로 글자가 다른 후보가 반드시 3개 이상 있다.
+  // 뜻이 거의 같은 단어 쌍(similarWordPairs)은 한 문제의 보기에 함께 내지 않는다 — 정답과도,
+  // 오답 보기끼리도(둘 다 답이 아니라는 단서가 된다). 그것까지 써야 4개가 될 때만 넣는다
+  final candidates = [...choices]..shuffle(random);
+  for (final allowSimilar in const [false, true]) {
+    for (final candidate in candidates) {
+      if (options.length == quizOptionCount) break;
+      if (!allowSimilar &&
+          options.any((o) => areSimilarWords(o.word, candidate.word))) {
+        continue;
+      }
+      if (seen.add(text(candidate))) options.add(candidate);
+    }
   }
   return QuizQuestion(
     word: word,

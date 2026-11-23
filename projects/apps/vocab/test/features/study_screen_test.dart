@@ -75,6 +75,17 @@ class _FakeRecords implements StudyRecords {
     if (fail) throw StateError('db');
   }
 
+  /// 이미 넘겨 본 것으로 돌려줄 단어 id(안 본 단어 먼저 뽑기를 볼 때 채운다).
+  Set<String> seen = {};
+
+  /// true면 넘겨 본 기록 읽기가 실패한다. 실제 DB 오류처럼 Exception을 던진다 —
+  /// Riverpod은 Exception이면 다시 시도하고(그동안 오류를 든 로딩), Error면 바로 AsyncError가 된다.
+  bool failViewed = false;
+
+  @override
+  Future<Set<String>> viewedWordIds(Deck deck) async =>
+      failViewed ? throw Exception('db') : seen;
+
   @override
   Future<void> recordQuizAnswer({
     required Deck deck,
@@ -502,6 +513,72 @@ void main() {
     }
     expect(again.toSet(), seen.toSet());
     expect(again, isNot(seen));
+  });
+
+  testWidgets('넘겨 본 기록이 카드 뽑기에 전달된다(섞지 않으면 안 본 단어가 앞)', (tester) async {
+    records.seen = {_apple.id};
+    await pumpStudy(tester);
+
+    expect(find.text('book'), findsOneWidget);
+    expect(find.text('1 / 2'), findsOneWidget);
+    await tapKey(tester, 'study-next');
+    expect(find.text('apple'), findsOneWidget);
+  });
+
+  testWidgets('넘겨 본 기록을 읽지 못해도 다시 시도를 기다리지 않고 카드 학습이 열린다', (tester) async {
+    records.failViewed = true;
+    await tester.pumpWidget(
+      scoped(const MaterialApp(home: StudyScreen(deck: Cell.elementaryEasy))),
+    );
+    // 다시 시도(첫 간격 200ms)가 끝나기 전에 이미 카드가 보여야 한다
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 50));
+
+    expect(find.text('apple'), findsOneWidget);
+    expect(find.text('1 / 2'), findsOneWidget);
+
+    // 남은 다시 시도 타이머를 흘려보낸다(도중에 카드가 바뀌지 않는다)
+    await tester.pump(const Duration(minutes: 2));
+    expect(find.text('apple'), findsOneWidget);
+  });
+
+  testWidgets('다시 하기는 이번 화면에서 방금 본 단어를 뒤로 미룬다', (tester) async {
+    const cat = Word(
+      id: 'ee-003',
+      word: 'cat',
+      meaning: '고양이',
+      example: 'I have a cat.',
+      exampleMeaning: '나는 고양이가 있다.',
+    );
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          // 한 회차에 카드 1장
+          legacySettingsStoreProvider.overrideWithValue(
+            FakeLegacySettingsStore(cardCount: 1),
+          ),
+          wordRepositoryProvider.overrideWithValue(
+            _FakeRepository({
+              Cell.elementaryEasy: [_apple, _book, cat],
+            }),
+          ),
+          speakerProvider.overrideWithValue(speaker),
+          studyRecordsProvider.overrideWithValue(records),
+          quizRandomProvider.overrideWithValue(NoShuffleRandom()),
+        ],
+        child: const MaterialApp(home: StudyScreen(deck: Cell.elementaryEasy)),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    // DB에서 읽은 기록은 그대로인데(가짜는 seen을 늘리지 않는다) 회차마다 새 단어가 나온다
+    for (final word in ['apple', 'book', 'cat']) {
+      expect(find.text(word), findsOneWidget);
+      expect(find.text('1 / 1'), findsOneWidget);
+      await tapKey(tester, 'study-next');
+      await tester.tap(find.text('다시 하기'));
+      await tester.pumpAndSettle();
+    }
   });
 
   testWidgets('없는 칸 주소는 안내만 보인다', (tester) async {
