@@ -586,7 +586,7 @@ void main() {
     await tap(tester, 'deck-delete');
 
     expect(find.text('"아침 단어" 단어장을 지울까요?'), findsOneWidget);
-    expect(find.text('이 단어장의 오답 노트와 진도 기록이 사라지고 되돌릴 수 없습니다.'), findsOneWidget);
+    expect(find.text('이 단어장의 오답 노트와 진도 기록이 사라지고 되돌릴 수 없습니다'), findsOneWidget);
   });
 
   testWidgets('카드 학습을 하고 돌아와도 오답 노트에는 아무것도 담기지 않는다', (tester) async {

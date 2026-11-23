@@ -120,7 +120,7 @@ void main() {
     expect(find.text('한 번에 풀 문제 수'), findsOneWidget);
     expect(
       tester.widget<Text>(find.byKey(const ValueKey('settings-note'))).data,
-      '이 단어장에만 적용됩니다. 단어가 더 적으면 있는 단어를 모두 씁니다.',
+      '이 단어장에만 적용됩니다. 단어가 더 적으면 있는 단어를 모두 씁니다',
     );
     // 기본값
     expect(segmented(tester, card: true).selected, {50});

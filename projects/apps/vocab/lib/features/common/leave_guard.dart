@@ -8,7 +8,7 @@ Future<bool> confirmLeaveSession(BuildContext context) async {
     context: context,
     builder: (dialogContext) => AlertDialog(
       title: const Text('그만할까요?'),
-      content: const Text('지금까지 한 기록은 저장됩니다.\n다음에는 처음부터 다시 시작합니다.'),
+      content: const Text('지금까지 한 기록은 저장됩니다.\n다음에는 처음부터 다시 시작합니다'),
       actions: [
         TextButton(
           key: const ValueKey('leave-continue'),

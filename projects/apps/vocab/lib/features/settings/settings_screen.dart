@@ -64,7 +64,7 @@ class SettingsScreen extends ConsumerWidget {
               ),
               const SizedBox(height: 32),
               Text(
-                '이 단어장에만 적용됩니다. 단어가 더 적으면 있는 단어를 모두 씁니다.',
+                '이 단어장에만 적용됩니다. 단어가 더 적으면 있는 단어를 모두 씁니다',
                 key: const ValueKey('settings-note'),
                 style: Theme.of(context).textTheme.bodySmall,
               ),
