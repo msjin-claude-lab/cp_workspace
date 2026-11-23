@@ -9,7 +9,9 @@ import '../../data/app_settings.dart';
 import '../../data/cell.dart';
 import '../../data/study_decks.dart';
 import '../../data/study_records.dart';
+import '../../data/word.dart';
 import '../../data/word_repository.dart';
+import '../quiz/quiz.dart' show quizBlockReason;
 import '../wrong_notes/review_words.dart';
 import 'dialogs.dart';
 
@@ -299,6 +301,53 @@ class _DifficultyButton extends ConsumerWidget {
   }
 }
 
+/// 메뉴 맨 아래의 "앱 정보". 누르면 메뉴를 닫고 앱 정보 화면을 연다.
+class _AboutTile extends StatefulWidget {
+  const _AboutTile();
+
+  @override
+  State<_AboutTile> createState() => _AboutTileState();
+}
+
+class _AboutTileState extends State<_AboutTile> {
+  /// 여는 중. 같은 순간에 두 번 눌려도 한 번만 연다 — 화면이 아직 쌓이기 전이라
+  /// `ModalRoute.isCurrent`로는 막지 못한다(시험으로 확인, 2026-11-23).
+  bool _opening = false;
+
+  Future<void> _open() async {
+    if (_opening) return;
+    _opening = true;
+    final router = GoRouter.of(context);
+    final scaffold = Scaffold.of(context);
+    scaffold.closeDrawer();
+    await router.push('/about');
+    _opening = false;
+    // 닫히는 메뉴를 다시 건드리면 닫힘이 멈춘다(두 번 누름 등) — 돌아왔을 때 메뉴가 남아 있으면 닫는다
+    if (mounted) scaffold.closeDrawer();
+  }
+
+  @override
+  Widget build(BuildContext context) => ListTile(
+    key: const ValueKey('menu-about'),
+    leading: const Icon(Icons.info_outline),
+    title: const Text('앱 정보'),
+    onTap: _open,
+  );
+}
+
+/// 홈 첫 줄(학교급·난이도)의 글자 크기. 아래 두 줄(단어 수, 카드 수·문항 수 — titleMedium 16)보다
+/// 크고 위의 단어장 이름(앱바 제목 — titleLarge 22)보다 작아야 한다(2026-11-23 사용자 결정).
+/// 이 관계는 `test/features/settings_test.dart`가 지킨다.
+const double homeBaseFontSize = 19;
+
+/// 홈 셋째 줄: 한 번에 하는 카드 수·문항 수. 설정이 단어 수보다 크면 실제로 나오는 수(있는 만큼).
+/// 그 단어들로 시험을 낼 수 없으면([quizBlockReason]) 시험 부분은 뺀다 — 못 푸는 문제 수를 보이지 않는다.
+String homeCountsLine(DeckSettings settings, List<Word> words) {
+  final cards = '한 번에 카드 ${min(settings.cardCount, words.length)}장';
+  if (quizBlockReason(words) != null) return cards;
+  return '$cards · 시험 ${min(settings.quizCount, words.length)}문제';
+}
+
 /// 단어장 홈: 고른 단어장에서 카드 학습·시험·오답 노트·진도를 연다.
 class DeckHomeScreen extends ConsumerWidget {
   const DeckHomeScreen({super.key, required this.deck});
@@ -350,9 +399,7 @@ class DeckHomeScreen extends ConsumerWidget {
               deck.base.label,
               key: const ValueKey('home-base'),
               textAlign: TextAlign.center,
-              // 아래 두 줄(단어 수, 카드 수·문항 수 — 16)보다 크고 위의 단어장 이름(앱바 제목 — 22)보다
-              // 작게(2026-11-23 사용자 결정)
-              style: text.titleMedium?.copyWith(fontSize: 19),
+              style: text.titleMedium?.copyWith(fontSize: homeBaseFontSize),
             ),
             const SizedBox(height: 4),
             Text(
@@ -366,17 +413,18 @@ class DeckHomeScreen extends ConsumerWidget {
               style: text.titleMedium,
             ),
             // 셋째 줄: 한 번에 하는 카드 수·문항 수(2026-11-23 사용자 결정).
-            // 설정이 단어 수보다 크면 실제로 나오는 수(있는 만큼)를 보인다
-            if (settings != null && words.hasValue) ...[
-              const SizedBox(height: 4),
-              Text(
-                '한 번에 카드 ${min(settings.cardCount, words.requireValue.length)}장'
-                ' · 시험 ${min(settings.quizCount, words.requireValue.length)}문제',
-                key: const ValueKey('home-counts'),
-                textAlign: TextAlign.center,
-                style: text.titleMedium,
-              ),
-            ],
+            // 둘째 줄이 단어 수를 보일 때만(읽는 중·읽지 못함·단어 없음이면 숨긴다) 함께 보인다
+            if (settings case final s?)
+              if (words case AsyncData(value: final list)
+                  when list.isNotEmpty) ...[
+                const SizedBox(height: 4),
+                Text(
+                  homeCountsLine(s, list),
+                  key: const ValueKey('home-counts'),
+                  textAlign: TextAlign.center,
+                  style: text.titleMedium,
+                ),
+              ],
             const SizedBox(height: 24),
             _HomeAction(
               key: const ValueKey('home-study'),
@@ -580,18 +628,7 @@ class _MenuDrawer extends ConsumerWidget {
             ),
             // 메뉴 맨 아래 고정: 앱 정보(버전·오픈소스 라이선스, 나중에 단어 출처) — 2026-11-23 사용자 결정
             const Divider(height: 1),
-            ListTile(
-              key: const ValueKey('menu-about'),
-              leading: const Icon(Icons.info_outline),
-              title: const Text('앱 정보'),
-              onTap: () {
-                // 빠른 두 번 누름에 두 번 열리지 않게
-                if (ModalRoute.of(context)?.isCurrent != true) return;
-                final router = GoRouter.of(context);
-                Scaffold.of(context).closeDrawer();
-                router.push('/about');
-              },
-            ),
+            const _AboutTile(),
           ],
         ),
       ),

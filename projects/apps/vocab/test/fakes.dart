@@ -43,6 +43,12 @@ class FakeRepository implements WordRepository {
   Future<List<Word>> wordsOf(Cell cell) async => words[cell] ?? const [];
 }
 
+/// 단어 읽기가 늘 실패한다(단어 파일을 읽지 못하는 경우).
+class FailingRepository implements WordRepository {
+  @override
+  Future<List<Word>> wordsOf(Cell cell) async => throw StateError('asset');
+}
+
 /// `selectedDeck`이 기기에 저장된 고른 단어장 번호 역할. `legacyCell`·`legacyRegistered`는
 /// 옛 버전이 남긴 고른 칸·등록 목록.
 class FakeCellStore implements CellStore {
@@ -88,6 +94,9 @@ class FakeStudyDecks implements StudyDecks {
   /// true면 고유 설정 읽기가 실패한다.
   bool failLoad = false;
 
+  /// 있으면 고유 설정 읽기가 이것이 끝날 때까지 걸린다(느린 DB 흉내).
+  Future<void>? loadGate;
+
   /// 시험이 단어장을 미리 만들어 둘 때 쓴다. 설정을 주지 않으면 7판 전에 있던 단어장(열이 NULL).
   StudyDeck seed(String name, Cell base, {int? cardCount, int? quizCount}) {
     final deck = StudyDeck(deckId: _next++, name: name, base: base);
@@ -111,6 +120,7 @@ class FakeStudyDecks implements StudyDecks {
 
   @override
   Future<DeckCounts> loadCounts(int deckId) async {
+    if (loadGate case final gate?) await gate;
     if (failLoad) throw StateError('db');
     return (cardCount: cardCounts[deckId], quizCount: quizCounts[deckId]);
   }

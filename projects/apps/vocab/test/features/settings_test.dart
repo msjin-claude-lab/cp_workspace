@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
@@ -131,7 +133,9 @@ void main() {
     expect(find.byKey(const ValueKey('home-settings')), findsOneWidget);
   });
 
-  testWidgets('홈의 단어 수 아래 줄에 카드 수·문항 수가 보이고, 설정을 바꾸고 돌아오면 바로 바뀐다', (tester) async {
+  testWidgets('홈의 단어 수 아래 줄에 카드 수·문항 수가 보이고, 설정을 바꾸고 돌아오면 바로 바뀐다', (
+    tester,
+  ) async {
     await pump(tester, null);
     String line() =>
         tester.widget<Text>(find.byKey(const ValueKey('home-counts'))).data!;
@@ -152,6 +156,52 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(line(), '한 번에 카드 10장 · 시험 30문제');
+  });
+
+  testWidgets('홈 첫 줄(학교급)은 아래 두 줄보다 크고 단어장 이름보다 작다', (tester) async {
+    await pump(tester, null);
+    // 실제로 그려진 글자 크기(테마까지 반영된 값)를 본다
+    double sizeOf(Finder text) => tester
+        .widget<RichText>(
+          find.descendant(of: text, matching: find.byType(RichText)),
+        )
+        .text
+        .style!
+        .fontSize!;
+    final name = sizeOf(
+      find.descendant(of: find.byType(AppBar), matching: find.text('아침 단어')),
+    );
+    final base = sizeOf(find.byKey(const ValueKey('home-base')));
+    final count = sizeOf(find.byKey(const ValueKey('home-word-count')));
+    final counts = sizeOf(find.byKey(const ValueKey('home-counts')));
+
+    expect(base, lessThan(name));
+    expect(base, greaterThan(count));
+    expect(counts, count);
+  });
+
+  testWidgets('홈 셋째 줄은 설정을 읽는 동안 숨었다가 읽으면 보이고, 단어장을 바꾸면 그 단어장 값이 보인다', (
+    tester,
+  ) async {
+    decks.cardCounts[other.deckId] = 10;
+    final gate = Completer<void>();
+    decks.loadGate = gate.future;
+    await pump(tester, null);
+
+    // 설정을 아직 못 읽음 — 단어 수만 보이고 엉뚱한 수는 보이지 않는다
+    expect(find.text('50단어'), findsOneWidget);
+    expect(find.byKey(const ValueKey('home-counts')), findsNothing);
+
+    gate.complete();
+    await tester.pumpAndSettle();
+    String line() =>
+        tester.widget<Text>(find.byKey(const ValueKey('home-counts'))).data!;
+    expect(line(), '한 번에 카드 50장 · 시험 20문제');
+
+    decks.loadGate = null;
+    await tap(tester, 'menu');
+    await tap(tester, 'menu-deck-${other.deckId}');
+    expect(line(), '한 번에 카드 10장 · 시험 20문제');
   });
 
   testWidgets('홈의 카드 수·문항 수는 단어가 설정보다 적으면 있는 만큼으로 보인다', (tester) async {

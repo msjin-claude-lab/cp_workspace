@@ -8,6 +8,7 @@ import 'package:vocab/data/speaker.dart';
 import 'package:vocab/data/study_decks.dart';
 import 'package:vocab/data/study_records.dart';
 import 'package:vocab/data/word_repository.dart';
+import 'package:vocab/features/about/about_screen.dart';
 import 'package:vocab/features/home/home_screen.dart';
 import 'package:vocab/features/progress/progress_screen.dart';
 import 'package:vocab/features/quiz/quiz_screen.dart';
@@ -45,12 +46,17 @@ void main() {
     decks = FakeStudyDecks(records);
   });
 
-  Future<void> pumpApp(WidgetTester tester) async {
+  Future<void> pumpApp(
+    WidgetTester tester, {
+    WordRepository? repository,
+  }) async {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
           legacySettingsStoreProvider.overrideWithValue(settingsStore),
-          wordRepositoryProvider.overrideWithValue(FakeRepository(words)),
+          wordRepositoryProvider.overrideWithValue(
+            repository ?? FakeRepository(words),
+          ),
           cellStoreProvider.overrideWithValue(store),
           studyRecordsProvider.overrideWithValue(records),
           // 카드·시험은 무작위 순서 — 순서를 확인하는 시험이 있어 섞이지 않게 한다
@@ -141,7 +147,7 @@ void main() {
     expect(find.text('4단어'), findsOneWidget);
     // 단어 수 아래 줄에 한 번에 하는 카드 수·문항 수(설정 50·20이지만 단어가 4개뿐이라 있는 만큼)
     expect(find.text('한 번에 카드 4장 · 시험 4문제'), findsOneWidget);
-    expect(find.text('시험'), findsOneWidget); // 문항 수는 보이지 않는다
+    expect(find.text('시험'), findsOneWidget); // 시험 버튼 글자에는 문항 수를 붙이지 않는다
     expect(find.text('오답 노트 · 0단어'), findsOneWidget);
   });
 
@@ -322,6 +328,50 @@ void main() {
     expect(store.selectedDeck, b.deckId);
     expect(find.text('고등 연습'), findsOneWidget);
     expect(find.text('5단어'), findsOneWidget);
+    expect(find.byType(Drawer), findsNothing);
+  });
+
+  testWidgets('홈 셋째 줄은 시험을 낼 수 없는 단어 수면 카드 수만 보이고, 단어를 읽지 못하면 숨는다', (
+    tester,
+  ) async {
+    // 단어 2개 — 4지선다 시험을 낼 수 없다
+    final few = decks.seed('두 단어', Cell.elementaryEasy);
+    store.selectedDeck = few.deckId;
+    await pumpApp(tester);
+
+    expect(find.text('2단어'), findsOneWidget);
+    expect(
+      tester.widget<Text>(find.byKey(const ValueKey('home-counts'))).data,
+      '한 번에 카드 2장',
+    );
+
+    // 단어를 읽지 못하면 둘째 줄은 안내, 셋째 줄은 없다(옛 숫자가 남지 않는다)
+    await tester.pumpWidget(const SizedBox()); // 앱을 새로 만든다(저장소 교체)
+    await pumpApp(tester, repository: FailingRepository());
+    expect(find.text('단어를 읽지 못했습니다'), findsOneWidget);
+    expect(find.byKey(const ValueKey('home-counts')), findsNothing);
+  });
+
+  testWidgets('메뉴의 앱 정보를 빠르게 두 번 눌러도 한 번만 열린다', (tester) async {
+    final a = decks.seed('아침 단어', Cell.highEasy);
+    store.selectedDeck = a.deckId;
+    await pumpApp(tester);
+
+    await tap(tester, 'menu');
+    final about = find.byKey(const ValueKey('menu-about'));
+    await tester.tap(about);
+    await tester.tap(about, warnIfMissed: false);
+    await tester.pumpAndSettle();
+    expect(
+      find.descendant(of: find.byType(AppBar), matching: find.text('앱 정보')),
+      findsOneWidget,
+    );
+
+    // 두 번 열렸다면 ← 뒤로 한 번으로는 홈에 돌아오지 못한다
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+    expect(find.byKey(const ValueKey('home-study')), findsOneWidget);
+    expect(find.byType(AboutScreen), findsNothing);
     expect(find.byType(Drawer), findsNothing);
   });
 

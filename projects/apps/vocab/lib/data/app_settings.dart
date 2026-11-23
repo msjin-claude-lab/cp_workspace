@@ -78,7 +78,9 @@ Future<int> resolveCount(
 
 /// 단어장 하나의 설정값. 카드·시험은 이 값을 읽은 뒤에야 회차를 만든다(읽는 동안 엉뚱한 개수가 번쩍이지 않게).
 /// 이름 있는 단어장은 그 단어장의 값(한 단어장을 바꿔도 다른 단어장은 그대로), 내장 칸은 옛 공통 값 → 기본값.
-/// autoDispose: 읽기가 실패한 화면을 닫았다 다시 열면 다시 읽는다.
+/// autoDispose지만, 그 단어장이 홈인 동안에는 홈(셋째 줄의 카드 수·문항 수)이 붙잡고 있어 카드·시험·설정
+/// 화면이 홈과 같은 값을 나눠 쓴다 — 설정에서 바꾸면 홈에 바로 보이고, 홈 단어장을 바꾸면 버려져
+/// 다음에 다시 읽는다. 내장 칸을 직접 연 화면은 닫으면 버려진다.
 final deckSettingsProvider = AsyncNotifierProvider.autoDispose
     .family<DeckSettingsNotifier, DeckSettings, Deck>(DeckSettingsNotifier.new);
 
