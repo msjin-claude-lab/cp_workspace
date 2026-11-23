@@ -43,6 +43,25 @@
 
 ## 마지막 결과
 
+- **2026-11-23 밤 개인 PC — release APK(설치 파일)**
+  - `flutter build apk --release` exit 0 → `build/app/outputs/flutter-apk/app-release.apk` 50.3MB(23:54 새로 생김, 빌드 약 74초). 디버그 키 서명(`android/app/build.gradle.kts`의 Flutter 기본값)
+  - APK 안: `.db`·`.sqlite` 파일 0개, `assets/words/` 단어 파일 9개(`unzip -l`로 확인) — 기록은 기기에서 첫 실행 때 빈 DB로 생긴다
+  - 에뮬레이터: 디버그 빌드 위에 `adb install -r` 성공(같은 키라 데이터 유지), 홈과 카드 학습(`1 / 25`)이 뜸, DEBUG 띠 없음, 앱 오류 로그 0건. 처음 설치의 시작 화면은 보지 않음
+  - 사본: `D:\dev\tmp\vocab_apk\vocab-1.0.0-release.apk`(SHA-256 `951c2932…b33d58`)
+- **2026-11-23 밤 개인 PC — DB 8판(옛 초등 번호 `ee-`·`em-`·`eh-`의 기록 지우기)**(커밋 전 작업 폴더)
+  - `flutter analyze` exit 0(No issues), `flutter test` exit 0(**168개** — 7판 → 8판 실제 DB 시험 포함), `flutter build apk --debug` exit 0
+  - **에뮬레이터: 통과**(설치 전 DB `D:\dev\tmp\vocab_db_backup\after_words800.db` → `adb install -r` → 실행): `user_version` 7 → 8, `study_log` 147 → 60 · `quiz_log` 62 → 33 · `wrong_notes` 1 → 0(옛 초등 번호 줄 0건, 계산한 값과 같음), 단어장 4개와 설정 그대로. 초등 쉬움 단어장 진도가 `아직 시작하지 않았습니다` · `외운 단어 0/267` · `오답 노트 0단어`(캡처) — 홈·오답 노트 화면의 0단어와 맞는다. logcat의 flutter 오류 0건. 설치 뒤 DB 사본 `after_v8.db`
+  - 검토: code-reviewer APPROVE(LOW 2건 고침 — 2026-11-23). 확인 뒤 홈을 `ddxd`로 되돌리는 조작을 했다(되돌아갔는지 캡처로 보지는 않음)
+- **2026-11-23 밤 개인 PC — 초등 800개(CEFR-J) + 유사어 쌍 보기 규칙 · 카드 뽑기 2:8 · 뜻 보충 17줄**(커밋 `2e85dff`)
+  - `flutter analyze` exit 0(No issues), `flutter test` exit 0(**167개**), `python tool/wordlist/cells.py check` 3칸 문제 0건(267 · 267 · 266), `flutter build apk --debug` exit 0
+  - 검토: `/oh-my-claudecode:review` 두 축(둘 다 COMMENT, 막는 지적 없음) → 지적을 고침. 고친 것은 다시 검토받지 않았다
+  - **에뮬레이터: 통과, 어긋남 1건**(설치 전 기기 DB 백업 `D:\dev\tmp\vocab_db_backup\before_words800\vocab.db` → `adb install -r` → adb로 누르고 캡처로 확인 — 사람이 직접 써 본 것은 아니다)
+    - 홈: `ddxd` 초등 어려움 `266단어`, 초등 쉬움 단어장 `267단어`. 카드 학습 `1 / 25`(첫 카드 `smart`), 시험 `1 / 20`(`college` — 보기 과학자·양동이·대학·~의)이 열림
+    - 앱 정보: "단어 출처"에 CEFR-J 인용과 빈도 자료 인용이 보임
+    - 기기 DB: `user_version` 7, `study_log` 147 · `quiz_log` 62 · `wrong_notes` 1 · 단어장 4개 그대로. logcat의 flutter 오류 0건
+    - **어긋남 — 옛 번호 기록**: 초등 쉬움 단어장(`deck_1`)에는 옛 번호 기록이 있다(`quiz_log` ee-010 맞힘·ee-037 틀림, `wrong_notes` ee-037). 앱은 깨지지 않지만 **진도 화면은 `외운 단어 1/267` · `오답 노트 1단어`로 세고, 홈은 `오답 노트 · 0단어`, 오답 노트 화면은 비어 있다**(지금 단어 파일에 없는 번호라 목록에 못 그림). 고치지 않았다 — 옛 번호 기록을 지울지, 진도가 지금 단어만 세게 할지는 사용자 결정
+    - 안 본 것: 카드를 넘긴 뒤 다시 열었을 때 안 본 단어가 먼저 나오는지(자동 시험만), 유사어 쌍이 보기에 함께 안 나오는지(자동 시험만), 뒷면의 보충한 뜻, 소리
+    - 확인 뒤 홈은 처음과 같은 `ddxd`로 되돌렸다. 설치 뒤 DB 사본은 `D:\dev\tmp\vocab_db_backup\after_words800.db`
 - **2026-11-23 개인 PC — 문구 통일(`읽지 못했습니다`, 맨 끝 마침표 빼기)**
   - `flutter analyze` exit 0(No issues), `flutter test` exit 0(145개), `flutter build apk --debug` exit 0 + `app-debug.apk` 20:52 새로 생김
   - **에뮬레이터**: 덮어 설치(20:54) 뒤 설정 화면의 안내 문구 `…있는 단어를 모두 씁니다`(맨 끝 마침표 없음)를 캡처로 확인, logcat의 flutter 오류 0건. 나가기 확인 창·단어장 지우기 확인 창·난이도 버튼의 `읽지 못했습니다`는 기기에서 안 봄(앞의 둘은 자동 시험이 문구를 확인)

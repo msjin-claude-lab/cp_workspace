@@ -160,7 +160,9 @@ class SqfliteStudyRecords implements StudyRecords {
   ///    내 단어장 `word_books`·`book_words` 표와 `book_` 기록을 지움(2026-11-22 사용자 결정).
   /// 7: 단어장마다의 설정 `study_decks.card_count`·`quiz_count`(NULL 허용 — 7판 전 단어장은 NULL이고
   ///    옛 공통 설정을 물려받는다) 추가(2026-11-22 사용자 결정 — "설정은 그 단어장의 고유 설정이다").
-  static const int schemaVersion = 7;
+  /// 8: 초등 단어를 새 번호(`w-0001`~)로 바꾸며 남은 옛 초등 번호(`ee-`·`em-`·`eh-`)의 학습·시험
+  ///    기록과 오답 노트를 지움(2026-11-23 사용자 결정 — 진도만 옛 기록을 세어 홈·오답 노트와 어긋났다).
+  static const int schemaVersion = 8;
 
   Future<Database> _open() async {
     final dbFactory = factory ?? databaseFactory;
@@ -177,6 +179,7 @@ class SqfliteStudyRecords implements StudyRecords {
           await _upgradeToV5(db);
           await _upgradeToV6(db);
           await _upgradeToV7(db);
+          // 8판은 옛 기록을 지울 뿐이라 새 설치에는 할 일이 없다
         },
         onUpgrade: (db, oldVersion, newVersion) async {
           if (oldVersion < 2) await _createQuizLog(db);
@@ -185,6 +188,7 @@ class SqfliteStudyRecords implements StudyRecords {
           if (oldVersion < 5) await _upgradeToV5(db);
           if (oldVersion < 6) await _upgradeToV6(db);
           if (oldVersion < 7) await _upgradeToV7(db);
+          if (oldVersion < 8) await _upgradeToV8(db);
         },
       ),
     );
@@ -209,6 +213,29 @@ class SqfliteStudyRecords implements StudyRecords {
   static Future<void> createV6(Database db) async {
     await createV5(db);
     await _upgradeToV6(db);
+  }
+
+  /// 7판까지의 표. 시험에서 "7판 사용자"의 DB를 만들 때 쓴다 — 8판 이후의 변경은 여기에 더하지 않는다.
+  @visibleForTesting
+  static Future<void> createV7(Database db) async {
+    await createV6(db);
+    await _upgradeToV7(db);
+  }
+
+  /// 8판: 옛 초등 번호의 기록을 지운다(2026-11-23 사용자 결정). 초등 3칸의 단어를 CEFR-J 800개로
+  /// 바꾸며 번호가 `ee-001`·`em-001`·`eh-001` 꼴에서 `w-0001` 꼴로 바뀌어, 옛 번호의 기록은 어느
+  /// 단어와도 이어지지 않는다 — 오답 노트 화면에는 안 보이는데 진도의 외운 수·오답 수에는 세어졌다.
+  /// 어느 단어장·칸의 것이든 지운다(그 날짜의 공부 기록도 함께 사라지고, 그 단어장의 진행 일수는
+  /// 남은 기록 기준으로 다시 센다 — 남은 것이 없으면 "아직 시작하지 않았습니다"). 중등·고등 번호는 그대로 둔다 —
+  /// 그 칸의 단어를 바꿀 때 같은 단계를 새 판으로 더한다.
+  static Future<void> _upgradeToV8(Database db) async {
+    for (final table in const ['study_log', 'quiz_log', 'wrong_notes']) {
+      await db.delete(
+        table,
+        where:
+            "word_id LIKE 'ee-%' OR word_id LIKE 'em-%' OR word_id LIKE 'eh-%'",
+      );
+    }
   }
 
   /// 7판: 단어장마다의 설정(2026-11-22 사용자 결정). 새로 만드는 단어장은 기본값을 넣고,

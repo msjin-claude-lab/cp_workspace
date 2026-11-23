@@ -163,9 +163,10 @@ void main() {
         onCreate: (db, _) => SqfliteStudyRecords.createV1(db),
       ),
     );
+    // 옛 초등 번호(ee- 등)의 기록은 8판에서 지우므로 중등 번호로 본다
     await v1.insert('study_log', {
-      'word_id': 'ee-002',
-      'cell_id': 'elementary_easy',
+      'word_id': 'mm-002',
+      'cell_id': 'middle_medium',
       'known': 1,
       'answered_at': 1,
       'answered_day': '2026-11-19',
@@ -185,7 +186,7 @@ void main() {
     final db = await databaseFactoryFfi.openDatabase(path);
     expect(await db.getVersion(), SqfliteStudyRecords.schemaVersion);
     expect(await db.rawQuery('SELECT word_id FROM study_log'), [
-      {'word_id': 'ee-002'},
+      {'word_id': 'mm-002'},
     ]);
     expect(await db.rawQuery('SELECT word_id, correct FROM quiz_log'), [
       {'word_id': 'ee-001', 'correct': 0},
@@ -214,8 +215,8 @@ void main() {
       ),
     );
     await v2.insert('quiz_log', {
-      'word_id': 'ee-001',
-      'cell_id': 'elementary_easy',
+      'word_id': 'mm-001',
+      'cell_id': 'middle_medium',
       'correct': 1,
       'answered_at': 1,
       'answered_day': '2026-11-20',
@@ -226,7 +227,7 @@ void main() {
       factory: databaseFactoryFfi,
       path: path,
     );
-    final progress = await records.progress(Cell.elementaryEasy);
+    final progress = await records.progress(Cell.middleMedium);
     expect(progress.memorized, 1);
 
     final db = await databaseFactoryFfi.openDatabase(path);
@@ -314,7 +315,7 @@ void main() {
       'answered_day': '2026-11-22',
     });
     await v6.insert('study_log', {
-      'word_id': 'ee-001',
+      'word_id': 'w-0001',
       'cell_id': 'deck_2',
       'known': 1,
       'answered_at': 4,
@@ -334,7 +335,7 @@ void main() {
       factory: databaseFactoryFfi,
       path: path,
     ).database;
-    expect(await db.getVersion(), 7);
+    expect(await db.getVersion(), SqfliteStudyRecords.schemaVersion);
     expect(
       await db.rawQuery(
         'SELECT id, name, cell_id, created_at, card_count, quiz_count '
@@ -380,7 +381,7 @@ void main() {
       ),
       [
         {
-          'word_id': 'ee-001',
+          'word_id': 'w-0001',
           'cell_id': 'deck_2',
           'known': 1,
           'answered_at': 4,
@@ -405,6 +406,102 @@ void main() {
     expect(await db.rawQuery('SELECT key, value FROM app_meta'), [
       {'key': 'legacy_cells_migrated', 'value': ''},
     ]);
+    await db.close();
+  });
+
+  test('7판 사용자의 DB는 8판으로 올라가며 옛 초등 번호(ee-·em-·eh-)의 기록과 오답 노트만 지운다', () async {
+    final v7 = await databaseFactoryFfi.openDatabase(
+      path,
+      options: OpenDatabaseOptions(
+        version: 7,
+        onCreate: (db, _) => SqfliteStudyRecords.createV7(db),
+      ),
+    );
+    await v7.insert('study_decks', {
+      'name': '아침',
+      'cell_id': 'elementary_easy',
+      'created_at': 1,
+      'card_count': 20,
+      'quiz_count': 50,
+    });
+    // (단어 번호, 단어장·칸) — 옛 초등 번호는 단어장 것이든 칸 것이든 지우고, 나머지는 남긴다
+    const rows = [
+      ('ee-010', 'deck_1'),
+      ('em-001', 'deck_4'),
+      ('eh-004', 'elementary_hard'),
+      ('w-0010', 'deck_1'),
+      ('mm-007', 'middle_medium'),
+      ('me-001', 'deck_2'),
+      ('mh-033', 'deck_5'),
+      ('he-001', 'high_easy'),
+      ('hh-050', 'high_hard'),
+    ];
+    var at = 0;
+    for (final (wordId, cellId) in rows) {
+      at++;
+      await v7.insert('study_log', {
+        'word_id': wordId,
+        'cell_id': cellId,
+        'known': 1,
+        'answered_at': at,
+        'answered_day': '2026-11-22',
+      });
+      await v7.insert('quiz_log', {
+        'word_id': wordId,
+        'cell_id': cellId,
+        'correct': 0,
+        'answered_at': at,
+        'answered_day': '2026-11-22',
+      });
+      await v7.insert('wrong_notes', {
+        'word_id': wordId,
+        'cell_id': cellId,
+        'miss_count': 1,
+        'first_missed_at': at,
+        'last_missed_at': at,
+      });
+    }
+    await v7.close();
+
+    final records = SqfliteStudyRecords(
+      factory: databaseFactoryFfi,
+      path: path,
+    );
+    final db = await records.database;
+    expect(await db.getVersion(), 8);
+    const kept = ['he-001', 'hh-050', 'me-001', 'mh-033', 'mm-007', 'w-0010'];
+    for (final table in ['study_log', 'quiz_log', 'wrong_notes']) {
+      expect(
+        [
+          for (final row in await db.rawQuery(
+            'SELECT word_id FROM $table ORDER BY word_id',
+          ))
+            row['word_id'],
+        ],
+        kept,
+        reason: table,
+      );
+    }
+    // 단어장과 그 설정은 그대로다
+    expect(
+      await db.rawQuery(
+        'SELECT name, cell_id, card_count, quiz_count FROM study_decks',
+      ),
+      [
+        {
+          'name': '아침',
+          'cell_id': 'elementary_easy',
+          'card_count': 20,
+          'quiz_count': 50,
+        },
+      ],
+    );
+    // 진도도 지금 번호의 기록만 센다(옛 번호 ee-010의 오답은 사라졌다)
+    final progress = await records.progress(
+      const StudyDeck(deckId: 1, name: '아침', base: Cell.elementaryEasy),
+    );
+    expect(progress.wrong, 1);
+    expect(progress.memorized, 0);
     await db.close();
   });
 
@@ -595,10 +692,11 @@ void main() {
     await quiz('deck_1', 'mm-002', true); // 4
     // mm-003은 deck_2 시험에서만 틀림
     await quiz('deck_2', 'mm-003', false); // 5
-    await quiz('elementary_easy', 'ee-001', false); // 6
+    // 등록하지 않았던 칸의 기록. 옛 초등 번호(ee- 등)는 8판에서 지우므로 지금 초등 번호로 본다
+    await quiz('elementary_easy', 'w-0001', false); // 6
     await quiz('book_1', 'bw-1', false); // 7
     await study('deck_1', 'mm-002'); // 8
-    await study('elementary_easy', 'ee-002'); // 9
+    await study('elementary_easy', 'w-0002'); // 9
     await study('book_1', 'bw-1'); // 10
     // LIKE의 `_`처럼 아무 글자로 읽으면 지워질 id — 지우면 안 된다
     await study('bookx1', 'x-1'); // 11
@@ -625,9 +723,9 @@ void main() {
     await quiz('deck_1', 'mm-006', false); // 18
     await note('deck_1', 'mm-006', 4, first: 18, last: 300);
     // 등록하지 않았던 칸의 오답 노트도 같이 정리한다(2026-11-22 사용자 결정) → 남고 1회·마지막 6
-    await note('elementary_easy', 'ee-001', 3, first: 0, last: 200);
+    await note('elementary_easy', 'w-0001', 3, first: 0, last: 200);
     // 카드 '모른다'만 → 지움
-    await note('elementary_easy', 'ee-002', 1, first: 0, last: 0);
+    await note('elementary_easy', 'w-0002', 1, first: 0, last: 0);
     await note('book_1', 'bw-1', 1, first: 7, last: 7); // 내 단어장 → 지움
     await v5.insert('word_books', {'name': '내 것', 'created_at': 1});
     await v5.insert('book_words', {
@@ -643,8 +741,8 @@ void main() {
       path: path,
     );
     final db = await records.database;
-    expect(await db.getVersion(), 7);
-    expect(SqfliteStudyRecords.schemaVersion, 7);
+    expect(await db.getVersion(), SqfliteStudyRecords.schemaVersion);
+    expect(SqfliteStudyRecords.schemaVersion, 8);
     final names = await tables(db);
     expect(names, isNot(contains('word_books')));
     expect(names, isNot(contains('book_words')));
@@ -690,7 +788,7 @@ void main() {
         },
         {
           'cell_id': 'elementary_easy',
-          'word_id': 'ee-001',
+          'word_id': 'w-0001',
           'miss_count': 1,
           'first_missed_at': 0,
           'last_missed_at': 6,
@@ -707,7 +805,7 @@ void main() {
         {'cell_id': 'deck_1', 'word_id': 'mm-001', 'correct': 0},
         {'cell_id': 'deck_1', 'word_id': 'mm-002', 'correct': 1},
         {'cell_id': 'deck_2', 'word_id': 'mm-003', 'correct': 0},
-        {'cell_id': 'elementary_easy', 'word_id': 'ee-001', 'correct': 0},
+        {'cell_id': 'elementary_easy', 'word_id': 'w-0001', 'correct': 0},
         {'cell_id': 'deck_2', 'word_id': 'mm-004', 'correct': 0},
         {'cell_id': 'deck_2', 'word_id': 'mm-004', 'correct': 0},
         {'cell_id': 'deck_2', 'word_id': 'mm-004', 'correct': 1},
@@ -721,7 +819,7 @@ void main() {
       await db.rawQuery('SELECT cell_id, word_id FROM study_log ORDER BY id'),
       [
         {'cell_id': 'deck_1', 'word_id': 'mm-002'},
-        {'cell_id': 'elementary_easy', 'word_id': 'ee-002'},
+        {'cell_id': 'elementary_easy', 'word_id': 'w-0002'},
         {'cell_id': 'bookx1', 'word_id': 'x-1'},
       ],
     );
