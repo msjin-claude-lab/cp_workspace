@@ -247,6 +247,59 @@ void main() {
       expect(records.quiz, [(q.word.id, true)]);
     });
 
+    testWidgets('첫 문제에서도 진행 막대가 숫자(1 / 4)만큼 차 있다', (tester) async {
+      await pumpQuiz(tester, _words(4));
+
+      final bar = tester.widget<LinearProgressIndicator>(
+        find.byType(LinearProgressIndicator),
+      );
+      expect(bar.value, 0.25);
+    });
+
+    testWidgets('"다음 문제" 버튼은 스크롤 밖 화면 맨 아래에 있어 문제마다 같은 자리다', (tester) async {
+      final words = _words(4);
+      final quiz = expected(words);
+      await pumpQuiz(tester, words);
+      final next = find.byKey(const ValueKey('quiz-next'));
+      expect(next, findsNothing); // 답하기 전에는 없다
+
+      await tapShown(tester, option(quiz[0].answerIndex));
+      expect(
+        find.ancestor(of: next, matching: find.byType(SingleChildScrollView)),
+        findsNothing,
+      );
+      final first = tester.getRect(next);
+      // 시험용 화면 높이 600 − 아래 여백 16
+      expect(first.bottom, 584);
+
+      await tester.tap(next);
+      await tester.pumpAndSettle();
+      await tapShown(tester, option(quiz[1].answerIndex));
+      expect(tester.getRect(next), first);
+    });
+
+    testWidgets('낮은 화면에서 답하면 풀이까지 내려 주고, 다음 문제는 맨 위에서 시작한다', (tester) async {
+      tester.view.physicalSize = const Size(400, 420);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.reset);
+      final words = _words(4);
+      final quiz = expected(words);
+      await pumpQuiz(tester, words);
+
+      await tapShown(tester, option(quiz[0].answerIndex));
+
+      final view = tester.getRect(find.byType(SingleChildScrollView));
+      final shown = tester.getRect(find.byKey(const ValueKey('quiz-explanation')));
+      expect(shown.bottom, lessThanOrEqualTo(view.bottom));
+
+      await tester.tap(find.byKey(const ValueKey('quiz-next')));
+      await tester.pumpAndSettle();
+      final position = tester
+          .state<ScrollableState>(find.byType(Scrollable))
+          .position;
+      expect(position.pixels, 0);
+    });
+
     testWidgets('틀리면 틀림 표시, 오답으로 기록되고 다시 눌러도 한 번만 기록된다', (tester) async {
       final words = _words(4);
       final q = expected(words).first;

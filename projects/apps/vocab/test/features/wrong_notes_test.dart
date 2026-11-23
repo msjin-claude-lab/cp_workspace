@@ -89,7 +89,7 @@ void main() {
     expect(find.text('2단어'), findsOneWidget);
     expect(find.text('castle'), findsNothing);
     expect(find.text('desk'), findsNothing);
-    expect(find.text('틀림 2'), findsOneWidget);
+    expect(find.text('2회 틀림'), findsOneWidget);
     // 최근에 틀린 cup(5)이 apple(1)보다 위
     expect(
       tester.getTopLeft(find.text('cup')).dy,
@@ -147,7 +147,7 @@ void main() {
     expect(find.text('2단어'), findsOneWidget);
     final back = records.notes.singleWhere((n) => n.wordId == 'ee-001');
     expect((back.missCount, back.lastMissedAt), (3, 7));
-    expect(find.text('틀림 3'), findsOneWidget);
+    expect(find.text('3회 틀림'), findsOneWidget);
   });
 
   testWidgets('오답 시험에서 맞히면 돌아온 오답 노트에서 그 단어가 사라진다', (tester) async {

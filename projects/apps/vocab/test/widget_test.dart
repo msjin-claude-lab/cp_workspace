@@ -105,7 +105,7 @@ void main() {
     await enterName(tester, '  아침 단어  '); // 앞뒤 공백은 뗀다
 
     expect(find.byType(LevelPickerScreen), findsOneWidget);
-    expect(find.text('학교급을 골라 주세요'), findsOneWidget);
+    expect(find.text('학교급을 고르세요'), findsOneWidget);
     expect(find.text('새 단어장 - 아침 단어'), findsOneWidget);
     // 세로: 초등·중등·고등 버튼이 위에서 아래로
     final y = [
@@ -116,7 +116,7 @@ void main() {
 
     await tap(tester, 'pick-middle');
     expect(find.byType(DifficultyPickerScreen), findsOneWidget);
-    expect(find.text('난이도를 골라 주세요'), findsOneWidget);
+    expect(find.text('난이도를 고르세요'), findsOneWidget);
     expect(
       find.descendant(
         of: find.byKey(const ValueKey('pick-middle_hard')),
@@ -523,10 +523,10 @@ void main() {
     await enterName(tester, '쉬는 시간 단어');
 
     expect(find.text('새 단어장 - 쉬는 시간 단어'), findsOneWidget);
-    expect(find.text('학교급을 골라 주세요'), findsOneWidget);
+    expect(find.text('학교급을 고르세요'), findsOneWidget);
     await tap(tester, 'pick-middle');
     expect(find.text('새 단어장 - 쉬는 시간 단어'), findsOneWidget);
-    expect(find.text('난이도를 골라 주세요'), findsOneWidget);
+    expect(find.text('난이도를 고르세요'), findsOneWidget);
   });
 
   testWidgets('이름은 20자까지이고 글자 수가 보이며, 20자를 넘는 옛 이름도 보이고 고칠 수 있다', (

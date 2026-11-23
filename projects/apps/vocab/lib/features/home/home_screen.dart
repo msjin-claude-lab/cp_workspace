@@ -195,7 +195,7 @@ class LevelPickerScreen extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.all(24),
           children: [
-            const _Guide('학교급을 골라 주세요'),
+            const _Guide('학교급을 고르세요'),
             for (final level in SchoolLevel.values)
               _PickButton(
                 key: ValueKey('pick-${level.name}'),
@@ -261,7 +261,7 @@ class _DifficultyPickerScreenState
         child: ListView(
           padding: const EdgeInsets.all(24),
           children: [
-            const _Guide('난이도를 골라 주세요'),
+            const _Guide('난이도를 고르세요'),
             for (final difficulty in Difficulty.values)
               _DifficultyButton(
                 cell: Cell.of(widget.level, difficulty),

@@ -137,7 +137,7 @@ class WrongNotesScreen extends ConsumerWidget {
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text('틀림 ${e.note.missCount}', style: text.bodySmall),
+                        Text('${e.note.missCount}회 틀림', style: text.bodySmall),
                         IconButton(
                           key: ValueKey('wrong-delete-${e.note.wordId}'),
                           tooltip: '오답 노트에서 지우기',

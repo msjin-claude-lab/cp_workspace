@@ -166,6 +166,41 @@ void main() {
     expect(speaker.spoken, ['apple', 'apple']);
   });
 
+  testWidgets('첫 카드에서도 진행 막대가 숫자(1 / 2)만큼 차 있다', (tester) async {
+    await pumpStudy(tester);
+
+    final bar = tester.widget<LinearProgressIndicator>(
+      find.byType(LinearProgressIndicator),
+    );
+    expect(bar.value, 0.5);
+  });
+
+  testWidgets('뒷면의 발음 버튼은 다시 읽어 주고 카드를 뒤집지 않는다', (tester) async {
+    await pumpStudy(tester);
+    expect(find.byKey(const ValueKey('study-speak-back')), findsNothing);
+
+    await tester.tap(find.byKey(const ValueKey('study-card')));
+    await tester.pump();
+    await tester.tap(find.byKey(const ValueKey('study-speak-back')));
+    await tester.pump();
+
+    expect(speaker.spoken, ['apple', 'apple']);
+    expect(find.text('사과'), findsOneWidget); // 아직 뒷면
+  });
+
+  testWidgets('가로로 낮은 화면에서도 뒷면이 넘치지 않는다', (tester) async {
+    tester.view.physicalSize = const Size(640, 360);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+    await pumpStudy(tester);
+
+    await tester.tap(find.byKey(const ValueKey('study-card')));
+    await tester.pump();
+
+    expect(tester.takeException(), isNull);
+    expect(find.text('사과'), findsOneWidget);
+  });
+
   testWidgets('카드를 누르면 뒷면에 뜻·예문·해석이 보이고, 다시 누르면 앞면으로 돌아온다', (tester) async {
     await pumpStudy(tester);
 

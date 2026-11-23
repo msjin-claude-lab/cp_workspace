@@ -47,6 +47,9 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
   /// 이번 회차에 틀린 단어(결과 화면에 보인다).
   final List<Word> _wrongWords = [];
 
+  /// 답한 뒤 보이는 풀이의 자리(답하면 여기까지 스크롤한다).
+  final GlobalKey _explanationKey = GlobalKey();
+
   /// 도중: 첫 문제에서 아직 답하지 않았거나 결과 화면이면 아니다.
   /// 붙잡아 둔 문제 목록(`_questions`)의 길이로 결과 화면인지 가린다.
   bool get _inProgress =>
@@ -67,6 +70,16 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
       }
       // 저장이 끝나기 전에 다시 하기를 눌러도 맞힌 단어가 다시 나오지 않게 먼저 표시한다
       if (remove) _removed.add(q.word.id);
+    });
+    // "다음 문제" 버튼이 늘 보이므로, 풀이가 화면 아래에 숨은 채 넘어가지 않게 풀이까지 내려 준다
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final shown = _explanationKey.currentContext;
+      if (shown == null) return;
+      Scrollable.ensureVisible(
+        shown,
+        duration: const Duration(milliseconds: 200),
+        alignmentPolicy: ScrollPositionAlignmentPolicy.keepVisibleAtEnd,
+      );
     });
     final records = ref.read(studyRecordsProvider);
     try {
@@ -190,12 +203,41 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
     }
     final theme = Theme.of(context);
     final answered = _chosen != null;
+    // 문제·보기·풀이는 스크롤되고, "다음 문제" 버튼은 화면 맨 아래 같은 자리에 둔다
+    // (풀이 길이에 따라 버튼이 오르내리지 않게 — UX 점검)
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Expanded(child: _questionScroll(q, total, toMeaning, answered, theme)),
+        if (answered)
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+            child: FilledButton(
+              key: const ValueKey('quiz-next'),
+              onPressed: _next,
+              child: Text(_index + 1 < total ? '다음 문제' : '결과 보기'),
+            ),
+          ),
+      ],
+    );
+  }
+
+  Widget _questionScroll(
+    QuizQuestion q,
+    int total,
+    bool toMeaning,
+    bool answered,
+    ThemeData theme,
+  ) {
     return SingleChildScrollView(
+      // 문제마다 새 스크롤 — 앞 문제에서 풀이까지 내린 위치가 다음 문제에 남지 않는다
+      key: ValueKey('quiz-scroll-$_index'),
       padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          LinearProgressIndicator(value: _index / total),
+          // 막대는 아래 숫자(지금 문제 / 전체)와 같이 간다 — 첫 문제에서도 비어 보이지 않는다
+          LinearProgressIndicator(value: (_index + 1) / total),
           const SizedBox(height: 8),
           Text(
             '${_index + 1} / $total',
@@ -244,13 +286,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
           ],
           if (answered) ...[
             const SizedBox(height: 8),
-            _explanation(q),
-            const SizedBox(height: 16),
-            FilledButton(
-              key: const ValueKey('quiz-next'),
-              onPressed: _next,
-              child: Text(_index + 1 < total ? '다음 문제' : '결과 보기'),
-            ),
+            KeyedSubtree(key: _explanationKey, child: _explanation(q)),
           ],
         ],
       ),

@@ -148,7 +148,8 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          LinearProgressIndicator(value: _index / total),
+          // 막대는 아래 숫자(지금 카드 / 전체)와 같이 간다 — 첫 카드에서도 비어 보이지 않는다
+          LinearProgressIndicator(value: (_index + 1) / total),
           const SizedBox(height: 8),
           Text(
             '${_index + 1} / $total',
@@ -173,7 +174,8 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
               child: InkWell(
                 onTap: () => setState(() => _flipped = !_flipped),
                 child: Center(
-                  child: Padding(
+                  // 가로 화면·큰 글꼴에서 뒷면이 카드보다 길면 넘치지 않고 스크롤된다
+                  child: SingleChildScrollView(
                     padding: const EdgeInsets.all(24),
                     child: _flipped ? _back(word) : _front(word),
                   ),
@@ -228,7 +230,19 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(word.word, style: text.titleMedium),
+        // 뒷면에서도 다시 들을 수 있게 한다(버튼을 눌러도 카드는 뒤집히지 않는다)
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Flexible(child: Text(word.word, style: text.titleMedium)),
+            IconButton(
+              key: const ValueKey('study-speak-back'),
+              tooltip: '발음 듣기',
+              icon: const Icon(Icons.volume_up),
+              onPressed: () => _speak(word),
+            ),
+          ],
+        ),
         const SizedBox(height: 8),
         Text(
           word.meaning,
