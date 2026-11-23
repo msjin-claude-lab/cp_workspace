@@ -14,7 +14,9 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { isAbsolute, join } from "node:path";
 
 export const root = process.env.CLAUDE_PROJECT_DIR || process.cwd();
-const gitEnv = { ...process.env, GIT_TERMINAL_PROMPT: "0", GCM_INTERACTIVE: "never" };
+// GIT_OPTIONAL_LOCKS=0: status 등이 .git/index.lock을 잡지 않게 한다. 잡은 채 timeout으로 강제 종료되면
+// lock이 남아 commit·pull이 막힌다(2026-11-23, HUD에서 재현 확인).
+const gitEnv = { ...process.env, GIT_TERMINAL_PROMPT: "0", GCM_INTERACTIVE: "never", GIT_OPTIONAL_LOCKS: "0" };
 
 export function git(args, timeout = 5000) {
   return execFileSync("git", args, { cwd: root, env: gitEnv, timeout, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] }).trim();

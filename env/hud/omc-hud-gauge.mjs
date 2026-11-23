@@ -328,10 +328,12 @@ function readAccountEmail() {
 /**
  * 작업 폴더의 git 상태를 읽는다. fetch는 하지 않는다(↓는 마지막 fetch 기준).
  * git이 없거나 저장소가 아니거나 느리면 null — 그때는 OMC의 표시를 그대로 쓴다.
+ * `--no-optional-locks`: status가 색인을 새로 쓰며 .git/index.lock을 잡지 않게 한다. 잡은 채
+ * timeout으로 강제 종료되면 lock이 남아 commit·pull이 막힌다(2026-11-23 사내망 PC에서 두 번, 재현 확인).
  */
 function readGitStatus() {
   try {
-    const r = spawnSync("git", ["status", "--porcelain=v2", "--branch"], {
+    const r = spawnSync("git", ["--no-optional-locks", "status", "--porcelain=v2", "--branch"], {
       cwd: workDir || process.cwd(),
       encoding: "utf8",
       timeout: 1500,
