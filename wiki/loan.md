@@ -3,7 +3,7 @@ title: "loan 모듈 - 대출·반납·연장 구조"
 tags: ["loan", "architecture", "checkout", "return", "renewal", "fee", "practice"]
 created: 2026-11-17T06:55:21.836Z
 updated: 2026-11-17T06:55:21.836Z
-sources: ["projects/loan/src/main/java/practice/loan (2026-11-17, 사내망 PC)"]
+sources: ["projects/practice/loan/src/main/java/practice/loan (2026-11-17, 사내망 PC)"]
 links: ["maven-surefire.md"]
 category: architecture
 confidence: high
@@ -14,7 +14,7 @@ schemaVersion: 1
 
 # loan 모듈 - 대출·반납·연장 구조
 
-`projects/loan`(Java 8 타깃, 결함 의도적)의 동작 지도. 코드 위치는 `src/main/java/practice/loan/`.
+`projects/practice/loan`(Java 8 타깃, 결함 의도적)의 동작 지도. 코드 위치는 `src/main/java/practice/loan/`.
 
 ## 구성
 | 클래스 | 역할 |

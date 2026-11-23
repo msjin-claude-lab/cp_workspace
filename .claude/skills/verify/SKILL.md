@@ -1,6 +1,6 @@
 ---
 name: verify
-description: cp_workspace 전용 검증 절차 — projects/loan의 빌드·테스트와 hook 스크립트 문법을 실제 명령으로 확인하고, "통과"를 종료 코드와 새로 만들어진 결과 파일로만 판정한다. 작업을 끝냈다고 말하기 전, 커밋 전에 쓴다.
+description: cp_workspace 전용 검증 절차 — projects/practice/loan의 빌드·테스트와 hook 스크립트 문법을 실제 명령으로 확인하고, "통과"를 종료 코드와 새로 만들어진 결과 파일로만 판정한다. 작업을 끝냈다고 말하기 전, 커밋 전에 쓴다.
 ---
 
 # verify (cp_workspace)
@@ -11,8 +11,8 @@ description: cp_workspace 전용 검증 절차 — projects/loan의 빌드·테�
 
 | # | 대상 | 명령 (작업 위치) | 통과 판정 | 걸린 시간 |
 |---|---|---|---|---|
-| 1 | loan 빌드+테스트 | `mvn -q clean test` (`projects/loan`) | **종료 코드 0** + 출력 없음 + `target/surefire-reports/*.txt`가 방금 시각에 생성 + 모두 `Failures: 0, Errors: 0` | 약 4초 |
-| 2 | loan 컴파일만 | `mvn -q -o compile` (`projects/loan`) | 종료 코드 0 | 약 2초 |
+| 1 | loan 빌드+테스트 | `mvn -q clean test` (`projects/practice/loan`) | **종료 코드 0** + 출력 없음 + `target/surefire-reports/*.txt`가 방금 시각에 생성 + 모두 `Failures: 0, Errors: 0` | 약 4초 |
+| 2 | loan 컴파일만 | `mvn -q -o compile` (`projects/practice/loan`) | 종료 코드 0 | 약 2초 |
 | 3 | hook·도구 스크립트 문법 | `node --check <파일>` — `.claude/hooks/*.mjs`, `env/sync.mjs`, `env/hud/*.mjs` | 각각 종료 코드 0 | 1초 미만 |
 
 현재 기대값: 테스트 **41개** (FeeCalculatorTest 6, LoanServiceTest 13, RenewalPolicyTest 10, AdminGateTest 12). 과제를 하며 늘어나면 이 숫자를 갱신한다.
@@ -40,7 +40,7 @@ description: cp_workspace 전용 검증 절차 — projects/loan의 빌드·테�
 | 2. `mvn -o compile` | 컴파일 오류만 | 동작 전부 |
 | 3. `node --check` | hook 스크립트 문법 오류 | hook이 실제로 맞게 동작하는지(git 비교 결과, 메시지) |
 
-테스트가 다 통과해도 `projects/loan`의 남은 연습 결함(PRACTICE.md 4번 이후)은 그대로다 — green이 "결함 없음"을 뜻하지 않는다.
+테스트가 다 통과해도 `projects/practice/loan`의 남은 연습 결함(PRACTICE.md 4번 이후)은 그대로다 — green이 "결함 없음"을 뜻하지 않는다.
 
 ## 보고 형식
 

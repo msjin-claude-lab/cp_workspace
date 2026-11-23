@@ -1,6 +1,6 @@
 # cp_workspace
 
-Claude Code + [oh-my-claudecode](https://www.npmjs.com/package/oh-my-claude-sisyphus)(OMC) 워크스페이스. 여러 프로젝트가 공유하는 환경 규칙과, 결함을 일부러 심어 둔 연습 프로젝트(`projects/loan`), 그리고 실제로 만드는 앱(`projects/apps` — 첫 앱은 영단어 앱 `vocab`)이 들어 있다.
+Claude Code + [oh-my-claudecode](https://www.npmjs.com/package/oh-my-claude-sisyphus)(OMC) 워크스페이스. 여러 프로젝트가 공유하는 환경 규칙과, 결함을 일부러 심어 둔 연습 프로젝트(`projects/practice/loan`), 그리고 실제로 만드는 앱(`projects/apps` — 첫 앱은 영단어 앱 `vocab`)이 들어 있다.
 
 ## 구성
 
@@ -18,7 +18,8 @@ cp_workspace/
 │   └── git/               ← git 설정 기준 (적용 전에 Claude가 묻는다)
 ├── projects/
 │   ├── SETUP.md           ← 모든 프로젝트 공통 개발 환경
-│   ├── loan/              ← 연습 프로젝트 (Java 21 / Maven, 결함 의도적으로 심음)
+│   ├── practice/          ← 연습 그룹
+│   │   └── loan/          ← 연습 프로젝트 (Java 21 / Maven, 결함 의도적으로 심음)
 │   └── apps/              ← 앱 그룹
 │       ├── CLAUDE.md      ← 앱 공통 규칙 (새 앱 시작 순서, 주제 인계, PC 역할)
 │       ├── SETUP.md       ← 앱 공통 개발 환경 (Flutter·Android SDK)
@@ -30,7 +31,7 @@ cp_workspace/
 ├── .claude/
 │   ├── settings.json      ← Claude Code 프로젝트 설정 (모든 PC 공통: agent teams, HUD, hook)
 │   ├── hooks/             ← 세션 시작 환경 맞추기, 정시 구간별 pull/push 점검
-│   ├── skills/            ← 저장소 전용 스킬 (verify — projects/loan 검증, wiki)
+│   ├── skills/            ← 저장소 전용 스킬 (verify — projects/practice/loan 검증, wiki)
 │   └── CLAUDE.md          ← OMC 관리 영역. 손대지 않는다
 └── .omc-workspace         ← OMC 상태 루트 앵커
 ```
@@ -62,12 +63,12 @@ D:\dev\workspace 에서 작업을 이어서 한다. HANDOFF.md 를 읽고 시작
 D:\cp_workspace 에서 작업을 이어서 한다. HANDOFF.md 를 읽고 시작해라.      (사내망 PC)
 ```
 
-## 연습 프로젝트 — `projects/loan`
+## 연습 프로젝트 — `projects/practice/loan`
 
-도서 대출 모듈. 코드의 결함은 **전부 의도적**이며 OMC 스킬로 찾아 고치는 연습에 쓴다. 과제 목록은 [PRACTICE.md](projects/loan/PRACTICE.md).
+도서 대출 모듈. 코드의 결함은 **전부 의도적**이며 OMC 스킬로 찾아 고치는 연습에 쓴다. 과제 목록은 [PRACTICE.md](projects/practice/loan/PRACTICE.md).
 
 ```bash
-cd projects/loan
+cd projects/practice/loan
 mvn -q test     # 41개 모두 통과 (과제 9 완료 후. 처음은 13개 통과·1개 실패)
 ```
 

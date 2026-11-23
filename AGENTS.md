@@ -3,7 +3,7 @@
 **Generated:** 2026-11-15 · **Updated:** 2026-11-15
 
 ## Purpose
-Claude Code + oh-my-claudecode(OMC) 연습 워크스페이스. 여러 프로젝트가 공유하는 환경 규칙·hook·도구와, 결함을 일부러 심어 둔 연습 프로젝트(`projects/loan`)가 있다. 개인 PC(`D:\dev\workspace`)와 사내망 PC(`D:\cp_workspace`)에서 Gitea를 통해 이어서 작업한다.
+Claude Code + oh-my-claudecode(OMC) 연습 워크스페이스. 여러 프로젝트가 공유하는 환경 규칙·hook·도구와, 결함을 일부러 심어 둔 연습 프로젝트(`projects/practice/loan`)가 있다. 개인 PC(`D:\dev\workspace`)와 사내망 PC(`D:\cp_workspace`)에서 Gitea를 통해 이어서 작업한다.
 
 ## Key Files
 | File | Description |
@@ -37,6 +37,6 @@ Claude Code + oh-my-claudecode(OMC) 연습 워크스페이스. 여러 프로젝�
 ## Dependencies
 
 ### External
-- JDK 21, Maven 3.9.x (`projects/loan`), Node.js (hook·HUD 스크립트), OMC(npm 전역 `oh-my-claude-sisyphus`)
+- JDK 21, Maven 3.9.x (`projects/practice/loan`), Node.js (hook·HUD 스크립트), OMC(npm 전역 `oh-my-claude-sisyphus`)
 
 ## Manual Notes

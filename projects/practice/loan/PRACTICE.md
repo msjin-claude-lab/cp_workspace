@@ -3,7 +3,7 @@
 도서 대출 모듈이다. **코드의 결함은 전부 의도적으로 심어 둔 것**이다. 고쳐진 상태로 두지 말고, 스킬을 직접 돌려서 찾는 데 쓴다.
 
 ```bash
-cd projects/loan
+cd projects/practice/loan
 mvn -q test
 ```
 
@@ -12,7 +12,7 @@ mvn -q test
 언제든 되돌릴 수 있다:
 
 ```bash
-git checkout projects/loan
+git checkout projects/practice/loan
 ```
 
 ---

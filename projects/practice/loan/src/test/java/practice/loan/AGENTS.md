@@ -22,7 +22,7 @@ JUnit 5 테스트. 각 클래스 javadoc의 규정을 테스트로 옮겨 둔 �
 - 알려진 빈틈: 대부분 예외 **종류**만 보고 메시지·우선순위는 보지 않는다. 연체 상태 반납을 `LoanService`로 확인하는 테스트도 없다
 
 ### Testing Requirements
-- `projects/loan`에서 `mvn -q clean test`. 한 클래스만: `mvn -q -o test -Dtest=LoanServiceTest`
+- `projects/practice/loan`에서 `mvn -q clean test`. 한 클래스만: `mvn -q -o test -Dtest=LoanServiceTest`
 
 ## Dependencies
 

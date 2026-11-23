@@ -9,7 +9,7 @@ cp-workspace/
 ├── .omc-workspace       ← OMC 상태 루트 앵커
 ├── .claude/CLAUDE.md    ← OMC 코디네이터 관리 영역. 손대지 말 것
 └── projects/
-    ├── loan/            ← 개별 프로젝트
+    ├── practice/loan/   ← 연습 그룹 (2026-11-24 `projects/loan`에서 옮김)
     └── apps/<앱>/        ← 앱 그룹 (아래 "앱을 여러 개 만들 때")
 ```
 
@@ -21,7 +21,7 @@ cp-workspace/
 
 ```
 projects/
-├── loan/                  ← 기존 연습 프로젝트 (그룹 없이 그대로)
+├── practice/              ← 연습 그룹. 지금은 loan/ 하나(2026-11-24 사용자 결정으로 `projects/loan`에서 옮김 — 연습과 실제 앱을 폴더로 구분). 그룹 CLAUDE.md는 없다
 └── <그룹>/                ← 예: apps/
     ├── CLAUDE.md          ← 그룹 공통 규칙이 생겼을 때만 만든다 (같은 스택·배포 방식 등)
     ├── .gitkeep           ← 앱도 규칙도 없을 때 빈 폴더를 git에 남기는 빈 파일. Claude가 읽지 않는다
@@ -32,7 +32,7 @@ projects/
 - CLAUDE.md는 작업 위치에서 위로 올라가며 읽히므로 규칙이 **루트 → 그룹 → 앱** 순으로 겹친다. 같은 내용은 가장 위 한 곳에만 쓴다
 - **환경·검증 기록(`SETUP.md`, `VERIFY.md` 등)도 해당 범위에 맞는 층에 둔다(2026-11-18 사용자 결정)**: `projects/` 아래 모든 프로젝트에 해당 → `projects/` 바로 아래, 그룹 공통 → `projects/<그룹>/`, 그 앱·주제만 → 앱(주제) 폴더. 아래 층 내용이 더 넓게 해당하게 되면 위로 옮기고 아래에는 링크만 남긴다. 지금: [projects/SETUP.md](projects/SETUP.md) → [projects/apps/SETUP.md](projects/apps/SETUP.md) → 앱 `SETUP.md`(진행 중 주제는 `_drafts/<주제>/setup.md`)
 - **그룹 `CLAUDE.md`는 공통 규칙이 생길 때 만든다.** 내용 없는 CLAUDE.md도 그 아래 작업 때마다 읽히므로, 그전에는 `.gitkeep`만 둔다. `projects/apps/CLAUDE.md`에는 앱 공통 규칙(새 앱 시작 순서: 앱 정의 → 선택안 → 선택 → 검증 → 최종 결정)이 있다
-- **검증 명령은 앱마다** 그 앱 CLAUDE.md에 적는다. 저장소 `/verify` 스킬(`.claude/skills/verify`)은 지금 `projects/loan` 전용이라, 앱이 생기면 각 앱 명령을 참조하도록 고친다
+- **검증 명령은 앱마다** 그 앱 CLAUDE.md에 적는다. 저장소 `/verify` 스킬(`.claude/skills/verify`)은 지금 `projects/practice/loan` 전용이라, 앱이 생기면 각 앱 명령을 참조하도록 고친다
 - **git은 저장소 하나로 시작한다.** 배포 주기·공개 범위가 다른 앱만 나중에 분리한다(분리해도 OMC 상태는 위 앵커 덕에 루트에 모인다)
 - 이름은 짧게 짓는다. Windows 경로 260자 제한에 `node_modules`가 걸릴 수 있다
 - **PC 역할(2026-11-17 사용자 결정, 2026-11-18 바꿈)**: **개인 PC는 전부**(코드 수정 + SDK 설치·빌드·테스트). **사내망 PC도 가능한 데까지 똑같이 진행하고 한 것은 공유한다**(2026-11-18 — Flutter·Android SDK를 설치해 빌드·테스트가 됨). 사내망 PC에서 못 한 것(에뮬레이터 실행, github.com에서만 받는 파일 등)만 HANDOFF·인계에 "확인 못 함, 개인 PC에서 필요"로 남기고, 개인 PC에서 pull해 마저 한다

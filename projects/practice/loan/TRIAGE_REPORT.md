@@ -1,4 +1,4 @@
-# TRIAGE_REPORT — projects/loan
+# TRIAGE_REPORT — projects/practice/loan
 
 진단일: 2026-11-17 (사내망 PC) · 도구: `/triage` (루트에 `triage.sh` 없음 → 직접 grep 스캔)
 

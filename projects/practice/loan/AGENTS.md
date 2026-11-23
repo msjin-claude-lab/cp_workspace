@@ -1,6 +1,6 @@
 # loan
 
-**Parent context:** `../AGENTS.md`
+**Parent context:** `../../AGENTS.md`
 **Generated:** 2026-11-15 · **Updated:** 2026-11-15
 
 ## Purpose
@@ -23,7 +23,7 @@ OMC 스킬 연습용 도서 대출 모듈. 대출·반납·연체료·연장 규
 ## For AI Agents
 
 ### Working In This Directory
-- 지시받은 과제의 결함만 고친다. 연습으로 바꾼 것은 `git checkout projects/loan`으로 되돌린다
+- 지시받은 과제의 결함만 고친다. 연습으로 바꾼 것은 `git checkout projects/practice/loan`으로 되돌린다
 - 남은 연습 결함(과제 5~8)은 테스트로 드러나지 않는다 — 테스트 green이 "결함 없음"이 아니다
 
 ### Testing Requirements

@@ -3,7 +3,7 @@
 마지막 갱신: 2026-11-22 (개인 PC)
 
 워크스페이스 구성은 끝났다. 이 문서는 **다음에 이어서 할 일**과 **중단된 작업의 조사 결과**만 담는다.
-환경 사실·규칙은 [CLAUDE.md](CLAUDE.md), 연습 과제는 [projects/loan/PRACTICE.md](projects/loan/PRACTICE.md)에 있다.
+환경 사실·규칙은 [CLAUDE.md](CLAUDE.md), 연습 과제는 [projects/practice/loan/PRACTICE.md](projects/practice/loan/PRACTICE.md)에 있다.
 
 ## 지금 상태
 
@@ -13,11 +13,13 @@
 | OMC | npm 전역 5.8.4, 글로벌·로컬 `CLAUDE.md` 모두 설치됨. 두 PC 모두 **플러그인**으로 씀(`/oh-my-claudecode:` 접두사). 사내망 PC는 GitHub 차단 때문에 npm 패키지 폴더를 로컬 마켓플레이스로 등록해 설치(2026-11-17) — [CLAUDE.md의 "답변 형식"](CLAUDE.md#답변-형식--모든-pc-공통) |
 | 원격 저장소 | Gitea(기준) → GitHub(푸시 미러, 읽기 전용). 두 PC 모두 `origin` = Gitea. 구성은 [CLAUDE.md의 "git"](CLAUDE.md#git) |
 | Claude Code 설정 | 프로젝트 `.claude/settings.json`에 둠 — agent teams, HUD 상태바, hook. 모든 PC 공통 ([CLAUDE.md의 "PC 간 이어가기"](CLAUDE.md#pc-간-이어가기--설정작업진행-현황)) |
-| 연습 프로젝트 | `projects/loan/` — **과제 1~9 모두 완료**(2026-11-13~17). 컴파일 타깃은 Java 21 |
+| 연습 프로젝트 | `projects/practice/loan/` — **과제 1~9 모두 완료**(2026-11-13~17). 컴파일 타깃은 Java 21 |
 | `mvn -q test` | **41개 모두 통과** (과제 9 완료 후. 연체료 6 + 대출·반납 13 + 연장 10 + 관리자 12) |
 | 앱 (`projects/apps/`) | **영단어 앱 — 5단계 끝, 앱 폴더 [projects/apps/vocab/](projects/apps/vocab/CLAUDE.md) 생성**(2026-11-19 사내망 PC, Flutter 뼈대 + 검증 명령 통과). 명세의 화면(카드 학습·시험·오답 노트·진도)은 모두 만들었고 써 보며 고치는 중. 2026-11-22 개인 PC: 이름 있는 단어장(새 등록 = 이름 + 학교급 + 난이도, 기록은 단어장별), UX 점검 뒤 수정, 카드 무작위 순서, 설정 화면 → 두 축 코드 검토 → 지적 2건 수정(`d442292`) → 인계 정리 → 사용자 결정으로 직접 단어를 넣는 단어장 삭제 + DB 6판(옛 카드 '모른다' 오답 정리, 시험 118개 통과) → 두 축 검토 뒤 정리 기준 수정(`6505547`) → 에뮬레이터에 설치해 DB 6판 이행과 화면 확인(통과) → 남은 LOW 지적 9건 수정(`40fc56d`) → 사용자 결정으로 설정을 단어장마다 따로(DB 7판, 시험 137개 통과, 에뮬레이터 확인). → 두 축 검토(막는 지적 없음)와 그 지적 수정(시험 139개 통과). **다음: 에뮬레이터에 마지막 빌드 설치 → 사용자가 직접 써 보기 → UX 사소한 지적 → 단어 늘리기**(앱 HANDOFF.md 인계 "다음 할 일"). iOS 잠정 보류 — 추후 지시까지 안드로이드만 — 목록은 `/apps:view-subjects` |
 
-## 연습 과제 진행 ([PRACTICE.md](projects/loan/PRACTICE.md))
+## 연습 과제 진행 ([PRACTICE.md](projects/practice/loan/PRACTICE.md))
+
+> **연습 프로젝트는 2026-11-24에 `projects/loan` → `projects/practice/loan`으로 옮겼다**(사용자 결정 — 연습과 실제 앱을 폴더로 구분). 아래 기록의 "다시 연습하려면 `git checkout <커밋> -- projects/loan…`" 명령은 옛 커밋을 가리키므로 **옛 경로 그대로 적어 두었다** — 실행하면 파일이 옛 자리(`projects/loan/`)에 되살아나니, 지금 폴더로 옮겨 쓴다(옮긴 뒤 이 방법을 직접 시험하지는 않았다).
 
 | 과제 | 상태 | 기록 |
 |---|---|---|
@@ -98,13 +100,13 @@
 
 ### 과제 8 — 레거시 버전 올리기 (2026-11-17, 사내망 PC)
 
-- `/triage projects/loan` → [projects/loan/TRIAGE_REPORT.md](projects/loan/TRIAGE_REPORT.md). 위험 요소(`sun.*`, Java EE 모듈, applet, Nashorn, SecurityManager, 예약어) 0건 → **21 직행 후보**. 루트에 `triage.sh`가 없어 grep으로 스캔. 대시보드 CLI는 개인 PC에만 있어 등록 생략
-- `/to-java21 projects/loan`: 스킬은 SVN 기준이지만 이 저장소는 git이라 `git diff`로 대신함
+- `/triage projects/practice/loan` → [projects/practice/loan/TRIAGE_REPORT.md](projects/practice/loan/TRIAGE_REPORT.md). 위험 요소(`sun.*`, Java EE 모듈, applet, Nashorn, SecurityManager, 예약어) 0건 → **21 직행 후보**. 루트에 `triage.sh`가 없어 grep으로 스캔. 대시보드 CLI는 개인 PC에만 있어 등록 생략
+- `/to-java21 projects/practice/loan`: 스킬은 SVN 기준이지만 이 저장소는 git이라 `git diff`로 대신함
   - 8 기준선: `source/target` → `maven.compiler.release=8`. 37/37, bootstrap 경고 사라짐
   - 11: 37/37, 경고 없음. 추가할 의존성 없음
   - 21: OpenRewrite `UpgradeToJava21` dryRun → 제안은 `release=21`, compiler 플러그인 3.13.0 → 3.16.0뿐(소스 변경 0). 적용 후 37/37, `Book.class` major version 65
 - 실수 1건: pom.xml 주석에 `--`를 넣어 XML 파싱 실패 → 주석 수정
-- 문서: `projects/loan/CLAUDE.md`·`AGENTS.md` 2개의 "Java 8 타깃, 올리지 말 것"을 현재 상태로 고침
+- 문서: `projects/practice/loan/CLAUDE.md`·`AGENTS.md` 2개의 "Java 8 타깃, 올리지 말 것"을 현재 상태로 고침
 - 다시 연습하려면: `git checkout af2c8ad -- projects/loan/pom.xml`(8 상태)
 - **`/triage`·`/to-java21`은 OMC 스킬이 아니다.** 사내망 PC의 사용자 명령(`~/.claude/commands/triage.md`, `to-java21.md`, 2026-08-11 생성)으로, 사내 JDK 마이그레이션(SVN, `D:\dev\workspace\assistant` 대시보드) 업무용으로 보인다(추정). 저장소에는 없어 git으로 넘어가지 않는다 — 개인 PC에 같은 파일이 있는지 확인 필요
 
