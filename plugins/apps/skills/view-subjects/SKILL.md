@@ -12,12 +12,14 @@ argument-hint: "[주제]"
 
 ## 어디서 모으나
 
-1. **진행 중인 주제** — `projects/apps/_drafts/*/README.md`(`/apps:new`가 만든 주제 폴더)
-   - 설명: README.md의 주제 한 줄(없으면 `spec.md` 앞부분)
-   - 지금 단계·멈춘 곳·다음 할 일·주의할 것: README.md **인계**, **진행 이력**: README.md
-   - **git 이력**: `git log --date=short --format="%ad %s" -- projects/apps/_drafts/<주제>` — README 이력에 빠진 작업이 있는지 맞춰 본다
-   - **파일 확인**: `spec.md` 있음 → 1단계 끝, `options.md`에 고른 것 있음 → 3단계 끝(이때 `setup.md`도 있어야 함 — 없으면 어긋남으로 알린다), `verify.md` 있음 → 4단계 진행. README의 단계와 다르면 알린다
-2. **완성된 앱** — `projects/apps/` 아래 `_drafts`가 아닌 폴더 중 `CLAUDE.md`가 있는 것. 1~5단계 모두 끝. 설명은 그 `CLAUDE.md`나 `docs/spec.md`, 진행 이력은 `docs/`로 옮겨진 README 이력과 git 이력, 마지막 검증은 `VERIFY.md` "마지막 결과" 맨 위 줄
+기록 위치와 형식은 `projects/apps/CLAUDE.md` "주제 인계" — 주제마다 폴더 안의 `HANDOFF.md`(상태·인계·남은 일·진행 이력).
+
+1. **진행 중인 주제** — `projects/apps/_drafts/*/HANDOFF.md`(`/apps:new`가 만든 주제 폴더)
+   - 설명: HANDOFF.md의 주제 한 줄(없으면 `spec.md` 앞부분)
+   - 상태(진행 중/종료), 지금 단계·멈춘 곳·다음 할 일·주의할 것: HANDOFF.md **상태**·**인계**, **진행 이력**: HANDOFF.md
+   - **git 이력**: `git log --date=short --format="%ad %s" -- projects/apps/_drafts/<주제>` — HANDOFF 이력에 빠진 작업이 있는지 맞춰 본다
+   - **파일 확인**: `spec.md` 있음 → 1단계 끝, `options.md`에 고른 것 있음 → 3단계 끝(이때 `setup.md`도 있어야 함 — 없으면 어긋남으로 알린다), `verify.md` 있음 → 4단계 진행. HANDOFF의 단계와 다르면 알린다
+2. **완성된 앱** — `projects/apps/` 아래 `_drafts`가 아닌 폴더 중 `CLAUDE.md`가 있는 것. 1~5단계 모두 끝. 설명은 그 `CLAUDE.md`나 `docs/spec.md`, 상태·인계·진행 이력은 그 앱 `HANDOFF.md`와 git 이력(`-- projects/apps/<앱>`), 마지막 검증은 `VERIFY.md` "마지막 결과" 맨 위 줄. `HANDOFF.md`가 없으면 어긋남으로 알린다
 3. **옛 기록** — 주제 폴더 방식 전에 `HANDOFF.md` "앱" 절에만 적힌 주제 중 위 두 곳에 폴더가 없는 것(2026-11-18에 vocab을 옮겨 지금은 없음). "폴더 없음 — `/apps:new <주제>`로 옮길 수 있음"을 붙인다
 4. **이야기만 된 후보** — `projects/apps/_drafts/README.md`의 "후보" 목록. 언제 이야기됐는지만 보여 준다
 
@@ -38,7 +40,7 @@ argument-hint: "[주제]"
   - 최근 이력: 진행 이력의 마지막 3줄
   - 막힌 것: 있으면(예: 에뮬레이터 실행은 WHPX를 켠 PC에서, iOS 확인 못 함)
   - 다음 할 일: 입력할 명령까지(예: `/apps:selection-subject vocab`)
-  - 어긋남: 파일 확인·git 이력이 README와 다르면 그 내용
+  - 어긋남: 파일 확인·git 이력이 HANDOFF와 다르면 그 내용. 상태가 "진행 중"이면 "진행 중으로 남음(지난번이 정상 종료되지 않았거나 다른 PC에서 진행 중)"도 함께
 
 순서: 진행 중 → 완성된 앱 → 옛 기록 → 후보. 진행 중끼리는 최근 활동이 위.
 
@@ -51,6 +53,6 @@ argument-hint: "[주제]"
   - 4 검증: `verify.md`(완성된 앱이면 `VERIFY.md`)의 결과 — 안드로이드·iOS 따로
   - 5 최종 결정: 앱 폴더 경로
   - 아직 안 한 단계는 "아직(이 단계에서 `<파일>`이 생김)"
-- **진행 이력 전체**: README 이력 전부, 그리고 git 이력 중 README에 없는 커밋
+- **진행 이력 전체**: HANDOFF 이력 전부, 그리고 git 이력 중 HANDOFF에 없는 커밋
 
 주제가 하나도 없으면 "아직 주제 없음"과 `/apps:new <주제>`를 안내한다.
