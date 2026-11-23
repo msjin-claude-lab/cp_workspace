@@ -48,3 +48,7 @@
 - **Pages:** session-log-2026-11-23-e4369e20.md
 - **Summary:** Auto-captured session log for e28f14b2-d978-413f-ae5f-3fd20360bac3 (omc-wiki-capture:aa82b4fc4915367eede5dcdbe981cfa6b5a28d61d0cd6a83e7d7c0f49211f188)
 
+## [2026-11-23T14:17:14.374Z] ingest
+- **Pages:** session-log-2026-11-23-0f96166f.md
+- **Summary:** Auto-captured session log for 7c7e367b-c994-4106-9a55-6308c84fb201 (omc-wiki-capture:5dbe4e000ff4522e1b48ed6986fbd514ff63025d0d492a02ec74a8036c9b4aef)
+
