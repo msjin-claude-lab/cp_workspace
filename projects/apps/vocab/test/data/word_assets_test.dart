@@ -26,7 +26,7 @@ const _expectedCount = {
 /// 단어를 묶음으로 나눠 넣는 중인 칸 — 이 칸만 개수를 "0개 이상, 기대값 이하"로 본다.
 /// 나머지 칸은 늘 정확히 기대값이다. 마지막 묶음을 넣은 뒤 빈 집합으로 바꿔
 /// "정확히 기대값"을 확인한다(docs/plan-words-phase2.md 3·4단계).
-const _filling = {Cell.middleEasy, Cell.middleMedium, Cell.middleHard};
+const _filling = <Cell>{};
 
 /// 단어 번호: 예전 번호(`ee-001`)이거나 칸과 무관한 새 번호(`w-0001`).
 final _idPattern = RegExp(r'^([emh][emh]-\d{3}|w-\d{4})$');

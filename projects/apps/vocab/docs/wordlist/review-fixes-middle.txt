@@ -25,3 +25,11 @@ w-1077|exampleMeaning|고속도로가 많이 막혔다.|차가 많이 막혔다�
 w-1209|exampleMeaning|전구가 나가서 내 방이 어둡다.|전구는 나간다고 말함
 w-1067|example|I'm in the eighth grade.|second grade of middle school은 한국식 영어
 w-1067|exampleMeaning|나는 8학년(중학교 2학년)이다.|위 예문에 맞춤
+# --- middle_hard (COMMENT) ---
+w-1463|exampleMeaning|따뜻한 목욕을 하고 나면 긴장이 풀린다.|느긋한 기분이 든다는 어색함
+w-1402|example|The earthquake destroyed many old buildings.|불이 집을 파괴했다는 어색함
+w-1402|exampleMeaning|지진이 오래된 건물을 많이 파괴했다.|위 예문에 맞춤
+w-1467|example|She pretended not to hear me.|꾀병으로 학교 빠지기는 따라 하면 안 되는 장면
+w-1467|exampleMeaning|그녀는 내 말을 못 들은 척했다.|위 예문에 맞춤
+w-1302|exampleMeaning|대장장이는 뜨거운 쇠로 검을 만들었다.|칼은 knife로도 읽힘
+w-1428|exampleMeaning|절대 낯선 사람과 함께 차에 타지 마라.|with a stranger는 낯선 사람의 차가 아님
