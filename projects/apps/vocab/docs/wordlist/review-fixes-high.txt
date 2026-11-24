@@ -129,3 +129,20 @@ w-2511|exampleMeaning|그 신약을 안전하게 쓰려면 추가 연구가 필�
 w-2594|exampleMeaning|그 강당의 수용 인원은 전교생이 들어가기에 너무 적다.|좌석 수용력은 어색함(seating capacity = 좌석 수·수용 인원)
 w-2677|exampleMeaning|오랜 가뭄 때문에 호수의 깊이가 줄었다.|깊이가 얕아졌다는 어색함
 w-2536|meaning|기초, 근거, (on a ~ basis) ~ 단위로|on a daily·regular basis(매일·정기적으로)는 수능 빈출인데 빠짐. 기준은 standard에 있어 못 씀
+# --- high_hard 301~500(2026-11-24 code-reviewer, COMMENT) ---
+w-2887|meaning|추구하다, (일을) 계속해 나가다, 뒤쫓다|pursue의 수능 핵심 뜻 추구하다(pursue happiness·a goal)가 빠지고 (목표를) 좇다로 돌려 씀. seek의 추구하다를 받음(seek는 찾다·구하다가 핵심). seek와는 유사어 쌍
+w-2887|exampleMeaning|그녀는 병원에서 봉사 활동을 한 뒤 의료 분야의 직업을 추구하기로 결심했다.|위 뜻에 맞춤(직업을 좇다는 어색함)
+w-2710|meaning|찾다, 구하다, (seek to) ~하려고 하다|추구하다를 pursue에 넘김. seek to do(~하려고 하다)는 수능 글의 흔한 쓰임
+w-2938|meaning|(강하게) 주장하다, 고집하다, 강력히 요구하다|insist의 수능 핵심 뜻 주장하다가 빠짐(우기다는 구어라 뜻이 좁음). claim·maintain·demand와 글자가 붙어 보이므로 유사어 쌍으로 보기에서 가름
+w-2938|exampleMeaning|엄마는 내가 자전거를 탈 때마다 꼭 헬멧을 써야 한다고 강력히 요구하셨다.|insist that + 동사원형은 요구 — 해석에 뜻 칸의 말이 드러나게
+w-2825|meaning|입증하다, (분명히) 보여 주다, 시위하다|demonstrate의 수능 핵심 뜻 입증하다(demonstrate that ~)가 빠짐. establish에서 입증하다를 받음(establish는 설립하다·확립하다가 핵심). 시연하다는 demonstration의 시범과 같은 쪽이라 시위하다를 남김. prove와는 유사어 쌍
+w-2648|meaning|설립하다, 확립하다, (관계 등을) 맺다|입증하다를 demonstrate에 넘김. establish a relationship(관계를 맺다)은 흔한 쓰임
+w-2950|meaning|반대하다, 맞서다, 대항하다|oppose의 핵심 뜻 반대하다가 괄호 숙어로 밀려 있었음(예문 해석도 반대한다). object에서 반대하다를 받음
+w-2591|meaning|물체, 대상, (object to) ~에 반대하다|반대하다를 oppose에 넘김. object는 동사일 때 object to로 쓰이고 예문도 object to
+w-2995|meaning|(비밀 등을) 캐내다, 덮개를 벗기다, 발굴하다|알아내다가 figure의 (figure out) 알아내다와 글자가 같아 4지선다에서 정답이 둘로 보임
+w-2908|meaning|(공간·시간을) 차지하다, 점령하다, (be occupied) 사용 중이다|거주하다는 드문 쪽이고 resident(거주하는)·inhabitant(거주민)와 글자가 붙어 보임. Occupied(사용 중)는 흔한 쓰임
+w-2903|meaning|인정하다, 시인하다|(편지 등을) 받았음을 알리다는 고등에 드문 뜻이고 inform(알리다)과 글자가 붙어 보임
+w-2847|meaning|인식, 자각|관심은 interest·concern(관심사)의 뜻이라 raise awareness(인식을 높이다)의 뜻을 흐림
+w-2827|exampleMeaning|기상 조건이 유리해서 로켓은 계획대로 발사되었다.|날씨가 좋아서는 favorable(유리한)의 뜻이 안 드러남
+w-2910|exampleMeaning|나는 그가 이미 답을 알면서도 우리에게 말하기 싫어하는 거라고 짐작한다.|~것 같다고 나는 짐작한다는 겹말이라 어색함
+w-2991|exampleMeaning|새로운 곳을 여행하는 것은 다른 문화에 대한 이해를 풍요롭게 할 수 있다.|이해가 깊어지다는 enrich(풍요롭게 하다)의 뜻이 안 드러남

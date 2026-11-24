@@ -405,7 +405,6 @@ const List<(String, String)> similarWordPairs = [
   ('decline', 'reduction'), // 감소하다 / 감소
   ('composition', 'constitute'), // 구성 / 구성하다
   ('establish', 'foundation'), // 설립하다 / 설립
-  ('establish', 'prove'), // 입증하다 / 증명하다
   ('claim', 'maintain'), // 주장하다 / (계속) 주장하다
   ('concern', 'involved'), // 관련되다 / 관련된
   ('concerned', 'involved'), // ~와 관련된 / 관련된
@@ -430,7 +429,7 @@ const List<(String, String)> similarWordPairs = [
   ('relatively', 'comparative'), // 비교적 / 비교의
   ('mutual', 'interaction'), // 상호의 / 상호 작용
   ('contrary', 'objection'), // 반대의 / 반대
-  ('contrary', 'object'), // 반대의 / 반대하다
+  ('contrary', 'object'), // 반대의 / (object to) ~에 반대하다
   // 고등 어려움 앞 300개 — 어원이 같음(further/furthermore는 합성어라 넣지 않음)
   ('state', 'statement'),
   ('industry', 'industrial'),
@@ -470,6 +469,110 @@ const List<(String, String)> similarWordPairs = [
   ('regulation', 'define'), // 규정(규칙) / 규정하다
   ('formula', 'official'), // 공식 / 공식적인
   ('former', 'transfer'), // 이전(以前)의 / 이전(移轉)
+  // 고등 어려움 301~500·칸 전체(2026-11-24 검토) — 뜻이 거의 같음
+  ('concept', 'notion'), // 개념 / 관념
+  ('vary', 'differ'), // 서로 다르다 / 다르다
+  ('vary', 'diverse'), // 다양하다 / 다양한
+  ('ensure', 'guarantee'), // 보장하다 / 보증하다
+  ('aware', 'conscious'), // 인식하는 / 의식하는
+  ('accurate', 'precise'), // 정확한 / 정밀한
+  ('obtain', 'acquire'), // 획득하다 / 취득하다
+  ('acquire', 'gain'), // 습득하다 / 얻다
+  ('conservation', 'preservation'), // 보존 / 보전
+  ('conservation', 'preserve'), // 보존 / 보존하다
+  ('being', 'organism'), // 생명체 / 생물
+  ('resident', 'inhabitant'), // 거주자 / 거주민
+  ('nevertheless', 'nonetheless'), // 그런데도 / 그래도
+  ('despite', 'nonetheless'), // ~에도 불구하고 / 그렇긴 하지만
+  ('arise', 'emerge'), // 생기다 / (새로) 생겨나다
+  ('reveal', 'emerge'), // 드러내다 / 모습을 드러내다
+  ('object', 'oppose'), // (object to) ~에 반대하다 / 반대하다
+  ('objection', 'oppose'), // 반대 / 반대하다
+  ('contrary', 'oppose'), // 반대의 / 반대하다
+  ('resist', 'oppose'), // 저항하다 / 대항하다
+  ('vision', 'insight'), // 통찰력 / 통찰
+  ('feature', 'characterize'), // (~을) 특징으로 하다 / 특징짓다
+  ('convince', 'persuade'), // 납득시키다 / 설득하다
+  ('accomplish', 'attain'), // 성취하다 / 달성하다
+  ('appreciation', 'gratitude'), // 감사 / 고마움
+  ('appreciate', 'gratitude'), // 고마워하다 / 고마움
+  ('reveal', 'uncover'), // 밝히다 / 캐내다
+  ('overcome', 'conquer'), // 극복하다 / (어려움을) 물리치다
+  ('conquer', 'occupy'), // 정복하다 / 점령하다
+  ('wealth', 'abundance'), // 풍부함 / 풍요
+  ('wealth', 'abundant'), // 풍부함 / 풍부한
+  ('admission', 'acknowledge'), // 인정 / 인정하다
+  ('seek', 'pursue'), // 찾다 / 추구하다
+  ('claim', 'insist'), // 주장하다 / (강하게) 주장하다
+  ('maintain', 'insist'), // (계속) 주장하다 / (강하게) 주장하다
+  ('demand', 'insist'), // 요구하다 / 강력히 요구하다
+  ('demonstrate', 'prove'), // 입증하다 / 증명하다
+  ('involved', 'engage'), // 참여하는 / (engage in) 참여하다
+  ('retain', 'maintain'), // 보유하다 / 유지하다
+  ('rely', 'dependent'), // 의지하다 / 의존하는
+  ('tremendous', 'extraordinary'), // 굉장한 / 대단한
+  ('extraordinary', 'remarkable'), // 비범한 / 놀라운
+  ('approve', 'favor'), // (approve of) 찬성하다 / (in favor of) ~에 찬성하여
+  ('commitment', 'devotion'), // 전념 / 헌신
+  ('devotion', 'dedicate'), // 헌신 / 바치다
+  ('excellence', 'distinction'), // 탁월함 / 뛰어남
+  ('excellence', 'outstanding'), // 빼어남 / 뛰어난
+  ('resemble', 'similarity'), // 닮다 / 닮은 점
+  ('constitute', 'consist'), // 구성하다 / (consist of) ~로 구성되다
+  ('composition', 'consist'), // 구성 / ~로 구성되다
+  ('mutual', 'interact'), // 상호의 / 상호 작용하다
+  ('advance', 'progressive'), // 진보 / 진보적인
+  ('settle', 'resolve'), // (분쟁을) 매듭짓다 / 해결하다
+  ('restrict', 'limitation'), // 제한하다 / 제약
+  // 고등 어려움 301~500·칸 전체 — 어원이 같음(despair/desperate는 영어 접사 파생이 아니라 넣지 않음)
+  ('commit', 'commitment'),
+  ('demonstrate', 'demonstration'),
+  ('preserve', 'preservation'),
+  ('appreciate', 'appreciation'),
+  ('abundant', 'abundance'),
+  ('transform', 'transformation'),
+  ('suspect', 'suspicion'),
+  ('enthusiasm', 'enthusiastic'),
+  ('certainty', 'uncertainty'),
+  ('caution', 'cautious'),
+  ('negotiate', 'negotiation'),
+  ('persuade', 'persuasive'),
+  ('overwhelm', 'overwhelming'),
+  ('rely', 'reliable'),
+  ('observation', 'observe'),
+  ('involved', 'involve'),
+  ('treatment', 'treat'),
+  ('possession', 'possess'),
+  ('reflect', 'reflection'),
+  ('initial', 'initially'),
+  ('favor', 'favorable'),
+  ('distinction', 'distinguish'), // distinct
+  ('relation', 'relate'),
+  ('relative', 'relate'),
+  ('relatively', 'relate'),
+  ('proposal', 'propose'),
+  ('essential', 'essence'),
+  ('access', 'accessible'),
+  ('occupation', 'occupy'),
+  ('intention', 'intend'),
+  ('approval', 'approve'),
+  ('emphasis', 'emphasize'),
+  ('critical', 'criticize'), // critic
+  ('interaction', 'interact'),
+  ('characteristic', 'characterize'), // character
+  ('consumption', 'consume'),
+  ('consumer', 'consume'),
+  ('distribution', 'distribute'),
+  ('analysis', 'analyze'),
+  ('aware', 'awareness'),
+  ('sense', 'sensation'), // 감각 / 느낌·지각
+  ('civil', 'civilization'), // civilize
+  ('remark', 'remarkable'),
+  ('affect', 'affection'),
+  ('conservation', 'conservative'), // conserve
+  ('current', 'currency'),
+  // 고등 어려움 301~500·칸 전체 — 우리말 뜻 글자가 같은 동음이의어
+  ('account', 'occupy'), // (account for) 차지하다 / (공간·시간을) 차지하다
 ];
 
 final Map<String, Set<String>> _partners = () {
