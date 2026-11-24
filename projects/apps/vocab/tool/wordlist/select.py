@@ -22,6 +22,8 @@
 --stage middle (2차 — 중등 700개)
   후보 = A1 + A2 중 elementary.csv에 없고 overlap.csv의 고등 줄에도 없는 것(candidates-middle.csv).
   tiers-middle.csv(단어, 단계, 이유)는 후보와 정확히 맞아야 한다. 없으면 후보까지만 만든다.
+  단계는 1·2·3·4·x. 4는 학술·격식·공문서 말로 중등에서 맨 뒤로 미룬다(대개 뽑히지 않고 고등 3차에서 쓴다).
+  A1에는 4를 쓰지 않는다(A1은 전부 뽑힌다). 단계는 숫자로 비교한다.
   뽑기: 단계가 x가 아닌 A1 전부 + A2를 (단계, 빈도 순위, 알파벳) 순으로 700개가 될 때까지.
   칸 배정: 뽑힌 700개를 (단계, 빈도 순위, 알파벳)으로 세워 앞에서부터 234 · 233 · 233(middle.csv).
 
@@ -161,8 +163,9 @@ def read_overlap():
     return [tuple(r) for r in read_rows(OUT / "overlap.csv")]
 
 
-def read_tiers(name, candidates):
-    """단계 파일 → ({단어: 단계}, {단어: 이유}). 후보와 정확히 맞지 않으면 종료 코드 1. 파일이 없으면 None."""
+def read_tiers(name, candidates, allowed):
+    """단계 파일 → ({단어: 단계}, {단어: 이유}). 후보와 정확히 맞지 않거나 allowed 밖의 단계가 있으면
+    종료 코드 1. 파일이 없으면 None."""
     tiers, reasons = {}, {}
     path = OUT / name
     if not path.exists():
@@ -172,9 +175,13 @@ def read_tiers(name, candidates):
         reasons[word.lower()] = reason
     unknown = sorted(set(tiers) - {w.lower() for w in candidates})
     untiered = [w for w in candidates if w.lower() not in tiers]
+    bad = sorted(w for w, t in tiers.items() if t not in allowed)
     print(f"{name} {len(tiers)}줄 · 단계 {dict(sorted(Counter(tiers.values()).items()))}")
-    if unknown or untiered:
-        print(f"검사 실패:\n  후보에 없는 단어 {unknown[:10]}\n  단계가 없는 후보 {untiered[:10]}")
+    if unknown or untiered or bad:
+        print(
+            f"검사 실패:\n  후보에 없는 단어 {unknown[:10]}\n  단계가 없는 후보 {untiered[:10]}\n"
+            f"  쓸 수 없는 단계({'·'.join(allowed)} 밖) {bad[:10]}"
+        )
         sys.exit(1)
     return tiers, reasons
 
@@ -235,7 +242,7 @@ def elementary(args, kept):
         print("--freq가 없어 여기까지만 한다(excluded.csv, candidates.csv).")
         return
 
-    loaded = read_tiers("tiers.csv", candidates)
+    loaded = read_tiers("tiers.csv", candidates, ("1", "2", "3", "x"))
     if loaded:
         tiers, reasons = loaded
     else:
@@ -299,17 +306,22 @@ def middle(args, kept):
         print("--freq가 없어 여기까지만 한다(candidates-middle.csv).")
         return
 
-    loaded = read_tiers("tiers-middle.csv", candidates)
+    loaded = read_tiers("tiers-middle.csv", candidates, ("1", "2", "3", "4", "x"))
     if not loaded:
         print("tiers-middle.csv가 없어 여기까지만 한다(candidates-middle.csv). middle.csv는 쓰지 않는다.")
         return
     tiers, reasons = loaded
 
     def order(w):
-        return (tiers[w.lower()], rank.get(w.lower(), NO_RANK), w.lower())
+        # 단계는 숫자로 비교한다(4 = 학술·격식 말, 맨 뒤)
+        return (int(tiers[w.lower()]), rank.get(w.lower(), NO_RANK), w.lower())
 
     usable = [w for w in candidates if tiers[w.lower()] != "x"]
     a1 = [w for w in usable if level[w.lower()] == "A1"]
+    a1_tier4 = [w for w in a1 if tiers[w.lower()] == "4"]
+    if a1_tier4:  # A1은 어차피 전부 뽑히므로 4단계를 쓰지 않는다
+        print(f"검사 실패:\n  4단계인 A1 {a1_tier4[:10]}")
+        sys.exit(1)
     a2 = sorted((w for w in usable if level[w.lower()] == "A2"), key=order)
     if len(a1) + len(a2) < total or len(a1) > total:
         print(f"검사 실패:\n  쓸 수 있는 후보 A1 {len(a1)} · A2 {len(a2)}개(필요 {total})")
