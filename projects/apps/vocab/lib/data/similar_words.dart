@@ -171,6 +171,7 @@ const List<(String, String)> similarWordPairs = [
   ('certain', 'clear'),
   ('certain', 'positive'), // 확실한 / 확신하는
   ('though', 'however'),
+  ('however', 'although'), // 하지만 / ~이긴 하지만(5단계 표본 검토)
   ('cigarette', 'smoke'),
   ('cigarette', 'smoking'),
   ('petrol', 'fuel'),

@@ -146,3 +146,29 @@ w-2847|meaning|인식, 자각|관심은 interest·concern(관심사)의 뜻이�
 w-2827|exampleMeaning|기상 조건이 유리해서 로켓은 계획대로 발사되었다.|날씨가 좋아서는 favorable(유리한)의 뜻이 안 드러남
 w-2910|exampleMeaning|나는 그가 이미 답을 알면서도 우리에게 말하기 싫어하는 거라고 짐작한다.|~것 같다고 나는 짐작한다는 겹말이라 어색함
 w-2991|exampleMeaning|새로운 곳을 여행하는 것은 다른 문화에 대한 이해를 풍요롭게 할 수 있다.|이해가 깊어지다는 enrich(풍요롭게 하다)의 뜻이 안 드러남
+# --- 고등 5단계 표본 60줄(seed 20261125) 두 축 검토(2026-11-24, 의도 COMMENT · 표준 COMMENT) — 사용자 결정 "모두 적용" ---
+w-2023|meaning|기초, 기지, ~에 근거를 두다|be based on(~에 근거를 두다)은 수능 독해 핵심인데 빠짐. (야구의) 베이스는 쓸모가 낮음(의도 축)
+w-2691|meaning|풀어 주다, 방출하다, 공개하다|동사 둘 뒤에 명사 출시가 섞였고, 수능 지문(에너지·호르몬)의 방출하다가 빠짐(의도 축)
+w-1746|meaning|도전, 도전하다, 이의를 제기하다|동사 challenge의 수능 핵심 이의를 제기하다 누락(의도 축). 어려운 과제는 같은 칸 task(과제)와 붙어 보임(표준 축)
+w-1746|exampleMeaning|바이올린 연주를 배우는 것은 나에게 정말 큰 도전이었다.|위 뜻에 맞춤
+w-2446|meaning|깊은 인상을 주다, 감동시키다|감명을 주다까지 셋이 사실상 같은 말. 감명은 impression·impressive와도 붙어 보임(표준 축)
+w-2818|meaning|긴장(감), 팽팽함|긴장과 긴장감은 같은 말을 두 번 적은 것(표준 축)
+w-2372|meaning|긴급한, 시급한|다급한까지 셋이 사실상 같은 말(표준 축)
+w-2372|exampleMeaning|긴급한 일이니 되도록 빨리 다시 전화해 줘.|해석에 뜻 칸의 말이 드러나게
+w-1653|example|Gyeongbokgung was built as a home for the royal family of Joseon.|royal palace는 굳은 말(궁궐)이라 왕의·왕실의가 해석에 드러나지 않음(표준 축)
+w-1653|exampleMeaning|경복궁은 조선 왕실의 거처로 지어졌다.|위 예문에 맞춤
+w-1732|example|Eating rice cake soup on Lunar New Year's Day is a Korean tradition.|New Year's Day는 보통 양력 1월 1일이라 해석의 설날(음력)과 어긋남(의도 축)
+w-2885|meaning|고립, 격리, 고립감|외로움은 loneliness의 뜻(의도 축)
+w-2668|meaning|대안, 대체의|대체 가능한은 replaceable에 가까움(의도 축)
+w-1983|exampleMeaning|비가 오고 있었지만 우리는 어쨌든 등산을 가기로 했다.|그래도는 anyway의 번역인데 뜻 칸에도 있어 though = 그래도로 오해됨(의도 축)
+w-2328|meaning|너그러운, (인심이) 후한|너그러운과 관대한이 같은 말. 해석의 인심이 후해서와 맞춤(표준 축)
+w-2436|meaning|질투하는, 시기하는|샘내는까지 셋이 같은 말(표준 축)
+w-1788|meaning|충격, 충격을 주다|놀라게 하다와 충격을 주다가 같은 동사 뜻(표준 축)
+w-2388|meaning|잠시 멈추다, 일시 정지|잠시 멈춤과 일시 정지가 같은 명사 뜻(표준 축)
+w-2469|meaning|순례자|성지 참배자는 순례자를 풀어 쓴 말(표준 축)
+w-1932|exampleMeaning|나는 오늘 점심으로 구운 생선과 밥을 먹었다.|생선구이에는 뜻 칸의 구운이 드러나지 않음(표준 축)
+w-2638|exampleMeaning|그 도시는 낡은 경유 트럭을 금지한 뒤 대기 오염이 감소했다.|뜻 칸의 감소가 드러나게(표준 축)
+w-2462|exampleMeaning|선생님은 퀴즈에 대한 우리의 웃긴 답을 재미있어하는 듯했다.|funny는 엉뚱한이 아니라 웃긴(의도 축)
+w-2325|exampleMeaning|허락 없이 남의 일기를 읽는 것은 사생활 침해다.|without asking의 자연스러운 번역(의도 축)
+w-2510|exampleMeaning|다리가 수리 공사로 막혔고, 따라서 운전자들은 더 먼 길로 돌아가야 했다.|수리로 막혔고는 어색함(의도 축)
+# w-2903 acknowledge의 (받았음을) 알리다(의도 축 제안)는 적용하지 않음 — 앞 검토(high_hard 301~500)가 inform(알리다)과 붙어 보여 뺀 뜻
