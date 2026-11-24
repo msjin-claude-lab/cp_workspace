@@ -45,6 +45,13 @@
 
 ## 마지막 결과
 
+- **2026-11-24 밤 개인 PC — 3차 고등 1,500개 + DB 10판**(커밋 `b05d702` 내용)
+  - 재현: 원본 두 파일 SHA-256 README와 일치(`select.py`가 다르면 종료 코드 1) → `select.py --stage elementary|middle|high` 세 번 뒤 `git diff --exit-code -- 'docs/wordlist/*.csv'` 0, `cells.py --stage elementary|middle|high check --full` 9칸 문제 0건(267 · 267 · 266 / 234 · 233 · 233 / 500 · 500 · 500). `12a9766`과 초등·중등 1,500쌍 번호→영단어 같음(스크립트, 다르면 종료 코드 1)
+  - `flutter analyze` "No issues found", `flutter test` "All tests passed"(**170개** — 번호 형식 `w-\d{4}`만, 앱 정보 문구에 "초·중등" 없음 포함), `flutter build apk --debug` "Built …app-debug.apk"(`build/app/outputs` 지운 뒤 23:06 새로 생김, 171,610,280바이트)
+  - **에뮬레이터: 통과**(설치 전 기기 DB 사본 `D:\dev\tmp\vocab_db_backup\before_v10\vocab.db`에서 남아야 할 줄 수를 따로 계산 → `adb install -r` → 실행 뒤 `after_v10.db`): `user_version` 9 → 10, `study_log` 60 → 1(옛 고등 `hh-` 59줄 삭제 — 계산값과 같음), `quiz_log` 20 · `wrong_notes` 14 그대로, 옛 번호 줄 0, 단어장 5개 그대로
+  - 화면(adb로 누름, 접근성 노드 — 사람이 직접 써 본 것은 아니다): 새 등록 → 고등 → 난이도 버튼 `쉬움 / 500단어` · `중간 / 500단어` · `어려움 / 500단어` → 단어장 `hi1` 홈 `고등 [난이도 : 어려움]` · `500단어` / 카드 학습 `1 / 50` `association`, 뒷면 `협회, 연관, 연상` / 시험 `1 / 20` 뜻 고르기(`rely`) / 앱 정보 "단어 출처" 문구 `단어의 선정과 난이도 구분은 …`. logcat의 flutter 오류 0건
+  - **안 본 것**: 고등 쉬움·중간 칸의 카드·시험, 진도 화면, 소리, 처음 설치의 시작 화면(사용자 결정 — 고등 작업 뒤 보류였으니 이제 물을 것). 확인용 단어장 `hi1`(고등 어려움)은 지우지 않았고 지금 홈이다
+
 - **2026-11-24 저녁 개인 PC — 2차 중등 700개 + DB 9판**(커밋 `ea83d5f` 내용)
   - `flutter analyze` "No issues found", `flutter test` "All tests passed"(**169개**), `flutter build apk --debug` "Built …app-debug.apk"(19:58 새로 생김, 201,246,681바이트, Gradle 31초). 세 명령을 한 줄로 이어 돌려 종료 코드는 마지막(빌드) 0만 잡았다 — 앞의 둘은 출력 문구로 판정. `build/app/outputs`를 먼저 지우지는 않았다(파일 시각으로 확인). 사내망 PC에서 막혔던 debug 빌드(Android용 sqlite3 파일)는 개인 PC에서 그냥 된다
   - **에뮬레이터 시작 상태가 인계와 달랐다**: 기기 DB가 8판이 아니라 **7판**(앱 설치 시각 2026-11-23 21:58, `study_log` 147 · `quiz_log` 62 · `wrong_notes` 1 — 11-23 밤 8판 설치 전과 같은 숫자). 에뮬레이터가 이전 스냅샷으로 되돌아간 것으로 추정(원인 확인 안 함). 그래서 이번 설치는 7 → 8 → 9판을 한 번에 탔다

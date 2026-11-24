@@ -1,6 +1,6 @@
 # 단어 늘리기 3차 — 고등 1,500개 (CEFR-J 기준) + 4차 심화의 자리
 
-상태: **승인됨**(2026-11-24 개인 PC, 사용자 — `/oh-my-claudecode:plan` 인터뷰 → critic REVISE → 재검토 APPROVE. 실행은 아직 시작하지 않았다)
+상태: **끝남**(2026-11-24 밤 개인 PC — 1~6단계 완료. 승인: `/oh-my-claudecode:plan` 인터뷰 → critic REVISE → 재검토 APPROVE. 결과 기록은 [../VERIFY.md](../VERIFY.md) "마지막 결과", 과정은 [../HANDOFF.md](../HANDOFF.md) 진행 이력)
 
 2차 [plan-words-phase2.md](plan-words-phase2.md)와 같은 방식이다. 선정 규칙·자료·이용 조건은 [wordlist/README.md](wordlist/README.md). 기준 커밋(작업 전): **`12a9766`**.
 

@@ -192,18 +192,23 @@ def read_tiers(name, candidates, allowed):
     path = OUT / name
     if not path.exists():
         return None
+    seen, duplicated = set(), []
     for word, tier, reason, *rest in read_rows(path):
-        tiers[word.lower()] = tier
-        reasons[word.lower()] = reason
-        extra[word.lower()] = rest[0] if rest else ""
+        key = word.lower()
+        if key in seen:
+            duplicated.append(word)  # 뒤 줄이 앞 줄을 소리 없이 덮어쓰면 뽑기가 바뀐다
+        seen.add(key)
+        tiers[key] = tier
+        reasons[key] = reason
+        extra[key] = rest[0] if rest else ""
     unknown = sorted(set(tiers) - {w.lower() for w in candidates})
     untiered = [w for w in candidates if w.lower() not in tiers]
     bad = sorted(w for w, t in tiers.items() if t not in allowed)
     print(f"{name} {len(tiers)}줄 · 단계 {dict(sorted(Counter(tiers.values()).items()))}")
-    if unknown or untiered or bad:
+    if unknown or untiered or bad or duplicated:
         print(
             f"검사 실패:\n  후보에 없는 단어 {unknown[:10]}\n  단계가 없는 후보 {untiered[:10]}\n"
-            f"  쓸 수 없는 단계({'·'.join(allowed)} 밖) {bad[:10]}"
+            f"  쓸 수 없는 단계({'·'.join(allowed)} 밖) {bad[:10]}\n  두 줄 이상인 단어 {duplicated[:10]}"
         )
         sys.exit(1)
     return tiers, reasons, extra
@@ -437,6 +442,8 @@ def high(args, kept):
     # A1·A2는 전부 뽑히므로 단계는 기록용 — 4를 쓰지 않는다
     a12_tier4 = sorted(w for w, t in tiers.items() if t == "4" and level[w] in ("A1", "A2"))
     # 중등에서 "어린이 앱에 부적절"로 x였던 단어는 고등에 넣는다(2026-11-24 사용자 결정)
+    if not (OUT / "tiers-middle.csv").exists():
+        sys.exit("tiers-middle.csv가 없다 — 중등 단계 파일은 저장소에 있다(먼저 --stage middle로 확인한다)")
     middle_x = {r[0].lower() for r in read_rows(OUT / "tiers-middle.csv") if r[1] == "x"}
     still_x = sorted(w for w in middle_x if tiers.get(w) == "x")
     if a12_tier4 or still_x:

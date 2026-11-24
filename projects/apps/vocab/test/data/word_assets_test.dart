@@ -24,8 +24,9 @@ const _expectedCount = {
 };
 
 /// 단어를 묶음으로 나눠 넣는 중인 칸 — 이 칸만 개수를 "0개 이상, 기대값 이하"로 본다.
-/// 나머지 칸은 늘 정확히 기대값이다. 마지막 묶음을 넣은 뒤 빈 집합으로 바꿔
-/// "정확히 기대값"을 확인한다(docs/plan-words-phase3.md 3·4단계).
+/// 나머지 칸은 늘 정확히 기대값이다. 지금은 비어 있다(초·중·고 3,000개 입력 끝) — 다음 차수(4차 심화)에서
+/// 묶음으로 넣는 동안 그 칸을 여기에 두고, 마지막 묶음 뒤 다시 비운다(docs/plan-words-phase3.md 3·4단계 방식).
+/// 옛 번호가 섞이는 것은 아래 번호 형식 검사(`w-\d{4}`만)가 잡는다.
 const _filling = <Cell>{};
 
 /// 단어 번호: 칸과 무관한 새 번호(`w-0001`)만. 예전 칸별 번호(`ee-001` 등)는 초·중·고 모두
@@ -84,16 +85,6 @@ void main() {
     final ids = <String, String>{};
     for (final cell in Cell.values) {
       final words = _read(cell);
-      // 채우는 중인 칸은 옛 번호만이거나(작업 전) 새 번호만이어야 한다 — 옛 단어를 지우지 않고
-      // 새 묶음을 덧붙이면 여기서 잡힌다(DB 10판이 옛 고등 번호의 기록을 지우므로)
-      if (_filling.contains(cell)) {
-        final kinds = words.map((w) => w.id.startsWith('w-')).toSet();
-        expect(
-          kinds.length,
-          lessThanOrEqualTo(1),
-          reason: '${cell.id}: 옛 번호와 새 번호(w-)가 섞였다',
-        );
-      }
       for (var i = 0; i < words.length; i++) {
         final w = words[i];
         expect(_idPattern.hasMatch(w.id), isTrue, reason: '${cell.id} ${w.id}');
