@@ -20,13 +20,11 @@ fact,A2,207,1,1,high_easy,일반 명사
 control,A2,209,1,1,high_easy,일반 동사
 value,A2,213,1,1,high_easy,일반 명사
 department,B1,215,1,1,high_easy,일반 명사
-interest,A2,219,1,1,high_easy,일반 명사
 area,A2,222,1,1,high_easy,일반 명사
 war,A1,228,1,1,high_easy,중등에서 뺀 말 — 고등에 넣음
 land,A2,234,1,1,high_easy,일반 명사
 among,A2,236,1,1,high_easy,연결어·전치사
 education,A2,243,1,1,high_easy,일반 명사
-certain,A2,245,1,1,high_easy,일반 형용사
 possible,A2,255,1,1,high_easy,일반 형용사
 local,A2,271,1,1,high_easy,일반 형용사
 necessary,A2,275,1,1,high_easy,일반 형용사
@@ -70,7 +68,6 @@ perhaps,A2,497,1,1,high_easy,부사
 quite,A2,508,1,1,high_easy,부사
 population,A2,522,1,1,high_easy,일반 명사
 include,A2,527,1,1,high_easy,일반 동사
-respect,B1,536,1,1,high_easy,일반 동사
 medical,A2,540,1,1,high_easy,일반 형용사
 clear,A2,543,1,1,high_easy,일반 형용사
 main,B1,544,1,1,high_easy,일반 형용사
@@ -113,7 +110,6 @@ goods,B1,810,1,1,high_easy,일반 명사
 basic,A2,821,1,1,high_easy,일반 형용사
 importance,A2,825,1,1,high_easy,추상 명사
 discussion,A2,834,1,1,high_easy,일반 명사
-iron,B1,839,3,1,high_easy,뜻이 여럿인 말
 relationship,B1,843,1,1,high_easy,일반 명사
 seem,A2,852,1,1,high_easy,일반 동사
 soil,B1,854,1,1,high_easy,자연·동물
@@ -123,18 +119,13 @@ text,A2,905,1,1,high_easy,일반 명사
 simply,A2,914,1,1,high_easy,부사
 immediately,B1,915,1,1,high_easy,부사
 distance,B1,916,1,1,high_easy,일반 명사
-steel,B1,919,3,1,high_easy,일상 구체 명사
 clearly,A2,922,1,1,high_easy,부사
 safety,B1,931,1,1,high_easy,일반 명사
-upper,B1,934,3,1,high_easy,일반 형용사
 truth,A2,953,1,1,high_easy,일반 명사
-coal,B1,961,3,1,high_easy,일상 구체 명사
 active,B1,964,1,1,high_easy,일반 형용사
 contact,A2,966,1,1,high_easy,일반 명사
-net,A2,969,2,1,high_easy,일상 구체 명사
 opportunity,A2,980,1,1,high_easy,일반 명사
 meaning,A2,992,1,1,high_easy,일반 명사
-southern,B1,996,3,1,high_easy,일반 형용사
 certainly,A2,998,1,1,high_easy,부사
 failure,B1,1000,1,1,high_easy,일반 명사
 separate,A2,1003,1,1,high_easy,일반 동사
@@ -145,35 +136,26 @@ daily,A2,1038,1,1,high_easy,일반 형용사
 professor,B1,1065,1,1,high_easy,사람·직업
 ability,A2,1080,1,1,high_easy,추상 명사
 positive,B1,1092,1,1,high_easy,일반 형용사
-remain,A2,1097,1,1,high_easy,일반 동사
 professional,A2,1101,1,1,high_easy,일반 형용사
-hearing,B1,1109,3,1,high_easy,일반 명사
 behavior,A2,1116,1,1,high_easy,일반 명사
 effort,A2,1119,1,1,high_easy,추상 명사
 serious,B1,1121,1,1,high_easy,일반 형용사
 sample,A2,1126,2,1,high_easy,일반 명사
 transportation,B1,1131,1,1,high_easy,일반 명사
 rise,B1,1134,1,1,high_easy,일반 동사
-northern,B1,1138,3,1,high_easy,일반 형용사
 metal,A2,1139,1,1,high_easy,일상 구체 명사
 offer,A2,1147,1,1,high_easy,일반 동사
 expression,A2,1164,1,1,high_easy,일반 명사
-attempt,A2,1165,1,1,high_easy,일반 동사
 error,A2,1167,1,1,high_easy,일반 명사
 regular,A2,1178,1,1,high_easy,일반 형용사
 bar,A1,1181,1,1,high_easy,중등에서 뺀 말 — 고등에 넣음
 prevent,A2,1182,1,1,high_easy,일반 동사
 develop,A2,1196,1,1,high_easy,일반 동사
-motor,B1,1201,3,1,high_easy,일상 구체 명사
 ordinary,B1,1217,1,1,high_easy,일반 형용사
-square,A2,1220,1,1,high_easy,일반 명사
-teaching,B1,1235,3,1,high_easy,일반 명사
-foot,B1,1244,3,1,high_easy,뜻이 여럿인 말
-eastern,B1,1264,3,1,high_easy,일반 형용사
+foot,B1,1244,1,1,high_easy,기본어 — 초·중등에 없음
 royal,A2,1285,2,1,high_easy,일반 형용사
 task,A2,1290,1,1,high_easy,일반 명사
 image,A2,1293,1,1,high_easy,일반 명사
-railway,B1,1300,3,1,high_easy,일상 구체 명사
 freedom,A2,1308,1,1,high_easy,추상 명사
 double,A2,1326,1,1,high_easy,일반 형용사
 completely,B1,1332,1,1,high_easy,부사
@@ -187,11 +169,11 @@ reach,A2,1393,1,1,high_easy,일반 동사
 fuel,B1,1401,1,1,high_easy,일반 명사
 female,A2,1413,1,1,high_easy,일반 형용사
 network,B1,1438,1,1,high_easy,일반 명사
+season,B1,1440,1,1,high_easy,기본어 — 초·중등에 없음
 usual,A2,1443,1,1,high_easy,일반 형용사
 ancient,A2,1462,1,1,high_easy,일반 형용사
 marriage,B1,1469,1,1,high_easy,일반 명사
 male,A2,1470,1,1,high_easy,일반 형용사
-race,B1,1474,1,1,high_easy,뜻이 여럿인 말
 reduce,B1,1480,1,1,high_easy,일반 동사
 kingdom,A2,1489,2,1,high_easy,일반 명사
 stress,B1,1501,1,1,high_easy,감정·상태 말
@@ -203,7 +185,6 @@ waste,B1,1529,1,1,high_easy,일반 동사
 guide,B1,1531,1,1,high_easy,사람·직업
 skin,B1,1543,1,1,high_easy,일상 구체 명사
 express,A2,1556,1,1,high_easy,일반 동사
-van,B1,1565,3,1,high_easy,일상 구체 명사
 clerk,A2,1621,2,1,high_easy,사람·직업
 experiment,B1,1643,1,1,high_easy,일반 명사
 competition,A2,1648,1,1,high_easy,일반 명사
@@ -220,7 +201,6 @@ detail,A2,1728,1,1,high_easy,일반 명사
 enemy,B1,1729,1,1,high_easy,일반 명사
 crime,A2,1730,1,1,high_easy,사회·경제 주제
 valuable,B1,1776,1,1,high_easy,일반 형용사
-instrument,A2,1783,1,1,high_easy,일상 구체 명사
 height,B1,1786,1,1,high_easy,일반 명사
 delivery,B1,1801,1,1,high_easy,일반 명사
 wave,A2,1811,1,1,high_easy,일반 명사
@@ -263,7 +243,6 @@ achieve,A2,2246,1,1,high_easy,추상 동사
 oxygen,B1,2266,1,1,high_easy,과학·학술 말
 naturally,B1,2276,1,1,high_easy,부사
 delay,A2,2306,1,1,high_easy,일반 동사
-debate,A2,2343,1,1,high_easy,일반 명사
 ahead,A2,2356,1,1,high_easy,부사
 permission,A2,2359,1,1,high_easy,일반 명사
 truly,A2,2360,1,1,high_easy,부사
@@ -285,7 +264,6 @@ fail,A2,2556,1,1,high_easy,일반 동사
 option,B1,2557,1,1,high_easy,일반 명사
 raw,A2,2575,2,1,high_easy,일반 형용사
 depend,A2,2576,1,1,high_easy,일반 동사
-handle,A2,2594,1,1,high_easy,일반 동사
 abroad,A2,2602,1,1,high_easy,부사
 entrance,A2,2661,1,1,high_easy,일상 구체 명사
 weekly,A2,2673,2,1,high_easy,일반 형용사
@@ -333,7 +311,6 @@ dam,A2,3488,3,1,high_easy,일상 구체 명사
 satisfy,A2,3497,1,1,high_easy,일반 동사
 honest,B1,3499,1,1,high_easy,일반 형용사
 finger,B1,3506,1,1,high_easy,일상 구체 명사
-hidden,B1,3548,1,1,high_easy,일반 형용사
 manage,A2,3553,1,1,high_easy,일반 동사
 universe,B1,3582,1,1,high_easy,과학·학술 말
 curious,B1,3586,1,1,high_easy,일반 형용사
@@ -360,7 +337,6 @@ hunt,B1,4153,1,1,high_easy,일반 동사
 lab,B1,4192,1,1,high_easy,일상 구체 명사
 correctly,A2,4198,2,1,high_easy,파생 부사·형용사
 calm,B1,4206,1,1,high_easy,일반 형용사
-succeed,A2,4243,1,1,high_easy,일반 동사
 loud,B1,4301,1,1,high_easy,일반 형용사
 reward,B1,4348,1,1,high_easy,일반 명사
 disaster,B1,4364,1,1,high_easy,일반 명사
@@ -439,17 +415,10 @@ embarrassed,B1,9306,1,1,high_easy,감정·상태 말
 killer,A2,9374,2,1,high_easy,사람·직업
 recycling,B1,9694,1,1,high_easy,일반 명사
 ingredient,B1,9820,1,1,high_easy,음식
-robot,B1,9911,1,1,high_easy,일상 구체 명사
-wrap,B1,10202,1,1,high_easy,일반 동사
-ambulance,B1,10647,1,1,high_easy,일상 구체 명사
-puzzle,B1,10760,1,1,high_easy,일반 명사
-talented,B1,10857,1,1,high_easy,일반 형용사
-passport,B1,10877,1,1,high_easy,일상 구체 명사
 unimportant,A2,10913,3,1,high_easy,반대말 파생어
 euro,A2,10994,3,1,high_easy,일반 명사
 cop,A1,11029,1,1,high_easy,중등에서 뺀 말 — 고등에 넣음
 champagne,A2,11122,3,1,high_easy,음식
-actress,B1,11541,1,1,high_easy,사람·직업
 petrol,A2,11605,3,1,high_easy,영국 생활 말
 orphan,A2,11868,2,1,high_easy,사람·직업
 pal,A2,12103,3,1,high_easy,구어 말
@@ -459,12 +428,9 @@ unhealthy,A2,13657,2,1,high_easy,반대말 파생어
 angrily,A2,13694,2,1,high_easy,파생 부사·형용사
 cassette,A2,13875,3,1,high_easy,일상 구체 명사
 blonde,A2,14052,3,1,high_easy,일반 형용사
-stressful,B1,16157,1,1,high_easy,일반 형용사
 overweight,A2,17336,2,1,high_easy,일반 형용사
 tram,A2,18110,3,1,high_easy,일상 구체 명사
-scary,B1,18211,1,1,high_easy,일반 형용사
 bra,A2,18359,3,1,high_easy,일상 구체 명사
-teamwork,B1,18758,1,1,high_easy,일반 명사
 flea,A2,19175,3,1,high_easy,자연·동물
 grilled,A2,21099,3,1,high_easy,음식
 receptionist,A2,22204,2,1,high_easy,사람·직업
@@ -474,7 +440,6 @@ bookshop,A2,23815,3,1,high_easy,일상 구체 명사
 sightseeing,A2,24609,2,1,high_easy,운동·여가
 unforgettable,A2,25125,2,1,high_easy,반대말 파생어
 disco,A2,25297,3,1,high_easy,일상 구체 명사
-memorize,B1,25634,1,1,high_easy,일반 동사
 surfing,A2,25939,2,1,high_easy,운동·여가
 motorway,A2,26214,3,1,high_easy,영국 생활 말
 astronaut,A2,26286,2,1,high_easy,사람·직업
@@ -484,7 +449,6 @@ handbag,A2,27566,3,1,high_easy,일상 구체 명사
 bookcase,A2,28844,3,1,high_easy,일상 구체 명사
 drugstore,A2,30631,3,1,high_easy,일상 구체 명사
 escalator,A2,31031,3,1,high_easy,일상 구체 명사
-firefighter,B1,31107,1,1,high_easy,사람·직업
 spaceship,A2,32760,3,1,high_easy,일상 구체 명사
 tights,A2,34718,3,1,high_easy,일상 구체 명사
 superstar,A2,35525,3,1,high_easy,사람·직업
@@ -501,51 +465,56 @@ skateboarding,A2,58873,3,1,high_easy,운동·여가
 snowboarding,A2,59153,3,1,high_easy,운동·여가
 schoolchild,A2,69386,3,1,high_easy,사람·직업
 penfriend,A2,133005,3,1,high_easy,합성어
-good-looking,A2,,2,1,high_medium,일반 형용사
-half-price,A2,,3,1,high_medium,합성어
-headteacher,A2,,3,1,high_medium,영국 생활 말
-left-hand,A2,,3,1,high_medium,합성어
-make-up,A2,,2,1,high_medium,일상 구체 명사
-right-hand,A2,,3,1,high_medium,합성어
-washing-up,A2,,3,1,high_medium,영국 생활 말
-well-known,A2,,1,1,high_medium,일반 형용사
-used,A2,114,1,2,high_medium,뜻이 여럿인 말
-act,A2,126,1,2,high_medium,뜻이 여럿인 말
-while,A2,139,1,2,high_medium,연결어·전치사
-against,A2,152,1,2,high_medium,연결어·전치사
-since,A2,173,1,2,high_medium,연결어·전치사
-last,B1,181,3,2,high_medium,뜻이 여럿인 말
-whether,B1,229,1,2,high_medium,연결어·전치사
-though,A2,256,1,2,high_medium,연결어·전치사
-amount,B1,263,1,2,high_medium,일반 명사
-available,B1,313,1,2,high_medium,일반 형용사
-economic,B1,341,1,2,high_medium,사회·경제 주제
-trade,A2,363,1,2,high_medium,사회·경제 주제
-view,A2,372,1,2,high_medium,뜻이 여럿인 말
-district,B1,376,3,2,high_medium,일반 명사
-tax,B1,389,1,2,high_medium,사회·경제 주제
-secretary,A2,420,2,2,high_medium,사람·직업
-major,A2,443,1,2,high_medium,일반 형용사
-surface,B1,449,2,2,high_medium,일반 명사
-income,B1,453,1,2,high_medium,사회·경제 주제
-nor,B1,494,1,2,high_medium,연결어·전치사
-construction,B1,496,1,2,high_medium,일반 명사
-growth,B1,501,1,2,high_medium,일반 명사
-except,A2,509,1,2,high_medium,연결어·전치사
-series,B1,510,1,2,high_medium,일반 명사
-capital,A2,526,1,2,high_medium,뜻이 여럿인 말
+good-looking,A2,,2,1,high_easy,일반 형용사
+half-price,A2,,3,1,high_easy,합성어
+headteacher,A2,,3,1,high_easy,영국 생활 말
+left-hand,A2,,3,1,high_easy,합성어
+make-up,A2,,2,1,high_easy,일상 구체 명사
+right-hand,A2,,3,1,high_easy,합성어
+washing-up,A2,,3,1,high_easy,영국 생활 말
+well-known,A2,,1,1,high_easy,일반 형용사
+used,A2,114,1,2,high_easy,뜻이 여럿인 말
+act,A2,126,1,2,high_easy,뜻이 여럿인 말
+while,A2,139,1,2,high_easy,연결어·전치사
+against,A2,152,1,2,high_easy,연결어·전치사
+within,A2,156,1,2,high_easy,연결어·전치사
+since,A2,173,1,2,high_easy,연결어·전치사
+interest,A2,219,1,2,high_easy,일반 명사
+whether,B1,229,1,2,high_easy,연결어·전치사
+certain,A2,245,1,2,high_easy,일반 형용사
+effect,A2,254,1,2,high_easy,추상 명사
+though,A2,256,1,2,high_easy,연결어·전치사
+amount,B1,263,1,2,high_easy,일반 명사
+rate,A2,270,1,2,high_easy,일반 명사
+available,B1,313,1,2,high_easy,일반 형용사
+economic,B1,341,1,2,high_easy,사회·경제 주제
+trade,A2,363,1,2,high_easy,사회·경제 주제
+view,A2,372,1,2,high_easy,뜻이 여럿인 말
+tax,B1,389,1,2,high_easy,사회·경제 주제
+secretary,A2,420,2,2,high_easy,사람·직업
+major,A2,443,1,2,high_easy,일반 형용사
+surface,B1,449,2,2,high_easy,일반 명사
+income,B1,453,1,2,high_easy,사회·경제 주제
+nor,B1,494,1,2,high_easy,연결어·전치사
+construction,B1,496,1,2,high_easy,일반 명사
+growth,B1,501,1,2,high_easy,일반 명사
+except,A2,509,1,2,high_easy,연결어·전치사
+series,B1,510,1,2,high_easy,일반 명사
+capital,A2,526,1,2,high_easy,뜻이 여럿인 말
 generally,B1,528,2,2,high_medium,부사
+respect,B1,536,1,2,high_medium,일반 동사
 addition,A2,551,2,2,high_medium,추상 명사
 structure,A2,560,1,2,high_medium,일반 명사
+range,A2,564,1,2,high_medium,일반 명사
 equipment,B1,596,1,2,high_medium,일반 명사
 direct,A2,611,1,2,high_medium,일반 형용사
 limited,B1,627,1,2,high_medium,일반 형용사
-chief,B1,639,3,2,high_medium,일반 형용사
-insurance,B1,642,3,2,high_medium,사회·경제 주제
+source,A2,628,1,2,high_medium,일반 명사
+insurance,B1,642,2,2,high_medium,검토로 올림 — 수능·교과서 빈출
 original,A2,647,1,2,high_medium,일반 형용사
-journal,B1,661,3,2,high_medium,일반 명사
 developed,A2,664,2,2,high_medium,일반 형용사
 physical,A2,685,1,2,high_medium,일반 형용사
+toward,A2,689,1,2,high_medium,연결어·전치사
 particularly,B1,701,2,2,high_medium,부사
 unit,A2,714,1,2,high_medium,일반 명사
 chairman,A2,716,2,2,high_medium,사람·직업
@@ -553,6 +522,7 @@ region,B1,719,1,2,high_medium,일반 명사
 staff,A2,751,2,2,high_medium,일반 명사
 likely,A2,756,1,2,high_medium,일반 형용사
 movement,B1,766,1,2,high_medium,일반 명사
+beyond,A2,769,1,2,high_medium,연결어·전치사
 base,A2,772,2,2,high_medium,뜻이 여럿인 말
 consider,A2,776,1,2,high_medium,추상 동사
 proper,A2,777,2,2,high_medium,일반 형용사
@@ -561,44 +531,45 @@ rest,B1,806,1,2,high_medium,뜻이 여럿인 말
 flow,B1,848,1,2,high_medium,일반 명사
 previous,B1,866,2,2,high_medium,일반 형용사
 risk,B1,883,1,2,high_medium,일반 명사
-prepared,B1,893,3,2,high_medium,일반 형용사
 cell,B1,894,2,2,high_medium,뜻이 여럿인 말
 spirit,B1,895,1,2,high_medium,뜻이 여럿인 말
 directly,B1,904,2,2,high_medium,부사
 deal,A2,943,1,2,high_medium,뜻이 여럿인 말
 aid,B1,946,2,2,high_medium,일반 명사
-engineering,B1,947,3,2,high_medium,일반 명사
 connection,B1,959,1,2,high_medium,일반 명사
 progress,B1,962,1,2,high_medium,일반 명사
 nation,A2,965,1,2,high_medium,일반 명사
+net,A2,969,2,2,high_medium,일상 구체 명사
 strength,A2,973,1,2,high_medium,일반 명사
 literature,B1,979,1,2,high_medium,일반 명사
 religious,B1,990,2,2,high_medium,일반 형용사
 apply,A2,1001,1,2,high_medium,뜻이 여럿인 말
 balance,B1,1004,1,2,high_medium,일반 명사
 chemical,A2,1014,2,2,high_medium,과학·학술 말
-examination,B1,1027,3,2,high_medium,일반 명사
-maximum,B1,1040,3,2,high_medium,일반 명사
+maximum,B1,1040,2,2,high_medium,검토로 올림 — 수능·교과서 빈출
 request,A2,1054,1,2,high_medium,일반 명사
 environmental,B1,1063,1,2,high_medium,일반 형용사
 educational,A2,1084,2,2,high_medium,일반 형용사
 historical,B1,1087,2,2,high_medium,일반 형용사
+economy,B1,1089,1,2,high_medium,사회·경제 주제
 scientific,A2,1096,1,2,high_medium,일반 형용사
+remain,A2,1097,1,2,high_medium,일반 동사
 introduction,B1,1118,2,2,high_medium,일반 명사
 practical,B1,1136,2,2,high_medium,일반 형용사
 agent,A2,1150,2,2,high_medium,사람·직업
 communication,A2,1156,1,2,high_medium,일반 명사
 highly,B1,1158,2,2,high_medium,부사
 agriculture,B1,1162,1,2,high_medium,사회·경제 주제
+attempt,A2,1165,1,2,high_medium,일반 동사
 entirely,B1,1179,2,2,high_medium,부사
 cultural,B1,1180,1,2,high_medium,일반 형용사
 election,B1,1188,1,2,high_medium,사회·경제 주제
-minimum,B1,1192,3,2,high_medium,일반 명사
+minimum,B1,1192,2,2,high_medium,검토로 올림 — 수능·교과서 빈출
 lack,A2,1197,1,2,high_medium,일반 명사
 reasonable,B1,1199,1,2,high_medium,일반 형용사
+variety,B1,1203,1,2,high_medium,일반 명사
 mark,A2,1213,2,2,high_medium,뜻이 여럿인 말
-leading,B1,1239,3,2,high_medium,일반 형용사
-regional,B1,1248,3,2,high_medium,일반 형용사
+square,A2,1220,1,2,high_medium,일반 명사
 frequently,B1,1254,2,2,high_medium,부사
 responsible,B1,1265,1,2,high_medium,일반 형용사
 improvement,B1,1277,1,2,high_medium,일반 명사
@@ -607,12 +578,12 @@ branch,A2,1295,2,2,high_medium,뜻이 여럿인 말
 religion,B1,1317,2,2,high_medium,일반 명사
 lay,B1,1320,2,2,high_medium,뜻이 여럿인 말
 mental,B1,1329,2,2,high_medium,일반 형용사
-investigation,B1,1336,3,2,high_medium,일반 명사
+investigation,B1,1336,2,2,high_medium,검토로 올림 — 수능·교과서 빈출
 worth,B1,1353,2,2,high_medium,일반 형용사
 summary,A2,1358,2,2,high_medium,일반 명사
 sort,B1,1372,2,2,high_medium,뜻이 여럿인 말
 negative,A2,1376,1,2,high_medium,일반 형용사
-nuclear,B1,1387,3,2,high_medium,과학·학술 말
+nuclear,B1,1387,2,2,high_medium,검토로 올림 — 수능·교과서 빈출
 conclusion,B1,1394,1,2,high_medium,일반 명사
 till,A2,1398,2,2,high_medium,연결어·전치사
 absence,B1,1403,2,2,high_medium,추상 명사
@@ -620,12 +591,10 @@ advanced,A2,1405,2,2,high_medium,일반 형용사
 laboratory,B1,1411,1,2,high_medium,일상 구체 명사
 pattern,B1,1423,1,2,high_medium,일반 명사
 debt,B1,1430,1,2,high_medium,사회·경제 주제
-session,B1,1436,3,2,high_medium,일반 명사
-season,B1,1440,3,2,high_medium,뜻이 여럿인 말
-opening,B1,1451,3,2,high_medium,일반 명사
-command,B1,1454,3,2,high_medium,일반 명사
+command,B1,1454,2,2,high_medium,검토로 올림 — 수능·교과서 빈출
 appearance,A2,1455,2,2,high_medium,일반 명사
 argument,A2,1472,2,2,high_medium,일반 명사
+race,B1,1474,1,2,high_medium,뜻이 여럿인 말
 native,A2,1476,1,2,high_medium,일반 형용사
 criminal,B1,1479,1,2,high_medium,사람·직업
 slightly,B1,1483,2,2,high_medium,부사
@@ -633,20 +602,17 @@ broad,B1,1490,2,2,high_medium,일반 형용사
 transport,B1,1491,2,2,high_medium,일반 명사
 finding,B1,1492,1,2,high_medium,일반 명사
 setting,B1,1495,2,2,high_medium,일반 명사
-port,B1,1497,3,2,high_medium,일상 구체 명사
-medium,B1,1511,3,2,high_medium,뜻이 여럿인 말
 combination,B1,1512,2,2,high_medium,일반 명사
-proof,B1,1524,3,2,high_medium,일반 명사
-edition,B1,1536,3,2,high_medium,일반 명사
+exist,A2,1515,1,2,high_medium,추상 동사
+proof,B1,1524,2,2,high_medium,검토로 올림 — 수능·교과서 빈출
 definition,B1,1540,2,2,high_medium,일반 명사
 pacific,A2,1548,3,2,high_medium,지명에서 온 말
 soul,B1,1557,1,2,high_medium,일반 명사
-storage,B1,1563,3,2,high_medium,일반 명사
 properly,B1,1566,2,2,high_medium,부사
-selection,B1,1577,3,2,high_medium,일반 명사
 solid,B1,1578,2,2,high_medium,일반 형용사
 largely,B1,1581,2,2,high_medium,부사
 immediate,B1,1588,2,2,high_medium,일반 형용사
+politics,B1,1596,2,2,high_medium,검토로 올림 — 수능·교과서 빈출
 ill,A2,1603,2,2,high_medium,일반 형용사
 instruction,B1,1609,1,2,high_medium,일반 명사
 editor,A2,1616,2,2,high_medium,사람·직업
@@ -655,18 +621,22 @@ preparation,B1,1626,2,2,high_medium,일반 명사
 brief,B1,1646,2,2,high_medium,일반 형용사
 edge,B1,1663,2,2,high_medium,일반 명사
 suitable,A2,1673,2,2,high_medium,일반 형용사
+entry,B1,1680,2,2,high_medium,검토로 올림 — 수능·교과서 빈출
 bay,A2,1682,2,2,high_medium,자연·동물
 signal,B1,1690,2,2,high_medium,일반 명사
 pure,B1,1696,2,2,high_medium,일반 형용사
 load,A2,1716,2,2,high_medium,일반 명사
 fit,A2,1732,1,2,high_medium,뜻이 여럿인 말
+reality,B1,1734,1,2,high_medium,추상 명사
 organized,A2,1737,2,2,high_medium,일반 형용사
 spread,A2,1744,1,2,high_medium,일반 동사
 closely,B1,1750,2,2,high_medium,부사
 expense,B1,1753,2,2,high_medium,일반 명사
+mission,B1,1754,1,2,high_medium,일반 명사
 greatly,A2,1766,2,2,high_medium,부사
 equally,B1,1767,2,2,high_medium,부사
 rapid,B1,1774,2,2,high_medium,일반 형용사
+instrument,A2,1783,1,2,high_medium,일상 구체 명사
 layer,B1,1795,2,2,high_medium,일반 명사
 suppose,B1,1796,1,2,high_medium,일반 동사
 rapidly,B1,1809,2,2,high_medium,부사
@@ -683,6 +653,7 @@ frank,A2,1947,3,2,high_medium,일반 형용사
 column,A2,1948,2,2,high_medium,뜻이 여럿인 말
 obvious,B1,1952,2,2,high_medium,일반 형용사
 formal,B1,1966,2,2,high_medium,일반 형용사
+confidence,B1,1976,1,2,high_medium,추상 명사
 technique,B1,1977,2,2,high_medium,일반 명사
 frame,A2,1999,2,2,high_medium,일상 구체 명사
 fee,A2,2002,2,2,high_medium,일반 명사
@@ -711,13 +682,16 @@ widely,A2,2241,2,2,high_medium,부사
 extreme,B1,2254,2,2,high_medium,일반 형용사
 shot,A2,2259,2,2,high_medium,뜻이 여럿인 말
 license,A2,2285,2,2,high_medium,일반 명사
+commonly,B1,2310,2,2,high_medium,검토로 올림 — 수능·교과서 빈출
 crisis,B1,2312,1,2,high_medium,일반 명사
 struggle,B1,2314,1,2,high_medium,일반 동사
 root,A2,2319,1,2,high_medium,뜻이 여럿인 말
 currently,B1,2323,2,2,high_medium,부사
 display,A2,2331,2,2,high_medium,일반 동사
+debate,A2,2343,1,2,high_medium,일반 명사
 gradually,A2,2347,2,2,high_medium,부사
 poetry,B1,2362,2,2,high_medium,일반 명사
+obviously,B1,2363,2,2,high_medium,검토로 올림 — 수능·교과서 빈출
 vast,B1,2365,2,2,high_medium,일반 형용사
 pro,A2,2389,3,2,high_medium,일반 명사
 register,B1,2391,2,2,high_medium,일반 동사
@@ -725,6 +699,7 @@ similarly,B1,2408,2,2,high_medium,부사
 visual,B1,2437,2,2,high_medium,일반 형용사
 honor,A2,2461,1,2,high_medium,추상 명사
 recognize,B1,2482,1,2,high_medium,일반 동사
+satisfaction,B1,2484,1,2,high_medium,감정·상태 말
 heating,A2,2486,3,2,high_medium,일반 명사
 tone,A2,2522,2,2,high_medium,일반 명사
 infection,B1,2539,2,2,high_medium,일반 명사
@@ -732,22 +707,24 @@ absolutely,B1,2563,2,2,high_medium,부사
 visible,B1,2574,2,2,high_medium,일반 형용사
 frequent,B1,2578,2,2,high_medium,일반 형용사
 comment,B1,2586,2,2,high_medium,일반 명사
+handle,A2,2594,1,2,high_medium,일반 동사
 border,B1,2600,1,2,high_medium,일반 명사
 guilty,B1,2606,2,2,high_medium,일반 형용사
 host,A2,2620,2,2,high_medium,사람·직업
 exact,B1,2623,2,2,high_medium,일반 형용사
 destruction,B1,2624,1,2,high_medium,일반 명사
+occasionally,B1,2643,2,2,high_medium,검토로 올림 — 수능·교과서 빈출
 physics,B1,2662,2,2,high_medium,과학·학술 말
 banking,A2,2696,3,2,high_medium,사회·경제 주제
 fault,A2,2717,2,2,high_medium,일반 명사
 smooth,A2,2744,2,2,high_medium,일반 형용사
-attend,B1,2749,1,2,high_medium,일반 동사
 link,B1,2751,2,2,high_medium,일반 동사
 aim,B1,2796,1,2,high_medium,일반 명사
 constantly,B1,2807,2,2,high_medium,부사
 impression,B1,2808,2,2,high_medium,일반 명사
 automatic,A2,2818,2,2,high_medium,일반 형용사
 unusual,A2,2837,1,2,high_medium,일반 형용사
+emotional,B1,2861,1,2,high_medium,일반 형용사
 architecture,A2,2862,2,2,high_medium,일반 명사
 custom,A2,2914,2,2,high_medium,일반 명사
 afford,B1,2920,1,2,high_medium,일반 동사
@@ -756,7 +733,9 @@ admit,A2,2929,2,2,high_medium,추상 동사
 threat,B1,2953,2,2,high_medium,일반 명사
 surgery,B1,2963,2,2,high_medium,일반 명사
 unlike,A2,2971,2,2,high_medium,연결어·전치사
+distant,B1,2975,2,2,high_medium,검토로 올림 — 수능·교과서 빈출
 murder,A2,3007,2,2,high_medium,일반 명사
+punishment,B1,3008,2,2,high_medium,검토로 올림 — 수능·교과서 빈출
 steady,B1,3012,2,2,high_medium,일반 형용사
 recover,B1,3019,2,2,high_medium,일반 동사
 remote,A2,3024,2,2,high_medium,일반 형용사
@@ -767,6 +746,7 @@ gender,A2,3118,2,2,high_medium,사회·경제 주제
 rough,B1,3132,2,2,high_medium,일반 형용사
 assignment,B1,3136,2,2,high_medium,일반 명사
 shortly,B1,3164,2,2,high_medium,부사
+remedy,B1,3196,1,2,high_medium,수능 빈출 말
 gap,B1,3222,1,2,high_medium,일반 명사
 comfort,B1,3226,1,2,high_medium,일반 명사
 participate,B1,3227,1,2,high_medium,일반 동사
@@ -778,12 +758,14 @@ pleasant,A2,3281,2,2,high_medium,일반 형용사
 pride,A2,3285,1,2,high_medium,추상 명사
 retired,A2,3287,2,2,high_medium,일반 형용사
 instant,A2,3296,2,2,high_medium,일반 형용사
+confusion,B1,3326,2,2,high_medium,검토로 올림 — 수능·교과서 빈출
 loose,A2,3332,2,2,high_medium,일반 형용사
 enormous,A2,3335,2,2,high_medium,일반 형용사
 phrase,B1,3354,2,2,high_medium,일반 명사
 attractive,A2,3373,1,2,high_medium,일반 형용사
 violent,A2,3390,2,2,high_medium,일반 형용사
 refuse,B1,3398,1,2,high_medium,일반 동사
+achievement,B1,3407,1,2,high_medium,추상 명사
 dramatic,B1,3443,2,2,high_medium,일반 형용사
 complicated,B1,3444,1,2,high_medium,일반 형용사
 organ,B1,3464,2,2,high_medium,뜻이 여럿인 말
@@ -798,6 +780,7 @@ fortune,A2,3601,2,2,high_medium,일반 명사
 passion,B1,3604,1,2,high_medium,추상 명사
 harm,A2,3610,2,2,high_medium,일반 명사
 platform,B1,3620,2,2,high_medium,뜻이 여럿인 말
+arrest,B1,3630,2,2,high_medium,검토로 올림 — 수능·교과서 빈출
 victim,B1,3655,1,2,high_medium,사람·직업
 fiction,A2,3656,2,2,high_medium,일반 명사
 split,A2,3669,2,2,high_medium,일반 동사
@@ -826,10 +809,12 @@ brilliant,A2,4186,2,2,high_medium,일반 형용사
 defend,B1,4220,1,2,high_medium,일반 동사
 harvest,A2,4228,2,2,high_medium,일반 명사
 cure,B1,4240,2,2,high_medium,일반 동사
+succeed,A2,4243,1,2,high_medium,일반 동사
 weakness,B1,4264,2,2,high_medium,일반 명사
 elderly,A2,4310,2,2,high_medium,일반 형용사
 expand,B1,4313,2,2,high_medium,일반 동사
 roughly,A2,4342,2,2,high_medium,부사
+innocent,B1,4343,2,2,high_medium,검토로 올림 — 수능·교과서 빈출
 convenience,A2,4352,2,2,high_medium,일반 명사
 harmony,A2,4372,2,2,high_medium,추상 명사
 uncertain,A2,4377,2,2,high_medium,반대말 파생어
@@ -838,9 +823,12 @@ unlikely,B1,4413,1,2,high_medium,일반 형용사
 fancy,A2,4417,2,2,high_medium,일반 형용사
 slip,B1,4420,1,2,high_medium,일반 동사
 shallow,B1,4422,2,2,high_medium,일반 형용사
+appoint,B1,4452,1,2,high_medium,수능 빈출 말
 charity,B1,4458,2,2,high_medium,일반 명사
+invasion,B1,4487,2,2,high_medium,검토로 올림 — 수능·교과서 빈출
 entertainment,A2,4492,2,2,high_medium,일반 명사
 disabled,B1,4586,1,2,high_medium,일반 형용사
+generous,B1,4648,1,2,high_medium,일반 형용사
 shelter,B1,4682,2,2,high_medium,일반 명사
 combine,B1,4719,1,2,high_medium,일반 동사
 rush,A2,4730,1,2,high_medium,일반 동사
@@ -872,6 +860,7 @@ screw,A2,5328,3,2,high_medium,일상 구체 명사
 aggressive,B1,5335,2,2,high_medium,일반 형용사
 tourism,B1,5350,1,2,high_medium,일반 명사
 adjust,A2,5354,2,2,high_medium,추상 동사
+tragedy,B1,5388,2,2,high_medium,검토로 올림 — 수능·교과서 빈출
 kindly,A2,5397,2,2,high_medium,부사
 meaningful,B1,5407,2,2,high_medium,일반 형용사
 eager,B1,5428,2,2,high_medium,일반 형용사
@@ -890,10 +879,11 @@ leisure,A2,5552,2,2,high_medium,일반 명사
 basically,A2,5585,2,2,high_medium,부사
 compete,B1,5595,1,2,high_medium,일반 동사
 stretch,B1,5638,2,2,high_medium,일반 동사
-stuck,B1,5745,2,2,high_medium,일반 형용사
 romance,A2,5752,2,2,high_medium,일반 명사
 impressive,B1,5761,1,2,high_medium,일반 형용사
 ignore,B1,5776,1,2,high_medium,일반 동사
+myth,B1,5784,2,2,high_medium,검토로 올림 — 수능·교과서 빈출
+explosion,B1,5838,2,2,high_medium,검토로 올림 — 수능·교과서 빈출
 handicapped,A2,5860,3,2,high_medium,일반 형용사
 ruin,A2,5875,2,2,high_medium,일반 동사
 sink,A2,5908,2,2,high_medium,뜻이 여럿인 말
@@ -902,10 +892,13 @@ pause,B1,5944,2,2,high_medium,일반 동사
 curiosity,B1,6042,1,2,high_medium,추상 명사
 mysterious,A2,6079,2,2,high_medium,일반 형용사
 deserve,B1,6101,2,2,high_medium,일반 동사
+admiration,B1,6110,1,2,high_medium,수능 빈출 말
 locate,B1,6152,2,2,high_medium,일반 동사
 ambition,A2,6185,2,2,high_medium,추상 명사
 participant,B1,6187,1,2,high_medium,사람·직업
 challenging,B1,6247,1,2,high_medium,일반 형용사
+fragment,B1,6275,1,2,high_medium,수능 빈출 말
+assign,B1,6358,1,2,high_medium,수능 빈출 말
 awful,A2,6375,2,2,high_medium,일반 형용사
 bargain,A2,6406,2,2,high_medium,일반 명사
 fare,A2,6478,3,2,high_medium,일반 명사
@@ -918,6 +911,7 @@ script,A2,6775,2,2,high_medium,일반 명사
 frightened,A2,6844,2,2,high_medium,감정·상태 말
 tune,A2,6884,2,2,high_medium,일반 명사
 disadvantage,A2,6904,2,2,high_medium,추상 명사
+ambitious,B1,6910,2,2,high_medium,검토로 올림 — 수능·교과서 빈출
 install,B1,7011,2,2,high_medium,일반 동사
 retire,A2,7248,2,2,high_medium,일반 동사
 pleasing,A2,7273,3,2,high_medium,일반 형용사
@@ -929,6 +923,7 @@ importantly,A2,7544,2,2,high_medium,부사
 creativity,A2,7651,2,2,high_medium,추상 명사
 fascinating,A2,7729,2,2,high_medium,일반 형용사
 curse,A2,7780,3,2,high_medium,일반 명사
+ashamed,B1,7835,2,2,high_medium,검토로 올림 — 수능·교과서 빈출
 unpleasant,A2,7912,2,2,high_medium,반대말 파생어
 frustration,B1,7944,2,2,high_medium,감정·상태 말
 rob,A2,7985,2,2,high_medium,일반 동사
@@ -953,11 +948,13 @@ heal,B1,9228,2,2,high_medium,일반 동사
 frustrated,B1,9267,1,2,high_medium,감정·상태 말
 impress,A2,9309,2,2,high_medium,일반 동사
 bury,A2,9344,2,2,high_medium,일반 동사
+politician,B1,9446,2,2,high_medium,검토로 올림 — 수능·교과서 빈출
 grab,B1,9497,2,2,high_medium,일반 동사
 psychologist,A2,9519,2,2,high_medium,사람·직업
 clue,A2,9565,2,2,high_medium,일반 명사
 smoothly,A2,9619,2,2,high_medium,부사
 summarize,B1,9737,2,2,high_medium,일반 동사
+apology,B1,9805,2,2,high_medium,검토로 올림 — 수능·교과서 빈출
 inexpensive,A2,9989,3,2,high_medium,반대말 파생어
 interrupt,B1,10021,2,2,high_medium,일반 동사
 impatient,A2,10182,2,2,high_medium,일반 형용사
@@ -966,6 +963,7 @@ uneasy,A2,10357,3,2,high_medium,반대말 파생어
 extinct,B1,10475,2,2,high_medium,일반 형용사
 ancestor,A2,10496,2,2,high_medium,가족·사람
 amused,A2,10518,2,2,high_medium,감정·상태 말
+survivor,B1,10602,2,2,high_medium,검토로 올림 — 수능·교과서 빈출
 injure,A2,10667,2,2,high_medium,일반 동사
 forbid,A2,10981,2,2,high_medium,일반 동사
 wander,A2,11078,2,2,high_medium,일반 동사
@@ -984,6 +982,7 @@ disappointing,A2,13245,2,2,high_medium,감정·상태 말
 cheque,A2,13246,3,2,high_medium,영국 생활 말
 frightening,A2,13417,2,2,high_medium,감정·상태 말
 confuse,A2,13488,2,2,high_medium,일반 동사
+punctuation,A2,14676,3,2,high_medium,문법 용어(수업에서 씀)
 rumor,A2,14913,2,2,high_medium,일반 명사
 dishonest,A2,14977,2,2,high_medium,반대말 파생어
 motivate,B1,15225,2,2,high_medium,일반 동사
@@ -997,6 +996,7 @@ annoy,A2,22223,2,2,high_medium,일반 동사
 sleepless,A2,23175,3,2,high_medium,일반 형용사
 roundabout,A2,24369,3,2,high_medium,영국 생활 말
 laziness,A2,24663,3,2,high_medium,일반 명사
+superlative,A2,25046,3,2,high_medium,문법 용어(수업에서 씀)
 pollute,A2,29741,1,2,high_medium,일반 동사
 chirp,A2,34314,3,2,high_medium,일반 동사
 terrify,A2,34526,3,2,high_medium,일반 동사
@@ -1006,21 +1006,18 @@ being,A2,100,2,3,high_hard,뜻이 여럿인 말
 upon,A2,106,3,3,high_hard,연결어·전치사
 per,B1,124,2,3,high_hard,연결어·전치사
 court,A2,144,2,3,high_hard,뜻이 여럿인 말
-within,A2,156,1,3,high_hard,연결어·전치사
 given,A2,157,3,3,high_hard,뜻이 여럿인 말
+last,B1,181,1,3,high_hard,뜻이 여럿인 말 — 지속되다는 수능 핵심
 development,B1,185,1,3,high_hard,일반 명사
 committee,A2,195,3,3,high_hard,사회·경제 주제
 thus,B1,211,1,3,high_hard,연결어·전치사
-effect,A2,254,1,3,high_hard,추상 명사
 further,A2,258,2,3,high_hard,부사
 therefore,A2,267,1,3,high_hard,연결어·전치사
 process,B1,268,1,3,high_hard,일반 명사
-rate,A2,270,1,3,high_hard,일반 명사
 property,B1,301,1,3,high_hard,뜻이 여럿인 말
 rather,A2,303,1,3,high_hard,부사
 figure,A2,307,2,3,high_hard,뜻이 여럿인 말
 evidence,A2,324,1,3,high_hard,추상 명사
-provided,B1,328,3,3,high_hard,연결어·전치사
 policy,B1,354,1,3,high_hard,사회·경제 주제
 political,A2,356,2,3,high_hard,사회·경제 주제
 position,A2,365,1,3,high_hard,뜻이 여럿인 말
@@ -1036,6 +1033,7 @@ application,B1,436,1,3,high_hard,뜻이 여럿인 말
 current,B1,437,1,3,high_hard,일반 형용사
 press,B1,439,1,3,high_hard,뜻이 여럿인 말
 union,B1,446,2,3,high_hard,사회·경제 주제
+council,B1,452,2,3,high_hard,검토로 올림 — 수능·교과서 빈출
 treatment,B1,472,1,3,high_hard,일반 명사
 authority,B1,480,1,3,high_hard,수능 필수 추상어
 basis,B1,500,1,3,high_hard,수능 필수 추상어
@@ -1045,15 +1043,14 @@ labor,A2,545,2,3,high_hard,사회·경제 주제
 operation,B1,546,1,3,high_hard,뜻이 여럿인 말
 sense,A2,550,1,3,high_hard,뜻이 여럿인 말
 statement,A2,559,2,3,high_hard,일반 명사
-range,A2,564,1,3,high_hard,일반 명사
 standard,B1,569,1,3,high_hard,일반 명사
 annual,B1,575,1,3,high_hard,수능 필수 추상어
+administration,B1,592,2,3,high_hard,검토로 올림 — 수능·교과서 빈출
 theory,B1,594,1,3,high_hard,수능 필수 추상어
 agreement,B1,607,1,3,high_hard,일반 명사
 function,A2,619,2,3,high_hard,뜻이 여럿인 말
 military,A2,620,2,3,high_hard,사회·경제 주제
 additional,A2,623,2,3,high_hard,격식어
-source,A2,628,1,3,high_hard,일반 명사
 security,B1,631,1,3,high_hard,일반 명사
 organization,B1,632,1,3,high_hard,일반 명사
 financial,B1,635,1,3,high_hard,사회·경제 주제
@@ -1063,23 +1060,21 @@ supply,B1,657,1,3,high_hard,일반 명사
 manner,A2,660,2,3,high_hard,일반 명사
 volume,B1,669,1,3,high_hard,뜻이 여럿인 말
 industrial,B1,673,1,3,high_hard,사회·경제 주제
-toward,A2,689,1,3,high_hard,연결어·전치사
 approach,B1,695,1,3,high_hard,수능 필수 추상어
-employment,B1,699,3,3,high_hard,사회·경제 주제
+employment,B1,699,2,3,high_hard,검토로 올림 — 수능·교과서 빈출
 charge,B1,706,1,3,high_hard,뜻이 여럿인 말
 indeed,A2,707,1,3,high_hard,부사
 degree,A2,708,1,3,high_hard,뜻이 여럿인 말
 influence,A2,713,1,3,high_hard,추상 명사
 legal,B1,717,1,3,high_hard,일반 형용사
 judgment,B1,722,1,3,high_hard,추상 명사
-civil,B1,726,3,3,high_hard,사회·경제 주제
+civil,B1,726,2,3,high_hard,검토로 올림 — 수능·교과서 빈출
 latter,A2,731,3,3,high_hard,격식어
 extent,B1,744,1,3,high_hard,수능 필수 추상어
 involved,B1,755,1,3,high_hard,일반 형용사
 former,B1,757,1,3,high_hard,일반 형용사
 agency,A2,762,2,3,high_hard,사회·경제 주제
 duty,B1,765,1,3,high_hard,일반 명사
-beyond,A2,769,1,3,high_hard,연결어·전치사
 significant,A2,779,2,3,high_hard,추상 형용사
 unless,B1,786,1,3,high_hard,연결어·전치사
 claim,A2,788,2,3,high_hard,추상 동사
@@ -1100,14 +1095,14 @@ object,B1,867,1,3,high_hard,뜻이 여럿인 말
 entire,B1,873,1,3,high_hard,일반 형용사
 otherwise,B1,877,1,3,high_hard,연결어·전치사
 capacity,B1,880,1,3,high_hard,수능 필수 추상어
-institute,B1,891,3,3,high_hard,일반 명사
+institute,B1,891,2,3,high_hard,검토로 올림 — 수능·교과서 빈출
 presence,B1,906,1,3,high_hard,추상 명사
 determine,B1,908,1,3,high_hard,수능 필수 추상어
 relation,B1,924,2,3,high_hard,일반 명사
 require,B1,935,1,3,high_hard,일반 동사
 scale,A2,936,2,3,high_hard,뜻이 여럿인 말
-agricultural,B1,950,3,3,high_hard,사회·경제 주제
-mass,B1,952,3,3,high_hard,뜻이 여럿인 말
+agricultural,B1,950,2,3,high_hard,검토로 올림 — 수능·교과서 빈출
+mass,B1,952,2,3,high_hard,검토로 올림 — 수능·교과서 빈출
 content,B1,958,1,3,high_hard,뜻이 여럿인 말
 assistance,B1,960,2,3,high_hard,일반 명사
 concerned,B1,977,1,3,high_hard,일반 형용사
@@ -1115,7 +1110,6 @@ benefit,B1,986,1,3,high_hard,일반 명사
 measure,B1,991,1,3,high_hard,일반 동사
 considerable,B1,993,2,3,high_hard,추상 형용사
 relative,B1,994,1,3,high_hard,뜻이 여럿인 말
-joint,B1,997,3,3,high_hard,뜻이 여럿인 말
 appeal,B1,1002,1,3,high_hard,뜻이 여럿인 말
 independent,B1,1007,1,3,high_hard,일반 형용사
 transfer,B1,1020,1,3,high_hard,일반 동사
@@ -1125,9 +1119,8 @@ access,B1,1066,1,3,high_hard,수능 필수 추상어
 official,A2,1067,2,3,high_hard,일반 형용사
 principle,B1,1069,1,3,high_hard,수능 필수 추상어
 complex,B1,1071,1,3,high_hard,수능 필수 추상어
-internal,B1,1079,3,3,high_hard,추상 형용사
-economy,B1,1089,1,3,high_hard,사회·경제 주제
-grant,B1,1093,3,3,high_hard,뜻이 여럿인 말
+internal,B1,1079,2,3,high_hard,검토로 올림 — 수능·교과서 빈출
+grant,B1,1093,2,3,high_hard,검토로 올림 — 수능·교과서 빈출
 instance,B1,1095,1,3,high_hard,수능 필수 추상어
 majority,B1,1130,1,3,high_hard,추상 명사
 occur,B1,1142,1,3,high_hard,수능 필수 추상어
@@ -1137,14 +1130,14 @@ serve,A2,1161,1,3,high_hard,뜻이 여럿인 말
 defense,B1,1169,1,3,high_hard,일반 명사
 essential,B1,1173,1,3,high_hard,수능 필수 추상어
 critical,B1,1177,1,3,high_hard,수능 필수 추상어
-maintenance,B1,1189,3,3,high_hard,일반 명사
+maintenance,B1,1189,2,3,high_hard,검토로 올림 — 수능·교과서 빈출
 firm,B1,1195,1,3,high_hard,뜻이 여럿인 말
 merely,B1,1200,2,3,high_hard,부사
-variety,B1,1203,1,3,high_hard,일반 명사
 obtain,B1,1208,1,3,high_hard,수능 필수 추상어
 conduct,B1,1210,1,3,high_hard,뜻이 여럿인 말
 approximately,B1,1215,2,3,high_hard,부사
 initial,B1,1216,1,3,high_hard,수능 필수 추상어
+constitution,B1,1221,2,3,high_hard,검토로 올림 — 수능·교과서 빈출
 reduction,B1,1224,1,3,high_hard,일반 명사
 desire,B1,1252,1,3,high_hard,추상 명사
 responsibility,B1,1299,1,3,high_hard,추상 명사
@@ -1164,18 +1157,16 @@ regarding,B1,1431,1,3,high_hard,연결어·전치사
 passage,A2,1461,2,3,high_hard,뜻이 여럿인 말
 concept,B1,1463,1,3,high_hard,수능 필수 추상어
 quantity,B1,1464,2,3,high_hard,일반 명사
-engaged,B1,1467,3,3,high_hard,뜻이 여럿인 말
 element,B1,1486,1,3,high_hard,수능 필수 추상어
-bound,B1,1494,3,3,high_hard,뜻이 여럿인 말
+bound,B1,1494,2,3,high_hard,검토로 올림 — 수능·교과서 빈출
 permit,B1,1498,1,3,high_hard,일반 동사
 concern,A2,1513,1,3,high_hard,뜻이 여럿인 말
 origin,B1,1514,2,3,high_hard,일반 명사
-exist,A2,1515,1,3,high_hard,추상 동사
 permanent,B1,1519,2,3,high_hard,일반 형용사
 represent,A2,1521,1,3,high_hard,추상 동사
 despite,B1,1523,1,3,high_hard,연결어·전치사
 context,A2,1528,2,3,high_hard,추상 명사
-possession,B1,1535,3,3,high_hard,추상 명사
+possession,B1,1535,2,3,high_hard,검토로 올림 — 수능·교과서 빈출
 concentration,B1,1538,2,3,high_hard,추상 명사
 alternative,B1,1539,1,3,high_hard,수능 필수 추상어
 proportion,B1,1547,1,3,high_hard,추상 명사
@@ -1196,12 +1187,10 @@ possibility,B1,1678,1,3,high_hard,추상 명사
 philosophy,B1,1699,1,3,high_hard,추상 명사
 consumption,B1,1706,1,3,high_hard,사회·경제 주제
 efficiency,B1,1709,1,3,high_hard,추상 명사
-reality,B1,1734,1,3,high_hard,추상 명사
 superior,B1,1739,1,3,high_hard,일반 형용사
 aware,B1,1740,1,3,high_hard,일반 형용사
 contrast,A2,1741,2,3,high_hard,추상 명사
 affect,B1,1748,1,3,high_hard,수능 필수 추상어
-mission,B1,1754,1,3,high_hard,일반 명사
 release,A2,1764,2,3,high_hard,뜻이 여럿인 말
 dependent,B1,1793,1,3,high_hard,일반 형용사
 severe,B1,1803,1,3,high_hard,일반 형용사
@@ -1224,7 +1213,6 @@ contribution,B1,1945,1,3,high_hard,추상 명사
 seek,A2,1956,2,3,high_hard,추상 동사
 ensure,B1,1963,1,3,high_hard,수능 필수 추상어
 strategy,A2,1972,2,3,high_hard,추상 명사
-confidence,B1,1976,1,3,high_hard,추상 명사
 identity,B1,1980,1,3,high_hard,수능 필수 추상어
 proposal,B1,2012,2,3,high_hard,일반 명사
 objective,B1,2014,1,3,high_hard,뜻이 여럿인 말
@@ -1232,6 +1220,7 @@ characteristic,B1,2020,1,3,high_hard,수능 필수 추상어
 refer,A2,2025,2,3,high_hard,추상 동사
 strike,A2,2032,2,3,high_hard,뜻이 여럿인 말
 belief,B1,2033,1,3,high_hard,추상 명사
+absolute,B1,2042,2,3,high_hard,검토로 올림 — 수능·교과서 빈출
 academic,B1,2053,1,3,high_hard,수능 필수 추상어
 observation,B1,2074,1,3,high_hard,일반 명사
 consequence,A2,2078,2,3,high_hard,추상 명사
@@ -1276,8 +1265,8 @@ decline,B1,2438,1,3,high_hard,뜻이 여럿인 말
 remarkable,B1,2456,1,3,high_hard,일반 형용사
 burden,B1,2457,1,3,high_hard,수능 필수 추상어
 proceed,B1,2464,2,3,high_hard,추상 동사
+deposit,B1,2477,2,3,high_hard,검토로 올림 — 수능·교과서 빈출
 constitute,B1,2483,2,3,high_hard,격식어
-satisfaction,B1,2484,1,3,high_hard,감정·상태 말
 atmosphere,B1,2485,1,3,high_hard,뜻이 여럿인 말
 assist,B1,2531,1,3,high_hard,일반 동사
 stable,B1,2532,1,3,high_hard,일반 형용사
@@ -1287,12 +1276,14 @@ reflect,A2,2599,1,3,high_hard,뜻이 여럿인 말
 psychological,B1,2632,1,3,high_hard,일반 형용사
 promote,B1,2648,1,3,high_hard,수능 필수 추상어
 unemployment,B1,2657,2,3,high_hard,사회·경제 주제
+objection,B1,2665,2,3,high_hard,검토로 올림 — 수능·교과서 빈출
 accuracy,B1,2678,2,3,high_hard,추상 명사
 poverty,B1,2685,1,3,high_hard,사회·경제 주제
 vary,B1,2693,1,3,high_hard,수능 필수 추상어
 arise,B1,2707,1,3,high_hard,수능 필수 추상어
 profession,B1,2742,2,3,high_hard,일반 명사
 democracy,B1,2746,1,3,high_hard,사회·경제 주제
+attend,B1,2749,1,3,high_hard,일반 동사
 admission,B1,2765,2,3,high_hard,뜻이 여럿인 말
 comparative,A2,2781,3,3,high_hard,문법 용어(수업에서 씀)
 wisdom,A2,2810,2,3,high_hard,추상 명사
@@ -1304,7 +1295,6 @@ increasingly,B1,2836,1,3,high_hard,부사
 discrimination,B1,2839,1,3,high_hard,사회·경제 주제
 associate,B1,2843,1,3,high_hard,수능 필수 추상어
 resident,B1,2855,1,3,high_hard,사람·직업
-emotional,B1,2861,1,3,high_hard,일반 형용사
 aged,A2,2865,3,3,high_hard,격식어
 define,B1,2866,1,3,high_hard,수능 필수 추상어
 contribute,B1,2874,1,3,high_hard,수능 필수 추상어
@@ -1314,8 +1304,10 @@ guidance,B1,2901,2,3,high_hard,일반 명사
 observe,B1,2923,1,3,high_hard,일반 동사
 notion,B1,2926,2,3,high_hard,추상 명사
 involve,B1,2935,1,3,high_hard,수능 필수 추상어
+compound,B1,2936,2,3,high_hard,검토로 올림 — 수능·교과서 빈출
 prominent,B1,2937,2,3,high_hard,추상 형용사
 treat,B1,2944,1,3,high_hard,뜻이 여럿인 말
+era,B1,2950,2,3,high_hard,검토로 올림 — 수능·교과서 빈출
 currency,B1,2972,2,3,high_hard,사회·경제 주제
 commitment,A2,3006,3,3,high_hard,추상 명사
 narrative,B1,3009,2,3,high_hard,일반 명사
@@ -1347,8 +1339,8 @@ overcome,B1,3360,1,3,high_hard,일반 동사
 reflection,B1,3378,1,3,high_hard,뜻이 여럿인 말
 phenomenon,B1,3393,1,3,high_hard,수능 필수 추상어
 genetic,B1,3405,2,3,high_hard,과학·학술 말
-achievement,B1,3407,1,3,high_hard,추상 명사
 reliable,B1,3415,1,3,high_hard,일반 형용사
+curriculum,B1,3442,2,3,high_hard,검토로 올림 — 수능·교과서 빈출
 conservative,B1,3453,2,3,high_hard,추상 형용사
 progressive,A2,3466,3,3,high_hard,추상 형용사
 conclude,B1,3475,1,3,high_hard,수능 필수 추상어
@@ -1356,6 +1348,7 @@ substitute,B1,3481,1,3,high_hard,일반 동사
 rational,B1,3524,1,3,high_hard,추상 형용사
 preserve,B1,3532,1,3,high_hard,수능 필수 추상어
 awareness,B1,3546,1,3,high_hard,추상 명사
+initially,B1,3554,2,3,high_hard,검토로 올림 — 수능·교과서 빈출
 preservation,B1,3585,2,3,high_hard,추상 명사
 retain,B1,3618,1,3,high_hard,수능 필수 추상어
 simultaneously,B1,3632,2,3,high_hard,부사
@@ -1397,6 +1390,8 @@ diverse,B1,4386,1,3,high_hard,수능 필수 추상어
 pursue,A2,4394,2,3,high_hard,추상 동사
 accomplish,B1,4442,1,3,high_hard,수능 필수 추상어
 declare,B1,4463,1,3,high_hard,일반 동사
+remark,B1,4464,2,3,high_hard,검토로 올림 — 수능·교과서 빈출
+abundance,B1,4503,1,3,high_hard,수능 빈출 말
 inevitable,B1,4515,1,3,high_hard,수능 필수 추상어
 resolve,B1,4518,1,3,high_hard,수능 필수 추상어
 delicate,B1,4524,2,3,high_hard,일반 형용사
@@ -1405,7 +1400,6 @@ habitat,B1,4537,1,3,high_hard,과학·학술 말
 enthusiasm,B1,4551,1,3,high_hard,추상 명사
 affair,A2,4608,3,3,high_hard,뜻이 여럿인 말
 affection,B1,4635,2,3,high_hard,감정·상태 말
-generous,B1,4648,1,3,high_hard,일반 형용사
 passive,B1,4651,1,3,high_hard,추상 형용사
 resist,B1,4688,1,3,high_hard,일반 동사
 tremendous,B1,4734,2,3,high_hard,일반 형용사
@@ -1423,6 +1417,7 @@ encounter,B1,4921,1,3,high_hard,수능 필수 추상어
 barely,B1,4938,2,3,high_hard,부사
 convey,B1,4952,1,3,high_hard,수능 필수 추상어
 motive,B1,4956,2,3,high_hard,추상 명사
+certainty,B1,5078,1,3,high_hard,수능 빈출 말
 hazard,B1,5096,2,3,high_hard,일반 명사
 suspicion,B1,5188,2,3,high_hard,추상 명사
 intend,B1,5191,1,3,high_hard,수능 필수 추상어
@@ -1433,13 +1428,16 @@ organism,B1,5438,1,3,high_hard,과학·학술 말
 collapse,B1,5442,1,3,high_hard,일반 동사
 modify,B1,5443,2,3,high_hard,추상 동사
 shortage,B1,5448,1,3,high_hard,일반 명사
+molecule,B1,5476,2,3,high_hard,검토로 올림 — 수능·교과서 빈출
 emphasize,B1,5478,1,3,high_hard,수능 필수 추상어
 accompany,B1,5657,2,3,high_hard,추상 동사
 similarity,B1,5681,1,3,high_hard,추상 명사
 sensation,B1,5713,2,3,high_hard,뜻이 여럿인 말
 analyze,B1,5724,1,3,high_hard,수능 필수 추상어
 excellence,B1,5741,2,3,high_hard,추상 명사
+attain,B1,5744,1,3,high_hard,수능 빈출 말
 destructive,B1,5751,2,3,high_hard,추상 형용사
+devotion,B1,5754,1,3,high_hard,수능 빈출 말
 insist,B1,5785,1,3,high_hard,일반 동사
 offensive,B1,5796,2,3,high_hard,일반 형용사
 derive,B1,5849,1,3,high_hard,수능 필수 추상어
@@ -1450,6 +1448,7 @@ transform,B1,5971,1,3,high_hard,수능 필수 추상어
 desperate,B1,5977,1,3,high_hard,일반 형용사
 nonetheless,B1,6008,2,3,high_hard,연결어·전치사
 emerge,B1,6034,1,3,high_hard,수능 필수 추상어
+negotiation,B1,6127,2,3,high_hard,검토로 올림 — 수능·교과서 빈출
 abandon,B1,6176,1,3,high_hard,수능 필수 추상어
 oppose,A2,6236,2,3,high_hard,추상 동사
 owe,B1,6281,1,3,high_hard,일반 동사
@@ -1477,6 +1476,7 @@ batch,A2,7860,3,3,high_hard,일반 명사
 interact,B1,7905,1,3,high_hard,일반 동사
 seize,B1,8095,2,3,high_hard,일반 동사
 dissolve,B1,8151,2,3,high_hard,일반 동사
+characterize,B1,8240,1,3,high_hard,수능 빈출 말
 extinction,B1,8414,1,3,high_hard,과학·학술 말
 hardship,B1,8547,2,3,high_hard,추상 명사
 cautious,B1,8626,2,3,high_hard,일반 형용사
@@ -1488,16 +1488,16 @@ cultivate,B1,9472,2,3,high_hard,추상 동사
 surround,B1,10773,1,3,high_hard,일반 동사
 persuasive,B1,11050,2,3,high_hard,일반 형용사
 conquer,B1,11301,2,3,high_hard,일반 동사
+impair,B1,11619,1,3,high_hard,수능 빈출 말
 breakthrough,B1,13220,2,3,high_hard,추상 명사
 criticize,A2,13541,2,3,high_hard,추상 동사
 enrich,B1,14518,2,3,high_hard,추상 동사
-punctuation,A2,14676,3,3,high_hard,문법 용어(수업에서 씀)
 endanger,B1,15061,2,3,high_hard,일반 동사
 cherish,B1,15189,2,3,high_hard,일반 동사
 inhabitant,B1,15473,2,3,high_hard,사람·직업
 uncover,B1,16250,2,3,high_hard,일반 동사
 tempt,B1,16815,2,3,high_hard,일반 동사
 mislead,B1,16885,2,3,high_hard,일반 동사
+outweigh,B1,17013,1,3,high_hard,수능 빈출 말
 dedicate,B1,18184,2,3,high_hard,추상 동사
 overwhelm,B1,20759,2,3,high_hard,일반 동사
-superlative,A2,25046,3,3,high_hard,문법 용어(수업에서 씀)

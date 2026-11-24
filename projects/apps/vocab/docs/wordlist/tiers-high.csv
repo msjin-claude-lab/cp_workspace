@@ -9,11 +9,11 @@ aborigine,4,일상에서 드문 구체 명사 — 심화로,
 abroad,1,부사,1
 absence,2,추상 명사,2
 absent,3,일반 형용사,1
-absolute,3,추상 형용사,3
+absolute,2,검토로 올림 — 수능·교과서 빈출,3
 absolutely,2,부사,2
 absorb,1,수능 필수 추상어,3
 abstract,2,추상 형용사,3
-abundance,3,격식어,3
+abundance,1,수능 빈출 말,3
 abundant,2,추상 형용사,3
 academic,1,수능 필수 추상어,3
 academy,3,일반 명사,2
@@ -36,22 +36,22 @@ accuse,3,추상 동사,3
 accustom,4,드문 격식어 — 심화로,
 ache,3,일반 명사,2
 achieve,1,추상 동사,1
-achievement,1,추상 명사,3
+achievement,1,추상 명사,2
 acknowledge,2,추상 동사,3
 acknowledgment,4,드문 격식어 — 심화로,
 acquaintance,3,사람·직업,3
 acquire,1,수능 필수 추상어,3
 act,1,뜻이 여럿인 말,2
 active,1,일반 형용사,1
-actress,1,사람·직업,1
+actress,3,쉬운 일상어 — 수능어 우선으로 내림,1
 ad,3,일반 명사,1
 adapt,1,수능 필수 추상어,3
 addition,2,추상 명사,2
 additional,2,격식어,3
 addressee,4,드문 격식어 — 심화로,
 adjust,2,추상 동사,2
-administration,4,드문 격식어 — 심화로,
-admiration,3,추상 명사,3
+administration,2,검토로 올림 — 수능·교과서 빈출,3
+admiration,1,수능 빈출 말,2
 admire,2,일반 동사,2
 admission,2,뜻이 여럿인 말,3
 admit,2,추상 동사,2
@@ -80,7 +80,7 @@ agenda,3,격식어,3
 agent,2,사람·직업,2
 aggressive,2,일반 형용사,2
 agreement,1,일반 명사,3
-agricultural,3,사회·경제 주제,3
+agricultural,2,검토로 올림 — 수능·교과서 빈출,3
 agriculture,1,사회·경제 주제,2
 ahead,1,부사,1
 aid,2,일반 명사,2
@@ -100,8 +100,8 @@ altogether,3,부사,3
 amazed,3,감정·상태 말,1
 amazing,1,일반 형용사,1
 ambition,2,추상 명사,2
-ambitious,3,일반 형용사,2
-ambulance,1,일상 구체 명사,1
+ambitious,2,검토로 올림 — 수능·교과서 빈출,2
+ambulance,3,쉬운 일상어 — 수능어 우선으로 내림,1
 among,1,연결어·전치사,1
 amount,1,일반 명사,2
 amused,2,감정·상태 말,2
@@ -124,7 +124,7 @@ annoyed,3,감정·상태 말,2
 annual,1,수능 필수 추상어,3
 annually,3,파생 부사·형용사,3
 ant,3,자연·동물,1
-anti,4,드문 격식어 — 심화로,
+anti,4,접두사형 — 심화로,
 antique,3,일상 구체 명사,2
 antonym,3,문법 용어(수업에서 씀),2
 anxiety,1,감정·상태 말,3
@@ -133,7 +133,7 @@ anxiously,3,파생 부사·형용사,2
 anyhow,3,부사,2
 apart,2,부사,2
 ape,3,자연·동물,1
-apology,3,일반 명사,2
+apology,2,검토로 올림 — 수능·교과서 빈출,2
 apparent,2,추상 형용사,3
 apparently,2,부사,3
 appeal,1,뜻이 여럿인 말,3
@@ -144,7 +144,7 @@ applaud,3,일반 동사,2
 applause,3,일반 명사,2
 application,1,뜻이 여럿인 말,3
 apply,1,뜻이 여럿인 말,2
-appoint,3,추상 동사,3
+appoint,1,수능 빈출 말,2
 appointment,1,일반 명사,2
 appreciate,1,추상 동사,3
 appreciation,2,추상 명사,3
@@ -164,17 +164,17 @@ armed,3,일반 형용사,3
 army,1,일반 명사,1
 arrange,2,일반 동사,2
 arrangement,3,일반 명사,2
-arrest,3,일반 동사,2
+arrest,2,검토로 올림 — 수능·교과서 빈출,2
 arrival,2,일반 명사,2
 arrow,3,일상 구체 명사,1
 artificial,2,일반 형용사,3
 artist,1,사람·직업,1
 artistic,3,일반 형용사,2
-ashamed,3,감정·상태 말,2
+ashamed,2,검토로 올림 — 수능·교과서 빈출,2
 aside,2,부사,2
 aspect,1,수능 필수 추상어,3
 aspirin,3,일상 구체 명사,1
-assign,3,추상 동사,3
+assign,1,수능 빈출 말,2
 assignment,2,일반 명사,2
 assist,1,일반 동사,3
 assistance,2,일반 명사,3
@@ -191,9 +191,9 @@ atomic,4,전문 분야 말 — 심화로,
 attach,2,일반 동사,2
 attachment,3,일반 명사,3
 attack,1,일반 동사,1
-attain,3,격식어,3
-attempt,1,일반 동사,1
-attend,1,일반 동사,2
+attain,1,수능 빈출 말,3
+attempt,1,일반 동사,2
+attend,1,일반 동사,3
 attention,1,추상 명사,1
 attitude,1,추상 명사,1
 attract,1,일반 동사,2
@@ -266,7 +266,7 @@ benefit,1,일반 명사,3
 bent,4,다른 말의 변화형 — 심화로,
 besides,1,연결어·전치사,2
 bet,3,일반 동사,2
-beyond,1,연결어·전치사,3
+beyond,1,연결어·전치사,2
 bilingual,3,일반 형용사,2
 bin,3,일상 구체 명사,1
 biochemistry,4,전문 분야 말 — 심화로,
@@ -302,7 +302,7 @@ bore,3,일반 동사,2
 boredom,3,감정·상태 말,2
 bother,2,일반 동사,2
 bounce,3,일반 동사,2
-bound,3,뜻이 여럿인 말,3
+bound,2,검토로 올림 — 수능·교과서 빈출,3
 bow,3,뜻이 여럿인 말,2
 boxing,3,운동·여가,1
 boyfriend,1,중등에서 뺀 말 — 고등에 넣음,1
@@ -399,9 +399,9 @@ center,1,일반 명사,1
 central,1,일반 형용사,1
 century,1,일반 명사,1
 ceremony,2,일반 명사,2
-certain,1,일반 형용사,1
+certain,1,일반 형용사,2
 certainly,1,부사,1
-certainty,3,추상 명사,3
+certainty,1,수능 빈출 말,3
 chain,2,일반 명사,1
 chairman,2,사람·직업,2
 challenge,1,일반 명사,1
@@ -412,7 +412,7 @@ channel,3,일반 명사,1
 chaos,2,추상 명사,3
 chapter,1,일반 명사,1
 characteristic,1,수능 필수 추상어,3
-characterize,3,추상 동사,3
+characterize,1,수능 빈출 말,3
 charge,1,뜻이 여럿인 말,3
 chariot,4,일상에서 드문 구체 명사 — 심화로,
 charity,2,일반 명사,2
@@ -430,7 +430,7 @@ chimpanzee,3,자연·동물,1
 chirp,3,일반 동사,2
 choir,3,일반 명사,2
 choke,3,일반 동사,2
-Christian,4,전문 분야 말 — 심화로,
+Christian,4,역사·종교 말 — 심화로,
 chronological,4,드문 격식어 — 심화로,
 chuckle,4,문학적·드문 말 — 심화로,
 cigarette,2,일상 구체 명사,1
@@ -438,7 +438,7 @@ circular,4,드문 격식어 — 심화로,
 circus,3,일반 명사,1
 citizen,1,사회·경제 주제,2
 citizenship,4,전문 분야 말 — 심화로,
-civil,3,사회·경제 주제,3
+civil,2,검토로 올림 — 수능·교과서 빈출,3
 civilization,1,수능 필수 추상어,3
 claim,2,추상 동사,3
 classic,2,일반 형용사,1
@@ -471,14 +471,14 @@ comedy,3,일반 명사,1
 comet,3,과학·학술 말,2
 comfort,1,일반 명사,2
 comma,3,문법 용어(수업에서 씀),1
-command,3,일반 명사,2
+command,2,검토로 올림 — 수능·교과서 빈출,2
 comment,2,일반 명사,2
 commercial,1,일반 형용사,3
 commit,1,뜻이 여럿인 말,3
 commitment,3,추상 명사,3
 committee,3,사회·경제 주제,3
 common,1,일반 형용사,1
-commonly,3,부사,2
+commonly,2,검토로 올림 — 수능·교과서 빈출,2
 communicate,1,일반 동사,1
 communication,1,일반 명사,2
 companion,3,사람·직업,2
@@ -501,7 +501,7 @@ compliment,3,일반 명사,2
 compose,3,뜻이 여럿인 말,3
 composer,2,사람·직업,1
 composition,2,뜻이 여럿인 말,3
-compound,4,전문 분야 말 — 심화로,
+compound,2,검토로 올림 — 수능·교과서 빈출,3
 compromise,2,추상 명사,3
 concentrate,1,일반 동사,2
 concentration,2,추상 명사,3
@@ -512,13 +512,13 @@ conclude,1,수능 필수 추상어,3
 conclusion,1,일반 명사,2
 condition,1,일반 명사,1
 conduct,1,뜻이 여럿인 말,3
-confidence,1,추상 명사,3
+confidence,1,추상 명사,2
 confirm,2,일반 동사,2
 confirmation,3,일반 명사,3
 conflict,1,수능 필수 추상어,3
 confuse,2,일반 동사,2
 confusing,3,일반 형용사,2
-confusion,3,일반 명사,2
+confusion,2,검토로 올림 — 수능·교과서 빈출,2
 congratulate,3,일반 동사,2
 connect,1,일반 동사,1
 connection,1,일반 명사,2
@@ -535,7 +535,7 @@ consist,2,추상 동사,3
 consonant,3,문법 용어(수업에서 씀),2
 constantly,2,부사,2
 constitute,2,격식어,3
-constitution,4,전문 분야 말 — 심화로,
+constitution,2,검토로 올림 — 수능·교과서 빈출,3
 construct,3,일반 동사,3
 construction,1,일반 명사,2
 consume,1,수능 필수 추상어,3
@@ -569,7 +569,7 @@ correctly,2,파생 부사·형용사,1
 cost,1,일반 명사,1
 cotton,3,일상 구체 명사,1
 cough,3,일반 명사,1
-council,4,드문 격식어 — 심화로,
+council,2,검토로 올림 — 수능·교과서 빈출,3
 counseling,3,일반 명사,2
 counter,3,뜻이 여럿인 말,2
 countless,3,일반 형용사,2
@@ -610,7 +610,7 @@ curly,3,일반 형용사,1
 currency,2,사회·경제 주제,3
 current,1,일반 형용사,3
 currently,2,부사,2
-curriculum,3,일반 명사,3
+curriculum,2,검토로 올림 — 수능·교과서 빈출,3
 curse,3,일반 명사,2
 curtain,3,일상 구체 명사,1
 curve,3,일반 명사,2
@@ -636,7 +636,7 @@ deaf,3,일반 형용사,1
 deal,1,뜻이 여럿인 말,2
 dealer,3,사람·직업,2
 death,1,일반 명사,1
-debate,1,일반 명사,1
+debate,1,일반 명사,2
 debris,4,전문 분야 말 — 심화로,
 debt,1,사회·경제 주제,2
 decision,1,일반 명사,1
@@ -676,7 +676,7 @@ department,1,일반 명사,1
 departure,3,일반 명사,2
 depend,1,일반 동사,1
 dependent,1,일반 형용사,3
-deposit,4,전문 분야 말 — 심화로,
+deposit,2,검토로 올림 — 수능·교과서 빈출,3
 depressed,3,감정·상태 말,2
 depressing,3,감정·상태 말,2
 depression,1,뜻이 여럿인 말,3
@@ -703,7 +703,7 @@ develop,1,일반 동사,1
 developed,2,일반 형용사,2
 development,1,일반 명사,3
 device,1,일상 구체 명사,1
-devotion,3,추상 명사,3
+devotion,1,수능 빈출 말,3
 diagram,3,일반 명사,2
 dial,3,일반 동사,2
 dialog,3,일반 명사,2
@@ -744,7 +744,7 @@ disk,3,일상 구체 명사,1
 display,2,일반 동사,2
 dissolve,2,일반 동사,3
 distance,1,일반 명사,1
-distant,3,일반 형용사,2
+distant,2,검토로 올림 — 수능·교과서 빈출,2
 distinction,2,추상 명사,3
 distinctly,4,드문 파생어 — 심화로,
 distinguish,1,수능 필수 추상어,3
@@ -799,7 +799,7 @@ ecological,3,과학·학술 말,3
 ecology,3,과학·학술 말,3
 economic,1,사회·경제 주제,2
 economics,3,사회·경제 주제,2
-economy,1,사회·경제 주제,3
+economy,1,사회·경제 주제,2
 ecosystem,1,과학·학술 말,3
 ecstasy,4,문학적·드문 말 — 심화로,
 edge,2,일반 명사,2
@@ -808,7 +808,7 @@ editor,2,사람·직업,2
 educate,3,일반 동사,2
 education,1,일반 명사,1
 educational,2,일반 형용사,2
-effect,1,추상 명사,3
+effect,1,추상 명사,2
 effective,1,일반 형용사,3
 efficiency,1,추상 명사,3
 efficient,1,일반 형용사,2
@@ -829,13 +829,13 @@ embarrassment,3,감정·상태 말,2
 emerge,1,수능 필수 추상어,3
 emergency,1,일반 명사,1
 emotion,1,감정·상태 말,1
-emotional,1,일반 형용사,3
+emotional,1,일반 형용사,2
 emotionally,3,파생 부사·형용사,2
 emperor,3,사람·직업,1
 emphasis,1,추상 명사,3
 emphasize,1,수능 필수 추상어,3
 empire,3,역사·종교 말,2
-employment,3,사회·경제 주제,3
+employment,2,검토로 올림 — 수능·교과서 빈출,3
 enable,1,수능 필수 추상어,3
 enclose,4,드문 격식어 — 심화로,
 encounter,1,수능 필수 추상어,3
@@ -847,7 +847,7 @@ endless,3,일반 형용사,2
 endure,2,추상 동사,3
 enemy,1,일반 명사,1
 engage,1,수능 필수 추상어,3
-engaged,3,뜻이 여럿인 말,3
+engaged,4,다른 말의 변화형 — 심화로,
 engine,1,일상 구체 명사,1
 engineering,3,일반 명사,2
 Englishman,4,일상에서 드문 구체 명사 — 심화로,
@@ -866,7 +866,7 @@ enthusiastic,2,일반 형용사,3
 entire,1,일반 형용사,3
 entirely,2,부사,2
 entrance,1,일상 구체 명사,1
-entry,3,일반 명사,2
+entry,2,검토로 올림 — 수능·교과서 빈출,2
 environmental,1,일반 형용사,2
 environmentalist,3,사람·직업,2
 envy,2,감정·상태 말,2
@@ -874,7 +874,7 @@ equal,1,일반 형용사,1
 equality,1,사회·경제 주제,3
 equally,2,부사,2
 equipment,1,일반 명사,2
-era,3,일반 명사,3
+era,2,검토로 올림 — 수능·교과서 빈출,3
 error,1,일반 명사,1
 escalator,3,일상 구체 명사,1
 escape,1,일반 동사,1
@@ -906,7 +906,7 @@ excitement,1,감정·상태 말,1
 exclusive,3,추상 형용사,3
 exhausted,1,감정·상태 말,2
 exhibition,2,일반 명사,2
-exist,1,추상 동사,3
+exist,1,추상 동사,2
 existence,1,추상 명사,3
 exit,3,일반 명사,1
 expand,2,일반 동사,2
@@ -918,7 +918,7 @@ expert,1,사람·직업,1
 explanation,1,일반 명사,1
 exploration,3,일반 명사,2
 explore,1,일반 동사,1
-explosion,3,일반 명사,2
+explosion,2,검토로 올림 — 수능·교과서 빈출,2
 expose,1,수능 필수 추상어,3
 express,1,일반 동사,1
 expression,1,일반 명사,1
@@ -982,7 +982,7 @@ finance,2,사회·경제 주제,3
 financial,1,사회·경제 주제,3
 finding,1,일반 명사,2
 finger,1,일상 구체 명사,1
-firefighter,1,사람·직업,1
+firefighter,3,쉬운 일상어 — 수능어 우선으로 내림,1
 firework,3,일상 구체 명사,1
 firm,1,뜻이 여럿인 말,3
 firmly,3,부사,2
@@ -1004,7 +1004,7 @@ folk,3,일반 명사,2
 fond,3,일반 형용사,2
 fondness,4,드문 파생어 — 심화로,
 foolish,3,일반 형용사,1
-foot,3,뜻이 여럿인 말,1
+foot,1,기본어 — 초·중등에 없음,1
 footballer,3,사람·직업,1
 forbid,2,일반 동사,2
 forbidden,3,일반 형용사,2
@@ -1017,7 +1017,7 @@ formally,3,파생 부사·형용사,2
 format,3,일반 명사,2
 former,1,일반 형용사,3
 formula,2,과학·학술 말,3
-forth,4,드문 격식어 — 심화로,
+forth,4,관용 표현에 쓰는 말 — 심화로,
 fortnight,4,영국 생활·제도 말 — 심화로,
 fortunate,3,일반 형용사,2
 fortunately,1,부사,1
@@ -1025,7 +1025,7 @@ fortune,2,일반 명사,2
 forward,1,부사,1
 foundation,1,뜻이 여럿인 말,3
 fountain,3,일상 구체 명사,1
-fragment,3,일반 명사,3
+fragment,1,수능 빈출 말,2
 frame,2,일상 구체 명사,2
 frank,3,일반 형용사,2
 freedom,1,추상 명사,1
@@ -1071,7 +1071,7 @@ general,1,일반 형용사,1
 generally,2,부사,2
 generate,1,수능 필수 추상어,3
 generation,1,일반 명사,1
-generous,1,일반 형용사,3
+generous,1,일반 형용사,2
 genetic,2,과학·학술 말,3
 genetically,4,드문 파생어 — 심화로,
 genetics,4,전문 분야 말 — 심화로,
@@ -1114,7 +1114,7 @@ graduate,1,일반 동사,1
 graduation,3,일반 명사,1
 grandchild,2,가족·사람,1
 granddad,3,가족·사람,1
-grant,3,뜻이 여럿인 말,3
+grant,2,검토로 올림 — 수능·교과서 빈출,3
 graph,3,일반 명사,1
 graphic,3,일반 형용사,2
 graphics,3,IT·매체 말,2
@@ -1149,7 +1149,7 @@ handbag,3,일상 구체 명사,1
 handball,3,운동·여가,1
 handicapped,3,일반 형용사,2
 handkerchief,3,일상 구체 명사,1
-handle,1,일반 동사,1
+handle,1,일반 동사,2
 handshake,3,일반 명사,1
 handwriting,3,일반 명사,1
 handy,3,일반 형용사,2
@@ -1174,7 +1174,7 @@ headphone,2,일상 구체 명사,1
 headteacher,3,영국 생활 말,1
 heal,2,일반 동사,2
 healing,3,일반 명사,2
-hearing,3,일반 명사,1
+hearing,4,다른 말의 변화형 — 심화로,
 hearted,4,드문 파생어 — 심화로,
 hearty,4,문학적·드문 말 — 심화로,
 heater,3,일상 구체 명사,1
@@ -1188,7 +1188,7 @@ helmet,3,일상 구체 명사,1
 helpless,3,일반 형용사,2
 herd,3,자연·동물,2
 hesitate,2,일반 동사,2
-hidden,1,일반 형용사,1
+hidden,4,다른 말의 변화형 — 심화로,
 highlight,3,일반 동사,2
 highly,2,부사,2
 hip,3,일상 구체 명사,1
@@ -1244,7 +1244,7 @@ immediately,1,부사,1
 immigrate,3,사회·경제 주제,3
 immigration,2,사회·경제 주제,3
 impact,2,추상 명사,3
-impair,3,격식어,3
+impair,1,수능 빈출 말,3
 impatient,2,일반 형용사,2
 importance,1,추상 명사,1
 importantly,2,부사,2
@@ -1284,14 +1284,14 @@ ingredient,1,음식,1
 inhabitant,2,사람·직업,3
 inhale,3,일반 동사,3
 initial,1,수능 필수 추상어,3
-initially,3,부사,3
+initially,2,검토로 올림 — 수능·교과서 빈출,3
 inject,3,일반 동사,3
 injure,2,일반 동사,2
 injury,2,일반 명사,2
 ink,3,일상 구체 명사,1
 inner,2,일반 형용사,2
 innermost,4,문학적·드문 말 — 심화로,
-innocent,3,일반 형용사,2
+innocent,2,검토로 올림 — 수능·교과서 빈출,2
 innovator,3,사람·직업,2
 inquiry,4,드문 격식어 — 심화로,
 insane,4,구어·속어 — 심화로,
@@ -1305,11 +1305,11 @@ inspire,1,일반 동사,2
 install,2,일반 동사,2
 instance,1,수능 필수 추상어,3
 instant,2,일반 형용사,2
-institute,3,일반 명사,3
+institute,2,검토로 올림 — 수능·교과서 빈출,3
 instruction,1,일반 명사,2
 instructor,3,사람·직업,1
-instrument,1,일상 구체 명사,1
-insurance,3,사회·경제 주제,2
+instrument,1,일상 구체 명사,2
+insurance,2,검토로 올림 — 수능·교과서 빈출,2
 intelligence,2,추상 명사,3
 intelligent,1,일반 형용사,1
 intend,1,수능 필수 추상어,3
@@ -1319,10 +1319,10 @@ intention,1,추상 명사,3
 intentionally,3,파생 부사·형용사,3
 interact,1,일반 동사,3
 interaction,1,추상 명사,3
-interest,1,일반 명사,1
+interest,1,일반 명사,2
 intermediate,3,일반 형용사,3
 intermission,4,일상에서 드문 구체 명사 — 심화로,
-internal,3,추상 형용사,3
+internal,2,검토로 올림 — 수능·교과서 빈출,3
 international,1,일반 형용사,1
 internationally,3,파생 부사·형용사,2
 interrupt,2,일반 동사,2
@@ -1330,9 +1330,9 @@ interval,3,일반 명사,3
 interviewee,3,사람·직업,2
 introduction,2,일반 명사,2
 invade,2,일반 동사,2
-invasion,3,일반 명사,2
+invasion,2,검토로 올림 — 수능·교과서 빈출,2
 invest,2,일반 동사,2
-investigation,3,일반 명사,2
+investigation,2,검토로 올림 — 수능·교과서 빈출,2
 invitation,1,일반 명사,1
 involuntarily,4,드문 파생어 — 심화로,
 involve,1,수능 필수 추상어,3
@@ -1384,7 +1384,7 @@ land,1,일반 명사,1
 landlord,3,사람·직업,2
 landscape,2,일반 명사,2
 largely,2,부사,2
-last,3,뜻이 여럿인 말,2
+last,1,뜻이 여럿인 말 — 지속되다는 수능 핵심,3
 lasting,3,일반 형용사,2
 latecomer,4,드문 파생어 — 심화로,
 lately,2,부사,2
@@ -1399,7 +1399,7 @@ layer,2,일반 명사,2
 laziness,3,일반 명사,2
 lead,1,뜻이 여럿인 말,2
 leadership,1,일반 명사,2
-leading,3,일반 형용사,2
+leading,4,다른 말의 변화형 — 심화로,
 league,3,운동·여가,2
 lean,3,뜻이 여럿인 말,2
 leap,3,일반 동사,2
@@ -1470,7 +1470,7 @@ mailbox,3,일상 구체 명사,1
 main,1,일반 형용사,1
 mainly,1,부사,1
 maintain,1,수능 필수 추상어,3
-maintenance,3,일반 명사,3
+maintenance,2,검토로 올림 — 수능·교과서 빈출,3
 major,1,일반 형용사,2
 majority,1,추상 명사,3
 make-up,2,일상 구체 명사,1
@@ -1488,13 +1488,13 @@ marked,4,드문 격식어 — 심화로,
 marriage,1,일반 명사,1
 marvelous,3,일반 형용사,2
 mash,3,일반 동사,1
-mass,3,뜻이 여럿인 말,3
+mass,2,검토로 올림 — 수능·교과서 빈출,3
 massive,1,일반 형용사,2
 material,1,일반 명사,1
 mathematician,3,사람·직업,2
 mathematics,3,과학·학술 말,1
 max,3,일반 명사,2
-maximum,3,일반 명사,2
+maximum,2,검토로 올림 — 수능·교과서 빈출,2
 mayor,3,사람·직업,1
 meaning,1,일반 명사,1
 meaningful,2,일반 형용사,2
@@ -1511,7 +1511,7 @@ medium,3,뜻이 여럿인 말,2
 melt,1,일반 동사,1
 membership,3,일반 명사,2
 memorable,3,일반 형용사,1
-memorize,1,일반 동사,1
+memorize,3,쉬운 일상어 — 수능어 우선으로 내림,1
 mend,3,일반 동사,2
 mental,2,일반 형용사,2
 mentally,3,부사,2
@@ -1529,7 +1529,7 @@ mile,3,일반 명사,1
 military,2,사회·경제 주제,3
 mineral,3,과학·학술 말,2
 minimize,3,추상 동사,3
-minimum,3,일반 명사,2
+minimum,2,검토로 올림 — 수능·교과서 빈출,2
 minor,2,일반 형용사,2
 minority,2,사회·경제 주제,3
 minus,3,연결어·전치사,1
@@ -1538,7 +1538,7 @@ mischief,3,일반 명사,3
 miserable,3,감정·상태 말,2
 misery,3,감정·상태 말,3
 mislead,2,일반 동사,3
-mission,1,일반 명사,3
+mission,1,일반 명사,2
 misty,3,일반 형용사,1
 misunderstanding,3,일반 명사,2
 model,1,일반 명사,1
@@ -1547,7 +1547,7 @@ moderate,2,추상 형용사,3
 modern,1,일반 형용사,1
 modify,2,추상 동사,3
 moisture,3,과학·학술 말,2
-molecule,4,전문 분야 말 — 심화로,
+molecule,2,검토로 올림 — 수능·교과서 빈출,3
 monitor,3,일반 동사,2
 monk,3,사람·직업,1
 monster,3,일반 명사,1
@@ -1582,7 +1582,7 @@ muscle,1,일상 구체 명사,1
 mustard,4,일상에서 드문 구체 명사 — 심화로,
 mutual,2,추상 형용사,3
 mysterious,2,일반 형용사,2
-myth,3,일반 명사,2
+myth,2,검토로 올림 — 수능·교과서 빈출,2
 nail,3,일상 구체 명사,1
 naked,3,일반 형용사,2
 nap,3,일반 명사,1
@@ -1604,12 +1604,12 @@ nectar,4,일상에서 드문 구체 명사 — 심화로,
 needle,3,일상 구체 명사,1
 negative,1,일반 형용사,2
 negotiate,2,추상 동사,3
-negotiation,3,추상 명사,3
+negotiation,2,검토로 올림 — 수능·교과서 빈출,3
 neighborhood,1,일반 명사,1
 nephew,3,가족·사람,1
 nervousness,4,드문 파생어 — 심화로,
-ness,4,전문 분야 말 — 심화로,
-net,2,일상 구체 명사,1
+ness,4,지명 요소 — 심화로,
+net,2,일상 구체 명사,2
 network,1,일반 명사,1
 neutral,2,추상 형용사,3
 nevertheless,1,연결어·전치사,3
@@ -1639,7 +1639,7 @@ notion,2,추상 명사,3
 notorious,3,일반 형용사,3
 novelist,3,사람·직업,1
 nowhere,3,부사,2
-nuclear,3,과학·학술 말,2
+nuclear,2,검토로 올림 — 수능·교과서 빈출,2
 nucleus,4,전문 분야 말 — 심화로,
 numerous,1,일반 형용사,3
 nutrient,1,과학·학술 말,3
@@ -1647,17 +1647,17 @@ nutrition,3,일반 명사,2
 nutritious,3,일반 형용사,2
 oak,3,자연·동물,1
 object,1,뜻이 여럿인 말,3
-objection,4,드문 격식어 — 심화로,
+objection,2,검토로 올림 — 수능·교과서 빈출,3
 objective,1,뜻이 여럿인 말,3
 observation,1,일반 명사,3
 observe,1,일반 동사,3
 obstacle,1,일반 명사,3
 obtain,1,수능 필수 추상어,3
 obvious,2,일반 형용사,2
-obviously,3,부사,2
+obviously,2,검토로 올림 — 수능·교과서 빈출,2
 occasion,1,일반 명사,3
 occasional,3,일반 형용사,3
-occasionally,3,부사,2
+occasionally,2,검토로 올림 — 수능·교과서 빈출,2
 occupation,3,일반 명사,3
 occupy,1,수능 필수 추상어,3
 occur,1,수능 필수 추상어,3
@@ -1671,7 +1671,7 @@ old-fashioned,3,일반 형용사,1
 omelet,3,음식,1
 onstage,4,일상에서 드문 구체 명사 — 심화로,
 onto,3,연결어·전치사,1
-opening,3,일반 명사,2
+opening,4,다른 말의 변화형 — 심화로,
 operate,2,일반 동사,2
 operation,1,뜻이 여럿인 말,3
 opinion,1,일반 명사,1
@@ -1705,7 +1705,7 @@ outlaw,4,드문 격식어 — 심화로,
 outline,3,일반 명사,2
 outstanding,1,일반 형용사,3
 outward,4,드문 격식어 — 심화로,
-outweigh,3,일반 동사,3
+outweigh,1,수능 빈출 말,3
 overcome,1,일반 동사,3
 overjoyed,4,문학적·드문 말 — 심화로,
 overnight,3,부사,2
@@ -1746,7 +1746,7 @@ partly,2,부사,2
 passage,2,뜻이 여럿인 말,3
 passion,1,추상 명사,2
 passive,1,추상 형용사,3
-passport,1,일상 구체 명사,1
+passport,3,쉬운 일상어 — 수능어 우선으로 내림,1
 password,3,IT·매체 말,1
 path,1,일상 구체 명사,1
 patience,1,추상 명사,2
@@ -1815,8 +1815,8 @@ policewoman,3,사람·직업,1
 policy,1,사회·경제 주제,3
 politely,3,파생 부사·형용사,1
 political,2,사회·경제 주제,3
-politician,3,사람·직업,2
-politics,3,사회·경제 주제,2
+politician,2,검토로 올림 — 수능·교과서 빈출,2
+politics,2,검토로 올림 — 수능·교과서 빈출,2
 pollutant,3,과학·학술 말,3
 pollute,1,일반 동사,2
 pond,3,자연·동물,1
@@ -1829,7 +1829,7 @@ position,1,뜻이 여럿인 말,3
 positive,1,일반 형용사,1
 positively,3,파생 부사·형용사,2
 possess,1,수능 필수 추상어,3
-possession,3,추상 명사,3
+possession,2,검토로 올림 — 수능·교과서 빈출,3
 possessive,3,문법 용어(수업에서 씀),2
 possibility,1,추상 명사,3
 possible,1,일반 형용사,1
@@ -1854,7 +1854,7 @@ prefix,3,문법 용어(수업에서 씀),2
 pregnant,3,일반 형용사,2
 prejudice,2,추상 명사,3
 preparation,2,일반 명사,2
-prepared,3,일반 형용사,2
+prepared,4,다른 말의 변화형 — 심화로,
 preposition,3,문법 용어(수업에서 씀),2
 preschool,3,일반 명사,1
 prescription,3,일반 명사,2
@@ -1900,7 +1900,7 @@ prominent,2,추상 형용사,3
 promote,1,수능 필수 추상어,3
 promotion,3,뜻이 여럿인 말,3
 pronoun,3,문법 용어(수업에서 씀),2
-proof,3,일반 명사,2
+proof,2,검토로 올림 — 수능·교과서 빈출,2
 proper,2,일반 형용사,2
 properly,2,부사,2
 property,1,뜻이 여럿인 말,3
@@ -1917,7 +1917,7 @@ proud,1,일반 형용사,1
 prove,1,일반 동사,3
 proverb,3,일반 명사,2
 provide,1,일반 동사,1
-provided,3,연결어·전치사,3
+provided,3,연결어(= if) — 굳은 뜻이 있는 말,3
 psychological,1,일반 형용사,3
 psychologist,2,사람·직업,2
 pub,4,영국 생활·제도 말 — 심화로,
@@ -1927,9 +1927,9 @@ publish,1,일반 동사,2
 publisher,3,사람·직업,2
 pullover,4,일상에서 드문 구체 명사 — 심화로,
 pump,3,일상 구체 명사,2
-punctuation,3,문법 용어(수업에서 씀),3
+punctuation,3,문법 용어(수업에서 씀),2
 punish,2,일반 동사,2
-punishment,3,일반 명사,2
+punishment,2,검토로 올림 — 수능·교과서 빈출,2
 pupil,3,뜻이 여럿인 말,2
 puppy,3,자연·동물,1
 pure,2,일반 형용사,2
@@ -1937,7 +1937,7 @@ purify,3,일반 동사,3
 purpose,1,추상 명사,1
 purse,3,일상 구체 명사,1
 pursue,2,추상 동사,3
-puzzle,1,일반 명사,1
+puzzle,3,쉬운 일상어 — 수능어 우선으로 내림,1
 quake,4,구어·속어 — 심화로,
 qualified,3,일반 형용사,2
 qualify,3,추상 동사,3
@@ -1947,24 +1947,24 @@ questionnaire,3,일반 명사,2
 queue,4,영국 생활·제도 말 — 심화로,
 quit,1,일반 동사,1
 quite,1,부사,1
-race,1,뜻이 여럿인 말,1
+race,1,뜻이 여럿인 말,2
 racial,3,사회·경제 주제,3
 radiation,3,과학·학술 말,3
 rage,3,감정·상태 말,2
 rail,4,일상에서 드문 구체 명사 — 심화로,
-railroad,4,일상에서 드문 구체 명사 — 심화로,
+railroad,3,일상 구체 명사,1
 railway,3,일상 구체 명사,1
 rainfall,3,자연·동물,1
 rainforest,3,자연·동물,1
 raise,1,뜻이 여럿인 말,2
-range,1,일반 명사,3
+range,1,일반 명사,2
 rank,3,일반 동사,2
 rapid,2,일반 형용사,2
 rapidly,2,부사,2
 rare,1,일반 형용사,1
 rarely,2,부사,2
 raspberry,4,일상에서 드문 구체 명사 — 심화로,
-rate,1,일반 명사,3
+rate,1,일반 명사,2
 rather,1,부사,3
 rating,2,일반 명사,2
 ration,4,드문 격식어 — 심화로,
@@ -1975,7 +1975,7 @@ razor,4,일상에서 드문 구체 명사 — 심화로,
 reach,1,일반 동사,1
 react,2,일반 동사,2
 realistic,2,일반 형용사,2
-reality,1,추상 명사,3
+reality,1,추상 명사,2
 rearrange,3,일반 동사,2
 reasonable,1,일반 형용사,2
 rebuild,3,일반 동사,2
@@ -2027,11 +2027,11 @@ reliable,1,일반 형용사,3
 religion,2,일반 명사,2
 religious,2,일반 형용사,2
 rely,1,수능 필수 추상어,3
-remain,1,일반 동사,1
+remain,1,일반 동사,2
 remainder,4,드문 격식어 — 심화로,
-remark,3,일반 명사,3
+remark,2,검토로 올림 — 수능·교과서 빈출,3
 remarkable,1,일반 형용사,3
-remedy,3,일반 명사,3
+remedy,1,수능 빈출 말,2
 remembrance,4,문학적·드문 말 — 심화로,
 remote,2,일반 형용사,2
 remove,1,일반 동사,1
@@ -2060,7 +2060,7 @@ resist,1,일반 동사,3
 resolve,1,수능 필수 추상어,3
 resort,3,뜻이 여럿인 말,2
 resource,1,일반 명사,3
-respect,1,일반 동사,1
+respect,1,일반 동사,2
 respectable,3,일반 형용사,3
 respond,1,일반 동사,2
 response,1,일반 명사,1
@@ -2096,7 +2096,7 @@ roadside,3,합성어,1
 rob,2,일반 동사,2
 robbery,3,일반 명사,2
 robin,3,자연·동물,1
-robot,1,일상 구체 명사,1
+robot,3,쉬운 일상어 — 수능어 우선으로 내림,1
 rolling,4,다른 말의 변화형 — 심화로,
 romance,2,일반 명사,2
 romantic,2,일반 형용사,1
@@ -2128,7 +2128,7 @@ sample,2,일반 명사,1
 sand,3,자연·동물,1
 sandal,3,일상 구체 명사,1
 satellite,2,과학·학술 말,2
-satisfaction,1,감정·상태 말,3
+satisfaction,1,감정·상태 말,2
 satisfied,1,감정·상태 말,1
 satisfy,1,일반 동사,1
 saucepan,4,일상에서 드문 구체 명사 — 심화로,
@@ -2137,7 +2137,7 @@ scale,2,뜻이 여럿인 말,3
 scan,3,일반 동사,2
 scare,3,일반 동사,1
 scared,1,감정·상태 말,1
-scary,1,일반 형용사,1
+scary,3,쉬운 일상어 — 수능어 우선으로 내림,1
 scatter,3,일반 동사,3
 scene,1,일반 명사,1
 scenery,2,일반 명사,1
@@ -2157,7 +2157,7 @@ screw,3,일상 구체 명사,2
 script,2,일반 명사,2
 sculpture,3,일상 구체 명사,2
 search,1,일반 동사,1
-season,3,뜻이 여럿인 말,2
+season,1,기본어 — 초·중등에 없음,1
 seawater,3,합성어,1
 seaweed,3,음식,1
 second-hand,3,합성어,1
@@ -2279,7 +2279,7 @@ sorrow,3,감정·상태 말,2
 sort,2,뜻이 여럿인 말,2
 soul,1,일반 명사,2
 sour,3,일반 형용사,1
-source,1,일반 명사,3
+source,1,일반 명사,2
 southeast,3,일반 명사,1
 southern,3,일반 형용사,1
 southwest,3,일반 명사,1
@@ -2310,7 +2310,7 @@ sponsor,3,일반 명사,2
 sports,3,일반 명사,1
 sportsmanship,3,추상 명사,2
 spread,1,일반 동사,2
-square,1,일반 명사,1
+square,1,일반 명사,2
 stable,1,일반 형용사,3
 staff,2,일반 명사,2
 stall,4,일상에서 드문 구체 명사 — 심화로,
@@ -2343,7 +2343,7 @@ strength,1,일반 명사,2
 strengthen,1,일반 동사,2
 stress,1,감정·상태 말,1
 stressed,1,감정·상태 말,1
-stressful,1,일반 형용사,1
+stressful,3,쉬운 일상어 — 수능어 우선으로 내림,1
 stretch,2,일반 동사,2
 stricken,4,드문 격식어 — 심화로,
 strike,2,뜻이 여럿인 말,3
@@ -2354,7 +2354,7 @@ strongly,1,부사,1
 structure,1,일반 명사,2
 struggle,1,일반 동사,2
 stubborn,3,일반 형용사,2
-stuck,2,일반 형용사,2
+stuck,4,다른 말의 변화형 — 심화로,
 studio,3,일상 구체 명사,1
 stuffed,4,다른 말의 변화형 — 심화로,
 stumble,3,일반 동사,3
@@ -2367,7 +2367,7 @@ subconscious,4,전문 분야 말 — 심화로,
 submarine,3,일상 구체 명사,1
 substantial,2,추상 형용사,3
 substitute,1,일반 동사,3
-succeed,1,일반 동사,1
+succeed,1,일반 동사,2
 successfully,1,부사,1
 sudden,1,일반 형용사,1
 suddenly,1,부사,1
@@ -2384,7 +2384,7 @@ sundial,4,일상에서 드문 구체 명사 — 심화로,
 sunrise,3,자연·동물,1
 sunset,3,자연·동물,1
 superior,1,일반 형용사,3
-superlative,3,문법 용어(수업에서 씀),3
+superlative,3,문법 용어(수업에서 씀),2
 superstar,3,사람·직업,1
 superstition,3,일반 명사,3
 supply,1,일반 명사,3
@@ -2403,7 +2403,7 @@ surround,1,일반 동사,3
 surrounding,3,일반 형용사,2
 survival,1,일반 명사,2
 survive,1,일반 동사,1
-survivor,3,사람·직업,2
+survivor,2,검토로 올림 — 수능·교과서 빈출,2
 suspect,1,일반 동사,3
 suspicion,2,추상 명사,3
 swarm,4,문학적·드문 말 — 심화로,
@@ -2427,7 +2427,7 @@ tablet,3,일상 구체 명사,1
 takeaway,4,영국 생활·제도 말 — 심화로,
 takeoff,3,일반 명사,1
 tale,3,일반 명사,1
-talented,1,일반 형용사,1
+talented,3,쉬운 일상어 — 수능어 우선으로 내림,1
 talkative,3,일반 형용사,1
 tank,3,일상 구체 명사,1
 target,2,일반 명사,2
@@ -2436,9 +2436,9 @@ taste,3,뜻이 여럿인 말,2
 tasteless,3,일반 형용사,2
 tasty,3,일반 형용사,1
 tax,1,사회·경제 주제,2
-teaching,3,일반 명사,1
+teaching,4,다른 말의 변화형 — 심화로,
 teammate,3,사람·직업,1
-teamwork,1,일반 명사,1
+teamwork,3,쉬운 일상어 — 수능어 우선으로 내림,1
 tease,3,일반 동사,2
 technique,2,일반 명사,2
 technological,1,일반 형용사,3
@@ -2505,14 +2505,14 @@ total,1,일반 형용사,1
 totally,1,부사,1
 tourism,1,일반 명사,2
 tournament,3,운동·여가,1
-toward,1,연결어·전치사,3
+toward,1,연결어·전치사,2
 trace,1,뜻이 여럿인 말,3
 track,2,뜻이 여럿인 말,2
 tracksuit,4,영국 생활·제도 말 — 심화로,
 trade,1,사회·경제 주제,2
 tradition,1,일반 명사,1
 traditionally,3,파생 부사·형용사,2
-tragedy,3,일반 명사,2
+tragedy,2,검토로 올림 — 수능·교과서 빈출,2
 tragic,3,일반 형용사,2
 trail,3,일반 명사,2
 training,1,일반 명사,1
@@ -2622,7 +2622,7 @@ vain,3,관용 표현에 쓰는 말,3
 valuable,1,일반 형용사,1
 value,1,일반 명사,1
 van,3,일상 구체 명사,1
-variety,1,일반 명사,3
+variety,1,일반 명사,2
 various,1,일반 형용사,1
 vary,1,수능 필수 추상어,3
 vast,2,일반 형용사,2
@@ -2705,7 +2705,7 @@ wing,3,일상 구체 명사,1
 wire,3,일상 구체 명사,1
 wisdom,2,추상 명사,3
 wither,4,문학적·드문 말 — 심화로,
-within,1,연결어·전치사,3
+within,1,연결어·전치사,2
 witness,1,뜻이 여럿인 말,3
 wizard,3,사람·직업,1
 working,4,다른 말의 변화형 — 심화로,
@@ -2718,7 +2718,7 @@ worth,2,일반 형용사,2
 worthwhile,3,추상 형용사,3
 worthy,2,일반 형용사,3
 wound,3,일반 명사,2
-wrap,1,일반 동사,1
+wrap,3,쉬운 일상어 — 수능어 우선으로 내림,1
 wrapping,3,일반 명사,1
 wrist,3,일상 구체 명사,1
 wristwatch,4,일상에서 드문 구체 명사 — 심화로,
