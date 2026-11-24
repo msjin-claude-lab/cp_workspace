@@ -33,3 +33,42 @@ w-1467|example|She pretended not to hear me.|꾀병으로 학교 빠지기는 �
 w-1467|exampleMeaning|그녀는 내 말을 못 들은 척했다.|위 예문에 맞춤
 w-1302|exampleMeaning|대장장이는 뜨거운 쇠로 검을 만들었다.|칼은 knife로도 읽힘
 w-1428|exampleMeaning|절대 낯선 사람과 함께 차에 타지 마라.|with a stranger는 낯선 사람의 차가 아님
+# --- 중등 700 전체 두 축 검토(2026-11-24 /oh-my-claudecode:review, 둘 다 COMMENT — 사용자 "모두 반영") ---
+# 의도 축
+w-1476|example|We must protect endangered animals like tigers.|판다는 2016년 멸종 위기(EN)에서 취약(VU)으로 내려감
+w-1476|exampleMeaning|우리는 호랑이 같은 멸종 위기 동물을 보호해야 한다.|위 예문에 맞춤
+w-0820|example|Almost ten million people live in Seoul.|서울 인구 약 930만
+w-0820|exampleMeaning|거의 천만 명의 사람들이 서울에 산다.|위 예문에 맞춤
+w-1456|example|There is a statue of King Sejong in Gwanghwamun Square.|동상은 광화문 광장에 있음
+w-1456|exampleMeaning|광화문 광장에는 세종대왕 동상이 있다.|위 예문에 맞춤
+w-1484|example|Badminton is my favorite indoor sport.|수영은 실내 운동의 예로 약하고 w-0913과 겹침
+w-1484|exampleMeaning|배드민턴은 내가 가장 좋아하는 실내 운동이다.|위 예문에 맞춤
+w-1006|example|Sunflowers grow very tall in summer.|해를 따라 도는 것은 어린 해바라기뿐 — 흔한 오해
+w-1006|exampleMeaning|해바라기는 여름에 아주 크게 자란다.|위 예문에 맞춤
+w-0917|example|Put some pepper on your eggs.|w-0848 salt 예문과 장면이 같음
+w-0917|exampleMeaning|달걀에 후추를 조금 뿌려라.|위 예문에 맞춤
+w-1221|example|There is some cold juice in the refrigerator.|w-1019 fridge 예문과 거의 같음
+w-1221|exampleMeaning|냉장고에 시원한 주스가 있다.|위 예문에 맞춤
+w-0949|exampleMeaning|한국 음식에는 흔히 마늘이 많이 들어간다.|많이 … 많다 겹침
+w-1450|exampleMeaning|이 노래를 들으면 할머니가 생각난다.|번역투
+w-1407|exampleMeaning|영어 공부 요령을 몇 가지 알려 줄게.|Here are 번역투
+w-1189|exampleMeaning|서둘러, 안 그러면 버스 놓쳐.|그렇지 않으면은 번역투
+w-1283|exampleMeaning|모든 생물에게는 물이 필요하다.|어색함
+w-1354|example|Can you keep a secret?|for me 군더더기
+w-1354|exampleMeaning|비밀 지켜 줄 수 있니?|위 예문에 맞춤
+w-1305|exampleMeaning|이번에는 네가 시험에 합격하길 바란다.|시험에는 합격
+w-1314|exampleMeaning|책임자와 이야기하고 싶습니다.|가게 장면에서는 책임자
+w-0954|example|The cleaner comes to our school every evening.|중학생 화자에게 우리 사무실은 어색함
+w-0954|exampleMeaning|청소하시는 분이 매일 저녁 우리 학교에 오신다.|위 예문에 맞춤
+w-0996|meaning|십 대, 청소년|띄어쓰기(w-1063·w-1242와 같게)
+w-0996|exampleMeaning|많은 십 대들이 매일 스마트폰을 쓴다.|위와 같은 띄어쓰기
+w-1363|meaning|커플(부부), 두어 개|couple은 남녀 한 쌍 전체
+w-0999|exampleMeaning|우리는 숲에서 오랫동안 하이킹을 했다.|명사 hike가 동사 걸었다로 바뀜
+# 표준 축
+w-1131|meaning|옷을 입은, 옷을 차려입다|(get dressed)가 뜻→영 문제에서 정답을 보여 줌
+w-1281|meaning|톱, 보았다|(see의 과거)가 힌트가 됨
+w-0948|meaning|지루해하는, 심심해하는|-ed는 느끼는 쪽(surprised 놀란 등), 초등 boring 지루한과 글자가 같았음
+w-1060|meaning|운동, 연습 문제|(하다) 괄호 표기는 여기뿐
+w-1112|meaning|플라스틱, 플라스틱으로 된|(으로 된) 괄호 표기는 여기뿐
+# 사람 표본 확인(2026-11-24 — 사용자: 표본 60줄과 두 축 점검으로 5단계 끝남)
+w-1198|meaning|낮의 햇빛, 날이 밝은 때|일광은 중학생에게 어려운 한자어

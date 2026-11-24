@@ -1,4 +1,6 @@
-/// 뜻이 거의 같아 한 문제의 보기에 함께 나오면 정답이 둘로 보이는 영단어 쌍.
+/// 한 문제의 보기에 함께 나오면 정답이 둘로 보이는 영단어 쌍. 세 종류다:
+/// 뜻이 거의 같은 쌍(dad/father), 어원이 같은 쌍(invent/invention, quick/quickly — 2026-11-24
+/// 사용자 결정 "어원 같은 쌍은 모두 넣는다"), 우리말 뜻 글자가 같은 동음이의어 쌍(stomach/pear 배).
 ///
 /// 시험은 한 문제의 보기 4개에 쌍을 함께 내지 않는다(2026-11-23 사용자 결정 —
 /// 뜻 글자를 고쳐도 풀리지 않아 단어는 그대로 두고 보기에서만 가른다). 둘 다 그 회차의 문제로
@@ -75,6 +77,13 @@ const List<(String, String)> similarWordPairs = [
   ('relaxed', 'comfortable'),
   ('tip', 'advice'),
   ('skill', 'talent'),
+  // 어원이 같은 쌍(2026-11-24 두 축 검토 — 사용자 결정 "모두 넣는다")
+  ('quick', 'quickly'), // 중등 쉬움
+  ('bicycle', 'cycling'), // 중등 쉬움
+  ('tour', 'tourist'), // 중등 중간
+  ('power', 'powerful'), // 중등 어려움
+  ('crowd', 'crowded'), // 중등 어려움
+  ('interview', 'interviewer'), // 중등 어려움
 ];
 
 final Map<String, Set<String>> _partners = () {
