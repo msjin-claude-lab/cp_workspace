@@ -84,6 +84,70 @@ const List<(String, String)> similarWordPairs = [
   ('power', 'powerful'), // 중등 어려움
   ('crowd', 'crowded'), // 중등 어려움
   ('interview', 'interviewer'), // 중등 어려움
+  // 고등 쉬움 앞 300개(2026-11-24 검토) — 뜻이 거의 같음
+  ('perhaps', 'probably'),
+  ('perhaps', 'possibly'),
+  ('probably', 'possibly'),
+  ('disease', 'illness'),
+  ('appear', 'seem'),
+  ('normal', 'ordinary'),
+  ('usual', 'normal'),
+  ('mainly', 'mostly'),
+  ('fact', 'truth'),
+  ('provide', 'offer'),
+  ('increase', 'rise'),
+  ('reach', 'achieve'),
+  ('protect', 'guard'),
+  ('loss', 'damage'), // 손실 / 손상
+  ('war', 'battle'),
+  ('total', 'whole'),
+  ('stress', 'pressure'),
+  ('explanation', 'description'),
+  ('professional', 'expert'),
+  ('recent', 'latest'),
+  ('completely', 'perfectly'),
+  ('quite', 'extremely'), // 아주 / 매우
+  ('global', 'international'),
+  ('zone', 'area'),
+  ('vehicle', 'transportation'), // 탈것 / 교통수단
+  ('main', 'central'), // 주요한 / 중요한
+  ('certainly', 'clearly'), // 확실히 / 분명히
+  ('ahead', 'forward'), // 앞에 / 앞으로
+  // 고등 쉬움 앞 300개 — 어원이 같음
+  ('center', 'central'),
+  ('sudden', 'suddenly'),
+  ('deliver', 'delivery'),
+  ('natural', 'naturally'),
+  ('normal', 'normally'),
+  ('regular', 'regularly'),
+  ('serious', 'seriously'),
+  ('clear', 'clearly'),
+  ('complete', 'completely'),
+  ('perform', 'performance'),
+  ('produce', 'production'),
+  ('produce', 'product'),
+  ('product', 'production'),
+  ('express', 'expression'),
+  ('include', 'including'),
+  ('fail', 'failure'),
+  ('main', 'mainly'),
+  ('able', 'ability'),
+  ('able', 'unable'),
+  ('value', 'valuable'),
+  ('silence', 'silent'),
+  ('national', 'international'),
+  ('cent', 'percent'),
+  ('electricity', 'electronic'),
+  ('search', 'research'),
+  ('less', 'least'),
+  ('possible', 'possibly'),
+  ('truth', 'truly'), // true
+  ('knowledge', 'unknown'), // know
+  ('ever', 'whenever'),
+  ('more', 'mostly'), // much·more·most
+  ('however', 'ever'),
+  ('experience', 'experiment'),
+  ('pressure', 'express'), // press
 ];
 
 final Map<String, Set<String>> _partners = () {

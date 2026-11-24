@@ -1,0 +1,33 @@
+# 고등 검토가 낸 고칠 줄(2026-11-24~, 칸마다 code-reviewer 두 번 + 사람 표본). 형식: 번호|필드|새 값|근거
+# 적용: 검토마다 그 부분만 임시 파일로 python tool/wordlist/cells.py --stage high fix <파일> → check → 시험 → 커밋(누적 파일을 통째로 넘기지 않는다 — docs/plan-words-phase3.md 4단계)
+# --- high_easy 앞 300개(2026-11-24 code-reviewer, COMMENT) ---
+w-1531|meaning|생각, 사고, 사상|동사 think의 과거형 "생각했다"는 이 낱말의 뜻 칸에 맞지 않음(4지선다에 동사 뜻으로 보임). 수능 핵심은 명사 생각·사상(Western thought)
+w-1531|example|After a lot of thought, I decided to join the science club.|I thought ~는 동사 과거형이라 명사 뜻이 안 드러남
+w-1531|exampleMeaning|많이 생각한 끝에 나는 과학 동아리에 들어가기로 했다.|위 예문에 맞춤
+w-1690|example|Admiral Yi Sun-sin won the Battle of Myeongnyang with only thirteen ships.|명량 해전에 나간 배는 13척(12척은 장계 "신에게는 아직 12척이 있습니다"의 수). 사실 오류
+w-1690|exampleMeaning|이순신 장군은 단 13척의 배로 명량 해전에서 승리했다.|위 예문에 맞춤
+w-1629|example|Please take one step forward when I call your name.|look forward to는 숙어라 해석에 앞으로가 없음(고대하다는 뜻 칸에 없음)
+w-1629|exampleMeaning|이름을 부르면 한 걸음 앞으로 나오세요.|위 예문에 맞춤
+w-1652|meaning|발, (길이 단위) 피트, (산의) 기슭|예문·해석은 산기슭인데 뜻은 맨 아래 — 수능에서 the foot of a mountain은 기슭으로 나옴
+w-1513|meaning|총계, 합계, 전체 합계의, 전적인|예문 total cost는 형용사(총비용)인데 뜻이 명사뿐. 총은 gun의 총과 같은 글자(동음이의어), 전체는 whole의 전체의와 거의 같아 뺌
+w-1708|meaning|혹시, 어쩌면 ~일지도, 도저히(부정문)|"아마 ~일 수도"는 어색하고 perhaps 아마·probably 아마도와 글자가 붙어 보임
+w-1702|meaning|배달, 전달, (연설 등의) 전달 방식|분만은 고1 쉬움 칸에 드문 뜻. 수능은 배달·전달(speech delivery)
+w-1775|meaning|성격, 개성, 인격|유명인(TV personality)은 고1에게 드물고 4지선다에서 celebrity로 오해됨
+w-1695|example|Electric vehicles do not produce exhaust fumes.|전기차에는 엔진이 없음(모터) — 사실 오류
+w-1695|exampleMeaning|전기 차량은 배기가스를 내뿜지 않는다.|위 예문에 맞춤
+w-1586|example|The company suffered a huge loss because of the fire.|memory loss는 기억 상실(수면 부족으로 생긴다고 하면 과장), 기억력 손실은 어색함
+w-1586|exampleMeaning|그 회사는 화재로 막대한 손실을 입었다.|위 예문에 맞춤
+w-1737|meaning|드문, 희귀한, (고기가) 덜 익은|덜 익은은 과일(unripe)로 읽힘 — 스테이크 굽기임을 밝힘
+w-1535|meaning|흔한, 공통의, 공동의|in common·common goal의 공동의. 보통의는 normal과 글자가 겹쳐 넣지 못함
+w-1578|exampleMeaning|시험장에 들어가기 전에 양식을 다 작성해야 한다.|작성 완료해야는 어색함
+w-1616|example|The instructions were simply written, so everyone understood them.|그저 잊었을 뿐이라 용서했다는 논리가 어색함
+w-1616|exampleMeaning|설명서가 간단히 쓰여 있어서 모두가 이해했다.|위 예문에 맞춤
+w-1673|example|Male birds are often more colorful than females.|peacock은 이미 수컷이라 male peacock은 겹말
+w-1673|exampleMeaning|수컷 새는 흔히 암컷보다 더 화려하다.|위 예문에 맞춤
+w-1545|example|About seventy percent of the Earth's surface is covered by water.|지구의 70%가 물인 것이 아니라 표면의 70%
+w-1545|exampleMeaning|지구 표면의 약 70퍼센트는 물로 덮여 있다.|위 예문에 맞춤
+w-1635|meaning|긍정적인, 확신하는, (검사 결과가) 양성의|양성의만 두면 양성(良性, benign)으로 읽힘
+w-1748|meaning|날카로운, 급격한, (시각 뒤에서) 정각에|at nine sharp의 쓰임을 밝힘
+w-1552|meaning|한 번이라도, 지금까지, 늘(ever since 등)|언제나는 always로 읽혀 Have you ever 뜻을 흐림
+w-1507|meaning|정부, 통치|정치는 politics
+w-1765|exampleMeaning|10시에 박물관 정문에서 만나자.|정문 입구는 겹말
