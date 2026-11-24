@@ -1,0 +1,11 @@
+# 중등 검토가 낸 고칠 줄(2026-11-24, 칸마다 code-reviewer). 형식: 번호|필드|새 값|근거
+# 적용: python tool/wordlist/cells.py --stage middle fix docs/wordlist/review-fixes-middle.txt  →  python tool/wordlist/cells.py --stage middle check
+# --- middle_easy (COMMENT) ---
+w-0915|meaning|아이, 장난치다|kid의 동사 뜻은 농담·장난(just kidding). joke의 농담하다와 글자가 겹치지 않게
+w-0807|meaning|공기, 공중|하늘은 sky. in the air = 공중에
+w-0864|exampleMeaning|수업 전에 간단히 점심을 먹자.|quick lunch는 간단한 식사. 빨리는 quickly와 같아 보임
+w-0856|example|This magazine has many young readers.|She is a fast reader는 해석이 동사로 바뀌어 독자 뜻이 안 드러남
+w-0856|exampleMeaning|이 잡지는 젊은 독자가 많다.|위 예문에 맞춤
+w-0974|meaning|사업가, 기업인|회사원은 office worker
+w-0882|exampleMeaning|그는 정말 좋은 사람이다.|좋은 남자이다는 어색함
+w-0999|meaning|도보 여행, 걸어서 여행하다|오래 걷다는 walking과 헷갈림

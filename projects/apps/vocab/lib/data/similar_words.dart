@@ -22,6 +22,21 @@ const List<(String, String)> similarWordPairs = [
   ('wonderful', 'super'),
   ('still', 'yet'),
   ('waiter', 'waitress'),
+  // 중등 쉬움(2026-11-24 검토)
+  ('mum', 'mommy'),
+  ('grandma', 'granny'),
+  ('police', 'policeman'),
+  ('pasta', 'spaghetti'),
+  ('soda', 'cola'),
+  ('ski', 'skiing'),
+  ('skate', 'skating'),
+  ('hike', 'hiking'),
+  ('hiking', 'climbing'),
+  ('drawing', 'painting'),
+  ('exam', 'quiz'),
+  ('lose', 'lost'),
+  ('fry', 'fried'),
+  ('stomach', 'pear'), // 위·배 / 배(과일)
 ];
 
 final Map<String, Set<String>> _partners = () {
