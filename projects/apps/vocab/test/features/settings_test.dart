@@ -6,6 +6,7 @@ import 'package:material_ui/material_ui.dart';
 import 'package:vocab/data/app_settings.dart';
 import 'package:vocab/data/cell.dart';
 import 'package:vocab/data/cell_store.dart';
+import 'package:vocab/data/counts.dart';
 import 'package:vocab/data/speaker.dart';
 import 'package:vocab/data/study_decks.dart';
 import 'package:vocab/data/study_records.dart';
@@ -307,6 +308,125 @@ void main() {
       appKey: UniqueKey(),
     );
     expect(find.text('찾을 수 없는 화면입니다'), findsOneWidget);
+  });
+
+  // 100과 카드 학습 "전체"(2026-11-24 사용자 결정 — "카드수·문항수 각각 100도, 카드수는 최대(단어수)도")
+  group('100과 전체', () {
+    ChoiceChip allChip(WidgetTester tester) => tester.widget<ChoiceChip>(
+      find.byKey(const ValueKey('settings-card-all')),
+    );
+
+    testWidgets('카드 수·문항 수에서 100을 고르면 그 단어장에 저장되고 그 조각이 선택된다', (tester) async {
+      await pump(tester, null);
+      await tap(tester, 'home-settings');
+      await tap(tester, 'settings-card-100');
+      await tap(tester, 'settings-quiz-100');
+      expect(decks.cardCounts[deck.deckId], 100);
+      expect(decks.quizCounts[deck.deckId], 100);
+      expect(segmented(tester, card: true).selected, {100});
+      expect(segmented(tester, card: false).selected, {100});
+    });
+
+    testWidgets('카드 수에만 단어 수를 보인 전체가 있고, 고르면 저장되고 전체만 선택된다', (tester) async {
+      await pump(tester, null, words: 120);
+      await tap(tester, 'home-settings');
+      expect(find.text('전체 (120)'), findsOneWidget);
+      expect(find.byKey(const ValueKey('settings-quiz-all')), findsNothing);
+
+      await tap(tester, 'settings-card-all');
+      expect(decks.cardCounts[deck.deckId], allCardsCount);
+      expect(allChip(tester).selected, isTrue);
+      expect(segmented(tester, card: true).selected, isEmpty);
+      // 전체는 직접 입력이 아니다
+      expect(
+        tester
+            .widget<ChoiceChip>(
+              find.byKey(const ValueKey('settings-card-custom')),
+            )
+            .selected,
+        isFalse,
+      );
+      expect(find.text('직접 입력'), findsNWidgets(2));
+
+      // 다시 조각을 고르면 전체가 풀린다
+      await tap(tester, 'settings-card-30');
+      expect(allChip(tester).selected, isFalse);
+      expect(decks.cardCounts[deck.deckId], 30);
+    });
+
+    testWidgets('전체이면 카드 학습은 그 단어장의 단어를 모두 쓰고, 홈도 단어 수만큼으로 보인다', (
+      tester,
+    ) async {
+      decks.cardCounts[deck.deckId] = allCardsCount;
+      await pump(tester, null, words: 120);
+      expect(find.text('한 번에 카드 120장 · 시험 20문제'), findsOneWidget);
+      await pump(
+        tester,
+        StudyScreen(deck: deck),
+        words: 120,
+        appKey: UniqueKey(),
+      );
+      expect(find.text('1 / 120'), findsOneWidget);
+    });
+
+    testWidgets('직접 입력 창은 전체의 저장값(9999)을 받지 않는다 — 카드도 문항도 1~999만', (
+      tester,
+    ) async {
+      await pump(tester, null);
+      await tap(tester, 'home-settings');
+      for (final prefix in ['settings-card', 'settings-quiz']) {
+        await tap(tester, '$prefix-custom');
+        await tester.enterText(
+          find.byKey(ValueKey('$prefix-input')),
+          '$allCardsCount',
+        );
+        await tap(tester, '$prefix-save');
+        expect(find.text('1에서 999 사이의 숫자를 입력하세요'), findsOneWidget);
+        await tester.tap(find.text('취소'));
+        await tester.pumpAndSettle();
+      }
+      expect(decks.cardCounts[deck.deckId], 50);
+      expect(decks.quizCounts[deck.deckId], 20);
+    });
+
+    testWidgets('전체로 저장한 단어장은 앱을 다시 만들어도 전체가 선택된다, 문항 수에 9999가 있으면 기본값으로 본다', (
+      tester,
+    ) async {
+      decks.cardCounts[deck.deckId] = allCardsCount;
+      decks.quizCounts[deck.deckId] = allCardsCount;
+      await pump(tester, null, words: 120);
+      await tap(tester, 'home-settings');
+      expect(allChip(tester).selected, isTrue);
+      expect(segmented(tester, card: false).selected, {defaultQuizCount});
+    });
+
+    testWidgets('전체에서 직접 입력을 열면 9999가 아니라 기본값부터 보인다', (tester) async {
+      decks.cardCounts[deck.deckId] = allCardsCount;
+      await pump(tester, null);
+      await tap(tester, 'home-settings');
+      await tap(tester, 'settings-card-custom');
+      expect(
+        tester
+            .widget<TextField>(
+              find.byKey(const ValueKey('settings-card-input')),
+            )
+            .controller!
+            .text,
+        '$defaultCardCount',
+      );
+    });
+
+    testWidgets('폭 360dp 폰에서 조각 다섯 개와 전체·직접 입력이 넘치지 않는다', (tester) async {
+      tester.view.physicalSize = const Size(360, 640);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.reset);
+      decks.cardCounts[deck.deckId] = allCardsCount;
+      await pump(tester, null, words: 500);
+      await tap(tester, 'home-settings');
+      expect(find.text('전체 (500)'), findsOneWidget);
+      expect(find.text('100'), findsNWidgets(2));
+      expect(tester.takeException(), isNull);
+    });
   });
 
   group('직접 입력', () {

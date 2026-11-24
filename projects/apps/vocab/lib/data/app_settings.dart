@@ -34,7 +34,7 @@ class DeckSettings {
 
 /// 옛 공통 설정(7판 전 — 모든 단어장 공통이던 때). 이제 **읽기만** 한다: 7판 전에 있던 단어장(설정 열이
 /// NULL)과 내장 칸을 직접 열 때 물려받는다. 시험에서는 가짜로 바꾼다.
-/// 값이 없으면 null을 돌려주고(범위 밖 값 처리는 [isValidCount]), 값을 정하는 것은 [DeckSettingsNotifier]가 한다.
+/// 값이 없으면 null을 돌려주고(범위 밖 값 처리는 [isValidCount]·[isValidCardCount]), 값을 정하는 것은 [DeckSettingsNotifier]가 한다.
 abstract interface class LegacySettingsStore {
   Future<int?> loadCardCount();
 
@@ -60,16 +60,18 @@ final legacySettingsStoreProvider = Provider<LegacySettingsStore>(
 );
 
 /// 값 하나를 정한다(2026-11-22 사용자 결정): 단어장 고유 값 → 옛 공통 값 → `fallback`(기본값) 중
-/// 쓸 수 있는([isValidCount]) 첫 값. 옛 값은 고유 값을 쓸 수 없을 때만 읽고, 읽지 못하면 없는 것으로 본다.
+/// 쓸 수 있는(`valid` — 기본 [isValidCount], 카드는 [isValidCardCount]) 첫 값. 옛 값은 고유 값을 쓸 수 없을 때만
+/// 읽고, 읽지 못하면 없는 것으로 본다.
 Future<int> resolveCount(
   int? own,
   Future<int?> Function() legacy,
-  int fallback,
-) async {
-  if (isValidCount(own)) return own!;
+  int fallback, {
+  bool Function(int?) valid = isValidCount,
+}) async {
+  if (valid(own)) return own!;
   try {
     final value = await legacy();
-    if (isValidCount(value)) return value!;
+    if (valid(value)) return value!;
   } catch (_) {
     // 설정 때문에 학습·시험이 막히면 안 된다 — 기본값으로 연다
   }
@@ -107,6 +109,7 @@ class DeckSettingsNotifier extends AsyncNotifier<DeckSettings> {
         own.cardCount,
         legacy.loadCardCount,
         defaultCardCount,
+        valid: isValidCardCount,
       ),
       quizCount: await resolveCount(
         own.quizCount,

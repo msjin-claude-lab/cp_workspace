@@ -294,5 +294,11 @@ void main() {
     expect(isValidCount(1), isTrue);
     expect(isValidCount(999), isTrue);
     expect(isValidCount(1000), isFalse);
+    // 카드 학습 "전체"(9999)는 카드에만 쓸 수 있다(2026-11-24)
+    expect(isValidCount(allCardsCount), isFalse);
+    expect(isValidCardCount(allCardsCount), isTrue);
+    expect(isValidCardCount(999), isTrue);
+    expect(isValidCardCount(1000), isFalse);
+    expect(isValidCardCount(null), isFalse);
   });
 }

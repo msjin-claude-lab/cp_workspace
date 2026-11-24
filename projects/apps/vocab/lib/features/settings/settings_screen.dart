@@ -5,6 +5,7 @@ import 'package:material_ui/material_ui.dart';
 import '../../data/app_settings.dart';
 import '../../data/cell.dart';
 import '../../data/counts.dart';
+import '../../data/word_repository.dart';
 
 /// 설정: 그 단어장의 카드 학습 단어 수와 시험 문항 수(2026-11-22 사용자 결정 — 단어장마다 따로).
 /// 고르는 즉시 저장한다(저장 버튼 없음). 진행 중인 회차에는 영향이 없고 다음 회차부터 쓴다.
@@ -32,6 +33,8 @@ class SettingsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final settings = ref.watch(deckSettingsProvider(deck));
     final notifier = ref.read(deckSettingsProvider(deck).notifier);
+    // "전체" 칩에 보일 단어 수 — 읽는 중이거나 실패하면 수 없이 "전체"만
+    final wordCount = ref.watch(deckWordsProvider(deck)).value?.length;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -50,6 +53,8 @@ class SettingsScreen extends ConsumerWidget {
                 title: '카드 학습 단어 수',
                 caption: '한 번에 볼 카드 수',
                 value: s.cardCount,
+                allWords: true,
+                wordCount: wordCount,
                 onChanged: (n) =>
                     _change(context, () => notifier.setCardCount(n)),
               ),
@@ -77,7 +82,8 @@ class SettingsScreen extends ConsumerWidget {
   }
 }
 
-/// 제목 + 설명 + 10/20/30/50 중 하나 또는 직접 입력을 고르는 줄. 버튼 키는 `<keyPrefix>-<수>`, 직접 입력은 `<keyPrefix>-custom`.
+/// 제목 + 설명 + 10/20/30/50/100 중 하나, (카드만) 전체, 또는 직접 입력을 고르는 줄.
+/// 버튼 키는 `<keyPrefix>-<수>`, 전체는 `<keyPrefix>-all`, 직접 입력은 `<keyPrefix>-custom`.
 class _CountSetting extends StatelessWidget {
   const _CountSetting({
     required this.keyPrefix,
@@ -85,6 +91,8 @@ class _CountSetting extends StatelessWidget {
     required this.caption,
     required this.value,
     required this.onChanged,
+    this.allWords = false,
+    this.wordCount,
   });
 
   final String keyPrefix;
@@ -93,7 +101,14 @@ class _CountSetting extends StatelessWidget {
   final int value;
   final ValueChanged<int> onChanged;
 
-  bool get custom => !countChoices.contains(value);
+  /// "전체"(그 단어장의 단어 모두) 칩을 보일까 — 카드 학습만(2026-11-24 사용자 결정).
+  final bool allWords;
+
+  /// 전체 칩에 보일 단어 수. 모르면 null.
+  final int? wordCount;
+
+  bool get all => value == allCardsCount;
+  bool get custom => !countChoices.contains(value) && !all;
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +120,7 @@ class _CountSetting extends StatelessWidget {
         const SizedBox(height: 2),
         Text(caption, style: text.bodySmall),
         const SizedBox(height: 12),
-        // 직접 입력한 값이면 어느 조각도 선택되지 않는다(아래 "직접 입력"이 선택됨)
+        // 직접 입력·전체이면 어느 조각도 선택되지 않는다(아래 "직접 입력"이나 "전체"가 선택됨)
         SegmentedButton<int>(
           showSelectedIcon: false,
           emptySelectionAllowed: true,
@@ -116,28 +131,42 @@ class _CountSetting extends StatelessWidget {
                 label: Text('$n', key: ValueKey('$keyPrefix-$n')),
               ),
           ],
-          selected: custom ? <int>{} : {value},
+          selected: custom || all ? <int>{} : {value},
           onSelectionChanged: (s) {
             if (s.isNotEmpty) onChanged(s.first);
           },
         ),
         const SizedBox(height: 8),
-        // 조각 다섯 개는 폭 360dp 폰에서 글자가 잘리므로 직접 입력은 따로 한 줄에 둔다
-        ChoiceChip(
-          key: ValueKey('$keyPrefix-custom'),
-          label: Text(custom ? '직접 입력 ($value)' : '직접 입력'),
-          selected: custom,
-          onSelected: (_) async {
-            final n = await showDialog<int>(
-              context: context,
-              builder: (_) => _CustomCountDialog(
-                keyPrefix: keyPrefix,
-                title: title,
-                initial: value,
+        // 글자가 긴 전체·직접 입력은 폭 360dp 폰에서 조각에 넣으면 잘리므로 따로 한 줄에 둔다
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: [
+            if (allWords)
+              ChoiceChip(
+                key: ValueKey('$keyPrefix-all'),
+                label: Text(wordCount == null ? '전체' : '전체 ($wordCount)'),
+                selected: all,
+                onSelected: (_) => onChanged(allCardsCount),
               ),
-            );
-            if (n != null) onChanged(n);
-          },
+            ChoiceChip(
+              key: ValueKey('$keyPrefix-custom'),
+              label: Text(custom ? '직접 입력 ($value)' : '직접 입력'),
+              selected: custom,
+              onSelected: (_) async {
+                final n = await showDialog<int>(
+                  context: context,
+                  builder: (_) => _CustomCountDialog(
+                    keyPrefix: keyPrefix,
+                    title: title,
+                    // 전체에서 직접 입력을 열면 9999 대신 기본값부터 보인다(직접 입력은 1~999)
+                    initial: all ? defaultCardCount : value,
+                  ),
+                );
+                if (n != null) onChanged(n);
+              },
+            ),
+          ],
         ),
       ],
     );
