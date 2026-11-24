@@ -31,3 +31,29 @@ w-1748|meaning|날카로운, 급격한, (시각 뒤에서) 정각에|at nine sha
 w-1552|meaning|한 번이라도, 지금까지, 늘(ever since 등)|언제나는 always로 읽혀 Have you ever 뜻을 흐림
 w-1507|meaning|정부, 통치|정치는 politics
 w-1765|exampleMeaning|10시에 박물관 정문에서 만나자.|정문 입구는 겹말
+# --- high_easy 301~500(2026-11-24 code-reviewer, COMMENT) ---
+w-1805|meaning|전적으로, (구어) 완전|완벽히는 perfectly의 뜻이라 4지선다에서 perfectly(완벽하게)와 정답이 둘로 보임(totally≠perfectly). 전적으로는 completely에서 옮김, (구어) 완전은 "완전 잊었어"의 쓰임
+w-1805|example|I totally agree with you about the new school rules.|completely 예문(I completely forgot ~)과 틀이 같아 바꾸고 전적으로 뜻을 보임
+w-1805|exampleMeaning|새 교칙에 대해 나는 네 말에 전적으로 동의한다.|위 예문에 맞춤
+w-1658|meaning|완전히, 온전히|전적으로를 totally로 넘김
+w-1812|meaning|우주, 만물|우주(천체 전체)는 괄호 풀이가 어색하고, 세계는 global·worldwide(세계적인·전 세계적인)와 정답이 둘로 보임. universe의 핵심 뜻 우주를 씀
+w-1576|meaning|공간, 우주 공간, 빈칸|우주를 universe에 넘김(outer space)
+w-1846|meaning|기분, 분위기|mood의 분위기는 핵심 뜻인데 괄호로 좁혀 있었음
+w-1756|meaning|기후, (사회의) 풍조|climate의 분위기는 드문 뜻(political climate=풍조) — 분위기를 mood에 넘김
+w-1992|meaning|중대한, 전공, 전공하다|(비중이) 큰은 어색함. 수능 핵심은 주요한·중대한(major problem)
+w-1639|meaning|심각한, 진지한, 진심인|중대한을 major로 넘김. Are you serious?(진심이야?)는 흔한 쓰임
+w-1979|meaning|관심, 흥미, 이자|interest의 첫 뜻 관심이 빠짐(관심은 attention에 있었음). 이익(public interest)은 고1 쉬움 칸에 드문 쪽
+w-1584|meaning|주의, 주목, 집중|관심을 interest로 넘김. pay attention은 주의
+w-1845|meaning|탐험하다, 탐구하다, 탐색하다|조사하다가 research(조사)와 정답이 둘로 보임. explore options(탐색하다)는 수능 빈출
+w-1912|meaning|살인자, (질병 등의) 사망 원인|목숨을 앗아 가는 것은 어색하고 kill(목숨을 앗아 가다)과 글자가 붙어 보임. 수능의 killer는 주로 the leading killer
+w-1912|example|Heart disease is one of the biggest killers in the world.|살인범 체포 대신 둘째 뜻을 보이는 예문(민감도 낮춤). 심장병은 WHO 기준 세계 1위 사망 원인
+w-1912|exampleMeaning|심장병은 세계에서 가장 큰 사망 원인 중 하나이다.|위 예문에 맞춤
+w-1835|meaning|올바르게, 제대로|정확하게가 exactly(정확히)와 정답이 둘로 보임
+w-1835|exampleMeaning|초대장에 모든 사람의 이름 철자를 올바르게 썼는지 확인해라.|위 뜻에 맞춤
+w-1933|meaning|접수원, 접수 담당자|안내 직원이 guide(안내인)·clerk(직원)과 붙어 보임
+w-1852|example|It is unfair that only some students have to clean the classroom every day.|시험 시간 연장은 장애 학생 편의 제공이라 불공평의 예로 민감함
+w-1852|exampleMeaning|일부 학생만 매일 교실 청소를 해야 하는 것은 불공평하다.|위 예문에 맞춤
+w-1971|example|I always do the washing-up after dinner to help my mum.|영국식 washing-up 예문에 미국식 mom이 섞임(cooker 예문은 mum)
+w-1941|meaning|고속도로(미국 highway·freeway)|고1에게 익숙한 미국 대응어는 highway(crash 예문도 highway)
+w-1894|meaning|울새, (미국) 개똥지빠귀|수능 지문(미국 영어)의 robin은 대개 미국 개똥지빠귀
+w-1925|exampleMeaning|그는 화가 나서 문을 닫고 자기 방으로 갔다.|쾅은 원문에 없음(shut)

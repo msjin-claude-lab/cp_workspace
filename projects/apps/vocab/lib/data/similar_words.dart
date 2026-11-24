@@ -1,6 +1,7 @@
 /// 한 문제의 보기에 함께 나오면 정답이 둘로 보이는 영단어 쌍. 세 종류다:
 /// 뜻이 거의 같은 쌍(dad/father), 어원이 같은 쌍(invent/invention, quick/quickly — 2026-11-24
-/// 사용자 결정 "어원 같은 쌍은 모두 넣는다"), 우리말 뜻 글자가 같은 동음이의어 쌍(stomach/pear 배).
+/// 사용자 결정 "어원 같은 쌍은 모두 넣는다" — 접두·접미사로 이어진 파생어만. 합성어라 뜻이 뚜렷이
+/// 다른 쌍(bookcase/bookshop, left-hand/handbag)은 넣지 않는다, 2026-11-24 사용자 결정), 우리말 뜻 글자가 같은 동음이의어 쌍(stomach/pear 배).
 ///
 /// 시험은 한 문제의 보기 4개에 쌍을 함께 내지 않는다(2026-11-23 사용자 결정 —
 /// 뜻 글자를 고쳐도 풀리지 않아 단어는 그대로 두고 보기에서만 가른다). 둘 다 그 회차의 문제로
@@ -148,6 +149,60 @@ const List<(String, String)> similarWordPairs = [
   ('however', 'ever'),
   ('experience', 'experiment'),
   ('pressure', 'express'), // press
+  // 고등 쉬움 301~500(2026-11-24 검토) — 뜻이 거의 같음
+  ('amazing', 'incredible'),
+  ('cop', 'policewoman'),
+  ('though', 'although'),
+  ('totally', 'completely'),
+  ('universe', 'space'),
+  ('scenery', 'view'),
+  ('ingredient', 'material'),
+  ('growth', 'increase'), // 증대 / 증가
+  ('used', 'familiar'), // ~에 익숙한 / 익숙한
+  ('major', 'main'),
+  ('award', 'prize'),
+  ('global', 'worldwide'),
+  ('behavior', 'act'), // 행동 / 행동하다
+  ('latest', 'update'), // 최신의 / 최신 정보
+  ('contact', 'communicate'),
+  ('opposite', 'against'),
+  ('view', 'opinion'), // 관점 / 견해
+  ('divide', 'separate'),
+  ('certain', 'clear'),
+  ('certain', 'positive'), // 확실한 / 확신하는
+  ('though', 'however'),
+  ('cigarette', 'smoke'),
+  ('cigarette', 'smoking'),
+  ('petrol', 'fuel'),
+  ('silently', 'softly'),
+  ('perform', 'manage'), // 해내다 / 간신히 해내다
+  // 고등 쉬움 301~500 — 어원이 같음
+  ('scene', 'scenery'),
+  ('anger', 'angrily'),
+  ('smoke', 'smoking'),
+  ('kill', 'killer'),
+  ('research', 'researcher'),
+  ('silent', 'silently'),
+  ('silence', 'silently'),
+  ('safety', 'safely'),
+  ('shock', 'shocked'),
+  ('stress', 'stressed'),
+  ('certain', 'certainly'),
+  ('fortunately', 'unfortunately'),
+  ('importance', 'unimportant'),
+  ('total', 'totally'),
+  ('satisfy', 'satisfied'),
+  ('act', 'active'),
+  ('pain', 'painful'),
+  ('drug', 'drugstore'),
+  ('space', 'spaceship'),
+  ('weekly', 'weekday'), // week
+  ('unknown', 'well-known'), // know
+  ('nearly', 'nearby'), // near
+  // 고등 쉬움 301~500 — 우리말 뜻 글자가 같은 동음이의어
+  ('smoke', 'act'), // 연기 / 연기하다
+  ('truly', 'calm'), // 진정으로 / 진정시키다
+  ('mostly', 'replace'), // 대체로 / 대체하다
 ];
 
 final Map<String, Set<String>> _partners = () {
