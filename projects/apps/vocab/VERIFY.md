@@ -45,6 +45,15 @@
 
 ## 마지막 결과
 
+- **2026-11-24 저녁 개인 PC — 2차 중등 700개 + DB 9판**(커밋 `ea83d5f` 내용)
+  - `flutter analyze` "No issues found", `flutter test` "All tests passed"(**169개**), `flutter build apk --debug` "Built …app-debug.apk"(19:58 새로 생김, 201,246,681바이트, Gradle 31초). 세 명령을 한 줄로 이어 돌려 종료 코드는 마지막(빌드) 0만 잡았다 — 앞의 둘은 출력 문구로 판정. `build/app/outputs`를 먼저 지우지는 않았다(파일 시각으로 확인). 사내망 PC에서 막혔던 debug 빌드(Android용 sqlite3 파일)는 개인 PC에서 그냥 된다
+  - **에뮬레이터 시작 상태가 인계와 달랐다**: 기기 DB가 8판이 아니라 **7판**(앱 설치 시각 2026-11-23 21:58, `study_log` 147 · `quiz_log` 62 · `wrong_notes` 1 — 11-23 밤 8판 설치 전과 같은 숫자). 에뮬레이터가 이전 스냅샷으로 되돌아간 것으로 추정(원인 확인 안 함). 그래서 이번 설치는 7 → 8 → 9판을 한 번에 탔다
+  - **DB 이행: 통과** — 설치 전 DB 사본(`D:\dev\tmp\vocab_db_backup\before_v9\vocab.db`)에서 남아야 할 줄 수를 파이썬으로 따로 계산 → `adb install -r` → 실행 뒤 다시 꺼낸 DB(`after_v9.db`)와 일치: `user_version` 7 → 9, `study_log` 147 → 59(남은 것은 모두 `high_hard`의 `hh-` 번호) · `quiz_log` 62 → 0 · `wrong_notes` 1 → 0, 옛 초등·중등 번호 줄 0건, 단어장 4개 그대로
+  - **화면(adb로 누름, 접근성 노드 + 캡처 — 사람이 직접 써 본 것은 아니다)**: 새 등록 → 중등 → 난이도 버튼 `쉬움 / 234단어` · `중간 / 233단어` · `어려움 / 233단어` → 단어장 `mid1` 홈 `중등 [난이도 : 쉬움]` · `234단어` · `한 번에 카드 50장 · 시험 20문제` / 카드 학습 `1 / 50` `sausage`, 뒷면 `소시지`와 예문·해석, 다음 `2 / 50`, 뒤로 → "그만할까요?" / 시험 20문제를 끝까지(두 방향 모두 나옴) → 결과 `20문제 중 6문제 맞혔습니다` · 틀린 단어 14개 → 홈 `오답 노트 · 14단어`(DB `quiz_log` 20 · `wrong_notes` 14와 같음) / 앱 정보 "단어 출처" 문구 `초·중등 단어의 선정과 난이도 구분은 …`과 인용 두 개. logcat의 flutter 오류 0건
+  - **유사어 쌍**: 기록한 17문제(4~20번)의 보기를 `similarWordPairs` 71쌍(중등 쉬움 안 16쌍)과 대조해 함께 나온 것 0건, 1~3번은 눈으로 봄. 다만 20문제로는 무작위로도 겹칠 일이 드물어 **규칙이 기기에서 도는 증거로는 약하다** — 근거는 여전히 자동 시험
+  - **안 본 것**: 중등 중간·어려움 칸의 카드·시험, 진도 화면, 소리, 처음 설치의 시작 화면
+  - 확인에 쓴 단어장 `mid1`(중등 쉬움)은 지우지 않았고 홈이 `mid1`이다(시작할 때 홈은 `😀`). 확인 뒤 DB 사본 `after_v9_checked.db`
+
 - **2026-11-23 밤 개인 PC — release APK(설치 파일)**
   - `flutter build apk --release` exit 0 → `build/app/outputs/flutter-apk/app-release.apk` 50.3MB(23:54 새로 생김, 빌드 약 74초). 디버그 키 서명(`android/app/build.gradle.kts`의 Flutter 기본값)
   - APK 안: `.db`·`.sqlite` 파일 0개, `assets/words/` 단어 파일 9개(`unzip -l`로 확인) — 기록은 기기에서 첫 실행 때 빈 DB로 생긴다
