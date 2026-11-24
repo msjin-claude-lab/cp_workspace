@@ -37,6 +37,19 @@ const List<(String, String)> similarWordPairs = [
   ('lose', 'lost'),
   ('fry', 'fried'),
   ('stomach', 'pear'), // 위·배 / 배(과일)
+  // 중등 중간(2026-11-24 검토)
+  ('kilo', 'kilogram'),
+  ('kilo', 'kilometer'),
+  ('Olympic', 'Olympics'),
+  ('shut', 'closed'),
+  ('storm', 'thunderstorm'),
+  ('photograph', 'photography'),
+  ('excellent', 'fantastic'),
+  ('tourist', 'traveler'),
+  ('mad', 'crazy'),
+  ('sunlight', 'daylight'),
+  ('web', 'website'),
+  ('shout', 'scream'),
 ];
 
 final Map<String, Set<String>> _partners = () {

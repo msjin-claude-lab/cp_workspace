@@ -9,3 +9,19 @@ w-0856|exampleMeaning|이 잡지는 젊은 독자가 많다.|위 예문에 맞�
 w-0974|meaning|사업가, 기업인|회사원은 office worker
 w-0882|exampleMeaning|그는 정말 좋은 사람이다.|좋은 남자이다는 어색함
 w-0999|meaning|도보 여행, 걸어서 여행하다|오래 걷다는 walking과 헷갈림
+# --- middle_medium (COMMENT) ---
+w-1061|example|The store is closed on Sundays.|shut과 같은 장면이라 헷갈림 — 영업하지 않는 뜻을 보여 줌
+w-1061|exampleMeaning|그 가게는 일요일마다 문을 닫는다.|위 예문에 맞춤
+w-1226|meaning|아이스박스, 냉각 장치|더 시원한은 cool의 비교급
+w-1194|exampleMeaning|우리는 차에 구급 용품 세트를 둔다.|구급상자로 옮기면 (도구) 세트 뜻이 안 드러남
+w-1164|example|He tried to shoot the ball into the goal.|공을 슛해라는 어색함(검토 제안 shot은 예문에 shoot가 없어 검사에 걸려 Claude가 바꿈)
+w-1164|exampleMeaning|그는 골대 안으로 슛을 하려고 했다.|위 예문에 맞춤
+w-1131|meaning|옷을 입은, (get dressed) 옷을 입다|중2가 더 자주 쓰는 것은 get dressed
+w-1131|example|Get dressed quickly. We're late.|위 뜻에 맞춤
+w-1131|exampleMeaning|빨리 옷 입어. 우리 늦었어.|위 예문에 맞춤
+w-1202|exampleMeaning|엄마는 가스레인지에 수프를 끓이고 계신다.|레인지만 쓰면 전자레인지로 읽힘
+w-1094|example|I read a fashion magazine at the hair salon.|hair salon이 자연스러움
+w-1077|exampleMeaning|고속도로가 많이 막혔다.|차가 많이 막혔다는 어색함
+w-1209|exampleMeaning|전구가 나가서 내 방이 어둡다.|전구는 나간다고 말함
+w-1067|example|I'm in the eighth grade.|second grade of middle school은 한국식 영어
+w-1067|exampleMeaning|나는 8학년(중학교 2학년)이다.|위 예문에 맞춤
