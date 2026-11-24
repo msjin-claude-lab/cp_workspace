@@ -6,24 +6,27 @@ import 'package:vocab/data/cell.dart';
 import 'package:vocab/data/word.dart';
 
 /// 실제 내장 단어 파일(assets/words/*.json)을 검사한다.
-/// 칸마다 있어야 할 단어 수는 [_expectedCount](초등은 1차로 800개 — docs/plan-words-phase1.md).
+/// 칸마다 있어야 할 단어 수는 [_expectedCount](초등 800개 — docs/plan-words-phase1.md,
+/// 중등 700개 — docs/plan-words-phase2.md).
 
-/// 칸마다 있어야 할 단어 수. 초등은 CEFR-J A1에서 고른 800개(267 · 267 · 266), 중등·고등은 차례가 올 때까지 50개.
+/// 칸마다 있어야 할 단어 수. 초등은 CEFR-J A1에서 고른 800개(267 · 267 · 266),
+/// 중등은 CEFR-J A1·A2에서 고른 700개(234 · 233 · 233), 고등은 차례가 올 때까지 50개.
 const _expectedCount = {
   Cell.elementaryEasy: 267,
   Cell.elementaryMedium: 267,
   Cell.elementaryHard: 266,
-  Cell.middleEasy: 50,
-  Cell.middleMedium: 50,
-  Cell.middleHard: 50,
+  Cell.middleEasy: 234,
+  Cell.middleMedium: 233,
+  Cell.middleHard: 233,
   Cell.highEasy: 50,
   Cell.highMedium: 50,
   Cell.highHard: 50,
 };
 
-/// 단어를 묶음으로 나눠 넣는 동안에는 true — 개수를 "50개 이상, 기대값 이하"로만 본다.
-/// 마지막 묶음을 넣은 뒤 false로 바꿔 "정확히 기대값"을 확인한다(계획 3·4단계).
-const _filling = false;
+/// 단어를 묶음으로 나눠 넣는 중인 칸 — 이 칸만 개수를 "0개 이상, 기대값 이하"로 본다.
+/// 나머지 칸은 늘 정확히 기대값이다. 마지막 묶음을 넣은 뒤 빈 집합으로 바꿔
+/// "정확히 기대값"을 확인한다(docs/plan-words-phase2.md 3·4단계).
+const _filling = {Cell.middleEasy, Cell.middleMedium, Cell.middleHard};
 
 /// 단어 번호: 예전 번호(`ee-001`)이거나 칸과 무관한 새 번호(`w-0001`).
 final _idPattern = RegExp(r'^([emh][emh]-\d{3}|w-\d{4})$');
@@ -38,8 +41,8 @@ void main() {
     for (final cell in Cell.values) {
       final count = _read(cell).length;
       final expected = _expectedCount[cell]!;
-      if (_filling) {
-        expect(count, inInclusiveRange(50, expected), reason: cell.id);
+      if (_filling.contains(cell)) {
+        expect(count, inInclusiveRange(0, expected), reason: cell.id);
       } else {
         expect(count, expected, reason: cell.id);
       }

@@ -162,7 +162,9 @@ class SqfliteStudyRecords implements StudyRecords {
   ///    옛 공통 설정을 물려받는다) 추가(2026-11-22 사용자 결정 — "설정은 그 단어장의 고유 설정이다").
   /// 8: 초등 단어를 새 번호(`w-0001`~)로 바꾸며 남은 옛 초등 번호(`ee-`·`em-`·`eh-`)의 학습·시험
   ///    기록과 오답 노트를 지움(2026-11-23 사용자 결정 — 진도만 옛 기록을 세어 홈·오답 노트와 어긋났다).
-  static const int schemaVersion = 8;
+  /// 9: 중등 단어를 새 번호(`w-0801`~)로 바꾸며 옛 중등 번호(`me-`·`mm-`·`mh-`)의 학습·시험
+  ///    기록과 오답 노트를 지움(2026-11-23 사용자 결정, docs/plan-words-phase2.md 3단계).
+  static const int schemaVersion = 9;
 
   Future<Database> _open() async {
     final dbFactory = factory ?? databaseFactory;
@@ -179,7 +181,7 @@ class SqfliteStudyRecords implements StudyRecords {
           await _upgradeToV5(db);
           await _upgradeToV6(db);
           await _upgradeToV7(db);
-          // 8판은 옛 기록을 지울 뿐이라 새 설치에는 할 일이 없다
+          // 8·9판은 옛 기록을 지울 뿐이라 새 설치에는 할 일이 없다
         },
         onUpgrade: (db, oldVersion, newVersion) async {
           if (oldVersion < 2) await _createQuizLog(db);
@@ -188,7 +190,8 @@ class SqfliteStudyRecords implements StudyRecords {
           if (oldVersion < 5) await _upgradeToV5(db);
           if (oldVersion < 6) await _upgradeToV6(db);
           if (oldVersion < 7) await _upgradeToV7(db);
-          if (oldVersion < 8) await _upgradeToV8(db);
+          if (oldVersion < 8) await upgradeToV8(db);
+          if (oldVersion < 9) await _upgradeToV9(db);
         },
       ),
     );
@@ -222,13 +225,37 @@ class SqfliteStudyRecords implements StudyRecords {
     await _upgradeToV7(db);
   }
 
+  /// 8판까지의 표. 시험에서 "8판 사용자"의 DB를 만들 때 쓴다 — 9판 이후의 변경은 여기에 더하지 않는다.
+  @visibleForTesting
+  static Future<void> createV8(Database db) async {
+    await createV7(db);
+    await upgradeToV8(db);
+  }
+
+  /// 9판: 옛 중등 번호의 기록을 지운다(2026-11-23 사용자 결정 — "그 칸의 기존 50개씩을 지우고
+  /// CEFR-J로", docs/plan-words-phase2.md). 중등 3칸의 단어를 CEFR-J 700개로 바꾸며 번호가
+  /// `me-001`·`mm-001`·`mh-001` 꼴에서 `w-0801` 꼴로 바뀌어, 옛 번호의 기록은 어느 단어와도
+  /// 이어지지 않는다. 8판과 같이 어느 단어장·칸의 것이든 지우고, 단어장(`study_decks`) 줄은 남긴다.
+  /// 초등(`w-`)·고등(`he-`·`hm-`·`hh-`) 번호는 그대로 둔다.
+  static Future<void> _upgradeToV9(Database db) async {
+    for (final table in const ['study_log', 'quiz_log', 'wrong_notes']) {
+      await db.delete(
+        table,
+        where:
+            "word_id LIKE 'me-%' OR word_id LIKE 'mm-%' OR word_id LIKE 'mh-%'",
+      );
+    }
+  }
+
   /// 8판: 옛 초등 번호의 기록을 지운다(2026-11-23 사용자 결정). 초등 3칸의 단어를 CEFR-J 800개로
   /// 바꾸며 번호가 `ee-001`·`em-001`·`eh-001` 꼴에서 `w-0001` 꼴로 바뀌어, 옛 번호의 기록은 어느
   /// 단어와도 이어지지 않는다 — 오답 노트 화면에는 안 보이는데 진도의 외운 수·오답 수에는 세어졌다.
   /// 어느 단어장·칸의 것이든 지운다(그 날짜의 공부 기록도 함께 사라지고, 그 단어장의 진행 일수는
   /// 남은 기록 기준으로 다시 센다 — 남은 것이 없으면 "아직 시작하지 않았습니다"). 중등·고등 번호는 그대로 둔다 —
-  /// 그 칸의 단어를 바꿀 때 같은 단계를 새 판으로 더한다.
-  static Future<void> _upgradeToV8(Database db) async {
+  /// 그 칸의 단어를 바꿀 때 같은 단계를 새 판으로 더한다(중등은 9판).
+  /// 시험에서 7→8판 이행만 따로 확인할 수 있게 공개한다.
+  @visibleForTesting
+  static Future<void> upgradeToV8(Database db) async {
     for (final table in const ['study_log', 'quiz_log', 'wrong_notes']) {
       await db.delete(
         table,
