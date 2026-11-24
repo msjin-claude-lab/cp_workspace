@@ -7,10 +7,10 @@ import 'package:vocab/data/word.dart';
 
 /// 실제 내장 단어 파일(assets/words/*.json)을 검사한다.
 /// 칸마다 있어야 할 단어 수는 [_expectedCount](초등 800개 — docs/plan-words-phase1.md,
-/// 중등 700개 — docs/plan-words-phase2.md).
+/// 중등 700개 — docs/plan-words-phase2.md, 고등 1,500개 — docs/plan-words-phase3.md).
 
 /// 칸마다 있어야 할 단어 수. 초등은 CEFR-J A1에서 고른 800개(267 · 267 · 266),
-/// 중등은 CEFR-J A1·A2에서 고른 700개(234 · 233 · 233), 고등은 차례가 올 때까지 50개.
+/// 중등은 CEFR-J A1·A2에서 고른 700개(234 · 233 · 233), 고등은 1,500개(500 · 500 · 500).
 const _expectedCount = {
   Cell.elementaryEasy: 267,
   Cell.elementaryMedium: 267,
@@ -18,15 +18,15 @@ const _expectedCount = {
   Cell.middleEasy: 234,
   Cell.middleMedium: 233,
   Cell.middleHard: 233,
-  Cell.highEasy: 50,
-  Cell.highMedium: 50,
-  Cell.highHard: 50,
+  Cell.highEasy: 500,
+  Cell.highMedium: 500,
+  Cell.highHard: 500,
 };
 
 /// 단어를 묶음으로 나눠 넣는 중인 칸 — 이 칸만 개수를 "0개 이상, 기대값 이하"로 본다.
 /// 나머지 칸은 늘 정확히 기대값이다. 마지막 묶음을 넣은 뒤 빈 집합으로 바꿔
-/// "정확히 기대값"을 확인한다(docs/plan-words-phase2.md 3·4단계).
-const _filling = <Cell>{};
+/// "정확히 기대값"을 확인한다(docs/plan-words-phase3.md 3·4단계).
+const _filling = {Cell.highEasy, Cell.highMedium, Cell.highHard};
 
 /// 단어 번호: 예전 번호(`ee-001`)이거나 칸과 무관한 새 번호(`w-0001`).
 final _idPattern = RegExp(r'^([emh][emh]-\d{3}|w-\d{4})$');
@@ -69,8 +69,11 @@ void main() {
     for (final cell in Cell.values) {
       final seen = <String, String>{};
       for (final w in _read(cell)) {
-        expect(seen[w.meaning], isNull,
-            reason: '${cell.id} "${w.meaning}": ${seen[w.meaning]}와 ${w.id}');
+        expect(
+          seen[w.meaning],
+          isNull,
+          reason: '${cell.id} "${w.meaning}": ${seen[w.meaning]}와 ${w.id}',
+        );
         seen[w.meaning] = w.id;
       }
     }
@@ -80,6 +83,16 @@ void main() {
     final ids = <String, String>{};
     for (final cell in Cell.values) {
       final words = _read(cell);
+      // 채우는 중인 칸은 옛 번호만이거나(작업 전) 새 번호만이어야 한다 — 옛 단어를 지우지 않고
+      // 새 묶음을 덧붙이면 여기서 잡힌다(DB 10판이 옛 고등 번호의 기록을 지우므로)
+      if (_filling.contains(cell)) {
+        final kinds = words.map((w) => w.id.startsWith('w-')).toSet();
+        expect(
+          kinds.length,
+          lessThanOrEqualTo(1),
+          reason: '${cell.id}: 옛 번호와 새 번호(w-)가 섞였다',
+        );
+      }
       for (var i = 0; i < words.length; i++) {
         final w = words[i];
         expect(_idPattern.hasMatch(w.id), isTrue, reason: '${cell.id} ${w.id}');
@@ -107,8 +120,11 @@ void main() {
   test('예문에 그 영단어가 들어 있다', () {
     for (final cell in Cell.values) {
       for (final w in _read(cell)) {
-        expect(w.example.toLowerCase(), contains(w.word.toLowerCase()),
-            reason: w.id);
+        expect(
+          w.example.toLowerCase(),
+          contains(w.word.toLowerCase()),
+          reason: w.id,
+        );
       }
     }
   });
