@@ -1,0 +1,18 @@
+# 초등 검토 메모 반영(2026-11-24 사용자 결정 "반영하기" — review-fixes-2.txt 머리 주석에서 옮기지 않았던 것). 형식: 번호|필드|새 값|근거
+# 적용: python tool/wordlist/cells.py fix docs/wordlist/review-fixes-4.txt  →  python tool/wordlist/cells.py check
+# 이번에도 옮기지 않은 것: talk·story(뜻이 비슷), fifteen 해석의 "오빠" — 질문에 넣지 않았다
+# --- 색 뜻의 형태 통일: "하얀"과 "갈색"이 섞여 있던 것을 모두 "~색"으로 ---
+w-0044|meaning|흰색|색 뜻 형태 통일
+w-0058|meaning|검은색|색 뜻 형태 통일
+w-0067|meaning|빨간색|색 뜻 형태 통일
+w-0102|meaning|파란색|색 뜻 형태 통일
+w-0133|meaning|노란색|색 뜻 형태 통일
+# --- 예문 해석 다듬기 ---
+w-0190|exampleMeaning|네 가방 멋지다.|"너는 멋진 가방이 있다"는 번역투
+w-0126|example|Thank you for the gift.|"I thank my mom"은 잘 안 쓰는 말
+w-0126|exampleMeaning|선물 고마워.|위 예문에 맞춤
+# --- 예문의 논리 ---
+w-0305|example|The bag is nice, but it is small.|"고양이를 좋아하지만 개를 키운다"는 대조가 약함
+w-0305|exampleMeaning|그 가방은 멋지지만 작다.|위 예문에 맞춤
+w-0342|example|Cats and dogs are different.|"신발이 색깔이 다르다"는 뜻이 모호
+w-0342|exampleMeaning|고양이와 개는 다르다.|위 예문에 맞춤

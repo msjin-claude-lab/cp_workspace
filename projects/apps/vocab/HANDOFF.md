@@ -2,7 +2,7 @@
 
 이 앱의 진행 상태 기록이다(`projects/apps/CLAUDE.md` "주제 인계"). 규칙·명령·코드 구조는 [CLAUDE.md](CLAUDE.md).
 
-- 상태: 종료 · 2026-11-24 · 개인 PC
+- 상태: 진행 중 · 2026-11-24 09:26 · 사내망 PC
 
 ## 인계 — 새 세션은 여기부터 읽는다
 
@@ -28,11 +28,7 @@
 
 ### 이어서 할 일 (순서대로)
 
-1. **사용자에게 물을 것**
-   - **모든 단어를 한 번씩 본 뒤의 카드 순서**: 지금은 전체 무작위가 된다. "가장 오래전에 본 것 먼저"로 할지
-   - **숫자의 난이도 배정**: seventeen·nineteen 등은 어려움, twenty·fifty·sixty는 중간에 있다(책 빈도 순서 탓). 표본 확인에서 Claude가 짚었고 사용자는 고치라고 하지 않았다 — 그대로 둘지
-   - **처음 설치의 시작 화면을 기기에서 볼지**: 에뮬레이터 앱 데이터를 지워야 한다(단어장 4개와 기록이 사라짐, DB 백업은 있음). 물었으나 답 없음
-   - 뜻 보충이 아닌 검토 메모(nice·thank 해석 다듬기, 색 뜻의 형태 `하얀 / 갈색`, but·different 예문의 논리)를 반영할지 — `review-fixes-2.txt` 머리 주석
+1. **(2026-11-24 사내망 PC, 진행 중) 검토 메모 반영의 시험 확인**: 사용자 결정 넷 — 다 본 뒤 카드 순서는 **지금대로 무작위** / 숫자 난이도는 **그대로** / 처음 설치 시작 화면 확인은 **고등 작업 종료 뒤까지 보류(그전에 묻지 않는다)** / 검토 메모는 **반영**. 반영은 `docs/wordlist/review-fixes-4.txt` 12줄(색 뜻 5개를 `~색`으로, nice·thank 해석, but·different 예문)을 `cells.py fix`로 적용함 — `cells.py check` 문제 0건, `flutter analyze` 문제없음, `flutter test` 168개 통과(사용자가 받아 둔 DLL로 — 아래 "주의"). 커밋 안 함. 기기에서는 안 봄(사내망 PC) — 개인 PC에서 카드 뒷면 색 뜻(`흰색` 등)과 바뀐 예문을 볼 것. talk·story, fifteen 해석의 "오빠"는 묻지 않아 그대로
 2. **확인이 덜 된 것**
    - 초등 800개 중 사람이 읽은 것은 표본 60줄(칸마다 무작위 20줄)뿐이다. 1~5단계 커밋(`ca50c20`)의 검토 수정 135건과 앱 정보 출처 표시도 다시 검토받지 않았다
    - 기기에서 안 본 것: 표본 수정이 든 마지막 APK의 설치, 안 본 단어가 먼저 뽑히는지·유사어 쌍이 보기에서 빠지는지(자동 시험만), 보충한 뜻이 보이는 카드 뒷면, 소리, 처음 설치의 시작 화면
@@ -41,6 +37,8 @@
 3. **그 뒤**: 2차(중등 700) · 3차(고등 1,500 + 심화) — 그 칸의 기존 50개씩을 지우고 CEFR-J로 바꾼다(옛 번호 기록을 지우는 DB 판도 함께). 평가원(게시글)·교육부(국민신문고) 답이 오면 사용자가 붙여 준다 → 경우 B는 "광고만"으로 읽고 범위·칸 배정을 조정. release 전에는 앱 이름·아이콘·정식 서명 키를 정한다
 
 **도구**: `python tool/wordlist/select.py --cefrj <zip> --freq <txt>`(선정 — 원본 두 파일은 저장소에 없다. 주소·SHA-256은 `docs/wordlist/README.md`, 빈도 파일은 github라 사내망 PC에서 못 받는다), `python tool/wordlist/cells.py check`(초등 3칸 검사 — 원본 없이 돈다), `cells.py fix <파일>`(검토 줄 적용). **`cells.py skeleton`은 돌리지 말 것 — 채운 800개가 지워진다**
+
+**주의 — 사내망 PC의 `flutter test`(2026-11-24)**: 시험이 쓰는 sqlite3 3.9.1 패키지가 빌드 때 `https://github.com/simolus3/sqlite3.dart/releases/download/sqlite3-3.9.1/sqlite3.x64.windows.dll`을 받는다 → 사내망에서 막혀 `Building native assets failed`. 받은 파일을 `projects/apps/vocab/.dart_tool/hooks_runner/shared/sqlite3/build/download-643956b0/sqlite3.dll`(이름을 `sqlite3.dll`로)에 두면 그것을 쓴다 — SHA-256 `643956b011d5c705c6eae79d93085f5b206e4bfecf5d57a05aea3e2242612028`(패키지 `lib/src/hook/asset_hashes.dart`의 값, 틀리면 다시 받으려 한다). `.dart_tool`을 지우면 다시 둬야 한다. 같은 날 사내망 PC의 Flutter SDK(`D:\dev\flutter`)에서 `packages/flutter/lib/src/material/animated_icons/data/*.g.dart` 7개가 사라져 컴파일이 멈췄다(이유 모름) — `git -C D:/dev/flutter checkout -- packages/flutter/lib/src/material/animated_icons/data/`로 되살림
 
 ### 지금 단계
 
@@ -205,3 +203,5 @@
 - 2026-11-23 개인 PC · 검토·빌드 · 사용자 요청("초등까지 정리 끝나면 apk 설치파일, 기록용 데이터는 포함 안 되게")으로 마무리: DB 8판을 code-reviewer가 검토(APPROVE, LOW 2건 고침), `docs/spec.md`에 오늘 결정 셋(유사어 쌍, 카드 뽑기 2:8, 옛 번호 기록 삭제)을 적음, analyze 문제없음·시험 168개 통과, 커밋·push. `flutter build apk --release` 성공(50.3MB, 디버그 키 서명) — APK 안 DB 파일 0개 확인, 사본 `D:\dev\tmp\vocab_apk\vocab-1.0.0-release.apk`, 에뮬레이터에 덮어 설치해 실행 확인. 남은 것: 칸별 표본 확인(사람이 읽은 줄 없음), 모두 본 뒤 카드 순환 방식, 앱 이름·아이콘, 정식 서명 키, VERIFY.md "기대값"
 - 2026-11-23 개인 PC · 수정 · 사용자에게 칸마다 무작위 20줄(60줄)을 보여 줌 — 사용자가 읽고 Claude가 짚은 네 곳 중 셋을 고치라고 함: 어려움 칸 숫자 10개의 뜻을 `열아홉, 19` 꼴로 통일, due(뜻 `(언제까지) 내야 하는, 예정된`, 예문을 숙제 내는 날로), wear(`입다, 신다, (모자·안경을) 쓰다`) — `docs/wordlist/review-fixes-3.txt` 14줄. `cells.py check` 문제 0건, analyze 문제없음, 시험 168개 통과, release APK를 다시 빌드해 사본을 바꿈. **안 고친 것**: 숫자의 난이도 배정(seventeen·nineteen은 어려움, twenty·fifty는 중간 — 빈도 순서 탓, 사용자가 고치라고 하지 않음). 나머지 740줄은 사람이 읽지 않았다. 커밋·검토·기기 설치는 안 함(에뮬레이터에는 고치기 전 release 빌드)
 - 2026-11-24 개인 PC · 종료 · 사용자 지시로 표본 수정을 커밋·push(`8066374`), 위키 세션 로그도 커밋·push. 인계 윗부분을 지금 기준으로 다시 정리(끝난 항목을 걷어 내고 "지금 상태 · 정하고 만든 것 · 이어서 할 일"로), 데이터·남은 일 절의 단어 수를 고침. 주제 종료 — 커밋 안 한 변경 없음, 에뮬레이터는 켜 둔 채
+- 2026-11-24 사내망 PC · 수정 · `/apps:selection-subject vocab` → 남은 질문 넷에 사용자 결정(카드 순서 무작위 유지, 숫자 난이도 그대로, 처음 설치 화면 확인은 고등 작업 뒤까지 보류, 검토 메모 반영). 검토 메모 12줄을 `review-fixes-4.txt`로 적고 `cells.py fix` 적용 — check 0건, analyze 문제없음. `flutter test`는 sqlite3 DLL을 github.com에서 받지 못해 실패(사내망). 커밋 안 함
+- 2026-11-24 사내망 PC · 확인 · 사용자가 받아 둔 `sqlite3.x64.windows.dll`(SHA-256 일치)을 hook 공유 폴더에 두고, Flutter SDK에서 사라진 아이콘 데이터 7개를 SDK git에서 되살린 뒤 `flutter test` 168개 통과
