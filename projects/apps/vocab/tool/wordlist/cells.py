@@ -5,9 +5,10 @@
                                                                             # 채운 파일을 검사한다(칸을 주지 않으면 그 학교급 3칸)
     python tool/wordlist/cells.py [--stage elementary|middle] fix <글 파일>  # 검토가 낸 `번호|필드|새 값|근거` 줄을 적용한다
 
---stage(기본 elementary)가 기준 csv와 칸을 정한다: elementary → docs/wordlist/elementary.csv, 번호 w-0001부터 /
-middle → docs/wordlist/middle.csv, 번호 w-0801부터. 번호는 csv 줄 순서대로 붙는다(쉬움 → 중간 → 어려움).
-뜻·예문·해석은 사람이(에이전트가) 채운다. skeleton은 대상 파일에 채운 뜻이 하나라도 있으면 쓰지 않고 멈춘다.
+--stage(기본 elementary)는 명령 앞뒤 어디에 줘도 되고, 기준 csv와 칸을 정한다: elementary → docs/wordlist/elementary.csv,
+번호 w-0001부터 / middle → docs/wordlist/middle.csv, 번호는 elementary.csv의 줄 수 다음부터(w-0801).
+번호는 csv 줄 순서대로 붙는다(쉬움 → 중간 → 어려움). 고른 학교급에 없는 칸 이름을 주면 메시지를 내고 멈춘다.
+뜻·예문·해석은 사람이(에이전트가) 채운다. skeleton은 대상 파일에 뜻·예문·해석 중 채운 것이 하나라도 있으면 쓰지 않고 멈춘다.
 
 check가 보는 것(같은 것을 test/data/word_assets_test.dart도 본다 — 이것은 칸 하나만 빨리 보는 용도):
 번호·영단어·순서가 csv의 앞부분과 같은지(묶음으로 채우는 중에도 쓴다 — --full이면 끝까지, 개수까지 같아야 한다),
@@ -15,6 +16,7 @@ check가 보는 것(같은 것을 test/data/word_assets_test.dart도 본다 — 
 어긋나면 종료 코드 1.
 """
 
+import argparse
 import csv
 import json
 import sys
@@ -23,8 +25,19 @@ from pathlib import Path
 APP = Path(__file__).resolve().parents[2]
 WORDLIST = APP / "docs" / "wordlist"
 WORDS = APP / "assets" / "words"
+
+
+def _elementary_total():
+    """초등 줄 수(select.py의 ELEMENTARY 목표 합 = 800). 중등 번호는 그 다음부터 붙는다."""
+    path = WORDLIST / "elementary.csv"
+    if not path.exists():
+        sys.exit("elementary.csv가 없다 — 먼저 select.py --stage elementary로 만든다")
+    with open(path, encoding="utf-8", newline="") as f:
+        return sum(1 for _ in csv.reader(line for line in f if not line.startswith("#"))) - 1
+
+
 # 학교급: (기준 csv, 첫 번호)
-STAGES = {"elementary": ("elementary.csv", 1), "middle": ("middle.csv", 801)}
+STAGES = {"elementary": ("elementary.csv", 1), "middle": ("middle.csv", None)}
 FIELDS = ["id", "word", "meaning", "example", "exampleMeaning"]
 
 STAGE = "elementary"
@@ -37,6 +50,8 @@ def cells():
 def planned():
     """{칸: [(번호, 영단어)]} — 기준 csv 순서."""
     name, first = STAGES[STAGE]
+    if first is None:  # 중등: 초등 줄 수 다음 번호
+        first = _elementary_total() + 1
     if not (WORDLIST / name).exists():
         sys.exit(f"{name}이 없다 — 먼저 select.py --stage {STAGE}로 만든다")
     with open(WORDLIST / name, encoding="utf-8", newline="") as f:
@@ -63,11 +78,11 @@ def skeleton():
         path = WORDS / f"{cell}.json"
         if path.exists():
             entries = json.loads(path.read_text(encoding="utf-8"))
-            n = sum(1 for e in entries if str(e.get("meaning", "")).strip())
+            n = sum(1 for e in entries if any(str(e.get(k, "")).strip() for k in FIELDS[2:]))
             if n:
                 filled.append(f"{cell}({n}개)")
     if filled:
-        sys.exit(f"뜻이 채워진 파일이 있어 뼈대를 쓰지 않는다: {', '.join(filled)}")
+        sys.exit(f"뜻·예문·해석이 채워진 파일이 있어 뼈대를 쓰지 않는다: {', '.join(filled)}")
     for cell, pairs in plan.items():
         dump(cell, [{"id": i, "word": w, "meaning": "", "example": "", "exampleMeaning": ""} for i, w in pairs])
         print(f"{cell}: 뼈대 {len(pairs)}개")
@@ -132,20 +147,33 @@ def fix(path):
     sys.exit(1 if unknown else 0)
 
 
-if __name__ == "__main__":
+def main():
+    global STAGE
     sys.stdout.reconfigure(encoding="utf-8")
-    argv = sys.argv[1:]
-    if len(argv) >= 2 and argv[0] == "--stage":
-        if argv[1] not in STAGES:
-            sys.exit(f"--stage는 {' 또는 '.join(STAGES)}: {argv[1]}")
-        STAGE = argv[1]
-        argv = argv[2:]
-    if len(argv) >= 2 and argv[0] == "fix":
-        fix(argv[1])
-    elif argv[:1] == ["skeleton"]:
+    # --stage는 명령 앞뒤 어디에 와도 된다(SUPPRESS: 뒤에 안 줬을 때 앞의 값을 덮어쓰지 않는다)
+    common = argparse.ArgumentParser(add_help=False)
+    common.add_argument("--stage", choices=list(STAGES), default=argparse.SUPPRESS)
+    ap = argparse.ArgumentParser(description="학교급 단어 파일의 뼈대를 만들고 검사한다", parents=[common])
+    sub = ap.add_subparsers(dest="command", required=True)
+    sub.add_parser("skeleton", parents=[common], help="csv 순서대로 번호를 붙인 빈 뼈대를 쓴다")
+    p_check = sub.add_parser("check", parents=[common], help="채운 파일을 검사한다")
+    p_check.add_argument("cells", nargs="*", metavar="칸")
+    p_check.add_argument("--full", action="store_true")
+    p_fix = sub.add_parser("fix", parents=[common], help="검토가 낸 고칠 줄을 적용한다")
+    p_fix.add_argument("file", metavar="파일")
+    args = ap.parse_args()
+    STAGE = getattr(args, "stage", "elementary")
+
+    if args.command == "skeleton":
         skeleton()
-    elif argv[:1] == ["check"]:
-        full = "--full" in argv[1:]
-        check([a for a in argv[1:] if a != "--full"] or cells(), full)
+    elif args.command == "check":
+        unknown = [c for c in args.cells if c not in cells()]
+        if unknown:
+            sys.exit(f"{STAGE}에 없는 칸: {', '.join(unknown)} (이 학교급의 칸: {', '.join(cells())})")
+        check(args.cells or cells(), args.full)
     else:
-        sys.exit(__doc__)
+        fix(args.file)
+
+
+if __name__ == "__main__":
+    main()

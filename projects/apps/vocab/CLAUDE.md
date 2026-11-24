@@ -32,7 +32,7 @@ PATH에 `D:\dev\flutter\bin`(두 PC 같은 경로). 작업 위치: `projects/app
 
 - 칸은 `lib/data/cell.dart`의 `Cell`(학교급 × 난이도 9개). 화면 이름 `초등 · 하`, 파일 이름 `elementary_easy`
 - 단어 읽기는 `lib/data/word_repository.dart`(`cellWordsProvider(cell)`)
-- 고른 단어장 번호는 **shared_preferences**, 기록과 단어장별 설정은 sqflite(옛 공통 설정 `card_count`·`quiz_count`는 shared_preferences에서 읽기만 한다). DB 판을 올릴 때는 `SqfliteStudyRecords.schemaVersion`과 onUpgrade의 `oldVersion < N` 단계를 더하고 `test/data/study_records_test.dart`(sqflite_common_ffi)에 이행 시험을 더한다
+- 고른 단어장 번호는 **shared_preferences**, 기록과 단어장별 설정은 sqflite(옛 공통 설정 `card_count`·`quiz_count`는 shared_preferences에서 읽기만 한다). DB 판을 올릴 때는 `SqfliteStudyRecords.schemaVersion`과 onUpgrade의 `oldVersion < N` 단계를 더하고 `test/data/study_records_test.dart`(sqflite_common_ffi)에 이행 시험을 더한다. 멈춘 판에서 시험해야 하는 단계는 `@visibleForTesting`으로 공개한다(예: `upgradeToV8`)
 - 시험 섞기는 `quizRandomProvider` — 시험에서는 씨앗을 고정한 Random을 넣는다
 - 시험(`test/`)은 기능·데이터마다 하나씩 늘린다
 

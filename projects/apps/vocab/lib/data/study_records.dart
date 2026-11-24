@@ -134,7 +134,7 @@ String dayKey(DateTime t) =>
 ///   같은 칸으로 만든 단어장 둘이 같은 `word_id`를 쓰므로). 다시 틀리면 `miss_count`를 올리고
 ///   `last_missed_at`을 고친다. 시험에서 틀린 단어만 담는다(카드 학습은 담지 않음 — 2026-11-22 사용자 결정)
 /// - `study_decks`: 이름 있는 단어장(5판, `study_decks.dart`의 `SqfliteStudyDecks`가 읽고 쓴다).
-///   기록은 `cell_id = deck_<번호>`, `word_id`는 바탕 칸의 내장 단어 id(`mm-001` 등).
+///   기록은 `cell_id = deck_<번호>`, `word_id`는 바탕 칸의 내장 단어 id(`w-0801` 등).
 ///   7판부터 단어장마다의 설정 `card_count`·`quiz_count`(NULL이면 옛 공통 설정을 물려받음)
 /// - `app_meta`: 한 번만 하는 일의 표시(5판). 지금은 옛 칸 기록을 단어장으로 옮겼는지
 class SqfliteStudyRecords implements StudyRecords {
@@ -237,13 +237,14 @@ class SqfliteStudyRecords implements StudyRecords {
   /// `me-001`·`mm-001`·`mh-001` 꼴에서 `w-0801` 꼴로 바뀌어, 옛 번호의 기록은 어느 단어와도
   /// 이어지지 않는다. 8판과 같이 어느 단어장·칸의 것이든 지우고, 단어장(`study_decks`) 줄은 남긴다.
   /// 초등(`w-`)·고등(`he-`·`hm-`·`hh-`) 번호는 그대로 둔다.
-  static Future<void> _upgradeToV9(Database db) async {
+  static Future<void> _upgradeToV9(Database db) =>
+      _deleteWordIds(db, const ['me-', 'mm-', 'mh-']);
+
+  /// 세 기록 표에서 `word_id`가 주어진 앞붙이로 시작하는 줄을 지운다(8·9판 공통).
+  static Future<void> _deleteWordIds(Database db, List<String> prefixes) async {
+    final where = prefixes.map((p) => "word_id LIKE '$p%'").join(' OR ');
     for (final table in const ['study_log', 'quiz_log', 'wrong_notes']) {
-      await db.delete(
-        table,
-        where:
-            "word_id LIKE 'me-%' OR word_id LIKE 'mm-%' OR word_id LIKE 'mh-%'",
-      );
+      await db.delete(table, where: where);
     }
   }
 
@@ -255,15 +256,8 @@ class SqfliteStudyRecords implements StudyRecords {
   /// 그 칸의 단어를 바꿀 때 같은 단계를 새 판으로 더한다(중등은 9판).
   /// 시험에서 7→8판 이행만 따로 확인할 수 있게 공개한다.
   @visibleForTesting
-  static Future<void> upgradeToV8(Database db) async {
-    for (final table in const ['study_log', 'quiz_log', 'wrong_notes']) {
-      await db.delete(
-        table,
-        where:
-            "word_id LIKE 'ee-%' OR word_id LIKE 'em-%' OR word_id LIKE 'eh-%'",
-      );
-    }
-  }
+  static Future<void> upgradeToV8(Database db) =>
+      _deleteWordIds(db, const ['ee-', 'em-', 'eh-']);
 
   /// 7판: 단어장마다의 설정(2026-11-22 사용자 결정). 새로 만드는 단어장은 기본값을 넣고,
   /// 7판 전에 있던 단어장은 NULL로 두어 옛 공통 설정을 물려받는다(`app_settings.dart`).

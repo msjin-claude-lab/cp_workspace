@@ -166,15 +166,16 @@ def read_overlap():
 
 
 def read_tiers(name, candidates, allowed):
-    """단계 파일 → ({단어: 단계}, {단어: 이유}). 후보와 정확히 맞지 않거나 allowed 밖의 단계가 있으면
-    종료 코드 1. 파일이 없으면 None."""
-    tiers, reasons = {}, {}
+    """단계 파일 → ({단어: 단계}, {단어: 이유}, {단어: 넷째 열(중등의 difficulty, 없으면 "")}).
+    후보와 정확히 맞지 않거나 allowed 밖의 단계가 있으면 종료 코드 1. 파일이 없으면 None."""
+    tiers, reasons, extra = {}, {}, {}
     path = OUT / name
     if not path.exists():
         return None
-    for word, tier, reason, *_ in read_rows(path):  # 중등 파일의 넷째 열(difficulty)은 middle()이 읽는다
+    for word, tier, reason, *rest in read_rows(path):
         tiers[word.lower()] = tier
         reasons[word.lower()] = reason
+        extra[word.lower()] = rest[0] if rest else ""
     unknown = sorted(set(tiers) - {w.lower() for w in candidates})
     untiered = [w for w in candidates if w.lower() not in tiers]
     bad = sorted(w for w, t in tiers.items() if t not in allowed)
@@ -185,7 +186,7 @@ def read_tiers(name, candidates, allowed):
             f"  쓸 수 없는 단계({'·'.join(allowed)} 밖) {bad[:10]}"
         )
         sys.exit(1)
-    return tiers, reasons
+    return tiers, reasons, extra
 
 
 def print_freq(args, rank, candidates):
@@ -194,8 +195,9 @@ def print_freq(args, rank, candidates):
     print(f"빈도 자료에 없는 후보 {len(missing)}개: {', '.join(missing[:40])}")
 
 
-def check_rows(rows, cells, cell_col, label, others, others_label):
+def check_rows(rows, header, cells, label, others, others_label):
     """칸 개수·중복·다른 학교급과 겹침. 어긋나면 종료 코드 1."""
+    cell_col = header.index("cell")
     problems = []
     per_cell = Counter(r[cell_col] for r in rows)
     for cell, target in cells:
@@ -246,7 +248,7 @@ def elementary(args, kept):
 
     loaded = read_tiers("tiers.csv", candidates, ("1", "2", "3", "x"))
     if loaded:
-        tiers, reasons = loaded
+        tiers, reasons, _ = loaded
     else:
         tiers, reasons = {}, {}
         print("tiers.csv가 없어 빈도 순서만으로 나눈다(초안)")
@@ -263,16 +265,20 @@ def elementary(args, kept):
             key = word.lower()
             rows.append((word, rank.get(key, ""), tiers.get(key, ""), cell, reasons.get(key, "")))
         pos += target
-    write_csv("elementary.csv", ["word", "freq_rank", "tier", "cell", "tier_reason"], rows)
+    header = ["word", "freq_rank", "tier", "cell", "tier_reason"]
+    write_csv("elementary.csv", header, rows)
     left = usable[pos:]
     print(f"초등에 넣지 않고 남는 후보 {len(left)}개(중등으로): {', '.join(left[:30])}")
 
-    check_rows(rows, ELEMENTARY, 3, "초등", others, "중등·고등")
+    check_rows(rows, header, ELEMENTARY, "초등", others, "중등·고등")
     print(f"elementary.csv {len(rows)}줄 — 검사 통과")
 
 
 def middle(args, kept):
     # 거를 단어: 초등 800(elementary.csv)과 1차 작업 시점의 고등 칸(overlap.csv 고등 줄 — 3차까지 남는다)
+    for name in ("elementary.csv", "overlap.csv"):
+        if not (OUT / name).exists():
+            sys.exit(f"{name}이 없다 — 먼저 --stage elementary로 만든다(overlap.csv는 저장소에 있다)")
     elem = {r[0].lower() for r in read_rows(OUT / "elementary.csv")}
     high = {word.lower() for cl, _, word, _ in read_overlap() if cl.startswith("high")}
     print(f"거를 단어: elementary.csv {len(elem)}개, overlap.csv 고등 줄 {len(high)}개")
@@ -312,9 +318,8 @@ def middle(args, kept):
     if not loaded:
         print("tiers-middle.csv가 없어 여기까지만 한다(candidates-middle.csv). middle.csv는 쓰지 않는다.")
         return
-    tiers, reasons = loaded
+    tiers, reasons, difficulty = loaded
     # 칸 나누기 난이도(넷째 열): x가 아닌 줄은 1·2·3이어야 한다
-    difficulty = {r[0].lower(): (r[3] if len(r) > 3 else "") for r in read_rows(OUT / "tiers-middle.csv")}
     bad = sorted(w for w, t in tiers.items() if t != "x" and difficulty[w] not in ("1", "2", "3"))
     if bad:
         print(f"검사 실패:\n  difficulty가 1·2·3이 아닌 줄 {len(bad)}개 {bad[:10]}")
@@ -348,9 +353,10 @@ def middle(args, kept):
             key = word.lower()
             rows.append((word, level[key], rank.get(key, ""), tiers[key], difficulty[key], cell, reasons[key]))
         pos += target
-    write_csv("middle.csv", ["word", "level", "freq_rank", "tier", "difficulty", "cell", "tier_reason"], rows)
+    header = ["word", "level", "freq_rank", "tier", "difficulty", "cell", "tier_reason"]
+    write_csv("middle.csv", header, rows)
 
-    check_rows(rows, MIDDLE, 5, "중등", elem | high, "초등·고등")
+    check_rows(rows, header, MIDDLE, "중등", elem | high, "초등·고등")
     print(f"middle.csv {len(rows)}줄 — 검사 통과")
 
 
