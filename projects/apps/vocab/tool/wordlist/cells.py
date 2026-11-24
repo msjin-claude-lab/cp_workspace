@@ -1,12 +1,14 @@
-"""학교급마다 단어 파일의 뼈대를 만들고 검사한다 (docs/plan-words-phase1.md 4단계, docs/plan-words-phase2.md).
+"""학교급마다 단어 파일의 뼈대를 만들고 검사한다 (docs/plan-words-phase1.md 4단계, docs/plan-words-phase2.md,
+docs/plan-words-phase3.md).
 
-    python tool/wordlist/cells.py [--stage elementary|middle] skeleton        # csv 순서대로 번호를 붙인 빈 뼈대를 쓴다
-    python tool/wordlist/cells.py [--stage elementary|middle] check [--full] [칸 ...]
+    python tool/wordlist/cells.py [--stage elementary|middle|high] skeleton        # csv 순서대로 번호를 붙인 빈 뼈대를 쓴다
+    python tool/wordlist/cells.py [--stage elementary|middle|high] check [--full] [칸 ...]
                                                                             # 채운 파일을 검사한다(칸을 주지 않으면 그 학교급 3칸)
-    python tool/wordlist/cells.py [--stage elementary|middle] fix <글 파일>  # 검토가 낸 `번호|필드|새 값|근거` 줄을 적용한다
+    python tool/wordlist/cells.py [--stage elementary|middle|high] fix <글 파일>  # 검토가 낸 `번호|필드|새 값|근거` 줄을 적용한다
 
 --stage(기본 elementary)는 명령 앞뒤 어디에 줘도 되고, 기준 csv와 칸을 정한다: elementary → docs/wordlist/elementary.csv,
-번호 w-0001부터 / middle → docs/wordlist/middle.csv, 번호는 elementary.csv의 줄 수 다음부터(w-0801).
+번호 w-0001부터 / middle → docs/wordlist/middle.csv, 번호는 elementary.csv의 줄 수 다음부터(w-0801) /
+high → docs/wordlist/high.csv, 번호는 elementary.csv + middle.csv 줄 수 다음부터(w-1501).
 번호는 csv 줄 순서대로 붙는다(쉬움 → 중간 → 어려움). 고른 학교급에 없는 칸 이름을 주면 메시지를 내고 멈춘다.
 뜻·예문·해석은 사람이(에이전트가) 채운다. skeleton은 대상 파일에 뜻·예문·해석 중 채운 것이 하나라도 있으면 쓰지 않고 멈춘다.
 
@@ -27,17 +29,21 @@ WORDLIST = APP / "docs" / "wordlist"
 WORDS = APP / "assets" / "words"
 
 
-def _elementary_total():
-    """초등 줄 수(select.py의 ELEMENTARY 목표 합 = 800). 중등 번호는 그 다음부터 붙는다."""
-    path = WORDLIST / "elementary.csv"
+def _total(name):
+    """앞 학교급 csv의 줄 수(초등 800, 중등 700). 뒤 학교급 번호는 그 다음부터 붙는다."""
+    path = WORDLIST / name
     if not path.exists():
-        sys.exit("elementary.csv가 없다 — 먼저 select.py --stage elementary로 만든다")
+        sys.exit(f"{name}이 없다 — 먼저 select.py --stage {name.removesuffix('.csv')}로 만든다")
     with open(path, encoding="utf-8", newline="") as f:
         return sum(1 for _ in csv.reader(line for line in f if not line.startswith("#"))) - 1
 
 
-# 학교급: (기준 csv, 첫 번호)
-STAGES = {"elementary": ("elementary.csv", 1), "middle": ("middle.csv", None)}
+# 학교급: (기준 csv, 번호가 이 csv들의 줄 수 합 다음부터 붙는 앞 학교급)
+STAGES = {
+    "elementary": ("elementary.csv", ()),
+    "middle": ("middle.csv", ("elementary.csv",)),
+    "high": ("high.csv", ("elementary.csv", "middle.csv")),
+}
 FIELDS = ["id", "word", "meaning", "example", "exampleMeaning"]
 
 STAGE = "elementary"
@@ -49,9 +55,8 @@ def cells():
 
 def planned():
     """{칸: [(번호, 영단어)]} — 기준 csv 순서."""
-    name, first = STAGES[STAGE]
-    if first is None:  # 중등: 초등 줄 수 다음 번호
-        first = _elementary_total() + 1
+    name, before = STAGES[STAGE]
+    first = sum(_total(n) for n in before) + 1  # 초등 w-0001, 중등 w-0801, 고등 w-1501
     if not (WORDLIST / name).exists():
         sys.exit(f"{name}이 없다 — 먼저 select.py --stage {STAGE}로 만든다")
     with open(WORDLIST / name, encoding="utf-8", newline="") as f:

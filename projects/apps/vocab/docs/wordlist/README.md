@@ -29,12 +29,15 @@
 ```
 python tool/wordlist/select.py --stage elementary --cefrj <CEFRJ_wordlist_ver1.6.zip> --freq <frequency-alpha-alldicts.txt>
 python tool/wordlist/select.py --stage middle --cefrj <CEFRJ_wordlist_ver1.6.zip> --freq <frequency-alpha-alldicts.txt>
+python tool/wordlist/select.py --stage high --cefrj <CEFRJ_wordlist_ver1.6.zip> --freq <frequency-alpha-alldicts.txt>
 python tool/wordlist/cells.py --stage middle check          # 단어 파일이 middle.csv의 앞부분과 같은지(묶음 중)
 python tool/wordlist/cells.py --stage middle check --full   # 끝까지·개수까지 같은지
+python tool/wordlist/cells.py --stage high check            # 고등(high.csv, 번호 w-1501부터)
 ```
 
 파이썬 표준 라이브러리만 쓴다. `--stage`를 빼면 `elementary`. 같은 입력이면 같은 결과가 나오고, 개수나 중복이 어긋나면 종료 코드 1.
-거를 단어는 지금 단어 파일이 아니라 커밋된 csv에서 읽고(초등: `overlap.csv`의 중등·고등 줄, 중등: `elementary.csv`와 `overlap.csv`의 고등 줄), 단계마다 자기 이름의 파일만 쓴다 — 그래서 뒤 단계를 진행해도 앞 단계를 다시 돌리면 같은 csv가 나온다. `overlap.csv`는 어느 단계도 다시 쓰지 않는다(1차 작업 시점 기록).
+`select.py`는 `--cefrj`(zip)와 `--freq`의 SHA-256을 위 "쓴 자료"의 값과 비교해 다르면 종료 코드 1로 멈춘다(값은 스크립트의 `EXPECTED_SHA256`에도 있다 — 바꿀 때는 둘 다). zip에서 꺼낸 `.xlsx`를 `--cefrj`로 주면 그 값이 여기 없으므로 검사를 건너뛰고 그렇다고 출력한다.
+거를 단어는 지금 단어 파일이 아니라 커밋된 csv에서 읽고(초등: `overlap.csv`의 중등·고등 줄, 중등: `elementary.csv`와 `overlap.csv`의 고등 줄, 고등: `elementary.csv`와 `middle.csv`), 단계마다 자기 이름의 파일만 쓴다 — 그래서 뒤 단계를 진행해도 앞 단계를 다시 돌리면 같은 csv가 나온다. `overlap.csv`는 어느 단계도 다시 쓰지 않는다(1차 작업 시점 기록).
 
 ## 고르는 규칙 (1차 — 초등 800개)
 
@@ -54,6 +57,14 @@ python tool/wordlist/cells.py --stage middle check --full   # 끝까지·개수�
 4. 뽑기: `x`가 아닌 A1 전부 + A2를 단계(숫자로 비교 — `4`가 맨 뒤) → 빈도 순위 → 알파벳 순으로 세워 700개가 될 때까지. 남는 A2는 고등(3차) 차례에 쓴다
 5. 칸 배정: 뽑힌 700개를 **난이도**(`tiers-middle.csv`의 넷째 열 `difficulty`) → 빈도 순위 → 알파벳 순으로 세워 앞에서부터 234 · 233 · 233개를 쉬움 · 중간 · 어려움에(`middle.csv`, `difficulty` 열 포함). 단계와 수준(A1/A2)은 뽑기에만 쓴다(2026-11-24 사용자 결정 — 단계로 나누면 어려움 칸이 빈도가 낮은 쉬운 구체 명사로 찼다). 난이도는 `1` 쉬움(중1 — 일상의 구체적인 말) · `2` 중간(중2 — 일반적인 말) · `3` 어려움(추상어, 감정·상태, 덜 흔한 동사, 격식·교과 말, 뜻이 여럿인 말). 구체 명사는 드물어도 1~2. `x`가 아닌 줄은 모두 1·2·3이어야 하고 아니면 종료 코드 1. 뽑히지 않은 줄은 `min(단계, 3)`을 기본값으로 둔다 번호는 `middle.csv` 순서대로 `w-0801`부터
 
+## 고르는 규칙 (3차 — 고등 1,500개, [../plan-words-phase3.md](../plan-words-phase3.md))
+
+1. 1차 1·2번과 같이 빼고 앞 철자 하나만 쓴다(앞 철자가 같은 표제어는 가장 낮은 수준)
+2. 고등 후보 = **A1 + A2 + B1** 중 `elementary.csv`·`middle.csv`에 없는 것 2,727개(A1 9 · A2 637 · B1 2,081, `candidates-high.csv`). `overlap.csv`의 고등 줄(기존 고등 150개)은 지우는 단어라 거르지 않는다 — CEFR-J A2·B1이면 후보로 돌아온다. B1이 1차 1번의 2,082보다 하나 적은 것은 `March`(A1)와 `march`(B1)가 앞 철자로 합쳐졌기 때문이다. B2는 3차에 넣지 않는다(4차 심화)
+3. 후보 전부에 단계를 매긴다(`tiers-high.csv`, 1 · 2 · 3 · 4 · x). 기준은 한국 고등학교(공통영어 수준)에서 먼저 배울 순서. **`4`는 심화로 미루는 말**(전문 분야 말, 드문 격식어 — B1에만 쓴다). **`x`는 욕설·성적 표현만**(사용자 확인 뒤). A1·A2는 전부 뽑히므로 단계는 기록용이고 `4`를 쓰지 않는다. 초등·중등에서 "어린이 앱에 부적절"로 뺀 9개(`tiers-middle.csv`의 `x`)는 고등에 넣는다 — 여기서 `x`면 종료 코드 1(2026-11-24 사용자 결정). 단계 파일과 후보가 정확히 맞지 않으면 종료 코드 1
+4. 뽑기: `x`가 아닌 A1·A2 전부 + B1을 단계(숫자로 비교) → 빈도 순위 → 알파벳 순으로 세워 1,500개가 될 때까지. 뽑힌 것에 단계 `4`가 있으면 종료 코드 1(단계 1~3인 B1이 모자라다는 뜻 — 단계를 다시 매긴다). 남는 B1은 4차(심화) 차례에 쓴다
+5. 칸 배정: 뽑힌 1,500개를 **난이도**(`tiers-high.csv`의 넷째 열 `difficulty`) → 빈도 순위 → 알파벳 순으로 세워 앞에서부터 500 · 500 · 500개를 쉬움 · 중간 · 어려움에(`high.csv`). 난이도는 `1` 쉬움(고1 — 일상·일반 말) · `2` 중간 · `3` 어려움(추상어, 학술·격식 말, 뜻이 여럿인 말). 중등 때의 난이도를 그대로 가져오지 않고 고등 기준으로 다시 매긴다. 뽑힌 줄은 1·2·3이어야 하고, 뽑히지 않은 줄은 비워도 되지만 적었다면 1·2·3(아니면 종료 코드 1). 번호는 `high.csv` 순서대로 `w-1501`부터
+
 ## 파일
 
 | 파일 | 내용 |
@@ -66,5 +77,8 @@ python tool/wordlist/cells.py --stage middle check --full   # 끝까지·개수�
 | `candidates-middle.csv` | 중등 후보(A1·A2)와 수준·빈도 순위 |
 | `tiers-middle.csv` | 중등 후보의 난이도 단계와 근거(사람이 고치는 파일) |
 | `middle.csv` | 중등 700개와 수준·배정 칸(스크립트가 만든다 — 직접 고치지 않는다) |
+| `candidates-high.csv` | 고등 후보(A1·A2·B1)와 수준·빈도 순위 |
+| `tiers-high.csv` | 고등 후보의 단계·근거·난이도(사람이 고치는 파일 — 3차 2단계에서 만든다) |
+| `high.csv` | 고등 1,500개와 수준·배정 칸(스크립트가 만든다 — 직접 고치지 않는다. `tiers-high.csv`가 생긴 뒤에 나온다) |
 | `review-fixes.txt` · `-2` · `-3` · `-4` | 초등 검토가 낸 고칠 줄(`cells.py fix`로 적용) |
 | `review-fixes-middle.txt` | 중등 검토가 낸 고칠 줄(`cells.py --stage middle fix`로 적용) |

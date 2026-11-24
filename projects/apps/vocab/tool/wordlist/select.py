@@ -1,12 +1,16 @@
-"""학교급마다 단어 선정 목록을 만든다 (docs/plan-words-phase1.md 2단계, docs/plan-words-phase2.md 1단계).
+"""학교급마다 단어 선정 목록을 만든다 (docs/plan-words-phase1.md 2단계, docs/plan-words-phase2.md 1단계,
+docs/plan-words-phase3.md 1단계).
 
 파이썬 표준 라이브러리만 쓴다. 원본 파일은 저장소에 없다 — docs/wordlist/README.md의 주소에서 받아
 경로를 인자로 준다.
 
-    python tool/wordlist/select.py [--stage elementary|middle] --cefrj <CEFRJ_wordlist_ver1.6.zip 또는 .xlsx> [--freq <빈도 파일>]
+    python tool/wordlist/select.py [--stage elementary|middle|high] --cefrj <CEFRJ_wordlist_ver1.6.zip 또는 .xlsx> [--freq <빈도 파일>]
 
 --freq는 빈도가 높은 순으로 한 줄에 단어 하나가 있는 글 파일이다(줄 앞의 순위 숫자와 뒤의 횟수는 무시).
 1차에서 쓴 것은 gwordlist의 frequency-alpha-alldicts.txt (docs/wordlist/README.md).
+
+원본 확인: --cefrj(zip)와 --freq의 SHA-256이 README에 적힌 값(아래 EXPECTED_SHA256)과 다르면 종료 코드 1로 멈춘다.
+--cefrj에 zip에서 꺼낸 .xlsx를 주면 README에 그 값이 없으므로 검사를 건너뛰고 그렇다고 출력한다.
 
 다시 만들어도 같은 결과(2차 계획 "설계 결정"): 거를 단어는 지금 단어 파일이 아니라 커밋된 csv에서 읽고,
 단계마다 자기 이름의 파일만 쓴다. overlap.csv(1차 작업 시점에 앱에 들어 있던 단어)는 어느 단계도 다시 쓰지 않는다.
@@ -28,6 +32,15 @@
   난이도(difficulty)는 1·2·3이고 x가 아닌 줄에는 반드시 있어야 한다(없거나 다른 값이면 종료 코드 1).
   단계는 뽑기에, 난이도는 칸 나누기에 쓴다(2026-11-24 사용자 결정 — 실제로 얼마나 어려운가로 칸을 나눈다).
   칸 배정: 뽑힌 700개를 (난이도, 빈도 순위, 알파벳)으로 세워 앞에서부터 234 · 233 · 233(middle.csv).
+
+--stage high (3차 — 고등 1,500개)
+  후보 = A1 + A2 + B1 중 elementary.csv·middle.csv에 없는 것(candidates-high.csv). overlap.csv의 고등 줄은
+  거르지 않는다(지우는 단어라 후보로 돌아온다). tiers-high.csv(단어, 단계, 이유, 난이도)가 없으면 후보까지만 만든다.
+  단계는 1·2·3·4·x. A1·A2는 전부 뽑히므로 단계는 기록용이고 4를 쓰지 않는다. 중등에서 x였던 단어
+  (tiers-middle.csv의 x 줄)는 여기서 x가 아니어야 한다(2026-11-24 사용자 결정 — 고등에 넣는다).
+  뽑기: x가 아닌 A1·A2 전부 + B1을 (단계, 빈도 순위, 알파벳) 순으로 1,500개가 될 때까지. 뽑힌 것에 단계 4가
+  있으면 종료 코드 1(B1의 단계 1~3이 모자라다는 뜻). 난이도는 뽑힌 줄만 1·2·3이 있어야 하고, 뽑히지 않은 줄은
+  비워도 되지만 적었다면 1·2·3. 칸 배정: 뽑힌 1,500개를 (난이도, 빈도 순위, 알파벳)으로 세워 500 · 500 · 500(high.csv).
 
 --freq 없이 돌리면 후보 파일까지만 만든다. 같은 입력이면 늘 같은 결과가 나온다(정렬 순서 고정).
 끝에 검사(개수·중복·다른 학교급과 겹침)를 하고, 어긋나면 종료 코드 1.
@@ -65,6 +78,13 @@ FUNCTION_POS = {
 # 칸: (파일 이름, 목표 개수)
 ELEMENTARY = [("elementary_easy", 267), ("elementary_medium", 267), ("elementary_hard", 266)]
 MIDDLE = [("middle_easy", 234), ("middle_medium", 233), ("middle_hard", 233)]
+HIGH = [("high_easy", 500), ("high_medium", 500), ("high_hard", 500)]
+
+# 원본 두 파일의 SHA-256 — docs/wordlist/README.md "쓴 자료"에 적힌 값과 같다(바꾸면 README도 함께 고친다)
+EXPECTED_SHA256 = {
+    "CEFR-J": "c837d2c00ab8954ed8db48e79afd8ef37099570295fec36950dbf9322303a37a",  # CEFRJ_wordlist_ver1.6.zip
+    "빈도": "4ba1c1e1fe8eb29eed128bb906bb6ee11ed40c19233321b6ad75cbd7139702d6",  # frequency-alpha-alldicts.txt
+}
 ALL_CELLS = [
     f"{level}_{diff}"
     for level in ("elementary", "middle", "high")
@@ -189,8 +209,20 @@ def read_tiers(name, candidates, allowed):
     return tiers, reasons, extra
 
 
+def check_sha256(label, path):
+    """원본 파일의 SHA-256을 README 값(EXPECTED_SHA256)과 비교한다. 다르면 종료 코드 1."""
+    got = sha256(path)
+    print(f"{label} 파일 SHA-256: {got}")
+    if label == "CEFR-J" and Path(path).suffix.lower() == ".xlsx":
+        print("  .xlsx라 검사를 건너뛴다(README에는 zip의 값만 있다)")
+        return
+    if got != EXPECTED_SHA256[label]:
+        print(f"검사 실패:\n  {label} 파일이 README의 원본과 다르다(기대 {EXPECTED_SHA256[label]})")
+        sys.exit(1)
+
+
 def print_freq(args, rank, candidates):
-    print(f"빈도 파일 SHA-256: {sha256(args.freq)} · 단어 {len(rank)}개")
+    print(f"빈도 파일 단어 {len(rank)}개")
     missing = [w for w in candidates if w.lower() not in rank]
     print(f"빈도 자료에 없는 후보 {len(missing)}개: {', '.join(missing[:40])}")
 
@@ -274,6 +306,18 @@ def elementary(args, kept):
     print(f"elementary.csv {len(rows)}줄 — 검사 통과")
 
 
+def merged_levels(kept):
+    """앞 철자가 같은 표제어(철자 변이)는 하나로 보고 가장 낮은 수준을 쓴다 → ({소문자: 수준}, {소문자: 앞 철자})."""
+    level, form = {}, {}
+    for head, lv in sorted(kept.items()):
+        first = head.split("/")[0]
+        key = first.lower()
+        form[key] = first
+        if key not in level or LEVELS[lv] < LEVELS[level[key]]:
+            level[key] = lv
+    return level, form
+
+
 def middle(args, kept):
     # 거를 단어: 초등 800(elementary.csv)과 1차 작업 시점의 고등 칸(overlap.csv 고등 줄 — 3차까지 남는다)
     for name in ("elementary.csv", "overlap.csv"):
@@ -283,14 +327,7 @@ def middle(args, kept):
     high = {word.lower() for cl, _, word, _ in read_overlap() if cl.startswith("high")}
     print(f"거를 단어: elementary.csv {len(elem)}개, overlap.csv 고등 줄 {len(high)}개")
 
-    # 앞 철자가 같은 표제어(철자 변이)는 하나로 보고 가장 낮은 수준을 쓴다
-    level, form = {}, {}
-    for head, lv in sorted(kept.items()):
-        first = head.split("/")[0]
-        key = first.lower()
-        form[key] = first
-        if key not in level or LEVELS[lv] < LEVELS[level[key]]:
-            level[key] = lv
+    level, form = merged_levels(kept)
     a12 = sorted((k for k, lv in level.items() if lv in ("A1", "A2")), key=lambda k: form[k].lower())
     in_elem = [k for k in a12 if k in elem]
     in_high = [k for k in a12 if k in high]
@@ -360,17 +397,112 @@ def middle(args, kept):
     print(f"middle.csv {len(rows)}줄 — 검사 통과")
 
 
+def high(args, kept):
+    # 거를 단어: 초등 800과 중등 700(커밋된 csv). overlap.csv의 고등 줄은 거르지 않는다(지우는 단어라 후보로 돌아온다)
+    for name, stage in (("elementary.csv", "elementary"), ("middle.csv", "middle")):
+        if not (OUT / name).exists():
+            sys.exit(f"{name}이 없다 — 먼저 --stage {stage}로 만든다")
+    elem = {r[0].lower() for r in read_rows(OUT / "elementary.csv")}
+    mid = {r[0].lower() for r in read_rows(OUT / "middle.csv")}
+    print(f"거를 단어: elementary.csv {len(elem)}개, middle.csv {len(mid)}개")
+
+    level, form = merged_levels(kept)
+    pool = sorted((k for k, lv in level.items() if lv in ("A1", "A2", "B1")), key=lambda k: form[k].lower())
+    candidates = [form[k] for k in pool if k not in elem and k not in mid]
+    by_level = Counter(level[w.lower()] for w in candidates)
+    total = sum(target for _, target in HIGH)
+    print(
+        f"A1·A2·B1 {len(pool)}개 중 초등·중등 {len(pool) - len(candidates)}개를 빼 "
+        f"후보 {len(candidates)}개 {dict(sorted(by_level.items()))}(필요 {total})"
+    )
+
+    rank = read_freq(args.freq) if args.freq else {}
+    if args.freq:
+        print_freq(args, rank, candidates)
+    write_csv(
+        "candidates-high.csv",
+        ["word", "level", "freq_rank"],
+        [(w, level[w.lower()], rank.get(w.lower(), "")) for w in candidates],
+    )
+    if not args.freq:
+        print("--freq가 없어 여기까지만 한다(candidates-high.csv).")
+        return
+
+    loaded = read_tiers("tiers-high.csv", candidates, ("1", "2", "3", "4", "x"))
+    if not loaded:
+        print("tiers-high.csv가 없어 여기까지만 한다(candidates-high.csv). high.csv는 쓰지 않는다.")
+        return
+    tiers, reasons, difficulty = loaded
+
+    # A1·A2는 전부 뽑히므로 단계는 기록용 — 4를 쓰지 않는다
+    a12_tier4 = sorted(w for w, t in tiers.items() if t == "4" and level[w] in ("A1", "A2"))
+    # 중등에서 "어린이 앱에 부적절"로 x였던 단어는 고등에 넣는다(2026-11-24 사용자 결정)
+    middle_x = {r[0].lower() for r in read_rows(OUT / "tiers-middle.csv") if r[1] == "x"}
+    still_x = sorted(w for w in middle_x if tiers.get(w) == "x")
+    if a12_tier4 or still_x:
+        print(f"검사 실패:\n  4단계인 A1·A2 {a12_tier4[:10]}\n  중등에서 x였는데 여기서도 x {still_x}")
+        sys.exit(1)
+
+    usable = [w for w in candidates if tiers[w.lower()] != "x"]
+    a12 = [w for w in usable if level[w.lower()] in ("A1", "A2")]
+    b1 = sorted(
+        (w for w in usable if level[w.lower()] == "B1"),
+        key=lambda w: (int(tiers[w.lower()]), rank.get(w.lower(), NO_RANK), w.lower()),
+    )
+    if len(a12) + len(b1) < total or len(a12) > total:
+        print(f"검사 실패:\n  쓸 수 있는 후보 A1·A2 {len(a12)} · B1 {len(b1)}개(필요 {total})")
+        sys.exit(1)
+    b1_chosen = b1[: total - len(a12)]
+    chosen = a12 + b1_chosen
+    tier4 = [w for w in b1_chosen if tiers[w.lower()] == "4"]
+    if tier4:  # 단계 1~3인 B1이 모자라다 — 단계를 다시 매긴다
+        print(f"검사 실패:\n  뽑힌 것에 4단계 {len(tier4)}개 {tier4[:10]}")
+        sys.exit(1)
+    # 난이도: 뽑힌 줄은 1·2·3이어야 하고, 뽑히지 않은 줄은 비워도 되지만 적었다면 1·2·3
+    picked = {w.lower() for w in chosen}
+    bad = sorted(
+        w for w, d in difficulty.items() if d not in ("1", "2", "3") and (w in picked or d != "")
+    )
+    if bad:
+        print(f"검사 실패:\n  difficulty가 1·2·3이 아닌 줄 {len(bad)}개 {bad[:10]}")
+        sys.exit(1)
+
+    last = b1_chosen[-1] if b1_chosen else None
+    print(f"뽑은 것: A1·A2 {len(a12)}개 + B1 {len(b1_chosen)}개 · 남는 B1 {len(b1) - len(b1_chosen)}개(심화로)")
+    print(f"뽑은 B1의 단계: {dict(sorted(Counter(tiers[w.lower()] for w in b1_chosen).items()))}")
+    if last:
+        t = tiers[last.lower()]
+        same = [w for w in b1 if tiers[w.lower()] == t]
+        print(f"B1 경계: 단계 {t}의 {same.index(last) + 1}번째/{len(same)}개까지 뽑았다(마지막 {last})")
+    chosen.sort(key=lambda w: (int(difficulty[w.lower()]), rank.get(w.lower(), NO_RANK), w.lower()))
+    print(f"뽑은 것의 난이도: {dict(sorted(Counter(difficulty[w.lower()] for w in chosen).items()))}")
+
+    rows, pos = [], 0
+    for cell, target in HIGH:
+        for word in chosen[pos: pos + target]:
+            key = word.lower()
+            rows.append((word, level[key], rank.get(key, ""), tiers[key], difficulty[key], cell, reasons[key]))
+        pos += target
+    header = ["word", "level", "freq_rank", "tier", "difficulty", "cell", "tier_reason"]
+    write_csv("high.csv", header, rows)
+
+    check_rows(rows, header, HIGH, "고등", elem | mid, "초등·중등")
+    print(f"high.csv {len(rows)}줄 — 검사 통과")
+
+
 def main():
     # Windows 콘솔에서도 한글이 깨지지 않게(-I로 돌리면 PYTHONIOENCODING이 무시된다)
     sys.stdout.reconfigure(encoding="utf-8")
     ap = argparse.ArgumentParser()
-    ap.add_argument("--stage", choices=["elementary", "middle"], default="elementary")
+    ap.add_argument("--stage", choices=["elementary", "middle", "high"], default="elementary")
     ap.add_argument("--cefrj", required=True)
     ap.add_argument("--freq")
     args = ap.parse_args()
 
     print(f"단계: {args.stage}")
-    print(f"CEFR-J 파일 SHA-256: {sha256(args.cefrj)}")
+    check_sha256("CEFR-J", args.cefrj)
+    if args.freq:
+        check_sha256("빈도", args.freq)
     by_head = defaultdict(list)
     for head, pos, level in read_cefrj(args.cefrj):
         by_head[head].append((pos, level))
@@ -390,8 +522,10 @@ def main():
     if args.stage == "elementary":
         write_csv("excluded.csv", ["headword", "level", "pos", "reason"], excluded)
         elementary(args, kept)
-    else:
+    elif args.stage == "middle":
         middle(args, kept)
+    else:
+        high(args, kept)
 
 
 if __name__ == "__main__":
