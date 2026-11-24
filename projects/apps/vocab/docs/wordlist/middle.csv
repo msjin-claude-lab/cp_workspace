@@ -1,703 +1,703 @@
 # The CEFR-J Wordlist Version 1.6. Compiled by Yukio Tono, Tokyo University of Foreign Studies. Retrieved from https://www.cefr-j.org/download.html on 23/11/26.
 # 위 목록을 고쳐 만든 것이다(tool/wordlist/select.py). 뜻·예문은 들어 있지 않다.
-word,level,freq_rank,tier,cell,tier_reason
-can,A2,42,1,middle_easy,장소·사물
-part,A2,110,1,middle_easy,일상 말
-information,A1,171,1,middle_easy,일상 개념
-university,A2,187,1,middle_easy,학교 생활
-country,A2,205,1,middle_easy,장소·사물
-need,A2,242,1,middle_easy,일상 말
-far,A2,253,1,middle_easy,일상 말
-best,A1,282,1,middle_easy,일상 말
-south,A2,289,1,middle_easy,자연·동물
-air,A2,297,1,middle_easy,일상 말
-free,A1,323,1,middle_easy,일상 말
-better,A1,325,1,middle_easy,일상 말
-next,A2,330,1,middle_easy,일상 말
-north,A2,337,1,middle_easy,자연·동물
-low,A2,362,1,middle_easy,일상 말
-foreign,A1,382,1,middle_easy,일상 개념
-third,A2,386,1,middle_easy,시간·숫자
-west,A2,393,1,middle_easy,자연·동물
-member,A2,417,1,middle_easy,가족·사람
-market,A2,428,1,middle_easy,장소·사물
-plan,A1,441,1,middle_easy,일상 개념
-reason,A1,461,1,middle_easy,일상 개념
-enough,A2,476,1,middle_easy,일상 말
-sir,A1,499,1,middle_easy,가족·사람
-east,A2,504,1,middle_easy,자연·동물
-language,A1,505,1,middle_easy,학교 생활
-rule,A1,506,1,middle_easy,학교 생활
-meeting,A1,529,1,middle_easy,놀이·활동
-road,A2,541,1,middle_easy,장소·사물
-plant,A2,556,1,middle_easy,자연·동물
-million,A2,562,1,middle_easy,시간·숫자
-really,A1,616,1,middle_easy,일상 말
-hundred,A2,662,1,middle_easy,시간·숫자
-reading,A1,763,1,middle_easy,학교 생활
-alone,A1,768,1,middle_easy,일상 말
-simple,A2,775,1,middle_easy,일상 말
-lost,A2,781,1,middle_easy,일상 말
-hope,A1,783,1,middle_easy,일상 말
-finally,A2,798,1,middle_easy,일상 말
-earth,A2,805,1,middle_easy,자연·동물
-bring,A1,808,1,middle_easy,일상 말
-understand,A2,815,1,middle_easy,일상 말
-address,A1,829,1,middle_easy,일상 말
-fall,A2,838,1,middle_easy,일상 말
-sound,A2,869,1,middle_easy,일상 말
-voice,A2,928,1,middle_easy,일상 개념
-move,A1,975,1,middle_easy,일상 말
-follow,A2,984,1,middle_easy,일상 말
-thousand,A2,1023,1,middle_easy,시간·숫자
-lake,A2,1031,1,middle_easy,자연·동물
-pass,A2,1041,1,middle_easy,일상 말
-police,A2,1049,1,middle_easy,가족·사람
-heavy,A1,1059,1,middle_easy,일상 말
-miss,A1,1143,1,middle_easy,일상 말
-carry,A1,1144,1,middle_easy,일상 말
-forest,A2,1154,1,middle_easy,자연·동물
-useful,A2,1168,1,middle_easy,감정·상태
-exercise,A1,1231,1,middle_easy,학교 생활
-rock,A2,1286,1,middle_easy,자연·동물
-closed,A1,1304,1,middle_easy,일상 말
-send,A2,1343,1,middle_easy,일상 말
-die,A2,1350,1,middle_easy,일상 개념
-plate,A2,1362,1,middle_easy,장소·사물
-village,A2,1367,1,middle_easy,장소·사물
-popular,A2,1369,1,middle_easy,감정·상태
-owner,A1,1392,1,middle_easy,가족·사람
-interested,A1,1395,1,middle_easy,감정·상태
-quickly,A1,1465,1,middle_easy,일상 말
-bottom,A1,1471,1,middle_easy,일상 말
-telephone,A1,1477,1,middle_easy,장소·사물
-check,A1,1485,1,middle_easy,일상 말
-fresh,A2,1599,1,middle_easy,감정·상태
-perfect,A2,1622,1,middle_easy,일상 말
-excellent,A1,1623,1,middle_easy,일상 말
-salt,A2,1651,1,middle_easy,음식
-explain,A2,1661,1,middle_easy,학교 생활
-safe,A2,1707,1,middle_easy,감정·상태
-museum,A2,1731,1,middle_easy,장소·사물
-save,A1,1733,1,middle_easy,일상 말
-block,A1,1745,1,middle_easy,장소·사물
-broken,A1,1747,1,middle_easy,일상 말
-carefully,A1,1749,1,middle_easy,일상 말
-message,A1,1773,1,middle_easy,장소·사물
-store,A1,1823,1,middle_easy,장소·사물
-soft,A2,1874,1,middle_easy,감정·상태
-reader,A1,1886,1,middle_easy,학교 생활
-drawing,A2,1896,1,middle_easy,놀이·활동
-adult,A2,1902,1,middle_easy,가족·사람
-sentence,A1,1932,1,middle_easy,학교 생활
-leader,A1,1939,1,middle_easy,가족·사람
-slowly,A2,1962,1,middle_easy,일상 말
-plane,A1,1964,1,middle_easy,장소·사물
-thick,A1,2041,1,middle_easy,일상 말
-grow,A1,2054,1,middle_easy,일상 말
-goal,A1,2133,1,middle_easy,일상 개념
-twice,A2,2161,1,middle_easy,일상 말
-noise,A1,2217,1,middle_easy,일상 개념
-strange,A1,2224,1,middle_easy,일상 말
-bright,A1,2247,1,middle_easy,일상 말
-pair,A1,2249,1,middle_easy,장소·사물
-dangerous,A2,2277,1,middle_easy,감정·상태
-drop,A1,2301,1,middle_easy,일상 말
-tool,A1,2334,1,middle_easy,장소·사물
-happen,A1,2335,1,middle_easy,일상 말
-conversation,A1,2345,1,middle_easy,일상 개념
-magazine,A1,2377,1,middle_easy,학교 생활
-fill,A1,2399,1,middle_easy,일상 말
-join,A1,2407,1,middle_easy,일상 말
-lose,A2,2460,1,middle_easy,일상 말
-decide,A2,2479,1,middle_easy,일상 개념
-quick,A2,2494,1,middle_easy,일상 말
-thanks,A1,2559,1,middle_easy,구어
-interview,A1,2636,1,middle_easy,학교 생활
-hit,A2,2684,1,middle_easy,일상 말
-fishing,A1,2691,1,middle_easy,놀이·활동
-enjoy,A1,2712,1,middle_easy,일상 말
-row,A1,2760,1,middle_easy,장소·사물
-empty,A2,2797,1,middle_easy,감정·상태
-partner,A1,2804,1,middle_easy,가족·사람
-wet,A2,2857,1,middle_easy,감정·상태
-walking,A2,2903,1,middle_easy,놀이·활동
-painting,A1,2928,1,middle_easy,놀이·활동
-calendar,A2,3004,1,middle_easy,장소·사물
-poem,A1,3071,1,middle_easy,학교 생활
-roof,A2,3077,1,middle_easy,장소·사물
-castle,A2,3143,1,middle_easy,장소·사물
-yard,A1,3145,1,middle_easy,장소·사물
-mobile,A1,3177,1,middle_easy,장소·사물
-mistake,A2,3243,1,middle_easy,학교 생활
-everywhere,A1,3317,1,middle_easy,일상 말
-match,A1,3368,1,middle_easy,놀이·활동
-guess,A1,3400,1,middle_easy,일상 말
-helpful,A2,3425,1,middle_easy,감정·상태
-guy,A1,3455,1,middle_easy,가족·사람
-surprised,A2,3463,1,middle_easy,감정·상태
-belt,A2,3484,1,middle_easy,장소·사물
-stomach,A2,3513,1,middle_easy,몸·건강
-collect,A1,3528,1,middle_easy,놀이·활동
-pull,A2,3530,1,middle_easy,일상 말
-battery,A2,3754,1,middle_easy,장소·사물
-repeat,A1,3777,1,middle_easy,일상 말
-drama,A1,3846,1,middle_easy,놀이·활동
-mirror,A2,3889,1,middle_easy,장소·사물
-tight,A1,3903,1,middle_easy,일상 말
-excited,A1,4024,1,middle_easy,감정·상태
-apartment,A2,4074,1,middle_easy,장소·사물
-fix,A2,4155,1,middle_easy,놀이·활동
-singing,A2,4159,1,middle_easy,놀이·활동
-blank,A1,4232,1,middle_easy,학교 생활
-lamp,A2,4278,1,middle_easy,장소·사물
-bench,A2,4497,1,middle_easy,장소·사물
-cheap,A2,4636,1,middle_easy,감정·상태
-hate,A2,4647,1,middle_easy,일상 개념
-cooking,A2,4659,1,middle_easy,음식
-grammar,A1,4674,1,middle_easy,학교 생활
-honey,A2,4805,1,middle_easy,음식
-guest,A1,4856,1,middle_easy,가족·사람
-kiss,A1,5008,1,middle_easy,놀이·활동
-festival,A1,5064,1,middle_easy,놀이·활동
-dancing,A1,5131,1,middle_easy,놀이·활동
-insect,A2,5219,1,middle_easy,자연·동물
-coin,A2,5262,1,middle_easy,장소·사물
-everyday,A1,5324,1,middle_easy,일상 개념
-brave,A2,5353,1,middle_easy,감정·상태
-pop,A1,5372,1,middle_easy,구어
-noon,A2,5431,1,middle_easy,시간·숫자
-planet,A2,5541,1,middle_easy,자연·동물
-shopping,A1,5576,1,middle_easy,놀이·활동
-worried,A2,5594,1,middle_easy,감정·상태
-asleep,A2,5708,1,middle_easy,감정·상태
-football,A1,5720,1,middle_easy,놀이·활동
-menu,A2,5789,1,middle_easy,장소·사물
-swimming,A1,5808,1,middle_easy,놀이·활동
-soap,A2,5911,1,middle_easy,장소·사물
-kid,A1,5934,1,middle_easy,가족·사람
-midnight,A2,5982,1,middle_easy,시간·숫자
-diary,A2,5992,1,middle_easy,시간·숫자
-boss,A2,6041,1,middle_easy,가족·사람
-fork,A2,6241,1,middle_easy,장소·사물
-pardon,A1,6333,1,middle_easy,구어
-elevator,A2,6494,1,middle_easy,장소·사물
-basket,A2,6530,1,middle_easy,장소·사물
-invite,A2,6550,1,middle_easy,놀이·활동
-hurry,A1,6795,1,middle_easy,일상 말
-blanket,A2,7199,1,middle_easy,장소·사물
-breathe,A1,7574,1,middle_easy,몸·건강
-lemon,A2,7653,1,middle_easy,음식
-cinema,A1,7717,1,middle_easy,장소·사물
-joke,A2,7773,1,middle_easy,놀이·활동
-rude,A1,7798,1,middle_easy,감정·상태
-merry,A1,8032,1,middle_easy,감정·상태
-toe,A2,8076,1,middle_easy,몸·건강
-duck,A2,8099,1,middle_easy,자연·동물
-couch,A1,8132,1,middle_easy,장소·사물
-upstairs,A2,8375,1,middle_easy,장소·사물
-relax,A2,8544,1,middle_easy,놀이·활동
-celebrate,A1,8611,1,middle_easy,놀이·활동
-exam,A2,8807,1,middle_easy,학교 생활
-daddy,A1,8819,1,middle_easy,가족·사람
-fantastic,A2,8831,1,middle_easy,감정·상태
-elephant,A2,8849,1,middle_easy,자연·동물
-textbook,A2,8865,1,middle_easy,학교 생활
-mall,A2,8903,1,middle_easy,장소·사물
-boil,A2,8919,1,middle_easy,음식
-polite,A2,9361,1,middle_easy,감정·상태
-onion,A2,9373,1,middle_easy,음식
-balloon,A2,9487,1,middle_easy,장소·사물
-bicycle,A1,9653,1,middle_easy,일상 말
-violin,A2,9818,1,middle_easy,장소·사물
-bored,A2,9822,1,middle_easy,감정·상태
-noisy,A2,10379,1,middle_easy,감정·상태
-spoon,A2,10705,1,middle_easy,장소·사물
-downstairs,A2,10753,1,middle_easy,장소·사물
-trousers,A1,10785,1,middle_easy,사용자 결정: 뜻이 같은 말도 넣음(영국식 바지)
-camping,A2,11031,1,middle_easy,놀이·활동
-jam,A2,11060,1,middle_easy,음식
-pear,A2,11231,1,middle_easy,음식
-fried,A2,11238,1,middle_easy,음식
-ski,A2,11258,1,middle_easy,놀이·활동
-bake,A2,11266,1,middle_easy,음식
-toast,A2,11283,1,middle_easy,음식
-dentist,A2,11300,1,middle_easy,가족·사람
-colorful,A2,11827,1,middle_easy,감정·상태
-bug,A2,12439,1,middle_easy,장소·사물
-playground,A2,12521,1,middle_easy,장소·사물
-stadium,A2,12564,1,middle_easy,장소·사물
-hug,A2,12581,1,middle_easy,놀이·활동
-foreigner,A1,12832,1,middle_easy,가족·사람
-glove,A2,13273,1,middle_easy,장소·사물
-grandma,A1,13495,1,middle_easy,가족·사람
-chef,A2,13505,1,middle_easy,가족·사람
-dessert,A2,14039,1,middle_easy,음식
-sleepy,A2,14374,1,middle_easy,감정·상태
-scissors,A2,14389,1,middle_easy,장소·사물
-sausage,A2,14935,1,middle_medium,음식
-burger,A1,15482,1,middle_medium,음식
-thirsty,A2,15745,1,middle_medium,감정·상태
-teenager,A2,16023,1,middle_medium,가족·사람
-cafeteria,A2,16136,1,middle_medium,장소·사물
-scarf,A2,16385,1,middle_medium,장소·사물
-snack,A2,16590,1,middle_medium,음식
-carrot,A2,16693,1,middle_medium,음식
-grandpa,A1,16968,1,middle_medium,가족·사람
-biscuit,A1,17096,1,middle_medium,사용자 결정: 뜻이 같은 말도 넣음(cookie와 다른 칸)
-alright,A2,17343,1,middle_medium,구어
-sweater,A2,17350,1,middle_medium,옷
-windy,A2,18284,1,middle_medium,자연·동물
-quiz,A2,18448,1,middle_medium,놀이·활동
-blackboard,A2,19611,1,middle_medium,학교 생활
-mommy,A1,19976,1,middle_medium,가족·사람
-fridge,A2,21106,1,middle_medium,장소·사물
-melon,A2,21144,1,middle_medium,음식
-spaghetti,A2,22586,1,middle_medium,음식
-sunglasses,A2,23200,1,middle_medium,장소·사물
-dinosaur,A2,23350,1,middle_medium,자연·동물
-lemonade,A2,24626,1,middle_medium,음식
-skate,A2,25490,1,middle_medium,놀이·활동
-shampoo,A2,25790,1,middle_medium,장소·사물
-sock,A2,25944,1,middle_medium,장소·사물
-lunchtime,A2,27049,1,middle_medium,학교 생활
-toothbrush,A2,30969,1,middle_medium,장소·사물
-bookshelf,A2,31078,1,middle_medium,장소·사물
-toothache,A2,31425,1,middle_medium,몸·건강
-badminton,A2,33100,1,middle_medium,놀이·활동
-raincoat,A2,35067,1,middle_medium,옷
-stomachache,A2,65719,1,middle_medium,몸·건강
-all,A2,35,2,middle_medium,연결어·전치사
-most,A2,86,2,middle_medium,연결어·전치사
-during,A2,118,2,middle_medium,연결어·전치사
-without,A2,136,2,middle_medium,연결어·전치사
-power,A2,161,2,middle_medium,일반 명사
-bill,A2,304,2,middle_medium,일반 명사
-result,A1,352,2,middle_medium,추상 명사(중2)
-nature,A2,353,2,middle_medium,일반 명사
-church,A1,398,2,middle_medium,일반 명사
-oil,A2,517,2,middle_medium,일반 명사
-especially,A2,521,2,middle_medium,부사
-gas,A2,585,2,middle_medium,일반 명사
-temperature,A2,614,2,middle_medium,일반 명사
-character,A1,654,2,middle_medium,추상 명사(중2)
-blood,A2,658,2,middle_medium,일반 명사
-across,A2,686,2,middle_medium,연결어·전치사
-director,A2,698,2,middle_medium,직업·사람
-author,A2,759,2,middle_medium,직업·사람
-beginning,A2,764,2,middle_medium,일반 명사
-instead,A2,778,2,middle_medium,부사
-difference,A1,792,2,middle_medium,추상 명사(중2)
-cross,A2,796,2,middle_medium,일반 동사
-weight,A2,799,2,middle_medium,일반 명사
-technology,A1,818,2,middle_medium,추상 명사(중2)
-wide,A2,819,2,middle_medium,성질·상태 형용사
-writing,A2,836,2,middle_medium,일반 명사
-patient,A2,847,2,middle_medium,몸·건강
-heat,A2,875,2,middle_medium,일반 명사
-deep,A2,913,2,middle_medium,성질·상태 형용사
-actually,A2,945,2,middle_medium,부사
-continue,A2,948,2,middle_medium,일반 동사
-receive,A2,963,2,middle_medium,일반 동사
-electric,A2,995,2,middle_medium,성질·상태 형용사
-success,A2,1015,2,middle_medium,일반 명사
-round,A2,1035,2,middle_medium,성질·상태 형용사
-collection,A1,1039,2,middle_medium,중2 교과 주제
-wood,A2,1062,2,middle_medium,일반 명사
-allow,A2,1072,2,middle_medium,일반 동사
-dead,A2,1104,2,middle_medium,성질·상태 형용사
-easily,A2,1137,2,middle_medium,부사
-recently,A2,1141,2,middle_medium,부사
-speed,A2,1223,2,middle_medium,일반 명사
-assistant,A2,1245,2,middle_medium,직업·사람
-feeling,A1,1249,2,middle_medium,일반 명사
-choice,A2,1253,2,middle_medium,일반 명사
-coast,A2,1297,2,middle_medium,장소·사물
-fear,A2,1307,2,middle_medium,일반 명사
-manager,A2,1339,2,middle_medium,직업·사람
-create,A2,1346,2,middle_medium,일반 동사
-running,A2,1366,2,middle_medium,운동·여가
-film,A2,1380,2,middle_medium,일반 명사
-married,A2,1381,2,middle_medium,성질·상태 형용사
-cash,A2,1402,2,middle_medium,일반 명사
-valley,A2,1410,2,middle_medium,일반 명사
-impossible,A2,1419,2,middle_medium,성질·상태 형용사
-vote,A1,1442,2,middle_medium,일반 명사
-memory,A1,1452,2,middle_medium,일반 명사
-traffic,A2,1503,2,middle_medium,일반 명사
-grade,A1,1505,2,middle_medium,일반 명사
-avoid,A2,1509,2,middle_medium,일반 동사
-medicine,A1,1533,2,middle_medium,일반 명사
-silver,A2,1542,2,middle_medium,일반 명사
-accept,A2,1554,2,middle_medium,일반 동사
-shape,A2,1555,2,middle_medium,일반 명사
-agree,A1,1560,2,middle_medium,일반 동사
-traditional,A2,1564,2,middle_medium,성질·상태 형용사
-captain,A2,1597,2,middle_medium,일반 명사
-suggest,A2,1612,2,middle_medium,일반 동사
-focus,A1,1615,2,middle_medium,중2 교과 주제
-difficulty,A2,1629,2,middle_medium,일반 명사
-chance,A2,1634,2,middle_medium,일반 명사
-sign,A1,1640,2,middle_medium,일반 명사
-quarter,A1,1666,2,middle_medium,추상 명사(중2)
-item,A1,1700,2,middle_medium,일반 명사
-queen,A2,1711,2,middle_medium,직업·사람
-suit,A2,1719,2,middle_medium,장소·사물
-improve,A2,1726,2,middle_medium,일반 동사
-expect,A2,1761,2,middle_medium,일반 동사
-inch,A2,1763,2,middle_medium,단위
-trouble,A2,1799,2,middle_medium,일반 명사
-danger,A2,1800,2,middle_medium,일반 명사
-powerful,A2,1871,2,middle_medium,성질·상태 형용사
-sight,A1,1882,2,middle_medium,추상 명사(중2)
-pleasure,A1,1883,2,middle_medium,추상 명사(중2)
-wild,A2,1887,2,middle_medium,성질·상태 형용사
-schedule,A2,1892,2,middle_medium,일반 명사
-engineer,A1,1917,2,middle_medium,직업·사람
-speaker,A2,1921,2,middle_medium,일반 명사
-highway,A2,1931,2,middle_medium,일반 명사
-tube,A1,1942,2,middle_medium,중2 교과 주제
-false,A1,1967,2,middle_medium,성질·상태 형용사
-count,A2,1979,2,middle_medium,일반 동사(일상 동작)
-uniform,A2,1989,2,middle_medium,장소·사물
-advice,A2,2013,2,middle_medium,일반 명사
-seed,A2,2017,2,middle_medium,일반 명사
-describe,A1,2062,2,middle_medium,중2 교과 주제
-accident,A2,2068,2,middle_medium,일반 명사
-beauty,A2,2079,2,middle_medium,일반 명사
-secret,A2,2093,2,middle_medium,일반 명사
-flight,A2,2175,2,middle_medium,일반 명사
-discuss,A1,2201,2,middle_medium,중2 교과 주제
-spot,A1,2223,2,middle_medium,중2 교과 주제
-software,A2,2270,2,middle_medium,컴퓨터·매체
-novel,A2,2305,2,middle_medium,일반 명사
-promise,A2,2309,2,middle_medium,일반 동사
-weak,A2,2318,2,middle_medium,성질·상태 형용사
-couple,A2,2351,2,middle_medium,일반 명사
-rent,A2,2352,2,middle_medium,일반 동사(일상 동작)
-reply,A2,2372,2,middle_medium,일반 동사
-temple,A1,2413,2,middle_medium,일반 명사
-web,A2,2434,2,middle_medium,컴퓨터·매체
-repair,A2,2439,2,middle_medium,일반 동사
-wise,A2,2478,2,middle_medium,성질·상태 형용사
-ending,A2,2499,2,middle_medium,일반 명사
-worse,A2,2577,2,middle_medium,성질·상태 형용사
-factory,A1,2608,2,middle_medium,일반 명사
-wonder,A2,2611,2,middle_medium,일반 동사
-shore,A2,2615,2,middle_medium,장소·사물
-prepare,A2,2617,2,middle_medium,일반 동사
-roll,A2,2618,2,middle_medium,일반 동사
-print,A2,2628,2,middle_medium,일반 동사
-golden,A2,2686,2,middle_medium,성질·상태 형용사
-customer,A2,2689,2,middle_medium,일반 명사
-screen,A2,2713,2,middle_medium,일반 명사
-spend,A1,2739,2,middle_medium,일반 동사
-journey,A2,2741,2,middle_medium,일반 명사
-skill,A1,2743,2,middle_medium,추상 명사(중2)
-shell,A2,2753,2,middle_medium,일반 명사
-elementary,A1,2754,2,middle_medium,학교 생활
-pollution,A1,2772,2,middle_medium,중2 교과 주제
-fashion,A2,2777,2,middle_medium,일반 명사
-dust,A2,2787,2,middle_medium,장소·사물
-joy,A2,2830,2,middle_medium,일반 명사
-encourage,A2,2868,2,middle_medium,일반 동사
-pleased,A2,2877,2,middle_medium,성질·상태 형용사
-imagine,A1,2895,2,middle_medium,일반 동사
-gate,A2,2904,2,middle_medium,일반 명사
-chest,A2,2960,2,middle_medium,몸·건강
-flood,A2,2991,2,middle_medium,일반 명사
-realize,A2,3002,2,middle_medium,일반 동사
-passenger,A2,3013,2,middle_medium,직업·사람
-furniture,A2,3023,2,middle_medium,일반 명사
-receipt,A2,3030,2,middle_medium,장소·사물
-beside,A1,3053,2,middle_medium,연결어·전치사
-alive,A2,3056,2,middle_medium,성질·상태 형용사
-plastic,A2,3069,2,middle_medium,성질·상태 형용사
-musical,A2,3096,2,middle_medium,운동·여가
-belong,A2,3111,2,middle_medium,일반 동사
-diet,A2,3112,2,middle_medium,일반 명사
-suggestion,A1,3157,2,middle_medium,추상 명사(중2)
-nervous,A2,3168,2,middle_medium,성질·상태 형용사
-pilot,A2,3187,2,middle_medium,직업·사람
-lane,A2,3217,2,middle_medium,장소·사물
-storm,A2,3219,2,middle_medium,일반 명사
-happiness,A2,3258,2,middle_medium,일반 명사
-shut,A2,3305,2,middle_medium,일반 동사
-chart,A2,3321,2,middle_medium,일반 명사
-topic,A1,3412,2,middle_medium,일반 명사
-crowd,A2,3434,2,middle_medium,일반 명사
-childhood,A2,3469,2,middle_medium,일반 명사
-worst,A2,3478,2,middle_medium,성질·상태 형용사
-lawyer,A2,3482,2,middle_medium,직업·사람
-destroy,A2,3491,2,middle_medium,일반 동사
-missing,A2,3515,2,middle_medium,성질·상태 형용사
-discover,A2,3518,2,middle_medium,일반 동사
-soldier,A2,3521,2,middle_medium,일반 명사
-introduce,A1,3526,2,middle_medium,일반 동사
-online,A2,3533,2,middle_medium,성질·상태 형용사
-habit,A1,3552,2,middle_medium,일반 명사
-wooden,A2,3616,2,middle_medium,성질·상태 형용사
-tip,A2,3617,2,middle_medium,일반 명사
-desert,A2,3638,2,middle_medium,일반 명사
-pan,A2,3654,2,middle_medium,장소·사물
-tape,A2,3696,2,middle_medium,장소·사물
-somewhere,A2,3712,2,middle_medium,부사
-solve,A1,3713,2,middle_medium,일반 동사
-leather,A2,3720,2,middle_medium,장소·사물
-wool,A2,3735,2,middle_medium,장소·사물
-mix,A2,3761,2,middle_medium,일반 동사
-friendship,A2,3762,2,middle_medium,일반 명사
-essay,A2,3787,2,middle_medium,일반 명사
-prefer,A2,3833,2,middle_medium,일반 동사
-shadow,A2,3853,2,middle_medium,일반 명사
-dressed,A2,3865,2,middle_medium,성질·상태 형용사
-pray,A1,3890,2,middle_medium,중2 교과 주제
-comfortable,A2,3899,2,middle_medium,성질·상태 형용사
-tour,A2,3918,2,middle_medium,일반 명사
-anywhere,A2,3956,2,middle_medium,부사
-strict,A1,3974,2,middle_medium,성질·상태 형용사
-brand,A2,4029,2,middle_medium,일반 명사
-invention,A2,4037,2,middle_medium,일반 명사
-anyway,A2,4068,2,middle_medium,부사
-gallery,A2,4070,2,middle_medium,장소·사물
-click,A2,4096,2,middle_medium,일반 동사
-hero,A2,4112,2,middle_medium,직업·사람
-flour,A2,4118,2,middle_medium,음식
-lock,A2,4133,2,middle_medium,일반 동사
-forever,A2,4142,2,middle_medium,부사
-gentle,A2,4180,2,middle_medium,성질·상태 형용사
-stuff,A2,4184,2,middle_medium,장소·사물
-magic,A2,4225,2,middle_medium,일반 명사
-surprising,A2,4289,2,middle_hard,성질·상태 형용사
-opera,A1,4336,2,middle_hard,중2 교과 주제
-hunter,A2,4356,2,middle_hard,직업·사람
-tie,A2,4378,2,middle_hard,일반 동사
-marry,A2,4388,2,middle_hard,일반 동사
-sandy,A2,4441,2,middle_hard,성질·상태 형용사(일상)
-quietly,A2,4479,2,middle_hard,부사
-contest,A1,4565,2,middle_hard,일반 명사
-badly,A2,4599,2,middle_hard,부사
-mystery,A2,4618,2,middle_hard,일반 명사
-photograph,A2,4656,2,middle_hard,직접 보는 말(사진·영화)
-meter,A2,4667,2,middle_hard,일반 명사
-grateful,A2,4686,2,middle_hard,성질·상태 형용사
-burn,A2,4721,2,middle_hard,일반 동사
-mad,A2,4766,2,middle_hard,성질·상태 형용사
-stranger,A2,4777,2,middle_hard,일반 명사
-slide,A2,4788,2,middle_hard,일반 동사
-pack,A2,4810,2,middle_hard,일반 동사
-confused,A2,4822,2,middle_hard,성질·상태 형용사
-diamond,A2,4837,2,middle_hard,장소·사물
-angel,A2,4917,2,middle_hard,성질·상태 형용사
-creature,A2,4931,2,middle_hard,자연·동물
-stamp,A2,4944,2,middle_hard,일반 명사
-yeah,A2,4959,2,middle_hard,구어
-peaceful,A2,4977,2,middle_hard,성질·상태 형용사
-alarm,A2,5035,2,middle_hard,일반 명사
-talent,A2,5083,2,middle_hard,일반 명사
-wedding,A2,5125,2,middle_hard,운동·여가
-reporter,A1,5166,2,middle_hard,직업·사람
-rope,A2,5190,2,middle_hard,장소·사물
-globe,A2,5194,2,middle_hard,장소·사물
-pour,A2,5195,2,middle_hard,일반 동사(일상 동작)
-verb,A2,5240,2,middle_hard,문법 용어(수업에서 씀)
-shoot,A2,5310,2,middle_hard,일반 동사
-fence,A2,5361,2,middle_hard,일반 명사
-confident,A2,5452,2,middle_hard,성질·상태 형용사
-crowded,A2,5475,2,middle_hard,성질·상태 형용사
-trap,A2,5511,2,middle_hard,장소·사물
-printer,A2,5542,2,middle_hard,장소·사물
-painter,A2,5567,2,middle_hard,직업·사람
-fool,A2,5571,2,middle_hard,일반 명사
-lip,A2,5617,2,middle_hard,일반 명사
-tear,A2,5842,2,middle_hard,일반 동사
-visitor,A2,5862,2,middle_hard,일반 명사
-anniversary,A2,5901,2,middle_hard,일반 명사
-audio,A2,5914,2,middle_hard,컴퓨터·매체
-photography,A2,5961,2,middle_hard,운동·여가
-horror,A2,5979,2,middle_hard,일반 명사
-cheek,A2,5986,2,middle_hard,몸·건강
-envelope,A2,6007,2,middle_hard,일반 명사
-adventure,A2,6043,2,middle_hard,일반 명사
-pepper,A2,6067,2,middle_hard,음식
-chin,A2,6138,2,middle_hard,몸·건강
-oven,A2,6147,2,middle_hard,장소·사물
-soda,A2,6163,2,middle_hard,음식
-upset,A2,6184,2,middle_hard,성질·상태 형용사
-brake,A2,6214,2,middle_hard,장소·사물
-supper,A2,6217,2,middle_hard,음식
-crazy,A2,6261,2,middle_hard,성질·상태 형용사
-golf,A2,6279,2,middle_hard,운동·여가
-unhappy,A2,6299,2,middle_hard,성질·상태 형용사
-tourist,A2,6321,2,middle_hard,직업·사람
-vocabulary,A2,6325,2,middle_hard,일반 명사
-disappear,A2,6334,2,middle_hard,일반 동사
-website,A2,6348,2,middle_hard,장소·사물
-lend,A2,6355,2,middle_hard,일반 동사
-remind,A2,6363,2,middle_hard,일반 동사
-advertisement,A2,6412,2,middle_hard,일반 명사
-bride,A2,6438,2,middle_hard,직업·사람
-treasure,A2,6456,2,middle_hard,일반 명사
-earthquake,A2,6521,2,middle_hard,일반 명사
-medal,A2,6527,2,middle_hard,일반 명사
-tap,A2,6646,2,middle_hard,장소·사물
-episode,A2,6682,2,middle_hard,운동·여가
-statue,A2,6696,2,middle_hard,장소·사물
-complain,A2,6712,2,middle_hard,일반 동사
-gram,A2,6783,2,middle_hard,단위
-sailing,A2,6784,2,middle_hard,운동·여가
-disappointed,A2,6823,2,middle_hard,성질·상태 형용사
-celebration,A1,6907,2,middle_hard,중2 교과 주제
-nationality,A1,7009,2,middle_hard,추상 명사(중2)
-harmful,A2,7045,2,middle_hard,성질·상태 형용사
-semester,A2,7068,2,middle_hard,일반 명사
-happily,A2,7069,2,middle_hard,부사
-noun,A2,7092,2,middle_hard,문법 용어(수업에서 씀)
-sunlight,A2,7098,2,middle_hard,장소·사물
-sauce,A2,7131,2,middle_hard,음식
-relaxed,A2,7144,2,middle_hard,성질·상태 형용사
-sweat,A2,7340,2,middle_hard,일반 명사
-kit,A2,7349,2,middle_hard,장소·사물
-bite,A2,7392,2,middle_hard,일반 동사
-anymore,A2,7537,2,middle_hard,부사
-fog,A2,7628,2,middle_hard,일반 명사
-garage,A2,7644,2,middle_hard,일반 명사
-pretend,A2,7658,2,middle_hard,일반 동사
-trick,A2,7670,2,middle_hard,일반 명사
-climbing,A2,7671,2,middle_hard,운동·여가
-float,A2,7689,2,middle_hard,일반 동사
-breeze,A2,7704,2,middle_hard,장소·사물
-comic,A2,7719,2,middle_hard,운동·여가
-daylight,A2,7725,2,middle_hard,장소·사물
-knock,A2,7836,2,middle_hard,일반 동사
-cab,A2,7847,2,middle_hard,장소·사물
-belly,A2,7850,2,middle_hard,몸·건강
-stove,A2,7854,2,middle_hard,장소·사물
-folder,A2,7876,2,middle_hard,장소·사물
-ham,A2,7956,2,middle_hard,음식
-countryside,A2,7972,2,middle_hard,일반 명사
-freeze,A2,7987,2,middle_hard,일반 동사
-downtown,A2,8010,2,middle_hard,일반 명사
-boiled,A2,8050,2,middle_hard,음식
-silly,A2,8173,2,middle_hard,성질·상태 형용사
-winner,A2,8178,2,middle_hard,직업·사람
-energetic,A2,8211,2,middle_hard,성질·상태 형용사
-disagree,A2,8274,2,middle_hard,일반 동사
-barber,A2,8357,2,middle_hard,직업·사람
-endangered,A2,8504,2,middle_hard,성질·상태 형용사
-bulb,A2,8680,2,middle_hard,장소·사물
-steal,A2,8696,2,middle_hard,일반 동사
-drawer,A2,8813,2,middle_hard,장소·사물
-shine,A2,8862,2,middle_hard,일반 동사
-sadly,A2,8934,2,middle_hard,부사
-fry,A2,8954,2,middle_hard,일반 동사
-swallow,A2,9208,2,middle_hard,일반 동사(일상 동작)
-loudly,A2,9288,2,middle_hard,부사
-grandson,A2,9475,2,middle_hard,직업·사람
-nowadays,A2,9496,2,middle_hard,부사
-mum,A1,9613,2,middle_hard,사용자 결정: 뜻이 같은 말도 넣음(영국식 엄마)
-dislike,A2,9645,2,middle_hard,일반 동사
-slice,A2,9647,2,middle_hard,장소·사물
-shout,A2,9657,2,middle_hard,일반 동사
-feather,A2,9774,2,middle_hard,일반 명사
-garlic,A2,9973,2,middle_hard,음식
-Olympic,A2,10063,2,middle_hard,고유 이름(올림픽) — 운동 주제
-refrigerator,A2,10094,2,middle_hard,장소·사물
-policeman,A2,10154,2,middle_hard,직업·사람
-cereal,A2,10170,2,middle_hard,음식
-thief,A2,10190,2,middle_hard,일반 명사
-photographer,A2,10213,2,middle_hard,직업·사람
-cheer,A2,10302,2,middle_hard,일반 명사
-learner,A2,10383,2,middle_hard,직업·사람
-indoor,A2,10446,2,middle_hard,성질·상태 형용사
-ankle,A2,10470,2,middle_hard,장소·사물
-comb,A2,10639,2,middle_hard,장소·사물
-cleaner,A2,10663,2,middle_hard,직업·사람
-cooler,A2,10678,2,middle_hard,장소·사물
-scream,A2,10735,2,middle_hard,일반 동사
-adjective,A2,10825,2,middle_hard,문법 용어(수업에서 씀)
-chat,A2,10961,2,middle_hard,일반 명사
-spill,A2,11132,2,middle_hard,일반 동사(일상 동작)
-pea,A2,11374,2,middle_hard,음식
-liter,A2,11431,2,middle_hard,단위
-slim,A2,11464,2,middle_hard,성질·상태 형용사(일상)
-chess,A2,11501,2,middle_hard,운동·여가
-traveler,A2,11636,2,middle_hard,직업·사람
-cricket,A2,11765,2,middle_hard,운동·여가
-underwater,A2,11767,2,middle_hard,일반 명사
-pronunciation,A2,11772,2,middle_hard,문법 용어(수업에서 씀)
-pronounce,A2,11894,2,middle_hard,일반 동사
-runner,A2,12053,2,middle_hard,직업·사람
-championship,A2,12346,2,middle_hard,운동·여가
-balcony,A2,12486,2,middle_hard,장소·사물
-embarrassing,A2,12507,2,middle_hard,성질·상태 형용사
-perfume,A2,12627,2,middle_hard,장소·사물
-lyric,A2,12651,2,middle_hard,운동·여가
-curry,A2,12686,2,middle_hard,음식
-cycling,A2,12792,2,middle_hard,운동·여가
-roast,A2,12799,2,middle_hard,음식
-teenage,A2,12874,2,middle_hard,성질·상태 형용사(일상)
-businessman,A2,12877,2,middle_hard,직업·사람
-jelly,A2,12920,2,middle_hard,음식
-pill,A2,12935,2,middle_hard,몸·건강
-fisherman,A2,12987,2,middle_hard,직업·사람
-dancer,A2,13012,2,middle_hard,직업·사람
-athlete,A2,13153,2,middle_hard,직업·사람
-junk,A2,13437,2,middle_hard,장소·사물
-interviewer,A1,13524,2,middle_hard,중2 교과 주제
-invent,A2,13718,2,middle_hard,일반 동사
-cola,A2,13801,2,middle_hard,음식
-apologize,A2,13936,2,middle_hard,일반 동사
-tablespoon,A2,13991,2,middle_hard,장소·사물
-seafood,A2,14041,2,middle_hard,음식
-hockey,A2,14130,2,middle_hard,운동·여가
-greedy,A2,14372,2,middle_hard,성질·상태 형용사
-annoying,A2,14799,2,middle_hard,성질·상태 형용사
-surname,A2,14823,2,middle_hard,학교 생활
-steak,A2,14907,2,middle_hard,음식
-stair,A2,14926,2,middle_hard,장소·사물
-someday,A2,14939,2,middle_hard,부사
-mushroom,A2,15192,2,middle_hard,음식
-rap,A2,15361,2,middle_hard,운동·여가
-luckily,A2,15439,2,middle_hard,부사
-hiking,A2,15555,2,middle_hard,운동·여가
-download,A2,15599,2,middle_hard,일반 동사
-pasta,A2,15721,2,middle_hard,음식
-wheelchair,A2,15756,2,middle_hard,장소·사물
-granddaughter,A2,15763,2,middle_hard,직업·사람
-chili,A2,15894,2,middle_hard,음식
-rugby,A2,16068,2,middle_hard,운동·여가
-cupboard,A2,16133,2,middle_hard,장소·사물
-skiing,A2,16299,2,middle_hard,운동·여가
-hike,A2,16502,2,middle_hard,운동·여가
-mug,A2,16630,2,middle_hard,장소·사물
-midday,A2,16720,2,middle_hard,장소·사물
-wallet,A2,16741,2,middle_hard,장소·사물
-clown,A2,16844,2,middle_hard,직업·사람
-sunflower,A2,17040,2,middle_hard,장소·사물
-timetable,A2,17286,2,middle_hard,장소·사물
-suitcase,A2,17311,2,middle_hard,장소·사물
-dizzy,A2,17359,2,middle_hard,몸·건강
-skating,A2,17495,2,middle_hard,운동·여가
-beginner,A2,17499,2,middle_hard,일반 명사
-tidy,A2,17754,2,middle_hard,성질·상태 형용사
-centimeter,A2,17805,2,middle_hard,단위
-Olympics,A1,18215,2,middle_hard,고유 이름(올림픽) — 운동 주제
-kilogram,A2,18550,2,middle_hard,단위
-seaside,A2,18609,2,middle_hard,장소·사물
-underline,A1,19351,2,middle_hard,학교 생활
-napkin,A2,19684,2,middle_hard,장소·사물
-recycle,A2,19704,2,middle_hard,일반 동사
-armchair,A2,19776,2,middle_hard,장소·사물
-granny,A2,20080,2,middle_hard,직업·사람
-racket,A2,20639,2,middle_hard,장소·사물
-guidebook,A2,21837,2,middle_hard,장소·사물
-barbecue,A2,21960,2,middle_hard,장소·사물
-thunderstorm,A2,22174,2,middle_hard,장소·사물
-kilometer,A2,22521,2,middle_hard,단위
-kilo,A2,22823,2,middle_hard,단위
-self,A1,488,3,middle_hard,추상 명사
-saw,A1,612,3,middle_hard,철자가 같은 다른 말(톱·see 과거)
-living,A1,651,3,middle_hard,뜻이 여럿인 말(살아 있는·생활)
-smith,A1,999,3,middle_hard,사용자 결정: 되살림(대장장이 — 성으로 많이 쓰임)
-ideal,A1,2322,3,middle_hard,추상 명사
+word,level,freq_rank,tier,difficulty,cell,tier_reason
+all,A2,35,2,1,middle_easy,연결어·전치사
+country,A2,205,1,1,middle_easy,장소·사물
+need,A2,242,1,1,middle_easy,일상 말
+far,A2,253,1,1,middle_easy,일상 말
+best,A1,282,1,1,middle_easy,일상 말
+south,A2,289,1,1,middle_easy,자연·동물
+air,A2,297,1,1,middle_easy,일상 말
+better,A1,325,1,1,middle_easy,일상 말
+next,A2,330,1,1,middle_easy,일상 말
+north,A2,337,1,1,middle_easy,자연·동물
+low,A2,362,1,1,middle_easy,일상 말
+third,A2,386,1,1,middle_easy,시간·숫자
+west,A2,393,1,1,middle_easy,자연·동물
+church,A1,398,2,1,middle_easy,일반 명사
+market,A2,428,1,1,middle_easy,장소·사물
+plan,A1,441,1,1,middle_easy,일상 개념
+east,A2,504,1,1,middle_easy,자연·동물
+rule,A1,506,1,1,middle_easy,학교 생활
+road,A2,541,1,1,middle_easy,장소·사물
+million,A2,562,1,1,middle_easy,시간·숫자
+really,A1,616,1,1,middle_easy,일상 말
+hundred,A2,662,1,1,middle_easy,시간·숫자
+reading,A1,763,1,1,middle_easy,학교 생활
+lost,A2,781,1,1,middle_easy,일상 말
+earth,A2,805,1,1,middle_easy,자연·동물
+bring,A1,808,1,1,middle_easy,일상 말
+understand,A2,815,1,1,middle_easy,일상 말
+writing,A2,836,2,1,middle_easy,일반 명사
+sound,A2,869,1,1,middle_easy,일상 말
+move,A1,975,1,1,middle_easy,일상 말
+thousand,A2,1023,1,1,middle_easy,시간·숫자
+lake,A2,1031,1,1,middle_easy,자연·동물
+police,A2,1049,1,1,middle_easy,가족·사람
+heavy,A1,1059,1,1,middle_easy,일상 말
+wood,A2,1062,2,1,middle_easy,일반 명사
+carry,A1,1144,1,1,middle_easy,일상 말
+forest,A2,1154,1,1,middle_easy,자연·동물
+rock,A2,1286,1,1,middle_easy,자연·동물
+send,A2,1343,1,1,middle_easy,일상 말
+die,A2,1350,1,1,middle_easy,일상 개념
+plate,A2,1362,1,1,middle_easy,장소·사물
+running,A2,1366,2,1,middle_easy,운동·여가
+film,A2,1380,2,1,middle_easy,일반 명사
+quickly,A1,1465,1,1,middle_easy,일상 말
+telephone,A1,1477,1,1,middle_easy,장소·사물
+check,A1,1485,1,1,middle_easy,일상 말
+fresh,A2,1599,1,1,middle_easy,감정·상태
+salt,A2,1651,1,1,middle_easy,음식
+safe,A2,1707,1,1,middle_easy,감정·상태
+queen,A2,1711,2,1,middle_easy,직업·사람
+museum,A2,1731,1,1,middle_easy,장소·사물
+broken,A1,1747,1,1,middle_easy,일상 말
+message,A1,1773,1,1,middle_easy,장소·사물
+store,A1,1823,1,1,middle_easy,장소·사물
+soft,A2,1874,1,1,middle_easy,감정·상태
+reader,A1,1886,1,1,middle_easy,학교 생활
+drawing,A2,1896,1,1,middle_easy,놀이·활동
+slowly,A2,1962,1,1,middle_easy,일상 말
+plane,A1,1964,1,1,middle_easy,장소·사물
+count,A2,1979,2,1,middle_easy,일반 동사(일상 동작)
+grow,A1,2054,1,1,middle_easy,일상 말
+drop,A1,2301,1,1,middle_easy,일상 말
+lose,A2,2460,1,1,middle_easy,일상 말
+quick,A2,2494,1,1,middle_easy,일상 말
+thanks,A1,2559,1,1,middle_easy,구어
+hit,A2,2684,1,1,middle_easy,일상 말
+fishing,A1,2691,1,1,middle_easy,놀이·활동
+enjoy,A1,2712,1,1,middle_easy,일상 말
+wet,A2,2857,1,1,middle_easy,감정·상태
+walking,A2,2903,1,1,middle_easy,놀이·활동
+painting,A1,2928,1,1,middle_easy,놀이·활동
+calendar,A2,3004,1,1,middle_easy,장소·사물
+poem,A1,3071,1,1,middle_easy,학교 생활
+roof,A2,3077,1,1,middle_easy,장소·사물
+castle,A2,3143,1,1,middle_easy,장소·사물
+yard,A1,3145,1,1,middle_easy,장소·사물
+pilot,A2,3187,2,1,middle_easy,직업·사람
+mistake,A2,3243,1,1,middle_easy,학교 생활
+everywhere,A1,3317,1,1,middle_easy,일상 말
+guess,A1,3400,1,1,middle_easy,일상 말
+helpful,A2,3425,1,1,middle_easy,감정·상태
+guy,A1,3455,1,1,middle_easy,가족·사람
+surprised,A2,3463,1,1,middle_easy,감정·상태
+belt,A2,3484,1,1,middle_easy,장소·사물
+stomach,A2,3513,1,1,middle_easy,몸·건강
+pull,A2,3530,1,1,middle_easy,일상 말
+pan,A2,3654,2,1,middle_easy,장소·사물
+tape,A2,3696,2,1,middle_easy,장소·사물
+drama,A1,3846,1,1,middle_easy,놀이·활동
+excited,A1,4024,1,1,middle_easy,감정·상태
+click,A2,4096,2,1,middle_easy,일반 동사
+hero,A2,4112,2,1,middle_easy,직업·사람
+singing,A2,4159,1,1,middle_easy,놀이·활동
+lamp,A2,4278,1,1,middle_easy,장소·사물
+bench,A2,4497,1,1,middle_easy,장소·사물
+cheap,A2,4636,1,1,middle_easy,감정·상태
+hate,A2,4647,1,1,middle_easy,일상 개념
+cooking,A2,4659,1,1,middle_easy,음식
+honey,A2,4805,1,1,middle_easy,음식
+diamond,A2,4837,2,1,middle_easy,장소·사물
+angel,A2,4917,2,1,middle_easy,성질·상태 형용사
+yeah,A2,4959,2,1,middle_easy,구어
+kiss,A1,5008,1,1,middle_easy,놀이·활동
+dancing,A1,5131,1,1,middle_easy,놀이·활동
+coin,A2,5262,1,1,middle_easy,장소·사물
+noon,A2,5431,1,1,middle_easy,시간·숫자
+printer,A2,5542,2,1,middle_easy,장소·사물
+painter,A2,5567,2,1,middle_easy,직업·사람
+shopping,A1,5576,1,1,middle_easy,놀이·활동
+lip,A2,5617,2,1,middle_easy,일반 명사
+football,A1,5720,1,1,middle_easy,놀이·활동
+menu,A2,5789,1,1,middle_easy,장소·사물
+swimming,A1,5808,1,1,middle_easy,놀이·활동
+soap,A2,5911,1,1,middle_easy,장소·사물
+kid,A1,5934,1,1,middle_easy,가족·사람
+boss,A2,6041,1,1,middle_easy,가족·사람
+pepper,A2,6067,2,1,middle_easy,음식
+oven,A2,6147,2,1,middle_easy,장소·사물
+soda,A2,6163,2,1,middle_easy,음식
+fork,A2,6241,1,1,middle_easy,장소·사물
+golf,A2,6279,2,1,middle_easy,운동·여가
+elevator,A2,6494,1,1,middle_easy,장소·사물
+basket,A2,6530,1,1,middle_easy,장소·사물
+sauce,A2,7131,2,1,middle_easy,음식
+garage,A2,7644,2,1,middle_easy,일반 명사
+lemon,A2,7653,1,1,middle_easy,음식
+climbing,A2,7671,2,1,middle_easy,운동·여가
+cinema,A1,7717,1,1,middle_easy,장소·사물
+comic,A2,7719,2,1,middle_easy,운동·여가
+joke,A2,7773,1,1,middle_easy,놀이·활동
+ham,A2,7956,2,1,middle_easy,음식
+boiled,A2,8050,2,1,middle_easy,음식
+toe,A2,8076,1,1,middle_easy,몸·건강
+duck,A2,8099,1,1,middle_easy,자연·동물
+couch,A1,8132,1,1,middle_easy,장소·사물
+upstairs,A2,8375,1,1,middle_easy,장소·사물
+exam,A2,8807,1,1,middle_easy,학교 생활
+daddy,A1,8819,1,1,middle_easy,가족·사람
+elephant,A2,8849,1,1,middle_easy,자연·동물
+mall,A2,8903,1,1,middle_easy,장소·사물
+fry,A2,8954,2,1,middle_easy,일반 동사
+onion,A2,9373,1,1,middle_easy,음식
+grandson,A2,9475,2,1,middle_easy,직업·사람
+balloon,A2,9487,1,1,middle_easy,장소·사물
+mum,A1,9613,2,1,middle_easy,사용자 결정: 뜻이 같은 말도 넣음(영국식 엄마)
+bicycle,A1,9653,1,1,middle_easy,일상 말
+violin,A2,9818,1,1,middle_easy,장소·사물
+bored,A2,9822,1,1,middle_easy,감정·상태
+garlic,A2,9973,2,1,middle_easy,음식
+policeman,A2,10154,2,1,middle_easy,직업·사람
+cereal,A2,10170,2,1,middle_easy,음식
+photographer,A2,10213,2,1,middle_easy,직업·사람
+noisy,A2,10379,1,1,middle_easy,감정·상태
+cleaner,A2,10663,2,1,middle_easy,직업·사람
+spoon,A2,10705,1,1,middle_easy,장소·사물
+downstairs,A2,10753,1,1,middle_easy,장소·사물
+trousers,A1,10785,1,1,middle_easy,사용자 결정: 뜻이 같은 말도 넣음(영국식 바지)
+chat,A2,10961,2,1,middle_easy,일반 명사
+camping,A2,11031,1,1,middle_easy,놀이·활동
+jam,A2,11060,1,1,middle_easy,음식
+pear,A2,11231,1,1,middle_easy,음식
+fried,A2,11238,1,1,middle_easy,음식
+ski,A2,11258,1,1,middle_easy,놀이·활동
+bake,A2,11266,1,1,middle_easy,음식
+toast,A2,11283,1,1,middle_easy,음식
+dentist,A2,11300,1,1,middle_easy,가족·사람
+pea,A2,11374,2,1,middle_easy,음식
+runner,A2,12053,2,1,middle_easy,직업·사람
+bug,A2,12439,1,1,middle_easy,장소·사물
+playground,A2,12521,1,1,middle_easy,장소·사물
+hug,A2,12581,1,1,middle_easy,놀이·활동
+curry,A2,12686,2,1,middle_easy,음식
+cycling,A2,12792,2,1,middle_easy,운동·여가
+businessman,A2,12877,2,1,middle_easy,직업·사람
+jelly,A2,12920,2,1,middle_easy,음식
+fisherman,A2,12987,2,1,middle_easy,직업·사람
+dancer,A2,13012,2,1,middle_easy,직업·사람
+glove,A2,13273,1,1,middle_easy,장소·사물
+grandma,A1,13495,1,1,middle_easy,가족·사람
+chef,A2,13505,1,1,middle_easy,가족·사람
+cola,A2,13801,2,1,middle_easy,음식
+seafood,A2,14041,2,1,middle_easy,음식
+hockey,A2,14130,2,1,middle_easy,운동·여가
+sleepy,A2,14374,1,1,middle_easy,감정·상태
+steak,A2,14907,2,1,middle_easy,음식
+stair,A2,14926,2,1,middle_easy,장소·사물
+sausage,A2,14935,1,1,middle_easy,음식
+someday,A2,14939,2,1,middle_easy,부사
+mushroom,A2,15192,2,1,middle_easy,음식
+rap,A2,15361,2,1,middle_easy,운동·여가
+burger,A1,15482,1,1,middle_easy,음식
+hiking,A2,15555,2,1,middle_easy,운동·여가
+download,A2,15599,2,1,middle_easy,일반 동사
+pasta,A2,15721,2,1,middle_easy,음식
+granddaughter,A2,15763,2,1,middle_easy,직업·사람
+teenager,A2,16023,1,1,middle_easy,가족·사람
+skiing,A2,16299,2,1,middle_easy,운동·여가
+scarf,A2,16385,1,1,middle_easy,장소·사물
+hike,A2,16502,2,1,middle_easy,운동·여가
+snack,A2,16590,1,1,middle_easy,음식
+mug,A2,16630,2,1,middle_easy,장소·사물
+carrot,A2,16693,1,1,middle_easy,음식
+wallet,A2,16741,2,1,middle_easy,장소·사물
+clown,A2,16844,2,1,middle_easy,직업·사람
+grandpa,A1,16968,1,1,middle_easy,가족·사람
+sunflower,A2,17040,2,1,middle_easy,장소·사물
+biscuit,A1,17096,1,1,middle_easy,사용자 결정: 뜻이 같은 말도 넣음(cookie와 다른 칸)
+suitcase,A2,17311,2,1,middle_easy,장소·사물
+alright,A2,17343,1,1,middle_easy,구어
+sweater,A2,17350,1,1,middle_easy,옷
+skating,A2,17495,2,1,middle_easy,운동·여가
+windy,A2,18284,1,1,middle_easy,자연·동물
+quiz,A2,18448,1,1,middle_easy,놀이·활동
+blackboard,A2,19611,1,1,middle_easy,학교 생활
+napkin,A2,19684,2,1,middle_easy,장소·사물
+armchair,A2,19776,2,1,middle_easy,장소·사물
+mommy,A1,19976,1,1,middle_easy,가족·사람
+granny,A2,20080,2,1,middle_easy,직업·사람
+fridge,A2,21106,1,1,middle_easy,장소·사물
+melon,A2,21144,1,1,middle_easy,음식
+barbecue,A2,21960,2,1,middle_easy,장소·사물
+spaghetti,A2,22586,1,1,middle_easy,음식
+sunglasses,A2,23200,1,1,middle_easy,장소·사물
+dinosaur,A2,23350,1,1,middle_easy,자연·동물
+lemonade,A2,24626,1,1,middle_easy,음식
+skate,A2,25490,1,1,middle_easy,놀이·활동
+shampoo,A2,25790,1,1,middle_easy,장소·사물
+sock,A2,25944,1,1,middle_easy,장소·사물
+toothbrush,A2,30969,1,1,middle_easy,장소·사물
+bookshelf,A2,31078,1,1,middle_easy,장소·사물
+toothache,A2,31425,1,1,middle_easy,몸·건강
+badminton,A2,33100,1,1,middle_easy,놀이·활동
+raincoat,A2,35067,1,1,middle_easy,옷
+stomachache,A2,65719,1,1,middle_easy,몸·건강
+most,A2,86,2,2,middle_medium,연결어·전치사
+part,A2,110,1,2,middle_medium,일상 말
+without,A2,136,2,2,middle_medium,연결어·전치사
+university,A2,187,1,2,middle_medium,학교 생활
+member,A2,417,1,2,middle_medium,가족·사람
+enough,A2,476,1,2,middle_medium,일상 말
+sir,A1,499,1,2,middle_medium,가족·사람
+language,A1,505,1,2,middle_medium,학교 생활
+oil,A2,517,2,2,middle_medium,일반 명사
+meeting,A1,529,1,2,middle_medium,놀이·활동
+gas,A2,585,2,2,middle_medium,일반 명사
+blood,A2,658,2,2,middle_medium,일반 명사
+alone,A1,768,1,2,middle_medium,일상 말
+simple,A2,775,1,2,middle_medium,일상 말
+hope,A1,783,1,2,middle_medium,일상 말
+wide,A2,819,2,2,middle_medium,성질·상태 형용사
+heat,A2,875,2,2,middle_medium,일반 명사
+deep,A2,913,2,2,middle_medium,성질·상태 형용사
+voice,A2,928,1,2,middle_medium,일상 개념
+follow,A2,984,1,2,middle_medium,일상 말
+round,A2,1035,2,2,middle_medium,성질·상태 형용사
+dead,A2,1104,2,2,middle_medium,성질·상태 형용사
+easily,A2,1137,2,2,middle_medium,부사
+useful,A2,1168,1,2,middle_medium,감정·상태
+speed,A2,1223,2,2,middle_medium,일반 명사
+exercise,A1,1231,1,2,middle_medium,학교 생활
+closed,A1,1304,1,2,middle_medium,일상 말
+village,A2,1367,1,2,middle_medium,장소·사물
+popular,A2,1369,1,2,middle_medium,감정·상태
+interested,A1,1395,1,2,middle_medium,감정·상태
+cash,A2,1402,2,2,middle_medium,일반 명사
+bottom,A1,1471,1,2,middle_medium,일상 말
+grade,A1,1505,2,2,middle_medium,일반 명사
+silver,A2,1542,2,2,middle_medium,일반 명사
+shape,A2,1555,2,2,middle_medium,일반 명사
+perfect,A2,1622,1,2,middle_medium,일상 말
+excellent,A1,1623,1,2,middle_medium,일상 말
+carefully,A1,1749,1,2,middle_medium,일상 말
+inch,A2,1763,2,2,middle_medium,단위
+wild,A2,1887,2,2,middle_medium,성질·상태 형용사
+adult,A2,1902,1,2,middle_medium,가족·사람
+speaker,A2,1921,2,2,middle_medium,일반 명사
+highway,A2,1931,2,2,middle_medium,일반 명사
+sentence,A1,1932,1,2,middle_medium,학교 생활
+leader,A1,1939,1,2,middle_medium,가족·사람
+tube,A1,1942,2,2,middle_medium,중2 교과 주제
+uniform,A2,1989,2,2,middle_medium,장소·사물
+seed,A2,2017,2,2,middle_medium,일반 명사
+thick,A1,2041,1,2,middle_medium,일상 말
+goal,A1,2133,1,2,middle_medium,일상 개념
+twice,A2,2161,1,2,middle_medium,일상 말
+noise,A1,2217,1,2,middle_medium,일상 개념
+strange,A1,2224,1,2,middle_medium,일상 말
+bright,A1,2247,1,2,middle_medium,일상 말
+pair,A1,2249,1,2,middle_medium,장소·사물
+software,A2,2270,2,2,middle_medium,컴퓨터·매체
+dangerous,A2,2277,1,2,middle_medium,감정·상태
+weak,A2,2318,2,2,middle_medium,성질·상태 형용사
+tool,A1,2334,1,2,middle_medium,장소·사물
+magazine,A1,2377,1,2,middle_medium,학교 생활
+fill,A1,2399,1,2,middle_medium,일상 말
+join,A1,2407,1,2,middle_medium,일상 말
+temple,A1,2413,2,2,middle_medium,일반 명사
+web,A2,2434,2,2,middle_medium,컴퓨터·매체
+ending,A2,2499,2,2,middle_medium,일반 명사
+factory,A1,2608,2,2,middle_medium,일반 명사
+print,A2,2628,2,2,middle_medium,일반 동사
+golden,A2,2686,2,2,middle_medium,성질·상태 형용사
+screen,A2,2713,2,2,middle_medium,일반 명사
+shell,A2,2753,2,2,middle_medium,일반 명사
+elementary,A1,2754,2,2,middle_medium,학교 생활
+dust,A2,2787,2,2,middle_medium,장소·사물
+empty,A2,2797,1,2,middle_medium,감정·상태
+partner,A1,2804,1,2,middle_medium,가족·사람
+joy,A2,2830,2,2,middle_medium,일반 명사
+gate,A2,2904,2,2,middle_medium,일반 명사
+chest,A2,2960,2,2,middle_medium,몸·건강
+plastic,A2,3069,2,2,middle_medium,성질·상태 형용사
+musical,A2,3096,2,2,middle_medium,운동·여가
+mobile,A1,3177,1,2,middle_medium,장소·사물
+lane,A2,3217,2,2,middle_medium,장소·사물
+storm,A2,3219,2,2,middle_medium,일반 명사
+shut,A2,3305,2,2,middle_medium,일반 동사
+chart,A2,3321,2,2,middle_medium,일반 명사
+worst,A2,3478,2,2,middle_medium,성질·상태 형용사
+soldier,A2,3521,2,2,middle_medium,일반 명사
+collect,A1,3528,1,2,middle_medium,놀이·활동
+online,A2,3533,2,2,middle_medium,성질·상태 형용사
+wooden,A2,3616,2,2,middle_medium,성질·상태 형용사
+desert,A2,3638,2,2,middle_medium,일반 명사
+somewhere,A2,3712,2,2,middle_medium,부사
+leather,A2,3720,2,2,middle_medium,장소·사물
+wool,A2,3735,2,2,middle_medium,장소·사물
+battery,A2,3754,1,2,middle_medium,장소·사물
+mix,A2,3761,2,2,middle_medium,일반 동사
+repeat,A1,3777,1,2,middle_medium,일상 말
+dressed,A2,3865,2,2,middle_medium,성질·상태 형용사
+mirror,A2,3889,1,2,middle_medium,장소·사물
+tour,A2,3918,2,2,middle_medium,일반 명사
+anywhere,A2,3956,2,2,middle_medium,부사
+gallery,A2,4070,2,2,middle_medium,장소·사물
+apartment,A2,4074,1,2,middle_medium,장소·사물
+flour,A2,4118,2,2,middle_medium,음식
+lock,A2,4133,2,2,middle_medium,일반 동사
+fix,A2,4155,1,2,middle_medium,놀이·활동
+magic,A2,4225,2,2,middle_medium,일반 명사
+blank,A1,4232,1,2,middle_medium,학교 생활
+opera,A1,4336,2,2,middle_medium,중2 교과 주제
+hunter,A2,4356,2,2,middle_medium,직업·사람
+marry,A2,4388,2,2,middle_medium,일반 동사
+sandy,A2,4441,2,2,middle_medium,성질·상태 형용사(일상)
+quietly,A2,4479,2,2,middle_medium,부사
+badly,A2,4599,2,2,middle_medium,부사
+photograph,A2,4656,2,2,middle_medium,직접 보는 말(사진·영화)
+meter,A2,4667,2,2,middle_medium,일반 명사
+grammar,A1,4674,1,2,middle_medium,학교 생활
+burn,A2,4721,2,2,middle_medium,일반 동사
+mad,A2,4766,2,2,middle_medium,성질·상태 형용사
+slide,A2,4788,2,2,middle_medium,일반 동사
+guest,A1,4856,1,2,middle_medium,가족·사람
+stamp,A2,4944,2,2,middle_medium,일반 명사
+festival,A1,5064,1,2,middle_medium,놀이·활동
+wedding,A2,5125,2,2,middle_medium,운동·여가
+reporter,A1,5166,2,2,middle_medium,직업·사람
+rope,A2,5190,2,2,middle_medium,장소·사물
+globe,A2,5194,2,2,middle_medium,장소·사물
+pour,A2,5195,2,2,middle_medium,일반 동사(일상 동작)
+insect,A2,5219,1,2,middle_medium,자연·동물
+verb,A2,5240,2,2,middle_medium,문법 용어(수업에서 씀)
+shoot,A2,5310,2,2,middle_medium,일반 동사
+everyday,A1,5324,1,2,middle_medium,일상 개념
+brave,A2,5353,1,2,middle_medium,감정·상태
+fence,A2,5361,2,2,middle_medium,일반 명사
+pop,A1,5372,1,2,middle_medium,구어
+trap,A2,5511,2,2,middle_medium,장소·사물
+planet,A2,5541,1,2,middle_medium,자연·동물
+audio,A2,5914,2,2,middle_medium,컴퓨터·매체
+photography,A2,5961,2,2,middle_medium,운동·여가
+midnight,A2,5982,1,2,middle_medium,시간·숫자
+cheek,A2,5986,2,2,middle_medium,몸·건강
+diary,A2,5992,1,2,middle_medium,시간·숫자
+envelope,A2,6007,2,2,middle_medium,일반 명사
+chin,A2,6138,2,2,middle_medium,몸·건강
+brake,A2,6214,2,2,middle_medium,장소·사물
+supper,A2,6217,2,2,middle_medium,음식
+crazy,A2,6261,2,2,middle_medium,성질·상태 형용사
+unhappy,A2,6299,2,2,middle_medium,성질·상태 형용사
+tourist,A2,6321,2,2,middle_medium,직업·사람
+website,A2,6348,2,2,middle_medium,장소·사물
+bride,A2,6438,2,2,middle_medium,직업·사람
+medal,A2,6527,2,2,middle_medium,일반 명사
+invite,A2,6550,1,2,middle_medium,놀이·활동
+gram,A2,6783,2,2,middle_medium,단위
+sailing,A2,6784,2,2,middle_medium,운동·여가
+hurry,A1,6795,1,2,middle_medium,일상 말
+happily,A2,7069,2,2,middle_medium,부사
+noun,A2,7092,2,2,middle_medium,문법 용어(수업에서 씀)
+sunlight,A2,7098,2,2,middle_medium,장소·사물
+blanket,A2,7199,1,2,middle_medium,장소·사물
+kit,A2,7349,2,2,middle_medium,장소·사물
+bite,A2,7392,2,2,middle_medium,일반 동사
+fog,A2,7628,2,2,middle_medium,일반 명사
+breeze,A2,7704,2,2,middle_medium,장소·사물
+daylight,A2,7725,2,2,middle_medium,장소·사물
+knock,A2,7836,2,2,middle_medium,일반 동사
+cab,A2,7847,2,2,middle_medium,장소·사물
+belly,A2,7850,2,2,middle_medium,몸·건강
+stove,A2,7854,2,2,middle_medium,장소·사물
+folder,A2,7876,2,2,middle_medium,장소·사물
+merry,A1,8032,1,2,middle_medium,감정·상태
+silly,A2,8173,2,2,middle_medium,성질·상태 형용사
+winner,A2,8178,2,2,middle_medium,직업·사람
+barber,A2,8357,2,2,middle_medium,직업·사람
+relax,A2,8544,1,2,middle_medium,놀이·활동
+bulb,A2,8680,2,2,middle_medium,장소·사물
+drawer,A2,8813,2,2,middle_medium,장소·사물
+fantastic,A2,8831,1,2,middle_medium,감정·상태
+shine,A2,8862,2,2,middle_medium,일반 동사
+textbook,A2,8865,1,2,middle_medium,학교 생활
+boil,A2,8919,1,2,middle_medium,음식
+sadly,A2,8934,2,2,middle_medium,부사
+loudly,A2,9288,2,2,middle_medium,부사
+slice,A2,9647,2,2,middle_medium,장소·사물
+shout,A2,9657,2,2,middle_medium,일반 동사
+feather,A2,9774,2,2,middle_medium,일반 명사
+Olympic,A2,10063,2,2,middle_medium,고유 이름(올림픽) — 운동 주제
+refrigerator,A2,10094,2,2,middle_medium,장소·사물
+cheer,A2,10302,2,2,middle_medium,일반 명사
+learner,A2,10383,2,2,middle_medium,직업·사람
+ankle,A2,10470,2,2,middle_medium,장소·사물
+comb,A2,10639,2,2,middle_medium,장소·사물
+cooler,A2,10678,2,2,middle_medium,장소·사물
+scream,A2,10735,2,2,middle_medium,일반 동사
+adjective,A2,10825,2,2,middle_medium,문법 용어(수업에서 씀)
+spill,A2,11132,2,2,middle_medium,일반 동사(일상 동작)
+liter,A2,11431,2,2,middle_medium,단위
+slim,A2,11464,2,2,middle_medium,성질·상태 형용사(일상)
+chess,A2,11501,2,2,middle_medium,운동·여가
+traveler,A2,11636,2,2,middle_medium,직업·사람
+cricket,A2,11765,2,2,middle_medium,운동·여가
+underwater,A2,11767,2,2,middle_medium,일반 명사
+colorful,A2,11827,1,2,middle_medium,감정·상태
+balcony,A2,12486,2,2,middle_medium,장소·사물
+stadium,A2,12564,1,2,middle_medium,장소·사물
+lyric,A2,12651,2,2,middle_medium,운동·여가
+roast,A2,12799,2,2,middle_medium,음식
+foreigner,A1,12832,1,2,middle_medium,가족·사람
+teenage,A2,12874,2,2,middle_medium,성질·상태 형용사(일상)
+pill,A2,12935,2,2,middle_medium,몸·건강
+junk,A2,13437,2,2,middle_medium,장소·사물
+tablespoon,A2,13991,2,2,middle_medium,장소·사물
+dessert,A2,14039,1,2,middle_medium,음식
+scissors,A2,14389,1,2,middle_medium,장소·사물
+thirsty,A2,15745,1,2,middle_medium,감정·상태
+wheelchair,A2,15756,2,2,middle_medium,장소·사물
+chili,A2,15894,2,2,middle_medium,음식
+rugby,A2,16068,2,2,middle_medium,운동·여가
+cupboard,A2,16133,2,2,middle_medium,장소·사물
+cafeteria,A2,16136,1,2,middle_medium,장소·사물
+midday,A2,16720,2,2,middle_medium,장소·사물
+timetable,A2,17286,2,2,middle_medium,장소·사물
+beginner,A2,17499,2,2,middle_medium,일반 명사
+centimeter,A2,17805,2,2,middle_medium,단위
+Olympics,A1,18215,2,2,middle_medium,고유 이름(올림픽) — 운동 주제
+kilogram,A2,18550,2,2,middle_medium,단위
+seaside,A2,18609,2,2,middle_medium,장소·사물
+underline,A1,19351,2,2,middle_medium,학교 생활
+racket,A2,20639,2,2,middle_medium,장소·사물
+guidebook,A2,21837,2,2,middle_medium,장소·사물
+thunderstorm,A2,22174,2,2,middle_medium,장소·사물
+kilometer,A2,22521,2,2,middle_medium,단위
+kilo,A2,22823,2,2,middle_medium,단위
+lunchtime,A2,27049,1,2,middle_medium,학교 생활
+can,A2,42,1,3,middle_hard,장소·사물
+during,A2,118,2,3,middle_hard,연결어·전치사
+power,A2,161,2,3,middle_hard,일반 명사
+information,A1,171,1,3,middle_hard,일상 개념
+bill,A2,304,2,3,middle_hard,일반 명사
+free,A1,323,1,3,middle_hard,일상 말
+result,A1,352,2,3,middle_hard,추상 명사(중2)
+nature,A2,353,2,3,middle_hard,일반 명사
+foreign,A1,382,1,3,middle_hard,일상 개념
+reason,A1,461,1,3,middle_hard,일상 개념
+self,A1,488,3,3,middle_hard,추상 명사
+especially,A2,521,2,3,middle_hard,부사
+plant,A2,556,1,3,middle_hard,자연·동물
+saw,A1,612,3,3,middle_hard,철자가 같은 다른 말(톱·see 과거)
+temperature,A2,614,2,3,middle_hard,일반 명사
+living,A1,651,3,3,middle_hard,뜻이 여럿인 말(살아 있는·생활)
+character,A1,654,2,3,middle_hard,추상 명사(중2)
+across,A2,686,2,3,middle_hard,연결어·전치사
+director,A2,698,2,3,middle_hard,직업·사람
+author,A2,759,2,3,middle_hard,직업·사람
+beginning,A2,764,2,3,middle_hard,일반 명사
+instead,A2,778,2,3,middle_hard,부사
+difference,A1,792,2,3,middle_hard,추상 명사(중2)
+cross,A2,796,2,3,middle_hard,일반 동사
+finally,A2,798,1,3,middle_hard,일상 말
+weight,A2,799,2,3,middle_hard,일반 명사
+technology,A1,818,2,3,middle_hard,추상 명사(중2)
+address,A1,829,1,3,middle_hard,일상 말
+fall,A2,838,1,3,middle_hard,일상 말
+patient,A2,847,2,3,middle_hard,몸·건강
+actually,A2,945,2,3,middle_hard,부사
+continue,A2,948,2,3,middle_hard,일반 동사
+receive,A2,963,2,3,middle_hard,일반 동사
+electric,A2,995,2,3,middle_hard,성질·상태 형용사
+smith,A1,999,3,3,middle_hard,사용자 결정: 되살림(대장장이 — 성으로 많이 쓰임)
+success,A2,1015,2,3,middle_hard,일반 명사
+collection,A1,1039,2,3,middle_hard,중2 교과 주제
+pass,A2,1041,1,3,middle_hard,일상 말
+allow,A2,1072,2,3,middle_hard,일반 동사
+recently,A2,1141,2,3,middle_hard,부사
+miss,A1,1143,1,3,middle_hard,일상 말
+assistant,A2,1245,2,3,middle_hard,직업·사람
+feeling,A1,1249,2,3,middle_hard,일반 명사
+choice,A2,1253,2,3,middle_hard,일반 명사
+coast,A2,1297,2,3,middle_hard,장소·사물
+fear,A2,1307,2,3,middle_hard,일반 명사
+manager,A2,1339,2,3,middle_hard,직업·사람
+create,A2,1346,2,3,middle_hard,일반 동사
+married,A2,1381,2,3,middle_hard,성질·상태 형용사
+owner,A1,1392,1,3,middle_hard,가족·사람
+valley,A2,1410,2,3,middle_hard,일반 명사
+impossible,A2,1419,2,3,middle_hard,성질·상태 형용사
+vote,A1,1442,2,3,middle_hard,일반 명사
+memory,A1,1452,2,3,middle_hard,일반 명사
+traffic,A2,1503,2,3,middle_hard,일반 명사
+avoid,A2,1509,2,3,middle_hard,일반 동사
+medicine,A1,1533,2,3,middle_hard,일반 명사
+accept,A2,1554,2,3,middle_hard,일반 동사
+agree,A1,1560,2,3,middle_hard,일반 동사
+traditional,A2,1564,2,3,middle_hard,성질·상태 형용사
+captain,A2,1597,2,3,middle_hard,일반 명사
+suggest,A2,1612,2,3,middle_hard,일반 동사
+focus,A1,1615,2,3,middle_hard,중2 교과 주제
+difficulty,A2,1629,2,3,middle_hard,일반 명사
+chance,A2,1634,2,3,middle_hard,일반 명사
+sign,A1,1640,2,3,middle_hard,일반 명사
+explain,A2,1661,1,3,middle_hard,학교 생활
+quarter,A1,1666,2,3,middle_hard,추상 명사(중2)
+item,A1,1700,2,3,middle_hard,일반 명사
+suit,A2,1719,2,3,middle_hard,장소·사물
+improve,A2,1726,2,3,middle_hard,일반 동사
+save,A1,1733,1,3,middle_hard,일상 말
+block,A1,1745,1,3,middle_hard,장소·사물
+expect,A2,1761,2,3,middle_hard,일반 동사
+trouble,A2,1799,2,3,middle_hard,일반 명사
+danger,A2,1800,2,3,middle_hard,일반 명사
+powerful,A2,1871,2,3,middle_hard,성질·상태 형용사
+sight,A1,1882,2,3,middle_hard,추상 명사(중2)
+pleasure,A1,1883,2,3,middle_hard,추상 명사(중2)
+schedule,A2,1892,2,3,middle_hard,일반 명사
+engineer,A1,1917,2,3,middle_hard,직업·사람
+false,A1,1967,2,3,middle_hard,성질·상태 형용사
+advice,A2,2013,2,3,middle_hard,일반 명사
+describe,A1,2062,2,3,middle_hard,중2 교과 주제
+accident,A2,2068,2,3,middle_hard,일반 명사
+beauty,A2,2079,2,3,middle_hard,일반 명사
+secret,A2,2093,2,3,middle_hard,일반 명사
+flight,A2,2175,2,3,middle_hard,일반 명사
+discuss,A1,2201,2,3,middle_hard,중2 교과 주제
+spot,A1,2223,2,3,middle_hard,중2 교과 주제
+novel,A2,2305,2,3,middle_hard,일반 명사
+promise,A2,2309,2,3,middle_hard,일반 동사
+ideal,A1,2322,3,3,middle_hard,추상 명사
+happen,A1,2335,1,3,middle_hard,일상 말
+conversation,A1,2345,1,3,middle_hard,일상 개념
+couple,A2,2351,2,3,middle_hard,일반 명사
+rent,A2,2352,2,3,middle_hard,일반 동사(일상 동작)
+reply,A2,2372,2,3,middle_hard,일반 동사
+repair,A2,2439,2,3,middle_hard,일반 동사
+wise,A2,2478,2,3,middle_hard,성질·상태 형용사
+decide,A2,2479,1,3,middle_hard,일상 개념
+worse,A2,2577,2,3,middle_hard,성질·상태 형용사
+wonder,A2,2611,2,3,middle_hard,일반 동사
+shore,A2,2615,2,3,middle_hard,장소·사물
+prepare,A2,2617,2,3,middle_hard,일반 동사
+roll,A2,2618,2,3,middle_hard,일반 동사
+interview,A1,2636,1,3,middle_hard,학교 생활
+customer,A2,2689,2,3,middle_hard,일반 명사
+spend,A1,2739,2,3,middle_hard,일반 동사
+journey,A2,2741,2,3,middle_hard,일반 명사
+skill,A1,2743,2,3,middle_hard,추상 명사(중2)
+row,A1,2760,1,3,middle_hard,장소·사물
+pollution,A1,2772,2,3,middle_hard,중2 교과 주제
+fashion,A2,2777,2,3,middle_hard,일반 명사
+encourage,A2,2868,2,3,middle_hard,일반 동사
+pleased,A2,2877,2,3,middle_hard,성질·상태 형용사
+imagine,A1,2895,2,3,middle_hard,일반 동사
+flood,A2,2991,2,3,middle_hard,일반 명사
+realize,A2,3002,2,3,middle_hard,일반 동사
+passenger,A2,3013,2,3,middle_hard,직업·사람
+furniture,A2,3023,2,3,middle_hard,일반 명사
+receipt,A2,3030,2,3,middle_hard,장소·사물
+beside,A1,3053,2,3,middle_hard,연결어·전치사
+alive,A2,3056,2,3,middle_hard,성질·상태 형용사
+belong,A2,3111,2,3,middle_hard,일반 동사
+diet,A2,3112,2,3,middle_hard,일반 명사
+suggestion,A1,3157,2,3,middle_hard,추상 명사(중2)
+nervous,A2,3168,2,3,middle_hard,성질·상태 형용사
+happiness,A2,3258,2,3,middle_hard,일반 명사
+match,A1,3368,1,3,middle_hard,놀이·활동
+topic,A1,3412,2,3,middle_hard,일반 명사
+crowd,A2,3434,2,3,middle_hard,일반 명사
+childhood,A2,3469,2,3,middle_hard,일반 명사
+lawyer,A2,3482,2,3,middle_hard,직업·사람
+destroy,A2,3491,2,3,middle_hard,일반 동사
+missing,A2,3515,2,3,middle_hard,성질·상태 형용사
+discover,A2,3518,2,3,middle_hard,일반 동사
+introduce,A1,3526,2,3,middle_hard,일반 동사
+habit,A1,3552,2,3,middle_hard,일반 명사
+tip,A2,3617,2,3,middle_hard,일반 명사
+solve,A1,3713,2,3,middle_hard,일반 동사
+friendship,A2,3762,2,3,middle_hard,일반 명사
+essay,A2,3787,2,3,middle_hard,일반 명사
+prefer,A2,3833,2,3,middle_hard,일반 동사
+shadow,A2,3853,2,3,middle_hard,일반 명사
+pray,A1,3890,2,3,middle_hard,중2 교과 주제
+comfortable,A2,3899,2,3,middle_hard,성질·상태 형용사
+tight,A1,3903,1,3,middle_hard,일상 말
+strict,A1,3974,2,3,middle_hard,성질·상태 형용사
+brand,A2,4029,2,3,middle_hard,일반 명사
+invention,A2,4037,2,3,middle_hard,일반 명사
+anyway,A2,4068,2,3,middle_hard,부사
+forever,A2,4142,2,3,middle_hard,부사
+gentle,A2,4180,2,3,middle_hard,성질·상태 형용사
+stuff,A2,4184,2,3,middle_hard,장소·사물
+surprising,A2,4289,2,3,middle_hard,성질·상태 형용사
+tie,A2,4378,2,3,middle_hard,일반 동사
+contest,A1,4565,2,3,middle_hard,일반 명사
+mystery,A2,4618,2,3,middle_hard,일반 명사
+grateful,A2,4686,2,3,middle_hard,성질·상태 형용사
+stranger,A2,4777,2,3,middle_hard,일반 명사
+pack,A2,4810,2,3,middle_hard,일반 동사
+confused,A2,4822,2,3,middle_hard,성질·상태 형용사
+creature,A2,4931,2,3,middle_hard,자연·동물
+peaceful,A2,4977,2,3,middle_hard,성질·상태 형용사
+alarm,A2,5035,2,3,middle_hard,일반 명사
+talent,A2,5083,2,3,middle_hard,일반 명사
+confident,A2,5452,2,3,middle_hard,성질·상태 형용사
+crowded,A2,5475,2,3,middle_hard,성질·상태 형용사
+fool,A2,5571,2,3,middle_hard,일반 명사
+worried,A2,5594,1,3,middle_hard,감정·상태
+asleep,A2,5708,1,3,middle_hard,감정·상태
+tear,A2,5842,2,3,middle_hard,일반 동사
+visitor,A2,5862,2,3,middle_hard,일반 명사
+anniversary,A2,5901,2,3,middle_hard,일반 명사
+horror,A2,5979,2,3,middle_hard,일반 명사
+adventure,A2,6043,2,3,middle_hard,일반 명사
+upset,A2,6184,2,3,middle_hard,성질·상태 형용사
+vocabulary,A2,6325,2,3,middle_hard,일반 명사
+pardon,A1,6333,1,3,middle_hard,구어
+disappear,A2,6334,2,3,middle_hard,일반 동사
+lend,A2,6355,2,3,middle_hard,일반 동사
+remind,A2,6363,2,3,middle_hard,일반 동사
+advertisement,A2,6412,2,3,middle_hard,일반 명사
+treasure,A2,6456,2,3,middle_hard,일반 명사
+earthquake,A2,6521,2,3,middle_hard,일반 명사
+tap,A2,6646,2,3,middle_hard,장소·사물
+episode,A2,6682,2,3,middle_hard,운동·여가
+statue,A2,6696,2,3,middle_hard,장소·사물
+complain,A2,6712,2,3,middle_hard,일반 동사
+disappointed,A2,6823,2,3,middle_hard,성질·상태 형용사
+celebration,A1,6907,2,3,middle_hard,중2 교과 주제
+nationality,A1,7009,2,3,middle_hard,추상 명사(중2)
+harmful,A2,7045,2,3,middle_hard,성질·상태 형용사
+semester,A2,7068,2,3,middle_hard,일반 명사
+relaxed,A2,7144,2,3,middle_hard,성질·상태 형용사
+sweat,A2,7340,2,3,middle_hard,일반 명사
+anymore,A2,7537,2,3,middle_hard,부사
+breathe,A1,7574,1,3,middle_hard,몸·건강
+pretend,A2,7658,2,3,middle_hard,일반 동사
+trick,A2,7670,2,3,middle_hard,일반 명사
+float,A2,7689,2,3,middle_hard,일반 동사
+rude,A1,7798,1,3,middle_hard,감정·상태
+countryside,A2,7972,2,3,middle_hard,일반 명사
+freeze,A2,7987,2,3,middle_hard,일반 동사
+downtown,A2,8010,2,3,middle_hard,일반 명사
+energetic,A2,8211,2,3,middle_hard,성질·상태 형용사
+disagree,A2,8274,2,3,middle_hard,일반 동사
+endangered,A2,8504,2,3,middle_hard,성질·상태 형용사
+celebrate,A1,8611,1,3,middle_hard,놀이·활동
+steal,A2,8696,2,3,middle_hard,일반 동사
+swallow,A2,9208,2,3,middle_hard,일반 동사(일상 동작)
+polite,A2,9361,1,3,middle_hard,감정·상태
+nowadays,A2,9496,2,3,middle_hard,부사
+dislike,A2,9645,2,3,middle_hard,일반 동사
+thief,A2,10190,2,3,middle_hard,일반 명사
+indoor,A2,10446,2,3,middle_hard,성질·상태 형용사
+pronunciation,A2,11772,2,3,middle_hard,문법 용어(수업에서 씀)
+pronounce,A2,11894,2,3,middle_hard,일반 동사
+championship,A2,12346,2,3,middle_hard,운동·여가
+embarrassing,A2,12507,2,3,middle_hard,성질·상태 형용사
+perfume,A2,12627,2,3,middle_hard,장소·사물
+athlete,A2,13153,2,3,middle_hard,직업·사람
+interviewer,A1,13524,2,3,middle_hard,중2 교과 주제
+invent,A2,13718,2,3,middle_hard,일반 동사
+apologize,A2,13936,2,3,middle_hard,일반 동사
+greedy,A2,14372,2,3,middle_hard,성질·상태 형용사
+annoying,A2,14799,2,3,middle_hard,성질·상태 형용사
+surname,A2,14823,2,3,middle_hard,학교 생활
+luckily,A2,15439,2,3,middle_hard,부사
+dizzy,A2,17359,2,3,middle_hard,몸·건강
+tidy,A2,17754,2,3,middle_hard,성질·상태 형용사
+recycle,A2,19704,2,3,middle_hard,일반 동사

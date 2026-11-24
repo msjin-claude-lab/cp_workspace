@@ -1,1335 +1,1335 @@
-# vocab 중등 단어 난이도 단계(1 쉬움 · 2 중간 · 3 어려움 · 4 학술·격식 — 맨 뒤 · x 넣지 않음). Claude가 매겼다(2026-11-24). 기준은 docs/wordlist/README.md
-word,tier,reason
-ability,3,추상 명사
-abroad,3,격식 부사·연결어
-accept,2,일반 동사
-acceptable,3,격식 형용사
-accident,2,일반 명사
-account,3,추상 명사
-achieve,3,추상 동사
-across,2,연결어·전치사
-act,3,추상 동사
-actually,2,부사
-addition,3,추상 명사
-additional,4,학술·격식 말 — 고등으로
-address,1,일상 말
-adjective,2,문법 용어(수업에서 씀)
-adjust,3,추상 동사
-admire,3,추상 동사
-admit,3,추상 동사
-adult,1,가족·사람
-advanced,3,격식 형용사
-advantage,3,추상 명사
-adventure,2,일반 명사
-advertisement,2,일반 명사
-advertising,3,사회·경제 주제
-advice,2,일반 명사
-advise,3,추상 동사
-affair,4,학술·격식 말 — 고등으로
-against,3,격식 부사·연결어
-aged,4,학술·격식 말 — 고등으로
-agency,4,공문서·사회 제도 말 — 고등으로
-agent,4,공문서·사회 제도 말 — 고등으로
-agree,2,일반 동사
-ahead,3,격식 부사·연결어
-air,1,일상 말
-aisle,3,덜 쓰는 구체 명사
-alarm,2,일반 명사
-alive,2,성질·상태 형용사
-all,2,연결어·전치사
-allow,2,일반 동사
-alone,1,일상 말
-alright,1,구어
-although,3,격식 부사·연결어
-ambition,3,추상 명사
-among,3,격식 부사·연결어
-amused,3,격식 형용사
-amusement,3,추상 명사
-ancestor,3,덜 쓰는 구체 명사
-ancient,3,격식 형용사
-angel,2,성질·상태 형용사
-angrily,3,격식 부사·연결어
-ankle,2,장소·사물
-anniversary,2,일반 명사
-annoy,3,추상 동사
-annoying,2,성질·상태 형용사
-anxious,3,격식 형용사
-anymore,2,부사
-anyway,2,부사
-anywhere,2,부사
-apart,3,격식 형용사
-apartment,1,장소·사물
-apologize,2,일반 동사
-apparently,4,학술·격식 말 — 고등으로
-appear,3,추상 동사
-appearance,3,추상 명사
-apply,3,추상 동사
-appointment,3,추상 명사
-appreciate,3,추상 동사
-architecture,3,과학·전문 주제
-area,3,추상 명사
-argue,3,추상 동사
-argument,3,추상 명사
-armchair,2,장소·사물
-armed,4,학술·격식 말 — 고등으로
-artificial,3,격식 형용사
-asleep,1,감정·상태
-assistant,2,직업·사람
-association,4,공문서·사회 제도 말 — 고등으로
-astronaut,2,직업·사람
-athlete,2,직업·사람
-atom,3,과학·전문 주제
-attack,3,추상 동사
-attempt,3,추상 명사
-attention,3,추상 명사
-attitude,3,추상 명사
-attractive,3,격식 형용사
-audience,3,추상 명사
-audio,2,컴퓨터·매체
-author,2,직업·사람
-automatic,3,격식 형용사
-automatically,3,격식 부사·연결어
-average,3,격식 형용사
-avoid,2,일반 동사
-award,3,추상 명사
-awful,3,격식 형용사
-background,3,추상 명사
-badly,2,부사
-badminton,1,놀이·활동
-bake,1,음식
-balcony,2,장소·사물
-balloon,1,장소·사물
-banking,4,공문서·사회 제도 말 — 고등으로
-bar,x,어린이 앱에 부적절
-barbecue,2,장소·사물
-barber,2,직업·사람
-bargain,3,사회·경제 주제
-base,3,추상 명사
-basic,3,격식 형용사
-basically,3,격식 부사·연결어
-basket,1,장소·사물
-batch,3,덜 쓰는 구체 명사
-battery,1,장소·사물
-bay,3,덜 쓰는 구체 명사
-beauty,2,일반 명사
-beer,3,사용자 결정: 중등에는 넣음(술)
-beg,3,추상 동사
-beginner,2,일반 명사
-beginning,2,일반 명사
-behavior,3,추상 명사
-being,3,추상 명사
-belly,2,몸·건강
-belong,2,일반 동사
-belt,1,장소·사물
-bench,1,장소·사물
-bend,3,추상 동사
-beside,2,연결어·전치사
-besides,4,학술·격식 말 — 고등으로
-best,1,일상 말
-better,1,일상 말
-beyond,4,학술·격식 말 — 고등으로
-bicycle,1,일상 말
-bill,2,일반 명사
-biscuit,1,사용자 결정: 뜻이 같은 말도 넣음(cookie와 다른 칸)
-bit,3,추상 명사
-bite,2,일반 동사
-blackboard,1,학교 생활
-blame,3,추상 동사
-blank,1,학교 생활
-blanket,1,장소·사물
-block,1,장소·사물
-blonde,3,성질·상태 형용사(덜 쓰는 말)
-blood,2,일반 명사
-bloom,3,추상 동사
-boil,1,음식
-boiled,2,음식
-bonus,3,사회·경제 주제
-bookcase,2,장소·사물
-bookshelf,1,장소·사물
-bookshop,3,영국식 말
-bored,1,감정·상태
-boss,1,가족·사람
-bother,3,추상 동사
-bottom,1,일상 말
-boyfriend,x,어린이 앱에 부적절
-bra,3,덜 쓰는 구체 명사
-brainstorm,3,과학·전문 주제
-brake,2,장소·사물
-branch,3,뜻이 여럿인 말
-brand,2,일반 명사
-brave,1,감정·상태
-breathe,1,몸·건강
-breeze,2,장소·사물
-bride,2,직업·사람
-bright,1,일상 말
-brilliant,3,격식 형용사
-bring,1,일상 말
-broken,1,일상 말
-bug,1,장소·사물
-bulb,2,장소·사물
-burger,1,음식
-burn,2,일반 동사
-bury,3,추상 동사
-bush,3,뜻이 여럿인 말
-businessman,2,직업·사람
-businesswoman,3,덜 쓰는 구체 명사
-cab,2,장소·사물
-cafeteria,1,장소·사물
-calendar,1,장소·사물
-camping,1,놀이·활동
-campus,3,덜 쓰는 구체 명사
-can,1,장소·사물
-capital,3,추상 명사
-captain,2,일반 명사
-carefully,1,일상 말
-carrot,1,음식
-carry,1,일상 말
-cash,2,일반 명사
-cassette,3,덜 쓰는 구체 명사
-castle,1,장소·사물
-cause,3,추상 동사
-celebrate,1,놀이·활동
-celebration,2,중2 교과 주제
-cent,4,공문서·사회 제도 말 — 고등으로
-center,3,추상 명사
-centimeter,2,단위
-century,3,추상 명사
-cereal,2,음식
-certain,3,격식 형용사
-certainly,3,격식 부사·연결어
-chain,3,뜻이 여럿인 말
-chairman,4,공문서·사회 제도 말 — 고등으로
-challenge,3,추상 명사
-champagne,3,사용자 결정: 중등에는 넣음(술)
-championship,2,운동·여가
-chance,2,일반 명사
-chapter,3,추상 명사
-character,2,추상 명사(중2)
-chart,2,일반 명사
-chat,2,일반 명사
-cheap,1,감정·상태
-check,1,일상 말
-cheek,2,몸·건강
-cheer,2,일반 명사
-chef,1,가족·사람
-chemical,3,과학·전문 주제
-cheque,4,공문서·사회 제도 말 — 고등으로
-chess,2,운동·여가
-chest,2,몸·건강
-childhood,2,일반 명사
-chili,2,음식
-chimpanzee,2,자연·동물
-chin,2,몸·건강
-chirp,3,동사(새 소리)
-choice,2,일반 명사
-church,2,일반 명사
-cigarette,3,사용자 결정: 중등에는 넣음(담배)
-cinema,1,장소·사물
-citizen,3,사회·경제 주제
-claim,4,학술·격식 말 — 고등으로
-classic,3,격식 형용사
-cleaner,2,직업·사람
-clear,3,격식 형용사
-clearly,3,격식 부사·연결어
-clerk,3,덜 쓰는 구체 명사
-click,2,일반 동사
-climbing,2,운동·여가
-clone,3,과학·전문 주제
-closed,1,일상 말
-clown,2,직업·사람
-clue,3,추상 명사
-coast,2,장소·사물
-coin,1,장소·사물
-coke,x,어린이 앱에 부적절
-cola,2,음식
-collect,1,놀이·활동
-collection,2,중2 교과 주제
-colorful,1,감정·상태
-column,3,과학·전문 주제
-comb,2,장소·사물
-comfortable,2,성질·상태 형용사
-comic,2,운동·여가
-commitment,4,학술·격식 말 — 고등으로
-committee,4,공문서·사회 제도 말 — 고등으로
-common,3,격식 형용사
-communicate,3,추상 동사
-communication,3,추상 명사
-company,3,사회·경제 주제
-comparative,4,학술·격식 말 — 고등으로
-compare,3,추상 동사
-competition,3,추상 명사
-complain,2,일반 동사
-complaint,3,추상 명사
-complete,3,격식 형용사
-composer,3,덜 쓰는 구체 명사
-concentrate,3,추상 동사
-concern,3,추상 명사
-condition,3,추상 명사
-confident,2,성질·상태 형용사
-confuse,3,추상 동사
-confused,2,성질·상태 형용사
-consider,3,추상 동사
-consist,4,학술·격식 말 — 고등으로
-contact,3,추상 동사
-container,3,덜 쓰는 구체 명사
-contest,2,일반 명사
-context,4,학술·격식 말 — 고등으로
-continent,3,과학·전문 주제
-continue,2,일반 동사
-contrast,4,학술·격식 말 — 고등으로
-control,3,추상 명사
-convenience,3,추상 명사
-convenient,3,격식 형용사
-conversation,1,일상 개념
-cooker,3,덜 쓰는 구체 명사
-cooking,1,음식
-cooler,2,장소·사물
-cop,x,어린이 앱에 부적절
-correctly,3,격식 부사·연결어
-cost,3,추상 명사
-couch,1,장소·사물
-count,2,일반 동사(일상 동작)
-country,1,장소·사물
-countryside,2,일반 명사
-couple,2,일반 명사
-court,4,공문서·사회 제도 말 — 고등으로
-crazy,2,성질·상태 형용사
-create,2,일반 동사
-creative,3,격식 형용사
-creativity,3,추상 명사
-creature,2,자연·동물
-credit,4,공문서·사회 제도 말 — 고등으로
-cricket,2,운동·여가
-crime,3,사회·경제 주제
-crisp,3,성질·상태 형용사(덜 쓰는 말)
-criticize,3,추상 동사
-cross,2,일반 동사
-crowd,2,일반 명사
-crowded,2,성질·상태 형용사
-crown,3,뜻이 여럿인 말
-cruise,3,덜 쓰는 구체 명사
-cupboard,2,장소·사물
-curry,2,음식
-curse,3,추상 명사
-custom,3,추상 명사
-customer,2,일반 명사
-cycling,2,운동·여가
-daddy,1,가족·사람
-daily,3,격식 형용사
-dam,3,과학·전문 주제
-dancer,2,직업·사람
-dancing,1,놀이·활동
-danger,2,일반 명사
-dangerous,1,감정·상태
-daylight,2,장소·사물
-dead,2,성질·상태 형용사
-deal,3,추상 동사
-death,3,추상 명사
-decide,1,일상 개념
-deep,2,성질·상태 형용사
-deeply,3,격식 부사·연결어
-degree,3,추상 명사
-delay,3,추상 동사
-dentist,1,가족·사람
-depend,3,추상 동사
-describe,2,중2 교과 주제
-description,3,추상 명사
-desert,2,일반 명사
-dessert,1,음식
-destroy,2,일반 동사
-detail,3,추상 명사
-develop,3,추상 동사
-developed,4,학술·격식 말 — 고등으로
-diamond,2,장소·사물
-diary,1,시간·숫자
-die,1,일상 개념
-diet,2,일반 명사
-difference,2,추상 명사(중2)
-differently,3,격식 부사·연결어
-difficulty,2,일반 명사
-dinosaur,1,자연·동물
-direct,3,격식 형용사
-direction,3,추상 명사
-director,2,직업·사람
-disadvantage,3,추상 명사
-disagree,2,일반 동사
-disappear,2,일반 동사
-disappointed,2,성질·상태 형용사
-disappointing,3,격식 형용사
-disco,3,덜 쓰는 구체 명사
-discover,2,일반 동사
-discuss,2,중2 교과 주제
-discussion,3,추상 명사
-dishonest,3,격식 형용사
-dislike,2,일반 동사
-display,3,덜 쓰는 구체 명사
-disturb,3,추상 동사
-divide,3,추상 동사
-dizzy,2,몸·건강
-double,3,뜻이 여럿인 말
-doubt,3,추상 명사
-download,2,일반 동사
-downstairs,1,장소·사물
-downtown,2,일반 명사
-drama,1,놀이·활동
-drawer,2,장소·사물
-drawing,1,놀이·활동
-dressed,2,성질·상태 형용사
-drill,3,덜 쓰는 구체 명사
-drop,1,일상 말
-drug,3,사회·경제 주제
-drugstore,2,장소·사물
-duck,1,자연·동물
-during,2,연결어·전치사
-dust,2,장소·사물
-earn,3,추상 동사
-earring,2,장소·사물
-earth,1,자연·동물
-earthquake,2,일반 명사
-easily,2,부사
-east,1,자연·동물
-editor,3,덜 쓰는 구체 명사
-education,3,사회·경제 주제
-educational,3,격식 형용사
-effect,3,추상 명사
-effort,3,추상 명사
-elderly,3,격식 형용사
-electric,2,성질·상태 형용사
-elementary,2,학교 생활
-elephant,1,자연·동물
-elevator,1,장소·사물
-elsewhere,4,학술·격식 말 — 고등으로
-embarrassing,2,성질·상태 형용사
-emergency,3,추상 명사
-empty,1,감정·상태
-encourage,2,일반 동사
-endangered,2,성질·상태 형용사
-ending,2,일반 명사
-energetic,2,성질·상태 형용사
-engineer,2,직업·사람
-enjoy,1,일상 말
-enormous,3,격식 형용사
-enough,1,일상 말
-enter,3,추상 동사
-entertainment,3,추상 명사
-entrance,3,덜 쓰는 구체 명사
-envelope,2,일반 명사
-envy,3,추상 명사
-episode,2,운동·여가
-error,3,추상 명사
-escalator,2,장소·사물
-escape,3,추상 동사
-especially,2,부사
-essay,2,일반 명사
-establish,4,학술·격식 말 — 고등으로
-euro,3,사회·경제 주제
-even,3,격식 부사·연결어
-ever,3,격식 부사·연결어
-everyday,1,일상 개념
-everywhere,1,일상 말
-evidence,4,학술·격식 말 — 고등으로
-exactly,3,격식 부사·연결어
-exam,1,학교 생활
-excellent,1,일상 말
-except,3,격식 부사·연결어
-exchange,3,추상 동사
-excited,1,감정·상태
-exercise,1,학교 생활
-exhibition,3,덜 쓰는 구체 명사
-exist,3,추상 동사
-expect,2,일반 동사
-experience,3,추상 명사
-expert,3,추상 명사
-explain,1,학교 생활
-explanation,3,추상 명사
-explore,3,추상 동사
-express,3,추상 동사
-expression,3,추상 명사
-extra,3,격식 형용사
-extremely,3,격식 부사·연결어
-fact,3,추상 명사
-factory,2,일반 명사
-fail,3,추상 동사
-fairly,4,학술·격식 말 — 고등으로
-fall,1,일상 말
-false,2,성질·상태 형용사
-familiar,3,격식 형용사
-fancy,3,격식 형용사
-fantastic,1,감정·상태
-far,1,일상 말
-fare,3,덜 쓰는 구체 명사
-fascinating,3,격식 형용사
-fashion,2,일반 명사
-fault,3,추상 명사
-favor,3,추상 명사
-fear,2,일반 명사
-feather,2,일반 명사
-feature,3,추상 명사
-fee,3,사회·경제 주제
-feeling,2,일반 명사
-female,3,격식 형용사
-fence,2,일반 명사
-festival,1,놀이·활동
-fiction,3,추상 명사
-fighter,3,덜 쓰는 구체 명사
-figure,3,추상 명사
-fill,1,일상 말
-film,2,일반 명사
-final,3,격식 형용사
-finally,1,일상 말
-fisherman,2,직업·사람
-fishing,1,놀이·활동
-fit,3,추상 동사
-fix,1,놀이·활동
-flea,3,덜 쓰는 구체 명사
-flight,2,일반 명사
-float,2,일반 동사
-flood,2,일반 명사
-flour,2,음식
-focus,2,중2 교과 주제
-fog,2,일반 명사
-folder,2,장소·사물
-follow,1,일상 말
-fool,2,일반 명사
-football,1,놀이·활동
-footballer,2,직업·사람
-forbid,3,추상 동사
-force,3,추상 명사
-foreign,1,일상 개념
-foreigner,1,가족·사람
-forest,1,자연·동물
-forever,2,부사
-fork,1,장소·사물
-fortunately,3,격식 부사·연결어
-fortune,3,추상 명사
-forward,3,격식 부사·연결어
-frame,3,뜻이 여럿인 말
-frank,3,성질·상태 형용사(덜 쓰는 말)
-free,1,일상 말
-freedom,3,추상 명사
-freeze,2,일반 동사
-fresh,1,감정·상태
-fridge,1,장소·사물
-fried,1,음식
-friendship,2,일반 명사
-frighten,3,추상 동사
-frightened,3,격식 형용사
-frightening,3,격식 형용사
-fry,2,일반 동사
-fully,3,격식 부사·연결어
-function,4,학술·격식 말 — 고등으로
-furniture,2,일반 명사
-further,4,학술·격식 말 — 고등으로
-gallery,2,장소·사물
-garage,2,일반 명사
-garlic,2,음식
-gas,2,일반 명사
-gate,2,일반 명사
-gather,3,추상 동사
-gender,3,추상 명사
-generation,3,추상 명사
-gentle,2,성질·상태 형용사
-girlfriend,x,어린이 앱에 부적절
-given,4,학술·격식 말 — 고등으로
-globe,2,장소·사물
-glove,1,장소·사물
-goal,1,일상 개념
-golden,2,성질·상태 형용사
-golf,2,운동·여가
-good-looking,2,성질·상태 형용사
-government,3,사회·경제 주제
-grace,4,학술·격식 말 — 고등으로
-grade,2,일반 명사
-gradually,3,격식 부사·연결어
-graduate,3,추상 동사
-gram,2,단위
-grammar,1,학교 생활
-grandchild,2,직업·사람
-granddad,2,직업·사람
-granddaughter,2,직업·사람
-grandma,1,가족·사람
-grandpa,1,가족·사람
-grandson,2,직업·사람
-granny,2,직업·사람
-grateful,2,성질·상태 형용사
-greatly,4,학술·격식 말 — 고등으로
-greedy,2,성질·상태 형용사
-grilled,3,성질·상태 형용사(덜 쓰는 말)
-grow,1,일상 말
-guard,3,뜻이 여럿인 말
-guess,1,일상 말
-guest,1,가족·사람
-guidebook,2,장소·사물
-gun,3,사용자 결정: 중등에는 넣음(폭력)
-guy,1,가족·사람
-habit,2,일반 명사
-half-price,2,성질·상태 형용사(일상)
-ham,2,음식
-handbag,2,장소·사물
-handicapped,4,학술·격식 말 — 고등으로
-handle,3,추상 동사
-happen,1,일상 말
-happily,2,부사
-happiness,2,일반 명사
-hardly,3,격식 부사·연결어
-harm,3,추상 명사
-harmful,2,성질·상태 형용사
-harmony,3,추상 명사
-harvest,3,추상 명사
-hate,1,일상 개념
-headphone,2,장소·사물
-headteacher,3,영국식 말
-heat,2,일반 명사
-heating,3,덜 쓰는 구체 명사
-heavily,3,격식 부사·연결어
-heavy,1,일상 말
-helpful,1,감정·상태
-hero,2,직업·사람
-highway,2,일반 명사
-hike,2,운동·여가
-hiking,2,운동·여가
-hit,1,일상 말
-hockey,2,운동·여가
-honey,1,음식
-honor,3,추상 명사
-hope,1,일상 말
-horror,2,일반 명사
-host,3,뜻이 여럿인 말
-however,3,격식 부사·연결어
-hug,1,놀이·활동
-human,3,격식 형용사
-hundred,1,시간·숫자
-hunter,2,직업·사람
-hurry,1,일상 말
-ideal,3,추상 명사
-ill,3,격식 형용사
-illegal,3,격식 형용사
-image,3,추상 명사
-imagination,3,추상 명사
-imagine,2,일반 동사
-impact,3,추상 명사
-impatient,3,격식 형용사
-importance,3,추상 명사
-importantly,3,격식 부사·연결어
-impossible,2,성질·상태 형용사
-impress,3,추상 동사
-improve,2,일반 동사
-inch,2,단위
-include,3,추상 동사
-increase,3,추상 동사
-indeed,4,학술·격식 말 — 고등으로
-independence,3,추상 명사
-indoor,2,성질·상태 형용사
-inexpensive,3,격식 형용사
-influence,3,추상 명사
-information,1,일상 개념
-injure,3,추상 동사
-inner,3,격식 형용사
-insect,1,자연·동물
-inspiration,3,추상 명사
-instant,3,격식 형용사
-instead,2,부사
-instrument,3,뜻이 여럿인 말
-intelligence,3,추상 명사
-intelligent,3,격식 형용사
-interest,3,추상 명사
-interested,1,감정·상태
-international,3,격식 형용사
-interview,1,학교 생활
-interviewer,2,중2 교과 주제
-introduce,2,일반 동사
-invade,3,추상 동사
-invent,2,일반 동사
-invention,2,일반 명사
-invite,1,놀이·활동
-issue,3,추상 명사
-item,2,일반 명사
-jam,1,음식
-jelly,2,음식
-join,1,일상 말
-joke,1,놀이·활동
-journey,2,일반 명사
-joy,2,일반 명사
-junior,3,격식 형용사
-junk,2,장소·사물
-kid,1,가족·사람
-kill,x,어린이 앱에 부적절
-killer,3,사용자 결정: 중등에는 넣음(폭력)
-kilo,2,단위
-kilogram,2,단위
-kilometer,2,단위
-kindly,3,격식 부사·연결어
-kingdom,3,덜 쓰는 구체 명사
-kiss,1,놀이·활동
-kit,2,장소·사물
-knock,2,일반 동사
-knowledge,3,추상 명사
-labor,4,공문서·사회 제도 말 — 고등으로
-lack,3,추상 명사
-lake,1,자연·동물
-lamp,1,장소·사물
-land,3,뜻이 여럿인 말
-landscape,3,덜 쓰는 구체 명사
-lane,2,장소·사물
-language,1,학교 생활
-latest,3,격식 형용사
-latter,4,학술·격식 말 — 고등으로
-law,3,사회·경제 주제
-lawyer,2,직업·사람
-laziness,3,추상 명사
-lead,3,추상 동사
-leader,1,가족·사람
-learner,2,직업·사람
-leather,2,장소·사물
-left-hand,2,성질·상태 형용사(일상)
-leisure,3,추상 명사
-lemon,1,음식
-lemonade,1,음식
-lend,2,일반 동사
-less,3,격식 부사·연결어
-level,3,추상 명사
-liberty,4,학술·격식 말 — 고등으로
-license,4,공문서·사회 제도 말 — 고등으로
-lie,3,추상 동사
-lifestyle,3,추상 명사
-likely,3,격식 형용사
-lip,2,일반 명사
-liter,2,단위
-lively,3,격식 형용사
-living,3,뜻이 여럿인 말(살아 있는·생활)
-load,3,추상 동사
-local,3,격식 형용사
-lock,2,일반 동사
-logical,3,격식 형용사
-loose,3,격식 형용사
-lose,1,일상 말
-lost,1,일상 말
-loudly,2,부사
-lover,3,덜 쓰는 구체 명사
-low,1,일상 말
-luckily,2,부사
-lunchtime,1,학교 생활
-lyric,2,운동·여가
-mad,2,성질·상태 형용사
-magazine,1,학교 생활
-magic,2,일반 명사
-mainly,4,학술·격식 말 — 고등으로
-major,3,격식 형용사
-make-up,2,일반 명사
-maker,3,덜 쓰는 구체 명사
-male,3,격식 형용사
-mall,1,장소·사물
-manage,3,추상 동사
-manager,2,직업·사람
-manner,4,학술·격식 말 — 고등으로
-mark,3,추상 동사
-market,1,장소·사물
-married,2,성질·상태 형용사
-marry,2,일반 동사
-marvelous,3,격식 형용사
-match,1,놀이·활동
-material,3,추상 명사
-max,3,과학·전문 주제
-meaning,3,추상 명사
-medal,2,일반 명사
-medical,3,격식 형용사
-medicine,2,일반 명사
-meeting,1,놀이·활동
-melon,1,음식
-member,1,가족·사람
-memory,2,일반 명사
-mention,3,추상 동사
-menu,1,장소·사물
-merry,1,감정·상태
-message,1,장소·사물
-metal,3,덜 쓰는 구체 명사
-meter,2,일반 명사
-method,3,추상 명사
-midday,2,장소·사물
-midnight,1,시간·숫자
-military,4,공문서·사회 제도 말 — 고등으로
-million,1,시간·숫자
-mirror,1,장소·사물
-miss,1,일상 말
-missing,2,성질·상태 형용사
-mistake,1,학교 생활
-mix,2,일반 동사
-mobile,1,장소·사물
-model,3,추상 명사
-modern,3,격식 형용사
-mommy,1,가족·사람
-mood,3,추상 명사
-mosque,3,덜 쓰는 구체 명사
-most,2,연결어·전치사
-mostly,3,격식 부사·연결어
-motorway,3,영국식 말
-move,1,일상 말
-mug,2,장소·사물
-mum,2,사용자 결정: 뜻이 같은 말도 넣음(영국식 엄마)
-murder,3,사용자 결정: 중등에는 넣음(폭력)
-museum,1,장소·사물
-mushroom,2,음식
-musical,2,운동·여가
-mysterious,3,격식 형용사
-mystery,2,일반 명사
-napkin,2,장소·사물
-nation,3,추상 명사
-national,3,격식 형용사
-nationality,2,추상 명사(중2)
-native,3,격식 형용사
-natural,3,격식 형용사
-nature,2,일반 명사
-nearly,3,격식 부사·연결어
-necessary,3,격식 형용사
-need,1,일상 말
-negative,3,격식 형용사
-nervous,2,성질·상태 형용사
-net,3,뜻이 여럿인 말
-next,1,일상 말
-noise,1,일상 개념
-noisy,1,감정·상태
-noon,1,시간·숫자
-normal,3,격식 형용사
-north,1,자연·동물
-notice,3,추상 동사
-noun,2,문법 용어(수업에서 씀)
-novel,2,일반 명사
-nowadays,2,부사
-oak,3,덜 쓰는 구체 명사
-occupation,4,학술·격식 말 — 고등으로
-offer,3,추상 동사
-official,4,공문서·사회 제도 말 — 고등으로
-oil,2,일반 명사
-Olympic,2,고유 이름(올림픽) — 운동 주제
-Olympics,2,고유 이름(올림픽) — 운동 주제
-omelet,2,음식
-onion,1,음식
-online,2,성질·상태 형용사
-opera,2,중2 교과 주제
-operate,4,학술·격식 말 — 고등으로
-opinion,3,추상 명사
-opportunity,3,추상 명사
-oppose,4,학술·격식 말 — 고등으로
-opposite,3,격식 형용사
-organize,3,추상 동사
-organized,3,격식 형용사
-original,3,격식 형용사
-orphan,3,덜 쓰는 구체 명사
-oven,2,장소·사물
-overseas,3,격식 형용사
-overweight,3,격식 형용사
-owner,1,가족·사람
-pacific,3,사용자 결정: 되살림(태평양 — 고유 이름)
-pack,2,일반 동사
-painter,2,직업·사람
-painting,1,놀이·활동
-pair,1,장소·사물
-pal,3,덜 쓰는 구체 명사
-pan,2,장소·사물
-panic,3,추상 명사
-pardon,1,구어
-part,1,일상 말
-partly,4,학술·격식 말 — 고등으로
-partner,1,가족·사람
-pass,1,일상 말
-passage,3,덜 쓰는 구체 명사
-passenger,2,직업·사람
-pasta,2,음식
-path,3,추상 명사
-patient,2,몸·건강
-pea,2,음식
-peaceful,2,성질·상태 형용사
-pear,1,음식
-pence,4,공문서·사회 제도 말 — 고등으로
-penfriend,3,덜 쓰는 구체 명사
-pepper,2,음식
-perfect,1,일상 말
-perfectly,3,격식 부사·연결어
-perform,3,추상 동사
-performance,3,추상 명사
-perfume,2,장소·사물
-perhaps,3,격식 부사·연결어
-permission,3,추상 명사
-personality,3,추상 명사
-petrol,3,영국식 말
-photograph,2,직접 보는 말(사진·영화)
-photographer,2,직업·사람
-photography,2,운동·여가
-physical,3,격식 형용사
-physically,4,학술·격식 말 — 고등으로
-pile,3,덜 쓰는 구체 명사
-pilgrim,3,덜 쓰는 구체 명사
-pill,2,몸·건강
-pilot,2,직업·사람
-pity,3,추상 명사
-plan,1,일상 개념
-plane,1,장소·사물
-planet,1,자연·동물
-plant,1,자연·동물
-plastic,2,성질·상태 형용사
-plate,1,장소·사물
-playful,3,격식 형용사
-playground,1,장소·사물
-pleasant,3,격식 형용사
-pleased,2,성질·상태 형용사
-pleasing,3,격식 형용사
-pleasure,2,추상 명사(중2)
-plenty,3,추상 명사
-plural,3,문법 용어
-plus,3,격식 부사·연결어
-poem,1,학교 생활
-police,1,가족·사람
-policeman,2,직업·사람
-policewoman,2,직업·사람
-polite,1,감정·상태
-political,4,공문서·사회 제도 말 — 고등으로
-pollute,3,추상 동사
-pollution,2,중2 교과 주제
-pop,1,구어
-popular,1,감정·상태
-population,3,추상 명사
-portrait,3,덜 쓰는 구체 명사
-position,3,추상 명사
-possible,3,격식 형용사
-possibly,3,격식 부사·연결어
-pour,2,일반 동사(일상 동작)
-power,2,일반 명사
-powerful,2,성질·상태 형용사
-pray,2,중2 교과 주제
-precise,4,학술·격식 말 — 고등으로
-prediction,3,추상 명사
-prefer,2,일반 동사
-prepare,2,일반 동사
-pressure,3,추상 명사
-pretend,2,일반 동사
-prevent,3,추상 동사
-pride,3,추상 명사
-principal,4,학술·격식 말 — 고등으로
-print,2,일반 동사
-printer,2,장소·사물
-private,3,격식 형용사
-pro,3,덜 쓰는 구체 명사
-probably,3,격식 부사·연결어
-produce,3,추상 동사
-product,3,사회·경제 주제
-production,4,공문서·사회 제도 말 — 고등으로
-professional,3,격식 형용사
-progressive,4,학술·격식 말 — 고등으로
-promise,2,일반 동사
-pronounce,2,일반 동사
-pronunciation,2,문법 용어(수업에서 씀)
-proper,3,격식 형용사
-provide,3,추상 동사
-psychologist,3,덜 쓰는 구체 명사
-public,3,격식 형용사
-publish,3,추상 동사
-pull,1,일상 말
-punctuation,3,문법 용어
-purpose,3,추상 명사
-quality,3,추상 명사
-quarter,2,추상 명사(중2)
-queen,2,직업·사람
-quick,1,일상 말
-quickly,1,일상 말
-quietly,2,부사
-quit,3,추상 동사
-quite,3,격식 부사·연결어
-quiz,1,놀이·활동
-racket,2,장소·사물
-raincoat,1,옷
-raise,3,추상 동사
-range,3,추상 명사
-rap,2,운동·여가
-rate,4,학술·격식 말 — 고등으로
-rather,3,격식 부사·연결어
-rating,3,추상 명사
-raw,3,격식 형용사
-ray,3,과학·전문 주제
-reach,3,추상 동사
-reader,1,학교 생활
-reading,1,학교 생활
-realize,2,일반 동사
-really,1,일상 말
-reason,1,일상 개념
-receipt,2,장소·사물
-receive,2,일반 동사
-recent,3,격식 형용사
-recently,2,부사
-receptionist,3,덜 쓰는 구체 명사
-record,3,추상 명사
-recycle,2,일반 동사
-refer,4,학술·격식 말 — 고등으로
-refrigerator,2,장소·사물
-regret,3,추상 동사
-regular,3,격식 형용사
-regularly,3,격식 부사·연결어
-relax,1,놀이·활동
-relaxed,2,성질·상태 형용사
-release,3,추상 동사
-remain,3,추상 동사
-remind,2,일반 동사
-remote,3,격식 형용사
-rent,2,일반 동사(일상 동작)
-repair,2,일반 동사
-repeat,1,일상 말
-replace,3,추상 동사
-reply,2,일반 동사
-report,3,추상 동사
-reporter,2,직업·사람
-represent,4,학술·격식 말 — 고등으로
-request,3,추상 동사
-response,3,추상 명사
-result,2,추상 명사(중2)
-retire,3,추상 동사
-retired,3,격식 형용사
-return,3,추상 동사
-reunion,3,덜 쓰는 구체 명사
-reveal,3,추상 동사
-rhythm,3,추상 명사
-right-hand,2,성질·상태 형용사(일상)
-road,1,장소·사물
-roast,2,음식
-rob,3,추상 동사
-robbery,3,사회·경제 주제
-robin,3,덜 쓰는 구체 명사
-rock,1,자연·동물
-roll,2,일반 동사
-romance,3,추상 명사
-romantic,3,격식 형용사
-roof,1,장소·사물
-root,3,뜻이 여럿인 말
-rope,2,장소·사물
-roughly,4,학술·격식 말 — 고등으로
-round,2,성질·상태 형용사
-roundabout,3,영국식 말
-row,1,장소·사물
-royal,3,격식 형용사
-rude,1,감정·상태
-rugby,2,운동·여가
-ruin,3,추상 동사
-rule,1,학교 생활
-rumor,3,추상 명사
-runner,2,직업·사람
-running,2,운동·여가
-rush,3,추상 동사
-sadly,2,부사
-safe,1,감정·상태
-sailing,2,운동·여가
-sake,3,추상 명사
-salt,1,음식
-sample,3,추상 명사
-sandy,2,성질·상태 형용사(일상)
-satisfy,3,추상 동사
-sauce,2,음식
-sausage,1,음식
-save,1,일상 말
-saw,3,철자가 같은 다른 말(톱·see 과거)
-scale,3,추상 명사
-scarf,1,장소·사물
-scene,3,추상 명사
-scenery,3,덜 쓰는 구체 명사
-schedule,2,일반 명사
-schoolchild,2,직업·사람
-schoolwork,2,학교 생활
-scientific,3,격식 형용사
-scissors,1,장소·사물
-scream,2,일반 동사
-screen,2,일반 명사
-screw,3,덜 쓰는 구체 명사
-script,3,덜 쓰는 구체 명사
-seafood,2,음식
-search,3,추상 동사
-seaside,2,장소·사물
-secret,2,일반 명사
-secretary,4,공문서·사회 제도 말 — 고등으로
-seed,2,일반 명사
-seek,4,학술·격식 말 — 고등으로
-seem,3,추상 동사
-self,3,추상 명사
-semester,2,일반 명사
-send,1,일상 말
-senior,3,격식 형용사
-sense,3,추상 명사
-sentence,1,학교 생활
-separate,3,격식 형용사
-seriously,3,격식 부사·연결어
-serve,3,추상 동사
-sew,3,추상 동사
-shade,3,덜 쓰는 구체 명사
-shadow,2,일반 명사
-shampoo,1,장소·사물
-shape,2,일반 명사
-shell,2,일반 명사
-shine,2,일반 동사
-shock,3,추상 명사
-shoot,2,일반 동사
-shopping,1,놀이·활동
-shore,2,장소·사물
-shot,3,덜 쓰는 구체 명사
-shout,2,일반 동사
-shut,2,일반 동사
-sight,2,추상 명사(중2)
-sightseeing,2,운동·여가
-sign,2,일반 명사
-silence,3,추상 명사
-silently,3,격식 부사·연결어
-silly,2,성질·상태 형용사
-silver,2,일반 명사
-simple,1,일상 말
-simply,3,격식 부사·연결어
-since,3,격식 부사·연결어
-singing,1,놀이·활동
-single,3,격식 형용사
-singular,3,문법 용어
-sink,3,추상 동사
-sir,1,가족·사람
-situation,3,추상 명사
-skate,1,놀이·활동
-skateboarding,2,운동·여가
-skating,2,운동·여가
-ski,1,놀이·활동
-skiing,2,운동·여가
-skill,2,추상 명사(중2)
-slave,3,사회·경제 주제
-sleepless,3,격식 형용사
-sleepy,1,감정·상태
-slice,2,장소·사물
-slide,2,일반 동사
-slim,2,성질·상태 형용사(일상)
-slowly,1,일상 말
-smith,3,사용자 결정: 되살림(대장장이 — 성으로 많이 쓰임)
-smoke,x,어린이 앱에 부적절
-smoking,x,어린이 앱에 부적절
-smooth,3,격식 형용사
-smoothly,3,격식 부사·연결어
-snack,1,음식
-snowboarding,2,운동·여가
-soap,1,장소·사물
-society,3,사회·경제 주제
-sock,1,장소·사물
-soda,2,음식
-soft,1,감정·상태
-softly,3,격식 부사·연결어
-software,2,컴퓨터·매체
-soldier,2,일반 명사
-solution,3,추상 명사
-solve,2,일반 동사
-someday,2,부사
-somewhere,2,부사
-sound,1,일상 말
-source,3,추상 명사
-south,1,자연·동물
-space,3,추상 명사
-spaceship,2,장소·사물
-spaghetti,1,음식
-speaker,2,일반 명사
-specific,4,학술·격식 말 — 고등으로
-speed,2,일반 명사
-spend,2,일반 동사
-spill,2,일반 동사(일상 동작)
-splash,3,추상 동사
-split,3,추상 동사
-spoon,1,장소·사물
-spot,2,중2 교과 주제
-spread,3,추상 동사
-square,3,뜻이 여럿인 말
-stadium,1,장소·사물
-staff,3,사회·경제 주제
-stair,2,장소·사물
-stamp,2,일반 명사
-state,3,사회·경제 주제
-statement,4,학술·격식 말 — 고등으로
-statue,2,장소·사물
-steak,2,음식
-steal,2,일반 동사
-stomach,1,몸·건강
-stomachache,1,몸·건강
-store,1,장소·사물
-storm,2,일반 명사
-stove,2,장소·사물
-strange,1,일상 말
-stranger,2,일반 명사
-strength,3,추상 명사
-strict,2,성질·상태 형용사
-strike,3,추상 동사
-string,3,뜻이 여럿인 말
-strongly,3,격식 부사·연결어
-stuff,2,장소·사물
-style,3,추상 명사
-succeed,3,추상 동사
-success,2,일반 명사
-successfully,3,격식 부사·연결어
-sudden,3,격식 형용사
-suggest,2,일반 동사
-suggestion,2,추상 명사(중2)
-suit,2,장소·사물
-suitable,3,격식 형용사
-suitcase,2,장소·사물
-summary,3,추상 명사
-sunflower,2,장소·사물
-sunglasses,1,장소·사물
-sunlight,2,장소·사물
-superlative,3,문법 용어
-superstar,2,직업·사람
-supper,2,음식
-support,3,추상 동사
-surfing,2,운동·여가
-surname,2,학교 생활
-surprised,1,감정·상태
-surprising,2,성질·상태 형용사
-survive,3,추상 동사
-swallow,2,일반 동사(일상 동작)
-sweat,2,일반 명사
-sweater,1,옷
-sweetheart,3,덜 쓰는 구체 명사
-swimming,1,놀이·활동
-swimsuit,2,장소·사물
-symbol,3,덜 쓰는 구체 명사
-symphony,3,덜 쓰는 구체 명사
-system,3,추상 명사
-tablespoon,2,장소·사물
-talent,2,일반 명사
-tap,2,장소·사물
-tape,2,장소·사물
-target,3,추상 명사
-task,3,추상 명사
-tear,2,일반 동사
-technology,2,추상 명사(중2)
-teenage,2,성질·상태 형용사(일상)
-teenager,1,가족·사람
-telephone,1,장소·사물
-temperature,2,일반 명사
-temple,2,일반 명사
-terrify,3,추상 동사
-terrorist,3,사용자 결정: 중등에는 넣음(폭력)
-text,3,추상 명사
-textbook,1,학교 생활
-thanks,1,구어
-therefore,4,학술·격식 말 — 고등으로
-thick,1,일상 말
-thief,2,일반 명사
-third,1,시간·숫자
-thirsty,1,감정·상태
-though,3,격식 부사·연결어
-thought,3,추상 명사
-thousand,1,시간·숫자
-thunderstorm,2,장소·사물
-tidy,2,성질·상태 형용사
-tie,2,일반 동사
-tight,1,일상 말
-tights,2,장소·사물
-till,3,격식 부사·연결어
-timetable,2,장소·사물
-tip,2,일반 명사
-title,3,추상 명사
-toast,1,음식
-toe,1,몸·건강
-tone,3,추상 명사
-tool,1,장소·사물
-toothache,1,몸·건강
-toothbrush,1,장소·사물
-topic,2,일반 명사
-tour,2,일반 명사
-tourist,2,직업·사람
-toward,3,격식 부사·연결어
-track,3,뜻이 여럿인 말
-trade,3,사회·경제 주제
-tradition,3,추상 명사
-traditional,2,성질·상태 형용사
-traffic,2,일반 명사
-training,3,추상 명사
-tram,3,덜 쓰는 구체 명사
-trap,2,장소·사물
-traveler,2,직업·사람
-treasure,2,일반 명사
-trick,2,일반 명사
-trouble,2,일반 명사
-trousers,1,사용자 결정: 뜻이 같은 말도 넣음(영국식 바지)
-truly,3,격식 부사·연결어
-trust,3,추상 동사
-truth,3,추상 명사
-tube,2,중2 교과 주제
-tune,3,덜 쓰는 구체 명사
-twice,1,일상 말
-uncertain,3,격식 형용사
-uncomfortable,3,격식 형용사
-underline,2,학교 생활
-understand,1,일상 말
-underwater,2,일반 명사
-uneasy,3,격식 형용사
-unfair,3,격식 형용사
-unforgettable,3,격식 형용사
-unfortunately,3,격식 부사·연결어
-unhappy,2,성질·상태 형용사
-unhealthy,3,격식 형용사
-uniform,2,장소·사물
-unimportant,3,격식 형용사
-unit,3,추상 명사
-university,1,학교 생활
-unknown,3,격식 형용사
-unlike,3,격식 부사·연결어
-unnecessary,3,격식 형용사
-unpleasant,3,격식 형용사
-unusual,3,격식 형용사
-upon,4,학술·격식 말 — 고등으로
-upset,2,성질·상태 형용사
-upstairs,1,장소·사물
-used,3,used to 용법
-useful,1,감정·상태
-usual,3,격식 형용사
-valley,2,일반 명사
-value,3,추상 명사
-verb,2,문법 용어(수업에서 씀)
-view,3,추상 명사
-village,1,장소·사물
-violent,3,격식 형용사
-violin,1,장소·사물
-visitor,2,일반 명사
-vocabulary,2,일반 명사
-voice,1,일상 개념
-vote,2,일반 명사
-walking,1,놀이·활동
-wallet,2,장소·사물
-wander,3,추상 동사
-war,x,어린이 앱에 부적절
-washing-up,3,영국식 말
-wave,3,뜻이 여럿인 말
-weak,2,성질·상태 형용사
-wealth,3,추상 명사
-web,2,컴퓨터·매체
-website,2,장소·사물
-wedding,2,운동·여가
-weekday,2,운동·여가
-weekly,3,격식 형용사
-weep,3,추상 동사
-weigh,3,추상 동사
-weight,2,일반 명사
-well-known,3,격식 형용사
-west,1,자연·동물
-wet,1,감정·상태
-wheelchair,2,장소·사물
-while,3,격식 부사·연결어
-whole,3,격식 형용사
-wide,2,성질·상태 형용사
-widely,4,학술·격식 말 — 고등으로
-wild,2,성질·상태 형용사
-windy,1,자연·동물
-wine,3,사용자 결정: 중등에는 넣음(술)
-winner,2,직업·사람
-wisdom,3,추상 명사
-wise,2,성질·상태 형용사
-within,4,학술·격식 말 — 고등으로
-without,2,연결어·전치사
-wonder,2,일반 동사
-wood,2,일반 명사
-wooden,2,성질·상태 형용사
-wool,2,장소·사물
-worldwide,3,격식 형용사
-worried,1,감정·상태
-worse,2,성질·상태 형용사
-worst,2,성질·상태 형용사
-writing,2,일반 명사
-yard,1,장소·사물
-yeah,2,구어
-youth,3,추상 명사
-zone,3,추상 명사
+# vocab 중등 단어 난이도. tier = 뽑기 단계(1 쉬움 · 2 중간 · 3 어려움 · 4 학술·격식 — 맨 뒤 · x 넣지 않음), difficulty = 칸 나누기 난이도(1 중1 쉬움·구체 · 2 중2 일반 · 3 어려움 — 추상어·감정·덜 흔한 동사·격식어·뜻이 여럿인 말, x 줄은 비움). Claude가 매겼다(2026-11-24). 기준은 docs/wordlist/README.md
+word,tier,reason,difficulty
+ability,3,추상 명사,3
+abroad,3,격식 부사·연결어,3
+accept,2,일반 동사,3
+acceptable,3,격식 형용사,3
+accident,2,일반 명사,3
+account,3,추상 명사,3
+achieve,3,추상 동사,3
+across,2,연결어·전치사,3
+act,3,추상 동사,3
+actually,2,부사,3
+addition,3,추상 명사,3
+additional,4,학술·격식 말 — 고등으로,3
+address,1,일상 말,3
+adjective,2,문법 용어(수업에서 씀),2
+adjust,3,추상 동사,3
+admire,3,추상 동사,3
+admit,3,추상 동사,3
+adult,1,가족·사람,2
+advanced,3,격식 형용사,3
+advantage,3,추상 명사,3
+adventure,2,일반 명사,3
+advertisement,2,일반 명사,3
+advertising,3,사회·경제 주제,3
+advice,2,일반 명사,3
+advise,3,추상 동사,3
+affair,4,학술·격식 말 — 고등으로,3
+against,3,격식 부사·연결어,3
+aged,4,학술·격식 말 — 고등으로,3
+agency,4,공문서·사회 제도 말 — 고등으로,3
+agent,4,공문서·사회 제도 말 — 고등으로,3
+agree,2,일반 동사,3
+ahead,3,격식 부사·연결어,3
+air,1,일상 말,1
+aisle,3,덜 쓰는 구체 명사,3
+alarm,2,일반 명사,3
+alive,2,성질·상태 형용사,3
+all,2,연결어·전치사,1
+allow,2,일반 동사,3
+alone,1,일상 말,2
+alright,1,구어,1
+although,3,격식 부사·연결어,3
+ambition,3,추상 명사,3
+among,3,격식 부사·연결어,3
+amused,3,격식 형용사,3
+amusement,3,추상 명사,3
+ancestor,3,덜 쓰는 구체 명사,3
+ancient,3,격식 형용사,3
+angel,2,성질·상태 형용사,1
+angrily,3,격식 부사·연결어,3
+ankle,2,장소·사물,2
+anniversary,2,일반 명사,3
+annoy,3,추상 동사,3
+annoying,2,성질·상태 형용사,3
+anxious,3,격식 형용사,3
+anymore,2,부사,3
+anyway,2,부사,3
+anywhere,2,부사,2
+apart,3,격식 형용사,3
+apartment,1,장소·사물,2
+apologize,2,일반 동사,3
+apparently,4,학술·격식 말 — 고등으로,3
+appear,3,추상 동사,3
+appearance,3,추상 명사,3
+apply,3,추상 동사,3
+appointment,3,추상 명사,3
+appreciate,3,추상 동사,3
+architecture,3,과학·전문 주제,3
+area,3,추상 명사,3
+argue,3,추상 동사,3
+argument,3,추상 명사,3
+armchair,2,장소·사물,1
+armed,4,학술·격식 말 — 고등으로,3
+artificial,3,격식 형용사,3
+asleep,1,감정·상태,3
+assistant,2,직업·사람,3
+association,4,공문서·사회 제도 말 — 고등으로,3
+astronaut,2,직업·사람,2
+athlete,2,직업·사람,3
+atom,3,과학·전문 주제,3
+attack,3,추상 동사,3
+attempt,3,추상 명사,3
+attention,3,추상 명사,3
+attitude,3,추상 명사,3
+attractive,3,격식 형용사,3
+audience,3,추상 명사,3
+audio,2,컴퓨터·매체,2
+author,2,직업·사람,3
+automatic,3,격식 형용사,3
+automatically,3,격식 부사·연결어,3
+average,3,격식 형용사,3
+avoid,2,일반 동사,3
+award,3,추상 명사,3
+awful,3,격식 형용사,3
+background,3,추상 명사,3
+badly,2,부사,2
+badminton,1,놀이·활동,1
+bake,1,음식,1
+balcony,2,장소·사물,2
+balloon,1,장소·사물,1
+banking,4,공문서·사회 제도 말 — 고등으로,3
+bar,x,어린이 앱에 부적절,
+barbecue,2,장소·사물,1
+barber,2,직업·사람,2
+bargain,3,사회·경제 주제,3
+base,3,추상 명사,3
+basic,3,격식 형용사,3
+basically,3,격식 부사·연결어,3
+basket,1,장소·사물,1
+batch,3,덜 쓰는 구체 명사,3
+battery,1,장소·사물,2
+bay,3,덜 쓰는 구체 명사,3
+beauty,2,일반 명사,3
+beer,3,사용자 결정: 중등에는 넣음(술),3
+beg,3,추상 동사,3
+beginner,2,일반 명사,2
+beginning,2,일반 명사,3
+behavior,3,추상 명사,3
+being,3,추상 명사,3
+belly,2,몸·건강,2
+belong,2,일반 동사,3
+belt,1,장소·사물,1
+bench,1,장소·사물,1
+bend,3,추상 동사,3
+beside,2,연결어·전치사,3
+besides,4,학술·격식 말 — 고등으로,3
+best,1,일상 말,1
+better,1,일상 말,1
+beyond,4,학술·격식 말 — 고등으로,3
+bicycle,1,일상 말,1
+bill,2,일반 명사,3
+biscuit,1,사용자 결정: 뜻이 같은 말도 넣음(cookie와 다른 칸),1
+bit,3,추상 명사,3
+bite,2,일반 동사,2
+blackboard,1,학교 생활,1
+blame,3,추상 동사,3
+blank,1,학교 생활,2
+blanket,1,장소·사물,2
+block,1,장소·사물,3
+blonde,3,성질·상태 형용사(덜 쓰는 말),3
+blood,2,일반 명사,2
+bloom,3,추상 동사,3
+boil,1,음식,2
+boiled,2,음식,1
+bonus,3,사회·경제 주제,3
+bookcase,2,장소·사물,2
+bookshelf,1,장소·사물,1
+bookshop,3,영국식 말,3
+bored,1,감정·상태,1
+boss,1,가족·사람,1
+bother,3,추상 동사,3
+bottom,1,일상 말,2
+boyfriend,x,어린이 앱에 부적절,
+bra,3,덜 쓰는 구체 명사,3
+brainstorm,3,과학·전문 주제,3
+brake,2,장소·사물,2
+branch,3,뜻이 여럿인 말,3
+brand,2,일반 명사,3
+brave,1,감정·상태,2
+breathe,1,몸·건강,3
+breeze,2,장소·사물,2
+bride,2,직업·사람,2
+bright,1,일상 말,2
+brilliant,3,격식 형용사,3
+bring,1,일상 말,1
+broken,1,일상 말,1
+bug,1,장소·사물,1
+bulb,2,장소·사물,2
+burger,1,음식,1
+burn,2,일반 동사,2
+bury,3,추상 동사,3
+bush,3,뜻이 여럿인 말,3
+businessman,2,직업·사람,1
+businesswoman,3,덜 쓰는 구체 명사,3
+cab,2,장소·사물,2
+cafeteria,1,장소·사물,2
+calendar,1,장소·사물,1
+camping,1,놀이·활동,1
+campus,3,덜 쓰는 구체 명사,3
+can,1,장소·사물,3
+capital,3,추상 명사,3
+captain,2,일반 명사,3
+carefully,1,일상 말,2
+carrot,1,음식,1
+carry,1,일상 말,1
+cash,2,일반 명사,2
+cassette,3,덜 쓰는 구체 명사,3
+castle,1,장소·사물,1
+cause,3,추상 동사,3
+celebrate,1,놀이·활동,3
+celebration,2,중2 교과 주제,3
+cent,4,공문서·사회 제도 말 — 고등으로,3
+center,3,추상 명사,3
+centimeter,2,단위,2
+century,3,추상 명사,3
+cereal,2,음식,1
+certain,3,격식 형용사,3
+certainly,3,격식 부사·연결어,3
+chain,3,뜻이 여럿인 말,3
+chairman,4,공문서·사회 제도 말 — 고등으로,3
+challenge,3,추상 명사,3
+champagne,3,사용자 결정: 중등에는 넣음(술),3
+championship,2,운동·여가,3
+chance,2,일반 명사,3
+chapter,3,추상 명사,3
+character,2,추상 명사(중2),3
+chart,2,일반 명사,2
+chat,2,일반 명사,1
+cheap,1,감정·상태,1
+check,1,일상 말,1
+cheek,2,몸·건강,2
+cheer,2,일반 명사,2
+chef,1,가족·사람,1
+chemical,3,과학·전문 주제,3
+cheque,4,공문서·사회 제도 말 — 고등으로,3
+chess,2,운동·여가,2
+chest,2,몸·건강,2
+childhood,2,일반 명사,3
+chili,2,음식,2
+chimpanzee,2,자연·동물,2
+chin,2,몸·건강,2
+chirp,3,동사(새 소리),3
+choice,2,일반 명사,3
+church,2,일반 명사,1
+cigarette,3,사용자 결정: 중등에는 넣음(담배),3
+cinema,1,장소·사물,1
+citizen,3,사회·경제 주제,3
+claim,4,학술·격식 말 — 고등으로,3
+classic,3,격식 형용사,3
+cleaner,2,직업·사람,1
+clear,3,격식 형용사,3
+clearly,3,격식 부사·연결어,3
+clerk,3,덜 쓰는 구체 명사,3
+click,2,일반 동사,1
+climbing,2,운동·여가,1
+clone,3,과학·전문 주제,3
+closed,1,일상 말,2
+clown,2,직업·사람,1
+clue,3,추상 명사,3
+coast,2,장소·사물,3
+coin,1,장소·사물,1
+coke,x,어린이 앱에 부적절,
+cola,2,음식,1
+collect,1,놀이·활동,2
+collection,2,중2 교과 주제,3
+colorful,1,감정·상태,2
+column,3,과학·전문 주제,3
+comb,2,장소·사물,2
+comfortable,2,성질·상태 형용사,3
+comic,2,운동·여가,1
+commitment,4,학술·격식 말 — 고등으로,3
+committee,4,공문서·사회 제도 말 — 고등으로,3
+common,3,격식 형용사,3
+communicate,3,추상 동사,3
+communication,3,추상 명사,3
+company,3,사회·경제 주제,3
+comparative,4,학술·격식 말 — 고등으로,3
+compare,3,추상 동사,3
+competition,3,추상 명사,3
+complain,2,일반 동사,3
+complaint,3,추상 명사,3
+complete,3,격식 형용사,3
+composer,3,덜 쓰는 구체 명사,3
+concentrate,3,추상 동사,3
+concern,3,추상 명사,3
+condition,3,추상 명사,3
+confident,2,성질·상태 형용사,3
+confuse,3,추상 동사,3
+confused,2,성질·상태 형용사,3
+consider,3,추상 동사,3
+consist,4,학술·격식 말 — 고등으로,3
+contact,3,추상 동사,3
+container,3,덜 쓰는 구체 명사,3
+contest,2,일반 명사,3
+context,4,학술·격식 말 — 고등으로,3
+continent,3,과학·전문 주제,3
+continue,2,일반 동사,3
+contrast,4,학술·격식 말 — 고등으로,3
+control,3,추상 명사,3
+convenience,3,추상 명사,3
+convenient,3,격식 형용사,3
+conversation,1,일상 개념,3
+cooker,3,덜 쓰는 구체 명사,3
+cooking,1,음식,1
+cooler,2,장소·사물,2
+cop,x,어린이 앱에 부적절,
+correctly,3,격식 부사·연결어,3
+cost,3,추상 명사,3
+couch,1,장소·사물,1
+count,2,일반 동사(일상 동작),1
+country,1,장소·사물,1
+countryside,2,일반 명사,3
+couple,2,일반 명사,3
+court,4,공문서·사회 제도 말 — 고등으로,3
+crazy,2,성질·상태 형용사,2
+create,2,일반 동사,3
+creative,3,격식 형용사,3
+creativity,3,추상 명사,3
+creature,2,자연·동물,3
+credit,4,공문서·사회 제도 말 — 고등으로,3
+cricket,2,운동·여가,2
+crime,3,사회·경제 주제,3
+crisp,3,성질·상태 형용사(덜 쓰는 말),3
+criticize,3,추상 동사,3
+cross,2,일반 동사,3
+crowd,2,일반 명사,3
+crowded,2,성질·상태 형용사,3
+crown,3,뜻이 여럿인 말,3
+cruise,3,덜 쓰는 구체 명사,3
+cupboard,2,장소·사물,2
+curry,2,음식,1
+curse,3,추상 명사,3
+custom,3,추상 명사,3
+customer,2,일반 명사,3
+cycling,2,운동·여가,1
+daddy,1,가족·사람,1
+daily,3,격식 형용사,3
+dam,3,과학·전문 주제,3
+dancer,2,직업·사람,1
+dancing,1,놀이·활동,1
+danger,2,일반 명사,3
+dangerous,1,감정·상태,2
+daylight,2,장소·사물,2
+dead,2,성질·상태 형용사,2
+deal,3,추상 동사,3
+death,3,추상 명사,3
+decide,1,일상 개념,3
+deep,2,성질·상태 형용사,2
+deeply,3,격식 부사·연결어,3
+degree,3,추상 명사,3
+delay,3,추상 동사,3
+dentist,1,가족·사람,1
+depend,3,추상 동사,3
+describe,2,중2 교과 주제,3
+description,3,추상 명사,3
+desert,2,일반 명사,2
+dessert,1,음식,2
+destroy,2,일반 동사,3
+detail,3,추상 명사,3
+develop,3,추상 동사,3
+developed,4,학술·격식 말 — 고등으로,3
+diamond,2,장소·사물,1
+diary,1,시간·숫자,2
+die,1,일상 개념,1
+diet,2,일반 명사,3
+difference,2,추상 명사(중2),3
+differently,3,격식 부사·연결어,3
+difficulty,2,일반 명사,3
+dinosaur,1,자연·동물,1
+direct,3,격식 형용사,3
+direction,3,추상 명사,3
+director,2,직업·사람,3
+disadvantage,3,추상 명사,3
+disagree,2,일반 동사,3
+disappear,2,일반 동사,3
+disappointed,2,성질·상태 형용사,3
+disappointing,3,격식 형용사,3
+disco,3,덜 쓰는 구체 명사,3
+discover,2,일반 동사,3
+discuss,2,중2 교과 주제,3
+discussion,3,추상 명사,3
+dishonest,3,격식 형용사,3
+dislike,2,일반 동사,3
+display,3,덜 쓰는 구체 명사,3
+disturb,3,추상 동사,3
+divide,3,추상 동사,3
+dizzy,2,몸·건강,3
+double,3,뜻이 여럿인 말,3
+doubt,3,추상 명사,3
+download,2,일반 동사,1
+downstairs,1,장소·사물,1
+downtown,2,일반 명사,3
+drama,1,놀이·활동,1
+drawer,2,장소·사물,2
+drawing,1,놀이·활동,1
+dressed,2,성질·상태 형용사,2
+drill,3,덜 쓰는 구체 명사,3
+drop,1,일상 말,1
+drug,3,사회·경제 주제,3
+drugstore,2,장소·사물,2
+duck,1,자연·동물,1
+during,2,연결어·전치사,3
+dust,2,장소·사물,2
+earn,3,추상 동사,3
+earring,2,장소·사물,2
+earth,1,자연·동물,1
+earthquake,2,일반 명사,3
+easily,2,부사,2
+east,1,자연·동물,1
+editor,3,덜 쓰는 구체 명사,3
+education,3,사회·경제 주제,3
+educational,3,격식 형용사,3
+effect,3,추상 명사,3
+effort,3,추상 명사,3
+elderly,3,격식 형용사,3
+electric,2,성질·상태 형용사,3
+elementary,2,학교 생활,2
+elephant,1,자연·동물,1
+elevator,1,장소·사물,1
+elsewhere,4,학술·격식 말 — 고등으로,3
+embarrassing,2,성질·상태 형용사,3
+emergency,3,추상 명사,3
+empty,1,감정·상태,2
+encourage,2,일반 동사,3
+endangered,2,성질·상태 형용사,3
+ending,2,일반 명사,2
+energetic,2,성질·상태 형용사,3
+engineer,2,직업·사람,3
+enjoy,1,일상 말,1
+enormous,3,격식 형용사,3
+enough,1,일상 말,2
+enter,3,추상 동사,3
+entertainment,3,추상 명사,3
+entrance,3,덜 쓰는 구체 명사,3
+envelope,2,일반 명사,2
+envy,3,추상 명사,3
+episode,2,운동·여가,3
+error,3,추상 명사,3
+escalator,2,장소·사물,2
+escape,3,추상 동사,3
+especially,2,부사,3
+essay,2,일반 명사,3
+establish,4,학술·격식 말 — 고등으로,3
+euro,3,사회·경제 주제,3
+even,3,격식 부사·연결어,3
+ever,3,격식 부사·연결어,3
+everyday,1,일상 개념,2
+everywhere,1,일상 말,1
+evidence,4,학술·격식 말 — 고등으로,3
+exactly,3,격식 부사·연결어,3
+exam,1,학교 생활,1
+excellent,1,일상 말,2
+except,3,격식 부사·연결어,3
+exchange,3,추상 동사,3
+excited,1,감정·상태,1
+exercise,1,학교 생활,2
+exhibition,3,덜 쓰는 구체 명사,3
+exist,3,추상 동사,3
+expect,2,일반 동사,3
+experience,3,추상 명사,3
+expert,3,추상 명사,3
+explain,1,학교 생활,3
+explanation,3,추상 명사,3
+explore,3,추상 동사,3
+express,3,추상 동사,3
+expression,3,추상 명사,3
+extra,3,격식 형용사,3
+extremely,3,격식 부사·연결어,3
+fact,3,추상 명사,3
+factory,2,일반 명사,2
+fail,3,추상 동사,3
+fairly,4,학술·격식 말 — 고등으로,3
+fall,1,일상 말,3
+false,2,성질·상태 형용사,3
+familiar,3,격식 형용사,3
+fancy,3,격식 형용사,3
+fantastic,1,감정·상태,2
+far,1,일상 말,1
+fare,3,덜 쓰는 구체 명사,3
+fascinating,3,격식 형용사,3
+fashion,2,일반 명사,3
+fault,3,추상 명사,3
+favor,3,추상 명사,3
+fear,2,일반 명사,3
+feather,2,일반 명사,2
+feature,3,추상 명사,3
+fee,3,사회·경제 주제,3
+feeling,2,일반 명사,3
+female,3,격식 형용사,3
+fence,2,일반 명사,2
+festival,1,놀이·활동,2
+fiction,3,추상 명사,3
+fighter,3,덜 쓰는 구체 명사,3
+figure,3,추상 명사,3
+fill,1,일상 말,2
+film,2,일반 명사,1
+final,3,격식 형용사,3
+finally,1,일상 말,3
+fisherman,2,직업·사람,1
+fishing,1,놀이·활동,1
+fit,3,추상 동사,3
+fix,1,놀이·활동,2
+flea,3,덜 쓰는 구체 명사,3
+flight,2,일반 명사,3
+float,2,일반 동사,3
+flood,2,일반 명사,3
+flour,2,음식,2
+focus,2,중2 교과 주제,3
+fog,2,일반 명사,2
+folder,2,장소·사물,2
+follow,1,일상 말,2
+fool,2,일반 명사,3
+football,1,놀이·활동,1
+footballer,2,직업·사람,2
+forbid,3,추상 동사,3
+force,3,추상 명사,3
+foreign,1,일상 개념,3
+foreigner,1,가족·사람,2
+forest,1,자연·동물,1
+forever,2,부사,3
+fork,1,장소·사물,1
+fortunately,3,격식 부사·연결어,3
+fortune,3,추상 명사,3
+forward,3,격식 부사·연결어,3
+frame,3,뜻이 여럿인 말,3
+frank,3,성질·상태 형용사(덜 쓰는 말),3
+free,1,일상 말,3
+freedom,3,추상 명사,3
+freeze,2,일반 동사,3
+fresh,1,감정·상태,1
+fridge,1,장소·사물,1
+fried,1,음식,1
+friendship,2,일반 명사,3
+frighten,3,추상 동사,3
+frightened,3,격식 형용사,3
+frightening,3,격식 형용사,3
+fry,2,일반 동사,1
+fully,3,격식 부사·연결어,3
+function,4,학술·격식 말 — 고등으로,3
+furniture,2,일반 명사,3
+further,4,학술·격식 말 — 고등으로,3
+gallery,2,장소·사물,2
+garage,2,일반 명사,1
+garlic,2,음식,1
+gas,2,일반 명사,2
+gate,2,일반 명사,2
+gather,3,추상 동사,3
+gender,3,추상 명사,3
+generation,3,추상 명사,3
+gentle,2,성질·상태 형용사,3
+girlfriend,x,어린이 앱에 부적절,
+given,4,학술·격식 말 — 고등으로,3
+globe,2,장소·사물,2
+glove,1,장소·사물,1
+goal,1,일상 개념,2
+golden,2,성질·상태 형용사,2
+golf,2,운동·여가,1
+good-looking,2,성질·상태 형용사,2
+government,3,사회·경제 주제,3
+grace,4,학술·격식 말 — 고등으로,3
+grade,2,일반 명사,2
+gradually,3,격식 부사·연결어,3
+graduate,3,추상 동사,3
+gram,2,단위,2
+grammar,1,학교 생활,2
+grandchild,2,직업·사람,2
+granddad,2,직업·사람,2
+granddaughter,2,직업·사람,1
+grandma,1,가족·사람,1
+grandpa,1,가족·사람,1
+grandson,2,직업·사람,1
+granny,2,직업·사람,1
+grateful,2,성질·상태 형용사,3
+greatly,4,학술·격식 말 — 고등으로,3
+greedy,2,성질·상태 형용사,3
+grilled,3,성질·상태 형용사(덜 쓰는 말),3
+grow,1,일상 말,1
+guard,3,뜻이 여럿인 말,3
+guess,1,일상 말,1
+guest,1,가족·사람,2
+guidebook,2,장소·사물,2
+gun,3,사용자 결정: 중등에는 넣음(폭력),3
+guy,1,가족·사람,1
+habit,2,일반 명사,3
+half-price,2,성질·상태 형용사(일상),2
+ham,2,음식,1
+handbag,2,장소·사물,2
+handicapped,4,학술·격식 말 — 고등으로,3
+handle,3,추상 동사,3
+happen,1,일상 말,3
+happily,2,부사,2
+happiness,2,일반 명사,3
+hardly,3,격식 부사·연결어,3
+harm,3,추상 명사,3
+harmful,2,성질·상태 형용사,3
+harmony,3,추상 명사,3
+harvest,3,추상 명사,3
+hate,1,일상 개념,1
+headphone,2,장소·사물,2
+headteacher,3,영국식 말,3
+heat,2,일반 명사,2
+heating,3,덜 쓰는 구체 명사,3
+heavily,3,격식 부사·연결어,3
+heavy,1,일상 말,1
+helpful,1,감정·상태,1
+hero,2,직업·사람,1
+highway,2,일반 명사,2
+hike,2,운동·여가,1
+hiking,2,운동·여가,1
+hit,1,일상 말,1
+hockey,2,운동·여가,1
+honey,1,음식,1
+honor,3,추상 명사,3
+hope,1,일상 말,2
+horror,2,일반 명사,3
+host,3,뜻이 여럿인 말,3
+however,3,격식 부사·연결어,3
+hug,1,놀이·활동,1
+human,3,격식 형용사,3
+hundred,1,시간·숫자,1
+hunter,2,직업·사람,2
+hurry,1,일상 말,2
+ideal,3,추상 명사,3
+ill,3,격식 형용사,3
+illegal,3,격식 형용사,3
+image,3,추상 명사,3
+imagination,3,추상 명사,3
+imagine,2,일반 동사,3
+impact,3,추상 명사,3
+impatient,3,격식 형용사,3
+importance,3,추상 명사,3
+importantly,3,격식 부사·연결어,3
+impossible,2,성질·상태 형용사,3
+impress,3,추상 동사,3
+improve,2,일반 동사,3
+inch,2,단위,2
+include,3,추상 동사,3
+increase,3,추상 동사,3
+indeed,4,학술·격식 말 — 고등으로,3
+independence,3,추상 명사,3
+indoor,2,성질·상태 형용사,3
+inexpensive,3,격식 형용사,3
+influence,3,추상 명사,3
+information,1,일상 개념,3
+injure,3,추상 동사,3
+inner,3,격식 형용사,3
+insect,1,자연·동물,2
+inspiration,3,추상 명사,3
+instant,3,격식 형용사,3
+instead,2,부사,3
+instrument,3,뜻이 여럿인 말,3
+intelligence,3,추상 명사,3
+intelligent,3,격식 형용사,3
+interest,3,추상 명사,3
+interested,1,감정·상태,2
+international,3,격식 형용사,3
+interview,1,학교 생활,3
+interviewer,2,중2 교과 주제,3
+introduce,2,일반 동사,3
+invade,3,추상 동사,3
+invent,2,일반 동사,3
+invention,2,일반 명사,3
+invite,1,놀이·활동,2
+issue,3,추상 명사,3
+item,2,일반 명사,3
+jam,1,음식,1
+jelly,2,음식,1
+join,1,일상 말,2
+joke,1,놀이·활동,1
+journey,2,일반 명사,3
+joy,2,일반 명사,2
+junior,3,격식 형용사,3
+junk,2,장소·사물,2
+kid,1,가족·사람,1
+kill,x,어린이 앱에 부적절,
+killer,3,사용자 결정: 중등에는 넣음(폭력),3
+kilo,2,단위,2
+kilogram,2,단위,2
+kilometer,2,단위,2
+kindly,3,격식 부사·연결어,3
+kingdom,3,덜 쓰는 구체 명사,3
+kiss,1,놀이·활동,1
+kit,2,장소·사물,2
+knock,2,일반 동사,2
+knowledge,3,추상 명사,3
+labor,4,공문서·사회 제도 말 — 고등으로,3
+lack,3,추상 명사,3
+lake,1,자연·동물,1
+lamp,1,장소·사물,1
+land,3,뜻이 여럿인 말,3
+landscape,3,덜 쓰는 구체 명사,3
+lane,2,장소·사물,2
+language,1,학교 생활,2
+latest,3,격식 형용사,3
+latter,4,학술·격식 말 — 고등으로,3
+law,3,사회·경제 주제,3
+lawyer,2,직업·사람,3
+laziness,3,추상 명사,3
+lead,3,추상 동사,3
+leader,1,가족·사람,2
+learner,2,직업·사람,2
+leather,2,장소·사물,2
+left-hand,2,성질·상태 형용사(일상),2
+leisure,3,추상 명사,3
+lemon,1,음식,1
+lemonade,1,음식,1
+lend,2,일반 동사,3
+less,3,격식 부사·연결어,3
+level,3,추상 명사,3
+liberty,4,학술·격식 말 — 고등으로,3
+license,4,공문서·사회 제도 말 — 고등으로,3
+lie,3,추상 동사,3
+lifestyle,3,추상 명사,3
+likely,3,격식 형용사,3
+lip,2,일반 명사,1
+liter,2,단위,2
+lively,3,격식 형용사,3
+living,3,뜻이 여럿인 말(살아 있는·생활),3
+load,3,추상 동사,3
+local,3,격식 형용사,3
+lock,2,일반 동사,2
+logical,3,격식 형용사,3
+loose,3,격식 형용사,3
+lose,1,일상 말,1
+lost,1,일상 말,1
+loudly,2,부사,2
+lover,3,덜 쓰는 구체 명사,3
+low,1,일상 말,1
+luckily,2,부사,3
+lunchtime,1,학교 생활,2
+lyric,2,운동·여가,2
+mad,2,성질·상태 형용사,2
+magazine,1,학교 생활,2
+magic,2,일반 명사,2
+mainly,4,학술·격식 말 — 고등으로,3
+major,3,격식 형용사,3
+make-up,2,일반 명사,2
+maker,3,덜 쓰는 구체 명사,3
+male,3,격식 형용사,3
+mall,1,장소·사물,1
+manage,3,추상 동사,3
+manager,2,직업·사람,3
+manner,4,학술·격식 말 — 고등으로,3
+mark,3,추상 동사,3
+market,1,장소·사물,1
+married,2,성질·상태 형용사,3
+marry,2,일반 동사,2
+marvelous,3,격식 형용사,3
+match,1,놀이·활동,3
+material,3,추상 명사,3
+max,3,과학·전문 주제,3
+meaning,3,추상 명사,3
+medal,2,일반 명사,2
+medical,3,격식 형용사,3
+medicine,2,일반 명사,3
+meeting,1,놀이·활동,2
+melon,1,음식,1
+member,1,가족·사람,2
+memory,2,일반 명사,3
+mention,3,추상 동사,3
+menu,1,장소·사물,1
+merry,1,감정·상태,2
+message,1,장소·사물,1
+metal,3,덜 쓰는 구체 명사,3
+meter,2,일반 명사,2
+method,3,추상 명사,3
+midday,2,장소·사물,2
+midnight,1,시간·숫자,2
+military,4,공문서·사회 제도 말 — 고등으로,3
+million,1,시간·숫자,1
+mirror,1,장소·사물,2
+miss,1,일상 말,3
+missing,2,성질·상태 형용사,3
+mistake,1,학교 생활,1
+mix,2,일반 동사,2
+mobile,1,장소·사물,2
+model,3,추상 명사,3
+modern,3,격식 형용사,3
+mommy,1,가족·사람,1
+mood,3,추상 명사,3
+mosque,3,덜 쓰는 구체 명사,3
+most,2,연결어·전치사,2
+mostly,3,격식 부사·연결어,3
+motorway,3,영국식 말,3
+move,1,일상 말,1
+mug,2,장소·사물,1
+mum,2,사용자 결정: 뜻이 같은 말도 넣음(영국식 엄마),1
+murder,3,사용자 결정: 중등에는 넣음(폭력),3
+museum,1,장소·사물,1
+mushroom,2,음식,1
+musical,2,운동·여가,2
+mysterious,3,격식 형용사,3
+mystery,2,일반 명사,3
+napkin,2,장소·사물,1
+nation,3,추상 명사,3
+national,3,격식 형용사,3
+nationality,2,추상 명사(중2),3
+native,3,격식 형용사,3
+natural,3,격식 형용사,3
+nature,2,일반 명사,3
+nearly,3,격식 부사·연결어,3
+necessary,3,격식 형용사,3
+need,1,일상 말,1
+negative,3,격식 형용사,3
+nervous,2,성질·상태 형용사,3
+net,3,뜻이 여럿인 말,3
+next,1,일상 말,1
+noise,1,일상 개념,2
+noisy,1,감정·상태,1
+noon,1,시간·숫자,1
+normal,3,격식 형용사,3
+north,1,자연·동물,1
+notice,3,추상 동사,3
+noun,2,문법 용어(수업에서 씀),2
+novel,2,일반 명사,3
+nowadays,2,부사,3
+oak,3,덜 쓰는 구체 명사,3
+occupation,4,학술·격식 말 — 고등으로,3
+offer,3,추상 동사,3
+official,4,공문서·사회 제도 말 — 고등으로,3
+oil,2,일반 명사,2
+Olympic,2,고유 이름(올림픽) — 운동 주제,2
+Olympics,2,고유 이름(올림픽) — 운동 주제,2
+omelet,2,음식,2
+onion,1,음식,1
+online,2,성질·상태 형용사,2
+opera,2,중2 교과 주제,2
+operate,4,학술·격식 말 — 고등으로,3
+opinion,3,추상 명사,3
+opportunity,3,추상 명사,3
+oppose,4,학술·격식 말 — 고등으로,3
+opposite,3,격식 형용사,3
+organize,3,추상 동사,3
+organized,3,격식 형용사,3
+original,3,격식 형용사,3
+orphan,3,덜 쓰는 구체 명사,3
+oven,2,장소·사물,1
+overseas,3,격식 형용사,3
+overweight,3,격식 형용사,3
+owner,1,가족·사람,3
+pacific,3,사용자 결정: 되살림(태평양 — 고유 이름),3
+pack,2,일반 동사,3
+painter,2,직업·사람,1
+painting,1,놀이·활동,1
+pair,1,장소·사물,2
+pal,3,덜 쓰는 구체 명사,3
+pan,2,장소·사물,1
+panic,3,추상 명사,3
+pardon,1,구어,3
+part,1,일상 말,2
+partly,4,학술·격식 말 — 고등으로,3
+partner,1,가족·사람,2
+pass,1,일상 말,3
+passage,3,덜 쓰는 구체 명사,3
+passenger,2,직업·사람,3
+pasta,2,음식,1
+path,3,추상 명사,3
+patient,2,몸·건강,3
+pea,2,음식,1
+peaceful,2,성질·상태 형용사,3
+pear,1,음식,1
+pence,4,공문서·사회 제도 말 — 고등으로,3
+penfriend,3,덜 쓰는 구체 명사,3
+pepper,2,음식,1
+perfect,1,일상 말,2
+perfectly,3,격식 부사·연결어,3
+perform,3,추상 동사,3
+performance,3,추상 명사,3
+perfume,2,장소·사물,3
+perhaps,3,격식 부사·연결어,3
+permission,3,추상 명사,3
+personality,3,추상 명사,3
+petrol,3,영국식 말,3
+photograph,2,직접 보는 말(사진·영화),2
+photographer,2,직업·사람,1
+photography,2,운동·여가,2
+physical,3,격식 형용사,3
+physically,4,학술·격식 말 — 고등으로,3
+pile,3,덜 쓰는 구체 명사,3
+pilgrim,3,덜 쓰는 구체 명사,3
+pill,2,몸·건강,2
+pilot,2,직업·사람,1
+pity,3,추상 명사,3
+plan,1,일상 개념,1
+plane,1,장소·사물,1
+planet,1,자연·동물,2
+plant,1,자연·동물,3
+plastic,2,성질·상태 형용사,2
+plate,1,장소·사물,1
+playful,3,격식 형용사,3
+playground,1,장소·사물,1
+pleasant,3,격식 형용사,3
+pleased,2,성질·상태 형용사,3
+pleasing,3,격식 형용사,3
+pleasure,2,추상 명사(중2),3
+plenty,3,추상 명사,3
+plural,3,문법 용어,3
+plus,3,격식 부사·연결어,3
+poem,1,학교 생활,1
+police,1,가족·사람,1
+policeman,2,직업·사람,1
+policewoman,2,직업·사람,2
+polite,1,감정·상태,3
+political,4,공문서·사회 제도 말 — 고등으로,3
+pollute,3,추상 동사,3
+pollution,2,중2 교과 주제,3
+pop,1,구어,2
+popular,1,감정·상태,2
+population,3,추상 명사,3
+portrait,3,덜 쓰는 구체 명사,3
+position,3,추상 명사,3
+possible,3,격식 형용사,3
+possibly,3,격식 부사·연결어,3
+pour,2,일반 동사(일상 동작),2
+power,2,일반 명사,3
+powerful,2,성질·상태 형용사,3
+pray,2,중2 교과 주제,3
+precise,4,학술·격식 말 — 고등으로,3
+prediction,3,추상 명사,3
+prefer,2,일반 동사,3
+prepare,2,일반 동사,3
+pressure,3,추상 명사,3
+pretend,2,일반 동사,3
+prevent,3,추상 동사,3
+pride,3,추상 명사,3
+principal,4,학술·격식 말 — 고등으로,3
+print,2,일반 동사,2
+printer,2,장소·사물,1
+private,3,격식 형용사,3
+pro,3,덜 쓰는 구체 명사,3
+probably,3,격식 부사·연결어,3
+produce,3,추상 동사,3
+product,3,사회·경제 주제,3
+production,4,공문서·사회 제도 말 — 고등으로,3
+professional,3,격식 형용사,3
+progressive,4,학술·격식 말 — 고등으로,3
+promise,2,일반 동사,3
+pronounce,2,일반 동사,3
+pronunciation,2,문법 용어(수업에서 씀),3
+proper,3,격식 형용사,3
+provide,3,추상 동사,3
+psychologist,3,덜 쓰는 구체 명사,3
+public,3,격식 형용사,3
+publish,3,추상 동사,3
+pull,1,일상 말,1
+punctuation,3,문법 용어,3
+purpose,3,추상 명사,3
+quality,3,추상 명사,3
+quarter,2,추상 명사(중2),3
+queen,2,직업·사람,1
+quick,1,일상 말,1
+quickly,1,일상 말,1
+quietly,2,부사,2
+quit,3,추상 동사,3
+quite,3,격식 부사·연결어,3
+quiz,1,놀이·활동,1
+racket,2,장소·사물,2
+raincoat,1,옷,1
+raise,3,추상 동사,3
+range,3,추상 명사,3
+rap,2,운동·여가,1
+rate,4,학술·격식 말 — 고등으로,3
+rather,3,격식 부사·연결어,3
+rating,3,추상 명사,3
+raw,3,격식 형용사,3
+ray,3,과학·전문 주제,3
+reach,3,추상 동사,3
+reader,1,학교 생활,1
+reading,1,학교 생활,1
+realize,2,일반 동사,3
+really,1,일상 말,1
+reason,1,일상 개념,3
+receipt,2,장소·사물,3
+receive,2,일반 동사,3
+recent,3,격식 형용사,3
+recently,2,부사,3
+receptionist,3,덜 쓰는 구체 명사,3
+record,3,추상 명사,3
+recycle,2,일반 동사,3
+refer,4,학술·격식 말 — 고등으로,3
+refrigerator,2,장소·사물,2
+regret,3,추상 동사,3
+regular,3,격식 형용사,3
+regularly,3,격식 부사·연결어,3
+relax,1,놀이·활동,2
+relaxed,2,성질·상태 형용사,3
+release,3,추상 동사,3
+remain,3,추상 동사,3
+remind,2,일반 동사,3
+remote,3,격식 형용사,3
+rent,2,일반 동사(일상 동작),3
+repair,2,일반 동사,3
+repeat,1,일상 말,2
+replace,3,추상 동사,3
+reply,2,일반 동사,3
+report,3,추상 동사,3
+reporter,2,직업·사람,2
+represent,4,학술·격식 말 — 고등으로,3
+request,3,추상 동사,3
+response,3,추상 명사,3
+result,2,추상 명사(중2),3
+retire,3,추상 동사,3
+retired,3,격식 형용사,3
+return,3,추상 동사,3
+reunion,3,덜 쓰는 구체 명사,3
+reveal,3,추상 동사,3
+rhythm,3,추상 명사,3
+right-hand,2,성질·상태 형용사(일상),2
+road,1,장소·사물,1
+roast,2,음식,2
+rob,3,추상 동사,3
+robbery,3,사회·경제 주제,3
+robin,3,덜 쓰는 구체 명사,3
+rock,1,자연·동물,1
+roll,2,일반 동사,3
+romance,3,추상 명사,3
+romantic,3,격식 형용사,3
+roof,1,장소·사물,1
+root,3,뜻이 여럿인 말,3
+rope,2,장소·사물,2
+roughly,4,학술·격식 말 — 고등으로,3
+round,2,성질·상태 형용사,2
+roundabout,3,영국식 말,3
+row,1,장소·사물,3
+royal,3,격식 형용사,3
+rude,1,감정·상태,3
+rugby,2,운동·여가,2
+ruin,3,추상 동사,3
+rule,1,학교 생활,1
+rumor,3,추상 명사,3
+runner,2,직업·사람,1
+running,2,운동·여가,1
+rush,3,추상 동사,3
+sadly,2,부사,2
+safe,1,감정·상태,1
+sailing,2,운동·여가,2
+sake,3,추상 명사,3
+salt,1,음식,1
+sample,3,추상 명사,3
+sandy,2,성질·상태 형용사(일상),2
+satisfy,3,추상 동사,3
+sauce,2,음식,1
+sausage,1,음식,1
+save,1,일상 말,3
+saw,3,철자가 같은 다른 말(톱·see 과거),3
+scale,3,추상 명사,3
+scarf,1,장소·사물,1
+scene,3,추상 명사,3
+scenery,3,덜 쓰는 구체 명사,3
+schedule,2,일반 명사,3
+schoolchild,2,직업·사람,2
+schoolwork,2,학교 생활,2
+scientific,3,격식 형용사,3
+scissors,1,장소·사물,2
+scream,2,일반 동사,2
+screen,2,일반 명사,2
+screw,3,덜 쓰는 구체 명사,3
+script,3,덜 쓰는 구체 명사,3
+seafood,2,음식,1
+search,3,추상 동사,3
+seaside,2,장소·사물,2
+secret,2,일반 명사,3
+secretary,4,공문서·사회 제도 말 — 고등으로,3
+seed,2,일반 명사,2
+seek,4,학술·격식 말 — 고등으로,3
+seem,3,추상 동사,3
+self,3,추상 명사,3
+semester,2,일반 명사,3
+send,1,일상 말,1
+senior,3,격식 형용사,3
+sense,3,추상 명사,3
+sentence,1,학교 생활,2
+separate,3,격식 형용사,3
+seriously,3,격식 부사·연결어,3
+serve,3,추상 동사,3
+sew,3,추상 동사,3
+shade,3,덜 쓰는 구체 명사,3
+shadow,2,일반 명사,3
+shampoo,1,장소·사물,1
+shape,2,일반 명사,2
+shell,2,일반 명사,2
+shine,2,일반 동사,2
+shock,3,추상 명사,3
+shoot,2,일반 동사,2
+shopping,1,놀이·활동,1
+shore,2,장소·사물,3
+shot,3,덜 쓰는 구체 명사,3
+shout,2,일반 동사,2
+shut,2,일반 동사,2
+sight,2,추상 명사(중2),3
+sightseeing,2,운동·여가,2
+sign,2,일반 명사,3
+silence,3,추상 명사,3
+silently,3,격식 부사·연결어,3
+silly,2,성질·상태 형용사,2
+silver,2,일반 명사,2
+simple,1,일상 말,2
+simply,3,격식 부사·연결어,3
+since,3,격식 부사·연결어,3
+singing,1,놀이·활동,1
+single,3,격식 형용사,3
+singular,3,문법 용어,3
+sink,3,추상 동사,3
+sir,1,가족·사람,2
+situation,3,추상 명사,3
+skate,1,놀이·활동,1
+skateboarding,2,운동·여가,2
+skating,2,운동·여가,1
+ski,1,놀이·활동,1
+skiing,2,운동·여가,1
+skill,2,추상 명사(중2),3
+slave,3,사회·경제 주제,3
+sleepless,3,격식 형용사,3
+sleepy,1,감정·상태,1
+slice,2,장소·사물,2
+slide,2,일반 동사,2
+slim,2,성질·상태 형용사(일상),2
+slowly,1,일상 말,1
+smith,3,사용자 결정: 되살림(대장장이 — 성으로 많이 쓰임),3
+smoke,x,어린이 앱에 부적절,
+smoking,x,어린이 앱에 부적절,
+smooth,3,격식 형용사,3
+smoothly,3,격식 부사·연결어,3
+snack,1,음식,1
+snowboarding,2,운동·여가,2
+soap,1,장소·사물,1
+society,3,사회·경제 주제,3
+sock,1,장소·사물,1
+soda,2,음식,1
+soft,1,감정·상태,1
+softly,3,격식 부사·연결어,3
+software,2,컴퓨터·매체,2
+soldier,2,일반 명사,2
+solution,3,추상 명사,3
+solve,2,일반 동사,3
+someday,2,부사,1
+somewhere,2,부사,2
+sound,1,일상 말,1
+source,3,추상 명사,3
+south,1,자연·동물,1
+space,3,추상 명사,3
+spaceship,2,장소·사물,2
+spaghetti,1,음식,1
+speaker,2,일반 명사,2
+specific,4,학술·격식 말 — 고등으로,3
+speed,2,일반 명사,2
+spend,2,일반 동사,3
+spill,2,일반 동사(일상 동작),2
+splash,3,추상 동사,3
+split,3,추상 동사,3
+spoon,1,장소·사물,1
+spot,2,중2 교과 주제,3
+spread,3,추상 동사,3
+square,3,뜻이 여럿인 말,3
+stadium,1,장소·사물,2
+staff,3,사회·경제 주제,3
+stair,2,장소·사물,1
+stamp,2,일반 명사,2
+state,3,사회·경제 주제,3
+statement,4,학술·격식 말 — 고등으로,3
+statue,2,장소·사물,3
+steak,2,음식,1
+steal,2,일반 동사,3
+stomach,1,몸·건강,1
+stomachache,1,몸·건강,1
+store,1,장소·사물,1
+storm,2,일반 명사,2
+stove,2,장소·사물,2
+strange,1,일상 말,2
+stranger,2,일반 명사,3
+strength,3,추상 명사,3
+strict,2,성질·상태 형용사,3
+strike,3,추상 동사,3
+string,3,뜻이 여럿인 말,3
+strongly,3,격식 부사·연결어,3
+stuff,2,장소·사물,3
+style,3,추상 명사,3
+succeed,3,추상 동사,3
+success,2,일반 명사,3
+successfully,3,격식 부사·연결어,3
+sudden,3,격식 형용사,3
+suggest,2,일반 동사,3
+suggestion,2,추상 명사(중2),3
+suit,2,장소·사물,3
+suitable,3,격식 형용사,3
+suitcase,2,장소·사물,1
+summary,3,추상 명사,3
+sunflower,2,장소·사물,1
+sunglasses,1,장소·사물,1
+sunlight,2,장소·사물,2
+superlative,3,문법 용어,3
+superstar,2,직업·사람,2
+supper,2,음식,2
+support,3,추상 동사,3
+surfing,2,운동·여가,2
+surname,2,학교 생활,3
+surprised,1,감정·상태,1
+surprising,2,성질·상태 형용사,3
+survive,3,추상 동사,3
+swallow,2,일반 동사(일상 동작),3
+sweat,2,일반 명사,3
+sweater,1,옷,1
+sweetheart,3,덜 쓰는 구체 명사,3
+swimming,1,놀이·활동,1
+swimsuit,2,장소·사물,2
+symbol,3,덜 쓰는 구체 명사,3
+symphony,3,덜 쓰는 구체 명사,3
+system,3,추상 명사,3
+tablespoon,2,장소·사물,2
+talent,2,일반 명사,3
+tap,2,장소·사물,3
+tape,2,장소·사물,1
+target,3,추상 명사,3
+task,3,추상 명사,3
+tear,2,일반 동사,3
+technology,2,추상 명사(중2),3
+teenage,2,성질·상태 형용사(일상),2
+teenager,1,가족·사람,1
+telephone,1,장소·사물,1
+temperature,2,일반 명사,3
+temple,2,일반 명사,2
+terrify,3,추상 동사,3
+terrorist,3,사용자 결정: 중등에는 넣음(폭력),3
+text,3,추상 명사,3
+textbook,1,학교 생활,2
+thanks,1,구어,1
+therefore,4,학술·격식 말 — 고등으로,3
+thick,1,일상 말,2
+thief,2,일반 명사,3
+third,1,시간·숫자,1
+thirsty,1,감정·상태,2
+though,3,격식 부사·연결어,3
+thought,3,추상 명사,3
+thousand,1,시간·숫자,1
+thunderstorm,2,장소·사물,2
+tidy,2,성질·상태 형용사,3
+tie,2,일반 동사,3
+tight,1,일상 말,3
+tights,2,장소·사물,2
+till,3,격식 부사·연결어,3
+timetable,2,장소·사물,2
+tip,2,일반 명사,3
+title,3,추상 명사,3
+toast,1,음식,1
+toe,1,몸·건강,1
+tone,3,추상 명사,3
+tool,1,장소·사물,2
+toothache,1,몸·건강,1
+toothbrush,1,장소·사물,1
+topic,2,일반 명사,3
+tour,2,일반 명사,2
+tourist,2,직업·사람,2
+toward,3,격식 부사·연결어,3
+track,3,뜻이 여럿인 말,3
+trade,3,사회·경제 주제,3
+tradition,3,추상 명사,3
+traditional,2,성질·상태 형용사,3
+traffic,2,일반 명사,3
+training,3,추상 명사,3
+tram,3,덜 쓰는 구체 명사,3
+trap,2,장소·사물,2
+traveler,2,직업·사람,2
+treasure,2,일반 명사,3
+trick,2,일반 명사,3
+trouble,2,일반 명사,3
+trousers,1,사용자 결정: 뜻이 같은 말도 넣음(영국식 바지),1
+truly,3,격식 부사·연결어,3
+trust,3,추상 동사,3
+truth,3,추상 명사,3
+tube,2,중2 교과 주제,2
+tune,3,덜 쓰는 구체 명사,3
+twice,1,일상 말,2
+uncertain,3,격식 형용사,3
+uncomfortable,3,격식 형용사,3
+underline,2,학교 생활,2
+understand,1,일상 말,1
+underwater,2,일반 명사,2
+uneasy,3,격식 형용사,3
+unfair,3,격식 형용사,3
+unforgettable,3,격식 형용사,3
+unfortunately,3,격식 부사·연결어,3
+unhappy,2,성질·상태 형용사,2
+unhealthy,3,격식 형용사,3
+uniform,2,장소·사물,2
+unimportant,3,격식 형용사,3
+unit,3,추상 명사,3
+university,1,학교 생활,2
+unknown,3,격식 형용사,3
+unlike,3,격식 부사·연결어,3
+unnecessary,3,격식 형용사,3
+unpleasant,3,격식 형용사,3
+unusual,3,격식 형용사,3
+upon,4,학술·격식 말 — 고등으로,3
+upset,2,성질·상태 형용사,3
+upstairs,1,장소·사물,1
+used,3,used to 용법,3
+useful,1,감정·상태,2
+usual,3,격식 형용사,3
+valley,2,일반 명사,3
+value,3,추상 명사,3
+verb,2,문법 용어(수업에서 씀),2
+view,3,추상 명사,3
+village,1,장소·사물,2
+violent,3,격식 형용사,3
+violin,1,장소·사물,1
+visitor,2,일반 명사,3
+vocabulary,2,일반 명사,3
+voice,1,일상 개념,2
+vote,2,일반 명사,3
+walking,1,놀이·활동,1
+wallet,2,장소·사물,1
+wander,3,추상 동사,3
+war,x,어린이 앱에 부적절,
+washing-up,3,영국식 말,3
+wave,3,뜻이 여럿인 말,3
+weak,2,성질·상태 형용사,2
+wealth,3,추상 명사,3
+web,2,컴퓨터·매체,2
+website,2,장소·사물,2
+wedding,2,운동·여가,2
+weekday,2,운동·여가,2
+weekly,3,격식 형용사,3
+weep,3,추상 동사,3
+weigh,3,추상 동사,3
+weight,2,일반 명사,3
+well-known,3,격식 형용사,3
+west,1,자연·동물,1
+wet,1,감정·상태,1
+wheelchair,2,장소·사물,2
+while,3,격식 부사·연결어,3
+whole,3,격식 형용사,3
+wide,2,성질·상태 형용사,2
+widely,4,학술·격식 말 — 고등으로,3
+wild,2,성질·상태 형용사,2
+windy,1,자연·동물,1
+wine,3,사용자 결정: 중등에는 넣음(술),3
+winner,2,직업·사람,2
+wisdom,3,추상 명사,3
+wise,2,성질·상태 형용사,3
+within,4,학술·격식 말 — 고등으로,3
+without,2,연결어·전치사,2
+wonder,2,일반 동사,3
+wood,2,일반 명사,1
+wooden,2,성질·상태 형용사,2
+wool,2,장소·사물,2
+worldwide,3,격식 형용사,3
+worried,1,감정·상태,3
+worse,2,성질·상태 형용사,3
+worst,2,성질·상태 형용사,2
+writing,2,일반 명사,1
+yard,1,장소·사물,1
+yeah,2,구어,1
+youth,3,추상 명사,3
+zone,3,추상 명사,3

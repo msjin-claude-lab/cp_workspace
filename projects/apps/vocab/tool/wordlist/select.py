@@ -21,11 +21,13 @@
 
 --stage middle (2차 — 중등 700개)
   후보 = A1 + A2 중 elementary.csv에 없고 overlap.csv의 고등 줄에도 없는 것(candidates-middle.csv).
-  tiers-middle.csv(단어, 단계, 이유)는 후보와 정확히 맞아야 한다. 없으면 후보까지만 만든다.
+  tiers-middle.csv(단어, 단계, 이유, 난이도)는 후보와 정확히 맞아야 한다. 없으면 후보까지만 만든다.
   단계는 1·2·3·4·x. 4는 학술·격식·공문서 말로 중등에서 맨 뒤로 미룬다(대개 뽑히지 않고 고등 3차에서 쓴다).
   A1에는 4를 쓰지 않는다(A1은 전부 뽑힌다). 단계는 숫자로 비교한다.
   뽑기: 단계가 x가 아닌 A1 전부 + A2를 (단계, 빈도 순위, 알파벳) 순으로 700개가 될 때까지.
-  칸 배정: 뽑힌 700개를 (단계, 빈도 순위, 알파벳)으로 세워 앞에서부터 234 · 233 · 233(middle.csv).
+  난이도(difficulty)는 1·2·3이고 x가 아닌 줄에는 반드시 있어야 한다(없거나 다른 값이면 종료 코드 1).
+  단계는 뽑기에, 난이도는 칸 나누기에 쓴다(2026-11-24 사용자 결정 — 실제로 얼마나 어려운가로 칸을 나눈다).
+  칸 배정: 뽑힌 700개를 (난이도, 빈도 순위, 알파벳)으로 세워 앞에서부터 234 · 233 · 233(middle.csv).
 
 --freq 없이 돌리면 후보 파일까지만 만든다. 같은 입력이면 늘 같은 결과가 나온다(정렬 순서 고정).
 끝에 검사(개수·중복·다른 학교급과 겹침)를 하고, 어긋나면 종료 코드 1.
@@ -170,7 +172,7 @@ def read_tiers(name, candidates, allowed):
     path = OUT / name
     if not path.exists():
         return None
-    for word, tier, reason in read_rows(path):
+    for word, tier, reason, *_ in read_rows(path):  # 중등 파일의 넷째 열(difficulty)은 middle()이 읽는다
         tiers[word.lower()] = tier
         reasons[word.lower()] = reason
     unknown = sorted(set(tiers) - {w.lower() for w in candidates})
@@ -311,6 +313,12 @@ def middle(args, kept):
         print("tiers-middle.csv가 없어 여기까지만 한다(candidates-middle.csv). middle.csv는 쓰지 않는다.")
         return
     tiers, reasons = loaded
+    # 칸 나누기 난이도(넷째 열): x가 아닌 줄은 1·2·3이어야 한다
+    difficulty = {r[0].lower(): (r[3] if len(r) > 3 else "") for r in read_rows(OUT / "tiers-middle.csv")}
+    bad = sorted(w for w, t in tiers.items() if t != "x" and difficulty[w] not in ("1", "2", "3"))
+    if bad:
+        print(f"검사 실패:\n  difficulty가 1·2·3이 아닌 줄 {len(bad)}개 {bad[:10]}")
+        sys.exit(1)
 
     def order(w):
         # 단계는 숫자로 비교한다(4 = 학술·격식 말, 맨 뒤)
@@ -326,18 +334,23 @@ def middle(args, kept):
     if len(a1) + len(a2) < total or len(a1) > total:
         print(f"검사 실패:\n  쓸 수 있는 후보 A1 {len(a1)} · A2 {len(a2)}개(필요 {total})")
         sys.exit(1)
-    chosen = sorted(a1 + a2[: total - len(a1)], key=order)
+    # 칸 배정은 단계가 아니라 난이도로(2026-11-24 사용자 결정 — 단계는 뽑기에만 쓴다)
+    chosen = sorted(
+        a1 + a2[: total - len(a1)],
+        key=lambda w: (int(difficulty[w.lower()]), rank.get(w.lower(), NO_RANK), w.lower()),
+    )
     print(f"뽑은 것: A1 {len(a1)}개 + A2 {total - len(a1)}개 · 남는 A2 {len(a2) - (total - len(a1))}개(고등으로)")
+    print(f"뽑은 것의 난이도: {dict(sorted(Counter(difficulty[w.lower()] for w in chosen).items()))}")
 
     rows, pos = [], 0
     for cell, target in MIDDLE:
         for word in chosen[pos: pos + target]:
             key = word.lower()
-            rows.append((word, level[key], rank.get(key, ""), tiers[key], cell, reasons[key]))
+            rows.append((word, level[key], rank.get(key, ""), tiers[key], difficulty[key], cell, reasons[key]))
         pos += target
-    write_csv("middle.csv", ["word", "level", "freq_rank", "tier", "cell", "tier_reason"], rows)
+    write_csv("middle.csv", ["word", "level", "freq_rank", "tier", "difficulty", "cell", "tier_reason"], rows)
 
-    check_rows(rows, MIDDLE, 4, "중등", elem | high, "초등·고등")
+    check_rows(rows, MIDDLE, 5, "중등", elem | high, "초등·고등")
     print(f"middle.csv {len(rows)}줄 — 검사 통과")
 
 
