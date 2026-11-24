@@ -107,3 +107,25 @@ w-2351|example|Her prediction that our team would win the final came true.|weath
 w-2351|exampleMeaning|우리 팀이 결승에서 이길 거라는 그녀의 예측이 맞았다.|위 예문에 맞춤
 w-2403|example|Cherry trees bloom in spring in most parts of Korea.|서울·중부의 벚꽃은 대개 4월 초라 이른 봄(3월)으로 읽히는 early spring은 지역에 따라 맞지 않음. 봄으로 넓혀 사실 오류 가능성을 없앰
 w-2403|exampleMeaning|한국 대부분 지역에서 벚나무는 봄에 꽃이 핀다.|위 예문에 맞춤
+# --- high_hard 앞 300개(2026-11-24 code-reviewer, COMMENT) ---
+w-2575|meaning|중요한, 의미 있는, (양·정도가) 상당한|수능 핵심 뜻 상당한(significant increase·significant amount)이 빠짐. considerable·substantial과는 유사어 쌍으로 묶어 보기에서 가름
+w-2670|meaning|얻다, (체중 등이) 늘다, 이득|gain의 핵심 뜻 얻다(gain experience·gain popularity)가 빠지고 (경험 등을) 쌓다가 맨 앞에 와 어색함. 늘다만 홀로 두면 increase로 오해됨
+w-2633|meaning|획득하다, 입수하다|얻다를 더 흔히 쓰는 gain에 넘김. obtain은 격식어라 획득하다·입수하다(obtain information)가 맞음. gain과는 유사어 쌍
+w-2549|meaning|군사의, 군대의, 군대|군의는 軍醫(군의관)로 읽혀 오해됨. 명사 the military(군대)는 수능 빈출인데 force에 가 있었음
+w-2525|meaning|힘, 강요하다, 무력|군대를 military에 넘김. use of force(무력 사용)는 force의 흔한 쓰임이고 armed forces는 armed 칸이 맡음
+w-2605|meaning|걱정하는, 염려하는, (be concerned with) ~와 관련된|수능 핵심 뜻 관련된(be concerned with·the people concerned)이 빠짐. involved(관련된)와는 유사어 쌍으로 묶음
+w-2562|meaning|요금, (요금을) 받다, (in charge of) ~을 맡은|담당만 홀로 쓰면 어색하고 수능 핵심 in charge of가 안 드러남. 부과하다는 세금 쪽 말이라 예문(charge students for entry = 입장료를 받다)과 맞지 않음
+w-2570|meaning|범위, 한도, (to some extent) 어느 정도|to some extent(어느 정도)는 수능 빈출 표현인데 빠짐. degree의 정도와 글자가 다르고 두 단어는 유사어 쌍
+w-2706|meaning|특징, 특집 기사, (~을) 특징으로 하다|특징으로 삼다는 어색함(feature가 동사일 때 우리말 사전 풀이는 ~을 특징으로 하다·주연으로 하다)
+w-2738|example|Many people in history gave their lives for liberty and equality.|Statue of Liberty는 고유 명사라 liberty(자유)의 쓰임이 드러나지 않음(숙어·이름으로 쓴 예문)
+w-2738|exampleMeaning|역사 속 많은 사람이 자유와 평등을 위해 목숨을 바쳤다.|위 예문에 맞춤
+w-2751|example|Armed guards protect the president day and night.|armed forces는 굳은 말(군대)이라 해석에 무장한이 나오지 않음
+w-2751|exampleMeaning|무장한 경호원들이 밤낮으로 대통령을 지킨다.|위 예문에 맞춤
+w-2502|exampleMeaning|모든 생명체는 살아남기 위해 물과 에너지가 필요하다.|살아 있는 생명체는 겹말(living being = 생명체)
+w-2568|exampleMeaning|마틴 루서 킹 주니어는 아프리카계 미국인의 민권을 위해 싸웠다.|civil rights는 민권(시민권은 우리말에서 citizenship의 뜻으로 읽힘)
+w-2734|meaning|시설, 설비, 편의 시설|(어학 등의) 재능은 고등에 드문 뜻. facilities(편의 시설)가 수능의 흔한 쓰임
+w-2723|example|Students must understand the consequences of cheating on an exam.|the consequences of ~가 굳은 쓰임(단수 the consequence of cheating은 어색함)
+w-2511|exampleMeaning|그 신약을 안전하게 쓰려면 추가 연구가 필요하다.|더 이상의 연구는 부정문 말투라 어색함(further research = 추가 연구)
+w-2594|exampleMeaning|그 강당의 수용 인원은 전교생이 들어가기에 너무 적다.|좌석 수용력은 어색함(seating capacity = 좌석 수·수용 인원)
+w-2677|exampleMeaning|오랜 가뭄 때문에 호수의 깊이가 줄었다.|깊이가 얕아졌다는 어색함
+w-2536|meaning|기초, 근거, (on a ~ basis) ~ 단위로|on a daily·regular basis(매일·정기적으로)는 수능 빈출인데 빠짐. 기준은 standard에 있어 못 씀

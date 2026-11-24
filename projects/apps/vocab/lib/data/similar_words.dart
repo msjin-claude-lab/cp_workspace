@@ -361,6 +361,115 @@ const List<(String, String)> similarWordPairs = [
   ('pleasant', 'pleasing'), // please
   ('expense', 'inexpensive'), // expensive
   ('base', 'basically'), // basic
+  // 고등 어려움 앞 300개(2026-11-24 검토) — 뜻이 거의 같음
+  ('thus', 'therefore'), // 따라서 / 그러므로
+  ('thus', 'consequently'), // 따라서 / 결과적으로
+  ('therefore', 'consequently'), // 그러므로 / 그 결과
+  ('moreover', 'furthermore'), // 게다가 / 더욱이
+  ('further', 'additional'), // 더 이상의 / 추가적인
+  ('considerable', 'substantial'), // 상당한 / 상당량의
+  ('significant', 'considerable'), // (양·정도가) 상당한 / 상당한
+  ('significant', 'substantial'), // (양·정도가) 상당한 / 상당량의
+  ('significant', 'critical'), // 중요한 / 중대한
+  ('significant', 'principal'), // 중요한 / 주요한
+  ('influence', 'affect'), // 영향 / 영향을 미치다
+  ('influence', 'impact'), // 영향 / (강한) 영향
+  ('impact', 'affect'), // (강한) 영향 / 영향을 미치다
+  ('obtain', 'gain'), // 획득하다 / 얻다
+  ('gain', 'benefit'), // 이득 / 이익
+  ('occur', 'arise'), // 발생하다 / 생기다
+  ('apparent', 'evident'), // 명백한 / 분명한
+  ('presence', 'existence'), // 있음 / 존재
+  ('being', 'existence'), // 존재하는 것 / 존재
+  ('potential', 'possibility'), // 잠재력 / 가능성
+  ('possibility', 'probability'), // 가능성 / 개연성
+  ('demand', 'require'), // 요구하다 / (규칙으로) 요구하다
+  ('fund', 'finance'), // 자금을 대다 / 자금을 조달하다
+  ('committee', 'council'), // 위원회 / 협의회
+  ('feature', 'characteristic'), // 특징 / 특성
+  ('property', 'characteristic'), // (물질의) 성질 / 특성
+  ('property', 'possession'), // 재산 / 소유물
+  ('property', 'wealth'), // 재산 / 부
+  ('degree', 'extent'), // 정도 / (to some extent) 어느 정도
+  ('occupation', 'profession'), // 직업 / 전문직
+  ('basis', 'foundation'), // 기초 / 토대
+  ('association', 'institute'), // 협회 / 학회
+  ('agency', 'organization'), // 기관 / 기구
+  ('administration', 'management'), // 운영 / 관리
+  ('despite', 'nevertheless'), // ~에도 불구하고 / 그럼에도 불구하고
+  ('represent', 'indicate'), // 표현하다 / 나타내다
+  ('refer', 'indicate'), // 지칭하다 / 가리키다
+  ('state', 'status'), // 상태 / (진행) 상황
+  ('position', 'status'), // 직위 / 지위
+  ('security', 'stable'), // 안정 / 안정된
+  ('decline', 'reduction'), // 감소하다 / 감소
+  ('composition', 'constitute'), // 구성 / 구성하다
+  ('establish', 'foundation'), // 설립하다 / 설립
+  ('establish', 'prove'), // 입증하다 / 증명하다
+  ('claim', 'maintain'), // 주장하다 / (계속) 주장하다
+  ('concern', 'involved'), // 관련되다 / 관련된
+  ('concerned', 'involved'), // ~와 관련된 / 관련된
+  ('relation', 'involved'), // 관련 / 관련된
+  ('relation', 'concern'), // 관련 / 관련되다
+  ('consideration', 'reflect'), // 숙고 / 숙고하다
+  ('function', 'operation'), // 작동하다 / 작동
+  ('process', 'treatment'), // 처리하다 / 처리
+  ('absolute', 'fully'), // 완전한 / 완전히
+  ('fully', 'sufficient'), // 충분히 / 충분한
+  ('appropriate', 'moderate'), // 적절한 / 적당한
+  ('superior', 'outstanding'), // 우수한 / 뛰어난
+  ('distinction', 'outstanding'), // 뛰어남 / 뛰어난
+  ('distinction', 'discrimination'), // 구별 / 식별
+  ('wisdom', 'intelligence'), // 지혜 / 지성
+  ('spiritual', 'psychological'), // 정신적인 / 심리적인
+  ('effective', 'efficiency'), // 효과적인 / 효율
+  ('capable', 'capacity'), // 유능한 / 능력
+  ('intention', 'objective'), // 목적 / 목표
+  ('otherwise', 'unless'), // 그렇지 않으면 / ~하지 않으면
+  ('presence', 'attend'), // 출석 / 참석하다
+  ('relatively', 'comparative'), // 비교적 / 비교의
+  ('mutual', 'interaction'), // 상호의 / 상호 작용
+  ('contrary', 'objection'), // 반대의 / 반대
+  ('contrary', 'object'), // 반대의 / 반대하다
+  // 고등 어려움 앞 300개 — 어원이 같음(further/furthermore는 합성어라 넣지 않음)
+  ('state', 'statement'),
+  ('industry', 'industrial'),
+  ('finance', 'financial'),
+  ('employment', 'unemployment'), // employ
+  ('secure', 'security'),
+  ('relation', 'relative'), // relate
+  ('relation', 'relatively'), // relate
+  ('relative', 'relatively'),
+  ('object', 'objection'),
+  ('object', 'objective'),
+  ('objection', 'objective'), // object
+  ('determine', 'determination'),
+  ('maintain', 'maintenance'),
+  ('represent', 'representative'),
+  ('constitute', 'constitution'),
+  ('independent', 'independence'), // depend
+  ('dependent', 'independent'), // depend
+  ('dependent', 'independence'), // depend
+  ('significant', 'significance'), // signify
+  ('contribute', 'contribution'),
+  ('apparent', 'apparently'),
+  ('accurate', 'accuracy'),
+  ('tend', 'tendency'),
+  ('associate', 'association'),
+  ('comparison', 'comparative'), // compare
+  ('concern', 'concerned'),
+  ('regard', 'regarding'),
+  ('consumer', 'consumption'), // consume
+  ('consideration', 'considerable'), // consider
+  ('require', 'requirement'),
+  ('assist', 'assistance'),
+  ('mere', 'merely'),
+  ('consequence', 'consequently'),
+  // 고등 어려움 앞 300개 — 우리말 뜻 글자가 같은 동음이의어
+  ('justice', 'define'), // 정의(正義) / 정의(定義)하다
+  ('regulation', 'define'), // 규정(규칙) / 규정하다
+  ('formula', 'official'), // 공식 / 공식적인
+  ('former', 'transfer'), // 이전(以前)의 / 이전(移轉)
 ];
 
 final Map<String, Set<String>> _partners = () {
