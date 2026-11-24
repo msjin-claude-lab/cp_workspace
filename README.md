@@ -90,12 +90,12 @@ mvn -q test     # 41개 모두 통과 (과제 9 완료 후. 처음은 13개 통�
 
 초·중·고 학생용 영단어 앱(Flutter, 지금은 안드로이드만 — iOS는 보류). 학교급 × 난이도로 이름 붙인 단어장을 만들어 카드 학습·4지선다 시험·오답 노트를 하고 진도를 본다. 계정 없이 기록은 기기 안에만 둔다.
 
-- 단어: 초등 800개(쉬움 267 · 중간 267 · 어려움 266, CEFR-J Wordlist 기준 — 2026-11-24), 중등 700개(CEFR-J 기준, 234 · 233 · 233), 고등은 칸당 50개(늘릴 예정)
+- 단어: 초등 800개(쉬움 267 · 중간 267 · 어려움 266, CEFR-J Wordlist 기준 — 2026-11-24), 중등 700개(CEFR-J 기준, 234 · 233 · 233), 고등 1,500개(CEFR-J 기준, 500 · 500 · 500 — 2026-11-24)
 - 규칙·명령·코드 구조는 [vocab/CLAUDE.md](projects/apps/vocab/CLAUDE.md), 지금 상태와 다음 할 일은 [vocab/HANDOFF.md](projects/apps/vocab/HANDOFF.md), 검증 방법과 마지막 결과는 [vocab/VERIFY.md](projects/apps/vocab/VERIFY.md)
 
 ```bash
 cd projects/apps/vocab
-flutter analyze && flutter test     # 168개 통과 (2026-11-23)
+flutter analyze && flutter test     # 170개 통과 (2026-11-24)
 flutter build apk --debug
 ```
 
@@ -105,7 +105,7 @@ flutter build apk --debug
 
 워크스페이스 쪽은 [HANDOFF.md](HANDOFF.md)에 PC별로, 앱은 그 앱의 `HANDOFF.md`에 정리돼 있다. 요약:
 
-- 영단어 앱: 단어 늘리기 2차(중등 700) · 3차(고등 1,500 + 심화), 출시 준비(앱 이름·아이콘·서명 키) — [vocab/HANDOFF.md](projects/apps/vocab/HANDOFF.md) "이어서 할 일"
+- 영단어 앱: 단어 늘리기 4차(심화 — 넷째 학교급, 계획 전), 출시 준비(앱 이름·아이콘·서명 키) — [vocab/HANDOFF.md](projects/apps/vocab/HANDOFF.md) "이어서 할 일"
 - 사내망 PC: npm 방식 OMC 복사본 정리(플러그인으로 전환 완료)
 - 두 PC 공통: HUD 상태바 모양 확인, `/team` 동작 확인
 - 연습 과제: 1~9번 모두 완료(2026-11-17)

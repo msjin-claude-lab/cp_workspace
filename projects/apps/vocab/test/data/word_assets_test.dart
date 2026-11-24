@@ -28,8 +28,9 @@ const _expectedCount = {
 /// "정확히 기대값"을 확인한다(docs/plan-words-phase3.md 3·4단계).
 const _filling = <Cell>{};
 
-/// 단어 번호: 예전 번호(`ee-001`)이거나 칸과 무관한 새 번호(`w-0001`).
-final _idPattern = RegExp(r'^([emh][emh]-\d{3}|w-\d{4})$');
+/// 단어 번호: 칸과 무관한 새 번호(`w-0001`)만. 예전 칸별 번호(`ee-001` 등)는 초·중·고 모두
+/// CEFR-J로 바꾸며 지웠고 DB 8·9·10판이 그 기록도 지웠다 — 다시 들어오면 여기서 잡힌다.
+final _idPattern = RegExp(r'^w-\d{4}$');
 List<Word> _read(Cell cell) {
   final text = File(cell.assetPath).readAsStringSync();
   final list = jsonDecode(text) as List<dynamic>;

@@ -411,6 +411,12 @@ void main() {
     expect(find.text('버전 1.0.0'), findsOneWidget);
     // 단어 출처: 두 자료의 인용 문구가 정해진 형식 그대로 보인다
     expect(find.text('단어 출처'), findsOneWidget);
+    // 초·중·고 모두 CEFR-J로 바꿨으므로 학교급을 좁히는 말이 없다(3차 6단계)
+    expect(
+      find.text('단어의 선정과 난이도 구분은 아래 자료를 바탕으로 했습니다. 뜻과 예문은 직접 썼습니다'),
+      findsOneWidget,
+    );
+    expect(find.textContaining('초·중등'), findsNothing);
     expect(find.text(cefrjCitation), findsOneWidget);
     expect(find.text(frequencyCitation), findsOneWidget);
     expect(cefrjCitation, startsWith('The CEFR-J Wordlist Version 1.6.'));

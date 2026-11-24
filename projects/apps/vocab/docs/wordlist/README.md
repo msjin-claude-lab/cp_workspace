@@ -78,7 +78,8 @@ python tool/wordlist/cells.py --stage high check            # 고등(high.csv, �
 | `tiers-middle.csv` | 중등 후보의 난이도 단계와 근거(사람이 고치는 파일) |
 | `middle.csv` | 중등 700개와 수준·배정 칸(스크립트가 만든다 — 직접 고치지 않는다) |
 | `candidates-high.csv` | 고등 후보(A1·A2·B1)와 수준·빈도 순위 |
-| `tiers-high.csv` | 고등 후보의 단계·근거·난이도(사람이 고치는 파일 — 3차 2단계에서 만든다) |
-| `high.csv` | 고등 1,500개와 수준·배정 칸(스크립트가 만든다 — 직접 고치지 않는다. `tiers-high.csv`가 생긴 뒤에 나온다) |
+| `tiers-high.csv` | 고등 후보의 단계·근거·난이도(사람이 고치는 파일) |
+| `high.csv` | 고등 1,500개와 수준·배정 칸(스크립트가 만든다 — 직접 고치지 않는다) |
+| `review-fixes-high.txt` | 고등 검토(칸마다 두 번 + 표본 두 축 + 명사·동사 겸용어 점검)가 낸 고칠 줄. 검토마다 그 부분만 `cells.py --stage high fix`로 적용했다(누적 파일을 통째로 다시 넘기지 않는다) |
 | `review-fixes.txt` · `-2` · `-3` · `-4` | 초등 검토가 낸 고칠 줄(`cells.py fix`로 적용) |
 | `review-fixes-middle.txt` | 중등 검토가 낸 고칠 줄(`cells.py --stage middle fix`로 적용) |

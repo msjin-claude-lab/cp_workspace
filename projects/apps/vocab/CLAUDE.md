@@ -1,6 +1,6 @@
 # vocab — 영단어 앱 (초·중·고)
 
-초·중·고 학생이 학교급 × 난이도 9칸의 내장 단어(초등 800개 · 중등 700개는 CEFR-J 기준, 고등은 칸당 50개 — [docs/plan-words-phase1.md](docs/plan-words-phase1.md) · [docs/plan-words-phase2.md](docs/plan-words-phase2.md))를 이름 붙인 단어장으로 등록해 카드 학습·4지선다 시험·오답 노트를 하고, 진도를 단어장별·날짜별로 보는 안드로이드·iOS 앱. 계정 없음, 기록은 기기 안에만.
+초·중·고 학생이 학교급 × 난이도 9칸의 내장 단어(CEFR-J 기준 초등 800개 · 중등 700개 · 고등 1,500개 — [docs/plan-words-phase1.md](docs/plan-words-phase1.md) · [phase2](docs/plan-words-phase2.md) · [phase3](docs/plan-words-phase3.md))를 이름 붙인 단어장으로 등록해 카드 학습·4지선다 시험·오답 노트를 하고, 진도를 단어장별·날짜별로 보는 안드로이드·iOS 앱. 계정 없음, 기록은 기기 안에만.
 
 공통 규칙은 [../CLAUDE.md](../CLAUDE.md)(apps)와 루트 `CLAUDE.md`. Claude Code는 저장소 루트에서 열고 "`projects/apps/vocab`에서 작업한다"로 시작한다.
 
