@@ -203,6 +203,80 @@ const List<(String, String)> similarWordPairs = [
   ('smoke', 'act'), // 연기 / 연기하다
   ('truly', 'calm'), // 진정으로 / 진정시키다
   ('mostly', 'replace'), // 대체로 / 대체하다
+  // 고등 중간 앞 300개(2026-11-24 검토) — 뜻이 거의 같음
+  ('maximum', 'max'),
+  ('vast', 'enormous'),
+  ('enormous', 'massive'),
+  ('vast', 'massive'),
+  ('vast', 'broad'), // 광대한 / 넓은
+  ('broad', 'widely'), // 폭넓은 / 폭넓게
+  ('beat', 'defeat'),
+  ('complaint', 'protest'), // 항의 / 항의하다
+  ('aim', 'target'), // 목표로 하다 / 목표
+  ('suitable', 'proper'),
+  ('suitable', 'fit'),
+  ('proper', 'fit'), // 적절한 / 알맞다
+  ('aside', 'apart'),
+  ('apart', 'besides'), // apart from / ~외에도
+  ('distant', 'remote'),
+  ('immediate', 'instant'),
+  ('constantly', 'continuous'), // 끊임없이 / 끊임없는
+  ('continuous', 'steady'),
+  ('generally', 'commonly'),
+  ('generally', 'typically'), // 보통 / 보통은
+  ('commonly', 'typically'),
+  ('largely', 'generally'),
+  ('obviously', 'definitely'), // 분명히 / 확실히
+  ('greatly', 'highly'), // 몹시 / 대단히
+  ('link', 'connection'), // 관련성 / 관련
+  ('source', 'root'), // 근원 / 근본
+  ('argument', 'debate'),
+  ('lack', 'absence'),
+  ('risk', 'threat'), // 위험 / 위협
+  ('nation', 'citizen'), // 국민 / 시민
+  ('exhibition', 'display'), // 전시 / 전시하다
+  ('admit', 'recognize'), // 인정하다
+  ('rarely', 'hardly'),
+  ('equipment', 'instrument'), // 기구 / 도구
+  ('expense', 'fee'), // 비용 / 요금
+  ('developed', 'advanced'), // 선진의 / 발전된
+  ('spirit', 'soul'), // 정신 / 영혼
+  ('arrest', 'capture'), // 체포하다 / 붙잡다
+  ('logical', 'reasonable'), // 타당한 / 합리적인
+  ('instruction', 'command'), // 지시 / 명령
+  ('entry', 'participate'), // 참가 / 참가하다
+  ('operate', 'surgery'), // 수술하다 / 수술
+  ('environmental', 'setting'), // 환경의 / 환경
+  ('practical', 'reality'), // 현실적인 / 현실
+  ('progress', 'advanced'), // 진보 / 진보한
+  ('spirit', 'mental'), // 정신 / 정신의
+  // 고등 중간 앞 300개 — 어원이 같음
+  ('direct', 'directly'),
+  ('proper', 'properly'),
+  ('rapid', 'rapidly'),
+  ('obvious', 'obviously'),
+  ('frequent', 'frequently'),
+  ('automatic', 'automatically'),
+  ('typical', 'typically'),
+  ('recover', 'recovery'),
+  ('violent', 'violence'),
+  ('religion', 'religious'),
+  ('physical', 'physics'),
+  ('lead', 'leadership'),
+  ('organ', 'organic'),
+  ('organ', 'organized'), // organize
+  ('organic', 'organized'),
+  ('respond', 'responsible'), // response
+  ('minor', 'minimum'), // min-
+  ('visual', 'visible'), // vis-
+  ('nation', 'native'), // nat-
+  ('definition', 'definitely'), // define
+  ('structure', 'destruction'), // struct-
+  ('structure', 'instruction'), // struct-
+  ('destruction', 'instruction'), // struct-
+  ('likely', 'unlike'), // like
+  // 고등 중간 앞 300개 — 우리말 뜻 글자가 같은 동음이의어
+  ('suppose', 'household'), // 가정하다(假定) / 가정(家庭)
 ];
 
 final Map<String, Set<String>> _partners = () {

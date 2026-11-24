@@ -57,3 +57,25 @@ w-1971|example|I always do the washing-up after dinner to help my mum.|영국식
 w-1941|meaning|고속도로(미국 highway·freeway)|고1에게 익숙한 미국 대응어는 highway(crash 예문도 highway)
 w-1894|meaning|울새, (미국) 개똥지빠귀|수능 지문(미국 영어)의 robin은 대개 미국 개똥지빠귀
 w-1925|exampleMeaning|그는 화가 나서 문을 닫고 자기 방으로 갔다.|쾅은 원문에 없음(shut)
+# --- high_medium 앞 300개(2026-11-24 code-reviewer, COMMENT) ---
+w-2034|meaning|거래, 처리하다, (a great deal of) 많은|수능 핵심 a great deal of(많은)가 빠짐. (카드를) 나누어 주다는 고등에 드문 뜻
+w-2138|meaning|추측하다, 가정하다, (be supposed to) ~하기로 되어 있다|be supposed to는 수능 필수 표현인데 빠짐. ~라고 생각하다는 consider의 여기다와 붙어 보임
+w-2142|meaning|떨어져, 산산조각으로, (apart from) ~을 제외하고|apart from(~을 제외하고·~ 외에도)은 수능 빈출인데 빠짐. aside·besides와 유사어 쌍으로 묶음
+w-2195|meaning|비슷하게, 마찬가지로|수능 글의 연결어 Similarly(마찬가지로)가 핵심 뜻인데 equally에 가 있었음. 유사하게는 비슷하게와 겹말
+w-2134|meaning|똑같이, 동등하게, 균등하게|마찬가지로를 similarly에 넘김. 예문 divided equally(균등하게 나누다)에 맞음
+w-2098|meaning|넓은, 폭넓은, 광범위한|대략적인이 rough의 대강의와 뜻이 같아 4지선다에서 정답이 둘로 보임(broad outline은 고등 중간에 드문 쪽)
+w-2208|meaning|국경, 경계, (~와) 접하다|테두리가 edge의 가장자리와 뜻이 같아 정답이 둘로 보임. border on(접하다)은 지리 지문에 나옴
+w-2204|meaning|눈에 보이는, 가시적인|뚜렷한이 obvious의 분명한과 붙어 보임(visible ≠ obvious). 가시적인 효과 등 흔한 쓰임
+w-2223|meaning|특이한, 흔치 않은, 유별난|드문이 rarely의 드물게와 글자가 붙어 보임(흔치 않은이 같은 뜻을 이미 씀)
+w-2163|meaning|상급의, 선배, 연장자, (미국 고교·대학의) 최고 학년생|junior에 후배가 있는데 senior에 선배가 없어 짝이 맞지 않음. 최고 학년은 미국 학제임을 밝힘
+w-2202|meaning|감염, 감염증|전염병은 epidemic·infectious disease — ear infection(귀 감염증)은 전염병이 아님
+w-2068|meaning|표시, 자국, 점수, (기념일 등을) 기념하다|mark the 100th anniversary(기념하다)는 수능 빈출인데 빠짐
+w-2065|meaning|부족, 결핍, ~이 부족하다|동사 lack은 없다보다 부족하다(lack confidence). ~이 없다는 absence의 없음과 붙어 보임
+w-2149|example|Please give me your frank opinion about my essay.|To be honest와 frank가 겹쳐 해석에 솔직이 두 번 나옴
+w-2149|exampleMeaning|내 글에 대해 너의 솔직한 의견을 말해 줘.|위 예문에 맞춤
+w-2056|exampleMeaning|여행사 직원이 우리 가족의 일본 여행 계획을 도와주었다.|travel agent는 여행사 직원(여행 중개인은 어색함)
+w-2005|exampleMeaning|그 공연의 입장권 가격은 20달러에서 50달러까지 이른다.|~에서 ~에 이른다는 범위가 안 드러남
+w-2011|exampleMeaning|나는 그 영화의 새로 만든 판보다 원래 판이 더 좋다.|새 판은 무엇이 새것인지 흐림(리메이크)
+w-2154|exampleMeaning|코치님은 우리에게 슛을 하는 새로운 기술을 가르쳐 주셨다.|shooting the ball은 슛(던지기는 throw)
+w-2137|exampleMeaning|아침에 얇은 눈 한 층이 차들을 덮고 있었다.|얇은 눈 층은 어색함
+w-2064|exampleMeaning|이 아르바이트의 최소 연령은 18세이다.|최소 나이는 어색함
