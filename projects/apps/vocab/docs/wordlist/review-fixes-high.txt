@@ -79,3 +79,31 @@ w-2011|exampleMeaning|나는 그 영화의 새로 만든 판보다 원래 판이
 w-2154|exampleMeaning|코치님은 우리에게 슛을 하는 새로운 기술을 가르쳐 주셨다.|shooting the ball은 슛(던지기는 throw)
 w-2137|exampleMeaning|아침에 얇은 눈 한 층이 차들을 덮고 있었다.|얇은 눈 층은 어색함
 w-2064|exampleMeaning|이 아르바이트의 최소 연령은 18세이다.|최소 나이는 어색함
+# --- high_medium 301~500(2026-11-24 code-reviewer, COMMENT) ---
+w-2429|meaning|정직, 솔직함, 진실성|성실은 diligence·sincerity의 뜻이라 오역(honesty≠성실). frank(솔직한)와는 유사어 쌍으로 묶음
+w-2366|meaning|거부하다, 받아들이지 않다, 불합격시키다|reject의 수능 핵심 거부하다가 빠짐. 퇴짜 놓다는 구어라 뺌(lay 놓다와도 글자가 붙어 보임). refuse/reject는 유사어 쌍
+w-2264|meaning|거절하다, (~하기를) 거부하다|거부하다를 reject에 넘김. refuse to do(~하기를 거부하다)의 쓰임을 밝힘
+w-2393|meaning|(위치를) 찾아내다, (be located) ~에 위치하다, (~에) 두다|수능 빈출 be located in(~에 위치하다)이 빠짐. 위치시키다는 어색함
+w-2368|meaning|배열하다, (일정을) 잡다, 마련하다|정리하다가 organized(정리된), 준비하다가 preparation(준비)과 글자가 붙어 4지선다에서 정답이 둘로 보임. arrange a meeting(일정을 잡다)은 흔한 쓰임
+w-2411|meaning|야심 있는, 포부가 큰, 거창한|의욕적인이 motivation(의욕)·motivate(의욕을 북돋우다)와 글자가 붙어 정답이 둘로 보임
+w-2363|meaning|열심인, 몹시 하고 싶어 하는, 열성적인|열망하는이 passion(열망)과 글자가 붙어 정답이 둘로 보임
+w-2371|meaning|끌어들이다, 끌다, 유치하다|매혹하다가 fascinating(매혹적인)과 글자가 붙어 정답이 둘로 보임. attract tourists·investment(유치하다)는 수능 빈출
+w-2332|meaning|탓하다, 비난하다, ~의 탓으로 돌리다|명사 책임이 responsible(책임이 있는)과 붙어 정답이 둘로 보임. fault(탓)와는 유사어 쌍
+w-2300|meaning|패배, 물리치다, (계획 등을) 무산시키다|좌절시키다가 frustration(좌절감)·frustrated(좌절한)와 글자가 붙어 정답이 둘로 보임
+w-2399|meaning|끔찍한, 지독한, 형편없는|몹시 나쁜이 ill(나쁜)과 글자가 붙어 정답이 둘로 보임
+w-2414|meaning|기분 좋은, 흐뭇한, 보기 좋은|만족스러운이 satisfaction(만족)과 글자가 붙어 정답이 둘로 보임
+w-2420|meaning|창의성, 창의력, 창조성|독창성이 original(독창적인)과 글자가 붙어 정답이 둘로 보임
+w-2105|meaning|(낱말의) 정의, 뜻풀이, (화면의) 해상도|선명도가 vivid(선명한)와 글자가 붙고, high definition은 고해상도
+w-2376|meaning|기본적으로, 본질적으로, 요컨대|근본적으로가 root(근본)와 글자가 붙어 정답이 둘로 보임
+w-2361|meaning|친절하게, 다정하게, (부탁할 때) 부디|상냥하게가 pleasant(상냥한)와 글자가 붙어 정답이 둘로 보임
+w-2326|meaning|오락, 연예, 여흥|즐거움을 amusement에 넘김(아래)
+w-2415|meaning|재미, 즐거움, 놀이|우스움은 어색함. entertainment에서 즐거움을 받음(두 단어는 유사어 쌍)
+w-2410|meaning|불리한 점, 단점, 불이익|불리만 홀로 쓰면 어색하고 불리한 점과 겹말. handicapped(불리한 조건의)와도 붙어 보임
+w-2384|meaning|(낡은 말) 장애를 가진, 장애인용의|불리한 조건의는 고등에 드문 뜻이고 disadvantage(불리한 점)와 붙어 보임. 예문(handicapped drivers의 주차 공간)·handicapped parking의 쓰임에 맞춤
+w-2375|meaning|여가, 레저, 자유 시간|leisure는 명사라 한가한은 품사가 맞지 않음(leisure time은 명사 수식)
+w-2500|meaning|아이디어를 모으다, 브레인스토밍하다, 아이디어 회의|묘안(영국 구어 brainstorm)은 드문 뜻
+w-2423|meaning|부끄러운, 창피해하는, 수치스러워하는|ashamed는 느끼는 사람의 말 — 수치스러운은 shameful(남이 보기에 수치스러운)의 뜻
+w-2351|example|Her prediction that our team would win the final came true.|weather prediction은 weather forecast가 굳은 말이고 해석(예측은 ~라는 것이다)이 어색함
+w-2351|exampleMeaning|우리 팀이 결승에서 이길 거라는 그녀의 예측이 맞았다.|위 예문에 맞춤
+w-2403|example|Cherry trees bloom in spring in most parts of Korea.|서울·중부의 벚꽃은 대개 4월 초라 이른 봄(3월)으로 읽히는 early spring은 지역에 따라 맞지 않음. 봄으로 넓혀 사실 오류 가능성을 없앰
+w-2403|exampleMeaning|한국 대부분 지역에서 벚나무는 봄에 꽃이 핀다.|위 예문에 맞춤

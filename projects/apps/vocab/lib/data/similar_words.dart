@@ -277,6 +277,90 @@ const List<(String, String)> similarWordPairs = [
   ('likely', 'unlike'), // like
   // 고등 중간 앞 300개 — 우리말 뜻 글자가 같은 동음이의어
   ('suppose', 'household'), // 가정하다(假定) / 가정(家庭)
+  // 고등 중간 301~500·칸 전체(2026-11-24 검토) — 뜻이 거의 같음
+  ('refuse', 'reject'), // 거절하다 / 거부하다
+  ('respond', 'react'), // 반응하다 / 반응을 보이다
+  ('remedy', 'cure'), // 치료법 / 치료제
+  ('cure', 'heal'), // 낫게 하다 / 낫다
+  ('remedy', 'heal'), // 치료법 / 치유하다
+  ('reasonable', 'inexpensive'), // (가격이) 비싸지 않은 / 저렴한
+  ('respect', 'admire'), // 존경 / 존경하다
+  ('respect', 'admiration'), // 존경 / 존경심
+  ('disabled', 'handicapped'), // 장애가 있는 / 장애를 가진
+  ('entertainment', 'amusement'), // 오락 / 재미·즐거움
+  ('shame', 'pity'), // 안타까운 일 / 유감
+  ('jealous', 'envy'), // 시기하는 / 부러워하다
+  ('bother', 'annoy'), // 귀찮게 하다 / 성가시게 하다
+  ('bother', 'disturb'), // 귀찮게 하다 / 방해하다
+  ('disturb', 'interrupt'), // 방해하다 / 가로막다
+  ('frighten', 'terrify'), // 겁먹게 하다 / 겁에 질리게 하다
+  ('frightening', 'terrify'), // 무서운 / 무섭게 하다
+  ('frightened', 'terrify'), // 겁먹은 / 겁에 질리게 하다
+  ('inspire', 'motivate'), // 격려하다 / 의욕을 북돋우다
+  ('inspiration', 'motivation'), // 자극 / 동기 부여
+  ('inspiration', 'motivate'), // 자극 / 자극하다
+  ('blame', 'fault'), // 탓하다 / 탓
+  ('fare', 'fee'), // 운임 / 요금
+  ('disadvantage', 'weakness'), // 단점 / 약점
+  ('destruction', 'ruin'), // 파멸 / 파멸시키다
+  ('crop', 'harvest'), // 수확량 / 수확
+  ('grab', 'capture'), // 붙들다 / 붙잡다
+  ('fascinating', 'attractive'), // 매혹적인 / 매력적인
+  ('practical', 'realistic'), // 현실적인 / 현실성 있는
+  ('anxious', 'uneasy'), // 불안한 / 마음이 놓이지 않는
+  ('anxious', 'eager'), // 간절히 바라는 / 몹시 하고 싶어 하는
+  ('frank', 'honesty'), // 솔직한 / 솔직함
+  ('elderly', 'senior'), // 나이 든 / 연장자
+  ('advanced', 'fancy'), // 고급의 / 고급스러운
+  ('spirit', 'lively'), // 활기 / 활기찬
+  ('nuclear', 'atom'), // 원자력의 / 원자
+  ('fiction', 'romance'), // 소설 / 연애 소설
+  ('entry', 'participant'), // 참가 / 참가자
+  // 고등 중간 301~500·칸 전체 — 어원이 같음
+  ('motivation', 'motivate'),
+  ('inspiration', 'inspire'),
+  ('admiration', 'admire'),
+  ('ambition', 'ambitious'),
+  ('invasion', 'invade'),
+  ('shame', 'ashamed'),
+  ('frustration', 'frustrated'),
+  ('rob', 'robbery'),
+  ('honesty', 'dishonest'),
+  ('patience', 'impatient'),
+  ('amusement', 'amused'),
+  ('frighten', 'frightened'),
+  ('frighten', 'frightening'),
+  ('frightened', 'frightening'),
+  ('impressive', 'impress'),
+  ('impression', 'impressive'),
+  ('impression', 'impress'),
+  ('physical', 'physically'),
+  ('physics', 'physically'),
+  ('strength', 'strengthen'),
+  ('attractive', 'attract'),
+  ('participate', 'participant'),
+  ('assignment', 'assign'),
+  ('appointment', 'appoint'),
+  ('retired', 'retire'),
+  ('warning', 'warn'),
+  ('survival', 'survivor'),
+  ('injury', 'injure'),
+  ('punishment', 'punish'),
+  ('summary', 'summarize'),
+  ('smooth', 'smoothly'),
+  ('rough', 'roughly'),
+  ('advertising', 'advertise'),
+  ('confusion', 'confuse'),
+  ('combination', 'combine'),
+  ('politics', 'politician'),
+  ('historical', 'historian'),
+  ('reality', 'realistic'),
+  ('likely', 'unlikely'),
+  ('unlike', 'unlikely'), // like
+  ('pleasant', 'unpleasant'),
+  ('pleasant', 'pleasing'), // please
+  ('expense', 'inexpensive'), // expensive
+  ('base', 'basically'), // basic
 ];
 
 final Map<String, Set<String>> _partners = () {
