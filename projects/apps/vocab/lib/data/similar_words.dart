@@ -547,6 +547,7 @@ const List<(String, String)> similarWordPairs = [
   ('reflect', 'reflection'),
   ('initial', 'initially'),
   ('favor', 'favorable'),
+  ('favor', 'preference'), // 선호하다 / 선호(5단계 명사·동사 겸용어 점검)
   ('distinction', 'distinguish'), // distinct
   ('relation', 'relate'),
   ('relative', 'relate'),

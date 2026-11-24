@@ -172,3 +172,11 @@ w-2462|exampleMeaning|선생님은 퀴즈에 대한 우리의 웃긴 답을 재�
 w-2325|exampleMeaning|허락 없이 남의 일기를 읽는 것은 사생활 침해다.|without asking의 자연스러운 번역(의도 축)
 w-2510|exampleMeaning|다리가 수리 공사로 막혔고, 따라서 운전자들은 더 먼 길로 돌아가야 했다.|수리로 막혔고는 어색함(의도 축)
 # w-2903 acknowledge의 (받았음을) 알리다(의도 축 제안)는 적용하지 않음 — 앞 검토(high_hard 301~500)가 inform(알리다)과 붙어 보여 뺀 뜻
+# --- 고등 명사·동사 겸용어 점검(2026-11-24 code-reviewer, COMMENT) ---
+w-1989|meaning|전망, 관점, (view A as B) A를 B로 여기다|동사 view의 수능 핵심 view A as B(A를 B로 여기다)가 빠지고 보다로만 적혀 see·look과 구별되지 않음. 예문(전망)은 그대로
+w-2565|meaning|영향, 영향력, 영향을 주다|좌우하다는 influence보다 뜻이 센 말이고 같은 칸 dependent의 (~에) 좌우되는과 글자가 붙어 보임. affect(영향을 미치다)와는 이미 유사어 쌍
+w-2708|meaning|호의, (in favor of) ~에 찬성하여, 선호하다|동사 favor(선호하다·favor A over B)는 수능 독해 빈출인데 빠짐. 부탁(do me a favor)은 중등 수준이라 뺌. preference(선호)와는 유사어 쌍으로 묶음
+w-2708|example|Most of my classmates favor group projects over individual tests.|부탁 예문을 빼고 동사 favor(선호하다)를 보임
+w-2708|exampleMeaning|우리 반 친구들 대부분은 개인 시험보다 모둠 과제를 선호한다.|위 예문에 맞춤
+w-1985|meaning|비율, 속도, 평가하다|동사 rate(be rated as·평가하다)가 빠짐. 요금은 fee·charge 쪽 말이고 고등 쉬움에서 덜 중요함
+w-1666|meaning|연료, (감정·논란 등을) 부추기다|동사 fuel(fuel the debate·fuel growth)이 빠지고 뜻이 하나뿐이었음
