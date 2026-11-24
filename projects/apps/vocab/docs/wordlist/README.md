@@ -66,3 +66,5 @@ python tool/wordlist/cells.py --stage middle check --full   # 끝까지·개수�
 | `candidates-middle.csv` | 중등 후보(A1·A2)와 수준·빈도 순위 |
 | `tiers-middle.csv` | 중등 후보의 난이도 단계와 근거(사람이 고치는 파일) |
 | `middle.csv` | 중등 700개와 수준·배정 칸(스크립트가 만든다 — 직접 고치지 않는다) |
+| `review-fixes.txt` · `-2` · `-3` · `-4` | 초등 검토가 낸 고칠 줄(`cells.py fix`로 적용) |
+| `review-fixes-middle.txt` | 중등 검토가 낸 고칠 줄(`cells.py --stage middle fix`로 적용) |

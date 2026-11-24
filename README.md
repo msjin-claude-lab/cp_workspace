@@ -90,7 +90,7 @@ mvn -q test     # 41개 모두 통과 (과제 9 완료 후. 처음은 13개 통�
 
 초·중·고 학생용 영단어 앱(Flutter, 지금은 안드로이드만 — iOS는 보류). 학교급 × 난이도로 이름 붙인 단어장을 만들어 카드 학습·4지선다 시험·오답 노트를 하고 진도를 본다. 계정 없이 기록은 기기 안에만 둔다.
 
-- 단어: 초등 800개(쉬움 267 · 중간 267 · 어려움 266, CEFR-J Wordlist 기준 — 2026-11-24), 중등·고등은 칸당 50개(늘릴 예정)
+- 단어: 초등 800개(쉬움 267 · 중간 267 · 어려움 266, CEFR-J Wordlist 기준 — 2026-11-24), 중등 700개(CEFR-J 기준, 234 · 233 · 233), 고등은 칸당 50개(늘릴 예정)
 - 규칙·명령·코드 구조는 [vocab/CLAUDE.md](projects/apps/vocab/CLAUDE.md), 지금 상태와 다음 할 일은 [vocab/HANDOFF.md](projects/apps/vocab/HANDOFF.md), 검증 방법과 마지막 결과는 [vocab/VERIFY.md](projects/apps/vocab/VERIFY.md)
 
 ```bash

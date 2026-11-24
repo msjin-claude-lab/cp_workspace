@@ -46,7 +46,7 @@ class AboutScreen extends StatelessWidget {
               ),
             ),
             const Divider(height: 1),
-            // 단어 출처: 초등 단어는 CEFR-J에서 골랐다(중등·고등은 차례가 올 때 바꾼다 — docs/plan-words-phase1.md)
+            // 단어 출처: 초등·중등 단어는 CEFR-J에서 골랐다(고등은 차례가 올 때 바꾼다 — docs/plan-words-phase1.md · plan-words-phase2.md)
             Padding(
               key: const ValueKey('about-sources'),
               padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
@@ -56,7 +56,7 @@ class AboutScreen extends StatelessWidget {
                   Text('단어 출처', style: text.titleMedium),
                   const SizedBox(height: 8),
                   Text(
-                    '초등 단어의 선정과 난이도 구분은 아래 자료를 바탕으로 했습니다. 뜻과 예문은 직접 썼습니다',
+                    '초·중등 단어의 선정과 난이도 구분은 아래 자료를 바탕으로 했습니다. 뜻과 예문은 직접 썼습니다',
                     style: text.bodyMedium,
                   ),
                   const SizedBox(height: 12),
