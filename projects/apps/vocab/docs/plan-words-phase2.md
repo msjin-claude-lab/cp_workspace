@@ -1,6 +1,6 @@
 # 단어 늘리기 2차 — 중등 700개 (CEFR-J 기준)
 
-상태: **pending approval** (2026-11-24 사내망 PC, `/oh-my-claudecode:plan` 인터뷰 → critic REVISE 반영)
+상태: **승인됨**(2026-11-24 사내망 PC, 사용자 — `/oh-my-claudecode:plan` 인터뷰 → critic REVISE → 재검토 APPROVE)
 
 1차 [plan-words-phase1.md](plan-words-phase1.md)와 같은 방식이다. 선정 규칙·자료·이용 조건은 [wordlist/README.md](wordlist/README.md). 기준 커밋(작업 전): **`e45b1c3`**.
 
@@ -29,7 +29,7 @@
 - **줄 세우기(요구 2·4를 함께)**:
   - 뽑기: 단계가 `x`가 아닌 A1 전부 + A2를 `(단계, 빈도 순위, 알파벳)` 순으로 세워 700개가 될 때까지
   - 칸 배정: 뽑힌 700개를 `(단계, 빈도 순위, 알파벳)`으로 세워 앞에서부터 234 · 233 · 233. 수준(A1/A2)은 뽑기에만 쓰고 칸 배정에는 쓰지 않는다
-  - 단계는 **후보 1,324개 전부**에 매긴다(1차 판정 `select.py:236-240`과 같게 — 빠진 후보가 없어야 결과가 같다)
+  - 단계는 **후보 1,333개 전부**에 매긴다(쓸 수 있는 1,324 + 부적절 9개 — 9개는 스크립트가 후보로 내고 단계 파일에서 `x`. 1차 판정 `select.py:236-240`과 같게 — 단계 파일과 후보가 정확히 맞아야 한다)
 - **다시 만들어도 같은 결과**: 초등 단계는 거를 단어(`others`)를 지금 단어 파일이 아니라 커밋된 `overlap.csv`의 중등·고등 줄(1차 작업 시점)에서 읽는다. 중등 단계는 `elementary.csv`·`overlap.csv`의 고등 줄에서 읽는다. 단계별 산출물은 이름을 나눈다: `candidates-middle.csv`, `tiers-middle.csv`, `middle.csv`. 초등 단계는 `overlap.csv`를 다시 쓰지 않는다. 3차(고등)도 같은 규칙: 앞 단계의 csv에서 읽고 자기 이름의 파일만 쓴다
 - **번호**: `middle.csv` 순서대로 `w-0801`~`w-1500`
 
@@ -37,17 +37,17 @@
 
 ### 1. 선정 스크립트를 학교급마다 돌게 넓힌다
 - `select.py --stage elementary|middle`(기본 elementary), 위 "다시 만들어도 같은 결과" 규칙대로. 중등 검사: 칸 개수, 중복, 초등·고등과 겹침 0, 단계 파일과 후보가 정확히 맞음
-- `cells.py --stage elementary|middle`. `check`는 파일이 csv의 **앞부분**과 같으면 통과(`entries == plan[cell][:len(entries)]`) — 묶음 중에도 쓸 수 있게
+- `cells.py --stage elementary|middle`. `check`는 파일이 csv의 **앞부분**과 같으면 통과(`entries == plan[cell][:len(entries)]`) — 묶음 중에도 쓸 수 있게. `check --full`은 끝까지 같아야 통과(개수까지) — 4단계 마지막과 6단계에서 쓴다
 - 두 파일의 머리 설명, README "만드는 법" 명령과 파일 표를 고친다
-- 완료 기준: `select.py --stage elementary` 뒤 `git diff --exit-code docs/wordlist/` 통과(종료 코드 0)
+- 완료 기준: `python tool/wordlist/select.py --stage elementary --cefrj D:/dev/tmp/wordlist/CEFRJ_wordlist_ver1.6.zip --freq D:/dev/tmp/wordlist/frequency-alpha-alldicts.txt && git diff --exit-code -- 'docs/wordlist/*.csv'` 종료 코드 0(README 변경은 csv가 아니라 이 비교에 들지 않는다)
 
 ### 2. 중등 단계를 매긴다
-- Claude가 후보 1,324개마다 단계 1 · 2 · 3 · x를 이유와 함께 `tiers-middle.csv`에(기준: 한국 중학교 1~3학년이 배우는 순서, 부적절 9개는 `x`). `code-reviewer`가 단계표를 본다
+- Claude가 후보 1,333개마다 단계 1 · 2 · 3 · x를 이유와 함께 `tiers-middle.csv`에(기준: 한국 중학교 1~3학년이 배우는 순서, 부적절 9개는 `x`). `code-reviewer`가 단계표를 본다
 - `select.py --stage middle --freq …` → `middle.csv` 700줄, 검사 통과(종료 코드 0)
 - 사용자 확인: **칸마다 표본 20개**(1차와 같음)와 `x` 목록
 
 ### 3. 시험·DB를 먼저 바꾼다 (단어를 넣기 전)
-- `word_assets_test.dart`: 중등 기대값 234 · 233 · 233, 묶음 중에는 중등 하한 0, 머리 주석의 "중등 50"
+- `word_assets_test.dart`: 중등 기대값 234 · 233 · 233, 머리 주석의 "중등 50". 묶음 중 스위치(`_filling`, `:41-42` — 지금은 9칸 전체에 걸림)를 **칸별로** 바꾼다: 묶음 중에는 중등 3칸만 `0 ~ 기대값`, 초등·고등은 늘 정확히 기대값
 - DB 9판: `schemaVersion = 9`, `_upgradeToV9`(`me-`·`mm-`·`mh-`의 `study_log`·`quiz_log`·`wrong_notes` 줄 삭제), `onCreate`·`schemaVersion` 설명 주석(`study_records.dart:152-165`)
 - `study_records_test.dart`: `createV8` 도우미를 더하고, 7→8 시험은 8판에서 멈춰 확인하게, 옛 판에서 올리는 시험의 중등 견본 번호는 `he-`나 `w-`로. 새 8→9 시험: 중등 옛 줄만 지워지고 초등·고등 줄은 그대로, 중등 칸으로 만든 단어장의 `deck_N` 기록 줄도 지워지고 `study_decks` 행은 남는다
 - 완료 기준: `flutter analyze` 문제없음 `&&` `flutter test` 통과
@@ -58,13 +58,13 @@
 - 칸마다 50~70개 묶음으로 `executor`가 쓰고, 묶음마다 `code-reviewer`가 그 칸 전체를 본다(뜻 정확성, 중등 수준 예문, 같은 칸 안에서 뜻이 사실상 겹치는 쌍, 예문이 그 단어를 실제로 쓰는지)
 - 작성 규칙: **같은 칸 안에서 쉼표로 나눈 뜻 낱말은 글자까지 달라야 한다**(mommy·mum이 같은 칸이면 둘 다 "엄마"로 쓰지 않는다). 그래도 뜻이 사실상 같은 쌍은 두 단어가 같은 칸에 들어간 **같은 커밋에서** `similarWordPairs`에 더한다
 - 묶음마다 `python tool/wordlist/cells.py --stage middle check && flutter test test/data/word_assets_test.dart test/data/similar_words_test.dart && git commit`(`wip:`)
-- 마지막 묶음 뒤 범위 검사 스위치를 끈다(정확히 기대값)
+- 마지막 묶음 뒤 범위 검사 스위치를 끄고(정확히 기대값) `cells.py --stage middle check --full`
 
 ### 5. 사람 표본 확인
 - 칸마다 무작위 20줄을 보여 주고 고칠 것을 `docs/wordlist/review-fixes-middle.txt`로 받아 `cells.py --stage middle fix`로 적용
 
 ### 6. 검증하고 기록한다
-- `select.py --stage elementary` 다시 돌린 뒤 `git diff --exit-code docs/wordlist/`, `select.py --stage middle`도 같은 확인
+- `select.py --stage elementary`와 `--stage middle`을 1단계 완료 기준과 같은 `--cefrj … --freq …`로 다시 돌린 뒤 `git diff --exit-code -- 'docs/wordlist/*.csv'`, 이어서 `cells.py --stage elementary check --full && cells.py --stage middle check --full`
 - `flutter analyze` `&&` `flutter test` `&&` `flutter build apk --debug`([../VERIFY.md](../VERIFY.md))
 - 초등·고등 번호가 그대로인지: `e45b1c3`의 `id → 영단어` 쌍(초등 800 + 고등 150)이 작업 뒤에도 같은지 스크립트로 비교
 - `/oh-my-claudecode:review` 두 축 검토
@@ -74,7 +74,7 @@
 ## 완료 기준 (전체)
 
 - 중등 3칸이 234 · 233 · 233개, 번호 `w-0801`~`w-1500`, 영단어는 9칸 전체에서 한 번만
-- `select.py` 두 단계 모두 다시 돌려도 `git diff --exit-code docs/wordlist/` 통과
+- `select.py` 두 단계 모두 다시 돌려도 `git diff --exit-code -- 'docs/wordlist/*.csv'` 통과, `cells.py` 두 단계 `check --full` 통과
 - DB 9판 이행 시험 통과, `flutter analyze`·`flutter test`·`build apk` 통과
 - 사람 표본 60줄 확인과 두 축 검토를 받았다
 
@@ -94,3 +94,4 @@
 ## 검토 반영 기록
 
 - 2026-11-24 critic REVISE 9건 모두 반영: 초등 재생성이 중등 변경 뒤 깨짐(고정 기준에서 읽기 + 산출물 이름 나눔), `cells.py check` 앞부분 비교 + 옛 150개 삭제 시점 + 하한, DB 9판이 깨는 기존 시험과 `createV8`, 줄 세우기 식과 단계 범위, 숫자(A1 34 · 164 · 155 · 1,324), 고칠 문서(앱 정보 문구 등), 같은 칸 뜻 글자 규칙, 기준 커밋 `e45b1c3`, 3~4단계 사이 설치 금지
+- 2026-11-24 critic 재검토 **APPROVE**(지난 9건 해결 확인, overlap.csv의 중등·고등 300개가 지금 파일과 같아 초등 재현됨을 확인). MINOR 5건 반영: 단계 파일 1,333줄(부적절 9개 `x` 포함), diff를 csv로 좁힘, 명령에 `--freq`, `check --full`, 묶음 중 하한 0은 중등 칸만

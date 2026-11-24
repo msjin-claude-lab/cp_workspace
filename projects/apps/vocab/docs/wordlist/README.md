@@ -27,10 +27,14 @@
 ## 만드는 법
 
 ```
-python tool/wordlist/select.py --cefrj <CEFRJ_wordlist_ver1.6.zip> --freq <frequency-alpha-alldicts.txt>
+python tool/wordlist/select.py --stage elementary --cefrj <CEFRJ_wordlist_ver1.6.zip> --freq <frequency-alpha-alldicts.txt>
+python tool/wordlist/select.py --stage middle --cefrj <CEFRJ_wordlist_ver1.6.zip> --freq <frequency-alpha-alldicts.txt>
+python tool/wordlist/cells.py --stage middle check          # 단어 파일이 middle.csv의 앞부분과 같은지(묶음 중)
+python tool/wordlist/cells.py --stage middle check --full   # 끝까지·개수까지 같은지
 ```
 
-파이썬 표준 라이브러리만 쓴다. 같은 입력이면 같은 결과가 나오고, 개수나 중복이 어긋나면 종료 코드 1.
+파이썬 표준 라이브러리만 쓴다. `--stage`를 빼면 `elementary`. 같은 입력이면 같은 결과가 나오고, 개수나 중복이 어긋나면 종료 코드 1.
+거를 단어는 지금 단어 파일이 아니라 커밋된 csv에서 읽고(초등: `overlap.csv`의 중등·고등 줄, 중등: `elementary.csv`와 `overlap.csv`의 고등 줄), 단계마다 자기 이름의 파일만 쓴다 — 그래서 뒤 단계를 진행해도 앞 단계를 다시 돌리면 같은 csv가 나온다. `overlap.csv`는 어느 단계도 다시 쓰지 않는다(1차 작업 시점 기록).
 
 ## 고르는 규칙 (1차 — 초등 800개)
 
@@ -42,12 +46,23 @@ python tool/wordlist/select.py --cefrj <CEFRJ_wordlist_ver1.6.zip> --freq <frequ
 
 기존에 직접 골랐던 초등 150개는 쓰지 않는다(2026-11-23 사용자 결정 — CEFR-J로만). 그중 어떤 단어가 CEFR-J의 어느 수준인지는 `overlap.csv`에 남아 있다.
 
+## 고르는 규칙 (2차 — 중등 700개, [../plan-words-phase2.md](../plan-words-phase2.md))
+
+1. 1차 1·2번과 같이 빼고 앞 철자 하나만 쓴다(앞 철자가 같은 표제어는 가장 낮은 수준)
+2. 중등 후보 = **A1 + A2** 중 `elementary.csv`에 없고 `overlap.csv`의 고등 줄(3차까지 남는 기존 고등 150개)에도 없는 것 1,333개(A1 164 · A2 1,169, `candidates-middle.csv`). 기존 중등 150개는 지우므로 후보에서 빼지 않는다
+3. 후보 전부에 단계를 매긴다(`tiers-middle.csv`, 1 · 2 · 3 · x). 기준은 한국 중학교 1~3학년이 배우는 순서. 초등에서 "어린이 앱에 부적절"로 뺀 9개는 `x`. 단계 파일과 후보가 정확히 맞지 않으면 종료 코드 1
+4. 뽑기: `x`가 아닌 A1 전부 + A2를 단계 → 빈도 순위 → 알파벳 순으로 세워 700개가 될 때까지. 남는 A2는 고등(3차) 차례에 쓴다
+5. 칸 배정: 뽑힌 700개를 단계 → 빈도 순위 → 알파벳 순으로 세워 앞에서부터 234 · 233 · 233개를 쉬움 · 중간 · 어려움에(`middle.csv`). 수준(A1/A2)은 뽑기에만 쓴다. 번호는 `middle.csv` 순서대로 `w-0801`부터
+
 ## 파일
 
 | 파일 | 내용 |
 |---|---|
 | `excluded.csv` | CEFR-J에서 뺀 표제어와 이유 |
-| `overlap.csv` | 작업 시점에 앱에 들어 있던 단어가 CEFR-J의 어느 수준인지 |
+| `overlap.csv` | 1차 작업 시점에 앱에 들어 있던 단어가 CEFR-J의 어느 수준인지(고정 기록 — 다시 만들지 않는다) |
 | `candidates.csv` | 초등 후보(A1)와 빈도 순위 |
-| `tiers.csv` | 후보의 난이도 단계와 근거(사람이 고치는 파일) |
+| `tiers.csv` | 초등 후보의 난이도 단계와 근거(사람이 고치는 파일) |
 | `elementary.csv` | 초등 800개와 배정 칸(스크립트가 만든다 — 직접 고치지 않는다) |
+| `candidates-middle.csv` | 중등 후보(A1·A2)와 수준·빈도 순위 |
+| `tiers-middle.csv` | 중등 후보의 난이도 단계와 근거(사람이 고치는 파일) |
+| `middle.csv` | 중등 700개와 수준·배정 칸(스크립트가 만든다 — 직접 고치지 않는다) |
