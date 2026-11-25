@@ -1197,5 +1197,9 @@
   {"id": "w-4196", "word": "shopkeeper", "meaning": "가게 주인, 상점 주인", "example": "The shopkeeper gave me the wrong change.", "exampleMeaning": "가게 주인이 내게 거스름돈을 잘못 주었다."},
   {"id": "w-4197", "word": "dorm", "meaning": "(구어) 기숙사", "example": "I'm going back to the dorm now.", "exampleMeaning": "나는 이제 기숙사로 돌아간다."},
   {"id": "w-4198", "word": "checkout", "meaning": "계산대, (호텔) 퇴실", "example": "There was a long line at the checkout.", "exampleMeaning": "계산대에 줄이 길었다."},
-  {"id": "w-4199", "word": "pajamas", "meaning": "파자마, 잠옷", "example": "The kids put on their pajamas and went to bed.", "exampleMeaning": "아이들은 잠옷을 입고 잠자리에 들었다."}
+  {"id": "w-4199", "word": "pajamas", "meaning": "파자마, 잠옷", "example": "The kids put on their pajamas and went to bed.", "exampleMeaning": "아이들은 잠옷을 입고 잠자리에 들었다."},
+  {"id": "w-4200", "word": "yawn", "meaning": "하품하다, 하품", "example": "He yawned because he stayed up late last night.", "exampleMeaning": "그는 어젯밤 늦게까지 깨어 있어서 하품을 했다."},
+  {"id": "w-4201", "word": "tasteless", "meaning": "맛이 없는, 품위 없는", "example": "The soup was tasteless, so I added some salt.", "exampleMeaning": "수프가 맛이 없어서 나는 소금을 조금 넣었다."},
+  {"id": "w-4202", "word": "gangster", "meaning": "깡패, 조직 폭력배", "example": "The movie is about a gangster in New York.", "exampleMeaning": "그 영화는 뉴욕의 한 깡패에 관한 이야기다."},
+  {"id": "w-4203", "word": "unwell", "meaning": "몸이 안 좋은, 편찮은", "example": "She felt unwell, so she stayed home from school.", "exampleMeaning": "그녀는 몸이 안 좋아서 학교에 가지 않고 집에 있었다."}
 ]

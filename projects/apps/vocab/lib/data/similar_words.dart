@@ -605,7 +605,6 @@ const List<(String, String)> similarWordPairs = [
   ('trunk', 'boot'), // (자동차) 트렁크
   ('rail', 'railway'), // 철도
   ('rail', 'railroad'), // 철도
-  ('railway', 'railroad'), // 철도
   ('seller', 'dealer'), // 판매자 / 판매상
   ('seller', 'salesman'), // 판매자 / 판매원
   ('dealer', 'salesman'), // 판매상 / 판매원
@@ -632,6 +631,8 @@ const List<(String, String)> similarWordPairs = [
   // 심화 쉬움 묶음 4~6 — 우리말 뜻 글자가 같은 동음이의어
   ('god', 'sour'), // 신 / (맛이) 신
   ('biography', 'electrical'), // (인물의) 전기 / 전기의
+  // 심화 쉬움 묶음 13 — 어원이 같음
+  ('gang', 'gangster'),
   // 심화 쉬움 묶음 7~9 검토가 더한 쌍 — 뜻이 거의 같음
   ('honestly', 'frankly'), // 솔직히
   ('polish', 'trim'), // 다듬다
