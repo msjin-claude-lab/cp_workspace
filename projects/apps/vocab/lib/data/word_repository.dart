@@ -21,11 +21,18 @@ class WordRepository {
   }
 }
 
-final wordRepositoryProvider =
-    Provider<WordRepository>((ref) => WordRepository(rootBundle));
+final wordRepositoryProvider = Provider<WordRepository>(
+  (ref) => WordRepository(rootBundle),
+);
 
 final cellWordsProvider = FutureProvider.family<List<Word>, Cell>(
   (ref, cell) => ref.watch(wordRepositoryProvider).wordsOf(cell),
+);
+
+/// 화면에서 숨기는 학교급. 단어가 덜 찬 학교급(심화)은 다 채워질 때까지 고르기 화면에 나오지 않는다.
+/// 다 채우면 이 집합을 비운다(docs/plan-words-phase4.md). 시험에서는 빈 집합을 넣어 화면을 연다.
+final hiddenLevelsProvider = Provider<Set<SchoolLevel>>(
+  (_) => {SchoolLevel.advanced},
 );
 
 /// 칸·이름 있는 단어장의 단어. 카드 학습·시험·오답 노트 화면은 이것으로 읽는다.

@@ -141,7 +141,7 @@
 - 2026-11-17 사내망 PC: `projects/apps/` 그룹과 공통 규칙(새 앱 시작 순서 5단계, PC 역할) 마련. 앱은 아직 없음 — **1단계(만들 앱 정하기) 대기**. 이야기된 후보: 캘린더형·기록형(먼저), 게임형(나중). 언어·플랫폼은 1단계 뒤에 선택안으로 제시(참고로 비교했던 것: Flutter·React Native/Expo·Kotlin Multiplatform — 결정 아님)
 - 2026-11-18 사내망 PC: **1단계 완료 — 영단어 앱(초·중·고)**. `/apps:new` → `/oh-my-claudecode:deep-interview` 7라운드, 모호도 약 19%(기준 20%, 기본값). 명세는 [vocab/docs/spec.md](projects/apps/vocab/docs/spec.md)(처음엔 `_drafts/vocab/spec.md`)(원본 `.omc/specs/deep-interview-vocab.md` 복사)
 - 2026-11-18 사내망 PC: 주제 폴더 방식으로 옮김 — vocab 기록을 `_drafts/vocab/`로(2026-11-19 앱 폴더 [projects/apps/vocab/](projects/apps/vocab/CLAUDE.md)로 옮김), 후보(캘린더형·기록형, 게임형)를 [_drafts/README.md](projects/apps/_drafts/README.md)로. `projects/apps/CLAUDE.md`의 "지금 상태"는 지우고 공통 규칙만 남김(안드로이드·iOS 호환을 1단계에 추가). 이 절에 있던 명세 요약은 spec.md와 겹쳐 지움
-- 2026-11-19 이후의 영단어 앱 진행은 앱 폴더 [vocab/HANDOFF.md](projects/apps/vocab/HANDOFF.md)에만 적는다(인계·남은 일·진행 이력). 2026-11-24 기준 한 줄: 단어 늘리기 1차(초등 800개) 끝, 주제 종료 상태 — 이어 가기는 `/apps:selection-subject vocab`
+- 2026-11-19 이후의 영단어 앱 진행은 앱 폴더 [vocab/HANDOFF.md](projects/apps/vocab/HANDOFF.md)에만 적는다(인계·남은 일·진행 이력). 2026-11-25 기준 한 줄: 초·중·고 3,000개 끝, 4차 심화(3,609개)는 6단계 중 3단계까지 함(목록 고정, 심화 코드는 화면에서 숨김 — 뜻·예문 쓰기 전), 주제 종료 상태 — 이어 가기는 `/apps:selection-subject vocab`
 
 ## 남은 일
 

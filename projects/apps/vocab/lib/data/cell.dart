@@ -2,7 +2,8 @@
 enum SchoolLevel {
   elementary('초등'),
   middle('중등'),
-  high('고등');
+  high('고등'),
+  advanced('심화');
 
   const SchoolLevel(this.label);
 
@@ -80,7 +81,7 @@ final class StudyDeck implements Deck {
   int get hashCode => deckId.hashCode;
 }
 
-/// 내장 단어장의 칸(학교급 × 난이도 = 9칸). 칸마다 단어 파일이 하나씩 있다.
+/// 내장 단어장의 칸(학교급 × 난이도 = 12칸). 칸마다 단어 파일이 하나씩 있다.
 enum Cell implements Deck {
   elementaryEasy(SchoolLevel.elementary, Difficulty.easy),
   elementaryMedium(SchoolLevel.elementary, Difficulty.medium),
@@ -90,7 +91,10 @@ enum Cell implements Deck {
   middleHard(SchoolLevel.middle, Difficulty.hard),
   highEasy(SchoolLevel.high, Difficulty.easy),
   highMedium(SchoolLevel.high, Difficulty.medium),
-  highHard(SchoolLevel.high, Difficulty.hard);
+  highHard(SchoolLevel.high, Difficulty.hard),
+  advancedEasy(SchoolLevel.advanced, Difficulty.easy),
+  advancedMedium(SchoolLevel.advanced, Difficulty.medium),
+  advancedHard(SchoolLevel.advanced, Difficulty.hard);
 
   const Cell(this.level, this.difficulty);
 

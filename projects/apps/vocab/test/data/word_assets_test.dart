@@ -7,7 +7,8 @@ import 'package:vocab/data/word.dart';
 
 /// 실제 내장 단어 파일(assets/words/*.json)을 검사한다.
 /// 칸마다 있어야 할 단어 수는 [_expectedCount](초등 800개 — docs/plan-words-phase1.md,
-/// 중등 700개 — docs/plan-words-phase2.md, 고등 1,500개 — docs/plan-words-phase3.md).
+/// 중등 700개 — docs/plan-words-phase2.md, 고등 1,500개 — docs/plan-words-phase3.md,
+/// 심화 3,609개 — docs/plan-words-phase4.md).
 
 /// 칸마다 있어야 할 단어 수. 초등은 CEFR-J A1에서 고른 800개(267 · 267 · 266),
 /// 중등은 CEFR-J A1·A2에서 고른 700개(234 · 233 · 233), 고등은 1,500개(500 · 500 · 500).
@@ -21,13 +22,20 @@ const _expectedCount = {
   Cell.highEasy: 500,
   Cell.highMedium: 500,
   Cell.highHard: 500,
+  Cell.advancedEasy: 1203,
+  Cell.advancedMedium: 1203,
+  Cell.advancedHard: 1203,
 };
 
 /// 단어를 묶음으로 나눠 넣는 중인 칸 — 이 칸만 개수를 "0개 이상, 기대값 이하"로 본다.
-/// 나머지 칸은 늘 정확히 기대값이다. 지금은 비어 있다(초·중·고 3,000개 입력 끝) — 다음 차수(4차 심화)에서
-/// 묶음으로 넣는 동안 그 칸을 여기에 두고, 마지막 묶음 뒤 다시 비운다(docs/plan-words-phase3.md 3·4단계 방식).
+/// 나머지 칸은 늘 정확히 기대값이다. 지금은 심화 세 칸(4차 — 단어를 묶음으로 넣는 중). 마지막 묶음 뒤 비운다
+/// (docs/plan-words-phase3.md 3·4단계 방식).
 /// 옛 번호가 섞이는 것은 아래 번호 형식 검사(`w-\d{4}`만)가 잡는다.
-const _filling = <Cell>{};
+const _filling = <Cell>{
+  Cell.advancedEasy,
+  Cell.advancedMedium,
+  Cell.advancedHard,
+};
 
 /// 단어 번호: 칸과 무관한 새 번호(`w-0001`)만. 예전 칸별 번호(`ee-001` 등)는 초·중·고 모두
 /// CEFR-J로 바꾸며 지웠고 DB 8·9·10판이 그 기록도 지웠다 — 다시 들어오면 여기서 잡힌다.
@@ -105,6 +113,26 @@ void main() {
         final key = w.word.toLowerCase();
         expect(seen[key], isNull, reason: '${w.word}: ${seen[key]}와 ${w.id}');
         seen[key] = w.id;
+      }
+    }
+  });
+
+  test('넣지 않기로 한 말(심화 목록의 x 줄)이 어느 칸에도 없다', () {
+    final lines = File('docs/wordlist/tiers-advanced.csv').readAsLinesSync();
+    final excluded = <String>{
+      for (final line in lines)
+        if (!line.startsWith('#') && !line.startsWith('word,'))
+          if (line.split(',') case [final word, 'x', ...]) word.toLowerCase(),
+    };
+    // 사용자가 정한 넷은 늘 들어 있어야 한다. 목록이 늘어도(고정 뒤 빼기로 한 말) 이 시험은 고치지 않는다
+    expect(excluded, containsAll(['bust', 'gay', 'sex', 'suicide']));
+    for (final cell in Cell.values) {
+      for (final w in _read(cell)) {
+        expect(
+          excluded.contains(w.word.toLowerCase()),
+          isFalse,
+          reason: '${cell.id} ${w.id}: ${w.word}',
+        );
       }
     }
   });

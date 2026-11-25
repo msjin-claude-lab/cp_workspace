@@ -2,45 +2,51 @@
 
 이 앱의 진행 상태 기록이다(`projects/apps/CLAUDE.md` "주제 인계"). 규칙·명령·코드 구조는 [CLAUDE.md](CLAUDE.md).
 
-- 상태: 진행 중 · 2026-11-25 15:37 · 사내망 PC
+- 상태: 종료 · 2026-11-25 · 사내망 PC
 
 ## 인계 — 새 세션은 여기부터 읽는다
 
-2026-11-25 사내망 PC 기준(4차 관련 항목만 고쳤다 — 나머지는 2026-11-24 밤 개인 PC 기준). 지금 사실만 적는다 — 어떻게 여기까지 왔는지는 맨 아래 "진행 이력", 2026-11-20~24의 옛 인계 원문(1~3차 과정, 저작권·평가원 문의 조사, 1차 계획 메모 등)은 [docs/handoff-archive-2026-11.md](docs/handoff-archive-2026-11.md).
+2026-11-25 저녁, 사내망 PC 기준(4차와 관련된 항목을 고쳤다 — release APK·에뮬레이터·기기 DB 사본 항목은 2026-11-24 밤 개인 PC 기준 그대로다). 지금 사실만 적는다 — 어떻게 여기까지 왔는지는 맨 아래 "진행 이력", 2026-11-20~24의 옛 인계 원문(1~3차 과정, 저작권·평가원 문의 조사, 1차 계획 메모 등)은 [docs/handoff-archive-2026-11.md](docs/handoff-archive-2026-11.md).
 
 ### 지금 상태 한눈에
 
-- **단어 늘리기 1~3차 끝 — 초·중·고 CEFR-J 3,000개**: 초등 800(267 · 267 · 266) · 중등 700(234 · 233 · 233) · 고등 1,500(500 · 500 · 500). **4차 심화는 진행 중**(2026-11-25 계획 승인, 1·2단계 끝 — 심화 단어 3,609개와 칸·번호가 고정됨, 아래 "이어서 할 일" 1번). 앱 코드와 단어 파일은 아직 그대로다
-- **DB 10판**, 시험(`flutter test`) **177개** 통과(2026-11-24 설정 변경 `920af16` 때). 마지막 커밋 `920af16`(설정에 100과 카드 "전체 (단어 수)")
-- **마지막 검증**: 2026-11-24 밤 개인 PC — 3차 고등 1,500 + DB 10판(`b05d702` 내용, 시험 170개 때)과 처음 설치 시작 화면, [VERIFY.md](VERIFY.md) "마지막 결과". 그 뒤의 설정 변경(`920af16`)은 analyze·시험 177개와 code-reviewer 검토(COMMENT)까지이고 VERIFY.md에는 적지 않았다
+- **⚠ 4차 3단계는 전체 시험을 다시 확인하지 않은 채 `wip:`로 커밋됐다(2026-11-25 19:00쯤, 사용자 지시 "작업 중단 → 인계 정리 → 커밋·push")** — 커밋 제목 `wip: vocab: 넷째 학교급 심화와 세 칸을 넣는다…`. 2단계까지(`8cb678d`)는 검사를 통과하고 커밋한 것이다
+  - 3단계 커밋에 든 것: `lib/data/cell.dart` · `lib/data/word_repository.dart` · `lib/features/home/home_screen.dart` · `test/data/word_assets_test.dart` · `test/data/word_repository_test.dart` · `test/widget_test.dart` · `assets/words/advanced_*.json` 셋 · `docs/plan-words-phase4.md` · 이 파일
+  - **다음에 시작할 때 맨 먼저**: `flutter analyze && flutter test`로 180개 통과를 확인한다. 실패하면 4단계로 가지 않고 그것부터 고친다
+- **앱에 든 단어는 초·중·고 CEFR-J 3,000개 그대로다**: 초등 800(267 · 267 · 266) · 중등 700(234 · 233 · 233) · 고등 1,500(500 · 500 · 500)
+- **4차 심화는 6단계 중 3단계까지 했다(2026-11-25 사내망 PC — 3단계는 전체 시험 재확인 전, 위)**: 심화 단어 3,609개의 목록·칸·번호가 고정됐고, 넷째 학교급 "심화"의 코드가 들어갔지만 **고르기 화면에서 숨겨져 있다**. 심화 단어 파일 셋은 비어 있다(`[]`) — 뜻·예문·해석은 아직 한 개도 쓰지 않았다. 지금 빌드해 설치해도 사용자가 보는 앱은 2026-11-24와 같다
+- **DB 10판**, 시험(`flutter test`)은 **180개**(4차 3단계에서 3개 늘었다). **전체 통과는 3단계를 구현한 executor의 보고다**(2026-11-25 18:38쯤 사내망 PC, `flutter analyze`·`flutter test` 종료 코드 0). 그 뒤 시험 한 줄(`word_assets_test.dart`의 `containsAll`)을 고쳤고, 고친 다음의 전체 재실행(저장소 검증 → 분석 → 전체 시험 → 커밋)은 같은 PC의 다른 빌드 때문에 느려 **전체 시험 도중에 사용자 지시로 멈췄다** — 저장소 검증(loan 테스트)과 `cells.py --stage advanced check`·`flutter analyze`는 지나갔고 `flutter test`는 결과를 보지 못했다. **고친 뒤의 180개 통과는 확인되지 않았다**
+- **마지막 검증**: [VERIFY.md](VERIFY.md) "마지막 결과"에 적힌 것은 2026-11-24 밤 개인 PC — 3차 고등 1,500 + DB 10판(`b05d702` 내용, 시험 170개 때)과 처음 설치 시작 화면까지다. 그 뒤의 설정 변경(`920af16`, 시험 177개)과 4차 3단계(시험 180개)는 `flutter analyze`·`flutter test` 통과까지이고 VERIFY.md에는 적지 않았다. **4차 변경분은 빌드·에뮬레이터 확인을 하지 않았다**(6단계, 개인 PC)
 - **마지막 release APK**: `D:\dev\tmp\vocab_apk\vocab-1.0.0-release-20261124-highschool.apk`(저장소 밖, 개인 PC — 커밋 `920af16`, 50.4MB). **디버그 키 서명**(폰에 직접 설치는 되고 스토어에는 못 올린다), 앱 이름·아이콘은 임시. APK 안에 단어 파일 9개·DB 파일 0개 — 기록은 기기에서 첫 실행 때 빈 DB로 생긴다(사용자 요구). 옛 것 `vocab-1.0.0-release.apk`(2026-11-23, 초등 800 때)도 같은 폴더에 있다
 - **에뮬레이터(`vocab_api36`, 개인 PC)**: 3차 6단계에서 `b05d702` 내용의 **debug 빌드**를 설치해 DB 9 → 10판 이행을 확인했다. `920af16`(설정 변경)을 설치했다는 기록은 없다. 기기 데이터는 처음 설치 시작 화면 확인(`pm clear`) 뒤 백업에서 되돌렸다(md5 일치). 단어장은 기록으로 세면 6개 — `LongNameDeckNumberOne …`·`초등 중간`·`😀`·`ddxd` + 확인용 `mid1`(중등 쉬움, 시험 20문제 기록과 오답 14단어) · `hi1`(고등 어려움, **지금 홈**). 확인용 둘은 필요 없으면 메뉴 ⋮로 지운다
 - **기기 DB 사본**: `D:\dev\tmp\vocab_db_backup\` — `before_v10\vocab.db`·`after_v10.db`(10판 이행 전후), `before_fresh\`(시작 화면 확인 전 DB와 설정 — 되돌릴 때 쓴 것), `fresh.db` 등
 
 ### 이어서 할 일 (순서대로)
 
-1. **4차 심화 — 계획 승인됨(2026-11-25 사용자 "1단계부터 시작"), 1·2단계 끝, 다음은 3단계**. 계획서 [docs/plan-words-phase4.md](docs/plan-words-phase4.md)(critic REVISE → 반영 → 재검토 APPROVE)
-   - **사용자 결정**: 규모 = 남은 B1 1,227 + B2 2,386 = 3,613개에서 `x`를 뺀 전부 / 넷째 학교급 화면 이름 "심화", 3칸 / **`x`는 gay · suicide · sex · bust 넷뿐** — 후보로 올린 25개(sexual · sexy · rape · sexism · naked / damn · bum · bloody · hell · suck · pee · prick · daft / gook · retard · cripple · queer · tramp · dumb · idiot · lame · freak · dwarf · ghetto / ness)는 "다 넣는다" / 고등에서 빠진 쉬운 일상어는 심화 쉬움 칸 맨 앞 + 화면 설명 / 작성·검토는 3차와 같게(100개 묶음, 300개마다 검토, 사람 표본 칸당 20줄)
-   - **1단계 끝(2026-11-25 사내망 PC)**: `select.py --stage advanced`(+ `--partial`), `cells.py`의 `advanced`, `docs/wordlist/candidates-advanced.csv` 3,613줄, README 4차 규칙
-   - **2단계 끝 — 목록 고정(2026-11-25 사내망 PC)**: `docs/wordlist/tiers-advanced.csv` 3,613줄(단계 1이 323 · 2가 3,286 · `x`가 4, 난이도 1,290 · 1,315 · 1,004)과 `docs/wordlist/advanced.csv` **3,609줄 = 칸마다 1,203개**(쉬움은 모두 난이도 1 / 중간은 난이도 1이 87 + 2가 1,116 / 어려움은 난이도 2가 199 + 3이 1,004), 번호 `w-3001`~`w-6609`. **이 두 파일은 이제 고치지 않는다** — 빼야 할 말이 나오면 멈추고 사용자에게 묻는다(계획서 "목록은 2단계 끝에 고정한다")
-     - 과정: 후보를 알파벳 순 6덩이로 나눠 executor가 따로 매김 → 덩이 순서대로 입력과 맞춰 보고 붙임(덩이마다 `--partial` 검사·커밋) → code-reviewer 네 구간(모두 COMMENT, 99줄 반영) → 300줄 구간마다 쉬움 비율이 20%~49%로 달라 치우친 네 구간을 기준 줄에 맞춤(324줄 — 계획서에 없던 추가 작업) → 사용자 확인 ①(`x` 후보 25개 "다 넣는다") → `select.py` → 사용자 확인 ②(칸마다 표본 20개 seed 20261125 "이대로 고정", 단계 1 표본 20개 "맞다")
-     - 단계 1에서 뺀 말(무기·술·범죄·담배·변화형·영국 말): bomb · bullet · sword · drunk · jail · smoker · canned · tracksuit — 단어는 심화에 그대로 들어간다(단계 2)
-   - **다음 = 3단계(코드와 시험)** — 계획서 "단계 3" 그대로: 먼저 이 PC에서 `flutter analyze && flutter test`가 지금 통과하는지 확인 → `cell.dart`에 `SchoolLevel.advanced('심화')`·`Cell` 세 값·`hiddenLevelsProvider` → 고르기 화면에서 숨김, 심화 쉬움 버튼의 둘째 줄 `고등 이전에 놓친 쉬운 말 포함` → 빈 단어 파일 셋(`[]`) → 시험(`_expectedCount`에 1,203 × 3, `_filling` = 심화 3칸, 넣지 않은 넷이 12칸에 없음, 9 → 12칸, 숨김·둘째 줄 화면 시험 폭 360)
-   - **4단계에서 지킬 것**: 넣기로 한 25개의 뜻은 사전의 중립적인 뜻으로 쓰고 비하·욕설로 쓰이는 말은 뜻에 그 사실을 밝힌다(Claude 해석), 5단계 사람 표본에 이 25개를 따로 넣어 보여 준다
-   - 원본 두 파일은 **사내망 PC `D:\dev\tmp\wordlist\`에도 있다**(SHA-256 일치). 이 PC에서 `flutter test`는 오늘 돌려 보지 않았다 — 3단계 첫 줄에서 확인한다
-   - 이어 가기: `/apps:selection-subject vocab` → "계획서 3단계부터"
-2. **release 준비**: 앱 이름·아이콘(지금 `영단어`, 임시), 정식 서명 키(지금 release는 디버그 키 서명 — 설치용으로만 만들어 봄). release 빌드 전에 정하기로 함(2026-11-22 사용자 결정)
+1. **4차 심화 — 4단계(뜻·예문·해석 쓰기)부터**. 계획서 [docs/plan-words-phase4.md](docs/plan-words-phase4.md)가 기준이다(2026-11-25 critic REVISE → 반영 → 재검토 APPROVE → 사용자 승인. 단계마다 "결과" 문단에 실제로 한 것과 계획과 달랐던 것이 있다)
+   - **다음에 할 일**: 먼저 3단계를 마무리한다 — `flutter analyze && flutter test`로 180개 통과 확인(위 "지금 상태" 맨 위). 그다음 계획서 "단계 4". 칸은 한 번에 하나씩(쉬움 → 중간 → 어려움), `docs/wordlist/advanced.csv` 순서대로 **100개 묶음**(칸마다 13묶음 — 마지막 묶음은 3개). 묶음마다 `python tool/wordlist/cells.py --stage advanced check && flutter test test/data/word_assets_test.dart test/data/similar_words_test.dart` 뒤 경로를 밝혀 `wip:` 커밋·push하고, 아래 "4단계에서 지금까지 쓴 것"을 고친다. code-reviewer 검토는 묶음 3 · 6 · 9 뒤와 마지막 묶음 뒤(마지막 검토는 칸 전체의 유사어 쌍도). 작성 규칙은 3차와 같다([docs/plan-words-phase3.md](docs/plan-words-phase3.md) "4. 뜻·예문·해석을 쓴다")
+   - **4단계에서 지금까지 쓴 것**: 0개(시작 전). 번호는 쉬움 `w-3001`~`w-4203` · 중간 `w-4204`~`w-5406` · 어려움 `w-5407`~`w-6609`
+   - **사용자 결정(바꾸지 않는다)**: 규모 = 남은 B1 1,227 + B2 2,386 = 3,613개에서 뺄 것을 뺀 전부 / 넷째 학교급 화면 이름 "심화", 3칸 / **넣지 않는 말은 gay · suicide · sex · bust 넷뿐** — 후보로 올린 25개(sexual · sexy · rape · sexism · naked / damn · bum · bloody · hell · suck · pee · prick · daft / gook · retard · cripple · queer · tramp · dumb · idiot · lame · freak · dwarf · ghetto / ness)는 "다 넣는다" / 고등에서 빠진 쉬운 일상어는 심화 쉬움 칸 맨 앞 + 화면 설명 / 작성·검토는 3차와 같게(100개 묶음, 300개마다 검토, 사람 표본 칸당 20줄)
+   - **목록은 고정됐다 — `docs/wordlist/tiers-advanced.csv`·`advanced.csv`를 고치지 않는다.** 3,609개 = 칸마다 1,203개, 쉬운 말(단계 1) 323개는 쉬움 칸 맨 앞. 번호가 줄 순서에서 나오므로 단어 하나를 빼면 뒤 번호가 모두 밀린다 — 검토나 사람 표본에서 빼야 할 말이 나오면 **멈추고 사용자에게 묻는다**(절차는 계획서 "목록은 2단계 끝에 고정한다")
+   - **심화는 숨겨 둔 채 쓴다**: `lib/data/word_repository.dart`의 `hiddenLevelsProvider`가 `{SchoolLevel.advanced}`인 동안 학교급 고르기에 심화가 나오지 않는다. 5단계(사람 표본)까지 끝난 뒤 **6단계 첫 줄에서 비운다**. `test/data/word_assets_test.dart`의 `_filling`(심화 3칸)은 4단계 마지막 묶음 뒤에 비운다
+   - **넣기로 한 25개의 뜻**: 사전의 중립적인 뜻으로 쓰고, 비하·욕설로 쓰이는 말(gook · damn 등)은 뜻에 그 사실을 밝힌다(Claude 해석 — 사용자 확인 전). 5단계 사람 표본에 이 25개를 따로 넣어 보여 준다
+   - **끝난 단계**(자세한 것은 계획서의 단계별 "결과"와 아래 진행 이력)
+     - 1단계: `select.py --stage advanced`(+ `--partial`), `cells.py`의 `advanced`, 후보 `candidates-advanced.csv` 3,613줄
+     - 2단계: 단계표 3,613줄 → code-reviewer 네 구간(모두 COMMENT, 99줄 반영) → 치우친 네 구간 난이도 맞춤(324줄) → 사용자 확인 ① 뺄 말 ② 칸마다 표본 20개(seed 20261125) → 목록 고정
+     - 3단계: `SchoolLevel.advanced('심화')`, 12칸, 숨김, 심화 쉬움 버튼의 둘째 줄 `고등 이전에 놓친 쉬운 말 포함`, 빈 단어 파일 셋, 시험 177 → 180개
+   - **분량**: 4단계는 39묶음이다. 한 대화에서 끝나지 않는다 — 묶음마다 커밋·push와 이 인계 갱신을 지킨다. 두 PC 어디서든 할 수 있다(원본 두 파일은 4단계에 필요 없다. 6단계의 `select.py` 재실행에는 필요하고 두 PC 모두 `D:\dev\tmp\wordlist\`에 있다)
+2. **release 준비**: 앱 이름·아이콘(지금 `영단어`, 임시), 정식 서명 키(지금 release는 디버그 키 서명 — 설치용으로만 만들어 봄). release 빌드 전에 정하기로 함(2026-11-22 사용자 결정). 심화가 숨겨져 있으므로 4차 도중에 따로 진행해도 된다
 3. **그 밖에 열린 것**
    - **평가원(게시판)·교육부(국민신문고) 문의 답 기다림** — 답이 오면 사용자가 붙여 준다. 사용자가 뜻한 경우 B는 "광고만"이다(평가원 게시글은 Claude 초안이 유료·결제·구독까지 넣었고 고칠 수 없음 — 답이 광고에 대한 것인지 가려 볼 것). 지금 단어는 CEFR-J만 쓰므로(인용하면 상업 이용 무상) 답은 교육과정 목록을 쓸지에만 걸린다. 자세한 조사·주소는 [보관 파일](docs/handoff-archive-2026-11.md) 5번 항목
    - **앱 정보 한국어화** — `오픈소스 라이선스`(Flutter 기본 `showLicensePage`)의 제목 등이 영어로 나온다. 한국어로 하려면 `flutter_localizations`가 필요 — 사용자 미결정
-   - **사내망 PC의 끊긴 대화** — 그 PC 대화가 종료 처리 없이 끊겼다(사용자 확인). 그 PC가 push한 것은 `ea83d5f`까지이고, 그 뒤 커밋하지 않은 변경이 그 PC에 남아 있을 수 있다 — 사내망 PC에서 다시 시작할 때 pull 전에 `git status`로 본다
-   - **[VERIFY.md](VERIFY.md) "기대값"이 낡았다** — 지금도 "시험 169개, 고등 칸당 50개, 유사어 71쌍"(중등 700 뒤 기준). 다음 검증 때 고친다
-   - **안 고친 작은 것**: 3차 코드 검토 LOW(`select.py`의 high()/middle() 흐름 중복, 원본 SHA 값이 README와 코드 두 곳, `.xlsx`면 SHA 검사를 건너뜀). `deckWordsProvider` 등의 `AsyncError()` 분기는 읽기 실패 때 Riverpod 다시 시도(약 38초) 동안 로딩만 보인다(전부터 있던 동작). 홈 버튼들의 `_open`도 `isCurrent` 가드라 같은 순간 두 번 누르면 두 번 열릴 수 있다(확인 안 함 — 앱 정보만 고침). 아주 낮은 창에서 메뉴가 넘칠 수 있다(추측, 재현 안 함)
-   - **사람이 읽은 단어는 표본뿐** — 학교급마다 표본 60줄(칸마다 20줄)을 사용자가 보고 확정했다. 나머지는 에이전트(code-reviewer) 검토만 받았다
+   - **[VERIFY.md](VERIFY.md) "기대값"이 낡았다** — 지금도 "시험 169개, 고등 칸당 50개, 유사어 71쌍"(중등 700 뒤 기준). 4차 6단계에서 함께 고친다
+   - **문서의 "9칸"**: 앱 [CLAUDE.md](CLAUDE.md) `:3`·`:33`, `docs/spec.md:26`·`:32`·`:54`, 루트 `README.md`가 아직 9칸·3,000개로 적혀 있다. 코드는 12칸이지만 심화가 숨겨져 있어 화면으로는 맞는 말이다 — 4차 6단계에서 고친다
+   - **안 고친 작은 것**: 3차 코드 검토 LOW(`select.py`의 high()/middle() 흐름 중복, 원본 SHA 값이 README와 코드 두 곳, `.xlsx`면 SHA 검사를 건너뜀). `deckWordsProvider` 등의 `AsyncError()` 분기는 읽기 실패 때 Riverpod 다시 시도(약 38초) 동안 로딩만 보인다(전부터 있던 동작). 홈 버튼들의 `_open`도 `isCurrent` 가드라 같은 순간 두 번 누르면 두 번 열릴 수 있다(확인 안 함 — 앱 정보만 고침). 아주 낮은 창에서 메뉴가 넘칠 수 있다(추측, 재현 안 함). 심화 단계표는 300줄 구간마다 난이도 눈높이가 조금 다르다(맞춘 뒤에도 쉬움 비율 26%~43% — 목록을 고정했으므로 그대로 둔다)
+   - **사람이 읽은 단어는 표본뿐** — 초·중·고는 학교급마다 표본 60줄(칸마다 20줄)을 사용자가 보고 확정했다. 나머지는 에이전트(code-reviewer) 검토만 받았다. 심화는 아직 **어느 칸에 들어가는지**만 표본 60개로 확인했다(뜻·예문은 쓰기 전)
+   - **4차 코드는 code-reviewer 검토 전이다** — 1단계(`select.py`·`cells.py`)와 3단계(Dart) 변경은 종료 코드와 시험으로만 확인했다. 계획대로 6단계의 `/oh-my-claudecode:review`에서 본다
    - **iOS 잠정 보류**(아래 "주의할 것")
 
-이어 가기: `/apps:selection-subject vocab`
-
+이어 가기: `/apps:selection-subject vocab` → "계획서 4단계부터"
 ### 지금 앱 (모두 사용자 결정)
 
 - **단어장**: 사용자가 "새 등록"으로 만든 이름 있는 단어장(`StudyDeck`, id `deck_<n>`, `lib/data/study_decks.dart`) = 이름 + 바탕 칸(학교급 × 난이도). 같은 학교급+난이도로 여러 개 만들 수 있고 기록·오답 노트·진도는 단어장마다 따로(`cell_id = deck_<n>`). 이름은 20자까지
@@ -62,6 +68,7 @@
 ### 데이터
 
 - **내장 단어 3,000개(CEFR-J 1.6 기준)** — `assets/words/<학교급>_<난이도>.json` 9개. 번호는 칸과 무관하게 `w-0001`~`w-3000`(초등 `w-0001`~`w-0800` · 중등 `w-0801`~`w-1500` · 고등 `w-1501`~`w-3000`). 옛 450개(`ee-001` 꼴 번호)는 모두 지웠다
+- **심화(4차, 진행 중)**: 칸은 코드에서 12개(`advanced_easy|medium|hard` 추가)이고 단어 파일 셋은 아직 빈 목록(`[]`)이다. 넣을 단어 3,609개와 칸·순서는 `docs/wordlist/advanced.csv`에 고정돼 있다(번호 `w-3001`~`w-6609`, 칸마다 1,203개). 넣지 않는 말은 `docs/wordlist/tiers-advanced.csv`의 `x` 줄(bust · gay · sex · suicide) — `test/data/word_assets_test.dart`가 12칸 어디에도 없음을 지킨다
 - **선정 자료**: 계획 [docs/plan-words-phase1.md](docs/plan-words-phase1.md) · [phase2](docs/plan-words-phase2.md) · [phase3](docs/plan-words-phase3.md), 선정 규칙·원본 주소·SHA-256·이용 조건은 [docs/wordlist/README.md](docs/wordlist/README.md), 선정 결과·단계는 `docs/wordlist/*.csv`, 검토로 고친 줄은 `docs/wordlist/review-fixes*.txt`. 원본 두 파일(CEFR-J zip·빈도 파일)은 저장소에 없고 개인 PC `D:\dev\tmp\wordlist\`에 있다
 - **기존 고등 150 중 CEFR-J에 없는 33개**(bias·hypothesis 등)는 어느 칸에도 다시 들어가지 않는다(사용자에게 알림). 초등 검토가 뺀 19개(meeting·feeling 등)도 뺀 채다
 - **유사어 쌍은 단어를 바꾸면 함께 고친다** — `test/data/similar_words_test.dart`가 쌍이 같은 칸에 있는지 본다
@@ -84,6 +91,7 @@
 ### 기기에서 눌러 보지 않은 것 (자동 시험만 통과)
 
 - 고등 쉬움·중간 칸과 중등 중간·어려움 칸의 카드·시험, 진도 화면(2차·3차 뒤)
+- 심화(4차 3단계) 화면 — 학교급 고르기에서 심화가 숨겨지는 것, 숨김을 풀었을 때 난이도 화면의 심화 쉬움 버튼 둘째 줄(`고등 이전에 놓친 쉬운 말 포함`)과 폭 360에서의 넘침. 화면 시험만 있고 빌드·설치는 하지 않았다
 - 설정의 100·"전체 (단어 수)"(`920af16`) — 커밋 뒤 debug 빌드를 에뮬레이터에 설치만 했고(2026-11-24 밤) 눌러 본 것은 검토 반영 전 빌드에서 설정 화면이 뜨는 것까지(`전체 (500)`·`100` 보임). 전체를 고른 뒤 카드 학습 장수는 기기에서 안 봄(자동 시험만)
 - 오답 시험(`/review/quiz`) 풀기, 뒤로 **제스처**(시스템 뒤로 키는 확인함), 단어장을 모두 지웠을 때
 - 소리(TTS) — 마지막으로 귀로 들은 것은 2026-11-20
@@ -94,6 +102,9 @@
 ### 주의할 것
 
 - **iOS는 잠정 보류**(2026-11-18 사용자 결정, 추후 지시까지 안드로이드만). 패키지는 iOS도 지원하는 것만 쓴다
+- **심화 단어 목록은 고정이다** — `docs/wordlist/tiers-advanced.csv`·`advanced.csv`를 고치지 않는다(번호가 줄 순서에서 나온다). **심화는 `hiddenLevelsProvider`(`lib/data/word_repository.dart`)로 숨겨 둔 채 쓰고 6단계 첫 줄에서 연다** — 그 전에 열면 덜 찬 칸이 사용자에게 보인다
+- **사내망 PC에서 git 쓰기 오류가 간헐적으로 난다(2026-11-25 세 번)**: pull 때 `failed to perform geometric repack`, 커밋 때 `unable to write file .git/objects/…: Permission denied`, `fatal: couldn't set 'refs/heads/main'`(이때는 커밋이 안 됐고 다시 시도하니 됐다). 원인은 확인하지 않았다(다른 프로그램이 `.git` 파일을 잠깐 잡는 것으로 보인다). 커밋 뒤에는 `git log -1`과 `git status`로 실제로 됐는지 본다. `.git/objects/pack/`에 옛 임시 파일 8개가 남아 있다(지우지 않음)
+- **사내망 PC의 `flutter analyze`는 약 2분, `flutter test`는 약 4분**(2026-11-25, 177개 때). 같은 PC에서 다른 빌드가 돌면 훨씬 느리다 — 2026-11-25 저녁에는 다른 Claude 세션의 Java 빌드와 겹쳐 전체 시험이 10분 넘게 끝나지 않았다
 - **단어 도구**: `python tool/wordlist/select.py --stage elementary|middle|high --cefrj <zip> --freq <txt>`(선정 — 원본 SHA-256이 README와 다르면 종료 코드 1), `python tool/wordlist/cells.py --stage <학교급> check [--full]`(칸 검사 — 원본 없이 돈다), `cells.py --stage <학교급> fix <파일>`(검토 줄 적용). **`cells.py skeleton`은 돌리지 말 것 — 채운 단어가 지워진다.** **`cells.py fix`는 그 학교급 세 파일을 다 다시 쓴다** — 다른 칸을 쓰는 중에는 돌리지 않고, 누적된 고칠 줄 파일(`review-fixes-*.txt`)을 통째로 다시 넘기지 않는다(그 회차의 줄만)
 - **사내망 PC의 `flutter test`(2026-11-24)**: 시험이 쓰는 sqlite3 3.9.1 패키지가 빌드 때 `https://github.com/simolus3/sqlite3.dart/releases/download/sqlite3-3.9.1/sqlite3.x64.windows.dll`을 받는다 → 사내망에서 막혀 `Building native assets failed`. 받은 파일을 `projects/apps/vocab/.dart_tool/hooks_runner/shared/sqlite3/build/download-643956b0/sqlite3.dll`(이름을 `sqlite3.dll`로)에 두면 그것을 쓴다 — SHA-256 `643956b011d5c705c6eae79d93085f5b206e4bfecf5d57a05aea3e2242612028`(패키지 `lib/src/hook/asset_hashes.dart`의 값, 틀리면 다시 받으려 한다). `.dart_tool`을 지우면 다시 둬야 한다
 - **사내망 PC의 `flutter build apk --debug`**: 같은 패키지가 Android용 `libsqlite3.<arm|arm64|ia32|x64>.android.so` 4개를 github.com에서 받으려다 막혀 실패한다. 주소 `https://github.com/simolus3/sqlite3.dart/releases/download/sqlite3-3.9.1/…`의 4개 파일을 `.dart_tool/hooks_runner/shared/sqlite3/build/download-<SHA 앞 8자리>/libsqlite3.so`로 두면 될 것으로 보이나(이름 규칙은 코드로 확인, SHA-256은 `asset_hashes.dart`) **실제로 되는지는 확인하지 않았다**. 개인 PC에서는 그냥 빌드된다. `raw.githubusercontent.com`은 사내망 PC에서 열려 있다(2026-11-24 실측, github.com만 막힘)
@@ -109,7 +120,7 @@
 
 바로 할 일은 위 인계의 "이어서 할 일". 여기에는 그 뒤의 큰 일만 둔다.
 
-- 단어를 영단어 책 수준으로 늘리기 — 1차 초등 800 · 2차 중등 700 · 3차 고등 1,500 끝남(2026-11-24). **4차 심화(3,613개에서 뺄 것을 뺀 전부) 진행 중** — 2~6단계 남음([docs/plan-words-phase4.md](docs/plan-words-phase4.md))
+- 단어를 영단어 책 수준으로 늘리기 — 1차 초등 800 · 2차 중등 700 · 3차 고등 1,500 끝남(2026-11-24). **4차 심화(3,609개) 진행 중** — 1~3단계 함(2026-11-25), 4단계(뜻·예문·해석 쓰기 39묶음) · 5단계(사람 표본) · 6단계(검증·심화 열기) 남음([docs/plan-words-phase4.md](docs/plan-words-phase4.md))
 - release 준비: 앱 이름·아이콘, 정식 서명 키(지금 release APK는 디버그 키 서명 — 설치용으로만 만들어 봄)
 - iOS 확인(보류 해제 시 — 대안은 [docs/options.md](docs/options.md) "먼저 알아 둘 것")
 
@@ -211,3 +222,5 @@
 - 2026-11-25 사내망 PC · 계획 · critic REVISE(CRITICAL 0 · MAJOR 2 · MINOR 9) → 모두 반영(목록 고정 절차, `hiddenLevels`로 숨김, 넣지 않은 말은 시험으로 확인 등 — 계획서 "검토 반영 기록"). 재검토 **APPROVE**(CRITICAL·MAJOR 없음) + 새 MINOR 5건 반영(이 판은 다시 검토받지 않음). 사용자 승인 "1단계부터 시작"
 - 2026-11-25 사내망 PC · 개발 · 4차 1단계: `select.py --stage advanced`(후보 수·단계 1·2·x·넣지 않는 넷·난이도·칸 배정 검사, `--partial`)와 `cells.py`의 `advanced`(번호 `w-3001`부터). 후보 3,613개(B1 1,227 · B2 2,386) `candidates-advanced.csv`. 완료 기준 종료 코드 0(네 학교급 선정 뒤 기존 csv 그대로). 가짜 단계표로 통과 1 · 실패 6가지가 기대한 종료 코드로 나옴(칸 크기 1,203 × 3, 번호 `w-3001`~`w-6609` — 실제 값은 `x` 수에 따라 달라진다)
 - 2026-11-25 사내망 PC · 선정 · 4차 2단계: 심화 단계표 3,613줄(executor 6덩이 → 덩이마다 `--partial` 검사·커밋) → code-reviewer 네 구간 모두 COMMENT, 99줄 반영 → 치우친 네 구간 난이도 맞춤 324줄 → **사용자 확인 ① `x` 후보 25개 "다 넣는다"**(`x`는 넷뿐) → `advanced.csv` 3,609줄(칸마다 1,203, 단계 1이 323, 난이도 1,290 · 1,315 · 1,004) → **사용자 확인 ② 칸마다 표본 20개(seed 20261125) "이대로 고정", 단계 1 표본 "맞다"** → 목록 고정. 네 학교급 `select.py` 뒤 기존 csv 그대로(종료 코드 0)
+- 2026-11-25 사내망 PC · 개발 · 4차 3단계: 넷째 학교급 "심화"와 세 칸(12칸), 고르기 화면에서 숨김(`hiddenLevelsProvider`), 심화 쉬움 버튼 둘째 줄, 빈 단어 파일 셋, 시험 177 → 180개. 구현한 executor 보고: `flutter analyze`·`flutter test` 종료 코드 0, 180개 통과(기준선 177개 통과는 같은 PC에서 직접 확인). 그 뒤 넣지 않은 말 시험을 `containsAll`로 고침 — 고친 뒤의 전체 재실행은 `flutter test` 도중에 멈췄다(아래 줄). DB 10판 그대로
+- 2026-11-25 사내망 PC · 종료 · 사용자 지시로 작업을 멈추고 인계를 지금 기준으로 다시 정리한 뒤 커밋·push, 주제 종료. 4차 1~3단계 함(계획 승인, 목록 3,609개 고정, 심화 코드·시험 — 화면에서는 숨김), 4단계(뜻·예문 쓰기)는 시작 전. 3단계는 전체 시험을 다시 확인하지 않은 `wip:` 커밋이다(재실행에서 저장소 검증·`cells.py check`·`flutter analyze`는 지나갔고 `flutter test`는 같은 PC의 다른 빌드와 겹쳐 끝나기 전에 멈춤) — 다음에 `flutter analyze && flutter test`부터

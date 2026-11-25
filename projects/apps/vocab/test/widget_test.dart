@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:vocab/data/app_settings.dart';
 import 'package:vocab/data/cell.dart';
@@ -37,6 +38,9 @@ void main() {
     Cell.highEasy: [
       for (var i = 0; i < 5; i++) fakeWord('he-00$i', 'h$i', '고$i'),
     ],
+    Cell.advancedEasy: [
+      for (var i = 0; i < 3; i++) fakeWord('ae-00$i', 'a$i', '심$i'),
+    ],
   };
 
   setUp(() {
@@ -49,6 +53,7 @@ void main() {
   Future<void> pumpApp(
     WidgetTester tester, {
     WordRepository? repository,
+    Set<SchoolLevel>? hiddenLevels,
   }) async {
     await tester.pumpWidget(
       ProviderScope(
@@ -63,6 +68,8 @@ void main() {
           quizRandomProvider.overrideWithValue(NoShuffleRandom()),
           studyDecksProvider.overrideWithValue(decks),
           speakerProvider.overrideWithValue(FakeSpeaker()),
+          if (hiddenLevels != null)
+            hiddenLevelsProvider.overrideWithValue(hiddenLevels),
         ],
         child: MaterialApp.router(routerConfig: createRouter()),
       ),
@@ -116,7 +123,8 @@ void main() {
     // 세로: 초등·중등·고등 버튼이 위에서 아래로
     final y = [
       for (final level in SchoolLevel.values)
-        tester.getTopLeft(find.byKey(ValueKey('pick-${level.name}'))).dy,
+        if (level != SchoolLevel.advanced) // 심화는 숨겨져 있다
+          tester.getTopLeft(find.byKey(ValueKey('pick-${level.name}'))).dy,
     ];
     expect(y[0] < y[1] && y[1] < y[2], isTrue);
 
@@ -149,6 +157,65 @@ void main() {
     expect(find.text('한 번에 카드 4장 · 시험 4문제'), findsOneWidget);
     expect(find.text('시험'), findsOneWidget); // 시험 버튼 글자에는 문항 수를 붙이지 않는다
     expect(find.text('오답 노트 · 0단어'), findsOneWidget);
+  });
+
+  testWidgets('심화는 기본으로 숨겨져 학교급 고르기에 없고, 주소로 열어도 없는 학교급이다', (tester) async {
+    await pumpApp(tester);
+    await tap(tester, 'start-create');
+    await enterName(tester, '숨김');
+
+    expect(find.byKey(const ValueKey('pick-high')), findsOneWidget);
+    expect(find.byKey(const ValueKey('pick-advanced')), findsNothing);
+    expect(find.text('심화'), findsNothing);
+
+    GoRouter.of(tester.element(find.byType(LevelPickerScreen))).push(
+      Uri(path: '/pick/advanced', queryParameters: {'name': '숨김'}).toString(),
+    );
+    await tester.pumpAndSettle();
+    expect(find.text('없는 학교급입니다'), findsOneWidget);
+    expect(find.byKey(const ValueKey('pick-advanced_easy')), findsNothing);
+  });
+
+  testWidgets('숨김을 풀면 심화가 보이고, 쉬움 버튼에만 둘째 줄이 있으며 화면 폭 360에서 넘치지 않는다', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(360, 800);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+    await pumpApp(tester, hiddenLevels: const {});
+    await tap(tester, 'start-create');
+    await enterName(tester, '심화 시험');
+
+    expect(find.byKey(const ValueKey('pick-advanced')), findsOneWidget);
+    await tap(tester, 'pick-advanced');
+
+    const note = '고등 이전에 놓친 쉬운 말 포함';
+    expect(find.byType(DifficultyPickerScreen), findsOneWidget);
+    expect(find.text(note), findsOneWidget);
+    expect(
+      find.descendant(
+        of: find.byKey(const ValueKey('pick-advanced_easy')),
+        matching: find.text(note),
+      ),
+      findsOneWidget,
+    );
+    for (final id in ['advanced_medium', 'advanced_hard']) {
+      expect(
+        find.descendant(
+          of: find.byKey(ValueKey('pick-$id')),
+          matching: find.text(note),
+        ),
+        findsNothing,
+      );
+    }
+    expect(
+      find.descendant(
+        of: find.byKey(const ValueKey('pick-advanced_easy')),
+        matching: find.text('3단어'),
+      ),
+      findsOneWidget,
+    );
+    expect(tester.takeException(), isNull);
   });
 
   testWidgets('이름 창 취소, 학교급·난이도에서 ← 뒤로로 그만두면 아무것도 만들지 않는다', (tester) async {

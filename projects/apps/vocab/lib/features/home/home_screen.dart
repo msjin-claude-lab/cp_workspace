@@ -130,11 +130,15 @@ class _PickButton extends StatelessWidget {
   const _PickButton({
     super.key,
     required this.label,
+    this.note,
     this.detail,
     required this.onPressed,
   });
 
   final String label;
+
+  /// 이름 아래 작은 글씨(둘째 줄). 없으면 이름만.
+  final String? note;
   final String? detail;
   final VoidCallback onPressed;
 
@@ -150,7 +154,15 @@ class _PickButton extends StatelessWidget {
         onPressed: onPressed,
         child: Row(
           children: [
-            Expanded(child: Text(label, style: text.titleLarge)),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(label, style: text.titleLarge),
+                  if (note != null) Text(note!, style: text.bodySmall),
+                ],
+              ),
+            ),
             if (detail != null) Text(detail!, style: text.bodyMedium),
           ],
         ),
@@ -184,14 +196,15 @@ class _NewDeckTitle extends StatelessWidget {
 }
 
 /// 새 단어장 ② 학교급 고르기(① 이름은 창으로 받았다). 홈 위에 쌓아 ← 뒤로로 그만둘 수 있다.
-class LevelPickerScreen extends StatelessWidget {
+class LevelPickerScreen extends ConsumerWidget {
   const LevelPickerScreen({super.key, required this.name});
 
   /// 만들 단어장 이름.
   final String name;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final hidden = ref.watch(hiddenLevelsProvider);
     return Scaffold(
       // 제목은 만들고 있는 단어장 이름, 할 일은 버튼 위 안내 문구로
       // (2026-11-22 사용자 결정(UX 점검) — 두 고르기 화면이 같은 제목으로 한 흐름임을 보인다)
@@ -202,16 +215,17 @@ class LevelPickerScreen extends StatelessWidget {
           children: [
             const _Guide('학교급을 고르세요'),
             for (final level in SchoolLevel.values)
-              _PickButton(
-                key: ValueKey('pick-${level.name}'),
-                label: level.label,
-                onPressed: () => context.push(
-                  Uri(
-                    path: '/pick/${level.name}',
-                    queryParameters: {'name': name},
-                  ).toString(),
+              if (!hidden.contains(level))
+                _PickButton(
+                  key: ValueKey('pick-${level.name}'),
+                  label: level.label,
+                  onPressed: () => context.push(
+                    Uri(
+                      path: '/pick/${level.name}',
+                      queryParameters: {'name': name},
+                    ).toString(),
+                  ),
                 ),
-              ),
           ],
         ),
       ),
@@ -260,6 +274,9 @@ class _DifficultyPickerScreenState
 
   @override
   Widget build(BuildContext context) {
+    if (ref.watch(hiddenLevelsProvider).contains(widget.level)) {
+      return const Scaffold(body: Center(child: Text('없는 학교급입니다')));
+    }
     return Scaffold(
       appBar: AppBar(title: _NewDeckTitle(widget.name)),
       body: SafeArea(
@@ -291,6 +308,7 @@ class _DifficultyButton extends ConsumerWidget {
     return _PickButton(
       key: ValueKey('pick-${cell.id}'),
       label: cell.difficulty.label,
+      note: cell == Cell.advancedEasy ? '고등 이전에 놓친 쉬운 말 포함' : null,
       detail: words.when(
         data: (list) => '${list.length}단어',
         loading: () => '…',

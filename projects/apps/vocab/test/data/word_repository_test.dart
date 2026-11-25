@@ -23,13 +23,15 @@ class _FakeBundle extends CachingAssetBundle {
 }
 
 void main() {
-  test('칸은 9개이고 id·파일 경로·이름이 학교급×난이도로 정해진다', () {
-    expect(Cell.values, hasLength(9));
+  test('칸은 12개이고 id·파일 경로·이름이 학교급×난이도로 정해진다', () {
+    expect(Cell.values, hasLength(12));
     expect(Cell.middleHard.id, 'middle_hard');
     expect(Cell.middleHard.assetPath, 'assets/words/middle_hard.json');
     expect(Cell.middleHard.label, '중등 [난이도 : 어려움]');
     expect(Cell.of(SchoolLevel.high, Difficulty.easy), Cell.highEasy);
-    expect(Cell.values.map((c) => c.id).toSet(), hasLength(9));
+    expect(Cell.values.map((c) => c.id).toSet(), hasLength(12));
+    expect(Cell.advancedEasy.id, 'advanced_easy');
+    expect(Cell.advancedHard.label, '심화 [난이도 : 어려움]');
   });
 
   test('칸의 JSON 파일에서 단어를 읽는다', () async {
@@ -56,6 +58,9 @@ void main() {
       'assets/words/high_hard.json': '[{"id": "hh-001", "word": "x"}]',
     });
 
-    expect(WordRepository(bundle).wordsOf(Cell.highHard), throwsA(isA<TypeError>()));
+    expect(
+      WordRepository(bundle).wordsOf(Cell.highHard),
+      throwsA(isA<TypeError>()),
+    );
   });
 }

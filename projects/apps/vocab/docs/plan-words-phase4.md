@@ -82,6 +82,8 @@
   - 화면 시험: ① 숨긴 동안 학교급 고르기에 `심화`가 없고 `/pick/advanced`가 `없는 학교급입니다` ② `hiddenLevelsProvider`를 빈 집합으로 바꿔 넣었을 때 `심화` → 난이도 화면의 쉬움 버튼에 둘째 줄이 보이고 **폭 360에서 넘침 오류가 없다**. `FakeRepository`에 심화 칸 단어를 더한다. `widget_test.dart:118` 주변이 넷째 학교급에서도 맞는지 확인
 - 완료 기준: `flutter analyze && flutter test` 종료 코드 0. 커밋·push, 인계 갱신
 
+**3단계 결과(2026-11-25 사내망 PC)**: 시험 177 → 180개(전체 통과는 구현한 executor의 보고다. 그 뒤 시험 한 줄을 고친 다음의 전체 재실행은 `flutter test` 도중에 사용자 지시로 멈췄고 `wip:`로 커밋했다 — **4단계를 시작하기 전에 `flutter analyze && flutter test`를 다시 돌린다**). `hiddenLevelsProvider`는 `cell.dart`가 아니라 `lib/data/word_repository.dart`에 뒀다(`cell.dart`는 riverpod를 쓰지 않는 데이터 파일이라 — 다른 데이터 provider가 있는 곳). 넣지 않은 말 시험은 `tiers-advanced.csv`의 `x` 줄을 읽고 넷이 들어 있는지 본다(`containsAll`). `study_records.dart`·`migrateLegacy`는 고치지 않았다. 폭 360 넘침은 화면 시험에서만 확인했다(기기 확인은 6단계)
+
 ### 4. 뜻·예문·해석을 쓴다
 - **칸은 한 번에 하나씩**(쉬움 → 중간 → 어려움), 칸마다 **100개 묶음**(약 12개, 마지막 묶음은 나머지)
 - 묶음마다: `python tool/wordlist/cells.py --stage advanced check && flutter test test/data/word_assets_test.dart test/data/similar_words_test.dart && git add assets/words/advanced_<칸>.json lib/data/similar_words.dart HANDOFF.md && git commit`(`wip:`, 경로를 밝혀서) 뒤 push. 묶음을 끝낼 때마다 인계에 어느 칸 몇 번까지 썼는지 적는다
