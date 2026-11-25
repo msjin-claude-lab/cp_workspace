@@ -809,8 +809,13 @@ const List<(String, String)> similarWordPairs = [
   ('foolishly', 'foolish'),
   ('tiring', 'tire'),
   ('memorize', 'memorable'),
+  // 심화 중간 묶음 1~3 — 뜻이 거의 같음
+  ('assessment', 'evaluation'), // (실력·상황의) 평가 / 평가
+  ('dated', 'old-fashioned'), // 시대에 뒤떨어진 / 구식의
   // 심화 중간 묶음 1~3 — 어원이 같음
   ('skateboard', 'skateboarder'),
+  ('division', 'divided'),
+  ('extension', 'extensive'),
   // 심화 중간 묶음 1~3 — 우리말 뜻 글자가 같은 동음이의어
   ('unpack', 'untie'), // (짐을) 풀다 / (매듭·끈을) 풀다
 ];
