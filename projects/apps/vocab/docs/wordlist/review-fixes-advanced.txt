@@ -27,3 +27,11 @@ w-3471|example|My grandmother is a well-educated woman who speaks three language
 w-3471|exampleMeaning|할머니는 3개 국어를 하시는 교양 있는 분이다.|예문 표기만 고침
 w-3574|example|This is a proven way to help students learn faster.|has a proven record of는 자연스러운 표현이 아니고 쉬움 칸에 무거움
 w-3574|exampleMeaning|이것은 학생들이 더 빨리 배우도록 돕는 입증된 방법이다.|위 예문에 맞춤
+# --- advanced_easy 묶음 7~9, w-3600~w-3899(2026-11-25 code-reviewer, COMMENT — sports를 뺀 뒤 번호) ---
+w-3641|meaning|라이터|더 가벼운은 light의 비교급이라 표제어 뜻으로 부적절하고 mild의 (병 등이) 가벼운과도 겹쳐 보임
+w-3601|meaning|아무 데도 (~않다), 어디에도 (~없다)|어디에도 없이는 어색한 꼴. nowhere to be found에 맞춤
+w-3899|meaning|기분 변화가 심한, 시무룩한|침울한이 depressed의 우울한과 사실상 같아 정답이 둘로 보임
+w-3665|example|Playing with friends helps children grow socially.|behave socially는 자연스러운 결합이 아님
+w-3665|exampleMeaning|친구들과 놀면 아이들이 사회적으로 성장하는 데 도움이 된다.|위 예문에 맞춤
+w-3853|exampleMeaning|이상적으로는 밤에 여덟 시간을 자야 한다.|가장 좋기로는 ~것이다는 우리말이 어색함
+w-3650|meaning|몹시 추운, 얼어붙을 듯한|영하의가 minus의 영하와 겹쳐 보임(LOW)

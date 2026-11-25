@@ -632,6 +632,26 @@ const List<(String, String)> similarWordPairs = [
   // 심화 쉬움 묶음 4~6 — 우리말 뜻 글자가 같은 동음이의어
   ('god', 'sour'), // 신 / (맛이) 신
   ('biography', 'electrical'), // (인물의) 전기 / 전기의
+  // 심화 쉬움 묶음 7~9 검토가 더한 쌍 — 뜻이 거의 같음
+  ('honestly', 'frankly'), // 솔직히
+  ('polish', 'trim'), // 다듬다
+  ('prompt', 'spark'), // 촉발하다
+  ('narrator', 'storyteller'), // 이야기하는 사람
+  ('cottage', 'hut'), // 시골의 작은 집 / 오두막
+  ('cottage', 'cabin'), // 시골의 작은 집 / 통나무집
+  ('dim', 'faint'), // 어둑한 / 희미한
+  ('insane', 'madness'), // 미친 / 미친 짓
+  ('enjoyment', 'delight'), // 기쁨 / 큰 기쁨
+  ('enjoyable', 'delightful'), // 즐거운 / 아주 즐거운
+  ('carriage', 'wagon'), // 마차 / 짐마차
+  ('personally', 'privately'), // 개인적으로 / 사적으로
+  ('openly', 'publicly'), // 드러내 놓고 / 공공연히
+  // 심화 쉬움 묶음 7~9 검토가 더한 쌍 — 어원이 같음
+  ('frozen', 'freezer'),
+  ('lighter', 'lighting'),
+  // 심화 쉬움 묶음 7~9 검토가 더한 쌍 — 우리말 뜻 글자가 같은 동음이의어
+  ('pipe', 'coffin'), // 관
+  ('bet', 'hook'), // 걸다
   // 심화 쉬움 묶음 7~9 — 뜻이 거의 같음
   ('instantly', 'promptly'), // 곧바로 / 즉시
   ('formally', 'officially'), // 정식으로 / 공식적으로
