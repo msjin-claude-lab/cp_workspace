@@ -1,4 +1,4 @@
-# vocab 심화 단어 단계와 난이도(docs/plan-words-phase4.md 2단계). tier = 1 고등 이전에 놓친 쉬운 말(B1만 · 난이도 1 — 쉬움 칸 맨 앞) · 2 그 밖 · x 넣지 않음(난이도는 비운다). 뽑기는 없다 — x가 아닌 것은 전부 넣는다. difficulty = 칸 나누기 난이도(1 쉬움 — 일상·구체 말 · 2 중간 — 흔한 추상어와 B2의 일반 말 · 3 어려움 — 추상·학술·격식 말과 뜻이 여럿인 말). reason 앞의 [x후보]는 사용자 확인을 기다리는 말이다. Claude가 매겼다(2026-11-25). 기준은 docs/wordlist/README.md
+# vocab 심화 단어 단계와 난이도(docs/plan-words-phase4.md 2단계). tier = 1 고등 이전에 놓친 쉬운 말(B1만 · 난이도 1 — 쉬움 칸 맨 앞) · 2 그 밖 · x 넣지 않음(난이도는 비운다). 뽑기는 없다 — x가 아닌 것은 전부 넣는다. difficulty = 칸 나누기 난이도(1 쉬움 — 일상·구체 말 · 2 중간 — 흔한 추상어와 B2의 일반 말 · 3 어려움 — 추상·학술·격식 말과 뜻이 여럿인 말). x는 사용자가 정한 넷(bust · gay · sex · suicide)뿐이다 — 후보로 올렸던 25개는 모두 넣기로 했다(2026-11-25 사용자 결정). Claude가 매겼다(2026-11-25). 기준은 docs/wordlist/README.md
 word,tier,reason,difficulty
 abandoned,2,다른 말의 변화형,2
 abnormal,2,추상 형용사,2
@@ -318,7 +318,7 @@ blink,2,일반 동사,1
 blog,1,IT·매체 말,1
 blogger,1,IT·매체 말,1
 bloodstream,2,의학·건강 말,3
-bloody,2,[x후보] 욕설로도 쓰는 말,3
+bloody,2,뜻이 여럿인 말,3
 blooming,2,다른 말의 변화형,3
 blossom,2,자연·동물,1
 blur,2,일반 동사,3
@@ -396,7 +396,7 @@ bull,1,자연·동물,1
 bullet,2,일상 구체 명사,1
 bulletin,2,격식어,3
 bully,2,사람·직업,2
-bum,2,[x후보] 속어 비하 표현,2
+bum,2,구어·속어,2
 bump,2,일반 동사,1
 bumper,2,일상 구체 명사,1
 bun,2,음식,1
@@ -712,7 +712,7 @@ creator,2,사람·직업,1
 creek,2,자연·동물,2
 creepy,2,구어·속어,2
 crew,2,사람·직업,1
-cripple,2,[x후보] 장애 비하 소지,3
+cripple,2,뜻이 여럿인 말,3
 critic,2,사람·직업,1
 critically,2,파생 부사·형용사,2
 criticism,2,추상 명사,1
@@ -752,7 +752,7 @@ cyclist,2,사람·직업,1
 daft,2,구어·속어,3
 daisy,1,자연·동물,1
 damaged,2,다른 말의 변화형,2
-damn,2,[x후보] 욕설,2
+damn,2,구어·속어,2
 damp,2,일반 형용사,1
 dandelion,2,자연·동물,2
 dangerously,2,파생 부사·형용사,1
@@ -966,7 +966,7 @@ drunk,2,일반 형용사,1
 dude,2,구어·속어,2
 duel,2,역사·종교 말,3
 dull,2,일반 형용사,1
-dumb,2,[x후보] 비하 표현,2
+dumb,2,일반 형용사,2
 dump,2,일반 동사,1
 duplicate,2,뜻이 여럿인 말,2
 duplication,2,추상 명사,3
@@ -1337,7 +1337,7 @@ geography,2,과학·학술 말,1
 geology,2,과학·학술 말,3
 germ,2,과학·학술 말,2
 getaway,2,구어·속어,2
-ghetto,2,[x후보] 비하 가능한 말,3
+ghetto,2,사회·경제 주제,3
 giant,1,일반 명사,1
 gifted,2,일반 형용사,1
 giggle,2,일반 동사,1
@@ -1367,7 +1367,7 @@ goddess,2,역사·종교 말,1
 godly,2,역사·종교 말,3
 golfer,1,운동·여가,1
 goodwill,2,추상 명사,3
-gook,2,[x후보] 인종 비하 표현,3
+gook,2,구어·속어,3
 gorge,2,뜻이 여럿인 말,3
 gorgeous,2,일반 형용사,1
 gorilla,1,자연·동물,1
@@ -1539,7 +1539,7 @@ identification,2,추상 명사,3
 identify,2,추상 동사,2
 ideology,2,사회·경제 주제,3
 idiom,2,문법 용어,2
-idiot,2,[x후보] 사람을 낮춰 부르는 말,2
+idiot,2,일반 명사,2
 idle,2,일반 형용사,3
 idol,1,일반 명사,1
 idolize,2,일반 동사,3
@@ -2517,7 +2517,7 @@ quantify,2,과학·학술 말,3
 quarantine,2,의학·건강 말,3
 quarrel,2,일반 동사,2
 quarrelsome,2,드문 파생어,3
-queer,2,[x후보] 비하 표현 가능,3
+queer,2,뜻이 여럿인 말,3
 query,2,격식어,3
 questionnaire,2,일반 명사,2
 queue,2,영국 생활·제도 말,2
@@ -2549,7 +2549,7 @@ ram,2,뜻이 여럿인 말,3
 ramp,2,일상 구체 명사,1
 ranger,2,사람·직업,1
 rank,2,뜻이 여럿인 말,2
-rape,2,[x후보] 성범죄 말,3
+rape,2,법·정치 말,3
 rash,2,뜻이 여럿인 말,3
 raspberry,1,음식,1
 ration,2,일반 명사,3
@@ -2665,7 +2665,7 @@ restriction,2,추상 명사,3
 resume,2,뜻이 여럿인 말,3
 retail,2,사회·경제 주제,3
 retailer,2,사회·경제 주제,3
-retard,2,[x후보] 비하 표현 가능,3
+retard,2,뜻이 여럿인 말,3
 retell,2,일반 동사,1
 retina,2,의학·건강 말,3
 retirement,2,사회·경제 주제,2
@@ -2820,9 +2820,9 @@ settlement,2,일반 명사,3
 settler,2,역사·종교 말,2
 severely,2,파생 부사·형용사,3
 sex,x,넣지 않음(사용자 결정),
-sexism,2,[x후보] 성차별 말,3
-sexual,2,[x후보] 성적 표현,3
-sexy,2,[x후보] 성적 표현,2
+sexism,2,사회·경제 주제,3
+sexual,2,일반 형용사,3
+sexy,2,일반 형용사,2
 shabby,2,일반 형용사,3
 shadowy,2,파생 부사·형용사,2
 shaken,2,다른 말의 변화형,2
@@ -3266,7 +3266,7 @@ trainee,2,사람·직업,1
 trainer,2,사람·직업,1
 trait,2,과학·학술 말,3
 traitor,2,사람·직업,3
-tramp,2,[x후보] 영국 생활·제도 말,3
+tramp,2,영국 생활·제도 말,3
 trample,2,일반 동사,3
 transcript,2,일반 명사,3
 transfusion,2,의학·건강 말,3
