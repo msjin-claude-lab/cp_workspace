@@ -633,6 +633,21 @@ const List<(String, String)> similarWordPairs = [
   ('biography', 'electrical'), // (인물의) 전기 / 전기의
   // 심화 쉬움 묶음 13 — 어원이 같음
   ('gang', 'gangster'),
+  // 심화 쉬움 마지막 검토가 더한 쌍 — 어원이 같음
+  ('taste', 'tasteless'),
+  ('tasty', 'tasteless'),
+  ('historic', 'prehistoric'),
+  ('multiple', 'multiply'),
+  ('gym', 'gymnastics'),
+  ('electrical', 'electronics'),
+  ('electrician', 'electronics'),
+  ('export', 'import'),
+  // 심화 쉬움 마지막 검토가 더한 쌍 — 뜻이 거의 같음·짝을 이루는 말
+  ('stepmother', 'stepfather'),
+  ('eruption', 'explode'), // (화산의) 폭발 / 폭발하다
+  ('gasp', 'inhale'), // 숨을 들이쉬다
+  ('salesperson', 'seller'),
+  ('salesperson', 'dealer'),
   // 심화 쉬움 묶음 7~9 검토가 더한 쌍 — 뜻이 거의 같음
   ('honestly', 'frankly'), // 솔직히
   ('polish', 'trim'), // 다듬다
@@ -731,9 +746,7 @@ const List<(String, String)> similarWordPairs = [
   ('stylish', 'elegant'), // 맵시 있는 / 세련된
   ('tiring', 'exhausting'), // 피곤하게 하는 / 몹시 지치게 하는
   ('salesperson', 'salesman'), // 판매 담당자 / 판매원
-  ('advert', 'ad'), // (영국) 광고 / 광고
   ('eyelid', 'lid'), // (위아래) 눈꺼풀 / 눈꺼풀
-  ('dorm', 'dormitory'), // (구어) 기숙사 / 기숙사
   // 심화 쉬움 묶음 10~12 — 어원이 같음
   ('accidentally', 'accidental'),
   ('unexpectedly', 'expected'),

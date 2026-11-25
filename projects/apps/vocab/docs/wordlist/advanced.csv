@@ -1037,7 +1037,6 @@ bomber,B2,14296,2,1,advanced_easy,일상 구체 명사
 fright,B1,14332,2,1,advanced_easy,감정·상태 말
 beak,B2,14380,2,1,advanced_easy,자연·동물
 ache,B1,14385,2,1,advanced_easy,일반 명사
-ow,B2,14403,2,1,advanced_easy,구어·속어
 suburb,B2,14554,2,1,advanced_easy,일반 명사
 lick,B2,14785,2,1,advanced_easy,일반 동사
 trophy,B2,14814,2,1,advanced_easy,일반 명사
@@ -1182,14 +1181,12 @@ stepmother,B2,23252,2,1,advanced_easy,사람·직업
 bruise,B2,23254,2,1,advanced_easy,의학·건강 말
 foolishly,B2,23389,2,1,advanced_easy,파생 부사·형용사
 tulip,B2,24082,2,1,advanced_easy,자연·동물
-undressed,B2,24244,2,1,advanced_easy,다른 말의 변화형
 stepfather,B2,24345,2,1,advanced_easy,사람·직업
 leash,B2,24438,2,1,advanced_easy,일상 구체 명사
 tiring,B1,24451,2,1,advanced_easy,다른 말의 변화형
 zebra,B2,24624,2,1,advanced_easy,자연·동물
 roommate,B2,24978,2,1,advanced_easy,사람·직업
 inhale,B1,25258,2,1,advanced_easy,일반 동사
-advert,B1,25364,2,1,advanced_easy,영국 생활·제도 말
 rhinoceros,B2,25432,2,1,advanced_easy,자연·동물
 memorize,B1,25634,2,1,advanced_easy,일반 동사
 adorable,B1,25778,2,1,advanced_easy,일반 형용사
@@ -1197,16 +1194,15 @@ sniff,B2,25935,2,1,advanced_easy,일반 동사
 giggle,B1,25940,2,1,advanced_easy,일반 동사
 punctual,B2,26066,2,1,advanced_easy,일반 형용사
 shopkeeper,B2,26150,2,1,advanced_easy,사람·직업
-dorm,B2,26331,2,1,advanced_easy,구어·속어
 checkout,B1,26767,2,1,advanced_easy,일상 구체 명사
 pajamas,B2,26806,2,1,advanced_easy,일상 구체 명사
 yawn,B2,27469,2,1,advanced_easy,일반 동사
 tasteless,B1,27572,2,1,advanced_easy,파생 부사·형용사
 gangster,B2,28156,2,1,advanced_easy,사람·직업
 unwell,B1,28165,2,1,advanced_easy,반대말 파생어
-sunbeam,B2,28339,2,1,advanced_medium,합성어
-silverware,B2,28348,2,1,advanced_medium,합성어
-undress,B1,28450,2,1,advanced_medium,일반 동사
+sunbeam,B2,28339,2,1,advanced_easy,합성어
+silverware,B2,28348,2,1,advanced_easy,합성어
+undress,B1,28450,2,1,advanced_easy,일반 동사
 untidy,B1,28655,2,1,advanced_medium,반대말 파생어
 nightclub,B2,28685,2,1,advanced_medium,합성어
 talkative,B1,28700,2,1,advanced_medium,파생 부사·형용사
@@ -2407,7 +2403,7 @@ addict,B2,19635,2,2,advanced_medium,의학·건강 말
 incurable,B2,19784,2,2,advanced_medium,의학·건강 말
 pickle,B2,19863,2,2,advanced_medium,음식
 lovingly,B1,19902,2,2,advanced_medium,파생 부사·형용사
-bum,B2,19988,2,2,advanced_hard,구어·속어
+bum,B2,19988,2,2,advanced_medium,구어·속어
 canteen,B1,20074,2,2,advanced_hard,영국 생활·제도 말
 overtake,B2,20134,2,2,advanced_hard,일반 동사
 meditate,B1,20169,2,2,advanced_hard,추상 동사

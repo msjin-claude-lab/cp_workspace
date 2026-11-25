@@ -8,7 +8,7 @@ import 'package:vocab/data/word.dart';
 /// 실제 내장 단어 파일(assets/words/*.json)을 검사한다.
 /// 칸마다 있어야 할 단어 수는 [_expectedCount](초등 800개 — docs/plan-words-phase1.md,
 /// 중등 700개 — docs/plan-words-phase2.md, 고등 1,500개 — docs/plan-words-phase3.md,
-/// 심화 3,608개 — docs/plan-words-phase4.md).
+/// 심화 3,604개 — docs/plan-words-phase4.md).
 
 /// 칸마다 있어야 할 단어 수. 초등은 CEFR-J A1에서 고른 800개(267 · 267 · 266),
 /// 중등은 CEFR-J A1·A2에서 고른 700개(234 · 233 · 233), 고등은 1,500개(500 · 500 · 500).
@@ -22,9 +22,9 @@ const _expectedCount = {
   Cell.highEasy: 500,
   Cell.highMedium: 500,
   Cell.highHard: 500,
-  Cell.advancedEasy: 1203,
-  Cell.advancedMedium: 1203,
-  Cell.advancedHard: 1202,
+  Cell.advancedEasy: 1202,
+  Cell.advancedMedium: 1201,
+  Cell.advancedHard: 1201,
 };
 
 /// 단어를 묶음으로 나눠 넣는 중인 칸 — 이 칸만 개수를 "0개 이상, 기대값 이하"로 본다.

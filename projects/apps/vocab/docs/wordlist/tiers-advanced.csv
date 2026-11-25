@@ -1,4 +1,4 @@
-# vocab 심화 단어 단계와 난이도(docs/plan-words-phase4.md 2단계). tier = 1 고등 이전에 놓친 쉬운 말(B1만 · 난이도 1 — 쉬움 칸 맨 앞) · 2 그 밖 · x 넣지 않음(난이도는 비운다). 뽑기는 없다 — x가 아닌 것은 전부 넣는다. difficulty = 칸 나누기 난이도(1 쉬움 — 일상·구체 말 · 2 중간 — 흔한 추상어와 B2의 일반 말 · 3 어려움 — 추상·학술·격식 말과 뜻이 여럿인 말). x는 사용자가 정한 다섯(bust · gay · sex · suicide — 후보로 올렸던 25개는 모두 넣기로 했다(2026-11-25 사용자 결정) · sports — 4단계 검토 뒤 뺌(2026-11-25 사용자 결정))뿐이다. Claude가 매겼다(2026-11-25). 기준은 docs/wordlist/README.md
+# vocab 심화 단어 단계와 난이도(docs/plan-words-phase4.md 2단계). tier = 1 고등 이전에 놓친 쉬운 말(B1만 · 난이도 1 — 쉬움 칸 맨 앞) · 2 그 밖 · x 넣지 않음(난이도는 비운다). 뽑기는 없다 — x가 아닌 것은 전부 넣는다. difficulty = 칸 나누기 난이도(1 쉬움 — 일상·구체 말 · 2 중간 — 흔한 추상어와 B2의 일반 말 · 3 어려움 — 추상·학술·격식 말과 뜻이 여럿인 말). x는 사용자가 정한 아홉(bust · gay · sex · suicide — 후보로 올렸던 25개는 모두 넣기로 했다(2026-11-25 사용자 결정) · sports · advert · dorm · ow · undressed — 4단계 검토 뒤 뺌(2026-11-25 사용자 결정))뿐이다. Claude가 매겼다(2026-11-25). 기준은 docs/wordlist/README.md
 word,tier,reason,difficulty
 abandoned,2,다른 말의 변화형,2
 abnormal,2,추상 형용사,2
@@ -64,7 +64,7 @@ adverbial,2,문법 용어,3
 adverse,2,격식어,3
 adversely,2,격식어,3
 adversity,2,문학적·드문 말,3
-advert,2,영국 생활·제도 말,1
+advert,x,넣지 않음(사용자 결정 — ad의 영국식 변형),
 adviser,2,사람·직업,1
 aerobics,1,운동·여가,1
 affectionate,2,감정·상태 말,2
@@ -936,7 +936,7 @@ donkey,2,자연·동물,1
 doom,2,문학적·드문 말,3
 doorkeeper,2,사람·직업,2
 doorway,2,일상 구체 명사,1
-dorm,2,구어·속어,1
+dorm,x,넣지 않음(사용자 결정 — dormitory를 줄인 말),
 dormitory,2,일상 구체 명사,1
 dose,2,의학·건강 말,1
 dot,1,일반 명사,1
@@ -2213,7 +2213,7 @@ overthrow,2,법·정치 말,3
 overtime,2,일반 명사,2
 overturn,2,일반 동사,3
 overwork,2,일반 동사,2
-ow,2,구어·속어,1
+ow,x,넣지 않음(사용자 결정 — 감탄사),
 owing,2,연결어·전치사,3
 owl,2,자연·동물,1
 ox,2,자연·동물,2
@@ -3366,7 +3366,7 @@ undo,2,일반 동사,1
 undoubtedly,2,부사,2
 undreamed,2,문학적·드문 말,3
 undress,2,일반 동사,1
-undressed,2,다른 말의 변화형,1
+undressed,x,넣지 않음(사용자 결정 — 다른 말의 변화형),
 unease,2,감정·상태 말,2
 uneasily,2,드문 파생어,2
 unemployed,2,사회·경제 주제,2
