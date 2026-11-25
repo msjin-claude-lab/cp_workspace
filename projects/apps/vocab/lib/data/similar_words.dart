@@ -701,6 +701,26 @@ const List<(String, String)> similarWordPairs = [
   ('educate', 'educated'),
   ('entertain', 'entertaining'),
   ('entertainer', 'entertaining'),
+  // 심화 쉬움 묶음 10~12 — 뜻이 거의 같음
+  ('weird', 'odd'), // 기묘한 / 이상한
+  ('talented', 'gifted'), // 재능이 뛰어난 / 재능 있는
+  ('rubbish', 'trash'), // (영국) 쓰레기 / 쓰레기
+  ('rubbish', 'litter'), // (영국) 쓰레기 / (길에 버린) 쓰레기
+  ('bang', 'boom'), // 탕 하는 소리 / 쾅 하는 소리
+  ('risky', 'unsafe'), // 위험한 / 안전하지 않은
+  ('sparkling', 'shiny'), // 반짝반짝 빛나는 / 반짝이는
+  ('lifelong', 'lifetime'), // 평생 동안의 / 평생
+  // 심화 쉬움 묶음 10~12 — 어원이 같음
+  ('accidentally', 'accidental'),
+  ('unexpectedly', 'expected'),
+  ('educator', 'educate'),
+  ('educator', 'educated'),
+  ('muddy', 'mud'),
+  ('gardener', 'gardening'),
+  ('explorer', 'exploration'),
+  ('cheerfully', 'cheerful'),
+  ('amazement', 'amazed'),
+  ('sticky', 'sticker'),
 ];
 
 final Map<String, Set<String>> _partners = () {
