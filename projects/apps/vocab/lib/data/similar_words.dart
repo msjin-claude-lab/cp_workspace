@@ -640,6 +640,7 @@ const List<(String, String)> similarWordPairs = [
   ('nursery', 'preschool'), // 탁아소 / 어린이집
   ('loyal', 'faithful'), // 충성스러운 / 충실한
   ('consultant', 'adviser'), // 자문 위원 / 고문
+  ('herd', 'flock'), // (짐승의) 떼 / (양·새의) 떼
   // 심화 쉬움 묶음 7~9 — 어원이 같음
   ('confess', 'confession'),
   ('delight', 'delighted'),
@@ -651,6 +652,17 @@ const List<(String, String)> similarWordPairs = [
   ('alcoholic', 'alcohol'),
   ('enjoyment', 'enjoyable'),
   ('incorrect', 'correction'),
+  ('cruel', 'cruelty'),
+  ('entertain', 'entertainer'),
+  ('preferable', 'preferably'),
+  ('twist', 'twisted'),
+  ('decoration', 'decorative'),
+  ('creator', 'creation'),
+  ('cooperate', 'cooperative'),
+  ('god', 'goddess'),
+  ('edit', 'edition'),
+  ('graph', 'graphics'),
+  ('depart', 'departure'),
 ];
 
 final Map<String, Set<String>> _partners = () {
