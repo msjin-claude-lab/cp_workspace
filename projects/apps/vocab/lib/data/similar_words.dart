@@ -710,6 +710,17 @@ const List<(String, String)> similarWordPairs = [
   ('risky', 'unsafe'), // 위험한 / 안전하지 않은
   ('sparkling', 'shiny'), // 반짝반짝 빛나는 / 반짝이는
   ('lifelong', 'lifetime'), // 평생 동안의 / 평생
+  ('rug', 'carpet'), // 깔개 / 양탄자
+  ('buddy', 'mate'), // 단짝 / 친구
+  ('humid', 'damp'), // 습한 / 눅눅한
+  ('fright', 'scare'), // (갑작스러운) 공포 / 겁주다
+  ('terrifying', 'scary'), // 몹시 무서운 / 무서운
+  ('anxiously', 'nervously'), // 걱정스럽게 / 초조하게
+  ('underwear', 'underpants'), // 속옷류 / 속옷
+  ('leaflet', 'brochure'), // 전단 / 팸플릿
+  ('unsure', 'doubtful'), // 확신하지 못하는 / 확신이 없는
+  ('bump', 'bang'), // 부딪치다 / 세게 부딪치다
+  ('ache', 'sore'), // 쑤시다 / 쑤시는
   // 심화 쉬움 묶음 10~12 — 어원이 같음
   ('accidentally', 'accidental'),
   ('unexpectedly', 'expected'),
@@ -721,6 +732,28 @@ const List<(String, String)> similarWordPairs = [
   ('cheerfully', 'cheerful'),
   ('amazement', 'amazed'),
   ('sticky', 'sticker'),
+  ('racist', 'racial'),
+  ('luxurious', 'luxury'),
+  ('rebuild', 'builder'),
+  ('thickly', 'thickness'),
+  ('trainer', 'trainee'),
+  ('infect', 'infected'),
+  ('scare', 'scary'),
+  ('unofficial', 'officially'),
+  ('bomber', 'bomb'),
+  ('bomber', 'bombing'),
+  ('ache', 'backache'),
+  ('ache', 'earache'),
+  ('relaxing', 'relaxation'),
+  ('curl', 'curly'),
+  ('programmer', 'programming'),
+  ('tighten', 'tightly'),
+  ('indoors', 'outdoors'),
+  ('blindly', 'blindness'),
+  ('unsure', 'surely'),
+  ('soak', 'soaked'),
+  ('starve', 'starving'),
+  ('bump', 'bumper'),
 ];
 
 final Map<String, Set<String>> _partners = () {
