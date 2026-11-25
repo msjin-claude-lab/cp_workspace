@@ -598,6 +598,40 @@ const List<(String, String)> similarWordPairs = [
   ('baker', 'bakery'),
   // 심화 쉬움 앞 300개 — 우리말 뜻 글자가 같은 동음이의어
   ('sickness', 'jar'), // 병(질병) / (유리) 병
+  // 심화 쉬움 묶음 4~6 — 뜻이 거의 같음
+  ('port', 'harbor'), // 항구 / 항만
+  ('previously', 'formerly'), // 이전에 / 예전에는
+  ('fame', 'celebrity'), // 명성 / 유명세
+  ('trunk', 'boot'), // (자동차) 트렁크
+  ('rail', 'railway'), // 철도
+  ('rail', 'railroad'), // 철도
+  ('railway', 'railroad'), // 철도
+  ('seller', 'dealer'), // 판매자 / 판매상
+  ('seller', 'salesman'), // 판매자 / 판매원
+  ('dealer', 'salesman'), // 판매상 / 판매원
+  ('buyer', 'shopper'), // 구매자 / 물건 사는 사람
+  ('grand', 'magnificent'), // 웅장한 / 장엄한
+  ('district', 'province'), // 행정 구역
+  ('bore', 'dull'), // 지루하게 하다 / 지루한
+  // 심화 쉬움 묶음 4~6 — 어원이 같음
+  ('employ', 'employer'),
+  ('employ', 'employee'),
+  ('employer', 'employee'),
+  ('relief', 'relieved'),
+  ('examination', 'examiner'),
+  ('faith', 'faithful'),
+  ('profit', 'profitable'),
+  ('prompt', 'promptly'),
+  ('indirect', 'indirectly'),
+  ('mathematical', 'mathematics'),
+  ('mathematical', 'mathematician'),
+  ('taste', 'tasty'),
+  ('blog', 'blogger'),
+  ('backpack', 'backpacker'),
+  ('detect', 'detective'),
+  // 심화 쉬움 묶음 4~6 — 우리말 뜻 글자가 같은 동음이의어
+  ('god', 'sour'), // 신 / (맛이) 신
+  ('biography', 'electrical'), // (인물의) 전기 / 전기의
 ];
 
 final Map<String, Set<String>> _partners = () {
