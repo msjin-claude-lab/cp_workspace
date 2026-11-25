@@ -721,6 +721,18 @@ const List<(String, String)> similarWordPairs = [
   ('unsure', 'doubtful'), // 확신하지 못하는 / 확신이 없는
   ('bump', 'bang'), // 부딪치다 / 세게 부딪치다
   ('ache', 'sore'), // 쑤시다 / 쑤시는
+  ('tremble', 'shiver'), // 떨리다 / 부르르 떨다
+  ('incredibly', 'unbelievable'), // 믿을 수 없을 만큼 / 믿을 수 없는
+  ('saucepan', 'pot'), // 편수 냄비 / 냄비
+  ('unkind', 'unfriendly'), // 불친절한 / 쌀쌀맞은
+  ('clap', 'applause'), // 박수를 치다 / 박수
+  ('stylish', 'fashionable'), // 맵시 있는 / 멋을 낸
+  ('stylish', 'elegant'), // 맵시 있는 / 세련된
+  ('tiring', 'exhausting'), // 피곤하게 하는 / 몹시 지치게 하는
+  ('salesperson', 'salesman'), // 판매 담당자 / 판매원
+  ('advert', 'ad'), // (영국) 광고 / 광고
+  ('eyelid', 'lid'), // (위아래) 눈꺼풀 / 눈꺼풀
+  ('dorm', 'dormitory'), // (구어) 기숙사 / 기숙사
   // 심화 쉬움 묶음 10~12 — 어원이 같음
   ('accidentally', 'accidental'),
   ('unexpectedly', 'expected'),
@@ -754,6 +766,35 @@ const List<(String, String)> similarWordPairs = [
   ('soak', 'soaked'),
   ('starve', 'starving'),
   ('bump', 'bumper'),
+  ('coward', 'cowardly'),
+  ('browse', 'browser'),
+  ('sparkling', 'sparkle'),
+  ('sparkle', 'spark'),
+  ('sparkling', 'spark'),
+  ('stubborn', 'stubbornly'),
+  ('boxer', 'boxing'),
+  ('craftsman', 'craft'),
+  ('bathe', 'sunbathe'),
+  ('electrician', 'electrical'),
+  ('cruelly', 'cruel'),
+  ('cruelly', 'cruelty'),
+  ('amazingly', 'amazed'),
+  ('amazingly', 'amazement'),
+  ('endlessly', 'endless'),
+  ('unfriendly', 'friendly'),
+  ('unfriendly', 'friendliness'),
+  ('friendliness', 'friendly'),
+  ('decorate', 'decoration'),
+  ('decorate', 'decorative'),
+  ('lighten', 'lightly'),
+  ('messy', 'mess'),
+  ('donate', 'donation'),
+  ('landlady', 'landlord'),
+  ('creatively', 'creation'),
+  ('creatively', 'creator'),
+  ('foolishly', 'foolish'),
+  ('tiring', 'tire'),
+  ('memorize', 'memorable'),
 ];
 
 final Map<String, Set<String>> _partners = () {
