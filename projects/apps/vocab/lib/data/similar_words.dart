@@ -641,6 +641,12 @@ const List<(String, String)> similarWordPairs = [
   ('loyal', 'faithful'), // 충성스러운 / 충실한
   ('consultant', 'adviser'), // 자문 위원 / 고문
   ('herd', 'flock'), // (짐승의) 떼 / (양·새의) 떼
+  ('astonished', 'amazed'), // 깜짝 놀란 / 놀란
+  ('costume', 'outfit'), // 의상 / 옷 한 벌
+  ('elegant', 'graceful'), // 우아한 / 기품 있는
+  ('cellar', 'basement'), // 지하 저장실 / 지하실
+  ('litter', 'trash'), // (길에 버린) 쓰레기 / 쓰레기
+  ('booklet', 'brochure'), // 소책자 / (안내용) 책자
   // 심화 쉬움 묶음 7~9 — 어원이 같음
   ('confess', 'confession'),
   ('delight', 'delighted'),
@@ -663,6 +669,18 @@ const List<(String, String)> similarWordPairs = [
   ('edit', 'edition'),
   ('graph', 'graphics'),
   ('depart', 'departure'),
+  ('hopeless', 'hopeful'),
+  ('hopeful', 'hopefully'),
+  ('hopeless', 'hopefully'),
+  ('puzzle', 'puzzled'),
+  ('evenly', 'uneven'),
+  ('bomb', 'bombing'),
+  ('eastward', 'eastern'),
+  ('divorced', 'divorce'),
+  ('magical', 'magician'),
+  ('educate', 'educated'),
+  ('entertain', 'entertaining'),
+  ('entertainer', 'entertaining'),
 ];
 
 final Map<String, Set<String>> _partners = () {
