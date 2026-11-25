@@ -809,6 +809,10 @@ const List<(String, String)> similarWordPairs = [
   ('foolishly', 'foolish'),
   ('tiring', 'tire'),
   ('memorize', 'memorable'),
+  // 심화 중간 묶음 1~3 — 어원이 같음
+  ('skateboard', 'skateboarder'),
+  // 심화 중간 묶음 1~3 — 우리말 뜻 글자가 같은 동음이의어
+  ('unpack', 'untie'), // (짐을) 풀다 / (매듭·끈을) 풀다
 ];
 
 final Map<String, Set<String>> _partners = () {
