@@ -17,7 +17,7 @@
 
 ### Google Books Ngram 기반 빈도 목록 (gwordlist) — 같은 단계 안의 순서
 
-- 주소: <https://github.com/hackerb9/gwordlist> → `frequency-alpha-alldicts.txt`(`https://raw.githubusercontent.com/hackerb9/gwordlist/master/frequency-alpha-alldicts.txt`). **github에서만 받을 수 있다 — 사내망 PC에서는 못 받는다**
+- 주소: <https://github.com/hackerb9/gwordlist> → `frequency-alpha-alldicts.txt`(`https://raw.githubusercontent.com/hackerb9/gwordlist/master/frequency-alpha-alldicts.txt`). 내려받는 주소는 `raw.githubusercontent.com`이라 **사내망 PC에서도 받을 수 있다**(2026-11-25 머리만 요청해 HTTP 200 확인 — 막힌 것은 `github.com`뿐이다. 전에는 "사내망 PC에서는 못 받는다"고 적혀 있었다). 두 원본은 사내망 PC `D:\dev\tmp\wordlist\`에도 있다
 - 받은 날: 2026-11-23 (개인 PC). 18,740,980바이트, SHA-256 `4ba1c1e1fe8eb29eed128bb906bb6ee11ed40c19233321b6ad75cbd7139702d6`
 - 이용 조건: 저장소 README(2026-11-23 직접 읽음) — "While my programs are licensed under the GNU GPL ≥3, I'm explicitly releasing the data produced under the same license as Google granted me: Creative Commons Attribution 3.0." 원본인 Google Books Ngram 데이터 페이지(<https://storage.googleapis.com/books/ngrams/books/datasetsv3.html>)의 문구는 "This compilation is licensed under a Creative Commons Attribution 3.0 Unported License"(조사 에이전트가 확인)
 - 내용: 책(1880~2020)에서 센 영어 단어형 246,590개를 빈도가 높은 순으로. 표제어가 아니라 단어형이다
@@ -30,6 +30,8 @@
 python tool/wordlist/select.py --stage elementary --cefrj <CEFRJ_wordlist_ver1.6.zip> --freq <frequency-alpha-alldicts.txt>
 python tool/wordlist/select.py --stage middle --cefrj <CEFRJ_wordlist_ver1.6.zip> --freq <frequency-alpha-alldicts.txt>
 python tool/wordlist/select.py --stage high --cefrj <CEFRJ_wordlist_ver1.6.zip> --freq <frequency-alpha-alldicts.txt>
+python tool/wordlist/select.py --stage advanced --cefrj <CEFRJ_wordlist_ver1.6.zip> --freq <frequency-alpha-alldicts.txt>
+python tool/wordlist/select.py --stage advanced --cefrj <CEFRJ_wordlist_ver1.6.zip> --partial   # 쓰는 중인 tiers-advanced.csv의 쓴 줄만 검사
 python tool/wordlist/cells.py --stage middle check          # 단어 파일이 middle.csv의 앞부분과 같은지(묶음 중)
 python tool/wordlist/cells.py --stage middle check --full   # 끝까지·개수까지 같은지
 python tool/wordlist/cells.py --stage high check            # 고등(high.csv, 번호 w-1501부터)
@@ -37,7 +39,7 @@ python tool/wordlist/cells.py --stage high check            # 고등(high.csv, �
 
 파이썬 표준 라이브러리만 쓴다. `--stage`를 빼면 `elementary`. 같은 입력이면 같은 결과가 나오고, 개수나 중복이 어긋나면 종료 코드 1.
 `select.py`는 `--cefrj`(zip)와 `--freq`의 SHA-256을 위 "쓴 자료"의 값과 비교해 다르면 종료 코드 1로 멈춘다(값은 스크립트의 `EXPECTED_SHA256`에도 있다 — 바꿀 때는 둘 다). zip에서 꺼낸 `.xlsx`를 `--cefrj`로 주면 그 값이 여기 없으므로 검사를 건너뛰고 그렇다고 출력한다.
-거를 단어는 지금 단어 파일이 아니라 커밋된 csv에서 읽고(초등: `overlap.csv`의 중등·고등 줄, 중등: `elementary.csv`와 `overlap.csv`의 고등 줄, 고등: `elementary.csv`와 `middle.csv`), 단계마다 자기 이름의 파일만 쓴다 — 그래서 뒤 단계를 진행해도 앞 단계를 다시 돌리면 같은 csv가 나온다. `overlap.csv`는 어느 단계도 다시 쓰지 않는다(1차 작업 시점 기록).
+거를 단어는 지금 단어 파일이 아니라 커밋된 csv에서 읽고(초등: `overlap.csv`의 중등·고등 줄, 중등: `elementary.csv`와 `overlap.csv`의 고등 줄, 고등: `elementary.csv`와 `middle.csv`, 심화: `elementary.csv`·`middle.csv`·`high.csv`), 단계마다 자기 이름의 파일만 쓴다 — 그래서 뒤 단계를 진행해도 앞 단계를 다시 돌리면 같은 csv가 나온다. `overlap.csv`는 어느 단계도 다시 쓰지 않는다(1차 작업 시점 기록).
 
 ## 고르는 규칙 (1차 — 초등 800개)
 
@@ -65,6 +67,15 @@ python tool/wordlist/cells.py --stage high check            # 고등(high.csv, �
 4. 뽑기: `x`가 아닌 A1·A2 전부 + B1을 단계(숫자로 비교) → 빈도 순위 → 알파벳 순으로 세워 1,500개가 될 때까지. 뽑힌 것에 단계 `4`가 있으면 종료 코드 1(단계 1~3인 B1이 모자라다는 뜻 — 단계를 다시 매긴다). 남는 B1은 4차(심화) 차례에 쓴다
 5. 칸 배정: 뽑힌 1,500개를 **난이도**(`tiers-high.csv`의 넷째 열 `difficulty`) → 빈도 순위 → 알파벳 순으로 세워 앞에서부터 500 · 500 · 500개를 쉬움 · 중간 · 어려움에(`high.csv`). 난이도는 `1` 쉬움(고1이 대부분 아는 일상·일반 말 — 흔한 추상어·교과 이름(ability·knowledge·oxygen)도 1일 수 있다) · `2` 중간(덜 익숙한 일반 말, 흔한 추상어) · `3` 어려움(추상어, 학술·격식 말, 뜻이 여럿인 말). 같은 어원 짝은 난이도를 맞춘다(economic·economy). 중등 때의 난이도를 그대로 가져오지 않고 고등 기준으로 다시 매긴다. 뽑힌 줄은 1·2·3이어야 하고, 뽑히지 않은 줄은 비워도 되지만 적었다면 1·2·3(아니면 종료 코드 1). 번호는 `high.csv` 순서대로 `w-1501`부터
 
+## 고르는 규칙 (4차 — 심화: 남은 B1 + B2 전부, [../plan-words-phase4.md](../plan-words-phase4.md))
+
+1. 1차 1·2번과 같이 빼고 앞 철자 하나만 쓴다
+2. 심화 후보 = **B1 + B2** 중 `elementary.csv`·`middle.csv`·`high.csv`에 없는 것 **3,613개**(B1 1,227 · B2 2,386, `candidates-advanced.csv`). 이 수가 아니거나 남은 A1·A2가 있으면 종료 코드 1
+3. **뽑기는 없다** — `x`가 아닌 것은 전부 넣는다(2026-11-24 사용자 결정 "규모는 전부"). 단계(`tiers-advanced.csv`)는 셋뿐이다: `1` 고등 이전에 놓친 쉬운 말(B1만, 난이도는 반드시 1) · `2` 그 밖 · `x` 넣지 않음(난이도는 비운다). **gay · suicide · sex · bust는 `x`**(2026-11-25 사용자 결정 — `x`가 아니면 종료 코드 1). 그 밖의 `x`는 사용자가 확인한 것만
+4. 난이도는 `x`가 아닌 모든 줄에 `1` 일상·구체 말 · `2` 흔한 추상어와 B2의 일반 말 · `3` 추상·학술·격식 말, 뜻이 여럿인 말. 3차 때의 값을 가져오지 않고 심화 기준으로 다시 매긴다
+5. 칸 배정: `x`가 아닌 N개를 난이도 → 단계 → 빈도 순위 → 알파벳 순으로 세워 앞에서부터 N을 셋으로 나눈 크기(나머지는 앞 칸부터 하나씩)로 쉬움 · 중간 · 어려움에(`advanced.csv`). 단계 1은 난이도 1이라 쉬움 칸 맨 앞에 선다 — 단계 1의 수가 쉬움 칸 크기를 넘으면 종료 코드 1. 번호는 `advanced.csv` 순서대로 `w-3001`부터
+6. **`advanced.csv`는 2단계 끝에 고정한다** — 번호와 칸 경계가 줄 순서에서 나오므로, 뜻을 쓰기 시작한 뒤 단어를 빼면 뒤 번호가 모두 밀린다(바꿔야 할 때의 절차는 계획서 "목록은 2단계 끝에 고정한다")
+
 ## 파일
 
 | 파일 | 내용 |
@@ -80,6 +91,9 @@ python tool/wordlist/cells.py --stage high check            # 고등(high.csv, �
 | `candidates-high.csv` | 고등 후보(A1·A2·B1)와 수준·빈도 순위 |
 | `tiers-high.csv` | 고등 후보의 단계·근거·난이도(사람이 고치는 파일) |
 | `high.csv` | 고등 1,500개와 수준·배정 칸(스크립트가 만든다 — 직접 고치지 않는다) |
+| `candidates-advanced.csv` | 심화 후보(B1·B2) 3,613개와 수준·빈도 순위 |
+| `tiers-advanced.csv` | 심화 후보의 단계·근거·난이도(사람이 고치는 파일 — 4차 2단계에서 쓴다) |
+| `advanced.csv` | 심화 단어와 수준·배정 칸(스크립트가 만든다 — 4차 2단계 끝에 고정) |
 | `review-fixes-high.txt` | 고등 검토(칸마다 두 번 + 표본 두 축 + 명사·동사 겸용어 점검)가 낸 고칠 줄. 검토마다 그 부분만 `cells.py --stage high fix`로 적용했다(누적 파일을 통째로 다시 넘기지 않는다) |
 | `review-fixes.txt` · `-2` · `-3` · `-4` | 초등 검토가 낸 고칠 줄(`cells.py fix`로 적용) |
 | `review-fixes-middle.txt` | 중등 검토가 낸 고칠 줄(`cells.py --stage middle fix`로 적용) |

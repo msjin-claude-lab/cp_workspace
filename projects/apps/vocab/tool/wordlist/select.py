@@ -1,10 +1,10 @@
 """학교급마다 단어 선정 목록을 만든다 (docs/plan-words-phase1.md 2단계, docs/plan-words-phase2.md 1단계,
-docs/plan-words-phase3.md 1단계).
+docs/plan-words-phase3.md 1단계, docs/plan-words-phase4.md 1단계).
 
 파이썬 표준 라이브러리만 쓴다. 원본 파일은 저장소에 없다 — docs/wordlist/README.md의 주소에서 받아
 경로를 인자로 준다.
 
-    python tool/wordlist/select.py [--stage elementary|middle|high] --cefrj <CEFRJ_wordlist_ver1.6.zip 또는 .xlsx> [--freq <빈도 파일>]
+    python tool/wordlist/select.py [--stage elementary|middle|high|advanced] --cefrj <CEFRJ_wordlist_ver1.6.zip 또는 .xlsx> [--freq <빈도 파일>] [--partial]
 
 --freq는 빈도가 높은 순으로 한 줄에 단어 하나가 있는 글 파일이다(줄 앞의 순위 숫자와 뒤의 횟수는 무시).
 1차에서 쓴 것은 gwordlist의 frequency-alpha-alldicts.txt (docs/wordlist/README.md).
@@ -41,6 +41,18 @@ docs/plan-words-phase3.md 1단계).
   뽑기: x가 아닌 A1·A2 전부 + B1을 (단계, 빈도 순위, 알파벳) 순으로 1,500개가 될 때까지. 뽑힌 것에 단계 4가
   있으면 종료 코드 1(B1의 단계 1~3이 모자라다는 뜻). 난이도는 뽑힌 줄만 1·2·3이 있어야 하고, 뽑히지 않은 줄은
   비워도 되지만 적었다면 1·2·3. 칸 배정: 뽑힌 1,500개를 (난이도, 빈도 순위, 알파벳)으로 세워 500 · 500 · 500(high.csv).
+
+--stage advanced (4차 — 심화: 남은 B1 + B2 전부)
+  후보 = B1 + B2 중 elementary.csv·middle.csv·high.csv에 없는 것(candidates-advanced.csv). 후보 수가
+  B1 1,227 · B2 2,386이 아니거나 남은 A1·A2가 있으면 종료 코드 1. tiers-advanced.csv(단어, 단계, 이유, 난이도)가
+  없으면 후보까지만 만든다. 뽑기는 없다 — x가 아닌 것은 전부 넣는다.
+  단계는 1·2·x. 1 = 고등 이전에 놓친 쉬운 말(B1만, 난이도는 반드시 1 — 쉬움 칸 맨 앞에 선다), 2 = 그 밖,
+  x = 넣지 않음(난이도는 비운다). gay·suicide·sex·bust는 x여야 한다(2026-11-25 사용자 결정).
+  난이도는 x가 아닌 모든 줄에 1·2·3. 칸 배정: x가 아닌 N개를 (난이도, 단계, 빈도 순위, 알파벳)으로 세워
+  앞에서부터 N을 셋으로 나눈 크기(나머지는 앞 칸부터 하나씩)로 쉬움 · 중간 · 어려움(advanced.csv).
+  단계 1의 수가 쉬움 칸 크기를 넘으면 종료 코드 1.
+  --partial: 쓰는 중인 tiers-advanced.csv의 쓴 줄만 검사한다(단계·난이도 값, 후보에 있는 말인지, 중복).
+  advanced.csv는 쓰지 않는다.
 
 --freq 없이 돌리면 후보 파일까지만 만든다. 같은 입력이면 늘 같은 결과가 나온다(정렬 순서 고정).
 끝에 검사(개수·중복·다른 학교급과 겹침)를 하고, 어긋나면 종료 코드 1.
@@ -79,6 +91,10 @@ FUNCTION_POS = {
 ELEMENTARY = [("elementary_easy", 267), ("elementary_medium", 267), ("elementary_hard", 266)]
 MIDDLE = [("middle_easy", 234), ("middle_medium", 233), ("middle_hard", 233)]
 HIGH = [("high_easy", 500), ("high_medium", 500), ("high_hard", 500)]
+# 심화는 칸 크기가 고정값이 아니다 — x가 아닌 수를 셋으로 나눈다
+ADVANCED_CELLS = ["advanced_easy", "advanced_medium", "advanced_hard"]
+ADVANCED_EXPECTED = {"B1": 1227, "B2": 2386}  # 후보 수(docs/plan-words-phase4.md) — 다르면 종료 코드 1
+ADVANCED_BANNED = ("bust", "gay", "sex", "suicide")  # 넣지 않는다(2026-11-25 사용자 결정) — x여야 한다
 
 # 원본 두 파일의 SHA-256 — docs/wordlist/README.md "쓴 자료"에 적힌 값과 같다(바꾸면 README도 함께 고친다)
 EXPECTED_SHA256 = {
@@ -497,14 +513,150 @@ def high(args, kept):
     print(f"high.csv {len(rows)}줄 — 검사 통과")
 
 
+def advanced_row_problems(tiers, difficulty, level):
+    """심화 단계표 줄의 값 검사(쓴 줄만 봐도 되는 것). 문제 목록을 돌려준다."""
+    problems = []
+    bad_tier = sorted(w for w, t in tiers.items() if t not in ("1", "2", "x"))
+    if bad_tier:
+        problems.append(f"쓸 수 없는 단계(1·2·x 밖) {len(bad_tier)}개 {bad_tier[:10]}")
+    not_x = sorted(w for w in ADVANCED_BANNED if w in tiers and tiers[w] != "x")
+    if not_x:
+        problems.append(f"넣지 않기로 한 말이 x가 아니다 {not_x}")
+    x_diff = sorted(w for w, t in tiers.items() if t == "x" and difficulty[w] != "")
+    if x_diff:
+        problems.append(f"x인데 difficulty가 있는 줄 {len(x_diff)}개 {x_diff[:10]}")
+    bad_diff = sorted(w for w, t in tiers.items() if t in ("1", "2") and difficulty[w] not in ("1", "2", "3"))
+    if bad_diff:
+        problems.append(f"difficulty가 1·2·3이 아닌 줄 {len(bad_diff)}개 {bad_diff[:10]}")
+    tier1_bad = sorted(
+        w for w, t in tiers.items() if t == "1" and w in level and (level[w] != "B1" or difficulty[w] != "1")
+    )
+    if tier1_bad:
+        problems.append(f"단계 1인데 B1이 아니거나 difficulty가 1이 아닌 줄 {len(tier1_bad)}개 {tier1_bad[:10]}")
+    return problems
+
+
+def advanced_partial(candidates, level):
+    """쓰는 중인 tiers-advanced.csv의 쓴 줄만 검사한다. 어긋나면 종료 코드 1."""
+    path = OUT / "tiers-advanced.csv"
+    if not path.exists():
+        sys.exit("tiers-advanced.csv가 없다")
+    known = {w.lower() for w in candidates}
+    tiers, difficulty, duplicated, short = {}, {}, [], []
+    for row in read_rows(path):
+        if len(row) != 4:
+            short.append(row[0] if row else "(빈 줄)")
+            continue
+        key = row[0].lower()
+        if key in tiers:
+            duplicated.append(row[0])
+        tiers[key] = row[1]
+        difficulty[key] = row[3]
+    problems = advanced_row_problems(tiers, difficulty, level)
+    unknown = sorted(set(tiers) - known)
+    if unknown:
+        problems.append(f"후보에 없는 단어 {len(unknown)}개 {unknown[:10]}")
+    if duplicated:
+        problems.append(f"두 줄 이상인 단어 {duplicated[:10]}")
+    if short:
+        problems.append(f"열이 4개가 아닌 줄 {len(short)}개 {short[:10]}")
+    print(
+        f"tiers-advanced.csv {len(tiers)}줄/{len(candidates)} · 단계 {dict(sorted(Counter(tiers.values()).items()))} "
+        f"· 난이도 {dict(sorted(Counter(difficulty.values()).items()))}"
+    )
+    if problems:
+        print("검사 실패:", *problems, sep="\n  ")
+        sys.exit(1)
+    print("쓴 줄 검사 통과(advanced.csv는 쓰지 않는다)")
+
+
+def advanced(args, kept):
+    # 거를 단어: 초등 800 · 중등 700 · 고등 1,500(커밋된 csv)
+    before = (("elementary.csv", "elementary"), ("middle.csv", "middle"), ("high.csv", "high"))
+    for name, stage in before:
+        if not (OUT / name).exists():
+            sys.exit(f"{name}이 없다 — 먼저 --stage {stage}로 만든다")
+    used = {r[0].lower() for name, _ in before for r in read_rows(OUT / name)}
+    print(f"거를 단어: 초등·중등·고등 {len(used)}개")
+
+    level, form = merged_levels(kept)
+    left_a12 = sorted(k for k, lv in level.items() if lv in ("A1", "A2") and k not in used)
+    pool = sorted((k for k, lv in level.items() if lv in ("B1", "B2")), key=lambda k: form[k].lower())
+    candidates = [form[k] for k in pool if k not in used]
+    by_level = dict(sorted(Counter(level[w.lower()] for w in candidates).items()))
+    print(f"B1·B2 {len(pool)}개 중 고등 {len(pool) - len(candidates)}개를 빼 후보 {len(candidates)}개 {by_level}")
+    if left_a12 or by_level != ADVANCED_EXPECTED:
+        print(f"검사 실패:\n  남은 A1·A2 {left_a12[:10]}\n  후보 수 {by_level}(기대 {ADVANCED_EXPECTED})")
+        sys.exit(1)
+
+    if args.partial:
+        advanced_partial(candidates, level)
+        return
+
+    rank = read_freq(args.freq) if args.freq else {}
+    if args.freq:
+        print_freq(args, rank, candidates)
+    write_csv(
+        "candidates-advanced.csv",
+        ["word", "level", "freq_rank"],
+        [(w, level[w.lower()], rank.get(w.lower(), "")) for w in candidates],
+    )
+    if not args.freq:
+        print("--freq가 없어 여기까지만 한다(candidates-advanced.csv).")
+        return
+
+    loaded = read_tiers("tiers-advanced.csv", candidates, ("1", "2", "x"))
+    if not loaded:
+        print("tiers-advanced.csv가 없어 여기까지만 한다(candidates-advanced.csv). advanced.csv는 쓰지 않는다.")
+        return
+    tiers, reasons, difficulty = loaded
+
+    problems = advanced_row_problems(tiers, difficulty, level)
+    missing = sorted(w for w in ADVANCED_BANNED if w not in tiers)
+    if missing:  # 후보에 없다면 앞 학교급에 들어갔다는 뜻이다
+        problems.append(f"넣지 않기로 한 말이 후보에 없다 {missing}")
+    usable = [w for w in candidates if tiers[w.lower()] != "x"]
+    total = len(usable)
+    sizes = [total // 3 + (1 if i < total % 3 else 0) for i in range(3)]
+    tier1 = [w for w in usable if tiers[w.lower()] == "1"]
+    if len(tier1) > sizes[0]:
+        problems.append(f"단계 1이 {len(tier1)}개로 쉬움 칸 크기 {sizes[0]}을 넘는다")
+    if problems:
+        print("검사 실패:", *problems, sep="\n  ")
+        sys.exit(1)
+
+    usable.sort(
+        key=lambda w: (int(difficulty[w.lower()]), int(tiers[w.lower()]), rank.get(w.lower(), NO_RANK), w.lower())
+    )
+    print(f"넣지 않는 것(x) {len(candidates) - total}개 · 넣는 것 {total}개 · 칸 크기 {sizes}")
+    print(f"단계 1(고등 이전에 놓친 쉬운 말) {len(tier1)}개 — 쉬움 칸 맨 앞")
+    print(f"넣는 것의 난이도: {dict(sorted(Counter(difficulty[w.lower()] for w in usable).items()))}")
+
+    rows, pos = [], 0
+    cells = list(zip(ADVANCED_CELLS, sizes))
+    for cell, target in cells:
+        for word in usable[pos: pos + target]:
+            key = word.lower()
+            rows.append((word, level[key], rank.get(key, ""), tiers[key], difficulty[key], cell, reasons[key]))
+        pos += target
+    header = ["word", "level", "freq_rank", "tier", "difficulty", "cell", "tier_reason"]
+    write_csv("advanced.csv", header, rows)
+
+    check_rows(rows, header, cells, "심화", used, "초등·중등·고등")
+    print(f"advanced.csv {len(rows)}줄 — 검사 통과")
+
+
 def main():
     # Windows 콘솔에서도 한글이 깨지지 않게(-I로 돌리면 PYTHONIOENCODING이 무시된다)
     sys.stdout.reconfigure(encoding="utf-8")
     ap = argparse.ArgumentParser()
-    ap.add_argument("--stage", choices=["elementary", "middle", "high"], default="elementary")
+    ap.add_argument("--stage", choices=["elementary", "middle", "high", "advanced"], default="elementary")
     ap.add_argument("--cefrj", required=True)
     ap.add_argument("--freq")
+    ap.add_argument("--partial", action="store_true", help="심화: 쓰는 중인 단계표의 쓴 줄만 검사한다")
     args = ap.parse_args()
+    if args.partial and args.stage != "advanced":
+        ap.error("--partial은 --stage advanced에서만 쓴다")
 
     print(f"단계: {args.stage}")
     check_sha256("CEFR-J", args.cefrj)
@@ -531,8 +683,10 @@ def main():
         elementary(args, kept)
     elif args.stage == "middle":
         middle(args, kept)
-    else:
+    elif args.stage == "high":
         high(args, kept)
+    else:
+        advanced(args, kept)
 
 
 if __name__ == "__main__":

@@ -8,7 +8,8 @@ docs/plan-words-phase3.md).
 
 --stage(기본 elementary)는 명령 앞뒤 어디에 줘도 되고, 기준 csv와 칸을 정한다: elementary → docs/wordlist/elementary.csv,
 번호 w-0001부터 / middle → docs/wordlist/middle.csv, 번호는 elementary.csv의 줄 수 다음부터(w-0801) /
-high → docs/wordlist/high.csv, 번호는 elementary.csv + middle.csv 줄 수 다음부터(w-1501).
+high → docs/wordlist/high.csv, 번호는 elementary.csv + middle.csv 줄 수 다음부터(w-1501) /
+advanced → docs/wordlist/advanced.csv, 번호는 앞 세 csv 줄 수 다음부터(w-3001, docs/plan-words-phase4.md).
 번호는 csv 줄 순서대로 붙는다(쉬움 → 중간 → 어려움). 고른 학교급에 없는 칸 이름을 주면 메시지를 내고 멈춘다.
 뜻·예문·해석은 사람이(에이전트가) 채운다. skeleton은 대상 파일에 뜻·예문·해석 중 채운 것이 하나라도 있으면 쓰지 않고 멈춘다.
 
@@ -43,6 +44,7 @@ STAGES = {
     "elementary": ("elementary.csv", ()),
     "middle": ("middle.csv", ("elementary.csv",)),
     "high": ("high.csv", ("elementary.csv", "middle.csv")),
+    "advanced": ("advanced.csv", ("elementary.csv", "middle.csv", "high.csv")),
 }
 FIELDS = ["id", "word", "meaning", "example", "exampleMeaning"]
 
