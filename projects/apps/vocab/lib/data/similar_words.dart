@@ -632,6 +632,25 @@ const List<(String, String)> similarWordPairs = [
   // 심화 쉬움 묶음 4~6 — 우리말 뜻 글자가 같은 동음이의어
   ('god', 'sour'), // 신 / (맛이) 신
   ('biography', 'electrical'), // (인물의) 전기 / 전기의
+  // 심화 쉬움 묶음 7~9 — 뜻이 거의 같음
+  ('instantly', 'promptly'), // 곧바로 / 즉시
+  ('formally', 'officially'), // 정식으로 / 공식적으로
+  ('stupid', 'foolish'), // 어리석은 / 바보 같은
+  ('paradise', 'heaven'), // 지상 낙원 / 천국, 낙원
+  ('nursery', 'preschool'), // 탁아소 / 어린이집
+  ('loyal', 'faithful'), // 충성스러운 / 충실한
+  ('consultant', 'adviser'), // 자문 위원 / 고문
+  // 심화 쉬움 묶음 7~9 — 어원이 같음
+  ('confess', 'confession'),
+  ('delight', 'delighted'),
+  ('delight', 'delightful'),
+  ('delighted', 'delightful'),
+  ('critic', 'criticism'),
+  ('freezing', 'frozen'),
+  ('freezing', 'freezer'),
+  ('alcoholic', 'alcohol'),
+  ('enjoyment', 'enjoyable'),
+  ('incorrect', 'correction'),
 ];
 
 final Map<String, Set<String>> _partners = () {
