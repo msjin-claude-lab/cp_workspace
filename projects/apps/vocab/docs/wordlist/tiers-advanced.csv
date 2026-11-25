@@ -81,7 +81,7 @@ aircrew,2,합성어,3
 airline,1,일상 구체 명사,1
 alcohol,2,일반 명사,1
 alcoholic,2,일반 형용사,1
-alcoholism,2,의학·건강 말,3
+alcoholism,2,의학·건강 말,2
 alert,2,뜻이 여럿인 말,2
 alike,2,일반 형용사,2
 allegation,2,법·정치 말,3
@@ -123,13 +123,13 @@ anchorman,2,합성어,2
 anchorperson,2,합성어,3
 angle,2,일반 명사,2
 anguish,2,문학적·드문 말,3
-animate,2,뜻이 여럿인 말,3
+animate,2,뜻이 여럿인 말,2
 animated,2,일반 형용사,1
 animation,2,IT·매체 말,2
 announcement,2,일반 명사,1
 annoyance,2,감정·상태 말,2
 annoyed,2,감정·상태 말,1
-annually,2,파생 부사·형용사,3
+annually,2,파생 부사·형용사,2
 anonymous,2,추상 형용사,3
 ant,1,자연·동물,1
 anti,2,접두사형,3
@@ -156,7 +156,7 @@ appropriately,2,파생 부사·형용사,2
 approximate,2,추상 형용사,2
 arch,2,일상 구체 명사,1
 archaeologist,2,사람·직업,3
-architect,2,사람·직업,1
+architect,1,사람·직업,1
 arctic,2,자연·동물,2
 arena,2,일반 명사,2
 aristocracy,2,역사·종교 말,3
@@ -219,10 +219,10 @@ awesome,2,구어·속어,1
 ax,2,일상 구체 명사,2
 axis,2,과학·학술 말,3
 babysit,2,일반 동사,1
-babysitter,2,사람·직업,1
+babysitter,1,사람·직업,1
 backache,1,일상 구체 명사,1
 backpack,1,일상 구체 명사,1
-backpacker,2,사람·직업,1
+backpacker,1,사람·직업,1
 backpacking,2,운동·여가,1
 backup,2,IT·매체 말,2
 backward,2,부사,1
@@ -230,7 +230,7 @@ backyard,2,일상 구체 명사,1
 bacon,1,음식,1
 bad-tempered,2,합성어,2
 badge,2,일상 구체 명사,1
-baggage,2,일상 구체 명사,1
+baggage,1,일상 구체 명사,1
 baker,1,사람·직업,1
 bakery,1,일상 구체 명사,1
 balanced,2,다른 말의 변화형,2
@@ -269,7 +269,7 @@ bearing,2,뜻이 여럿인 말,2
 beast,2,자연·동물,1
 beautifully,1,파생 부사·형용사,1
 beautify,2,드문 파생어,3
-beaver,2,자연·동물,1
+beaver,1,자연·동물,1
 bedside,2,합성어,1
 behalf,2,격식어,3
 bellow,2,문학적·드문 말,3
@@ -303,7 +303,7 @@ birdcage,2,합성어,1
 birthplace,2,합성어,2
 bishop,2,역사·종교 말,3
 bitter,2,뜻이 여럿인 말,1
-bitterly,2,파생 부사·형용사,3
+bitterly,2,파생 부사·형용사,2
 bizarre,2,일반 형용사,2
 blade,2,일상 구체 명사,1
 blast,2,뜻이 여럿인 말,2
@@ -316,7 +316,7 @@ blindly,2,파생 부사·형용사,1
 blindness,2,의학·건강 말,1
 blink,2,일반 동사,1
 blog,1,IT·매체 말,1
-blogger,2,IT·매체 말,1
+blogger,1,IT·매체 말,1
 bloodstream,2,의학·건강 말,3
 bloody,2,[x후보] 욕설로도 쓰는 말,3
 blooming,2,다른 말의 변화형,3
@@ -329,7 +329,7 @@ boiling,2,다른 말의 변화형,1
 bold,2,일반 형용사,1
 boldly,2,파생 부사·형용사,2
 bolt,2,일상 구체 명사,1
-bomb,1,일상 구체 명사,1
+bomb,2,일상 구체 명사,1
 bombard,2,격식어,3
 bomber,2,일상 구체 명사,1
 bombing,2,다른 말의 변화형,1
@@ -358,7 +358,7 @@ bracket,2,뜻이 여럿인 말,3
 brag,2,일반 동사,1
 brainstorming,2,일반 명사,2
 brand-new,2,합성어,1
-brass,2,일상 구체 명사,3
+brass,2,일상 구체 명사,2
 bravely,1,파생 부사·형용사,1
 bravery,2,감정·상태 말,2
 breakable,2,파생 부사·형용사,2
@@ -368,7 +368,7 @@ breast,2,일반 명사,1
 breathless,2,일반 형용사,1
 breathtaking,2,일반 형용사,2
 breed,2,일반 동사,1
-breeding,2,전문 분야 말,3
+breeding,2,전문 분야 말,2
 breezy,2,일반 형용사,2
 brewery,2,일상 구체 명사,2
 brick,1,일상 구체 명사,1
@@ -381,7 +381,7 @@ broaden,2,일반 동사,2
 broadly,2,부사,2
 broccoli,1,음식,1
 brochure,2,일반 명사,1
-bronze,2,일상 구체 명사,1
+bronze,1,일상 구체 명사,1
 brother-in-law,2,합성어,1
 brotherhood,2,드문 파생어,3
 browse,2,IT·매체 말,1
@@ -393,7 +393,7 @@ buddy,2,구어·속어,1
 builder,1,사람·직업,1
 bulimia,2,의학·건강 말,3
 bull,1,자연·동물,1
-bullet,1,일상 구체 명사,1
+bullet,2,일상 구체 명사,1
 bulletin,2,격식어,3
 bully,2,사람·직업,2
 bum,2,[x후보] 속어 비하 표현,2
@@ -434,12 +434,12 @@ canal,2,일상 구체 명사,1
 candidate,2,사람·직업,2
 candle,1,일상 구체 명사,1
 cane,2,일상 구체 명사,1
-canned,1,음식,1
+canned,2,음식,1
 cannonball,2,합성어,2
 canon,2,역사·종교 말,3
 canteen,2,영국 생활·제도 말,2
 capability,2,추상 명사,2
-capsule,2,일상 구체 명사,1
+capsule,1,일상 구체 명사,1
 caption,2,IT·매체 말,2
 captive,2,문학적·드문 말,3
 caravan,2,일상 구체 명사,2
@@ -534,7 +534,7 @@ clearness,2,드문 파생어,2
 clerical,2,전문 분야 말,3
 client,2,사람·직업,2
 cliff,1,자연·동물,1
-climber,2,사람·직업,1
+climber,1,사람·직업,1
 clinic,1,일상 구체 명사,1
 clip,2,뜻이 여럿인 말,1
 clog,2,일반 동사,3
@@ -714,7 +714,7 @@ creepy,2,구어·속어,2
 crew,2,사람·직업,1
 cripple,2,[x후보] 장애 비하 소지,3
 critic,2,사람·직업,1
-critically,2,파생 부사·형용사,3
+critically,2,파생 부사·형용사,2
 criticism,2,추상 명사,1
 crocodile,2,자연·동물,1
 crossing,2,일상 구체 명사,2
@@ -750,7 +750,7 @@ cyberspace,2,IT·매체 말,2
 cycle,2,뜻이 여럿인 말,1
 cyclist,2,사람·직업,1
 daft,2,구어·속어,3
-daisy,2,자연·동물,1
+daisy,1,자연·동물,1
 damaged,2,다른 말의 변화형,2
 damn,2,[x후보] 욕설,2
 damp,2,일반 형용사,1
@@ -855,7 +855,7 @@ digest,2,뜻이 여럿인 말,2
 dignify,2,드문 파생어,3
 dignity,2,추상 명사,3
 dilemma,2,추상 명사,2
-diligence,2,추상 명사,3
+diligence,2,추상 명사,2
 diligent,2,일반 형용사,1
 dim,2,일반 형용사,1
 dime,2,일상 구체 명사,1
@@ -962,7 +962,7 @@ droop,2,문학적·드문 말,3
 dropout,2,사회·경제 주제,2
 drought,2,과학·학술 말,2
 drown,2,일반 동사,1
-drunk,1,일반 형용사,1
+drunk,2,일반 형용사,1
 dude,2,구어·속어,2
 duel,2,역사·종교 말,3
 dull,2,일반 형용사,1
@@ -979,7 +979,7 @@ dye,2,일반 동사,1
 dynamic,2,추상 형용사,2
 dynasty,2,역사·종교 말,2
 eagerly,2,파생 부사·형용사,1
-eagerness,2,드문 파생어,3
+eagerness,2,드문 파생어,2
 eagle,2,자연·동물,1
 earache,1,의학·건강 말,1
 earnest,2,일반 형용사,3
@@ -1057,7 +1057,7 @@ enjoyment,2,일반 명사,1
 enroll,2,일반 동사,2
 enterprise,2,사회·경제 주제,2
 entertain,2,일반 동사,1
-entertainer,2,사람·직업,1
+entertainer,1,사람·직업,1
 entertaining,2,일반 형용사,1
 enthusiast,2,드문 파생어,3
 enthusiastically,2,파생 부사·형용사,3
@@ -1065,7 +1065,7 @@ entitle,2,격식어,3
 entrepreneur,2,사회·경제 주제,3
 environment,2,일반 명사,1
 environmentalist,2,사람·직업,3
-environmentally,2,파생 부사·형용사,3
+environmentally,2,파생 부사·형용사,2
 equation,2,과학·학술 말,2
 equip,2,일반 동사,2
 equity,2,사회·경제 주제,2
@@ -1093,7 +1093,7 @@ evil,2,일반 형용사,1
 evolution,2,과학·학술 말,2
 evolve,2,일반 동사,2
 exactness,2,드문 파생어,2
-exaggerate,2,일반 동사,1
+exaggerate,2,일반 동사,2
 exaggeration,2,추상 명사,3
 exalt,2,문학적·드문 말,3
 examination,2,일반 명사,1
@@ -1116,7 +1116,7 @@ excursion,2,일반 명사,3
 execute,2,일반 동사,2
 execution,2,일반 명사,3
 executive,2,사람·직업,3
-exhaust,2,일반 동사,3
+exhaust,2,일반 동사,2
 exhausting,2,일반 형용사,1
 exhaustion,2,감정·상태 말,3
 exhibit,2,일반 동사,2
@@ -1229,7 +1229,7 @@ fleet,2,전문 분야 말,3
 flesh,2,일반 명사,2
 flexibility,2,추상 명사,2
 flexible,2,일반 형용사,1
-flexibly,2,파생 부사·형용사,3
+flexibly,2,파생 부사·형용사,2
 flip,2,일반 동사,1
 flock,2,자연·동물,1
 flu,1,의학·건강 말,1
@@ -1245,7 +1245,7 @@ folk,2,뜻이 여럿인 말,1
 follower,2,사람·직업,1
 folly,2,문학적·드문 말,3
 fond,2,감정·상태 말,1
-fondly,2,파생 부사·형용사,3
+fondly,2,파생 부사·형용사,2
 fondness,2,감정·상태 말,2
 foolish,2,일반 형용사,1
 foolishly,2,파생 부사·형용사,1
@@ -1327,7 +1327,7 @@ genetically,2,파생 부사·형용사,2
 genetics,2,과학·학술 말,3
 genius,2,추상 명사,2
 genre,2,일반 명사,2
-gentleman,2,사람·직업,1
+gentleman,1,사람·직업,1
 gently,2,부사,1
 genuine,2,추상 형용사,2
 genuinely,2,파생 부사·형용사,2
@@ -1379,7 +1379,7 @@ gown,2,일반 명사,2
 graceful,2,일반 형용사,1
 gracefulness,2,드문 파생어,3
 gradual,2,추상 형용사,2
-graduation,2,일반 명사,1
+graduation,1,일반 명사,1
 grain,2,일반 명사,2
 grand,2,뜻이 여럿인 말,1
 graph,2,과학·학술 말,1
@@ -1392,7 +1392,7 @@ gravestone,2,일반 명사,1
 gravitation,2,과학·학술 말,3
 gravy,2,음식,2
 greatness,2,드문 파생어,2
-greeting,2,일반 명사,1
+greeting,1,일반 명사,1
 grief,2,감정·상태 말,2
 grieve,2,감정·상태 말,2
 grill,2,뜻이 여럿인 말,2
@@ -1460,7 +1460,7 @@ heater,1,일상 구체 명사,1
 heaven,2,역사·종교 말,1
 heavenly,2,파생 부사·형용사,2
 hedge,2,뜻이 여럿인 말,3
-heel,2,일상 구체 명사,1
+heel,1,일상 구체 명사,1
 helicopter,2,일상 구체 명사,1
 hell,2,역사·종교 말,1
 helmet,1,일상 구체 명사,1
@@ -1487,13 +1487,13 @@ homeless,2,반대말 파생어,1
 homeward,2,부사,3
 hone,2,일반 동사,3
 honestly,1,파생 부사·형용사,1
-honeymoon,2,일반 명사,1
+honeymoon,1,일반 명사,1
 honorable,2,일반 형용사,2
 hood,2,뜻이 여럿인 말,3
 hook,2,일반 명사,1
 hop,2,일반 동사,1
 hopeful,2,파생 부사·형용사,1
-hopefully,2,파생 부사·형용사,1
+hopefully,1,파생 부사·형용사,1
 hopeless,2,반대말 파생어,1
 horizon,2,일반 명사,2
 horn,2,일상 구체 명사,1
@@ -1541,7 +1541,7 @@ ideology,2,사회·경제 주제,3
 idiom,2,문법 용어,2
 idiot,2,[x후보] 사람을 낮춰 부르는 말,2
 idle,2,일반 형용사,3
-idol,2,일반 명사,2
+idol,1,일반 명사,1
 idolize,2,일반 동사,3
 ignorance,2,추상 명사,2
 ignorant,2,일반 형용사,2
@@ -1566,7 +1566,7 @@ implement,2,일반 동사,2
 implication,2,추상 명사,3
 imply,2,추상 동사,2
 impolite,2,반대말 파생어,1
-impolitely,2,파생 부사·형용사,3
+impolitely,2,파생 부사·형용사,2
 import,2,사회·경제 주제,1
 impose,2,일반 동사,2
 impossibility,2,추상 명사,3
@@ -1577,7 +1577,7 @@ impressionist,2,역사·종교 말,3
 imprison,2,법·정치 말,3
 imprisonment,2,법·정치 말,3
 improbable,2,반대말 파생어,3
-improper,2,반대말 파생어,1
+improper,2,반대말 파생어,2
 improperly,2,파생 부사·형용사,3
 improved,2,다른 말의 변화형,2
 impulse,2,추상 명사,3
@@ -1613,7 +1613,7 @@ inexperienced,2,반대말 파생어,2
 infant,2,사람·직업,1
 infect,2,의학·건강 말,1
 infected,2,의학·건강 말,1
-infectious,2,의학·건강 말,3
+infectious,2,의학·건강 말,2
 infer,2,추상 동사,3
 inference,2,추상 명사,3
 infinitive,2,문법 용어,3
@@ -1715,7 +1715,7 @@ italicize,2,문법 용어,3
 itch,2,의학·건강 말,2
 ivory,2,일반 명사,3
 jade,2,일반 명사,3
-jail,1,일반 명사,1
+jail,2,일반 명사,1
 jar,1,일상 구체 명사,1
 jaw,2,일상 구체 명사,2
 jazz,1,운동·여가,1
@@ -1821,7 +1821,7 @@ lightly,2,부사,1
 lightning,1,자연·동물,1
 likeness,2,추상 명사,3
 likewise,2,연결어·전치사,2
-limb,2,일반 명사,1
+limb,2,일반 명사,2
 limp,2,일반 형용사,2
 linen,2,일반 명사,2
 liner,2,뜻이 여럿인 말,3
@@ -1851,7 +1851,7 @@ lovingly,2,파생 부사·형용사,2
 lower,2,뜻이 여럿인 말,1
 lowland,2,자연·동물,2
 loyal,2,추상 형용사,1
-lucrative,2,격식어,2
+lucrative,2,격식어,3
 luggage,1,일상 구체 명사,1
 lung,1,일상 구체 명사,1
 lush,2,문학적·드문 말,3
@@ -1895,7 +1895,7 @@ masterpiece,2,일반 명사,1
 mastery,2,추상 명사,3
 mate,2,구어·속어,1
 mathematical,2,과학·학술 말,1
-mathematician,2,사람·직업,2
+mathematician,1,사람·직업,1
 mathematics,1,과학·학술 말,1
 mature,2,일반 형용사,1
 mausoleum,2,역사·종교 말,3
@@ -1924,7 +1924,7 @@ mentor,2,사람·직업,1
 merchandise,2,사회·경제 주제,3
 merchant,2,사회·경제 주제,3
 mercy,2,추상 명사,2
-merge,2,일반 동사,1
+merge,2,일반 동사,2
 merger,2,사회·경제 주제,2
 mess,2,뜻이 여럿인 말,1
 messenger,2,사람·직업,1
@@ -2039,7 +2039,7 @@ naked,2,일반 형용사,2
 nano,2,과학·학술 말,3
 nap,1,일상 구체 명사,1
 narcissistic,2,과학·학술 말,3
-narrate,2,추상 동사,3
+narrate,2,추상 동사,2
 narrator,2,사람·직업,1
 narrowly,2,부사,3
 nasty,2,일반 형용사,1
@@ -2052,7 +2052,7 @@ navigation,2,전문 분야 말,2
 navy,2,일반 명사,1
 neat,2,일반 형용사,1
 necessarily,2,부사,1
-necessity,2,추상 명사,1
+necessity,2,추상 명사,2
 necklace,1,일상 구체 명사,1
 nectar,2,문학적·드문 말,3
 needle,1,일상 구체 명사,1
@@ -2106,7 +2106,7 @@ notorious,2,격식어,2
 nought,2,영국 생활·제도 말,3
 nourish,2,격식어,3
 nourishment,2,격식어,3
-novelist,2,사람·직업,1
+novelist,1,사람·직업,1
 novelty,2,추상 명사,3
 nowhere,2,부사,1
 nucleus,2,과학·학술 말,3
@@ -2118,7 +2118,7 @@ nutrition,2,의학·건강 말,2
 nutritious,2,의학·건강 말,2
 nutshell,2,문학적·드문 말,3
 oath,2,법·정치 말,2
-obedience,2,추상 명사,3
+obedience,2,추상 명사,2
 obedient,2,추상 형용사,2
 obey,2,일반 동사,1
 obituary,2,격식어,3
@@ -2130,7 +2130,7 @@ obsessive,2,추상 형용사,3
 occasional,2,추상 형용사,2
 odd,2,뜻이 여럿인 말,1
 offend,2,일반 동사,1
-offender,2,법·정치 말,3
+offender,2,법·정치 말,2
 offense,2,법·정치 말,2
 offhand,2,격식어,3
 officially,2,부사,1
@@ -2150,7 +2150,7 @@ opponent,2,추상 명사,2
 opposition,2,추상 명사,2
 oppress,2,추상 동사,3
 oppression,2,추상 명사,3
-optimism,2,추상 명사,3
+optimism,2,추상 명사,2
 optimist,2,사람·직업,1
 optimistic,2,감정·상태 말,1
 optional,2,일반 형용사,1
@@ -2158,7 +2158,7 @@ oral,2,일반 형용사,1
 orator,2,격식어,3
 orbit,2,과학·학술 말,2
 orchestra,1,운동·여가,1
-orchestral,2,드문 파생어,3
+orchestral,2,드문 파생어,2
 orchid,2,자연·동물,3
 orderly,2,뜻이 여럿인 말,3
 organizer,2,사람·직업,1
@@ -2190,7 +2190,7 @@ outrageous,2,추상 형용사,3
 outshine,2,문학적·드문 말,3
 outsider,2,사람·직업,2
 outskirts,2,일반 명사,3
-outward,2,일반 형용사,3
+outward,2,일반 형용사,2
 outwardly,2,부사,3
 oval,2,일상 구체 명사,1
 overall,2,뜻이 여럿인 말,2
@@ -2291,7 +2291,7 @@ peel,2,일반 동사,2
 peep,2,일반 동사,3
 peer,2,뜻이 여럿인 말,3
 peg,2,일반 명사,3
-penalize,2,드문 파생어,3
+penalize,2,드문 파생어,2
 penalty,2,일반 명사,1
 penetrate,2,추상 동사,2
 penguin,2,자연·동물,1
@@ -2311,15 +2311,15 @@ perseverance,2,추상 명사,3
 persist,2,추상 동사,2
 persistence,2,추상 명사,3
 persistent,2,추상 형용사,2
-personally,2,부사,1
+personally,1,부사,1
 personification,2,문학적·드문 말,3
 personify,2,문학적·드문 말,3
 personnel,2,사회·경제 주제,3
 perspective,2,추상 명사,2
 perspiration,2,의학·건강 말,3
 persuasion,2,추상 명사,2
-pessimist,2,사람·직업,3
-pessimistic,2,감정·상태 말,3
+pessimist,2,사람·직업,2
+pessimistic,2,감정·상태 말,2
 petrified,2,감정·상태 말,3
 petty,2,일반 형용사,3
 pH,2,과학·학술 말,3
@@ -2368,7 +2368,7 @@ poisonous,2,파생 부사·형용사,2
 pole,2,뜻이 여럿인 말,1
 polio,2,의학·건강 말,3
 polish,2,뜻이 여럿인 말,1
-politely,2,파생 부사·형용사,1
+politely,1,파생 부사·형용사,1
 politeness,2,추상 명사,2
 politically,2,파생 부사·형용사,3
 polity,2,법·정치 말,3
@@ -2397,12 +2397,12 @@ potent,2,격식어,3
 potentially,2,부사,3
 pottery,2,일반 명사,1
 pound,2,뜻이 여럿인 말,1
-powder,2,일상 구체 명사,1
+powder,1,일상 구체 명사,1
 powerfully,2,파생 부사·형용사,2
 practicality,2,추상 명사,3
 practically,2,부사,1
 prance,2,문학적·드문 말,3
-prawn,2,음식,2
+prawn,2,음식,1
 prayer,2,역사·종교 말,1
 precede,2,격식어,3
 precisely,2,부사,1
@@ -2413,7 +2413,7 @@ predictable,2,일반 형용사,2
 predictive,2,드문 파생어,3
 predictor,2,드문 파생어,3
 prefect,2,영국 생활·제도 말,3
-preferable,2,일반 형용사,3
+preferable,2,일반 형용사,2
 preferably,2,부사,2
 prefix,2,문법 용어,3
 pregnant,2,의학·건강 말,2
@@ -2425,10 +2425,10 @@ preliminary,2,격식어,3
 preoccupy,2,추상 동사,3
 prepared,2,다른 말의 변화형,1
 preposition,2,문법 용어,2
-preschool,2,일반 명사,1
+preschool,1,일반 명사,1
 prescribe,2,의학·건강 말,3
 prescription,2,의학·건강 말,2
-presenter,2,사람·직업,2
+presenter,2,사람·직업,1
 presidency,2,법·정치 말,3
 presidential,2,법·정치 말,2
 prestige,2,추상 명사,3
@@ -2453,7 +2453,7 @@ probe,2,뜻이 여럿인 말,3
 procedure,2,추상 명사,3
 proclaim,2,격식어,3
 procrastination,2,추상 명사,3
-producer,2,사람·직업,1
+producer,1,사람·직업,1
 profile,2,뜻이 여럿인 말,2
 profit,2,사회·경제 주제,2
 profitable,2,사회·경제 주제,2
@@ -2495,7 +2495,7 @@ publisher,2,사람·직업,2
 pudding,2,음식,1
 pullover,1,일상 구체 명사,1
 pulse,2,의학·건강 말,2
-pump,2,일상 구체 명사,2
+pump,2,일상 구체 명사,1
 pumpkin,2,음식,1
 punch,2,뜻이 여럿인 말,1
 punctual,2,일반 형용사,2
@@ -2522,12 +2522,12 @@ query,2,격식어,3
 questionnaire,2,일반 명사,2
 queue,2,영국 생활·제도 말,2
 quotable,2,드문 파생어,3
-quotation,2,일반 명사,3
+quotation,2,일반 명사,2
 quote,2,일반 동사,1
 racial,2,사회·경제 주제,2
 racism,2,사회·경제 주제,2
 racist,2,사회·경제 주제,2
-rack,2,일상 구체 명사,2
+rack,2,일상 구체 명사,1
 radar,2,과학·학술 말,2
 radiate,2,과학·학술 말,3
 radiation,2,과학·학술 말,3
@@ -2537,13 +2537,13 @@ radium,2,과학·학술 말,3
 rafter,2,문학적·드문 말,3
 rag,2,일상 구체 명사,1
 rage,2,감정·상태 말,1
-rail,2,일상 구체 명사,2
+rail,2,일상 구체 명사,1
 railroad,1,합성어,1
 railway,1,합성어,1
 rainbow,2,자연·동물,1
 rainfall,2,합성어,1
 rainforest,1,자연·동물,1
-rainstorm,2,합성어,2
+rainstorm,2,합성어,1
 rally,2,뜻이 여럿인 말,3
 ram,2,뜻이 여럿인 말,3
 ramp,2,일상 구체 명사,1
@@ -2555,7 +2555,7 @@ raspberry,1,음식,1
 ration,2,일반 명사,3
 rattle,2,일반 동사,2
 ravage,2,문학적·드문 말,3
-razor,2,일상 구체 명사,2
+razor,2,일상 구체 명사,1
 reaction,2,일반 명사,2
 readily,2,부사,3
 realization,2,추상 명사,3
@@ -2584,9 +2584,9 @@ rectangular,2,일반 형용사,2
 recycled,2,다른 말의 변화형,1
 redo,2,일반 동사,2
 redundant,2,추상 형용사,3
-reed,2,자연·동물,3
+reed,2,자연·동물,2
 reef,2,자연·동물,1
-referee,2,운동·여가,1
+referee,1,운동·여가,1
 reference,2,추상 명사,2
 referent,2,문법 용어,3
 refinery,2,전문 분야 말,3
@@ -2602,13 +2602,13 @@ refusal,2,추상 명사,2
 refute,2,격식어,3
 regain,2,일반 동사,2
 regardless,2,연결어·전치사,3
-reggae,2,운동·여가,2
+reggae,2,운동·여가,1
 regime,2,법·정치 말,3
 regional,2,일반 형용사,1
 registration,2,추상 명사,2
 regrettably,2,파생 부사·형용사,3
 regulate,2,추상 동사,3
-rehearsal,2,운동·여가,2
+rehearsal,2,운동·여가,1
 reinforce,2,추상 동사,3
 reinforcement,2,추상 명사,3
 rejection,2,추상 명사,2
@@ -2685,21 +2685,21 @@ revival,2,추상 명사,3
 revive,2,일반 동사,2
 revolution,2,역사·종교 말,1
 revolutionary,2,역사·종교 말,2
-revolutionize,2,드문 파생어,3
+revolutionize,2,드문 파생어,2
 revolve,2,일반 동사,3
 rewrite,2,일반 동사,1
 rhinoceros,2,자연·동물,1
 rhyme,2,문학적·드문 말,2
 rhythmic,2,파생 부사·형용사,3
 rib,2,일상 구체 명사,1
-rid,2,뜻이 여럿인 말,3
-riddle,2,일반 명사,2
+rid,2,뜻이 여럿인 말,2
+riddle,2,일반 명사,1
 rider,2,사람·직업,1
-ridge,2,자연·동물,3
+ridge,2,자연·동물,2
 ridiculous,2,감정·상태 말,1
 righteousness,2,문학적·드문 말,3
 rightly,2,부사,2
-rim,2,일상 구체 명사,3
+rim,2,일상 구체 명사,2
 rip,2,일반 동사,2
 ripe,2,음식,1
 risky,2,일반 형용사,1
@@ -2832,7 +2832,7 @@ shameful,2,감정·상태 말,2
 sharply,2,파생 부사·형용사,2
 shatter,2,일반 동사,3
 shave,2,일반 동사,1
-shed,2,뜻이 여럿인 말,1
+shed,2,뜻이 여럿인 말,2
 sheer,2,뜻이 여럿인 말,3
 sheet,1,일상 구체 명사,1
 sheriff,2,사람·직업,2
@@ -2895,7 +2895,7 @@ slope,2,자연·동물,1
 sloppy,2,일반 형용사,2
 slot,2,일상 구체 명사,2
 smash,2,일반 동사,1
-smoker,1,사람·직업,1
+smoker,2,사람·직업,1
 smokestack,2,합성어,3
 snap,2,뜻이 여럿인 말,2
 sneak,2,일반 동사,1
@@ -2930,7 +2930,7 @@ soothe,2,일반 동사,3
 sophisticated,2,추상 형용사,3
 sophomore,2,영국 생활·제도 말,2
 sore,2,의학·건강 말,1
-sorrow,2,감정·상태 말,1
+sorrow,2,감정·상태 말,2
 soundtrack,2,IT·매체 말,1
 sour,1,음식,1
 southeast,1,합성어,1
@@ -3058,7 +3058,7 @@ stuck,2,다른 말의 변화형,1
 studio,1,일반 명사,1
 stuffed,2,다른 말의 변화형,1
 stumble,2,일반 동사,1
-stun,2,일반 동사,3
+stun,2,일반 동사,2
 stunning,2,추상 형용사,1
 stupid,2,일반 형용사,1
 stylish,2,파생 부사·형용사,1
@@ -3098,7 +3098,7 @@ supernatural,2,추상 형용사,2
 superstition,2,역사·종교 말,3
 supervise,2,추상 동사,3
 supervision,2,추상 명사,3
-supervisor,2,사람·직업,1
+supervisor,2,사람·직업,2
 supplement,2,일반 명사,3
 supplier,2,사회·경제 주제,3
 supporter,2,사람·직업,1
@@ -3114,10 +3114,10 @@ surroundings,2,추상 명사,1
 surveillance,2,법·정치 말,3
 suspend,2,뜻이 여럿인 말,3
 suspicious,2,추상 형용사,1
-suspiciously,2,파생 부사·형용사,3
+suspiciously,2,파생 부사·형용사,2
 sustain,2,추상 동사,3
 swan,2,자연·동물,1
-swarm,2,뜻이 여럿인 말,1
+swarm,2,뜻이 여럿인 말,2
 swear,2,뜻이 여럿인 말,2
 sweatshirt,1,일상 구체 명사,1
 sweep,2,일반 동사,1
@@ -3138,7 +3138,7 @@ tablecloth,2,일상 구체 명사,1
 tablet,2,뜻이 여럿인 말,1
 tabloid,2,IT·매체 말,3
 tack,2,뜻이 여럿인 말,3
-tackle,2,뜻이 여럿인 말,1
+tackle,2,뜻이 여럿인 말,2
 tactile,2,문학적·드문 말,3
 tag,2,일반 명사,1
 tail,2,자연·동물,1
@@ -3153,18 +3153,18 @@ tank,2,뜻이 여럿인 말,1
 tanned,2,다른 말의 변화형,1
 taste,2,뜻이 여럿인 말,1
 tasteless,2,파생 부사·형용사,1
-tasty,2,파생 부사·형용사,1
+tasty,1,파생 부사·형용사,1
 tatter,2,문학적·드문 말,3
 tattoo,2,일반 명사,1
 taunt,2,추상 동사,3
 teaching,2,다른 말의 변화형,1
 teammate,1,사람·직업,1
-teamwork,2,합성어,1
+teamwork,1,합성어,1
 tease,2,일반 동사,1
 teaspoon,2,일상 구체 명사,1
 technical,2,추상 형용사,2
 technically,2,부사,2
-teen,2,사람·직업,1
+teen,1,사람·직업,1
 telecommunications,2,전문 분야 말,3
 telegram,2,일반 명사,1
 telescope,2,과학·학술 말,1
@@ -3204,7 +3204,7 @@ thigh,2,일상 구체 명사,1
 thinker,2,사람·직업,2
 thirdly,2,연결어·전치사,2
 thirst,2,감정·상태 말,1
-thoroughly,2,부사,1
+thoroughly,2,부사,2
 thoughtful,2,감정·상태 말,2
 thoughtless,2,반대말 파생어,2
 thread,2,뜻이 여럿인 말,1
@@ -3225,7 +3225,7 @@ tide,2,자연·동물,1
 tighten,2,일반 동사,1
 tightly,2,파생 부사·형용사,1
 tightrope,2,합성어,2
-tile,2,일상 구체 명사,1
+tile,1,일상 구체 명사,1
 timeless,2,파생 부사·형용사,3
 timeliness,2,드문 파생어,3
 timely,2,추상 형용사,2
@@ -3256,7 +3256,7 @@ toss,2,일반 동사,1
 tough,2,일반 형용사,1
 tournament,2,운동·여가,1
 toxic,2,과학·학술 말,3
-tracksuit,1,일상 구체 명사,1
+tracksuit,2,일상 구체 명사,1
 trader,2,사람·직업,2
 traditionally,2,부사,1
 tragic,2,추상 형용사,1
@@ -3279,8 +3279,8 @@ translation,2,일반 명사,2
 translator,2,사람·직업,1
 transmission,2,과학·학술 말,3
 transmit,2,과학·학술 말,3
-transparent,2,추상 형용사,1
-trash,2,일반 명사,1
+transparent,2,추상 형용사,2
+trash,1,일반 명사,1
 traverse,2,격식어,3
 tray,2,일상 구체 명사,1
 tread,2,뜻이 여럿인 말,3
@@ -3300,7 +3300,7 @@ trivial,2,추상 형용사,3
 trolley,2,영국 생활·제도 말,2
 troop,2,일반 명사,3
 trophy,2,일반 명사,1
-tropic,2,과학·학술 말,3
+tropic,2,과학·학술 말,2
 tropical,2,일반 형용사,1
 troublesome,2,파생 부사·형용사,2
 trumpet,1,운동·여가,1
@@ -3346,7 +3346,7 @@ unchanged,2,반대말 파생어,2
 uncharacteristic,2,드문 파생어,3
 unclear,2,반대말 파생어,2
 unclearly,2,드문 파생어,3
-uncomfortably,2,드문 파생어,3
+uncomfortably,2,드문 파생어,2
 uncommon,2,반대말 파생어,2
 unconcerned,2,반대말 파생어,3
 unconscious,2,의학·건강 말,2
@@ -3414,7 +3414,7 @@ unrest,2,사회·경제 주제,3
 unsafe,2,반대말 파생어,1
 unsatisfactory,2,반대말 파생어,2
 unselfish,2,반대말 파생어,2
-unstoppable,2,드문 파생어,3
+unstoppable,2,드문 파생어,2
 unsuccessful,2,반대말 파생어,2
 unsuitable,2,반대말 파생어,2
 unsure,2,반대말 파생어,2
@@ -3591,7 +3591,7 @@ wornout,2,합성어,2
 worrying,2,감정·상태 말,2
 worsen,2,일반 동사,3
 worship,2,역사·종교 말,2
-worthless,2,파생 부사·형용사,3
+worthless,2,파생 부사·형용사,2
 worthwhile,2,추상 형용사,3
 wound,2,뜻이 여럿인 말,3
 wrap,2,일반 동사,1
@@ -3608,7 +3608,7 @@ yearn,2,문학적·드문 말,3
 yell,2,일반 동사,1
 yield,2,뜻이 여럿인 말,3
 yoga,1,운동·여가,1
-youthful,2,파생 부사·형용사,3
+youthful,2,파생 부사·형용사,2
 yummy,2,구어·속어,1
 zebra,2,자연·동물,1
 zip,2,뜻이 여럿인 말,1
