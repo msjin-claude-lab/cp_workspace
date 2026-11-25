@@ -1,0 +1,18 @@
+# 심화 검토가 낸 고칠 줄(2026-11-25~, 칸마다 code-reviewer 네 번 + 사람 표본). 형식: 번호|필드|새 값|근거
+# 적용: 검토마다 그 부분만 임시 파일로 python tool/wordlist/cells.py --stage advanced fix <파일> → check → 시험 → 커밋(누적 파일을 통째로 넘기지 않는다 — docs/plan-words-phase4.md 4단계)
+# --- advanced_easy 앞 300개(2026-11-25 code-reviewer, COMMENT) ---
+w-3125|meaning|건설업자, 건설 노동자|건축업자가 architect(w-3052)의 건축가와 글자가 붙어 보여 4지선다에서 정답이 둘로 보임. builder는 건물을 짓는 업자·노동자
+w-3203|meaning|유명인, 명성|유명 인사는 유명인과 같은 말을 겹쳐 적은 것이고, 인사가 greeting(w-3151)의 인사와 글자가 겹침(동음이의어)
+w-3024|meaning|간(肝), 간 요리|간과 (음식으로서의) 간은 같은 말을 겹쳐 적은 것. 한자 표기는 mayor 시장(市長)과 같은 방식
+w-3109|meaning|다큐멘터리, 기록 영화, 기록의|기록물은 문서·기록 자료(records·archives)로 읽힘. documentary 명사는 기록 영화
+w-3223|example|Unlike monkeys, apes such as gorillas and chimpanzees have no tails.|"꼬리가 없어서 유인원"은 인과가 틀림 — 꼬리 없는 원숭이(바바리마카크 등)도 있음. 꼬리가 없다는 특징만 말함
+w-3223|exampleMeaning|원숭이와 달리 고릴라나 침팬지 같은 유인원은 꼬리가 없다.|위 예문에 맞춤
+w-3196|meaning|가짜의, 위조의, 가짜, ~인 척하다|동사 fake(fake a smile, fake an injury)가 빠짐 — 명사·동사 겸용어의 한쪽 품사 누락
+w-3176|meaning|조카딸|조카딸과 (여자) 조카는 같은 말을 겹쳐 적은 것. nephew (남자) 조카와는 글자가 달라 그대로 갈림
+w-3060|meaning|병, 메스꺼움, 멀미|병과 질병은 같은 말을 겹쳐 적은 것. car·sea·motion sickness의 멀미가 흔한 쓰임
+w-3260|meaning|해초, 미역|바닷말은 해초와 같은 말(겹쳐 적음). 김은 steam(w-3013)과 겹쳐 그대로 뺌
+w-3185|example|Seabirds dive into the sea to catch fish.|우는 아이를 구하려 뛰어든다는 논리가 어색하고(물에 빠진 아이여야 함) bravely(w-3226) 예문의 "물에 빠진 개를 구하려 뛰어듦"과 틀이 같음
+w-3185|exampleMeaning|바닷새는 물고기를 잡으려고 바닷속으로 뛰어든다.|위 예문에 맞춤
+w-3022|meaning|날개, (건물의) 동|부속 건물은 (건물의) 동과 같은 뜻을 겹쳐 적은 것
+w-3281|meaning|등반가, 등산하는 사람|등산가는 등반가와 같은 말(겹쳐 적음). 덩굴 식물은 쉬움 칸에 드문 뜻
+w-3278|meaning|천천히 달리다, 조깅하다|(기억을) 되살리다(jog one's memory)는 쉬움 칸에 드문 숙어 뜻

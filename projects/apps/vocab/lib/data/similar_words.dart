@@ -575,6 +575,29 @@ const List<(String, String)> similarWordPairs = [
   ('current', 'currency'),
   // 고등 어려움 301~500·칸 전체 — 우리말 뜻 글자가 같은 동음이의어
   ('account', 'occupy'), // (account for) 차지하다 / (공간·시간을) 차지하다
+  // 심화 쉬움 앞 300개(2026-11-25 검토) — 뜻이 거의 같음
+  ('railroad', 'railway'), // (미국) 철도 / 철도
+  ('baggage', 'luggage'), // 수하물 / 여행 짐
+  ('bin', 'trash'), // 쓰레기통 / 쓰레기
+  ('cabin', 'hut'), // 통나무집 / 오두막
+  ('wizard', 'magician'), // 마법사 / 마술사
+  ('nephew', 'niece'), // (남자) 조카 / 조카딸
+  ('celebrity', 'entertainer'), // 유명인 / 연예인
+  ('kettle', 'jug'), // 주전자 / 물병
+  ('jar', 'jug'), // (유리) 병 / 큰 병
+  ('mud', 'dirt'), // 진흙 / 흙
+  // 심화 쉬움 앞 300개 — 어원이 같음
+  ('dive', 'diving'),
+  ('dive', 'diver'),
+  ('diving', 'diver'),
+  ('jog', 'jogging'),
+  ('careless', 'carelessly'),
+  ('mathematics', 'mathematician'),
+  ('comedy', 'comedian'),
+  ('spice', 'spicy'),
+  ('baker', 'bakery'),
+  // 심화 쉬움 앞 300개 — 우리말 뜻 글자가 같은 동음이의어
+  ('sickness', 'jar'), // 병(질병) / (유리) 병
 ];
 
 final Map<String, Set<String>> _partners = () {
