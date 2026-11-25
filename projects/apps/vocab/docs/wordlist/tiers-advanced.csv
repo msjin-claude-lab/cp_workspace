@@ -1,4 +1,4 @@
-# vocab 심화 단어 단계와 난이도(docs/plan-words-phase4.md 2단계). tier = 1 고등 이전에 놓친 쉬운 말(B1만 · 난이도 1 — 쉬움 칸 맨 앞) · 2 그 밖 · x 넣지 않음(난이도는 비운다). 뽑기는 없다 — x가 아닌 것은 전부 넣는다. difficulty = 칸 나누기 난이도(1 쉬움 — 일상·구체 말 · 2 중간 — 흔한 추상어와 B2의 일반 말 · 3 어려움 — 추상·학술·격식 말과 뜻이 여럿인 말). x는 사용자가 정한 넷(bust · gay · sex · suicide)뿐이다 — 후보로 올렸던 25개는 모두 넣기로 했다(2026-11-25 사용자 결정). Claude가 매겼다(2026-11-25). 기준은 docs/wordlist/README.md
+# vocab 심화 단어 단계와 난이도(docs/plan-words-phase4.md 2단계). tier = 1 고등 이전에 놓친 쉬운 말(B1만 · 난이도 1 — 쉬움 칸 맨 앞) · 2 그 밖 · x 넣지 않음(난이도는 비운다). 뽑기는 없다 — x가 아닌 것은 전부 넣는다. difficulty = 칸 나누기 난이도(1 쉬움 — 일상·구체 말 · 2 중간 — 흔한 추상어와 B2의 일반 말 · 3 어려움 — 추상·학술·격식 말과 뜻이 여럿인 말). x는 사용자가 정한 다섯(bust · gay · sex · suicide — 후보로 올렸던 25개는 모두 넣기로 했다(2026-11-25 사용자 결정) · sports — 4단계 검토 뒤 뺌(2026-11-25 사용자 결정))뿐이다. Claude가 매겼다(2026-11-25). 기준은 docs/wordlist/README.md
 word,tier,reason,difficulty
 abandoned,2,다른 말의 변화형,2
 abnormal,2,추상 형용사,2
@@ -2975,7 +2975,7 @@ spokesman,2,사람·직업,1
 spokeswoman,2,사람·직업,1
 sponge,1,일상 구체 명사,1
 sponsor,2,사회·경제 주제,2
-sports,1,운동·여가,1
+sports,x,넣지 않음(사용자 결정 — 초등 sport와 -s 하나 차이),
 sportsmanship,2,운동·여가,2
 spray,2,일반 동사,1
 spreadsheet,2,IT·매체 말,2

@@ -322,7 +322,6 @@ sunbathe,B1,77857,1,1,advanced_easy,운동·여가
 duty-free,B1,,1,1,advanced_easy,합성어
 hairdryer,B1,,1,1,advanced_easy,일상 구체 명사
 mountaintop,B1,,1,1,advanced_easy,합성어
-sports,B1,,1,1,advanced_easy,운동·여가
 windsurfing,B1,,1,1,advanced_easy,운동·여가
 god,B2,251,2,1,advanced_easy,역사·종교 말
 known,B2,298,2,1,advanced_easy,다른 말의 변화형
@@ -1204,7 +1203,7 @@ pajamas,B2,26806,2,1,advanced_easy,일상 구체 명사
 yawn,B2,27469,2,1,advanced_easy,일반 동사
 tasteless,B1,27572,2,1,advanced_easy,파생 부사·형용사
 gangster,B2,28156,2,1,advanced_easy,사람·직업
-unwell,B1,28165,2,1,advanced_medium,반대말 파생어
+unwell,B1,28165,2,1,advanced_easy,반대말 파생어
 sunbeam,B2,28339,2,1,advanced_medium,합성어
 silverware,B2,28348,2,1,advanced_medium,합성어
 undress,B1,28450,2,1,advanced_medium,일반 동사
@@ -2407,7 +2406,7 @@ innermost,B1,19630,2,2,advanced_medium,일반 형용사
 addict,B2,19635,2,2,advanced_medium,의학·건강 말
 incurable,B2,19784,2,2,advanced_medium,의학·건강 말
 pickle,B2,19863,2,2,advanced_medium,음식
-lovingly,B1,19902,2,2,advanced_hard,파생 부사·형용사
+lovingly,B1,19902,2,2,advanced_medium,파생 부사·형용사
 bum,B2,19988,2,2,advanced_hard,구어·속어
 canteen,B1,20074,2,2,advanced_hard,영국 생활·제도 말
 overtake,B2,20134,2,2,advanced_hard,일반 동사
