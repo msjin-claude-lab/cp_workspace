@@ -812,10 +812,21 @@ const List<(String, String)> similarWordPairs = [
   // 심화 중간 묶음 1~3 — 뜻이 거의 같음
   ('assessment', 'evaluation'), // (실력·상황의) 평가 / 평가
   ('dated', 'old-fashioned'), // 시대에 뒤떨어진 / 구식의
+  ('adequate', 'sufficiently'), // 충분한 / 충분히
+  ('essentially', 'fundamental'), // 본질적으로 / 근본적인
   // 심화 중간 묶음 1~3 — 어원이 같음
   ('skateboard', 'skateboarder'),
   ('division', 'divided'),
   ('extension', 'extensive'),
+  ('excess', 'exceed'),
+  ('adopted', 'adoption'),
+  ('manufacturing', 'manufacture'),
+  ('identify', 'identification'),
+  ('variation', 'varied'),
+  ('ultimately', 'ultimate'),
+  ('prior', 'priority'),
+  ('will', 'willing'),
+  ('provided', 'provision'),
   // 심화 중간 묶음 1~3 — 우리말 뜻 글자가 같은 동음이의어
   ('unpack', 'untie'), // (짐을) 풀다 / (매듭·끈을) 풀다
 ];
