@@ -2,7 +2,7 @@
 
 이 앱의 진행 상태 기록이다(`projects/apps/CLAUDE.md` "주제 인계"). 규칙·명령·코드 구조는 [CLAUDE.md](CLAUDE.md).
 
-- 상태: 종료 · 2026-11-25 · 개인 PC
+- 상태: 진행 중 · 2026-11-25 20:50 · 개인 PC
 
 ## 인계 — 새 세션은 여기부터 읽는다
 
@@ -22,7 +22,7 @@
 
 1. **4차 심화 — 4단계(뜻·예문·해석 쓰기)부터**. 계획서 [docs/plan-words-phase4.md](docs/plan-words-phase4.md)가 기준이다(2026-11-25 critic REVISE → 반영 → 재검토 APPROVE → 사용자 승인. 단계마다 "결과" 문단에 실제로 한 것과 계획과 달랐던 것이 있다)
    - **다음에 할 일**: 3단계 마무리는 끝났다(2026-11-25 개인 PC, 180개 통과). 계획서 "단계 4". 칸은 한 번에 하나씩(쉬움 → 중간 → 어려움), `docs/wordlist/advanced.csv` 순서대로 **100개 묶음**(칸마다 13묶음 — 마지막 묶음은 3개). 묶음마다 `python tool/wordlist/cells.py --stage advanced check && flutter test test/data/word_assets_test.dart test/data/similar_words_test.dart` 뒤 경로를 밝혀 `wip:` 커밋·push하고, 아래 "4단계에서 지금까지 쓴 것"을 고친다. code-reviewer 검토는 묶음 3 · 6 · 9 뒤와 마지막 묶음 뒤(마지막 검토는 칸 전체의 유사어 쌍도). 작성 규칙은 3차와 같다([docs/plan-words-phase3.md](docs/plan-words-phase3.md) "4. 뜻·예문·해석을 쓴다")
-   - **4단계에서 지금까지 쓴 것**: **쉬움 600개(`w-3001`~`w-3600`, 묶음 1~6)** — 2026-11-25 개인 PC executor, 묶음마다 check 0건·시험 통과 뒤 wip 커밋. 앞 300개는 code-reviewer COMMENT → 고칠 줄 15개 적용(`docs/wordlist/review-fixes-advanced.txt` — 이 파일을 새로 만들었다), 유사어 20쌍 추가(idol/entertainer는 넣지 않음). **다음**: 묶음 4~6(`w-3301`~`w-3600`)을 code-reviewer가 검토 — executor가 낸 쌍 후보(previously/formerly/originally, port/harbor, employ/hire(hire가 이 칸에 있는지 확인), relief/relieved, fame/celebrity, trunk/boot, rail/railway 등)를 판정하게 하고, 흔한 뜻을 못 쓴 fame "유명세"(명성은 celebrity에) 같은 줄을 맞바꿀지 보게 한다 → 반영 뒤 묶음 7~9(`w-3601`~`w-3900`). 민감한 말 25개 중 지금까지 든 것은 hell 하나(뜻 "지옥, (비속어로 쓰여) 도대체·젠장"). 번호는 쉬움 `w-3001`~`w-4203` · 중간 `w-4204`~`w-5406` · 어려움 `w-5407`~`w-6609`
+   - **4단계에서 지금까지 쓴 것**: **쉬움 600개(`w-3001`~`w-3600`, 묶음 1~6)** — 2026-11-25 개인 PC executor, 묶음마다 check 0건·시험 통과 뒤 wip 커밋. 앞 300개는 code-reviewer COMMENT → 고칠 줄 15개 적용(`docs/wordlist/review-fixes-advanced.txt` — 이 파일을 새로 만들었다), 유사어 20쌍 추가(idol/entertainer는 넣지 않음). 묶음 4~6도 code-reviewer COMMENT → 고칠 줄 9개 적용(fame "명성, 유명함" ↔ celebrity "유명인, 유명세" 맞바꿈 등), 유사어 31쌍 추가(지금 596쌍 — 커밋 `c1e807a` 메시지의 "33쌍"은 잘못 센 것). 넣지 않은 쌍: employ/hire(hire는 고등 중간), originally와 previously·formerly(LOW). **멈춘 곳 — 사용자 결정 기다림**: 검토가 **sports(`w-3322`)를 뺄지**를 냈다(초등 어려움 `sport`와 -s 하나 차이, 확신도 LOW). 빼면 계획서 "목록은 2단계 끝에 고정한다" 절차(번호 다시 매김). 답이 나오면 → 남기면 sports/workout 쌍(운동)을 더하고 묶음 7~9(`w-3601`~`w-3900`). 민감한 말 25개 중 지금까지 든 것은 hell 하나(뜻 "지옥, (비속어로 쓰여) 도대체·젠장"). 번호는 쉬움 `w-3001`~`w-4203` · 중간 `w-4204`~`w-5406` · 어려움 `w-5407`~`w-6609`
    - **사용자 결정(바꾸지 않는다)**: 규모 = 남은 B1 1,227 + B2 2,386 = 3,613개에서 뺄 것을 뺀 전부 / 넷째 학교급 화면 이름 "심화", 3칸 / **넣지 않는 말은 gay · suicide · sex · bust 넷뿐** — 후보로 올린 25개(sexual · sexy · rape · sexism · naked / damn · bum · bloody · hell · suck · pee · prick · daft / gook · retard · cripple · queer · tramp · dumb · idiot · lame · freak · dwarf · ghetto / ness)는 "다 넣는다" / 고등에서 빠진 쉬운 일상어는 심화 쉬움 칸 맨 앞 + 화면 설명 / 작성·검토는 3차와 같게(100개 묶음, 300개마다 검토, 사람 표본 칸당 20줄)
    - **목록은 고정됐다 — `docs/wordlist/tiers-advanced.csv`·`advanced.csv`를 고치지 않는다.** 3,609개 = 칸마다 1,203개, 쉬운 말(단계 1) 323개는 쉬움 칸 맨 앞. 번호가 줄 순서에서 나오므로 단어 하나를 빼면 뒤 번호가 모두 밀린다 — 검토나 사람 표본에서 빼야 할 말이 나오면 **멈추고 사용자에게 묻는다**(절차는 계획서 "목록은 2단계 끝에 고정한다")
    - **심화는 숨겨 둔 채 쓴다**: `lib/data/word_repository.dart`의 `hiddenLevelsProvider`가 `{SchoolLevel.advanced}`인 동안 학교급 고르기에 심화가 나오지 않는다. 5단계(사람 표본)까지 끝난 뒤 **6단계 첫 줄에서 비운다**. `test/data/word_assets_test.dart`의 `_filling`(심화 3칸)은 4단계 마지막 묶음 뒤에 비운다
@@ -225,3 +225,4 @@
 - 2026-11-25 개인 PC · 개발 · 4차 4단계 심화 쉬움 묶음 1~3(300개) executor 작성, 묶음마다 check 0건·시험 통과 뒤 wip 커밋·push
 - 2026-11-25 개인 PC · 개발 · 4차 4단계 심화 쉬움 묶음 4~6(`8a653bb`·`142f077`·`8c8702d`) 작성, 앞 300개 code-reviewer COMMENT → 고칠 줄 15개 적용·유사어 20쌍 추가, check 600개 0건·시험 통과. 대화 맥락이 차서 묶음 4~6 검토 전에 멈춤
 - 2026-11-25 개인 PC · 종료 · 사용자 지시("인계문서 정리, 세션 새로 열게")로 인계 "지금 상태"를 4단계 진행 기준으로 고치고 주제 종료. 다음: 심화 쉬움 묶음 4~6 code-reviewer 검토부터(인계 "이어서 할 일" 1번). 커밋 안 한 변경 없음
+- 2026-11-25 개인 PC · 검토 · 심화 쉬움 묶음 4~6(`w-3301`~`w-3600`) code-reviewer COMMENT → 고칠 줄 9개 `fix` 적용(fix가 빈 파일 `[]` 둘의 모양을 바꿔 되돌림), 유사어 31쌍 추가(596쌍), check 600개 0건·단어 시험 통과 뒤 `c1e807a` push. 검토가 sports를 뺄 말 후보로 냄 → 사용자에게 물음
