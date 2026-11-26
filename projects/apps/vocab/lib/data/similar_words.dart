@@ -1055,6 +1055,8 @@ const List<(String, String)> similarWordPairs = [
   ('amuse', 'amusing'),
   ('grieve', 'grief'),
   ('specialize', 'specialty'),
+  // 심화 중간 — eco·mutton·polo·predicate를 빼며 어려움에서 넘어온 말(2026-11-26)
+  ('meditate', 'meditation'),
   // 심화 중간 칸 마지막 검토 — 뜻이 같거나 어원이 같은 쌍(2026-11-26)
   ('gross', 'disgusting'),
   ('tender', 'affectionate'),
@@ -1094,7 +1096,6 @@ const List<(String, String)> similarWordPairs = [
   ('terribly', 'terrific'),
   ('optimism', 'rosy'),
   ('optimist', 'rosy'),
-  ('eco', 'ecological'),
   ('timing', 'timely'),
   ('unsatisfactory', 'dissatisfied'),
   ('satisfactory', 'dissatisfied'),

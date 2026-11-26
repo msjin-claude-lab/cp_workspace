@@ -155,3 +155,4 @@ w-5340|exampleMeaning|그녀는 종이팩에 든 우유를 유리잔에 따랐�
 w-5359|meaning|찌르다, 찔린 상처|찔림은 우리말 명사로 어색함(LOW)
 w-5399|example|It is rude to call a poor man a bum.|사람을 부랑자라고 낮잡아 부르는 예문을 그대로 실음. idiot 예문처럼 낮잡는 말임을 보여 주는 문장으로 바꿈
 w-5399|exampleMeaning|가난한 사람을 부랑자라고 부르는 것은 무례하다.|위 예문에 맞춤
+# (주의) 위 칸 마지막 검토 줄을 적용한 뒤 2026-11-26 사용자 결정으로 predicate·mutton·eco·polo를 뺐다 — 칸 크기 1,199 · 1,199 · 1,198, sunbeam이 중간 맨 앞 w-4200으로, overtake·meditate가 어려움에서 중간 끝 w-5397·w-5398로 넘어왔다. 위 묶음 줄의 번호는 그때 번호다 — 다시 적용하지 않는다

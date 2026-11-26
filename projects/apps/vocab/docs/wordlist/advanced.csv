@@ -1200,7 +1200,7 @@ yawn,B2,27469,2,1,advanced_easy,일반 동사
 tasteless,B1,27572,2,1,advanced_easy,파생 부사·형용사
 gangster,B2,28156,2,1,advanced_easy,사람·직업
 unwell,B1,28165,2,1,advanced_easy,반대말 파생어
-sunbeam,B2,28339,2,1,advanced_easy,합성어
+sunbeam,B2,28339,2,1,advanced_medium,합성어
 silverware,B2,28348,2,1,advanced_medium,합성어
 undress,B1,28450,2,1,advanced_medium,일반 동사
 untidy,B1,28655,2,1,advanced_medium,반대말 파생어
@@ -2127,7 +2127,6 @@ terrified,B1,11099,2,2,advanced_medium,감정·상태 말
 ironically,B2,11114,2,2,advanced_medium,파생 부사·형용사
 lessen,B1,11118,2,2,advanced_medium,일반 동사
 untreated,B2,11157,2,2,advanced_medium,드문 파생어
-predicate,B2,11183,2,2,advanced_medium,문법 용어
 deceive,B2,11221,2,2,advanced_medium,일반 동사
 regain,B1,11222,2,2,advanced_medium,일반 동사
 consolation,B2,11234,2,2,advanced_medium,문학적·드문 말
@@ -2258,11 +2257,9 @@ arrogant,B2,14254,2,2,advanced_medium,일반 형용사
 fragrance,B2,14411,2,2,advanced_medium,일반 명사
 electronically,B2,14468,2,2,advanced_medium,파생 부사·형용사
 outsider,B2,14529,2,2,advanced_medium,사람·직업
-mutton,B2,14563,2,2,advanced_medium,음식
 swarm,B1,14640,2,2,advanced_medium,뜻이 여럿인 말
 caravan,B2,14707,2,2,advanced_medium,일상 구체 명사
 settler,B1,14724,2,2,advanced_medium,역사·종교 말
-eco,B1,14727,2,2,advanced_medium,구어·속어
 broaden,B2,14744,2,2,advanced_medium,일반 동사
 impractical,B2,14763,2,2,advanced_medium,반대말 파생어
 clearness,B2,14776,2,2,advanced_medium,드문 파생어
@@ -2303,7 +2300,6 @@ thrilling,B2,15678,2,2,advanced_medium,감정·상태 말
 paddle,B1,15690,2,2,advanced_medium,운동·여가
 tremendously,B2,15727,2,2,advanced_medium,부사
 grill,B1,15728,2,2,advanced_medium,뜻이 여럿인 말
-polo,B2,15750,2,2,advanced_medium,운동·여가
 farthest,B1,15775,2,2,advanced_medium,드문 파생어
 brewery,B2,15793,2,2,advanced_medium,일상 구체 명사
 glide,B1,15799,2,2,advanced_medium,일반 동사
@@ -2401,8 +2397,8 @@ pickle,B2,19863,2,2,advanced_medium,음식
 lovingly,B1,19902,2,2,advanced_medium,파생 부사·형용사
 bum,B2,19988,2,2,advanced_medium,구어·속어
 canteen,B1,20074,2,2,advanced_medium,영국 생활·제도 말
-overtake,B2,20134,2,2,advanced_hard,일반 동사
-meditate,B1,20169,2,2,advanced_hard,추상 동사
+overtake,B2,20134,2,2,advanced_medium,일반 동사
+meditate,B1,20169,2,2,advanced_medium,추상 동사
 prick,B2,20244,2,2,advanced_hard,일반 동사
 cheerfulness,B2,20285,2,2,advanced_hard,드문 파생어
 shortness,B2,20297,2,2,advanced_hard,드문 파생어

@@ -988,7 +988,7 @@ ease,2,추상 명사,2
 eastern,1,일반 형용사,1
 eastward,2,파생 부사·형용사,1
 easygoing,2,일반 형용사,1
-eco,2,구어·속어,2
+eco,x,넣지 않음(사용자 결정 — 합성어 앞부분으로만 쓰임),
 ecological,2,과학·학술 말,2
 ecologically,2,파생 부사·형용사,3
 ecologist,2,사람·직업,3
@@ -2032,7 +2032,7 @@ mustard,2,음식,2
 mutability,2,드문 파생어,3
 mutable,2,드문 파생어,3
 mutter,2,일반 동사,3
-mutton,2,음식,2
+mutton,x,넣지 않음(사용자 결정 — 영국식·흔한 말은 lamb),
 mystify,2,문학적·드문 말,3
 nail,1,일상 구체 명사,1
 naked,2,일반 형용사,2
@@ -2373,7 +2373,7 @@ politeness,2,추상 명사,2
 politically,2,파생 부사·형용사,3
 polity,2,법·정치 말,3
 pollutant,2,과학·학술 말,3
-polo,2,운동·여가,2
+polo,x,넣지 않음(사용자 결정 — 낯선 경기),
 pond,1,자연·동물,1
 ponder,2,격식어,3
 popcorn,1,음식,1
@@ -2407,7 +2407,7 @@ prayer,2,역사·종교 말,1
 precede,2,격식어,2
 precisely,2,부사,1
 predicament,2,격식어,2
-predicate,2,문법 용어,2
+predicate,x,넣지 않음(사용자 결정 — 잘 안 쓰는 문법 용어),
 predicative,2,문법 용어,2
 predictable,2,일반 형용사,1
 predictive,2,드문 파생어,3
