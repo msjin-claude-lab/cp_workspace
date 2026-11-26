@@ -842,7 +842,30 @@ const List<(String, String)> similarWordPairs = [
   ('alter', 'modification'), // 고치다·바꾸다 / 변경
   ('adequately', 'sufficiently'), // 적절히 / 충분히
   ('competence', 'capability'), // 유능함·적격 / 능력
+  // 아래는 2026-11-26 검토가 더한 쌍
+  ('faculty', 'capability'), // (타고난) 능력 / 능력
+  ('evolution', 'advancement'), // (점진적) 발전 / 발전
+  ('grief', 'sorrow'), // 슬픔
+  ('refusal', 'rejection'), // 거절
+  ('lasting', 'persistent'), // 지속적인 / 지속되는
+  ('hazardous', 'toxic'), // 유해한 / 유독한
+  ('humble', 'modest'), // 겸허한 / 겸손한
+  ('actual', 'genuine'), // 실제의 / 진짜의
+  ('crucial', 'vital'),
+  ('abandoned', 'neglect'), // 방치된 / 방치
+  ('eligible', 'competence'), // 적격의 / 적격
+  ('regulate', 'restriction'),
+  ('counseling', 'consult'),
+  ('constant', 'continually'), // 끊임없는 / 끊임없이
+  ('thoroughly', 'utterly'),
+  ('navigation', 'voyage'),
+  // 심화 중간 묶음 4~6 — 우리말 뜻 글자가 같은 동음이의어(검토 2026-11-26)
+  ('acid', 'mount'), // 산(酸) / 산
+  ('tribe', 'insufficient'), // 부족(部族) / 부족한
   // 심화 중간 묶음 4~6 — 어원이 같음
+  ('glory', 'glorious'),
+  ('lawful', 'legally'),
+  ('evaluate', 'assessment'),
   ('excessive', 'excess'),
   ('excessive', 'exceed'),
   ('manufacturer', 'manufacture'),
@@ -858,7 +881,6 @@ const List<(String, String)> similarWordPairs = [
   ('illustrate', 'illustration'),
   ('engagement', 'engaged'),
   ('adequately', 'adequate'),
-  ('nerves', 'nerve'),
   ('scholar', 'scholarship'),
   ('perceive', 'perception'),
   ('interpret', 'interpretation'),

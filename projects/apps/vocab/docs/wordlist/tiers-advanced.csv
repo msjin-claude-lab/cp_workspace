@@ -1859,7 +1859,7 @@ luxurious,2,파생 부사·형용사,1
 luxury,2,일반 명사,1
 lyrics,2,일상 구체 명사,1
 madam,2,사람·직업,1
-madame,2,사람·직업,2
+madame,x,넣지 않음(사용자 결정 — 프랑스어 호칭),
 madness,2,추상 명사,1
 maestro,2,문학적·드문 말,3
 magical,2,파생 부사·형용사,1
@@ -2064,7 +2064,7 @@ neighboring,2,일반 형용사,1
 neither,2,연결어·전치사,2
 nephew,1,사람·직업,1
 nerve,2,뜻이 여럿인 말,2
-nerves,2,뜻이 여럿인 말,2
+nerves,x,넣지 않음(사용자 결정 — nerve의 복수형),
 nervously,2,파생 부사·형용사,1
 nervousness,2,감정·상태 말,2
 ness,2,영국 생활·제도 말,3

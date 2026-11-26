@@ -60,3 +60,35 @@ w-4307|meaning|산(酸), 산성의|신 한 글자는 신(神)·신발로 읽혀 
 w-4346|example|Thousands of teachers attended the national convention in Seoul.|comic book convention을 만화 대회로 옮기면 경연으로 읽힘(실제로는 박람회·행사). 뜻 (대규모) 대회에 맞는 예문으로 바꿈
 w-4346|exampleMeaning|수천 명의 교사가 서울에서 열린 전국 대회에 참석했다.|위 예문에 맞춤
 # (주의) 2026-11-26 사용자 결정으로 pa(옛 w-4483)를 뺐다 — 쉬움 칸이 1,201개가 되어 undress가 중간 칸 맨 앞 w-4202로 옮겼고, 옛 w-4484 이후는 지금 번호가 하나 작다
+# --- advanced_medium 묶음 4~6, w-4502~w-4801(2026-11-26 사내망 PC code-reviewer, COMMENT — madame·nerves를 빼기 전 번호, 위에서 아래 순서로 적용) ---
+w-4559|meaning|항법, 길 찾기|항해를 voyage의 대표 뜻으로 돌려줌. navigation system은 항법 장치가 맞는 말
+w-4559|exampleMeaning|그 배의 항법 장치가 바다에서 고장 났다.|위 뜻에 맞춤
+w-4700|meaning|항해, 긴 여행|voyage의 대표 뜻은 항해이고 해석도 이미 항해를 씀. 배 여행은 항해를 풀어 쓴 말
+w-4738|meaning|겸허한, 소박한, 초라한|humble의 대표 뜻(겸손)이 빠짐. 겸손한은 modest가 가졌으니 같은 뜻의 겸허한으로 채움(유사어 쌍 humble/modest를 함께 넣음)
+w-4518|example|Some people think his ideas are too radical.|뜻 목록에 없는 근본적으로를 해석이 씀. 목록의 대표 뜻 급진적인을 보여 주는 예문으로 바꿈
+w-4518|exampleMeaning|그의 생각이 너무 급진적이라고 여기는 사람들도 있다.|위 예문에 맞춤
+w-4401|meaning|인정, 알아봄|인식을 perception으로 옮김. recognition의 흔한 뜻은 인정·알아봄
+w-4542|meaning|인식, 지각|perception의 대표 뜻 인식이 빠지고, 드문 통찰력이 들어 있었음
+w-4397|meaning|준비, 배열, 편곡|합의를 consensus로 옮김. arrangement의 합의는 중간 칸에서 드문 뜻
+w-4756|meaning|합의, 의견 일치|대표 뜻 합의가 빠졌고 해석은 합의를 씀. 일치된 의견과 공통된 견해는 같은 말을 겹쳐 적은 것
+w-4454|meaning|진보적인, 자유주의의, 너그러운|넉넉한을 ample로 옮김. liberal의 넉넉한은 드문 뜻
+w-4679|meaning|넉넉한, 풍족한|ample의 대표 뜻 넉넉한이 빠짐(해석도 넉넉하다를 씀). 널찍한은 ample room에서만 맞음
+w-4312|meaning|실제의|진짜의를 genuine으로 옮김. actual의 대표 뜻은 실제의
+w-4574|meaning|진짜의, 진심 어린|genuine의 대표 뜻은 진짜의. 진심의는 어색한 우리말(유사어 쌍 actual/genuine을 함께 넣음)
+w-4483|meaning|철저히, 꼼꼼히|완전히를 utterly로 옮김
+w-4749|meaning|완전히, 순전히|utterly의 대표 뜻 완전히가 없었음. 아주는 너무 넓은 말
+w-4749|exampleMeaning|그 시험은 제시간에 끝내는 것이 완전히 불가능했다.|위 뜻에 맞춤(전적으로는 altogether의 뜻)
+w-4781|exampleMeaning|그 로봇은 간단한 명령을 수행할 수 있다.|해석의 실행하다는 implement의 뜻이라, 목록에 있는 수행하다로 맞춤
+w-4545|exampleMeaning|그 가게는 오늘 거의 텅 비어 있다.|사실상은 essentially의 뜻이고 virtually 목록에는 없음
+w-4550|exampleMeaning|그 계획은 몇 가지 변경이 필요하다.|수정은 adjustment의 뜻이고 modification 목록에는 없음
+w-4629|meaning|살해|큰 이익(make a killing)은 중간 칸에서 드문 숙어 뜻
+w-4797|meaning|부두, 정박하다|예문이 동사 dock인데 뜻에 동사가 없음(품사 누락). 한 글자 독은 독(毒)으로 읽힘
+w-4735|example|Many students suffer from nerves before exams.|get nerves는 자연스럽지 않은 결합
+w-4735|exampleMeaning|많은 학생이 시험 전에 불안에 시달린다.|위 예문에 맞춤
+w-4607|example|Let me illustrate my point with an example.|"지도를 예로 들었다"는 논리가 어색함. 목록의 뜻 예를 들어 보이다를 그대로 보여 주는 예문
+w-4607|exampleMeaning|예를 하나 들어 내 요점을 보여 주겠다.|위 예문에 맞춤
+w-4793|example|The two friends embraced each other at the station.|영어는 현재형인데 해석은 과거형(끌어안았다)
+w-4555|meaning|맥박|맥과 맥박은 같은 말을 겹쳐 적은 것(LOW)
+w-4708|meaning|전망, 사고방식|앞날의 예상은 전망을 겹쳐 적은 것. outlook on life의 뜻으로 바꿈(LOW)
+# (주의) 2026-11-26 사용자 결정으로 nerves(옛 w-4735)·madame(옛 w-4759)을 뺐다 — 중간·어려움 칸이 1,200개가 되었고 canteen이 어려움에서 중간 칸 끝으로 옮겼다. 옛 w-4736~w-4758은 지금 번호가 하나, 옛 w-4760 이후는 둘 작다
+w-4516|meaning|신경, 용기, (nerves) 긴장|nerves를 목록에서 뺐으므로 복수형 뜻을 nerve에 붙임(fundamental의 (fundamentals)와 같은 방식)

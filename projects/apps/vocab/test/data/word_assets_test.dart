@@ -23,8 +23,8 @@ const _expectedCount = {
   Cell.highMedium: 500,
   Cell.highHard: 500,
   Cell.advancedEasy: 1201,
-  Cell.advancedMedium: 1201,
-  Cell.advancedHard: 1201,
+  Cell.advancedMedium: 1200,
+  Cell.advancedHard: 1200,
 };
 
 /// 단어를 묶음으로 나눠 넣는 중인 칸 — 이 칸만 개수를 "0개 이상, 기대값 이하"로 본다.
