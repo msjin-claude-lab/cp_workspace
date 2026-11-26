@@ -129,3 +129,29 @@ w-5099|exampleMeaning|독감은 겨울에 빠르게 퍼진다.|예문을 바꿔 
 w-4831|exampleMeaning|그는 휴대 전화를 떨어뜨리자 '빌어먹을'이라고 말했다.|따옴표가 없으면 문장으로 읽기 어려움(LOW)
 w-4925|exampleMeaning|그 시험은 읽기 이해력을 확인한다.|독해 이해력은 같은 뜻이 겹침(LOW)
 # (주의) 위 묶음 7~9 줄을 적용한 뒤 2026-11-26 사용자 결정으로 doc(옛 w-4803)를 뺐다 — 쉬움 칸이 1,200개가 되어 silverware가 중간 칸 맨 앞 w-4201로 옮겼고, 옛 w-4202~w-4802는 번호가 그대로이고 옛 w-4804 이후는 하나 작다 — 다시 적용하지 않는다
+# --- advanced_medium 칸 마지막 검토, w-4201~w-5400(2026-11-26 사내망 PC code-reviewer, COMMENT — 지금 번호, 위에서 아래 순서로 적용) ---
+w-5334|meaning|구역질 나는, 혐오스러운|역겨운을 gross에 돌려주려고 disgusting은 같은 뜻의 다른 말로 채움(유사어 쌍 gross/disgusting을 함께 넣음)
+w-5334|exampleMeaning|낡은 냉장고에서 나는 냄새는 구역질이 났다.|위 뜻에 맞춤
+w-4375|meaning|총계의, 역겨운, (잘못 등이) 큰|gross의 일상 대표 뜻 역겨운(That's gross!)이 빠졌음. 위 disgusting 줄 뒤에 적용
+w-5110|meaning|애정 어린, 다정다감한|다정한을 tender에 돌려주려고 affectionate는 같은 뜻의 다른 말로 채움(유사어 쌍 tender/affectionate를 함께 넣음)
+w-5110|exampleMeaning|우리 할머니는 따뜻하고 다정다감한 분이다.|위 뜻에 맞춤
+w-4489|meaning|(고기가) 연한, 다정한, (만지면) 아픈|tender의 대표 뜻 다정한(tender heart)이 빠졌음. 입찰은 중간 칸에 드문 뜻이고 bid의 입찰하다와 붙어 보여 뺌. 위 affectionate 줄 뒤에 적용
+w-5103|example|He disguised himself as a police officer.|목소리를 변장하다는 우리말로 어색하고 대표 뜻 변장하다를 자연스럽게 보여 주지 못함
+w-5103|exampleMeaning|그는 경찰관으로 변장했다.|위 예문에 맞춤
+w-5144|meaning|밸런타인 카드, 밸런타인데이의 연인|외래어 표기법의 표준 표기는 밸런타인(발렌타인은 비표준)
+w-5144|exampleMeaning|그녀는 가장 친한 친구에게 밸런타인 카드를 보냈다.|위 뜻에 맞춤
+w-5191|meaning|되찾아 오다, 회수하다|되찾아오다는 한 낱말이 아니라 띄어 씀(해석도 되찾아 왔다로 띄어 씀)(LOW)
+w-5212|exampleMeaning|저녁 식사에 앞서 짧은 연설이 있었다.|연설이 저녁 식사에 앞서 있었다는 번역투라 어색함(LOW)
+w-5233|meaning|다리를 저는(사람에게 쓰면 비하하는 말), 절뚝거리는|사람에게 쓰는 lame은 장애를 낮잡는 말로 여겨짐. idiot·bum처럼 그 사실을 뜻에 밝힘
+w-5241|example|Plastic bags are environmentally harmful.|환경적으로 친화적이다는 environmentally friendly(환경친화적)를 낱말마다 옮긴 어색한 해석
+w-5241|exampleMeaning|비닐봉지는 환경적으로 해롭다.|위 예문에 맞춤
+w-5247|exampleMeaning|그 영화의 결말은 보는 사람을 매우 우울하게 만들었다.|우울하게 만드는 것이었다는 어색한 번역투(LOW)
+w-5251|exampleMeaning|불을 피워 둔 채 내버려 두는 것은 무책임하다.|불을 켜 둔 채는 전등으로 읽힘. leave a fire burning은 피운 불을 그대로 두는 것(LOW)
+w-5262|example|She tries to buy eco products whenever she can.|eco bag은 한국식 영어(영어로는 reusable bag·tote bag)
+w-5262|exampleMeaning|그녀는 할 수 있을 때마다 친환경적인 제품을 사려고 한다.|위 예문에 맞춤
+w-5282|meaning|절뚝거리다, 축 늘어진|형용사 limp는 축 늘어진(limp lettuce·limp hand)이고 힘없는은 weakly의 힘없이와 붙어 보임(LOW)
+w-5340|meaning|종이팩, 판지 상자|팩 한 글자는 (얼굴) 팩으로도 읽힘(선례 신·맥·독·약)
+w-5340|exampleMeaning|그녀는 종이팩에 든 우유를 유리잔에 따랐다.|위 뜻에 맞춤
+w-5359|meaning|찌르다, 찔린 상처|찔림은 우리말 명사로 어색함(LOW)
+w-5399|example|It is rude to call a poor man a bum.|사람을 부랑자라고 낮잡아 부르는 예문을 그대로 실음. idiot 예문처럼 낮잡는 말임을 보여 주는 문장으로 바꿈
+w-5399|exampleMeaning|가난한 사람을 부랑자라고 부르는 것은 무례하다.|위 예문에 맞춤
