@@ -836,6 +836,10 @@ const List<(String, String)> similarWordPairs = [
   // 심화 중간 묶음 4~6 — 뜻이 거의 같음
   ('evaluate', 'assess'), // 평가하다·감정하다 / 산정하다·가늠하다
   ('assess', 'evaluation'), // 산정하다 / (가치) 평가
+  ('geographic', 'geographical'), // 지리상의 / 지리적인
+  ('continuously', 'continually'), // 연속해서 / 계속해서
+  ('insufficient', 'inadequate'), // 부족한 / 불충분한
+  ('alter', 'modification'), // 고치다·바꾸다 / 변경
   // 심화 중간 묶음 4~6 — 어원이 같음
   ('excessive', 'excess'),
   ('excessive', 'exceed'),
@@ -849,6 +853,8 @@ const List<(String, String)> similarWordPairs = [
   ('residential', 'residence'),
   ('database', 'data'),
   ('inadequate', 'adequate'),
+  ('illustrate', 'illustration'),
+  ('engagement', 'engaged'),
 ];
 
 final Map<String, Set<String>> _partners = () {
