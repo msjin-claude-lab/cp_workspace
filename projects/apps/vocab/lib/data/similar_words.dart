@@ -1161,8 +1161,10 @@ const List<(String, String)> similarWordPairs = [
   ('universal', 'globally'),
   // 심화 어려움 묶음 1~3 — 뜻이 거의 같음
   ('reorganize', 'rearrange'),
+  ('astonish', 'amaze'),
   // 심화 어려움 묶음 1~3 — 어원이 같음
   ('unease', 'uneasily'),
+  ('unimaginable', 'unimaginably'),
 ];
 
 final Map<String, Set<String>> _partners = () {
