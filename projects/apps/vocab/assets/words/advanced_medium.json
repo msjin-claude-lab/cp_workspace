@@ -1,4 +1,10 @@
 [
+  {"id": "w-4185", "word": "roommate", "meaning": "룸메이트, 방을 같이 쓰는 사람", "example": "My roommate and I take turns cooking.", "exampleMeaning": "룸메이트와 나는 번갈아 요리한다."},
+  {"id": "w-4186", "word": "inhale", "meaning": "숨을 들이쉬다, 들이마시다", "example": "Inhale deeply through your nose.", "exampleMeaning": "코로 숨을 깊이 들이쉬어라."},
+  {"id": "w-4187", "word": "rhinoceros", "meaning": "코뿔소", "example": "A rhinoceros has a horn on its nose.", "exampleMeaning": "코뿔소는 코에 뿔이 있다."},
+  {"id": "w-4188", "word": "memorize", "meaning": "외우다, 암기하다", "example": "I memorized twenty new words today.", "exampleMeaning": "나는 오늘 새 단어 스무 개를 외웠다."},
+  {"id": "w-4189", "word": "adorable", "meaning": "사랑스러운, 귀여운", "example": "What an adorable puppy!", "exampleMeaning": "정말 사랑스러운 강아지구나!"},
+  {"id": "w-4190", "word": "sniff", "meaning": "코를 킁킁거리다, 냄새를 맡다, 훌쩍이다", "example": "The dog sniffed my bag.", "exampleMeaning": "개가 내 가방 냄새를 킁킁 맡았다."},
   {"id": "w-4191", "word": "giggle", "meaning": "킥킥 웃다, 킥킥거림", "example": "The girls giggled at the funny picture.", "exampleMeaning": "소녀들은 우스운 그림을 보고 킥킥 웃었다."},
   {"id": "w-4192", "word": "punctual", "meaning": "시간을 엄수하는, 시간을 잘 지키는", "example": "Please be punctual for the meeting.", "exampleMeaning": "회의 시간을 꼭 지켜 주세요."},
   {"id": "w-4193", "word": "shopkeeper", "meaning": "가게 주인", "example": "The shopkeeper gave me the wrong change.", "exampleMeaning": "가게 주인이 내게 거스름돈을 잘못 주었다."},
@@ -1175,18 +1181,5 @@
   {"id": "w-5364", "word": "tricky", "meaning": "까다로운, 다루기 힘든", "example": "This puzzle is tricky, so take your time.", "exampleMeaning": "이 퍼즐은 까다로우니 천천히 해라."},
   {"id": "w-5365", "word": "generalize", "meaning": "일반화하다", "example": "It is unfair to generalize about all teenagers.", "exampleMeaning": "모든 십 대에 대해 일반화하는 것은 공정하지 않다."},
   {"id": "w-5366", "word": "disconnect", "meaning": "연결을 끊다, 분리하다", "example": "Please disconnect the cable before you move the computer.", "exampleMeaning": "컴퓨터를 옮기기 전에 케이블을 분리해 주세요."},
-  {"id": "w-5367", "word": "newcomer", "meaning": "신입, 새로 온 사람", "example": "The newcomer quickly made friends in class.", "exampleMeaning": "그 새로 온 사람은 반에서 금세 친구를 사귀었다."},
-  {"id": "w-5368", "word": "nervousness", "meaning": "긴장, 초조함", "example": "She hid her nervousness and walked on stage.", "exampleMeaning": "그녀는 초조함을 감추고 무대에 올랐다."},
-  {"id": "w-5369", "word": "dishonesty", "meaning": "부정직, 거짓됨", "example": "His dishonesty cost him his friends.", "exampleMeaning": "그의 부정직 때문에 그는 친구들을 잃었다."},
-  {"id": "w-5370", "word": "inject", "meaning": "주사하다, 주입하다", "example": "The nurse injected the medicine into his arm.", "exampleMeaning": "간호사는 그의 팔에 약을 주사했다."},
-  {"id": "w-5371", "word": "shrug", "meaning": "어깨를 으쓱하다", "example": "He just shrugged and said he did not know.", "exampleMeaning": "그는 어깨를 으쓱하며 모른다고 말했다."},
-  {"id": "w-5372", "word": "zoom", "meaning": "확대하다, 쌩 달리다", "example": "She zoomed in on the face in the photo.", "exampleMeaning": "그녀는 사진 속의 얼굴을 확대했다."},
-  {"id": "w-5373", "word": "spreadsheet", "meaning": "스프레드시트, 계산표", "example": "He kept track of the money in a spreadsheet.", "exampleMeaning": "그는 스프레드시트에 돈의 흐름을 기록했다."},
-  {"id": "w-5374", "word": "purify", "meaning": "정화하다, 깨끗이 하다", "example": "This machine can purify the water from the river.", "exampleMeaning": "이 기계는 강에서 나온 물을 정화할 수 있다."},
-  {"id": "w-5375", "word": "adore", "meaning": "아주 좋아하다, 흠모하다", "example": "The children adore their kind teacher.", "exampleMeaning": "아이들은 친절한 선생님을 아주 좋아한다."},
-  {"id": "w-5376", "word": "fluency", "meaning": "유창함", "example": "Her fluency in English surprised everyone.", "exampleMeaning": "영어에서 그녀의 유창함은 모두를 놀라게 했다."},
-  {"id": "w-5377", "word": "intruder", "meaning": "침입자", "example": "The dog barked loudly at the intruder.", "exampleMeaning": "개는 침입자를 향해 크게 짖었다."},
-  {"id": "w-5378", "word": "fondly", "meaning": "정답게, 애정을 담아", "example": "She fondly remembered her childhood home.", "exampleMeaning": "그녀는 어린 시절의 집을 애정을 담아 떠올렸다."},
-  {"id": "w-5379", "word": "exaggerate", "meaning": "과장하다", "example": "He likes to exaggerate when he tells a story.", "exampleMeaning": "그는 이야기를 할 때 과장하기를 좋아한다."},
-  {"id": "w-5380", "word": "achievable", "meaning": "달성할 수 있는, 이룰 수 있는", "example": "Set small goals that are achievable.", "exampleMeaning": "달성할 수 있는 작은 목표를 세워라."}
+  {"id": "w-5367", "word": "newcomer", "meaning": "신입, 새로 온 사람", "example": "The newcomer quickly made friends in class.", "exampleMeaning": "그 새로 온 사람은 반에서 금세 친구를 사귀었다."}
 ]

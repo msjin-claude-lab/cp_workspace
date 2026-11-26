@@ -1182,11 +1182,5 @@
   {"id": "w-4181", "word": "stepfather", "meaning": "새아버지, 계부", "example": "My stepfather is very kind to me.", "exampleMeaning": "새아버지는 나에게 아주 다정하시다."},
   {"id": "w-4182", "word": "leash", "meaning": "(개 등의) 목줄, 가죽끈", "example": "Keep your dog on a leash in the park.", "exampleMeaning": "공원에서는 개에게 목줄을 채워라."},
   {"id": "w-4183", "word": "tiring", "meaning": "피곤하게 하는, 힘든", "example": "It was a long and tiring day.", "exampleMeaning": "길고 피곤한 하루였다."},
-  {"id": "w-4184", "word": "zebra", "meaning": "얼룩말", "example": "Zebras have black and white stripes.", "exampleMeaning": "얼룩말은 검은 줄무늬와 흰 줄무늬가 있다."},
-  {"id": "w-4185", "word": "roommate", "meaning": "룸메이트, 방을 같이 쓰는 사람", "example": "My roommate and I take turns cooking.", "exampleMeaning": "룸메이트와 나는 번갈아 요리한다."},
-  {"id": "w-4186", "word": "inhale", "meaning": "숨을 들이쉬다, 들이마시다", "example": "Inhale deeply through your nose.", "exampleMeaning": "코로 숨을 깊이 들이쉬어라."},
-  {"id": "w-4187", "word": "rhinoceros", "meaning": "코뿔소", "example": "A rhinoceros has a horn on its nose.", "exampleMeaning": "코뿔소는 코에 뿔이 있다."},
-  {"id": "w-4188", "word": "memorize", "meaning": "외우다, 암기하다", "example": "I memorized twenty new words today.", "exampleMeaning": "나는 오늘 새 단어 스무 개를 외웠다."},
-  {"id": "w-4189", "word": "adorable", "meaning": "사랑스러운, 귀여운", "example": "What an adorable puppy!", "exampleMeaning": "정말 사랑스러운 강아지구나!"},
-  {"id": "w-4190", "word": "sniff", "meaning": "코를 킁킁거리다, 냄새를 맡다, 훌쩍이다", "example": "The dog sniffed my bag.", "exampleMeaning": "개가 내 가방 냄새를 킁킁 맡았다."}
+  {"id": "w-4184", "word": "zebra", "meaning": "얼룩말", "example": "Zebras have black and white stripes.", "exampleMeaning": "얼룩말은 검은 줄무늬와 흰 줄무늬가 있다."}
 ]

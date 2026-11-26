@@ -227,3 +227,12 @@ w-6136|meaning|주의를 흐트러뜨리는 것, 기분풀이|기분풀이는 �
 w-6099|exampleMeaning|땅의 단단함 덕분에 그곳은 건물을 짓기에 알맞다.|해석에 주어가 없고 building이 집으로 좁혀짐(LOW)
 w-6204|exampleMeaning|봄비가 내린 뒤 골짜기에는 풀과 나무가 무성하다.|골짜기가 무성하다는 주어와 서술어가 맞지 않음(LOW)
 w-6025|exampleMeaning|헬륨은 비활성 기체이다.|비활성의 기체는 어색한 꼴(LOW)
+# --- 2026-11-26 사내망 PC: 어려움 묶음 7~9 검토 뒤 19개를 빼며 중간 칸에서 옮겨 온 말과 겹친 어려움 칸 뜻(Claude가 고침, 지금 번호) ---
+w-5372|meaning|확대해 보다, 쌩 달리다|중간 칸에서 옮겨 와 magnify(w-5447)의 확대하다와 겹침. zoom in의 쓰임은 확대해 보다(쌍 zoom/magnify)
+w-5372|exampleMeaning|그녀는 사진 속의 얼굴을 확대해 보았다.|위 뜻에 맞춤
+w-5447|meaning|확대하다|과장하다는 magnify의 덜 흔한 뜻이고 옮겨 온 exaggerate(w-5379)의 대표 뜻과 겹침(쌍 magnify/exaggerate)
+w-5634|meaning|부담, 압박|긴장이 옮겨 온 nervousness(w-5368)의 대표 뜻과 겹침. 예문은 부담의 쓰임
+w-6137|meaning|도달할 수 있는, 달성 가능한|이룰 수 있는이 옮겨 온 achievable(w-5380)과 겹침(쌍 attainable/achievable)
+w-6137|exampleMeaning|그 목표는 노력하면 달성 가능하다.|위 뜻에 맞춤
+w-6234|meaning|다정하게|애정을 담아가 옮겨 온 fondly(w-5378)와 겹침. 해석은 이미 다정하게를 씀(쌍 affectionately/fondly · affectionately/lovingly)
+# (주의) 위 "어려움 묶음 7~9" 줄은 19개를 빼기 전 번호다(바로 위 다섯 곳 줄은 뺀 뒤 번호). 어려움은 지금 w-5368부터 — 다시 적용하지 않는다

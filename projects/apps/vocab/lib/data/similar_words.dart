@@ -641,7 +641,6 @@ const List<(String, String)> similarWordPairs = [
   // 심화 쉬움 마지막 검토가 더한 쌍 — 뜻이 거의 같음·짝을 이루는 말
   ('stepmother', 'stepfather'),
   ('eruption', 'explode'), // (화산의) 폭발 / 폭발하다
-  ('gasp', 'inhale'), // 숨을 들이쉬다
   ('salesperson', 'seller'),
   ('salesperson', 'dealer'),
   // 심화 쉬움 묶음 7~9 검토가 더한 쌍 — 뜻이 거의 같음
@@ -804,7 +803,6 @@ const List<(String, String)> similarWordPairs = [
   ('creatively', 'creator'),
   ('foolishly', 'foolish'),
   ('tiring', 'tire'),
-  ('memorize', 'memorable'),
   // 심화 중간 묶음 1~3 — 뜻이 거의 같음
   ('assessment', 'evaluation'), // (실력·상황의) 평가 / 평가
   ('dated', 'old-fashioned'), // 시대에 뒤떨어진 / 구식의
@@ -1038,7 +1036,6 @@ const List<(String, String)> similarWordPairs = [
   ('hospitable', 'hospitality'),
   ('liberate', 'liberation'),
   ('animate', 'animation'),
-  ('fluency', 'fluently'),
   ('disapprove', 'disapproval'),
   ('impatiently', 'patiently'),
   ('amuse', 'amusing'),
@@ -1049,11 +1046,7 @@ const List<(String, String)> similarWordPairs = [
   ('tender', 'affectionate'),
   ('evolve', 'evolution'),
   ('evolve', 'advancement'),
-  ('fondness', 'fondly'),
-  ('nerve', 'nervousness'),
-  ('tense', 'nervousness'),
   ('tense', 'stressful'),
-  ('stressful', 'nervousness'),
   ('nerve', 'stressful'),
   ('courageous', 'bravery'),
   ('discourage', 'courageous'),
@@ -1142,7 +1135,6 @@ const List<(String, String)> similarWordPairs = [
   ('affectionate', 'tenderly'),
   ('affectionate', 'tenderness'),
   ('fondness', 'affectionate'),
-  ('affectionate', 'fondly'),
   ('bearing', 'unbearable'),
   ('universal', 'globally'),
   // 심화 어려움 묶음 1~3 — 뜻이 거의 같음
@@ -1306,7 +1298,6 @@ const List<(String, String)> similarWordPairs = [
   ('doom', 'misfortune'),
   ('overly', 'oversize'),
   ('anguish', 'agony'),
-  ('cherished', 'beloved'),
   ('excursion', 'outing'),
   ('redundant', 'needless'),
   ('devastating', 'disastrous'),
@@ -1346,7 +1337,6 @@ const List<(String, String)> similarWordPairs = [
   ('legislate', 'legislature'),
   ('legislator', 'lawmaker'),
   ('tramp', 'tread'),
-  ('frigate', 'warship'),
   ('standby', 'await'),
   ('aggressively', 'assault'),
   ('adversity', 'adverse'),
@@ -1372,11 +1362,9 @@ const List<(String, String)> similarWordPairs = [
   ('ruinous', 'devastating'),
   ('replica', 'miniature'),
   ('replica', 'duplication'),
-  ('microcomputer', 'micro'),
   ('invariable', 'invariably'),
   ('compress', 'compression'),
   ('adorn', 'ornament'),
-  ('prefect', 'foreman'),
   ('scramble', 'hastily'),
   ('soothe', 'console'),
   ('ponder', 'muse'),
@@ -1384,7 +1372,6 @@ const List<(String, String)> similarWordPairs = [
   ('deduce', 'infer'),
   ('forcefully', 'vigorously'),
   ('forcefully', 'emphatically'),
-  ('gaiety', 'cheerfulness'),
   ('flutter', 'flap'),
   // 심화 어려움 묶음 7~9 — 검토가 더한 쌍(2026-11-26)
   ('rite', 'ritual'),
@@ -1397,6 +1384,12 @@ const List<(String, String)> similarWordPairs = [
   ('complicate', 'complexity'),
   ('disorderly', 'orderly'),
   ('orator', 'eloquent'),
+  // 심화 어려움 — 19개를 빼며 중간 칸에서 옮겨 온 말과의 쌍(2026-11-26)
+  ('zoom', 'magnify'),
+  ('magnify', 'exaggerate'),
+  ('attainable', 'achievable'),
+  ('affectionately', 'fondly'),
+  ('affectionately', 'lovingly'),
 ];
 
 final Map<String, Set<String>> _partners = () {

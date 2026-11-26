@@ -294,7 +294,7 @@ bilingual,2,일반 형용사,2
 billion,2,일반 명사,1
 bin,1,일상 구체 명사,1
 bind,2,뜻이 여럿인 말,2
-bio,2,과학·학술 말,3
+bio,x,넣지 않음(사용자 결정 — 어려움 묶음 7~9 검토 뒤 뺄 말),
 biochemistry,2,과학·학술 말,3
 biography,2,일반 명사,1
 biological,2,과학·학술 말,3
@@ -319,7 +319,7 @@ blog,1,IT·매체 말,1
 blogger,1,IT·매체 말,1
 bloodstream,2,의학·건강 말,3
 bloody,2,뜻이 여럿인 말,3
-blooming,2,다른 말의 변화형,3
+blooming,x,넣지 않음(사용자 결정 — 어려움 묶음 7~9 검토 뒤 뺄 말),
 blossom,2,자연·동물,1
 blur,2,일반 동사,3
 blurt,2,문학적·드문 말,3
@@ -349,7 +349,7 @@ botany,2,과학·학술 말,3
 bothered,2,감정·상태 말,2
 bothersome,2,드문 파생어,3
 bounce,2,일반 동사,1
-bourbon,2,음식,3
+bourbon,x,넣지 않음(사용자 결정 — 어려움 묶음 7~9 검토 뒤 뺄 말),
 bow,2,뜻이 여럿인 말,1
 boxer,2,운동·여가,1
 boxing,1,운동·여가,1
@@ -502,7 +502,7 @@ cheerfully,2,파생 부사·형용사,1
 cheerfulness,2,드문 파생어,2
 chemist,2,사람·직업,2
 chemotherapy,2,의학·건강 말,3
-cherished,2,문학적·드문 말,3
+cherished,x,넣지 않음(사용자 결정 — 어려움 묶음 7~9 검토 뒤 뺄 말),
 cherry,2,음식,1
 chew,2,일반 동사,1
 chief,2,일반 형용사,2
@@ -1264,7 +1264,7 @@ formerly,2,부사,1
 formidable,2,추상 형용사,2
 forth,2,부사,2
 forthcoming,2,격식어,3
-fortnight,2,영국 생활·제도 말,3
+fortnight,x,넣지 않음(사용자 결정 — 어려움 묶음 7~9 검토 뒤 뺄 말),
 fortunate,2,감정·상태 말,1
 foul,2,뜻이 여럿인 말,3
 found,2,뜻이 여럿인 말,2
@@ -1281,7 +1281,7 @@ freezing,2,일반 형용사,1
 freshman,2,사람·직업,1
 friendliness,2,드문 파생어,1
 friendly,2,일반 형용사,1
-frigate,2,전문 분야 말,3
+frigate,x,넣지 않음(사용자 결정 — 어려움 묶음 7~9 검토 뒤 뺄 말),
 fright,2,감정·상태 말,1
 frontier,2,일반 명사,2
 frost,2,자연·동물,1
@@ -1294,7 +1294,7 @@ functional,2,추상 형용사,2
 functionality,2,IT·매체 말,3
 fundamental,2,추상 형용사,2
 funeral,2,일반 명사,1
-funk,2,구어·속어,3
+funk,x,넣지 않음(사용자 결정 — 어려움 묶음 7~9 검토 뒤 뺄 말),
 funky,2,구어·속어,3
 fur,1,자연·동물,1
 furious,2,감정·상태 말,1
@@ -1303,7 +1303,7 @@ furnish,2,격식어,3
 furor,2,문학적·드문 말,3
 furthest,2,다른 말의 변화형,2
 fuss,2,뜻이 여럿인 말,2
-gaiety,2,문학적·드문 말,3
+gaiety,x,넣지 않음(사용자 결정 — 어려움 묶음 7~9 검토 뒤 뺄 말),
 gall,2,문학적·드문 말,3
 gallon,2,일반 명사,1
 gambling,2,사회·경제 주제,2
@@ -1364,7 +1364,7 @@ goalkeeper,1,운동·여가,1
 goat,2,자연·동물,1
 god,2,역사·종교 말,1
 goddess,2,역사·종교 말,1
-godly,2,역사·종교 말,3
+godly,x,넣지 않음(사용자 결정 — 어려움 묶음 7~9 검토 뒤 뺄 말),
 golfer,1,운동·여가,1
 goodwill,2,추상 명사,3
 gook,2,구어·속어,3
@@ -1436,12 +1436,12 @@ hard-working,2,합성어,1
 hardware,2,IT·매체 말,2
 harmless,2,반대말 파생어,2
 harness,2,뜻이 여럿인 말,3
-harrow,2,전문 분야 말,3
+harrow,x,넣지 않음(사용자 결정 — 어려움 묶음 7~9 검토 뒤 뺄 말),
 haste,2,문학적·드문 말,3
 hastily,2,파생 부사·형용사,3
 hasty,2,일반 형용사,2
 hatch,2,일반 동사,2
-hatching,2,다른 말의 변화형,3
+hatching,x,넣지 않음(사용자 결정 — 어려움 묶음 7~9 검토 뒤 뺄 말),
 haunt,2,일반 동사,2
 haunting,2,다른 말의 변화형,3
 haven,2,문학적·드문 말,3
@@ -1825,7 +1825,7 @@ limb,2,일반 명사,2
 limp,2,일반 형용사,2
 linen,2,일반 명사,2
 liner,2,뜻이 여럿인 말,3
-ling,2,전문 분야 말,3
+ling,x,넣지 않음(사용자 결정 — 어려움 묶음 7~9 검토 뒤 뺄 말),
 linger,2,일반 동사,2
 listener,2,사람·직업,1
 literal,2,추상 형용사,2
@@ -1867,7 +1867,7 @@ magician,1,사람·직업,1
 magnificent,2,추상 형용사,1
 magnify,2,일반 동사,2
 mailbox,1,일상 구체 명사,1
-malady,2,문학적·드문 말,3
+malady,x,넣지 않음(사용자 결정 — 어려움 묶음 7~9 검토 뒤 뺄 말),
 malaria,2,의학·건강 말,1
 mama,2,일상 구체 명사,1
 mango,2,음식,1
@@ -1933,7 +1933,7 @@ metaphor,2,문학적·드문 말,2
 metric,2,과학·학술 말,3
 micro,2,과학·학술 말,3
 microbe,2,과학·학술 말,3
-microcomputer,2,IT·매체 말,3
+microcomputer,x,넣지 않음(사용자 결정 — 어려움 묶음 7~9 검토 뒤 뺄 말),
 micrometer,2,과학·학술 말,3
 microorganism,2,과학·학술 말,3
 microphone,2,일상 구체 명사,1
@@ -2103,7 +2103,7 @@ nostril,2,일반 명사,3
 noticeable,2,추상 형용사,2
 noticeboard,2,영국 생활·제도 말,3
 notorious,2,격식어,2
-nought,2,영국 생활·제도 말,3
+nought,x,넣지 않음(사용자 결정 — 어려움 묶음 7~9 검토 뒤 뺄 말),
 nourish,2,격식어,3
 nourishment,2,격식어,3
 novelist,1,사람·직업,1
@@ -2139,7 +2139,7 @@ oily,2,파생 부사·형용사,1
 ointment,2,의학·건강 말,3
 old-fashioned,2,합성어,1
 olive,2,음식,1
-Olympia,2,역사·종교 말,3
+Olympia,x,넣지 않음(사용자 결정 — 어려움 묶음 7~9 검토 뒤 뺄 말),
 Olympiad,2,역사·종교 말,3
 onstage,2,합성어,2
 onto,2,연결어·전치사,1
@@ -2371,7 +2371,7 @@ polish,2,뜻이 여럿인 말,1
 politely,1,파생 부사·형용사,1
 politeness,2,추상 명사,2
 politically,2,파생 부사·형용사,3
-polity,2,법·정치 말,3
+polity,x,넣지 않음(사용자 결정 — 어려움 묶음 7~9 검토 뒤 뺄 말),
 pollutant,2,과학·학술 말,3
 polo,x,넣지 않음(사용자 결정 — 낯선 경기),
 pond,1,자연·동물,1
@@ -2412,7 +2412,7 @@ predicative,x,넣지 않음(사용자 결정 — 심화 어려움 묶음 1~3 검
 predictable,2,일반 형용사,1
 predictive,2,드문 파생어,3
 predictor,2,드문 파생어,3
-prefect,2,영국 생활·제도 말,3
+prefect,x,넣지 않음(사용자 결정 — 어려움 묶음 7~9 검토 뒤 뺄 말),
 preferable,2,일반 형용사,1
 preferably,2,부사,1
 prefix,2,문법 용어,2
@@ -3573,7 +3573,7 @@ wither,2,문학적·드문 말,3
 witty,2,추상 형용사,3
 wizard,1,사람·직업,1
 wolf,2,자연·동물,1
-wondrous,2,문학적·드문 말,3
+wondrous,x,넣지 않음(사용자 결정 — 어려움 묶음 7~9 검토 뒤 뺄 말),
 woodcarving,2,합성어,3
 wordlessly,2,드문 파생어,2
 workaholic,2,구어·속어,3
