@@ -833,6 +833,22 @@ const List<(String, String)> similarWordPairs = [
   ('provided', 'provision'),
   // 심화 중간 묶음 1~3 — 우리말 뜻 글자가 같은 동음이의어
   ('unpack', 'untie'), // (짐을) 풀다 / (매듭·끈을) 풀다
+  // 심화 중간 묶음 4~6 — 뜻이 거의 같음
+  ('evaluate', 'assess'), // 평가하다·감정하다 / 산정하다·가늠하다
+  ('assess', 'evaluation'), // 산정하다 / (가치) 평가
+  // 심화 중간 묶음 4~6 — 어원이 같음
+  ('excessive', 'excess'),
+  ('excessive', 'exceed'),
+  ('manufacturer', 'manufacture'),
+  ('manufacturer', 'manufacturing'),
+  ('separately', 'separation'),
+  ('inspector', 'inspection'),
+  ('evaluate', 'evaluation'),
+  ('assess', 'assessment'),
+  ('assure', 'assurance'),
+  ('residential', 'residence'),
+  ('database', 'data'),
+  ('inadequate', 'adequate'),
 ];
 
 final Map<String, Set<String>> _partners = () {
