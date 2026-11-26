@@ -840,6 +840,8 @@ const List<(String, String)> similarWordPairs = [
   ('continuously', 'continually'), // 연속해서 / 계속해서
   ('insufficient', 'inadequate'), // 부족한 / 불충분한
   ('alter', 'modification'), // 고치다·바꾸다 / 변경
+  ('adequately', 'sufficiently'), // 적절히 / 충분히
+  ('competence', 'capability'), // 유능함·적격 / 능력
   // 심화 중간 묶음 4~6 — 어원이 같음
   ('excessive', 'excess'),
   ('excessive', 'exceed'),
@@ -855,6 +857,18 @@ const List<(String, String)> similarWordPairs = [
   ('inadequate', 'adequate'),
   ('illustrate', 'illustration'),
   ('engagement', 'engaged'),
+  ('adequately', 'adequate'),
+  ('nerves', 'nerve'),
+  ('scholar', 'scholarship'),
+  ('perceive', 'perception'),
+  ('interpret', 'interpretation'),
+  ('ignorant', 'ignorance'),
+  ('convert', 'conversion'),
+  ('govern', 'governor'),
+  ('competence', 'competent'),
+  ('consensus', 'consent'),
+  ('exclude', 'exclusive'),
+  ('secondly', 'secondary'),
 ];
 
 final Map<String, Set<String>> _partners = () {
