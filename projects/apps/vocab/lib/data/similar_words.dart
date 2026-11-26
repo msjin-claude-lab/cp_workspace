@@ -901,6 +901,7 @@ const List<(String, String)> similarWordPairs = [
   ('query', 'inquiry'), // 질문 / 문의
   ('anticipation', 'expectation'), // 고대 / 기대
   ('passionate', 'keen'), // 열정적인 / 열렬한
+  ('poisonous', 'toxic'), // 독이 있는 / 유독한
   // 심화 중간 묶음 7~9 — 어원이 같음
   ('qualification', 'qualify'),
   ('willingness', 'willing'),
@@ -930,6 +931,19 @@ const List<(String, String)> similarWordPairs = [
   ('opponent', 'opposition'),
   ('unwilling', 'willing'),
   ('unwilling', 'willingness'),
+  ('threaten', 'threatening'),
+  ('willingly', 'willing'),
+  ('willingly', 'willingness'),
+  ('willingly', 'unwilling'),
+  ('obedient', 'obedience'),
+  ('radically', 'radical'),
+  ('assemble', 'assembly'),
+  ('improperly', 'improper'),
+  ('persist', 'persistent'),
+  ('spectacular', 'spectator'),
+  ('interpreter', 'interpret'),
+  ('interpreter', 'interpretation'),
+  ('astonishing', 'astonishment'),
 ];
 
 final Map<String, Set<String>> _partners = () {
