@@ -1386,6 +1386,17 @@ const List<(String, String)> similarWordPairs = [
   ('forcefully', 'emphatically'),
   ('gaiety', 'cheerfulness'),
   ('flutter', 'flap'),
+  // 심화 어려움 묶음 7~9 — 검토가 더한 쌍(2026-11-26)
+  ('rite', 'ritual'),
+  ('endurance', 'perseverance'),
+  ('intrusion', 'burglary'),
+  ('entrepreneur', 'corporation'),
+  ('arouse', 'pose'),
+  ('concede', 'admittedly'),
+  ('supervise', 'superintendent'),
+  ('complicate', 'complexity'),
+  ('disorderly', 'orderly'),
+  ('orator', 'eloquent'),
 ];
 
 final Map<String, Set<String>> _partners = () {

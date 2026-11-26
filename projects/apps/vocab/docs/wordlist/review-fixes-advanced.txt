@@ -193,3 +193,37 @@ w-5758|meaning|고도, 해발 높이|고도와 해발 고도는 같은 말을 �
 w-5825|meaning|선동적인, 염증성의|예문이 선동적인의 쓰임이고 inflammatory의 흔한 쓰임도 이것이라 대표 뜻을 앞에 둠(LOW)
 w-5723|example|Under no circumstances should you open this door.|관용 표현은 복수 circumstances가 자연스러움(LOW)
 # (주의) 위 어려움 묶음 4~6 줄을 적용한 뒤 2026-11-26 사용자 결정으로 hearted·isle을 뺐다 — 칸 크기 1,190 · 1,190 · 1,189, 어려움은 w-5381부터. 위 줄들의 번호는 그때 번호다 — 다시 적용하지 않는다
+# --- advanced_hard 묶음 7~9, w-5972~w-6271(2026-11-26 사내망 PC code-reviewer, COMMENT — 지금 번호) ---
+w-6110|meaning|수여하다|주다가 indulge(w-6041)·entitle(w-6070)·penalize(w-5486)·humiliate(w-5501)의 ~주다에 글자째 들어가 4지선다에서 정답이 둘로 보임(선례 slam의 던지다). 예문·해석은 이미 수여하다를 씀
+w-6222|meaning|공전하다, 회전하다|돌다가 hover(w-5413)의 맴돌다에 글자째 들어가 정답이 둘로 보임. 예문(지구가 태양 둘레를 돈다)의 정확한 뜻은 공전하다
+w-6222|exampleMeaning|지구는 태양 둘레를 공전한다.|위 뜻에 맞춤
+w-6144|meaning|절박함, 필사적임|자포자기는 포기(체념)라 in desperation(절박해서 무엇이든 함)과 거의 반대 뜻
+w-6144|exampleMeaning|절박한 나머지 그는 하나뿐인 차를 팔았다.|위 뜻에 맞춤
+w-6031|meaning|가난한, 궁핍한|어려운은 difficult로 먼저 읽히고 unimaginable(w-5469)의 믿기 어려운에 글자째 들어감
+w-6044|meaning|소요 사태, (사회적) 동요|소요(所要)·동요(童謠)와 글자가 같은 한자어가 둘 다 맨몸으로 있음(선례 전시·감사)
+w-6107|meaning|유령, 환영(幻影)|환영은 환영(歡迎)으로 먼저 읽힘(선례 간(肝)·산(酸))
+w-6062|example|Millions of Jewish people were killed in the Holocaust.|nuclear holocaust는 대파괴의 쓰임인데 해석은 대표 뜻 대학살을 써서 핵 대학살이라는 어색한 말이 됨. 대표 뜻의 쓰임으로 바꿈(사실 그대로)
+w-6062|exampleMeaning|수백만 명의 유대인이 대학살로 목숨을 잃었다.|위 예문에 맞춤
+w-5978|example|Her story coincided with what the witness said.|생일이 부활절과 일치할 것이다는 어색한 해석. 겹치는 날을 말하는 쓰임은 대표 뜻 일치하다를 보여 주지 못함
+w-5978|exampleMeaning|그녀의 이야기는 목격자가 한 말과 일치했다.|위 예문에 맞춤
+w-6052|meaning|불리한 조건, 장애|사람의 장애를 handicap이라 하는 것은 낡고 낮잡는 말로 여겨짐. 예문(조종사에게 나쁜 시력)도 불리한 조건의 쓰임이라 이 뜻을 앞에 둠(LOW)
+w-6052|exampleMeaning|나쁜 시력은 조종사에게 불리한 조건이다.|위 뜻에 맞춤(LOW)
+w-6127|meaning|(천을) 짜다, 엮다|짜다는 (맛이) 짜다로 먼저 읽힘(LOW)
+w-5983|meaning|(자연의 힘을) 이용하다, (말의) 마구|마구는 부사 마구(함부로)로 먼저 읽힘(선례 (건물의) 동)(LOW)
+w-6187|meaning|(살던 곳에서) 몰아내다, 대체하다|홍수가 사람을 쫓아낸다는 어색함. displace people은 살던 곳을 떠나게 하는 것(LOW)
+w-6187|exampleMeaning|홍수는 해마다 수천 명을 살던 곳에서 몰아낸다.|위 뜻에 맞춤(LOW)
+w-6045|meaning|소매업자, 소매점|소매업자와 소매상은 같은 말을 겹쳐 적은 것(선례 가게 주인·상점 주인)(LOW)
+w-6008|meaning|유창한, 말솜씨가 좋은|웅변적인 연설은 어색한 우리말이고 eloquence(w-5991)와 쌍이라 유창한을 품어도 문제없음(LOW)
+w-6008|exampleMeaning|그녀는 유창한 연설을 했다.|위 뜻에 맞춤(LOW)
+w-5977|example|Some place names in Britain end in ness, an old word for a headland.|외딴 ness에 등대가 선다는 문장은 영어에서 거의 쓰지 않는 결합. ness는 지금은 주로 곶 지명(Dungeness 등)의 끝에서 만나는 옛말(LOW)
+w-5977|exampleMeaning|영국의 몇몇 지명은 곶을 뜻하는 옛말 ness로 끝난다.|위 예문에 맞춤(LOW)
+w-6035|exampleMeaning|이 시계는 나에게 가장 소중한 물건이다.|내가 가장 소중한 소유물은 주어와 서술어가 맞지 않음(LOW)
+w-5990|exampleMeaning|판매가 갑자기 급증했다.|급증을 보였다는 saw를 낱말마다 옮긴 번역투(LOW)
+w-6220|exampleMeaning|꿈은 우리 잠재의식 속의 두려움을 보여 준다.|잠재의식의 두려움은 의가 겹친 어색한 꼴(LOW)
+w-6091|exampleMeaning|그 앱의 기능은 제한적이다.|기능성은 제한되어 있다는 어색한 번역투. 목록의 기능을 씀(LOW)
+w-6092|exampleMeaning|그는 우주에 강한 흥미를 느낀다.|매혹을 느낀다는 어색한 우리말. 목록의 강한 흥미를 씀(LOW)
+w-6104|exampleMeaning|겉모습은 사람을 착각하게 할 수 있다.|겉모습은 기만적일 수 있다는 번역투. 목록의 착각하게 하는을 씀(LOW)
+w-6136|meaning|주의를 흐트러뜨리는 것, 기분풀이|기분풀이는 한 낱말이라 붙여 씀(LOW)
+w-6099|exampleMeaning|땅의 단단함 덕분에 그곳은 건물을 짓기에 알맞다.|해석에 주어가 없고 building이 집으로 좁혀짐(LOW)
+w-6204|exampleMeaning|봄비가 내린 뒤 골짜기에는 풀과 나무가 무성하다.|골짜기가 무성하다는 주어와 서술어가 맞지 않음(LOW)
+w-6025|exampleMeaning|헬륨은 비활성 기체이다.|비활성의 기체는 어색한 꼴(LOW)
