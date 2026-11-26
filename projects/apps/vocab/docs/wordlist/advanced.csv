@@ -1202,7 +1202,7 @@ gangster,B2,28156,2,1,advanced_easy,사람·직업
 unwell,B1,28165,2,1,advanced_easy,반대말 파생어
 sunbeam,B2,28339,2,1,advanced_easy,합성어
 silverware,B2,28348,2,1,advanced_easy,합성어
-undress,B1,28450,2,1,advanced_easy,일반 동사
+undress,B1,28450,2,1,advanced_medium,일반 동사
 untidy,B1,28655,2,1,advanced_medium,반대말 파생어
 nightclub,B2,28685,2,1,advanced_medium,합성어
 talkative,B1,28700,2,1,advanced_medium,파생 부사·형용사
@@ -1483,7 +1483,6 @@ exclusive,B1,2776,2,2,advanced_medium,추상 형용사
 dynamic,B2,2821,2,2,advanced_medium,추상 형용사
 completion,B2,2829,2,2,advanced_medium,추상 명사
 intermediate,B1,2840,2,2,advanced_medium,일반 형용사
-pa,B2,2847,2,2,advanced_medium,구어·속어
 thoroughly,B2,2853,2,2,advanced_medium,부사
 retail,B1,2863,2,2,advanced_medium,사회·경제 주제
 varied,B2,2911,2,2,advanced_medium,추상 형용사

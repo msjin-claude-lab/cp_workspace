@@ -814,6 +814,10 @@ const List<(String, String)> similarWordPairs = [
   ('dated', 'old-fashioned'), // 시대에 뒤떨어진 / 구식의
   ('adequate', 'sufficiently'), // 충분한 / 충분히
   ('essentially', 'fundamental'), // 본질적으로 / 근본적인
+  ('constant', 'consistent'), // 일정한 / 한결같은 — 생김새도 비슷함(검토 2026-11-26)
+  ('opposition', 'resistance'), // 반대 / 반발
+  ('adequate', 'satisfactory'), // 그럭저럭 괜찮은 / (기준에) 맞는·만족스러운
+  ('overall', 'altogether'), // 전반적으로 / 대체로·모두 합해서
   // 심화 중간 묶음 1~3 — 어원이 같음
   ('skateboard', 'skateboarder'),
   ('division', 'divided'),

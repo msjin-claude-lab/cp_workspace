@@ -51,3 +51,12 @@ w-4127|meaning|(짐을) 내리다|부리다는 예스럽고 beak 부리와 글�
 w-4110|meaning|목욕시키다, 목욕하다|(강·바다에서) 헤엄치다는 영국의 예스러운 뜻
 w-3923|example|The eruption of the volcano destroyed the whole village.|예문만으로는 화산인지 알 수 없는데 해석이 화산을 덧붙임
 w-3923|exampleMeaning|그 화산의 폭발로 마을 전체가 파괴되었다.|위 예문에 맞춤
+# --- advanced_medium 묶음 1~3, w-4203~w-4502(2026-11-26 사내망 PC code-reviewer, COMMENT — pa를 빼기 전 번호. 아래 줄은 모두 pa(옛 w-4483)보다 앞이라 번호가 그대로다) ---
+w-4394|meaning|시대에 뒤떨어진, 날짜가 적힌|dated가 표제어로 실린 까닭(굳은 뜻)은 시대에 뒤떨어진이고, 날짜가 적힌은 동사 date의 과거분사일 뿐이라 흔한 뜻이 먼저 와야 함. old-fashioned와 묶은 쌍도 이 뜻에 근거함
+w-4394|example|Some of the jokes in this old movie are a little dated.|기존 예문(The letter was dated May 5)은 동사 date의 변화형 쓰임이라 표제어의 굳은 뜻을 보여 주지 못함
+w-4394|exampleMeaning|이 옛날 영화의 농담 몇몇은 좀 시대에 뒤떨어졌다.|위 예문에 맞춤
+w-4375|meaning|총계의, 역겨운, (잘못 등이) 큰|총과 총계의는 같은 말을 겹쳐 적은 것(유명 인사·유명인과 같은 경우)
+w-4307|meaning|산(酸), 산성의|신 한 글자는 신(神)·신발로 읽혀 무슨 뜻인지 알 수 없고, acid=시큼한은 중간 칸에 드문 뜻
+w-4346|example|Thousands of teachers attended the national convention in Seoul.|comic book convention을 만화 대회로 옮기면 경연으로 읽힘(실제로는 박람회·행사). 뜻 (대규모) 대회에 맞는 예문으로 바꿈
+w-4346|exampleMeaning|수천 명의 교사가 서울에서 열린 전국 대회에 참석했다.|위 예문에 맞춤
+# (주의) 2026-11-26 사용자 결정으로 pa(옛 w-4483)를 뺐다 — 쉬움 칸이 1,201개가 되어 undress가 중간 칸 맨 앞 w-4202로 옮겼고, 옛 w-4484 이후는 지금 번호가 하나 작다
