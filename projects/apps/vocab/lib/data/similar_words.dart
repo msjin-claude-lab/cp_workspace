@@ -1191,12 +1191,29 @@ const List<(String, String)> similarWordPairs = [
   ('outing', 'getaway'),
   // 심화 어려움 묶음 4~6 — 뜻이 거의 같음
   ('haven', 'refuge'),
+  ('coalition', 'alliance'),
+  ('mighty', 'potent'),
   // 심화 어려움 묶음 4~6 — 어원이 같음
   ('withdraw', 'withdrawal'),
   ('exclusion', 'exclusively'),
   ('specify', 'specifically'),
   ('deficiency', 'deficit'),
   ('merchandise', 'merchant'),
+  ('deliberate', 'deliberately'),
+  ('testimony', 'testify'),
+  ('inflammation', 'inflammatory'),
+  ('transmit', 'transmission'),
+  ('correspondent', 'correspondence'),
+  ('correspondent', 'corresponding'),
+  ('devote', 'devoted'),
+  ('devote', 'dedication'),
+  ('devoted', 'dedication'),
+  ('pastor', 'pastoral'),
+  ('bankruptcy', 'bankrupt'),
+  ('respiratory', 'respiration'),
+  ('stimulation', 'stimulate'),
+  ('utilize', 'utility'),
+  ('conceive', 'conception'),
   // 심화 어려움 묶음 4~6 — 우리말 뜻 글자가 같은 동음이의어
 ];
 
