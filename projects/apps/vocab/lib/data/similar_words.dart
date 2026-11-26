@@ -891,6 +891,27 @@ const List<(String, String)> similarWordPairs = [
   ('consensus', 'consent'),
   ('exclude', 'exclusive'),
   ('secondly', 'secondary'),
+  // 심화 중간 묶음 7~9 — 뜻이 거의 같음
+  ('sincere', 'genuine'), // 진실한 / 진짜의
+  ('crucial', 'decisive'), // 매우 중요한 / 결정적인
+  ('respectable', 'honorable'), // 존경받을 만한 / 존경할 만한
+  ('tomb', 'grave'), // 묘소 / 무덤
+  ('viewpoint', 'perspective'), // 견해 / 관점
+  ('forbidden', 'prohibit'), // 금지된 / 금지하다
+  ('query', 'inquiry'), // 질문 / 문의
+  // 심화 중간 묶음 7~9 — 어원이 같음
+  ('qualification', 'qualify'),
+  ('willingness', 'willing'),
+  ('vacant', 'vacancy'),
+  ('prescribe', 'prescription'),
+  ('misery', 'miserable'),
+  ('innovative', 'innovation'),
+  ('prohibit', 'prohibition'),
+  ('terror', 'terrorism'),
+  ('preventive', 'prevention'),
+  ('therapist', 'therapy'),
+  ('unite', 'united'),
+  ('philosopher', 'philosophical'),
 ];
 
 final Map<String, Set<String>> _partners = () {
