@@ -981,6 +981,28 @@ const List<(String, String)> similarWordPairs = [
   ('transition', 'fulfill'), // 이행(移行) / 이행하다(履行)
   ('decay', 'corrupt'), // 부패 / 부패한
   ('numerical', 'disgrace'), // 수치상의 / 수치(羞恥)
+  // 심화 중간 묶음 10~13 — 뜻이 거의 같음
+  ('knowingly', 'intentionally'),
+  ('laborer', 'workman'),
+  ('irrational', 'unreasonable'),
+  ('hasty', 'rash'),
+  ('suitably', 'appropriately'),
+  ('suitably', 'adequately'),
+  ('annoyance', 'irritation'),
+  ('humiliation', 'embarrassment'),
+  ('regain', 'retrieve'),
+  // 심화 중간 묶음 10~13 — 어원이 같음
+  ('improbable', 'probable'),
+  ('genuinely', 'genuine'),
+  ('optimism', 'optimist'),
+  ('densely', 'dense'),
+  ('tolerant', 'tolerate'),
+  ('dissatisfied', 'dissatisfaction'),
+  ('merge', 'merger'),
+  ('revive', 'revival'),
+  ('legendary', 'legend'),
+  ('generously', 'generosity'),
+  ('weaken', 'weakly'),
 ];
 
 final Map<String, Set<String>> _partners = () {
