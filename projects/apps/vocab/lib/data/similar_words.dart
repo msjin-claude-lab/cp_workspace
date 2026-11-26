@@ -1165,6 +1165,9 @@ const List<(String, String)> similarWordPairs = [
   // 심화 어려움 묶음 1~3 — 어원이 같음
   ('unease', 'uneasily'),
   ('unimaginable', 'unimaginably'),
+  ('legislative', 'legislature'),
+  ('executive', 'execution'),
+  ('corresponding', 'correspondence'),
 ];
 
 final Map<String, Set<String>> _partners = () {
