@@ -173,3 +173,22 @@ w-5654|meaning|(수도·전기 같은) 공공 서비스, 유용성|공공 설비
 w-5654|example|Electricity is a utility that every home needs.|시가 수도·가스 요금을 낸다는 예문은 사실과 어긋남(요금은 쓰는 사람이 냄)
 w-5654|exampleMeaning|전기는 모든 가정에 필요한 공공 서비스이다.|위 예문에 맞춤
 # (주의) 위 어려움 묶음 1~3 줄을 적용한 뒤 2026-11-26 사용자 결정으로 25개를 뺐다(wornout·unto·amongst·anti·dude·predicative·cyberpet·cyberschool·cashpoint·windscreen·dustbin·aubergine·courgette·barman·anchorman·ferryboat·CD-ROM·determiner·first-floor·commonwealth·jumper·film-maker·cybercafe·washbowl·doorkeeper) — 칸 크기 1,191 · 1,190 · 1,190, 어려움은 w-5382부터. 위 줄들의 번호는 그때 번호다 — 다시 적용하지 않는다
+# --- advanced_hard 묶음 4~6, w-5674~w-5973(2026-11-26 사내망 PC code-reviewer, COMMENT — 지금 번호) ---
+w-5688|meaning|회계 감사, (장부를) 검사하다|감사하다는 고맙다는 뜻의 감사하다(感謝)와 글자가 같고 acknowledgment(w-5873) 감사의 글과도 붙어 보임(선례 전시·약)
+w-5688|exampleMeaning|그 회사는 해마다 장부를 검사할 사람을 고용한다.|위 뜻에 맞춤
+w-5887|meaning|증명하다, 인증하다|보증하다가 warranty(w-5868)의 품질 보증·보증서와 글자가 붙어 보여 4지선다에서 정답이 둘로 보임. certify의 대표 뜻은 증명하다·인증하다
+w-5969|meaning|경외감, 경탄|외경은 학생에게 낯선 말이고 해석의 경외감이 뜻 목록에 없음. 경외감은 reverence(w-5908) 경외를 품지만 awe/reverence가 이미 쌍이라 문제없음
+w-5942|meaning|추론하다, 미루어 알다|infer의 대표 뜻은 추론하다이고 짐작하다는 guess에 가까움. inference/infer가 이미 쌍이라 추론을 품어도 문제없음
+w-5732|meaning|지불 능력이 있는, 용매|학교 과학에서 solvent는 용매로 배움(용제는 공업 용어)
+w-5737|example|The tribe performed an ancient ritual to bring rain.|새벽 차 마시기는 습관이라 대표 뜻 의례의 쓰임을 보여 주지 못하고 매일의 의례라는 해석이 어색함
+w-5737|exampleMeaning|그 부족은 비를 내리게 하려고 오래된 의례를 치렀다.|위 예문에 맞춤
+w-5714|exampleMeaning|원자핵에는 양성자가 들어 있다.|원자의 원자핵은 같은 말이 겹침(LOW)
+w-5752|exampleMeaning|그녀는 자신의 성공을 노력 덕분으로 돌린다.|해석의 여긴다가 뜻 목록에 없음. 뜻의 ~로 돌리다를 씀(LOW)
+w-5777|exampleMeaning|십 대는 흔히 또래의 영향을 받는다.|십대는 십 대로 띄어 씀(선례 w-4962)(LOW)
+w-5933|exampleMeaning|그 나이 든 정치가는 평화에 관해 연설했다.|old를 노련한으로 옮겨 예문과 뜻이 다름(LOW)
+w-5902|exampleMeaning|그녀는 파란 천으로 의복 한 벌을 지었다.|옷가지는 여러 옷을 이르는 말이라 옷가지 한 벌은 어색함(LOW)
+w-5817|exampleMeaning|그 호텔은 역에 아주 근접해 있다.|해석이 뜻 목록의 말(근접·가까움)을 쓰지 않음(LOW)
+w-5700|meaning|임업, 산림학|임업과 산림업은 같은 말을 겹쳐 적은 것(선례 총소리·총성)(LOW)
+w-5758|meaning|고도, 해발 높이|고도와 해발 고도는 같은 말을 겹쳐 적은 것(선례 공중목욕탕·목욕탕)(LOW)
+w-5825|meaning|선동적인, 염증성의|예문이 선동적인의 쓰임이고 inflammatory의 흔한 쓰임도 이것이라 대표 뜻을 앞에 둠(LOW)
+w-5723|example|Under no circumstances should you open this door.|관용 표현은 복수 circumstances가 자연스러움(LOW)
