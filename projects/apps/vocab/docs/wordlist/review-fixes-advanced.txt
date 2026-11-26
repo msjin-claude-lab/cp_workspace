@@ -156,3 +156,19 @@ w-5359|meaning|찌르다, 찔린 상처|찔림은 우리말 명사로 어색함(
 w-5399|example|It is rude to call a poor man a bum.|사람을 부랑자라고 낮잡아 부르는 예문을 그대로 실음. idiot 예문처럼 낮잡는 말임을 보여 주는 문장으로 바꿈
 w-5399|exampleMeaning|가난한 사람을 부랑자라고 부르는 것은 무례하다.|위 예문에 맞춤
 # (주의) 위 칸 마지막 검토 줄을 적용한 뒤 2026-11-26 사용자 결정으로 predicate·mutton·eco·polo를 뺐다 — 칸 크기 1,199 · 1,199 · 1,198, sunbeam이 중간 맨 앞 w-4200으로, overtake·meditate가 어려움에서 중간 끝 w-5397·w-5398로 넘어왔다. 위 묶음 줄의 번호는 그때 번호다 — 다시 적용하지 않는다
+# --- advanced_hard 묶음 1~3, w-5399~w-5698(2026-11-26 사내망 PC code-reviewer, COMMENT — 지금 번호) ---
+w-5399|meaning|찌르다, 따끔함, (사람을 부르는) 욕설|뒤 뜻 (사람에게 쓰면 욕설)은 괄호뿐이라 괄호를 걷으면 빈 뜻이 됨. damn·idiot처럼 욕설임을 뜻 낱말로 밝히고 명사 prick(따끔함)을 더함
+w-5406|meaning|쾅 닫다, 세게 내려놓다|세게 내던지다가 cast(w-5619)의 던지다를 글자째 품어 4지선다에서 정답이 둘로 보임. slam의 흔한 쓰임은 쾅 닫다·쾅 내려놓다(slam the phone down)
+w-5438|meaning|총소리, 사격|총소리와 총성은 같은 말을 겹쳐 적은 것
+w-5443|meaning|회귀선, (the tropics) 열대 지방|tropic은 명사(회귀선·the tropics)로 쓰는 말이고 형용사 열대의는 tropical의 뜻
+w-5443|example|The Tropic of Cancer passes through Taiwan.|a tropic island는 자연스럽지 않은 결합(a tropical island가 맞음). 북회귀선은 대만 중부(자이)를 지남
+w-5443|exampleMeaning|북회귀선은 대만을 지난다.|위 예문에 맞춤
+w-5487|exampleMeaning|해변에 산들바람이 부는 오후였다.|해변은 ... 오후였다는 주어와 서술어가 맞지 않음(LOW)
+w-5528|meaning|공중목욕탕|공중목욕탕과 목욕탕은 같은 말을 겹쳐 적은 것
+w-5539|meaning|(두툼한) 이불|이불과 두툼한 이불은 같은 말을 겹쳐 적은 것
+w-5586|meaning|최신의, 현대식의|최신의와 최신식의는 같은 말을 겹쳐 적은 것(선례 글자 그대로의·문자 그대로의)(LOW)
+w-5618|meaning|조항, (문장의) 절|clause는 문법의 절(관계절·명사절)로 학생이 더 자주 만남. 한 글자 절은 (건물의) 동·간(肝)처럼 괄호로 풀어 씀
+w-5629|meaning|대신, 대표|이익은 드문 뜻(in behalf of)이고 penalize(w-5488)의 불이익을 주다에 글자째 들어가 정답이 둘로 보임. on behalf of는 ~을 대신해·대표해
+w-5654|meaning|(수도·전기 같은) 공공 서비스, 유용성|공공 설비는 시설로 읽히고 utility bill·public utility의 뜻은 공공 서비스
+w-5654|example|Electricity is a utility that every home needs.|시가 수도·가스 요금을 낸다는 예문은 사실과 어긋남(요금은 쓰는 사람이 냄)
+w-5654|exampleMeaning|전기는 모든 가정에 필요한 공공 서비스이다.|위 예문에 맞춤
