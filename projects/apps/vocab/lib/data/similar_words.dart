@@ -1189,6 +1189,15 @@ const List<(String, String)> similarWordPairs = [
   ('irresistibly', 'invitingly'),
   ('inflate', 'magnify'),
   ('outing', 'getaway'),
+  // 심화 어려움 묶음 4~6 — 뜻이 거의 같음
+  ('haven', 'refuge'),
+  // 심화 어려움 묶음 4~6 — 어원이 같음
+  ('withdraw', 'withdrawal'),
+  ('exclusion', 'exclusively'),
+  ('specify', 'specifically'),
+  ('deficiency', 'deficit'),
+  ('merchandise', 'merchant'),
+  // 심화 어려움 묶음 4~6 — 우리말 뜻 글자가 같은 동음이의어
 ];
 
 final Map<String, Set<String>> _partners = () {
