@@ -944,6 +944,43 @@ const List<(String, String)> similarWordPairs = [
   ('interpreter', 'interpret'),
   ('interpreter', 'interpretation'),
   ('astonishing', 'astonishment'),
+  // 심화 중간 묶음 7~9 — 뜻이 거의 같음(검토 2026-11-26)
+  ('adequately', 'appropriately'), // 적절히 / 적절하게
+  ('strictly', 'technically'), // 엄밀히 / 엄밀히 따지면
+  ('anticipate', 'expectation'), // 예상하다·기대하다 / 기대·예상
+  ('hard-working', 'diligence'), // 근면한 / 근면
+  ('sincere', 'diligence'), // 성실한 / 성실
+  ('forbidden', 'prohibition'), // 금지된 / 금지
+  ('absurd', 'unreasonable'),
+  ('misery', 'suffering'),
+  ('grim', 'gloomy'), // 암울한 / 우울한
+  ('striking', 'noticeable'), // 두드러진 / 눈에 띄는
+  ('certificate', 'qualification'), // 증명서·수료증 / 자격증
+  ('inadequate', 'improperly'), // 부적절한 / 부적절하게
+  ('strip', 'peel'), // 벗기다 / 껍질을 벗기다
+  ('particle', 'microscopic'), // 극히 작은 조각 / 극히 작은
+  ('briefly', 'straightforward'), // 간단히 / 간단한
+  ('nuisance', 'troublesome'), // 성가신 사람 / 성가신
+  ('dreadful', 'terribly'), // 끔찍한 / 끔찍하게
+  ('addiction', 'alcoholism'), // 중독 / 알코올 중독
+  ('eligible', 'qualification'), // 자격이 있는 / 자격
+  ('recommendation', 'nomination'), // 추천 / 후보 추천
+  ('nerve', 'tense'), // (nerves) 긴장 / 긴장한
+  ('fundamental', 'radically'), // 근본적인 / 근본적으로
+  ('opening', 'slot'), // 구멍 / 가느다란 구멍
+  ('oath', 'swear'), // 맹세 / 맹세하다
+  ('breeding', 'reproduce'), // 번식 / 번식하다
+  ('interfere', 'interruption'), // 방해하다 / 방해
+  ('adjustment', 'revise'), // 수정 / 수정하다
+  ('blast', 'explosive'), // 폭발 / 폭발물·폭발성의
+  // 심화 중간 묶음 7~9 — 어원이 같음(검토 2026-11-26)
+  ('mortal', 'immortal'),
+  ('imply', 'implication'),
+  ('western', 'westward'),
+  // 심화 중간 묶음 7~9 — 우리말 뜻 글자가 같은 동음이의어(검토 2026-11-26)
+  ('transition', 'fulfill'), // 이행(移行) / 이행하다(履行)
+  ('decay', 'corrupt'), // 부패 / 부패한
+  ('numerical', 'disgrace'), // 수치상의 / 수치(羞恥)
 ];
 
 final Map<String, Set<String>> _partners = () {

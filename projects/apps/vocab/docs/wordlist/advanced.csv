@@ -1201,7 +1201,7 @@ tasteless,B1,27572,2,1,advanced_easy,파생 부사·형용사
 gangster,B2,28156,2,1,advanced_easy,사람·직업
 unwell,B1,28165,2,1,advanced_easy,반대말 파생어
 sunbeam,B2,28339,2,1,advanced_easy,합성어
-silverware,B2,28348,2,1,advanced_easy,합성어
+silverware,B2,28348,2,1,advanced_medium,합성어
 undress,B1,28450,2,1,advanced_medium,일반 동사
 untidy,B1,28655,2,1,advanced_medium,반대말 파생어
 nightclub,B2,28685,2,1,advanced_medium,합성어
@@ -1803,7 +1803,6 @@ graphic,B1,6084,2,2,advanced_medium,IT·매체 말
 influential,B2,6086,2,2,advanced_medium,일반 형용사
 exhaust,B2,6105,2,2,advanced_medium,일반 동사
 demanding,B2,6116,2,2,advanced_medium,일반 형용사
-doc,B1,6120,2,2,advanced_medium,구어·속어
 afterward,B1,6125,2,2,advanced_medium,부사
 decisive,B2,6130,2,2,advanced_medium,추상 형용사
 bind,B2,6225,2,2,advanced_medium,뜻이 여럿인 말

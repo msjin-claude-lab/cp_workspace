@@ -22,7 +22,7 @@ const _expectedCount = {
   Cell.highEasy: 500,
   Cell.highMedium: 500,
   Cell.highHard: 500,
-  Cell.advancedEasy: 1201,
+  Cell.advancedEasy: 1200,
   Cell.advancedMedium: 1200,
   Cell.advancedHard: 1200,
 };
