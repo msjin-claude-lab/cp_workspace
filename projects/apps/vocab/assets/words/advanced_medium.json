@@ -1,4 +1,5 @@
 [
+  {"id": "w-4191", "word": "giggle", "meaning": "킥킥 웃다, 킥킥거림", "example": "The girls giggled at the funny picture.", "exampleMeaning": "소녀들은 우스운 그림을 보고 킥킥 웃었다."},
   {"id": "w-4192", "word": "punctual", "meaning": "시간을 엄수하는, 시간을 잘 지키는", "example": "Please be punctual for the meeting.", "exampleMeaning": "회의 시간을 꼭 지켜 주세요."},
   {"id": "w-4193", "word": "shopkeeper", "meaning": "가게 주인", "example": "The shopkeeper gave me the wrong change.", "exampleMeaning": "가게 주인이 내게 거스름돈을 잘못 주었다."},
   {"id": "w-4194", "word": "checkout", "meaning": "계산대, (호텔) 퇴실", "example": "There was a long line at the checkout.", "exampleMeaning": "계산대에 줄이 길었다."},
@@ -1187,6 +1188,5 @@
   {"id": "w-5377", "word": "intruder", "meaning": "침입자", "example": "The dog barked loudly at the intruder.", "exampleMeaning": "개는 침입자를 향해 크게 짖었다."},
   {"id": "w-5378", "word": "fondly", "meaning": "정답게, 애정을 담아", "example": "She fondly remembered her childhood home.", "exampleMeaning": "그녀는 어린 시절의 집을 애정을 담아 떠올렸다."},
   {"id": "w-5379", "word": "exaggerate", "meaning": "과장하다", "example": "He likes to exaggerate when he tells a story.", "exampleMeaning": "그는 이야기를 할 때 과장하기를 좋아한다."},
-  {"id": "w-5380", "word": "achievable", "meaning": "달성할 수 있는, 이룰 수 있는", "example": "Set small goals that are achievable.", "exampleMeaning": "달성할 수 있는 작은 목표를 세워라."},
-  {"id": "w-5381", "word": "tumble", "meaning": "굴러 떨어지다, 넘어지다", "example": "The boy tumbled down the hill.", "exampleMeaning": "그 소년은 언덕 아래로 굴러 떨어졌다."}
+  {"id": "w-5380", "word": "achievable", "meaning": "달성할 수 있는, 이룰 수 있는", "example": "Set small goals that are achievable.", "exampleMeaning": "달성할 수 있는 작은 목표를 세워라."}
 ]

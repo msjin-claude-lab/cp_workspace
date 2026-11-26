@@ -192,3 +192,4 @@ w-5700|meaning|임업, 산림학|임업과 산림업은 같은 말을 겹쳐 적
 w-5758|meaning|고도, 해발 높이|고도와 해발 고도는 같은 말을 겹쳐 적은 것(선례 공중목욕탕·목욕탕)(LOW)
 w-5825|meaning|선동적인, 염증성의|예문이 선동적인의 쓰임이고 inflammatory의 흔한 쓰임도 이것이라 대표 뜻을 앞에 둠(LOW)
 w-5723|example|Under no circumstances should you open this door.|관용 표현은 복수 circumstances가 자연스러움(LOW)
+# (주의) 위 어려움 묶음 4~6 줄을 적용한 뒤 2026-11-26 사용자 결정으로 hearted·isle을 뺐다 — 칸 크기 1,190 · 1,190 · 1,189, 어려움은 w-5381부터. 위 줄들의 번호는 그때 번호다 — 다시 적용하지 않는다

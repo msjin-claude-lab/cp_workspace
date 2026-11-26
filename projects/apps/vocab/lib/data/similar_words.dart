@@ -1261,7 +1261,6 @@ const List<(String, String)> similarWordPairs = [
   ('redo', 'resume'),
   ('redo', 'reprint'),
   ('upright', 'erect'),
-  ('isle', 'islander'),
   ('politically', 'statesman'),
   ('invariably', 'exceptionally'),
   ('merchandise', 'commerce'),

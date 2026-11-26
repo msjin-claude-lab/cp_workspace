@@ -1191,7 +1191,7 @@ rhinoceros,B2,25432,2,1,advanced_easy,자연·동물
 memorize,B1,25634,2,1,advanced_easy,일반 동사
 adorable,B1,25778,2,1,advanced_easy,일반 형용사
 sniff,B2,25935,2,1,advanced_easy,일반 동사
-giggle,B1,25940,2,1,advanced_easy,일반 동사
+giggle,B1,25940,2,1,advanced_medium,일반 동사
 punctual,B2,26066,2,1,advanced_medium,일반 형용사
 shopkeeper,B2,26150,2,1,advanced_medium,사람·직업
 checkout,B1,26767,2,1,advanced_medium,일상 구체 명사
@@ -2381,7 +2381,7 @@ intruder,B2,18971,2,2,advanced_medium,사람·직업
 fondly,B2,18999,2,2,advanced_medium,파생 부사·형용사
 exaggerate,B2,19053,2,2,advanced_medium,일반 동사
 achievable,B2,19070,2,2,advanced_medium,파생 부사·형용사
-tumble,B1,19100,2,2,advanced_medium,일반 동사
+tumble,B1,19100,2,2,advanced_hard,일반 동사
 chunk,B2,19141,2,2,advanced_hard,일반 명사
 kneel,B2,19275,2,2,advanced_hard,일반 동사
 nutritious,B1,19283,2,2,advanced_hard,의학·건강 말
@@ -2849,7 +2849,6 @@ reinforcement,B2,7474,2,3,advanced_hard,추상 명사
 compute,B2,7489,2,3,advanced_hard,IT·매체 말
 righteousness,B2,7498,2,3,advanced_hard,문학적·드문 말
 catalyst,B2,7540,2,3,advanced_hard,과학·학술 말
-isle,B1,7549,2,3,advanced_hard,문학적·드문 말
 oppression,B1,7558,2,3,advanced_hard,추상 명사
 brotherhood,B1,7582,2,3,advanced_hard,드문 파생어
 distortion,B2,7585,2,3,advanced_hard,추상 명사
@@ -2962,7 +2961,6 @@ sincerity,B2,9512,2,3,advanced_hard,추상 명사
 confront,B2,9516,2,3,advanced_hard,추상 동사
 strait,B2,9575,2,3,advanced_hard,과학·학술 말
 troop,B2,9579,2,3,advanced_hard,일반 명사
-hearted,B1,9582,2,3,advanced_hard,다른 말의 변화형
 condemn,B2,9588,2,3,advanced_hard,추상 동사
 biochemistry,B1,9597,2,3,advanced_hard,과학·학술 말
 needless,B2,9609,2,3,advanced_hard,드문 파생어

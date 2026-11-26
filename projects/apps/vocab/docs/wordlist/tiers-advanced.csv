@@ -1453,7 +1453,7 @@ healing,2,다른 말의 변화형,2
 heap,2,일반 명사,1
 hearing,2,뜻이 여럿인 말,2
 heartbreaking,2,일반 형용사,3
-hearted,2,다른 말의 변화형,3
+hearted,x,넣지 않음(사용자 결정 — 합성어 뒷부분·문어 지명 말),
 heartwarming,2,일반 형용사,3
 hearty,2,일반 형용사,2
 heater,1,일상 구체 명사,1
@@ -1710,7 +1710,7 @@ irritated,2,감정·상태 말,2
 irritating,2,감정·상태 말,2
 irritation,2,감정·상태 말,2
 islander,2,사람·직업,2
-isle,2,문학적·드문 말,3
+isle,x,넣지 않음(사용자 결정 — 합성어 뒷부분·문어 지명 말),
 italicize,2,문법 용어,3
 itch,2,의학·건강 말,2
 ivory,2,일반 명사,2
