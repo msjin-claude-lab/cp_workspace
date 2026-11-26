@@ -991,6 +991,14 @@ const List<(String, String)> similarWordPairs = [
   ('annoyance', 'irritation'),
   ('humiliation', 'embarrassment'),
   ('regain', 'retrieve'),
+  ('bizarre', 'peculiar'),
+  ('wrongly', 'improperly'),
+  ('fabulous', 'spectacular'),
+  ('fabulous', 'terrific'),
+  ('skillful', 'skilled'),
+  ('globally', 'internationally'),
+  ('widen', 'broaden'),
+  ('pharmacist', 'chemist'),
   // 심화 중간 묶음 10~13 — 어원이 같음
   ('improbable', 'probable'),
   ('genuinely', 'genuine'),
@@ -1003,6 +1011,16 @@ const List<(String, String)> similarWordPairs = [
   ('legendary', 'legend'),
   ('generously', 'generosity'),
   ('weaken', 'weakly'),
+  ('irritated', 'irritation'),
+  ('irritated', 'irritating'),
+  ('irritating', 'irritation'),
+  ('prosper', 'prosperous'),
+  ('broaden', 'broadly'),
+  ('thrill', 'thrilled'),
+  ('thrill', 'thrilling'),
+  ('thrilled', 'thrilling'),
+  ('prestigious', 'prestige'),
+  ('psychologically', 'psychology'),
 ];
 
 final Map<String, Set<String>> _partners = () {
