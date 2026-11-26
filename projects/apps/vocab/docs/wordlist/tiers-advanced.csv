@@ -109,7 +109,7 @@ ambiguity,2,추상 명사,3
 ambiguous,2,추상 형용사,3
 ambulance,1,일상 구체 명사,1
 ammonia,2,과학·학술 말,3
-amongst,2,연결어·전치사,3
+amongst,x,넣지 않음(사용자 결정 — 심화 어려움 묶음 1~3 검토 뒤 뺄 말),
 ample,2,격식어,2
 amplifier,2,과학·학술 말,3
 amplify,2,과학·학술 말,3
@@ -119,7 +119,7 @@ analogy,2,추상 명사,3
 analyst,2,사람·직업,2
 anchor,2,뜻이 여럿인 말,2
 anchorage,2,드문 파생어,3
-anchorman,2,합성어,2
+anchorman,x,넣지 않음(사용자 결정 — 심화 어려움 묶음 1~3 검토 뒤 뺄 말),
 anchorperson,2,합성어,3
 angle,2,일반 명사,2
 anguish,2,문학적·드문 말,3
@@ -132,7 +132,7 @@ annoyed,2,감정·상태 말,1
 annually,2,파생 부사·형용사,2
 anonymous,2,추상 형용사,3
 ant,1,자연·동물,1
-anti,2,접두사형,3
+anti,x,넣지 않음(사용자 결정 — 심화 어려움 묶음 1~3 검토 뒤 뺄 말),
 antiaircraft,2,합성어,3
 antibacterial,2,의학·건강 말,3
 anticancer,2,의학·건강 말,3
@@ -205,7 +205,7 @@ attraction,2,일반 명사,2
 attractiveness,2,드문 파생어,3
 attribute,2,뜻이 여럿인 말,3
 atypical,2,반대말 파생어,3
-aubergine,2,영국 생활·제도 말,2
+aubergine,x,넣지 않음(사용자 결정 — 심화 어려움 묶음 1~3 검토 뒤 뺄 말),
 audit,2,전문 분야 말,3
 audition,2,일반 명사,2
 authoritative,2,격식어,3
@@ -249,7 +249,7 @@ barbershop,2,합성어,2
 bare,2,일반 형용사,1
 bark,2,뜻이 여럿인 말,1
 barley,2,음식,2
-barman,2,영국 생활·제도 말,2
+barman,x,넣지 않음(사용자 결정 — 심화 어려움 묶음 1~3 검토 뒤 뺄 말),
 barn,2,일상 구체 명사,1
 barometer,2,과학·학술 말,3
 barrel,2,일상 구체 명사,1
@@ -458,7 +458,7 @@ carriage,2,일상 구체 명사,1
 carton,2,일상 구체 명사,2
 carve,2,일반 동사,1
 cascade,2,문학적·드문 말,3
-cashpoint,2,영국 생활·제도 말,2
+cashpoint,x,넣지 않음(사용자 결정 — 심화 어려움 묶음 1~3 검토 뒤 뺄 말),
 cast,2,뜻이 여럿인 말,3
 casual,2,일반 형용사,1
 casually,2,파생 부사·형용사,2
@@ -473,7 +473,7 @@ catering,2,일반 명사,2
 cathedral,2,역사·종교 말,1
 cattle,2,자연·동물,2
 cave,1,자연·동물,1
-CD-ROM,2,IT·매체 말,2
+CD-ROM,x,넣지 않음(사용자 결정 — 심화 어려움 묶음 1~3 검토 뒤 뺄 말),
 cease,2,격식어,3
 ceiling,2,일상 구체 명사,1
 celebrity,1,사람·직업,1
@@ -573,7 +573,7 @@ commander,2,사람·직업,2
 commemorate,2,격식어,3
 commerce,2,사회·경제 주제,3
 commission,2,뜻이 여럿인 말,3
-commonwealth,2,법·정치 말,3
+commonwealth,x,넣지 않음(사용자 결정 — 심화 어려움 묶음 1~3 검토 뒤 뺄 말),
 communicative,2,파생 부사·형용사,3
 community,2,일반 명사,2
 commute,2,일반 동사,2
@@ -693,7 +693,7 @@ countryman,2,사람·직업,3
 countrywide,2,드문 파생어,3
 county,2,영국 생활·제도 말,3
 courageous,2,일반 형용사,2
-courgette,2,영국 생활·제도 말,2
+courgette,x,넣지 않음(사용자 결정 — 심화 어려움 묶음 1~3 검토 뒤 뺄 말),
 courtesy,2,추상 명사,2
 coward,2,사람·직업,1
 cowardly,2,일반 형용사,1
@@ -742,10 +742,10 @@ curve,2,일반 명사,1
 cushion,1,일상 구체 명사,1
 customs,2,사회·경제 주제,2
 cyberaddict,2,IT·매체 말,3
-cybercafe,2,IT·매체 말,2
+cybercafe,x,넣지 않음(사용자 결정 — 심화 어려움 묶음 1~3 검토 뒤 뺄 말),
 cybercrime,2,IT·매체 말,3
-cyberpet,2,IT·매체 말,2
-cyberschool,2,IT·매체 말,2
+cyberpet,x,넣지 않음(사용자 결정 — 심화 어려움 묶음 1~3 검토 뒤 뺄 말),
+cyberschool,x,넣지 않음(사용자 결정 — 심화 어려움 묶음 1~3 검토 뒤 뺄 말),
 cyberspace,2,IT·매체 말,2
 cycle,2,뜻이 여럿인 말,1
 cyclist,2,사람·직업,1
@@ -837,7 +837,7 @@ detailed,2,일반 형용사,1
 detect,2,일반 동사,1
 detective,1,사람·직업,1
 determined,2,감정·상태 말,1
-determiner,2,문법 용어,2
+determiner,x,넣지 않음(사용자 결정 — 심화 어려움 묶음 1~3 검토 뒤 뺄 말),
 devastate,2,격식어,3
 devastating,2,추상 형용사,3
 developing,2,다른 말의 변화형,2
@@ -934,7 +934,7 @@ donate,2,일반 동사,1
 donation,2,일반 명사,1
 donkey,2,자연·동물,1
 doom,2,문학적·드문 말,3
-doorkeeper,2,사람·직업,2
+doorkeeper,x,넣지 않음(사용자 결정 — 심화 어려움 묶음 1~3 검토 뒤 뺄 말),
 doorway,2,일상 구체 명사,1
 dorm,x,넣지 않음(사용자 결정 — dormitory를 줄인 말),
 dormitory,2,일상 구체 명사,1
@@ -963,14 +963,14 @@ dropout,2,사회·경제 주제,2
 drought,2,과학·학술 말,2
 drown,2,일반 동사,1
 drunk,2,일반 형용사,1
-dude,2,구어·속어,2
+dude,x,넣지 않음(사용자 결정 — 심화 어려움 묶음 1~3 검토 뒤 뺄 말),
 duel,2,역사·종교 말,3
 dull,2,일반 형용사,1
 dumb,2,일반 형용사,2
 dump,2,일반 동사,1
 duplicate,2,뜻이 여럿인 말,2
 duplication,2,추상 명사,3
-dustbin,2,영국 생활·제도 말,2
+dustbin,x,넣지 않음(사용자 결정 — 심화 어려움 묶음 1~3 검토 뒤 뺄 말),
 dusty,1,일반 형용사,1
 duty-free,1,합성어,1
 duvet,2,영국 생활·제도 말,2
@@ -1189,7 +1189,7 @@ federal,2,법·정치 말,2
 feedback,2,일반 명사,2
 fellow,2,사람·직업,1
 ferry,1,일상 구체 명사,1
-ferryboat,2,일상 구체 명사,2
+ferryboat,x,넣지 않음(사용자 결정 — 심화 어려움 묶음 1~3 검토 뒤 뺄 말),
 festive,2,일반 형용사,1
 fetch,2,일반 동사,1
 feverishly,2,드문 파생어,3
@@ -1201,7 +1201,7 @@ fighting,2,일반 명사,1
 figurative,2,문법 용어,3
 filial,2,문학적·드문 말,3
 filling,2,다른 말의 변화형,2
-film-maker,2,사람·직업,2
+film-maker,x,넣지 않음(사용자 결정 — 심화 어려움 묶음 1~3 검토 뒤 뺄 말),
 filter,2,일반 명사,1
 financially,2,파생 부사·형용사,2
 finely,2,파생 부사·형용사,2
@@ -1212,7 +1212,7 @@ fireplace,2,일상 구체 명사,1
 firework,1,일상 구체 명사,1
 firmly,2,부사,1
 firmness,2,드문 파생어,3
-first-floor,2,영국 생활·제도 말,2
+first-floor,x,넣지 않음(사용자 결정 — 심화 어려움 묶음 1~3 검토 뒤 뺄 말),
 firstly,2,연결어·전치사,1
 fiscal,2,사회·경제 주제,3
 fitness,2,운동·여가,2
@@ -1731,7 +1731,7 @@ journalism,2,사회·경제 주제,3
 judo,2,운동·여가,1
 jug,1,일상 구체 명사,1
 juicy,2,일반 형용사,1
-jumper,2,영국 생활·제도 말,2
+jumper,x,넣지 않음(사용자 결정 — 심화 어려움 묶음 1~3 검토 뒤 뺄 말),
 jungle,1,자연·동물,1
 juror,2,법·정치 말,2
 jury,2,법·정치 말,2
@@ -2408,7 +2408,7 @@ precede,2,격식어,2
 precisely,2,부사,1
 predicament,2,격식어,2
 predicate,x,넣지 않음(사용자 결정 — 잘 안 쓰는 문법 용어),
-predicative,2,문법 용어,2
+predicative,x,넣지 않음(사용자 결정 — 심화 어려움 묶음 1~3 검토 뒤 뺄 말),
 predictable,2,일반 형용사,1
 predictive,2,드문 파생어,3
 predictor,2,드문 파생어,3
@@ -3422,7 +3422,7 @@ untalented,2,드문 파생어,2
 unthinkably,2,드문 파생어,3
 untidy,2,반대말 파생어,1
 untie,2,일반 동사,1
-unto,2,역사·종교 말,3
+unto,x,넣지 않음(사용자 결정 — 심화 어려움 묶음 1~3 검토 뒤 뺄 말),
 untreated,2,드문 파생어,2
 untrimmed,2,드문 파생어,3
 unusually,2,부사,1
@@ -3518,7 +3518,7 @@ warranty,2,사회·경제 주제,3
 warrior,2,사람·직업,2
 warship,2,합성어,2
 wartime,2,합성어,2
-washbowl,2,합성어,2
+washbowl,x,넣지 않음(사용자 결정 — 심화 어려움 묶음 1~3 검토 뒤 뺄 말),
 wasp,2,자연·동물,1
 wasteful,2,파생 부사·형용사,1
 waterfall,1,자연·동물,1
@@ -3559,7 +3559,7 @@ willing,2,추상 형용사,2
 willingly,2,드문 파생어,2
 willingness,2,드문 파생어,2
 winding,2,다른 말의 변화형,3
-windscreen,2,영국 생활·제도 말,2
+windscreen,x,넣지 않음(사용자 결정 — 심화 어려움 묶음 1~3 검토 뒤 뺄 말),
 windshield,2,일상 구체 명사,1
 windsurfing,1,운동·여가,1
 wing,1,일상 구체 명사,1
@@ -3587,7 +3587,7 @@ worldly,2,추상 형용사,3
 worldview,2,추상 명사,3
 worm,2,자연·동물,1
 worn,2,다른 말의 변화형,2
-wornout,2,합성어,2
+wornout,x,넣지 않음(사용자 결정 — 심화 어려움 묶음 1~3 검토 뒤 뺄 말),
 worrying,2,감정·상태 말,2
 worsen,2,일반 동사,3
 worship,2,역사·종교 말,2

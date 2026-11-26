@@ -1189,13 +1189,5 @@
   {"id": "w-4188", "word": "memorize", "meaning": "외우다, 암기하다", "example": "I memorized twenty new words today.", "exampleMeaning": "나는 오늘 새 단어 스무 개를 외웠다."},
   {"id": "w-4189", "word": "adorable", "meaning": "사랑스러운, 귀여운", "example": "What an adorable puppy!", "exampleMeaning": "정말 사랑스러운 강아지구나!"},
   {"id": "w-4190", "word": "sniff", "meaning": "코를 킁킁거리다, 냄새를 맡다, 훌쩍이다", "example": "The dog sniffed my bag.", "exampleMeaning": "개가 내 가방 냄새를 킁킁 맡았다."},
-  {"id": "w-4191", "word": "giggle", "meaning": "킥킥 웃다, 킥킥거림", "example": "The girls giggled at the funny picture.", "exampleMeaning": "소녀들은 우스운 그림을 보고 킥킥 웃었다."},
-  {"id": "w-4192", "word": "punctual", "meaning": "시간을 엄수하는, 시간을 잘 지키는", "example": "Please be punctual for the meeting.", "exampleMeaning": "회의 시간을 꼭 지켜 주세요."},
-  {"id": "w-4193", "word": "shopkeeper", "meaning": "가게 주인", "example": "The shopkeeper gave me the wrong change.", "exampleMeaning": "가게 주인이 내게 거스름돈을 잘못 주었다."},
-  {"id": "w-4194", "word": "checkout", "meaning": "계산대, (호텔) 퇴실", "example": "There was a long line at the checkout.", "exampleMeaning": "계산대에 줄이 길었다."},
-  {"id": "w-4195", "word": "pajamas", "meaning": "파자마, 잠옷", "example": "The kids put on their pajamas and went to bed.", "exampleMeaning": "아이들은 잠옷을 입고 잠자리에 들었다."},
-  {"id": "w-4196", "word": "yawn", "meaning": "하품하다, 하품", "example": "He yawned because he stayed up late last night.", "exampleMeaning": "그는 어젯밤 늦게까지 깨어 있어서 하품을 했다."},
-  {"id": "w-4197", "word": "tasteless", "meaning": "맛이 없는, 품위 없는", "example": "The soup was tasteless, so I added some salt.", "exampleMeaning": "수프가 맛이 없어서 나는 소금을 조금 넣었다."},
-  {"id": "w-4198", "word": "gangster", "meaning": "깡패, 조직 폭력배", "example": "The movie is about a gangster in New York.", "exampleMeaning": "그 영화는 뉴욕의 한 깡패에 관한 이야기다."},
-  {"id": "w-4199", "word": "unwell", "meaning": "몸이 안 좋은, 편찮은", "example": "She felt unwell, so she stayed home from school.", "exampleMeaning": "그녀는 몸이 안 좋아서 학교에 가지 않고 집에 있었다."}
+  {"id": "w-4191", "word": "giggle", "meaning": "킥킥 웃다, 킥킥거림", "example": "The girls giggled at the funny picture.", "exampleMeaning": "소녀들은 우스운 그림을 보고 킥킥 웃었다."}
 ]

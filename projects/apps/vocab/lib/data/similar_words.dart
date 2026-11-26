@@ -631,11 +631,7 @@ const List<(String, String)> similarWordPairs = [
   // 심화 쉬움 묶음 4~6 — 우리말 뜻 글자가 같은 동음이의어
   ('god', 'sour'), // 신 / (맛이) 신
   ('biography', 'electrical'), // (인물의) 전기 / 전기의
-  // 심화 쉬움 묶음 13 — 어원이 같음
-  ('gang', 'gangster'),
   // 심화 쉬움 마지막 검토가 더한 쌍 — 어원이 같음
-  ('taste', 'tasteless'),
-  ('tasty', 'tasteless'),
   ('historic', 'prehistoric'),
   ('multiple', 'multiply'),
   ('gym', 'gymnastics'),
@@ -1006,10 +1002,7 @@ const List<(String, String)> similarWordPairs = [
   ('softness', 'tenderness'),
   ('refute', 'contradict'),
   ('crossroads', 'intersection'),
-  ('fondly', 'lovingly'),
-  ('lovingly', 'affectionate'),
   ('grieve', 'mourn'),
-  ('bum', 'hip'), // 엉덩이
   ('leisurely', 'easygoing'),
   // 심화 중간 묶음 10~13 — 어원이 같음
   ('improbable', 'probable'),
@@ -1038,8 +1031,6 @@ const List<(String, String)> similarWordPairs = [
   ('tenderly', 'tenderness'),
   ('passionately', 'passionate'),
   ('addicted', 'addiction'),
-  ('addict', 'addiction'),
-  ('addict', 'addicted'),
   ('impulsive', 'impulse'),
   ('verbally', 'verbal'),
   ('humiliating', 'humiliation'),
@@ -1048,15 +1039,11 @@ const List<(String, String)> similarWordPairs = [
   ('liberate', 'liberation'),
   ('animate', 'animation'),
   ('fluency', 'fluently'),
-  ('nutritious', 'nutrition'),
-  ('attentively', 'attentive'),
   ('disapprove', 'disapproval'),
   ('impatiently', 'patiently'),
   ('amuse', 'amusing'),
   ('grieve', 'grief'),
   ('specialize', 'specialty'),
-  // 심화 중간 — eco·mutton·polo·predicate를 빼며 어려움에서 넘어온 말(2026-11-26)
-  ('meditate', 'meditation'),
   // 심화 중간 칸 마지막 검토 — 뜻이 같거나 어원이 같은 쌍(2026-11-26)
   ('gross', 'disgusting'),
   ('tender', 'affectionate'),
@@ -1155,7 +1142,6 @@ const List<(String, String)> similarWordPairs = [
   ('affectionate', 'tenderly'),
   ('affectionate', 'tenderness'),
   ('fondness', 'affectionate'),
-  ('fondness', 'lovingly'),
   ('affectionate', 'fondly'),
   ('bearing', 'unbearable'),
   ('universal', 'globally'),
@@ -1180,13 +1166,11 @@ const List<(String, String)> similarWordPairs = [
   ('partial', 'segment'),
   ('segment', 'sector'),
   ('innocently', 'spite'),
-  ('dude', 'playmate'),
   ('unmistakably', 'definite'),
   ('marked', 'definite'),
   ('disorganized', 'well-organized'),
   ('disorganized', 'reorganize'),
   ('irritate', 'bad-tempered'),
-  ('narrate', 'predicative'),
   ('preoccupy', 'possessed'),
   ('preoccupy', 'intent'),
   ('circuit', 'circular'),
@@ -1205,7 +1189,6 @@ const List<(String, String)> similarWordPairs = [
   ('irresistibly', 'invitingly'),
   ('inflate', 'magnify'),
   ('outing', 'getaway'),
-  ('alliance', 'commonwealth'),
 ];
 
 final Map<String, Set<String>> _partners = () {
