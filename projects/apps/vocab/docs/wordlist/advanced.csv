@@ -1177,14 +1177,14 @@ bartender,B2,22671,2,1,advanced_easy,사람·직업
 stylish,B1,22836,2,1,advanced_easy,파생 부사·형용사
 pee,B2,23099,2,1,advanced_easy,구어·속어
 creatively,B2,23215,2,1,advanced_easy,파생 부사·형용사
-stepmother,B2,23252,2,1,advanced_easy,사람·직업
-bruise,B2,23254,2,1,advanced_easy,의학·건강 말
-foolishly,B2,23389,2,1,advanced_easy,파생 부사·형용사
-tulip,B2,24082,2,1,advanced_easy,자연·동물
-stepfather,B2,24345,2,1,advanced_easy,사람·직업
-leash,B2,24438,2,1,advanced_easy,일상 구체 명사
-tiring,B1,24451,2,1,advanced_easy,다른 말의 변화형
-zebra,B2,24624,2,1,advanced_easy,자연·동물
+stepmother,B2,23252,2,1,advanced_medium,사람·직업
+bruise,B2,23254,2,1,advanced_medium,의학·건강 말
+foolishly,B2,23389,2,1,advanced_medium,파생 부사·형용사
+tulip,B2,24082,2,1,advanced_medium,자연·동물
+stepfather,B2,24345,2,1,advanced_medium,사람·직업
+leash,B2,24438,2,1,advanced_medium,일상 구체 명사
+tiring,B1,24451,2,1,advanced_medium,다른 말의 변화형
+zebra,B2,24624,2,1,advanced_medium,자연·동물
 roommate,B2,24978,2,1,advanced_medium,사람·직업
 inhale,B1,25258,2,1,advanced_medium,일반 동사
 rhinoceros,B2,25432,2,1,advanced_medium,자연·동물
@@ -2353,21 +2353,21 @@ boredom,B1,17294,2,2,advanced_medium,감정·상태 말
 involuntarily,B1,17327,2,2,advanced_medium,파생 부사·형용사
 fondness,B1,17620,2,2,advanced_medium,감정·상태 말
 distract,B2,17777,2,2,advanced_medium,일반 동사
-misty,B1,17837,2,2,advanced_medium,파생 부사·형용사
-cursor,B2,17856,2,2,advanced_medium,IT·매체 말
-stab,B2,17904,2,2,advanced_medium,일반 동사
-liberate,B1,17914,2,2,advanced_medium,일반 동사
-booking,B1,17922,2,2,advanced_medium,일반 명사
-waterproof,B2,17966,2,2,advanced_medium,합성어
-sophomore,B1,17987,2,2,advanced_medium,영국 생활·제도 말
-disapprove,B2,17988,2,2,advanced_medium,반대말 파생어
-bully,B2,18025,2,2,advanced_medium,사람·직업
-unfairly,B1,18062,2,2,advanced_medium,드문 파생어
-animate,B2,18134,2,2,advanced_medium,뜻이 여럿인 말
-tricky,B2,18253,2,2,advanced_medium,일반 형용사
-generalize,B2,18350,2,2,advanced_medium,추상 동사
-disconnect,B2,18361,2,2,advanced_medium,반대말 파생어
-newcomer,B1,18390,2,2,advanced_medium,사람·직업
+misty,B1,17837,2,2,advanced_hard,파생 부사·형용사
+cursor,B2,17856,2,2,advanced_hard,IT·매체 말
+stab,B2,17904,2,2,advanced_hard,일반 동사
+liberate,B1,17914,2,2,advanced_hard,일반 동사
+booking,B1,17922,2,2,advanced_hard,일반 명사
+waterproof,B2,17966,2,2,advanced_hard,합성어
+sophomore,B1,17987,2,2,advanced_hard,영국 생활·제도 말
+disapprove,B2,17988,2,2,advanced_hard,반대말 파생어
+bully,B2,18025,2,2,advanced_hard,사람·직업
+unfairly,B1,18062,2,2,advanced_hard,드문 파생어
+animate,B2,18134,2,2,advanced_hard,뜻이 여럿인 말
+tricky,B2,18253,2,2,advanced_hard,일반 형용사
+generalize,B2,18350,2,2,advanced_hard,추상 동사
+disconnect,B2,18361,2,2,advanced_hard,반대말 파생어
+newcomer,B1,18390,2,2,advanced_hard,사람·직업
 nervousness,B1,18442,2,2,advanced_hard,감정·상태 말
 dishonesty,B2,18480,2,2,advanced_hard,반대말 파생어
 inject,B1,18530,2,2,advanced_hard,의학·건강 말
@@ -3289,7 +3289,6 @@ timeliness,B2,21367,2,3,advanced_hard,드문 파생어
 columnist,B1,21502,2,3,advanced_hard,사람·직업
 waistcoat,B2,21510,2,3,advanced_hard,영국 생활·제도 말
 polio,B2,21561,2,3,advanced_hard,의학·건강 말
-referent,B2,21565,2,3,advanced_hard,문법 용어
 wither,B1,21645,2,3,advanced_hard,문학적·드문 말
 glorify,B2,21652,2,3,advanced_hard,문학적·드문 말
 deforestation,B2,21655,2,3,advanced_hard,과학·학술 말
@@ -3300,13 +3299,11 @@ enthusiast,B1,21769,2,3,advanced_hard,드문 파생어
 modernize,B2,21805,2,3,advanced_hard,드문 파생어
 intrude,B2,21872,2,3,advanced_hard,일반 동사
 truthfulness,B2,22004,2,3,advanced_hard,드문 파생어
-uplifted,B1,22014,2,3,advanced_hard,다른 말의 변화형
 subside,B2,22144,2,3,advanced_hard,추상 동사
 amplify,B2,22150,2,3,advanced_hard,과학·학술 말
 subjunctive,B2,22309,2,3,advanced_hard,문법 용어
 showcase,B2,22346,2,3,advanced_hard,뜻이 여럿인 말
 hone,B2,22421,2,3,advanced_hard,일반 동사
-nano,B2,22496,2,3,advanced_hard,과학·학술 말
 bewilderment,B2,22551,2,3,advanced_hard,감정·상태 말
 exclaim,B2,22621,2,3,advanced_hard,일반 동사
 archaeologist,B2,22631,2,3,advanced_hard,사람·직업
@@ -3370,7 +3367,6 @@ sliver,B2,27520,2,3,advanced_hard,문학적·드문 말
 maestro,B2,27534,2,3,advanced_hard,문학적·드문 말
 contaminate,B2,27590,2,3,advanced_hard,과학·학술 말
 indignity,B2,27607,2,3,advanced_hard,문학적·드문 말
-adverbial,B1,27724,2,3,advanced_hard,문법 용어
 clog,B2,27899,2,3,advanced_hard,일반 동사
 stagger,B2,27950,2,3,advanced_hard,일반 동사
 bellow,B2,27961,2,3,advanced_hard,문학적·드문 말
@@ -3390,12 +3386,10 @@ intransitive,B2,29282,2,3,advanced_hard,문법 용어
 indent,B2,29300,2,3,advanced_hard,IT·매체 말
 fearsome,B2,29649,2,3,advanced_hard,문학적·드문 말
 nomad,B2,29794,2,3,advanced_hard,역사·종교 말
-humbug,B2,29817,2,3,advanced_hard,문학적·드문 말
 soliloquy,B2,30141,2,3,advanced_hard,문학적·드문 말
 dazzle,B1,30478,2,3,advanced_hard,문학적·드문 말
 offhand,B2,30511,2,3,advanced_hard,격식어
 leek,B2,30577,2,3,advanced_hard,음식
-collocation,B2,30737,2,3,advanced_hard,문법 용어
 microorganism,B2,30746,2,3,advanced_hard,과학·학술 말
 anticancer,B2,30901,2,3,advanced_hard,의학·건강 말
 antiaircraft,B2,30928,2,3,advanced_hard,합성어
@@ -3412,7 +3406,6 @@ quarrelsome,B2,32785,2,3,advanced_hard,드문 파생어
 steely,B2,33040,2,3,advanced_hard,문학적·드문 말
 feverishly,B1,33154,2,3,advanced_hard,드문 파생어
 overshadow,B2,33317,2,3,advanced_hard,추상 동사
-scholasticism,B2,33503,2,3,advanced_hard,역사·종교 말
 daze,B1,33890,2,3,advanced_hard,문학적·드문 말
 daft,B2,33982,2,3,advanced_hard,구어·속어
 posh,B2,34370,2,3,advanced_hard,구어·속어
@@ -3463,12 +3456,10 @@ skylark,B2,40748,2,3,advanced_hard,자연·동물
 Olympiad,B2,41463,2,3,advanced_hard,역사·종교 말
 giveaway,B2,41658,2,3,advanced_hard,구어·속어
 unfashionable,B2,41841,2,3,advanced_hard,반대말 파생어
-wallboard,B2,42374,2,3,advanced_hard,합성어
 citywide,B2,42606,2,3,advanced_hard,합성어
 dignify,B2,42653,2,3,advanced_hard,드문 파생어
 ageless,B2,43463,2,3,advanced_hard,드문 파생어
 devastate,B1,44415,2,3,advanced_hard,격식어
-undreamed,B2,44709,2,3,advanced_hard,문학적·드문 말
 impermanent,B2,45553,2,3,advanced_hard,반대말 파생어
 crossly,B2,45699,2,3,advanced_hard,드문 파생어
 respectably,B2,45892,2,3,advanced_hard,파생 부사·형용사
@@ -3487,13 +3478,10 @@ keystroke,B2,49227,2,3,advanced_hard,IT·매체 말
 unashamedly,B2,49475,2,3,advanced_hard,드문 파생어
 aborigine,B1,49539,2,3,advanced_hard,역사·종교 말
 quotable,B2,49856,2,3,advanced_hard,드문 파생어
-glacis,B2,50847,2,3,advanced_hard,전문 분야 말
 bewilder,B2,50874,2,3,advanced_hard,감정·상태 말
 unworldly,B2,51434,2,3,advanced_hard,드문 파생어
 hijack,B2,52428,2,3,advanced_hard,일반 동사
 outshine,B2,52641,2,3,advanced_hard,문학적·드문 말
-habitant,B2,52996,2,3,advanced_hard,문학적·드문 말
-untrimmed,B2,53457,2,3,advanced_hard,드문 파생어
 splatter,B2,53462,2,3,advanced_hard,일반 동사
 paperless,B2,53831,2,3,advanced_hard,드문 파생어
 mistrustful,B2,53832,2,3,advanced_hard,반대말 파생어
@@ -3515,15 +3503,11 @@ mechanize,B2,59408,2,3,advanced_hard,드문 파생어
 woodcarving,B2,61436,2,3,advanced_hard,합성어
 masseur,B2,61522,2,3,advanced_hard,사람·직업
 antipollution,B2,61551,2,3,advanced_hard,합성어
-tatter,B2,61639,2,3,advanced_hard,문학적·드문 말
 agonize,B2,62779,2,3,advanced_hard,문학적·드문 말
 speeder,B2,62891,2,3,advanced_hard,구어·속어
 flunk,B1,63535,2,3,advanced_hard,구어·속어
-walkabout,B2,63591,2,3,advanced_hard,영국 생활·제도 말
-recommendable,B2,64447,2,3,advanced_hard,드문 파생어
 idolize,B2,65338,2,3,advanced_hard,일반 동사
 horrify,B1,68267,2,3,advanced_hard,일반 동사
-balky,B2,69075,2,3,advanced_hard,문학적·드문 말
 dehumanize,B2,69892,2,3,advanced_hard,드문 파생어
 gook,B2,70160,2,3,advanced_hard,구어·속어
 housemaster,B2,70924,2,3,advanced_hard,영국 생활·제도 말
@@ -3532,8 +3516,6 @@ italicize,B2,71454,2,3,advanced_hard,문법 용어
 shoplifter,B2,72601,2,3,advanced_hard,드문 파생어
 outdistance,B2,73191,2,3,advanced_hard,문학적·드문 말
 noticeboard,B1,80588,2,3,advanced_hard,영국 생활·제도 말
-unusualness,B2,81152,2,3,advanced_hard,드문 파생어
-prehuman,B2,82161,2,3,advanced_hard,드문 파생어
 moonscape,B2,84214,2,3,advanced_hard,문학적·드문 말
 burgle,B2,91303,2,3,advanced_hard,영국 생활·제도 말
 shoplift,B2,93222,2,3,advanced_hard,드문 파생어
@@ -3541,10 +3523,6 @@ unthinkably,B2,95624,2,3,advanced_hard,드문 파생어
 layabout,B2,99427,2,3,advanced_hard,구어·속어
 anchorperson,B2,114044,2,3,advanced_hard,합성어
 overbook,B2,118205,2,3,advanced_hard,전문 분야 말
-conferencing,B2,,2,3,advanced_hard,IT·매체 말
-cyberaddict,B2,,2,3,advanced_hard,IT·매체 말
-glocal,B2,,2,3,advanced_hard,사회·경제 주제
-netsurfer,B2,,2,3,advanced_hard,IT·매체 말
 pH,B2,,2,3,advanced_hard,과학·학술 말
 preindustrial,B2,,2,3,advanced_hard,드문 파생어
 showbiz,B2,,2,3,advanced_hard,구어·속어

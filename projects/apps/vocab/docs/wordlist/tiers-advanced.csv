@@ -60,7 +60,7 @@ advancement,2,추상 명사,2
 advent,2,격식어,3
 adventurous,2,일반 형용사,2
 adverb,2,문법 용어,2
-adverbial,2,문법 용어,3
+adverbial,x,넣지 않음(사용자 결정 — 어려움 칸 마지막 검토 뒤 뺄 말),
 adverse,2,격식어,3
 adversely,2,격식어,3
 adversity,2,문학적·드문 말,3
@@ -235,7 +235,7 @@ baker,1,사람·직업,1
 bakery,1,일상 구체 명사,1
 balanced,2,다른 말의 변화형,2
 bald,2,일반 형용사,1
-balky,2,문학적·드문 말,3
+balky,x,넣지 않음(사용자 결정 — 어려움 칸 마지막 검토 뒤 뺄 말),
 ballad,2,문학적·드문 말,3
 ballet,2,운동·여가,1
 ballot,2,법·정치 말,3
@@ -559,7 +559,7 @@ coincidence,2,추상 명사,3
 collar,1,일상 구체 명사,1
 colleague,2,사람·직업,2
 collector,2,사람·직업,2
-collocation,2,문법 용어,3
+collocation,x,넣지 않음(사용자 결정 — 어려움 칸 마지막 검토 뒤 뺄 말),
 colon,2,문법 용어,3
 colonial,2,역사·종교 말,3
 columnist,2,사람·직업,3
@@ -614,7 +614,7 @@ condemn,2,추상 동사,3
 conductor,2,사람·직업,1
 cone,2,일상 구체 명사,1
 conference,2,일반 명사,1
-conferencing,2,IT·매체 말,3
+conferencing,x,넣지 않음(사용자 결정 — 어려움 칸 마지막 검토 뒤 뺄 말),
 confess,2,일반 동사,1
 confession,2,추상 명사,1
 confidently,2,파생 부사·형용사,1
@@ -741,7 +741,7 @@ curtain,1,일상 구체 명사,1
 curve,2,일반 명사,1
 cushion,1,일상 구체 명사,1
 customs,2,사회·경제 주제,2
-cyberaddict,2,IT·매체 말,3
+cyberaddict,x,넣지 않음(사용자 결정 — 어려움 칸 마지막 검토 뒤 뺄 말),
 cybercafe,x,넣지 않음(사용자 결정 — 심화 어려움 묶음 1~3 검토 뒤 뺄 말),
 cybercrime,2,IT·매체 말,3
 cyberpet,x,넣지 않음(사용자 결정 — 심화 어려움 묶음 1~3 검토 뒤 뺄 말),
@@ -1344,7 +1344,7 @@ giggle,2,일반 동사,1
 ginger,1,음식,1
 giraffe,1,자연·동물,1
 giveaway,2,구어·속어,3
-glacis,2,전문 분야 말,3
+glacis,x,넣지 않음(사용자 결정 — 어려움 칸 마지막 검토 뒤 뺄 말),
 glamorous,2,일반 형용사,3
 glance,2,일반 동사,1
 glare,2,일반 동사,2
@@ -1354,7 +1354,7 @@ glide,2,일반 동사,2
 glimpse,2,일반 동사,2
 glint,2,문학적·드문 말,3
 globally,2,파생 부사·형용사,2
-glocal,2,사회·경제 주제,3
+glocal,x,넣지 않음(사용자 결정 — 어려움 칸 마지막 검토 뒤 뺄 말),
 gloomy,2,일반 형용사,2
 glorify,2,문학적·드문 말,3
 glorious,2,일반 형용사,2
@@ -1414,7 +1414,7 @@ guts,2,구어·속어,3
 gym,1,운동·여가,1
 gymnastic,2,드문 파생어,2
 gymnastics,1,운동·여가,1
-habitant,2,문학적·드문 말,3
+habitant,x,넣지 않음(사용자 결정 — 어려움 칸 마지막 검토 뒤 뺄 말),
 hail,2,뜻이 여럿인 말,3
 hairdresser,1,사람·직업,1
 hairdryer,1,일상 구체 명사,1
@@ -1515,7 +1515,7 @@ humane,2,일반 형용사,3
 humanist,2,역사·종교 말,3
 humanize,2,드문 파생어,3
 humble,2,일반 형용사,2
-humbug,2,문학적·드문 말,3
+humbug,x,넣지 않음(사용자 결정 — 어려움 칸 마지막 검토 뒤 뺄 말),
 humid,2,일반 형용사,1
 humiliate,2,감정·상태 말,2
 humiliating,2,감정·상태 말,2
@@ -2036,7 +2036,7 @@ mutton,x,넣지 않음(사용자 결정 — 영국식·흔한 말은 lamb),
 mystify,2,문학적·드문 말,3
 nail,1,일상 구체 명사,1
 naked,2,일반 형용사,2
-nano,2,과학·학술 말,3
+nano,x,넣지 않음(사용자 결정 — 어려움 칸 마지막 검토 뒤 뺄 말),
 nap,1,일상 구체 명사,1
 narcissistic,2,과학·학술 말,3
 narrate,2,추상 동사,2
@@ -2068,7 +2068,7 @@ nerves,x,넣지 않음(사용자 결정 — nerve의 복수형),
 nervously,2,파생 부사·형용사,1
 nervousness,2,감정·상태 말,2
 ness,2,영국 생활·제도 말,3
-netsurfer,2,IT·매체 말,3
+netsurfer,x,넣지 않음(사용자 결정 — 어려움 칸 마지막 검토 뒤 뺄 말),
 neurosis,2,의학·건강 말,3
 newborn,1,일상 구체 명사,1
 newcomer,2,사람·직업,2
@@ -2418,7 +2418,7 @@ preferably,2,부사,1
 prefix,2,문법 용어,2
 pregnant,2,의학·건강 말,1
 prehistoric,2,역사·종교 말,1
-prehuman,2,드문 파생어,3
+prehuman,x,넣지 않음(사용자 결정 — 어려움 칸 마지막 검토 뒤 뺄 말),
 preindustrial,2,드문 파생어,3
 prejudge,2,드문 파생어,3
 preliminary,2,격식어,2
@@ -2574,7 +2574,7 @@ reclaim,2,격식어,3
 recognition,2,추상 명사,2
 recollect,2,격식어,3
 recollection,2,격식어,3
-recommendable,2,드문 파생어,3
+recommendable,x,넣지 않음(사용자 결정 — 어려움 칸 마지막 검토 뒤 뺄 말),
 recommendation,2,추상 명사,2
 reconsider,2,일반 동사,2
 recording,2,IT·매체 말,1
@@ -2588,7 +2588,7 @@ reed,2,자연·동물,2
 reef,1,자연·동물,1
 referee,1,운동·여가,1
 reference,2,추상 명사,2
-referent,2,문법 용어,3
+referent,x,넣지 않음(사용자 결정 — 어려움 칸 마지막 검토 뒤 뺄 말),
 refinery,2,전문 분야 말,3
 reflective,2,추상 형용사,3
 reform,2,법·정치 말,2
@@ -2769,7 +2769,7 @@ scheduled,2,다른 말의 변화형,2
 scheme,2,추상 명사,3
 scholar,2,사람·직업,2
 scholarship,2,일반 명사,2
-scholasticism,2,역사·종교 말,3
+scholasticism,x,넣지 않음(사용자 결정 — 어려움 칸 마지막 검토 뒤 뺄 말),
 schoolgirl,2,합성어,1
 schoolmate,1,합성어,1
 schoolteacher,1,합성어,1
@@ -3154,7 +3154,7 @@ tanned,2,다른 말의 변화형,1
 taste,2,뜻이 여럿인 말,1
 tasteless,2,파생 부사·형용사,1
 tasty,1,파생 부사·형용사,1
-tatter,2,문학적·드문 말,3
+tatter,x,넣지 않음(사용자 결정 — 어려움 칸 마지막 검토 뒤 뺄 말),
 tattoo,2,일반 명사,1
 taunt,2,추상 동사,3
 teaching,2,다른 말의 변화형,2
@@ -3364,7 +3364,7 @@ undertake,2,격식어,3
 underwear,2,일상 구체 명사,1
 undo,2,일반 동사,1
 undoubtedly,2,부사,2
-undreamed,2,문학적·드문 말,3
+undreamed,x,넣지 않음(사용자 결정 — 어려움 칸 마지막 검토 뒤 뺄 말),
 undress,2,일반 동사,1
 undressed,x,넣지 않음(사용자 결정 — 다른 말의 변화형),
 unease,2,감정·상태 말,2
@@ -3424,9 +3424,9 @@ untidy,2,반대말 파생어,1
 untie,2,일반 동사,1
 unto,x,넣지 않음(사용자 결정 — 심화 어려움 묶음 1~3 검토 뒤 뺄 말),
 untreated,2,드문 파생어,2
-untrimmed,2,드문 파생어,3
+untrimmed,x,넣지 않음(사용자 결정 — 어려움 칸 마지막 검토 뒤 뺄 말),
 unusually,2,부사,1
-unusualness,2,드문 파생어,3
+unusualness,x,넣지 않음(사용자 결정 — 어려움 칸 마지막 검토 뒤 뺄 말),
 unwanted,2,반대말 파생어,1
 unwell,2,반대말 파생어,1
 unwilling,2,반대말 파생어,2
@@ -3435,7 +3435,7 @@ unworldly,2,드문 파생어,3
 up-to-date,2,일반 형용사,2
 upbringing,2,추상 명사,2
 upgrade,2,IT·매체 말,2
-uplifted,2,다른 말의 변화형,3
+uplifted,x,넣지 않음(사용자 결정 — 어려움 칸 마지막 검토 뒤 뺄 말),
 upload,2,IT·매체 말,1
 upper,1,일반 형용사,1
 upright,2,일반 형용사,3
@@ -3506,9 +3506,9 @@ wage,2,사회·경제 주제,2
 wagon,2,일상 구체 명사,1
 waist,2,일상 구체 명사,1
 waistcoat,2,영국 생활·제도 말,3
-walkabout,2,영국 생활·제도 말,3
+walkabout,x,넣지 않음(사용자 결정 — 어려움 칸 마지막 검토 뒤 뺄 말),
 walker,2,사람·직업,1
-wallboard,2,합성어,3
+wallboard,x,넣지 않음(사용자 결정 — 어려움 칸 마지막 검토 뒤 뺄 말),
 walnut,2,음식,1
 ward,2,뜻이 여럿인 말,3
 wardrobe,1,일상 구체 명사,1

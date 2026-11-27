@@ -22,20 +22,16 @@ const _expectedCount = {
   Cell.highEasy: 500,
   Cell.highMedium: 500,
   Cell.highHard: 500,
-  Cell.advancedEasy: 1184,
-  Cell.advancedMedium: 1183,
-  Cell.advancedHard: 1183,
+  Cell.advancedEasy: 1176,
+  Cell.advancedMedium: 1176,
+  Cell.advancedHard: 1176,
 };
 
 /// 단어를 묶음으로 나눠 넣는 중인 칸 — 이 칸만 개수를 "0개 이상, 기대값 이하"로 본다.
-/// 나머지 칸은 늘 정확히 기대값이다. 지금은 심화 세 칸(4차 — 단어를 묶음으로 넣는 중). 마지막 묶음 뒤 비운다
+/// 나머지 칸은 늘 정확히 기대값이다. 지금은 비어 있다 — 심화 세 칸은 2026-11-27 다 찼다(4차 4단계 끝).
 /// (docs/plan-words-phase3.md 3·4단계 방식).
 /// 옛 번호가 섞이는 것은 아래 번호 형식 검사(`w-\d{4}`만)가 잡는다.
-const _filling = <Cell>{
-  Cell.advancedEasy,
-  Cell.advancedMedium,
-  Cell.advancedHard,
-};
+const _filling = <Cell>{};
 
 /// 단어 번호: 칸과 무관한 새 번호(`w-0001`)만. 예전 칸별 번호(`ee-001` 등)는 초·중·고 모두
 /// CEFR-J로 바꾸며 지웠고 DB 8·9·10판이 그 기록도 지웠다 — 다시 들어오면 여기서 잡힌다.

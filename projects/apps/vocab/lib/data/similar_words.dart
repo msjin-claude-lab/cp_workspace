@@ -739,7 +739,6 @@ const List<(String, String)> similarWordPairs = [
   ('clap', 'applause'), // 박수를 치다 / 박수
   ('stylish', 'fashionable'), // 맵시 있는 / 멋을 낸
   ('stylish', 'elegant'), // 맵시 있는 / 세련된
-  ('tiring', 'exhausting'), // 피곤하게 하는 / 몹시 지치게 하는
   ('salesperson', 'salesman'), // 판매 담당자 / 판매원
   ('eyelid', 'lid'), // (위아래) 눈꺼풀 / 눈꺼풀
   // 심화 쉬움 묶음 10~12 — 어원이 같음
@@ -801,8 +800,6 @@ const List<(String, String)> similarWordPairs = [
   ('landlady', 'landlord'),
   ('creatively', 'creation'),
   ('creatively', 'creator'),
-  ('foolishly', 'foolish'),
-  ('tiring', 'tire'),
   // 심화 중간 묶음 1~3 — 뜻이 거의 같음
   ('assessment', 'evaluation'), // (실력·상황의) 평가 / 평가
   ('dated', 'old-fashioned'), // 시대에 뒤떨어진 / 구식의
@@ -994,7 +991,6 @@ const List<(String, String)> similarWordPairs = [
   ('widen', 'broaden'),
   ('pharmacist', 'chemist'),
   ('predicament', 'dilemma'),
-  ('unjustly', 'unfairly'),
   ('unjustly', 'wrongly'),
   ('politeness', 'courtesy'),
   ('softness', 'tenderness'),
@@ -1034,9 +1030,6 @@ const List<(String, String)> similarWordPairs = [
   ('humiliating', 'humiliation'),
   ('astronomer', 'astronomy'),
   ('hospitable', 'hospitality'),
-  ('liberate', 'liberation'),
-  ('animate', 'animation'),
-  ('disapprove', 'disapproval'),
   ('impatiently', 'patiently'),
   ('amuse', 'amusing'),
   ('grieve', 'grief'),
@@ -1055,7 +1048,6 @@ const List<(String, String)> similarWordPairs = [
   ('lame', 'limp'),
   ('rash', 'carelessness'),
   ('gene', 'genetically'),
-  ('liberal', 'liberate'),
   ('liberal', 'liberation'),
   ('liberal', 'generosity'),
   ('liberal', 'generously'),
@@ -1494,7 +1486,6 @@ const List<(String, String)> similarWordPairs = [
   ('enthusiastically', 'unenthusiastic'),
   ('mortify', 'humiliate'),
   ('aborigine', 'aboriginal'),
-  ('cyberaddict', 'addict'),
   ('workaholic', 'addict'),
   ('unthinkably', 'unimaginably'),
   ('outshine', 'overshadow'),
@@ -1506,7 +1497,6 @@ const List<(String, String)> similarWordPairs = [
   ('shoplifting', 'shoplift'),
   ('feverishly', 'frantically'),
   ('beautify', 'adorn'),
-  ('adverbial', 'adverb'),
   ('indignity', 'dignity'),
   ('dignify', 'dignity'),
   ('shoplifter', 'burglar'),
@@ -1562,6 +1552,9 @@ const List<(String, String)> similarWordPairs = [
   ('deforestation', 'forestry'),
   ('humane', 'humanize'),
   ('tramp', 'trample'),
+  // 심화 어려움 — 22개를 빼며 중간 칸에서 옮겨 온 말과의 쌍(2026-11-27)
+  ('prick', 'stab'), // 콕 찌르다 / 찌르다
+  ('picky', 'tricky'), // 까다롭게 고르는 / 까다로운
 ];
 
 final Map<String, Set<String>> _partners = () {
