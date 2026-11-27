@@ -120,13 +120,12 @@ void main() {
     expect(find.byType(LevelPickerScreen), findsOneWidget);
     expect(find.text('학교급을 고르세요'), findsOneWidget);
     expect(find.text('새 단어장 - 아침 단어'), findsOneWidget);
-    // 세로: 초등·중등·고등 버튼이 위에서 아래로
+    // 세로: 초등·중등·고등·심화 버튼이 위에서 아래로
     final y = [
       for (final level in SchoolLevel.values)
-        if (level != SchoolLevel.advanced) // 심화는 숨겨져 있다
-          tester.getTopLeft(find.byKey(ValueKey('pick-${level.name}'))).dy,
+        tester.getTopLeft(find.byKey(ValueKey('pick-${level.name}'))).dy,
     ];
-    expect(y[0] < y[1] && y[1] < y[2], isTrue);
+    expect(y[0] < y[1] && y[1] < y[2] && y[2] < y[3], isTrue);
 
     await tap(tester, 'pick-middle');
     expect(find.byType(DifficultyPickerScreen), findsOneWidget);
@@ -159,8 +158,23 @@ void main() {
     expect(find.text('오답 노트 · 0단어'), findsOneWidget);
   });
 
-  testWidgets('심화는 기본으로 숨겨져 학교급 고르기에 없고, 주소로 열어도 없는 학교급이다', (tester) async {
+  testWidgets('심화는 기본으로 학교급 고르기에 보인다(4차 6단계에서 염)', (tester) async {
     await pumpApp(tester);
+    await tap(tester, 'start-create');
+    await enterName(tester, '열림');
+
+    expect(find.byKey(const ValueKey('pick-advanced')), findsOneWidget);
+    expect(
+      find.descendant(
+        of: find.byKey(const ValueKey('pick-advanced')),
+        matching: find.text('심화'),
+      ),
+      findsOneWidget,
+    );
+  });
+
+  testWidgets('숨긴 학교급은 학교급 고르기에 없고, 주소로 열어도 없는 학교급이다', (tester) async {
+    await pumpApp(tester, hiddenLevels: const {SchoolLevel.advanced});
     await tap(tester, 'start-create');
     await enterName(tester, '숨김');
 
@@ -176,13 +190,13 @@ void main() {
     expect(find.byKey(const ValueKey('pick-advanced_easy')), findsNothing);
   });
 
-  testWidgets('숨김을 풀면 심화가 보이고, 쉬움 버튼에만 둘째 줄이 있으며 화면 폭 360에서 넘치지 않는다', (
+  testWidgets('심화 난이도 화면은 쉬움 버튼에만 둘째 줄이 있고 화면 폭 360에서 넘치지 않는다', (
     tester,
   ) async {
     tester.view.physicalSize = const Size(360, 800);
     tester.view.devicePixelRatio = 1;
     addTearDown(tester.view.reset);
-    await pumpApp(tester, hiddenLevels: const {});
+    await pumpApp(tester);
     await tap(tester, 'start-create');
     await enterName(tester, '심화 시험');
 
