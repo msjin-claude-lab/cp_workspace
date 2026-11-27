@@ -11,7 +11,7 @@
 ### 지금 상태 한눈에
 
 - **앱에 든 단어(화면에 보이는 것)는 초·중·고 CEFR-J 3,000개 그대로다**: 초등 800(267 · 267 · 266) · 중등 700(234 · 233 · 233) · 고등 1,500(500 · 500 · 500)
-- **4차 심화는 6단계 중 4단계까지 끝났다(2026-11-27 사내망 PC)**: 1~3단계 끝(목록 고정 — 4단계 검토 뒤 사용자 결정으로 81개를 더 빼 **3,528개**, 넷째 학교급 "심화" 코드 — **고르기 화면에서 숨김**). 4단계(뜻·예문·해석)는 **세 칸 모두 다 쓰고 칸 마지막 검토까지 반영** — 쉬움 1,176개(`w-3001`~`w-4176`) · 중간 1,176개(`w-4177`~`w-5352`) · 어려움 1,176개(`w-5353`~`w-6528`), `_filling` 비움. 다음은 5단계 사람 표본 — 아래 "이어서 할 일" 1번. 심화가 숨겨져 있어 지금 빌드해 설치해도 사용자가 보는 앱은 2026-11-24와 같다
+- **4차 심화는 6단계 중 5단계까지 끝났다(2026-11-27 사내망 PC — 5단계 사람 표본 확정)**: 1~3단계 끝(목록 고정 — 4단계 검토 뒤 사용자 결정으로 81개를 더 빼 **3,528개**, 넷째 학교급 "심화" 코드 — **고르기 화면에서 숨김**). 4단계(뜻·예문·해석)는 **세 칸 모두 다 쓰고 칸 마지막 검토까지 반영** — 쉬움 1,176개(`w-3001`~`w-4176`) · 중간 1,176개(`w-4177`~`w-5352`) · 어려움 1,176개(`w-5353`~`w-6528`), `_filling` 비움. 다음은 6단계(검증·심화 열기) — 아래 "이어서 할 일" 1번. 심화가 숨겨져 있어 지금 빌드해 설치해도 사용자가 보는 앱은 2026-11-24와 같다
 - **DB 10판**, 시험(`flutter test`)은 **180개** — 네 단어를 뺀 `39e503d` 때 2026-11-25 밤 개인 PC에서 `flutter analyze` 문제없음·`flutter test` 180개 통과. 2026-11-26 사내망 PC에서 묶음 검토 반영·말 빼기마다 `cells.py check` 0건·`flutter analyze` 문제없음·`flutter test` 180개 통과를 보고 커밋했다(마지막 결과는 아래 진행 이력 끝 줄)
 - **마지막 검증**: [VERIFY.md](VERIFY.md) "마지막 결과"에 적힌 것은 2026-11-24 밤 개인 PC — 3차 고등 1,500 + DB 10판(`b05d702` 내용, 시험 170개 때)과 처음 설치 시작 화면까지다. 그 뒤의 설정 변경(`920af16`, 시험 177개)과 4차 3단계(시험 180개)는 `flutter analyze`·`flutter test` 통과까지이고 VERIFY.md에는 적지 않았다. **4차 변경분은 빌드·에뮬레이터 확인을 하지 않았다**(6단계, 개인 PC)
 - **마지막 release APK**: `D:\dev\tmp\vocab_apk\vocab-1.0.0-release-20261124-highschool.apk`(저장소 밖, 개인 PC — 커밋 `920af16`, 50.4MB). **디버그 키 서명**(폰에 직접 설치는 되고 스토어에는 못 올린다), 앱 이름·아이콘은 임시. APK 안에 단어 파일 9개·DB 파일 0개 — 기록은 기기에서 첫 실행 때 빈 DB로 생긴다(사용자 요구). 옛 것 `vocab-1.0.0-release.apk`(2026-11-23, 초등 800 때)도 같은 폴더에 있다
@@ -21,7 +21,8 @@
 ### 이어서 할 일 (순서대로)
 
 1. **4차 심화 — 4단계(뜻·예문·해석 쓰기)부터**. 계획서 [docs/plan-words-phase4.md](docs/plan-words-phase4.md)가 기준이다(2026-11-25 critic REVISE → 반영 → 재검토 APPROVE → 사용자 승인. 단계마다 "결과" 문단에 실제로 한 것과 계획과 달랐던 것이 있다)
-   - **다음에 할 일: 5단계 사람 표본** — 칸마다 무작위 20줄(60줄)을 사용자에게 보여 주고 고칠 것을 받아 `review-fixes-advanced.txt`에 덧붙이고 그 줄만 `cells.py --stage advanced fix`로 적용, seed와 사용자 답을 진행 이력에(계획서 5단계). 표본은 단어 json에서 뽑아 뜻·예문·해석까지 보여 준다(넣기로 한 민감한 말 25개 중 심화에 든 것은 따로 보여 준다 — 아래 "넣기로 한 25개의 뜻"). 빼야 할 말이 나오면 멈추고 묻는다. 그 뒤 6단계(심화 열기·검증·`/oh-my-claudecode:review`, 빌드·에뮬레이터는 개인 PC)
+   - **다음에 할 일: 6단계(검증·심화 열기)** — 계획서 [docs/plan-words-phase4.md](docs/plan-words-phase4.md) "6. 검증하고 기록한다" 순서대로: `hiddenLevelsProvider` 비우기와 숨김 시험 ① 고치기 → 네 학교급 `select.py` 재실행·csv diff 0 → 초·중·고 단어 파일이 `ce9b57a`와 같음 → `flutter analyze && flutter test && flutter build apk --debug`(사내망 PC build는 sqlite3 .so 때문에 안 될 수 있음 — 주의할 것) → `/oh-my-claudecode:review` 두 축(단어·코드 — 칸을 옮긴 말의 새 칸 유사어 쌍 포함) → 문서 갱신(VERIFY 기대값, "9칸" 문구 등) → 에뮬레이터 확인은 개인 PC
+   - **5단계 끝(2026-11-27 사내망 PC)**: 칸마다 무작위 20줄(seed 20261127, 목록 스크래치패드 `sample_step5.md`) → Claude가 짚은 3줄(backache·motion 해석, incentive "유인" → "동기 부여")을 사용자가 "제안 3줄만 고치고 확정". 넣기로 한 민감한 말 25개(모두 심화에 있음 — 쉬움 2 · 중간 7 · 어려움 16)를 따로 보임 → "dwarf만 고치고 확정"(뜻 "(이야기 속) 난쟁이, 왜성")
    - **4단계 끝(2026-11-27 사내망 PC)**: 어려움 묶음 10~12(`e077231`·`367b00d`·`2f459d5`, 유사어 123쌍) → 칸 마지막 code-reviewer 검토(COMMENT) 고칠 줄 14·유사어 47쌍(`52415dd`) → 사용자 결정으로 22개 뺌 → 칸 1,176개씩, 칸을 옮긴 말과 겹친 네 곳(tiring·prick·picky·detach) Claude가 고침·쌍 2개 → `_filling` 비움 → `cells.py --stage advanced check --full && flutter analyze && flutter test`
    - **칸을 옮긴 말의 새 칸 유사어 쌍은 아직 찾지 않았다** — 말을 뺄 때마다 경계가 밀려 쉬움 끝 말이 중간으로, 중간 끝 말이 어려움 앞으로 옮겼다(그 전 것들 — 쉬움 → 중간 roommate·inhale 등, 중간 → 어려움 nervousness~achievable 13개·punctual~unwell 8개·chunk~meditate 17개·giggle·tumble — 은 어려움 칸 마지막 검토가 봤다). **2026-11-27 22개를 뺀 뒤 또 옮겼다: 쉬움 → 중간 8개(stepmother~tiring 부근 — 쉬움 끝은 creatively), 중간 → 어려움 15개(misty~stab·tricky·disconnect 등 — 어려움 맨 앞 `w-5353`부터)** — 겹침 넷만 고쳤고 새 칸 유사어 쌍은 찾지 않았다. 칸이 갈린 옛 쌍은 지웠다(`similar_words_test`가 "쌍의 두 단어는 같은 칸"으로 잡는다). 6단계 `/oh-my-claudecode:review` 때 함께 본다
    - **executor 지시에 넣을 것**(검토에서 되풀이된 실수): 겹침을 피하려 새 단어의 대표 뜻을 빼지 말 것(상대의 덜 흔한 뜻을 줄이거나 같은 뜻의 다른 우리말 + 쌍), 해석은 예문 전체를 빠짐없이·뜻 목록의 말로, 예문 품사가 뜻에 있을 것, 한 글자 뜻·다른 흔한 말과 글자가 같은 한자어(감사·전시·소요·환영)·낯선 한자어 금지, 한쪽 뜻이 다른 쪽을 글자째 품으면(주다/수여하다, 돌다/맴돌다) 고치거나 쌍으로, 유사어는 스크립트로 꼼꼼히(어려움 묶음 1~3은 7쌍만 넣어 검토가 37쌍을 더함), 빼야 할 말은 쓰되 번호를 json에서 찾아 보고. 칸은 한 번에 하나씩(쉬움 → 중간 → 어려움), `docs/wordlist/advanced.csv` 순서대로 **100개 묶음**(칸마다 13묶음 — 마지막 묶음은 나머지 1~2개). 묶음마다 `python tool/wordlist/cells.py --stage advanced check && flutter test test/data/word_assets_test.dart test/data/similar_words_test.dart` 뒤 경로를 밝혀 `wip:` 커밋·push하고, 아래 "4단계에서 지금까지 쓴 것"을 고친다. code-reviewer 검토는 묶음 3 · 6 · 9 뒤와 마지막 묶음 뒤(마지막 검토는 칸 전체의 유사어 쌍도). 작성 규칙은 3차와 같다([docs/plan-words-phase3.md](docs/plan-words-phase3.md) "4. 뜻·예문·해석을 쓴다")
@@ -46,7 +47,7 @@
    - **4차 코드는 code-reviewer 검토 전이다** — 1단계(`select.py`·`cells.py`)와 3단계(Dart) 변경은 종료 코드와 시험으로만 확인했다. 계획대로 6단계의 `/oh-my-claudecode:review`에서 본다
    - **iOS 잠정 보류**(아래 "주의할 것")
 
-이어 가기: `/apps:selection-subject vocab` → "5단계 사람 표본부터"
+이어 가기: `/apps:selection-subject vocab` → "6단계부터"
 ### 지금 앱 (모두 사용자 결정)
 
 - **단어장**: 사용자가 "새 등록"으로 만든 이름 있는 단어장(`StudyDeck`, id `deck_<n>`, `lib/data/study_decks.dart`) = 이름 + 바탕 칸(학교급 × 난이도). 같은 학교급+난이도로 여러 개 만들 수 있고 기록·오답 노트·진도는 단어장마다 따로(`cell_id = deck_<n>`). 이름은 20자까지
@@ -255,3 +256,4 @@
 - 2026-11-26 사내망 PC · 종료 · 사용자 지시("현재 진행 작업까지만 하고 주제 종료, 인계 정리 뒤 커밋·push")로 어려움 묶음 10~12는 시작하지 않고 인계를 지금 기준으로 고침. 다음: 어려움 묶음 10~12(`w-6253`~`w-6550`)부터
 - 2026-11-27 사내망 PC · 개발 · 주제 재개, 심화 어려움 묶음 10~12(`w-6253`~`w-6550`, 298개) executor 작성 — 묶음마다 check 0건·단어 시험 통과 뒤 `e077231`·`367b00d`·`2f459d5` push, 유사어 123쌍(lark/skylark·transitive/intransitive 등), 상대 줄 violate·murmur·stumble 뜻 고침. 어려움 칸 1,183/1,183개 — 4단계 작성 끝. 다음: 칸 마지막 code-reviewer 검토
 - 2026-11-27 사내망 PC · 검토·선정 · 심화 어려움 칸 마지막 code-reviewer COMMENT → 고칠 줄 14개 `fix`(canon 정전(正典), startle "흠칫 놀라게 하다", strangle 예문, aborigine "낡고 낮잡는 말로 여겨짐", daft "(영국 구어)" 등)·유사어 47쌍(exaggerate/exaggeration 등 옮겨 온 말과의 쌍 14 포함) `52415dd`. 검토가 낸 빼기 권장 22개를 **사용자가 모두 뺌**(변화형·nano · 문법 전문어 3 · 드문 말 11 · walkabout·balky) → `select.py` 네 단계(초·중·고 csv 그대로) → `replace_ids.py` → 칸 1,176개씩, 칸이 갈린 쌍·뺀 말 쌍 10개 지움, 옮긴 말 겹침 넷(tiring·prick·picky·detach) 고침·쌍 2개, `_expectedCount` 1,176, `_filling` 비움. `cells.py --stage advanced check --full` 0건·`flutter analyze` 문제없음·`flutter test` 180개 통과 — **4차 4단계 끝**. 다음: 5단계 사람 표본
+- 2026-11-27 사내망 PC · 확인 · 4차 5단계 사람 표본: 칸마다 무작위 20줄(seed 20261127) → 사용자 "제안 3줄만 고치고 확정"(backache·motion 해석, incentive 뜻 "장려책, 동기 부여"), 민감한 말 25개 따로 보임 → "dwarf만 고치고 확정". `cells.py fix` 2회 뒤 `check --full` 0건 — **5단계 끝**. 다음: 6단계
