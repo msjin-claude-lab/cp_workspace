@@ -1555,6 +1555,32 @@ const List<(String, String)> similarWordPairs = [
   // 심화 어려움 — 22개를 빼며 중간 칸에서 옮겨 온 말과의 쌍(2026-11-27)
   ('prick', 'stab'), // 콕 찌르다 / 찌르다
   ('picky', 'tricky'), // 까다롭게 고르는 / 까다로운
+  // 심화 6단계 검토 — 칸을 옮긴 말과 새 칸 나머지의 쌍(2026-11-27)
+  ('foolishly', 'unwise'),
+  ('foolishly', 'dumb'),
+  ('foolishly', 'idiot'),
+  ('tiring', 'tiredness'),
+  ('tiring', 'exhaust'),
+  ('adorable', 'darling'),
+  ('checkout', 'calculation'),
+  ('undress', 'strip'),
+  ('sunbeam', 'beam'),
+  ('presenter', 'publication'),
+  ('silverware', 'implement'),
+  ('tasteless', 'elegance'),
+  ('gangster', 'tissue'),
+  ('stab', 'wound'),
+  ('booking', 'overbook'),
+  ('unfairly', 'impartial'),
+  ('animate', 'inanimate'),
+  ('generalize', 'generalization'),
+  ('disconnect', 'detachment'),
+  ('inject', 'intravenous'),
+  ('lovingly', 'beloved'),
+  ('fondly', 'devoted'),
+  ('lovingly', 'devoted'),
+  ('affectionately', 'devoted'),
+  ('exaggerate', 'inflate'),
 ];
 
 final Map<String, Set<String>> _partners = () {
