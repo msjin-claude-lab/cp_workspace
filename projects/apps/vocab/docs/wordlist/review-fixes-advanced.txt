@@ -236,3 +236,18 @@ w-6137|meaning|도달할 수 있는, 달성 가능한|이룰 수 있는이 옮�
 w-6137|exampleMeaning|그 목표는 노력하면 달성 가능하다.|위 뜻에 맞춤
 w-6234|meaning|다정하게|애정을 담아가 옮겨 온 fondly(w-5378)와 겹침. 해석은 이미 다정하게를 씀(쌍 affectionately/fondly · affectionately/lovingly)
 # (주의) 위 "어려움 묶음 7~9" 줄은 19개를 빼기 전 번호다(바로 위 다섯 곳 줄은 뺀 뒤 번호). 어려움은 지금 w-5368부터 — 다시 적용하지 않는다
+# --- advanced_hard 칸 마지막 검토, 묶음 10~12 w-6253~w-6550과 칸 전체(2026-11-27 사내망 PC code-reviewer, COMMENT — 지금 번호) ---
+w-5801|meaning|정전(正典), 규범|정전은 학생이 정전(停電)으로 먼저 읽는 흔한 한자어와 글자가 같음(선례 환영(幻影)·간(肝)). 해석 문학 정전은 그대로 둠
+w-6354|meaning|흠칫 놀라게 하다|놀래다의 과거형 놀랬다(해석)는 놀랐다의 틀린 표기로 읽힘. startle은 갑자기 흠칫 놀라게 하는 것이고 움찔하게 하다는 흠칫과 같은 말을 겹쳐 적은 셈. amaze(w-5502) 놀라게 하다를 글자째 품으므로 쌍 startle/amaze를 더함(startle/astonish는 이미 쌍)
+w-6354|exampleMeaning|큰 소리가 아기를 흠칫 놀라게 했다.|위 뜻에 맞춤
+w-6383|example|His tie was so tight that it seemed to strangle him.|뱀이 먹이의 목을 조른다는 문장은 사실과 어긋남(조이는 뱀은 몸 전체를 감아 조임). 대표 뜻 목을 조르다의 쓰임으로 바꿈
+w-6383|exampleMeaning|넥타이가 너무 꽉 조여서 그의 목을 조르는 것 같았다.|위 예문에 맞춤
+w-6485|meaning|(호주) 원주민(낡고 낮잡는 말로 여겨짐)|호주에서 Aborigine은 지금 낡고 낮잡는 말로 여겨 Aboriginal people을 씀. 같은 칸 bum·freak처럼 괄호로 밝힘(질문 3)
+w-6414|meaning|바보 같은(영국 구어), 얼빠진|daft는 영국의 가벼운 구어(silly)라 낮잡는 말(욕설·비하어)로 묶을 말이 아님. 선례 bum 엉덩이(영국 구어)(LOW)
+w-6495|example|Our school wants to have paperless classrooms.|학교가 종이 없는 사무실이 되고 싶다는 문장은 주어와 맞지 않음(LOW)
+w-6495|exampleMeaning|우리 학교는 종이를 쓰지 않는 교실을 만들고 싶어 한다.|위 예문에 맞춤(LOW)
+w-6285|exampleMeaning|시기적절했던 그의 경고가 많은 목숨을 구했다.|경고가 시기적절했던 덕분에 (누가) 목숨을 구했다는 주어가 빠진 꼴(LOW)
+w-6379|exampleMeaning|우리는 그 소식을 듣고 기쁨에 넘쳤다.|그 소식에 기쁨에 넘쳤다는 에가 겹친 어색한 꼴(LOW)
+w-6336|exampleMeaning|그는 이른 아침 말도 안 되는 시각에 내게 전화했다.|아침 말도 안 되는 시각은 뜻이 흐림. an ungodly hour of the morning은 말도 안 되게 이른 시각(LOW)
+w-6307|exampleMeaning|그는 어리둥절한 채로 지도를 바라보았다.|어리둥절함 속에는 in을 낱말마다 옮긴 번역투(LOW)
+w-6475|exampleMeaning|그는 미처 참지 못하고 비밀을 불쑥 말해 버렸다.|자신을 막기도 전에는 낱말마다 옮긴 번역투(LOW)
