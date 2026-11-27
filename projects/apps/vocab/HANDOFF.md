@@ -2,7 +2,7 @@
 
 이 앱의 진행 상태 기록이다(`projects/apps/CLAUDE.md` "주제 인계"). 규칙·명령·코드 구조는 [CLAUDE.md](CLAUDE.md).
 
-- 상태: 진행 중 · 2026-11-27 18시 · 사내망 PC
+- 상태: 종료 · 2026-11-27 · 사내망 PC
 
 ## 인계 — 새 세션은 여기부터 읽는다
 
@@ -257,3 +257,4 @@
 - 2026-11-27 사내망 PC · 검토·선정 · 심화 어려움 칸 마지막 code-reviewer COMMENT → 고칠 줄 14개 `fix`(canon 정전(正典), startle "흠칫 놀라게 하다", strangle 예문, aborigine "낡고 낮잡는 말로 여겨짐", daft "(영국 구어)" 등)·유사어 47쌍(exaggerate/exaggeration 등 옮겨 온 말과의 쌍 14 포함) `52415dd`. 검토가 낸 빼기 권장 22개를 **사용자가 모두 뺌**(변화형·nano · 문법 전문어 3 · 드문 말 11 · walkabout·balky) → `select.py` 네 단계(초·중·고 csv 그대로) → `replace_ids.py` → 칸 1,176개씩, 칸이 갈린 쌍·뺀 말 쌍 10개 지움, 옮긴 말 겹침 넷(tiring·prick·picky·detach) 고침·쌍 2개, `_expectedCount` 1,176, `_filling` 비움. `cells.py --stage advanced check --full` 0건·`flutter analyze` 문제없음·`flutter test` 180개 통과 — **4차 4단계 끝**. 다음: 5단계 사람 표본
 - 2026-11-27 사내망 PC · 확인 · 4차 5단계 사람 표본: 칸마다 무작위 20줄(seed 20261127) → 사용자 "제안 3줄만 고치고 확정"(backache·motion 해석, incentive 뜻 "장려책, 동기 부여"), 민감한 말 25개 따로 보임 → "dwarf만 고치고 확정". `cells.py fix` 2회 뒤 `check --full` 0건 — **5단계 끝**. 다음: 6단계
 - 2026-11-27 사내망 PC · 검증·개발 · 4차 6단계(사내망 PC 몫): `hiddenLevelsProvider` 비워 **심화를 엶**(숨김 시험을 "기본으로 보인다"·"숨긴 학교급은 안 보인다" 둘로, `7c6a013`) → 네 학교급 `select.py` 뒤 csv diff 0, 초·중·고 단어 파일 `ce9b57a`와 같음, 네 학교급 `check --full` 0건 → `flutter analyze` 문제없음·`flutter test` 181개 통과, `flutter build apk --debug`는 github.com 차단(sqlite3 native assets)으로 실패 → code-reviewer 두 축: 코드 APPROVE(LOW 3 — 빈 단언·낡은 주석 고침), 단어(칸을 옮긴 말 85개) REQUEST CHANGES → 유사어 25쌍·해석 3줄(`4ac2557`, 유사어 지금 1,506쌍) → 문서 갱신(VERIFY 기대값, 앱 CLAUDE.md·spec·README "12칸", 계획서 4~6단계 결과). 남은 것: 개인 PC 빌드·에뮬레이터 확인. (Claude가 지시 없이 상태를 "종료"로 바꿨다가 사용자 지적으로 "진행 중"으로 되돌림)
+- 2026-11-27 사내망 PC · 종료 · 사용자 지시("주제종료하고 커밋/푸시")로 주제 종료. 다음: 개인 PC에서 6단계 남은 것(debug 빌드·에뮬레이터 확인·VERIFY "마지막 결과")
