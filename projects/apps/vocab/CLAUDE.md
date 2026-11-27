@@ -1,6 +1,6 @@
 # vocab — 영단어 앱 (초·중·고)
 
-초·중·고 학생이 학교급 × 난이도 9칸의 내장 단어(CEFR-J 기준 초등 800개 · 중등 700개 · 고등 1,500개 — [docs/plan-words-phase1.md](docs/plan-words-phase1.md) · [phase2](docs/plan-words-phase2.md) · [phase3](docs/plan-words-phase3.md))를 이름 붙인 단어장으로 등록해 카드 학습·4지선다 시험·오답 노트를 하고, 진도를 단어장별·날짜별로 보는 안드로이드·iOS 앱. 계정 없음, 기록은 기기 안에만.
+초·중·고 학생이 학교급 × 난이도 12칸의 내장 단어(CEFR-J 기준 초등 800개 · 중등 700개 · 고등 1,500개 · 심화 3,528개 — [docs/plan-words-phase1.md](docs/plan-words-phase1.md) · [phase2](docs/plan-words-phase2.md) · [phase3](docs/plan-words-phase3.md) · [phase4](docs/plan-words-phase4.md))를 이름 붙인 단어장으로 등록해 카드 학습·4지선다 시험·오답 노트를 하고, 진도를 단어장별·날짜별로 보는 안드로이드·iOS 앱. 계정 없음, 기록은 기기 안에만.
 
 공통 규칙은 [../CLAUDE.md](../CLAUDE.md)(apps)와 루트 `CLAUDE.md`. Claude Code는 저장소 루트에서 열고 "`projects/apps/vocab`에서 작업한다"로 시작한다.
 
@@ -30,7 +30,7 @@ PATH에 `D:\dev\flutter\bin`(두 PC 같은 경로). 작업 위치: `projects/app
 | 상태 관리 | **Riverpod**(`flutter_riverpod`, 코드 생성 없이) — 시험에서는 `overrideWithValue`로 가짜를 넣는다 | 정형화돼 있고 시험하기 쉽다 |
 | 단어 데이터 | **칸별 JSON** `assets/words/<학교급>_<난이도>.json`(필드 `id`·`word`·`meaning`·`example`·`exampleMeaning` — 예문 해석은 2026-11-20 사용자 결정으로 추가), 바뀌는 기록(학습·시험·오답·단어장)은 **sqflite** | 단어를 사람이 읽고 고치기 쉽고 git에서 바뀐 것이 보인다. 수만 개 규모가 되면 미리 만든 DB 파일로 바꾼다 |
 
-- 칸은 `lib/data/cell.dart`의 `Cell`(학교급 × 난이도 9개). 화면 이름 `초등 · 하`, 파일 이름 `elementary_easy`
+- 칸은 `lib/data/cell.dart`의 `Cell`(학교급 초등·중등·고등·심화 × 난이도 = 12개). 화면 이름 `초등 [난이도 : 쉬움]`, 파일 이름 `elementary_easy`. 학교급을 숨기려면 `hiddenLevelsProvider`(`lib/data/word_repository.dart`, 지금 빈 집합)
 - 단어 읽기는 `lib/data/word_repository.dart`(`cellWordsProvider(cell)`)
 - 고른 단어장 번호는 **shared_preferences**, 기록과 단어장별 설정은 sqflite(옛 공통 설정 `card_count`·`quiz_count`는 shared_preferences에서 읽기만 한다). DB 판을 올릴 때는 `SqfliteStudyRecords.schemaVersion`과 onUpgrade의 `oldVersion < N` 단계를 더하고 `test/data/study_records_test.dart`(sqflite_common_ffi)에 이행 시험을 더한다. 멈춘 판에서 시험해야 하는 단계는 `@visibleForTesting`으로 공개한다(예: `upgradeToV8`)
 - 시험 섞기는 `quizRandomProvider` — 시험에서는 씨앗을 고정한 Random을 넣는다

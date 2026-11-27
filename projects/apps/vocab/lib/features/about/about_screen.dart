@@ -46,7 +46,7 @@ class AboutScreen extends StatelessWidget {
               ),
             ),
             const Divider(height: 1),
-            // 단어 출처: 초·중·고 단어 모두 CEFR-J에서 골랐다(docs/plan-words-phase1.md · phase2 · phase3)
+            // 단어 출처: 초·중·고·심화 단어 모두 CEFR-J에서 골랐다(docs/plan-words-phase1.md · phase2 · phase3 · phase4)
             Padding(
               key: const ValueKey('about-sources'),
               padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
