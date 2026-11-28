@@ -25,7 +25,7 @@
 
 ## 등록 체크리스트 (Play Console 순서)
 
-1. [ ] Play 개발자 계정(개인, 등록비 25달러) — 본인 인증
+1. [x] Play 개발자 계정(개인, 등록비 25달러) — 2026-11-29 만듦·결제함(계정 MoonJins0517@gmail.com, 공개 이메일 mjins910517@gmail.com). 본인 인증·전화번호 인증 결과는 Play Console에서 확인
    - [ ] AdMob 앱 설정에서 광고 콘텐츠 등급 **G**(앱 코드에도 G가 있지만 계정 쪽도 맞춘다). 출시 뒤 AdMob에서 Play 스토어 연결·지급 정보
 2. [ ] **앱 만들기**: 앱 이름 `Vocara - 국제 기준(CEFR) 영단어`, 기본 언어 한국어, 앱(게임 아님), 무료, 선언 체크
 3. [x] 개인정보 처리방침을 Google Sites에 게시(`privacy-policy.md` 맨 아래) → 주소 확보 — 2026-11-29 `https://sites.google.com/view/vocara-privacy`
