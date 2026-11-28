@@ -284,3 +284,4 @@
 - 2026-11-29 개인 PC · 보강 · 검토 LOW 7 반영: `bannerAdsProvider` 기본값을 `NoBannerAds`로, `main.dart`는 `startAds()` 성공 때만 `AdMobBannerAds`로 바꿈(시험에서 가짜를 잊어도 플랫폼 채널을 부르지 않음), 기본값 시험 1개 추가. analyze 문제없음·시험 219개·debug 에뮬레이터(새로 설치 — 에뮬레이터가 꺼졌다 옛 스냅샷으로 켜짐) 시작 화면에 Test Ad
 - 2026-11-29 개인 PC · 결정 · 처리방침 시행일 줄은 남긴다(사용자 — Play 필수는 아니지만 게시하는 날을 적음). 문의 이메일·처리방침 주소는 Play 등록에 필수 — 값은 아직 안 받음
 - 2026-11-29 개인 PC · 등록 준비 · 문의 이메일을 `store/`에 넣음(`mjins910517@gmail.com` — 사용자가 앱 전용으로 만든 개인용 Gmail): listing.md 자세한 설명 끝·연락처, privacy-policy.md 9절, README 빈칸 표. 자세한 설명 1,574자. 남은 빈칸: 시행일·처리방침 주소(게시 뒤)
+- 2026-11-29 개인 PC · 정리 · 사용자 요청으로 문의 이메일을 앱 공통 정보에 올림(`projects/apps/CLAUDE.md` "앱 공통 정보" — 모든 앱의 스토어 연락처·처리방침 문의처), `store/README.md`는 그곳을 가리킴

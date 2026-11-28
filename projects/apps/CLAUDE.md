@@ -11,6 +11,10 @@
 - 개발 환경: 공통은 [SETUP.md](SETUP.md)(Flutter·Android SDK 설치·확인·함정), 주제별은 `_drafts/<주제>/setup.md`(그 앱의 패키지·설정·가상 기기). 5단계에서 앱 폴더 `SETUP.md`로 옮긴다
 - 앱: [vocara](vocara/CLAUDE.md)(영단어 앱 Vocara — 2026-11-29 폴더 이름을 vocab에서 바꿈, Flutter, 2026-11-19 앱 폴더 생성). 앱 작업은 그 앱 [HANDOFF.md](vocara/HANDOFF.md)의 "인계"부터 읽는다
 
+## 앱 공통 정보 (2026-11-29 사용자 결정)
+
+- **문의 이메일**: `mjins910517@gmail.com` — 앱 개발 전용으로 만든 개인용 Gmail. 모든 앱의 스토어 연락처·개인정보 처리방침 문의처에 이 주소를 쓴다. 공개되는 주소다(스토어·처리방침·이 저장소의 GitHub 미러)
+
 ## 주제별 기록 — `_drafts/<주제>/` (2026-11-18 사용자 결정)
 
 이 파일에는 **공통 규칙만** 둔다. 개별 주제(앱 후보)의 내용과 진행 상태는 주제 폴더 `projects/apps/_drafts/<주제>/`에 둔다(`HANDOFF.md` 진행 상태, `spec.md`, `options.md`, `verify.md`). 진행 중인 주제와 후보 목록은 [_drafts/README.md](_drafts/README.md).
