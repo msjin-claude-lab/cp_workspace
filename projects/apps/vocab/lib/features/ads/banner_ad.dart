@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:material_ui/material_ui.dart';
@@ -7,7 +9,8 @@ import 'package:material_ui/material_ui.dart';
 import 'ad_ids.dart';
 
 // 광고(2026-11-29 사용자 결정): AdMob 배너만, 모든 사용자를 어린이 대상으로(child-directed·등급 G).
-// 홈·오답 노트·진도·설정 화면 아래에만 [BottomBanner]를 둔다(공부 화면·앱 정보·단어장 만들기에는 없다).
+// 홈·오답 노트·진도·설정 화면과, 단어장이 없을 때의 시작 화면·새 단어장 만들기(학교급·난이도 고르기) 아래에
+// [BottomBanner]를 둔다(2026-11-29 사용자 결정). 공부 화면(카드·오늘의 단어·시험·오답 시험)과 앱 정보에는 없다.
 // 불러오기에 성공한 뒤에만 자리가 생기고, 실패·오프라인이면 자리가 없다.
 // 광고 SDK는 [BannerAds] 뒤에 둔다 — 시험에서는 가짜를 넣는다(플랫폼 채널을 쓰지 않는다).
 
@@ -26,6 +29,9 @@ RequestConfiguration childDirectedRequestConfiguration() =>
 /// 설정을 적용하지 못하면 false — 그때는 광고를 요청하지 않는다(main.dart가 [NoBannerAds]로 바꾼다).
 /// 초기화는 기다리지 않는다(오프라인이어도 앱이 바로 뜬다).
 Future<bool> startAds() async {
+  // 광고는 Android만. iOS는 Info.plist에 앱 ID(GADApplicationIdentifier)가 없어 initialize가 앱을 끝낸다
+  // (iOS 보류 중 — 다시 시작할 때 앱 ID·SKAdNetworkItems를 넣고 이 줄을 고친다).
+  if (defaultTargetPlatform != TargetPlatform.android) return false;
   try {
     await MobileAds.instance.updateRequestConfiguration(
       childDirectedRequestConfiguration(),

@@ -1,6 +1,6 @@
 # vocab — 영단어 앱 (초·중·고)
 
-초·중·고 학생이 학교급 × 난이도 12칸의 내장 단어(CEFR-J 기준 초등 800개 · 중등 700개 · 고등 1,500개 · 심화 3,528개 — [docs/plan-words-phase1.md](docs/plan-words-phase1.md) · [phase2](docs/plan-words-phase2.md) · [phase3](docs/plan-words-phase3.md) · [phase4](docs/plan-words-phase4.md))를 이름 붙인 단어장으로 등록해 카드 학습·4지선다 시험·오답 노트를 하고, 진도를 단어장별·날짜별로 보는 안드로이드·iOS 앱. 계정 없음, 기록은 기기 안에만.
+초·중·고 학생이 학교급 × 난이도 12칸의 내장 단어(CEFR-J 기준 초등 800개 · 중등 700개 · 고등 1,500개 · 심화 3,528개 — [docs/plan-words-phase1.md](docs/plan-words-phase1.md) · [phase2](docs/plan-words-phase2.md) · [phase3](docs/plan-words-phase3.md) · [phase4](docs/plan-words-phase4.md))를 이름 붙인 단어장으로 등록해 카드 학습·4지선다 시험·오답 노트를 하고, 진도를 단어장별·날짜별로 보는 안드로이드·iOS 앱. 계정 없음, 기록은 기기 안에만. 목록 화면 아래에 AdMob 배너(모두 어린이 처리).
 
 공통 규칙은 [../CLAUDE.md](../CLAUDE.md)(apps)와 루트 `CLAUDE.md`. Claude Code는 저장소 루트에서 열고 "`projects/apps/vocab`에서 작업한다"로 시작한다.
 
@@ -36,7 +36,11 @@ PATH에 `D:\dev\flutter\bin`(두 PC 같은 경로). 작업 위치: `projects/app
 - 고른 단어장 번호는 **shared_preferences**, 기록과 단어장별 설정은 sqflite(옛 공통 설정 `card_count`·`quiz_count`는 shared_preferences에서 읽기만 한다). DB 판을 올릴 때는 `SqfliteStudyRecords.schemaVersion`과 onUpgrade의 `oldVersion < N` 단계를 더하고 `test/data/study_records_test.dart`(sqflite_common_ffi)에 이행 시험을 더한다. 멈춘 판에서 시험해야 하는 단계는 `@visibleForTesting`으로 공개한다(예: `upgradeToV8`)
 - 시험 섞기는 `quizRandomProvider` — 시험에서는 씨앗을 고정한 Random을 넣는다
 - **오늘의 단어**(2026-11-28): `lib/features/today/`(고르기 `daily_pick.dart` 순수 함수, `todayWordsProvider`, 섞기 `dailyRandomProvider`), 화면은 `StudyScreen(today: true)`·경로 `/today/:deckId`. 저장은 DB 11판 `daily_words`(단어장·날짜별 단어 순서·본 단어·완료)와 `study_decks.daily_count`. 지금 시각은 `nowProvider`(시험에서 바꿔 넣음)
-- **매일 알림**(2026-11-28): `lib/features/reminder/`(다음 시각 `reminder_schedule.dart` 순수 함수, 알림 패키지는 `ReminderNotifications` 뒤에 — 시험은 가짜, `ReminderHost`가 앱을 감싸 처음 실행 권한·눌러서 열기·다시 예약), 설정은 `lib/data/reminder_settings.dart`(shared_preferences, 기본 20:00). 패키지 `flutter_local_notifications` 22.3.3(23은 compileSdk 37 필요)·`timezone`, Android desugaring 켬. **인터넷 권한을 더하지 않는다**(Play 준비물·처리방침이 이것을 근거로 씀)
+- **매일 알림**(2026-11-28): `lib/features/reminder/`(다음 시각 `reminder_schedule.dart` 순수 함수, 알림 패키지는 `ReminderNotifications` 뒤에 — 시험은 가짜, `ReminderHost`가 앱을 감싸 처음 실행 권한·눌러서 열기·다시 예약), 설정은 `lib/data/reminder_settings.dart`(shared_preferences, 기본 20:00). 패키지 `flutter_local_notifications` 22.3.3(23은 compileSdk 37 필요)·`timezone`, Android desugaring 켬
+- **광고**(2026-11-29 사용자 결정): AdMob 배너 하나, `google_mobile_ads` 9.2.0, `lib/features/ads/`. 배너는 `BottomBanner`를 `Scaffold.bottomNavigationBar`에 넣는다 — 홈·오답 노트·진도·설정·단어장이 없을 때의 시작 화면·새 단어장 만들기(학교급·난이도)에만, **공부 화면(카드·오늘의 단어·시험·오답 시험)과 앱 정보에는 넣지 않는다**. 불러오기에 성공해야 자리가 생긴다(오프라인이면 자리 없음). **광고는 Android만** — `startAds()`가 Android가 아니면 바로 `false`(iOS는 Info.plist에 `GADApplicationIdentifier`가 없어 initialize가 앱을 끝낸다. iOS를 다시 시작할 때 앱 ID·`SKAdNetworkItems`를 넣는다). SDK는 `BannerAds` 뒤에 — 시험은 `bannerAdsProvider`를 가짜로, 시작(`startAds()`)이 실패하면 `NoBannerAds`
+  - **모든 이용자를 어린이로 처리**(나이 확인 화면 없음 — 사용자 결정): `childDirectedRequestConfiguration()`(`ageRestrictedTreatment.child` + `tagForChildDirectedTreatment.yes` + 등급 G)을 `initialize()` 전에 넣는다. 맞춤 광고로 바꾸지 않는다
+  - **ID**: debug = Google 테스트 ID, release = 실제 ID. 앱 ID는 `android/app/build.gradle.kts`의 `manifestPlaceholders["admobAppId"]`(debug/release 따로), 배너 단위는 `lib/features/ads/ad_ids.dart`(`kReleaseMode`로 고름). **release를 기기에 깔았을 때 광고를 누르지 않는다**(부정 클릭으로 계정이 막힐 수 있다)
+  - **권한**: `android/app/src/main/AndroidManifest.xml`에서 `AD_ID`·`ACCESS_ADSERVICES_*` 3개를 `tools:node="remove"`로 뺀다(가족 정책). 광고 SDK가 `INTERNET`·`ACCESS_NETWORK_STATE`·`WAKE_LOCK`·`FOREGROUND_SERVICE`를 넣는다. 권한·광고 위치를 바꾸면 `store/`(처리방침·정책 답안·설명)를 함께 고친다
 - 시험(`test/`)은 기능·데이터마다 하나씩 늘린다
 
 ## 파일

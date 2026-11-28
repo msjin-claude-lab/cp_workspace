@@ -51,8 +51,8 @@ Vocara는 국제 기준(CEFR)으로 고른 영단어를 초등부터 심화까�
 ■ 가볍고 안전하게
 · 회원 가입 없이 바로 시작
 · 인터넷 없이도 단어 공부 기능 모두 사용(발음은 기기의 음성 합성 설정에 따름)
-· 광고 없음
 · 공부 기록은 기기 안에만 저장되며 외부로 보내지 않습니다
+· 화면 아래에 작은 배너 광고가 있습니다. 모든 이용자에게 어린이 보호 기준을 적용해 맞춤 광고 없이 전체 이용가 광고만 보여 주며, 카드 학습·시험 화면에는 광고가 없습니다
 
 ■ 단어 출처
 The CEFR-J Wordlist Version 1.6. Compiled by Yukio Tono, Tokyo University of Foreign Studies. Retrieved from https://www.cefr-j.org/download.html on 23/11/26.
@@ -74,10 +74,10 @@ Word frequency: Google Books Ngram dataset (version 20200217), licensed under CC
 
 ## 글자 수 확인
 
-`python -c` 로 센 값(공백·줄바꿈 포함, 코드 블록 안 내용만). 마지막으로 센 날: 2026-11-28
+`python -c` 로 센 값(공백·줄바꿈 포함, 코드 블록 안 내용만). 마지막으로 센 날: 2026-11-29(광고 줄 반영)
 
 | 항목 | 글자 수 | 한도 |
 |---|---|---|
 | 앱 이름 | 24 | 30 |
 | 간단한 설명 | 46 | 80 |
-| 자세한 설명 | 1470 | 4,000 |
+| 자세한 설명 | 1561 | 4,000 |

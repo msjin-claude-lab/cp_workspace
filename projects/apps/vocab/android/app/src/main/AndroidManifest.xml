@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <!-- 광고(AdMob, 2026-11-29): 모든 사용자를 어린이로 다루므로 광고 ID(AAID)를 보내지 않는다 — 광고 SDK가 더하는
-         AD_ID 권한을 병합에서 뺀다(Play 가족 정책 https://support.google.com/googleplay/android-developer/answer/9893335) -->
+    <!-- 광고(AdMob, 2026-11-29): 모든 사용자를 어린이로 다루므로 광고 SDK가 더하는 AD_ID 권한을 병합에서 뺀다.
+         이 권한이 없으면 광고 ID를 못 읽는 것은 Android 13(API 33) 이상뿐이다 — 12 이하는 어린이 대상 처리에 맡긴다(Play 가족 정책 https://support.google.com/googleplay/android-developer/answer/9893335) -->
     <uses-permission android:name="com.google.android.gms.permission.AD_ID" tools:node="remove"/>
     <!-- 안드로이드 광고 서비스(관심사·측정) 권한도 뺀다 — 맞춤 광고를 쓰지 않으므로 필요 없다.
          공식 문서에서 어린이 앱에 대한 명시는 찾지 못해 보수적으로 뺀 것(2026-11-29, .omc/research/vocab-ads.md) -->
@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.ACCESS_ADSERVICES_ATTRIBUTION" tools:node="remove"/>
     <uses-permission android:name="android.permission.ACCESS_ADSERVICES_TOPICS" tools:node="remove"/>
     <!-- 매일 알림(2026-11-28 사용자 결정, flutter_local_notifications): 알림 권한(안드로이드 13+)과
-         재부팅 뒤 예약을 다시 걸기 위한 부팅 완료 수신. 정확한 알람 권한(SCHEDULE_EXACT_ALARM)·인터넷은 쓰지 않는다 -->
+         재부팅 뒤 예약을 다시 걸기 위한 부팅 완료 수신. 정확한 알람 권한(SCHEDULE_EXACT_ALARM)은 쓰지 않는다(인터넷은 광고 SDK가 넣는다 — 위 광고 주석) -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <!-- 앱 이름 "Vocara"(2026-11-28 사용자 결정 — 영문 표기, "영단어"는 Play 제목·설명에만).

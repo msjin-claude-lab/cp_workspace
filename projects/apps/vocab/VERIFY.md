@@ -48,6 +48,11 @@
 
 ## 마지막 결과
 
+- **2026-11-29 개인 PC — AdMob 배너 광고(모두 어린이 처리)**(구현 `f4a3097` + 문서·주석 수정, 커밋 전)
+  - `flutter analyze` 문제없음 · `flutter test` **218개** 통과 · `flutter build appbundle --release` 성공(56.7MB, `keytool -printcert` `CN=Vocara, C=KR`)
+  - release 병합 매니페스트 권한: `POST_NOTIFICATIONS`·`RECEIVE_BOOT_COMPLETED`·`VIBRATE`·`INTERNET`·`ACCESS_NETWORK_STATE`·`WAKE_LOCK`·`FOREGROUND_SERVICE`·`kr.msjin.vocab.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION` — **`AD_ID`·`ACCESS_ADSERVICES_*` 없음**, 앱 ID `ca-app-pub-5860744543403858~5527092484`(실제 ID)
+  - 에뮬레이터(debug 새로 설치 — 지난번 설치는 스냅샷에 남지 않아 없었다, 단어장 `ad1` 초등 쉬움): 시작 화면·학교급·난이도·홈·오답 노트·진도·설정 아래 `Test Ad` 배너(uiautomator로 화면 제목과 광고 노드 확인), 카드 학습·오늘의 단어·시험에는 배너 없음(광고 노드 0개 + 캡처), **비행기 모드로 앱을 다시 켜면 홈 아래 배너도 빈 자리도 없음**(캡처). 오답 시험·앱 정보는 이번에 보지 않음(자동 시험만)
+
 - **2026-11-28 밤 개인 PC — 일일 학습(오늘의 단어 + 매일 알림), DB 11판**
   - `flutter analyze` 문제없음·`flutter test` 통과(**211개**, `omc ralph verify` clean), `flutter build apk --release`(업로드 키 `CN=Vocara, C=KR`) 성공. release 병합 매니페스트 권한: `POST_NOTIFICATIONS`·`RECEIVE_BOOT_COMPLETED`·`VIBRATE`·`kr.msjin.vocab.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION` — **INTERNET 없음**, 정확한 알람 권한 없음
   - **에뮬레이터(API 36): 통과**(기존 설치 위에 `adb install -r` — DB 10 → 11 이행, 기존 단어장·기록 그대로 보임)

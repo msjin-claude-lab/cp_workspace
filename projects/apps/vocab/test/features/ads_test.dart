@@ -102,6 +102,7 @@ void main() {
       '/study/$id': StudyScreen,
       '/today/$id': StudyScreen,
       '/quiz/$id': QuizScreen,
+      '/review/quiz/$id': QuizScreen, // 오답 시험(2026-11-29 검토 지적)
       '/about': AboutScreen,
     };
     for (final MapEntry(key: path, value: screen) in withBanner.entries) {
