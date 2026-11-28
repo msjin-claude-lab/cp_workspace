@@ -5,6 +5,7 @@ import 'package:material_ui/material_ui.dart';
 import '../../data/cell.dart';
 import '../../data/study_records.dart';
 import '../../data/word_repository.dart';
+import '../ads/banner_ad.dart';
 import '../quiz/quiz.dart';
 import 'review_words.dart';
 
@@ -71,6 +72,7 @@ class WrongNotesScreen extends ConsumerWidget {
     final pool = ref.watch(deckWordsProvider(deck)).value;
     final quizBlocked = pool == null ? null : quizBlockReason(pool);
     return Scaffold(
+      bottomNavigationBar: const BottomBanner(), // 광고 배너(불러온 뒤에만 자리가 생긴다)
       appBar: AppBar(
         title: Text(
           '${deck.label} - 오답 노트',

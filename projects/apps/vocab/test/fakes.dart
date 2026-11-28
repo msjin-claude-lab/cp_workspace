@@ -1,5 +1,8 @@
+import 'dart:async';
 import 'dart:math';
 
+import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:vocab/data/app_settings.dart';
 import 'package:vocab/data/cell.dart';
 import 'package:vocab/data/cell_store.dart';
@@ -10,6 +13,7 @@ import 'package:vocab/data/study_decks.dart';
 import 'package:vocab/data/study_records.dart';
 import 'package:vocab/data/word.dart';
 import 'package:vocab/data/word_repository.dart';
+import 'package:vocab/features/ads/banner_ad.dart';
 import 'package:vocab/features/reminder/reminder_notifications.dart';
 
 /// 시험(test)에서 함께 쓰는 가짜들. 모두 메모리에만 둔다.
@@ -450,3 +454,38 @@ class FakeReminderNotifications implements ReminderNotifications {
   }) async =>
       scheduled = (first: first, title: title, body: body, payload: payload);
 }
+
+/// 배너 광고 가짜(플랫폼 채널을 쓰지 않는다). [loaded]면 불러오기 성공 — 320×50 상자
+/// (`fake-banner`)를 돌려준다. 아니면 실패·오프라인처럼 아무것도 돌려주지 않는다.
+class FakeBannerAds implements BannerAds {
+  FakeBannerAds({this.loaded = false});
+
+  final bool loaded;
+
+  /// 불러오기를 시작한 횟수와 정리한 횟수.
+  int loads = 0;
+  int released = 0;
+
+  @override
+  VoidCallback load(void Function(LoadedBanner banner) onLoaded) {
+    loads++;
+    if (loaded) {
+      // 실제 SDK처럼 나중에 알린다
+      scheduleMicrotask(
+        () => onLoaded(
+          const LoadedBanner(
+            view: ColoredBox(
+              key: ValueKey('fake-banner'),
+              color: Color(0xFF00AA00),
+            ),
+            size: Size(320, 50),
+          ),
+        ),
+      );
+    }
+    return () => released++;
+  }
+}
+
+/// 시험 기본값: 광고 없음(불러오기 실패와 같다).
+Override noBannerAds() => bannerAdsProvider.overrideWithValue(FakeBannerAds());

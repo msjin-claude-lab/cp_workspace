@@ -82,6 +82,7 @@ void main() {
   });
 
   List<Override> overrides() => [
+    noBannerAds(),
     reminderSettingsStoreProvider.overrideWithValue(store),
     reminderNotificationsProvider.overrideWithValue(notifications),
     studyDecksProvider.overrideWithValue(decks),

@@ -11,6 +11,7 @@ import '../../data/study_decks.dart';
 import '../../data/study_records.dart';
 import '../../data/word.dart';
 import '../../data/word_repository.dart';
+import '../ads/banner_ad.dart';
 import '../quiz/quiz.dart' show quizBlockReason;
 import '../today/today_words.dart';
 import '../wrong_notes/review_words.dart';
@@ -90,6 +91,7 @@ class StartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final text = Theme.of(context).textTheme;
     return Scaffold(
+      bottomNavigationBar: const BottomBanner(), // 단어장이 없을 때도 광고(2026-11-29 사용자 결정)
       appBar: AppBar(title: const Text(appTitle), centerTitle: true),
       body: SafeArea(
         child: Center(
@@ -207,6 +209,7 @@ class LevelPickerScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final hidden = ref.watch(hiddenLevelsProvider);
     return Scaffold(
+      bottomNavigationBar: const BottomBanner(), // 새 단어장 만들기 흐름에도 광고(2026-11-29 사용자 결정)
       // 제목은 만들고 있는 단어장 이름, 할 일은 버튼 위 안내 문구로
       // (2026-11-22 사용자 결정(UX 점검) — 두 고르기 화면이 같은 제목으로 한 흐름임을 보인다)
       appBar: AppBar(title: _NewDeckTitle(name)),
@@ -279,6 +282,7 @@ class _DifficultyPickerScreenState
       return const Scaffold(body: Center(child: Text('없는 학교급입니다')));
     }
     return Scaffold(
+      bottomNavigationBar: const BottomBanner(), // 새 단어장 만들기 흐름에도 광고(2026-11-29 사용자 결정)
       appBar: AppBar(title: _NewDeckTitle(widget.name)),
       body: SafeArea(
         child: ListView(
@@ -400,6 +404,8 @@ class DeckHomeScreen extends ConsumerWidget {
     final settings = ref.watch(deckSettingsProvider(deck)).value;
     final today = ref.watch(todayWordsProvider(deck)).value;
     return Scaffold(
+      // 광고 배너(불러온 뒤에만 자리가 생긴다). "새 등록" 버튼은 Scaffold가 이 위로 올린다
+      bottomNavigationBar: const BottomBanner(),
       appBar: AppBar(
         leading: Builder(
           builder: (context) => IconButton(

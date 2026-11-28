@@ -51,6 +51,7 @@ void main() {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
+          noBannerAds(),
           wordRepositoryProvider.overrideWithValue(
             FakeRepository({Cell.elementaryEasy: words}),
           ),

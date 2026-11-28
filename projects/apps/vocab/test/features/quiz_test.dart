@@ -14,7 +14,7 @@ import 'package:vocab/data/word_repository.dart';
 import 'package:vocab/features/quiz/quiz.dart';
 import 'package:vocab/features/quiz/quiz_screen.dart';
 
-import '../fakes.dart' show FakeLegacySettingsStore;
+import '../fakes.dart' show FakeLegacySettingsStore, noBannerAds;
 
 List<Word> _words(int n) => [
   for (var i = 0; i < n; i++)
@@ -208,6 +208,7 @@ void main() {
       await tester.pumpWidget(
         ProviderScope(
           overrides: [
+            noBannerAds(),
             legacySettingsStoreProvider.overrideWithValue(FakeLegacySettingsStore()),
             wordRepositoryProvider.overrideWithValue(_FakeRepository(words)),
             speakerProvider.overrideWithValue(speaker),
@@ -462,6 +463,7 @@ void main() {
       await tester.pumpWidget(
         ProviderScope(
           overrides: [
+            noBannerAds(),
             legacySettingsStoreProvider.overrideWithValue(FakeLegacySettingsStore()),
             wordRepositoryProvider.overrideWithValue(_FakeRepository(words)),
             speakerProvider.overrideWithValue(speaker),

@@ -7,6 +7,7 @@ import '../../data/cell.dart';
 import '../../data/counts.dart';
 import '../../data/reminder_settings.dart';
 import '../../data/word_repository.dart';
+import '../ads/banner_ad.dart';
 import '../reminder/reminder_controller.dart';
 import '../reminder/reminder_notifications.dart';
 
@@ -39,6 +40,7 @@ class SettingsScreen extends ConsumerWidget {
     // "전체" 칩에 보일 단어 수 — 읽는 중이거나 실패하면 수 없이 "전체"만
     final wordCount = ref.watch(deckWordsProvider(deck)).value?.length;
     return Scaffold(
+      bottomNavigationBar: const BottomBanner(), // 광고 배너(불러온 뒤에만 자리가 생긴다)
       appBar: AppBar(
         title: Text(
           '${deck.label} - 설정',

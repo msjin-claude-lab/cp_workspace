@@ -47,6 +47,9 @@ android {
         // flag during build.
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+        // AdMob 앱 ID(AndroidManifest의 com.google.android.gms.ads.APPLICATION_ID). debug·profile은 Google 공식 테스트 앱 ID,
+        // release만 아래 buildTypes.release에서 실제 ID로 바꾼다(2026-11-29 사용자 결정). 광고 단위 ID는 lib/features/ads/ad_ids.dart
+        manifestPlaceholders["admobAppId"] = "ca-app-pub-3940256099942544~3347511713"
     }
 
     signingConfigs {
@@ -62,6 +65,8 @@ android {
 
     buildTypes {
         release {
+            // 실제 AdMob 앱 ID — 저장소에서 이 한 곳에만 적는다. release를 기기에 깔았을 때 광고를 누르지 않는다(부정 클릭)
+            manifestPlaceholders["admobAppId"] = "ca-app-pub-5860744543403858~5527092484"
             signingConfig = if (hasUploadKey) {
                 signingConfigs.getByName("release")
             } else {

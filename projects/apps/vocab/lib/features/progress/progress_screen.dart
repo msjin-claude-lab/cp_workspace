@@ -5,6 +5,7 @@ import '../../data/cell.dart';
 import '../../data/study_decks.dart';
 import '../../data/study_records.dart';
 import '../../data/word_repository.dart';
+import '../ads/banner_ad.dart';
 import 'progress_calendar.dart';
 
 /// 진도(홈 → 진도): **지금 고른 단어장 하나의 진도만** 보여 준다(2026-11-22 사용자 결정 —
@@ -24,6 +25,7 @@ class ProgressScreen extends ConsumerWidget {
         ref.watch(dailyCompletedDaysProvider(deck)).value ?? const <String>{};
     final text = Theme.of(context).textTheme;
     return Scaffold(
+      bottomNavigationBar: const BottomBanner(), // 광고 배너(불러온 뒤에만 자리가 생긴다)
       appBar: AppBar(
         title: Text(
           '${deck.label} - 진도',

@@ -57,6 +57,7 @@ void main() {
       ProviderScope(
         key: appKey,
         overrides: [
+          noBannerAds(),
           wordRepositoryProvider.overrideWithValue(
             FakeRepository({Cell.elementaryEasy: wordsOf(words)}),
           ),

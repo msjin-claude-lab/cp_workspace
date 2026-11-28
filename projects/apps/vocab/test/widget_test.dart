@@ -58,6 +58,7 @@ void main() {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
+          noBannerAds(),
           legacySettingsStoreProvider.overrideWithValue(settingsStore),
           wordRepositoryProvider.overrideWithValue(
             repository ?? FakeRepository(words),
