@@ -8,7 +8,7 @@
 
 ## 완성(앱 폴더로 옮김)
 
-- [vocab](../vocab/CLAUDE.md) — 영단어 앱(초·중·고). 2026-11-19 5단계 끝 → `projects/apps/vocab/`
+- [vocara](../vocara/CLAUDE.md) — 영단어 앱 Vocara(2026-11-29 폴더 이름 vocab → vocara)(초·중·고). 2026-11-19 5단계 끝 → `projects/apps/vocara/`
 
 ## 후보 (시작 안 함)
 

@@ -1,14 +1,14 @@
-# vocab — 영단어 앱 (초·중·고)
+# vocara — 영단어 앱 Vocara (초·중·고)
 
 초·중·고 학생이 학교급 × 난이도 12칸의 내장 단어(CEFR-J 기준 초등 800개 · 중등 700개 · 고등 1,500개 · 심화 3,528개 — [docs/plan-words-phase1.md](docs/plan-words-phase1.md) · [phase2](docs/plan-words-phase2.md) · [phase3](docs/plan-words-phase3.md) · [phase4](docs/plan-words-phase4.md))를 이름 붙인 단어장으로 등록해 카드 학습·4지선다 시험·오답 노트를 하고, 진도를 단어장별·날짜별로 보는 안드로이드·iOS 앱. 계정 없음, 기록은 기기 안에만. 목록 화면 아래에 AdMob 배너(모두 어린이 처리).
 
-공통 규칙은 [../CLAUDE.md](../CLAUDE.md)(apps)와 루트 `CLAUDE.md`. Claude Code는 저장소 루트에서 열고 "`projects/apps/vocab`에서 작업한다"로 시작한다.
+공통 규칙은 [../CLAUDE.md](../CLAUDE.md)(apps)와 루트 `CLAUDE.md`. Claude Code는 저장소 루트에서 열고 "`projects/apps/vocara`에서 작업한다"로 시작한다.
 
-**지금 상태·다음 할 일·남은 일·진행 이력은 [HANDOFF.md](HANDOFF.md)에 있다.** 이 앱을 이어 갈 때는 그 파일의 "인계"부터 읽는다(이어 가기: `/apps:selection-subject vocab`). 이 파일에는 규칙·명령·코드 구조만 둔다.
+**지금 상태·다음 할 일·남은 일·진행 이력은 [HANDOFF.md](HANDOFF.md)에 있다.** 이 앱을 이어 갈 때는 그 파일의 "인계"부터 읽는다(이어 가기: `/apps:selection-subject vocara`). 이 파일에는 규칙·명령·코드 구조만 둔다.
 
 ## 명령
 
-PATH에 `D:\dev\flutter\bin`(두 PC 같은 경로). 작업 위치: `projects/apps/vocab`. 에뮬레이터 `-gpu swiftshader_indirect`는 사내망 PC만 — 개인 PC는 빼고 띄운다.
+PATH에 `D:\dev\flutter\bin`(두 PC 같은 경로). 작업 위치: `projects/apps/vocara`. 에뮬레이터 `-gpu swiftshader_indirect`는 사내망 PC만 — 개인 PC는 빼고 띄운다.
 
 | 무엇 | 명령 |
 |---|---|

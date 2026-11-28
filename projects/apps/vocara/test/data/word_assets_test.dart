@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vocab/data/cell.dart';
-import 'package:vocab/data/word.dart';
+import 'package:vocara/data/cell.dart';
+import 'package:vocara/data/word.dart';
 
 /// 실제 내장 단어 파일(assets/words/*.json)을 검사한다.
 /// 칸마다 있어야 할 단어 수는 [_expectedCount](초등 800개 — docs/plan-words-phase1.md,

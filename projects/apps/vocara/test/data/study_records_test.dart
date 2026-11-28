@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:path/path.dart' as p;
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
-import 'package:vocab/data/cell.dart';
-import 'package:vocab/data/study_records.dart';
-import 'package:vocab/data/word.dart';
+import 'package:vocara/data/cell.dart';
+import 'package:vocara/data/study_records.dart';
+import 'package:vocara/data/word.dart';
 
 /// 실제 sqflite 구현을 PC에서 sqflite_common_ffi로 돌린다. DB는 임시 폴더의 파일.
 void main() {

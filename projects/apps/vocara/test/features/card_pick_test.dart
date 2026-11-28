@@ -1,8 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vocab/data/word.dart';
-import 'package:vocab/features/study/card_pick.dart';
+import 'package:vocara/data/word.dart';
+import 'package:vocara/features/study/card_pick.dart';
 
 import '../fakes.dart' show NoShuffleRandom;
 

@@ -44,7 +44,7 @@
 
 **도구**: `python tool/wordlist/select.py --cefrj <zip> --freq <txt>`(선정 — 원본 두 파일은 저장소에 없다. 주소·SHA-256은 `docs/wordlist/README.md`, 빈도 파일은 github라 사내망 PC에서 못 받는다), `python tool/wordlist/cells.py check`(초등 3칸 검사 — 원본 없이 돈다), `cells.py fix <파일>`(검토 줄 적용). **`cells.py skeleton`은 돌리지 말 것 — 채운 800개가 지워진다**
 
-**주의 — 사내망 PC의 `flutter test`(2026-11-24)**: 시험이 쓰는 sqlite3 3.9.1 패키지가 빌드 때 `https://github.com/simolus3/sqlite3.dart/releases/download/sqlite3-3.9.1/sqlite3.x64.windows.dll`을 받는다 → 사내망에서 막혀 `Building native assets failed`. 받은 파일을 `projects/apps/vocab/.dart_tool/hooks_runner/shared/sqlite3/build/download-643956b0/sqlite3.dll`(이름을 `sqlite3.dll`로)에 두면 그것을 쓴다 — SHA-256 `643956b011d5c705c6eae79d93085f5b206e4bfecf5d57a05aea3e2242612028`(패키지 `lib/src/hook/asset_hashes.dart`의 값, 틀리면 다시 받으려 한다). `.dart_tool`을 지우면 다시 둬야 한다. 같은 날 사내망 PC의 Flutter SDK(`D:\dev\flutter`)에서 `packages/flutter/lib/src/material/animated_icons/data/*.g.dart` 7개가 사라져 컴파일이 멈췄다(이유 모름) — `git -C D:/dev/flutter checkout -- packages/flutter/lib/src/material/animated_icons/data/`로 되살림
+**주의 — 사내망 PC의 `flutter test`(2026-11-24)**: 시험이 쓰는 sqlite3 3.9.1 패키지가 빌드 때 `https://github.com/simolus3/sqlite3.dart/releases/download/sqlite3-3.9.1/sqlite3.x64.windows.dll`을 받는다 → 사내망에서 막혀 `Building native assets failed`. 받은 파일을 `projects/apps/vocara/.dart_tool/hooks_runner/shared/sqlite3/build/download-643956b0/sqlite3.dll`(이름을 `sqlite3.dll`로)에 두면 그것을 쓴다 — SHA-256 `643956b011d5c705c6eae79d93085f5b206e4bfecf5d57a05aea3e2242612028`(패키지 `lib/src/hook/asset_hashes.dart`의 값, 틀리면 다시 받으려 한다). `.dart_tool`을 지우면 다시 둬야 한다. 같은 날 사내망 PC의 Flutter SDK(`D:\dev\flutter`)에서 `packages/flutter/lib/src/material/animated_icons/data/*.g.dart` 7개가 사라져 컴파일이 멈췄다(이유 모름) — `git -C D:/dev/flutter checkout -- packages/flutter/lib/src/material/animated_icons/data/`로 되살림
 
 ### 지금 단계
 
@@ -125,7 +125,7 @@
    - 칸당 개수 안: 초등 800(칸당 약 267) · 중등 700(칸당 약 233 — 상한 1,500에서 초등 800을 뺀 Claude 계산) · 고등 1,500(칸당 500). 난이도 3칸을 나누는 표시는 목록에 없다
    - 코드에서 바꿀 곳: `Cell.targetWordCount`(칸마다 정확히 50개 검사). 홈·난이도 화면의 단어 수는 파일에서 세므로 따라온다. JSON은 3,000개까지 유지 가능
 
-이어 가기: `/apps:selection-subject vocab`
+이어 가기: `/apps:selection-subject vocara`
 
 ### 주의할 것
 

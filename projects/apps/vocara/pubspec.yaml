@@ -1,4 +1,4 @@
-name: vocab
+name: vocara
 description: "Vocara - 국제 기준(CEFR) 영단어. 유럽 언어 기준 CEFR로 선별한 초·중·고·심화 어휘, 카드와 시험으로 완성하세요."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.

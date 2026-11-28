@@ -1,7 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vocab/data/cell.dart';
-import 'package:vocab/data/word_repository.dart';
+import 'package:vocara/data/cell.dart';
+import 'package:vocara/data/word_repository.dart';
 
 /// 정해 둔 문자열을 돌려주는 가짜 에셋 묶음.
 class _FakeBundle extends CachingAssetBundle {

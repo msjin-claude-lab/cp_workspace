@@ -36,7 +36,7 @@ flutter pub add --dev sqflite_common_ffi
 
 | 항목 | 사내망 PC (2026-11-18~19) | 개인 PC |
 |---|---|---|
-| 앱 프로젝트 `projects/apps/vocab` analyze·test·build apk | exit 0 (2026-11-19) | exit 0 (2026-11-20) |
+| 앱 프로젝트 `projects/apps/vocara` analyze·test·build apk | exit 0 (2026-11-19) | exit 0 (2026-11-20) |
 | 패키지 추가 + `flutter analyze`·`flutter test` | exit 0 (4단계 시험용 프로젝트 `D:\dev\tmp\vocab_probe`) | 앱 프로젝트로 확인(위 줄) |
 | `flutter build apk --debug` | exit 0 (`kotlin.incremental=false` 뒤) | exit 0, 391초 |
 | 가상 기기 실행 · 화면 · 저장 유지 | 확인함(2026-11-19, WHPX 켠 뒤) | 확인함(2026-11-20, 기본 그래픽) |

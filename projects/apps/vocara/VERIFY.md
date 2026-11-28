@@ -4,7 +4,7 @@
 
 ## 명령
 
-작업 위치: `projects/apps/vocab`. PATH에 `D:\dev\flutter\bin`(사내망 PC).
+작업 위치: `projects/apps/vocara`. PATH에 `D:\dev\flutter\bin`(사내망 PC).
 
 | 대상 | 명령 | 통과 판정 | 걸린 시간(사내망 PC) |
 |---|---|---|---|
@@ -183,7 +183,7 @@
   - **TTS 귀로 듣기: 통과**(사용자 확인). 에뮬레이터 미디어 볼륨 기본값 5/15라 작게 들림 → 15로 올리자 충분. 가끔 소리가 깨짐 — 안드로이드 쪽 underrun 0건이라 에뮬레이터→Windows 오디오 구간으로 추정(확인 안 함)
   - **기록 저장·유지: 통과** — `study_log` 8건 → `am force-stop` → `am start` → 8건 그대로. 이후 사용자가 눌러 48건(안다 24 · 모른다 24)
   - **오답 노트: 통과** — 모른다 단어 23개 담김, 같은 단어를 두 번 모른다 하면 `hh-003` 틀린 횟수 2
-- **2026-11-19 사내망 PC — 5단계, 앱 프로젝트 `projects/apps/vocab`** — `/oh-my-claudecode:verify`(verifier 판정 APPROVE, analyze·test를 다시 돌려 확인)
+- **2026-11-19 사내망 PC — 5단계, 앱 프로젝트 `projects/apps/vocara`** — `/oh-my-claudecode:verify`(verifier 판정 APPROVE, analyze·test를 다시 돌려 확인)
   - `flutter analyze` exit 0(No issues), `flutter test` exit 0(1개 통과), `flutter build apk --debug` exit 0 + `app-debug.apk` 14:05 새로 생김(158,301,662바이트)
   - 앱 설정 확인: manifest `TTS_SERVICE`, `kotlin.incremental=false`, pubspec `flutter_tts` ^4.2.5·`sqflite` ^2.4.6·`path` ^1.9.1
   - 기기 실행은 이 프로젝트로는 아직(화면 코드 없음) — 4단계 시험용 프로젝트에서 확인함

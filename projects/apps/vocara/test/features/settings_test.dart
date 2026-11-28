@@ -3,22 +3,22 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
-import 'package:vocab/data/app_settings.dart';
-import 'package:vocab/data/cell.dart';
-import 'package:vocab/data/cell_store.dart';
-import 'package:vocab/data/counts.dart';
-import 'package:vocab/data/speaker.dart';
-import 'package:vocab/data/study_decks.dart';
-import 'package:vocab/data/study_records.dart';
-import 'package:vocab/data/word.dart';
-import 'package:vocab/data/word_repository.dart';
-import 'package:vocab/features/quiz/quiz.dart' show quizRandomProvider;
-import 'package:vocab/features/quiz/quiz_screen.dart';
-import 'package:vocab/features/study/study_screen.dart';
-import 'package:vocab/router.dart';
+import 'package:vocara/data/app_settings.dart';
+import 'package:vocara/data/cell.dart';
+import 'package:vocara/data/cell_store.dart';
+import 'package:vocara/data/counts.dart';
+import 'package:vocara/data/speaker.dart';
+import 'package:vocara/data/study_decks.dart';
+import 'package:vocara/data/study_records.dart';
+import 'package:vocara/data/word.dart';
+import 'package:vocara/data/word_repository.dart';
+import 'package:vocara/features/quiz/quiz.dart' show quizRandomProvider;
+import 'package:vocara/features/quiz/quiz_screen.dart';
+import 'package:vocara/features/study/study_screen.dart';
+import 'package:vocara/router.dart';
 
-import 'package:vocab/data/reminder_settings.dart';
-import 'package:vocab/features/reminder/reminder_notifications.dart';
+import 'package:vocara/data/reminder_settings.dart';
+import 'package:vocara/features/reminder/reminder_notifications.dart';
 
 import '../fakes.dart';
 

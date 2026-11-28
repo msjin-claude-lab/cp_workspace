@@ -5,11 +5,11 @@
 ## 시작하는 법
 
 - Claude Code는 **저장소 루트**에서 연다(앱 폴더에서 열면 HUD·hook 설정이 빠진다 — 루트 CLAUDE.md "앱을 여러 개 만들 때")
-- 주제 목록·진행 보기: `/apps:view-subjects` (주제를 주면 자세히: `/apps:view-subjects vocab`)
+- 주제 목록·진행 보기: `/apps:view-subjects` (주제를 주면 자세히: `/apps:view-subjects vocara`)
 - 주제 골라 이어 가기: `/apps:selection-subject [주제]` (주제 없이 부르면 목록 + 신규 주제 시작)
 - 새 주제 시작: `/apps:new <주제>`
 - 개발 환경: 공통은 [SETUP.md](SETUP.md)(Flutter·Android SDK 설치·확인·함정), 주제별은 `_drafts/<주제>/setup.md`(그 앱의 패키지·설정·가상 기기). 5단계에서 앱 폴더 `SETUP.md`로 옮긴다
-- 앱: [vocab](vocab/CLAUDE.md)(영단어, Flutter, 2026-11-19 앱 폴더 생성). 앱 작업은 그 앱 [HANDOFF.md](vocab/HANDOFF.md)의 "인계"부터 읽는다
+- 앱: [vocara](vocara/CLAUDE.md)(영단어 앱 Vocara — 2026-11-29 폴더 이름을 vocab에서 바꿈, Flutter, 2026-11-19 앱 폴더 생성). 앱 작업은 그 앱 [HANDOFF.md](vocara/HANDOFF.md)의 "인계"부터 읽는다
 
 ## 주제별 기록 — `_drafts/<주제>/` (2026-11-18 사용자 결정)
 

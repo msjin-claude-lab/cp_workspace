@@ -1,9 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vocab/data/app_settings.dart';
-import 'package:vocab/data/cell.dart';
-import 'package:vocab/data/counts.dart';
-import 'package:vocab/data/study_decks.dart';
+import 'package:vocara/data/app_settings.dart';
+import 'package:vocara/data/cell.dart';
+import 'package:vocara/data/counts.dart';
+import 'package:vocara/data/study_decks.dart';
 
 import '../fakes.dart';
 

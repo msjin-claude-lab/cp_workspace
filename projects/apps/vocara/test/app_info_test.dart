@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vocab/app_info.dart';
+import 'package:vocara/app_info.dart';
 
 void main() {
   test('메뉴에 보이는 버전은 pubspec.yaml의 version과 같다', () {

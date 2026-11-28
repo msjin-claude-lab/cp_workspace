@@ -3,18 +3,18 @@ import 'dart:math';
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/misc.dart' show Override;
-import 'package:vocab/data/app_settings.dart';
-import 'package:vocab/data/cell.dart';
-import 'package:vocab/data/cell_store.dart';
-import 'package:vocab/data/counts.dart';
-import 'package:vocab/data/reminder_settings.dart';
-import 'package:vocab/data/speaker.dart';
-import 'package:vocab/data/study_decks.dart';
-import 'package:vocab/data/study_records.dart';
-import 'package:vocab/data/word.dart';
-import 'package:vocab/data/word_repository.dart';
-import 'package:vocab/features/ads/banner_ad.dart';
-import 'package:vocab/features/reminder/reminder_notifications.dart';
+import 'package:vocara/data/app_settings.dart';
+import 'package:vocara/data/cell.dart';
+import 'package:vocara/data/cell_store.dart';
+import 'package:vocara/data/counts.dart';
+import 'package:vocara/data/reminder_settings.dart';
+import 'package:vocara/data/speaker.dart';
+import 'package:vocara/data/study_decks.dart';
+import 'package:vocara/data/study_records.dart';
+import 'package:vocara/data/word.dart';
+import 'package:vocara/data/word_repository.dart';
+import 'package:vocara/features/ads/banner_ad.dart';
+import 'package:vocara/features/reminder/reminder_notifications.dart';
 
 /// 시험(test)에서 함께 쓰는 가짜들. 모두 메모리에만 둔다.
 

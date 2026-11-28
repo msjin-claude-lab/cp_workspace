@@ -3,10 +3,10 @@ import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:path/path.dart' as p;
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
-import 'package:vocab/data/cell.dart';
-import 'package:vocab/data/study_decks.dart';
-import 'package:vocab/data/study_records.dart';
-import 'package:vocab/data/word.dart';
+import 'package:vocara/data/cell.dart';
+import 'package:vocara/data/study_decks.dart';
+import 'package:vocara/data/study_records.dart';
+import 'package:vocara/data/word.dart';
 
 /// 이름 있는 단어장(5판 `study_decks`)과 옛 칸 기록 옮기기를 실제 sqflite(PC의 ffi)로 본다.
 void main() {

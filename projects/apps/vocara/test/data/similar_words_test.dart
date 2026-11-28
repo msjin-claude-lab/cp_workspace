@@ -3,10 +3,10 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vocab/data/cell.dart';
-import 'package:vocab/data/similar_words.dart';
-import 'package:vocab/data/word.dart';
-import 'package:vocab/features/quiz/quiz.dart';
+import 'package:vocara/data/cell.dart';
+import 'package:vocara/data/similar_words.dart';
+import 'package:vocara/data/word.dart';
+import 'package:vocara/features/quiz/quiz.dart';
 
 Word _w(String word) => Word(
   id: 'id-$word',

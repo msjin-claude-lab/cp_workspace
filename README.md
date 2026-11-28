@@ -1,6 +1,6 @@
 # cp_workspace
 
-Claude Code + [oh-my-claudecode](https://www.npmjs.com/package/oh-my-claude-sisyphus)(OMC) 워크스페이스. 여러 프로젝트가 공유하는 환경 규칙과, 결함을 일부러 심어 둔 연습 프로젝트(`projects/practice/loan`), 그리고 실제로 만드는 앱(`projects/apps` — 첫 앱은 영단어 앱 `vocab`)이 들어 있다.
+Claude Code + [oh-my-claudecode](https://www.npmjs.com/package/oh-my-claude-sisyphus)(OMC) 워크스페이스. 여러 프로젝트가 공유하는 환경 규칙과, 결함을 일부러 심어 둔 연습 프로젝트(`projects/practice/loan`), 그리고 실제로 만드는 앱(`projects/apps` — 첫 앱은 영단어 앱 `vocara`(Vocara))이 들어 있다.
 
 ## 구성
 
@@ -24,7 +24,7 @@ cp_workspace/
 │       ├── CLAUDE.md      ← 앱 공통 규칙 (새 앱 시작 순서, 주제 인계, PC 역할)
 │       ├── SETUP.md       ← 앱 공통 개발 환경 (Flutter·Android SDK)
 │       ├── _drafts/       ← 진행 중 주제·후보 목록
-│       └── vocab/         ← 영단어 앱 (Flutter). 인계는 vocab/HANDOFF.md
+│       └── vocara/        ← 영단어 앱 Vocara (Flutter). 인계는 vocara/HANDOFF.md
 ├── plugins/
 │   └── apps/              ← 앱 작업용 스킬 플러그인 (/apps:new · selection-subject · view-subjects · config)
 ├── .claude-plugin/        ← 위 플러그인을 설치하는 로컬 마켓플레이스 정의
@@ -86,15 +86,15 @@ mvn -q test     # 41개 모두 통과 (과제 9 완료 후. 처음은 13개 통�
 
 앱마다 인계는 그 앱 폴더의 `HANDOFF.md`에 있다. 에뮬레이터 실행 확인은 개인 PC에서만 한다(사내망 PC는 analyze·test·build까지).
 
-### 영단어 앱 — `projects/apps/vocab`
+### 영단어 앱 — `projects/apps/vocara`
 
 초·중·고 학생용 영단어 앱(Flutter, 지금은 안드로이드만 — iOS는 보류). 학교급 × 난이도로 이름 붙인 단어장을 만들어 카드 학습·4지선다 시험·오답 노트를 하고 진도를 본다. 계정 없이 기록은 기기 안에만 둔다.
 
 - 단어: 초등 800개(쉬움 267 · 중간 267 · 어려움 266, CEFR-J Wordlist 기준 — 2026-11-24), 중등 700개(CEFR-J 기준, 234 · 233 · 233), 고등 1,500개(CEFR-J 기준, 500 · 500 · 500 — 2026-11-24), 심화 3,528개(넷째 학교급 — 남은 B1·B2, 1,176 · 1,176 · 1,176 — 2026-11-27)
-- 규칙·명령·코드 구조는 [vocab/CLAUDE.md](projects/apps/vocab/CLAUDE.md), 지금 상태와 다음 할 일은 [vocab/HANDOFF.md](projects/apps/vocab/HANDOFF.md), 검증 방법과 마지막 결과는 [vocab/VERIFY.md](projects/apps/vocab/VERIFY.md)
+- 규칙·명령·코드 구조는 [vocara/CLAUDE.md](projects/apps/vocara/CLAUDE.md), 지금 상태와 다음 할 일은 [vocara/HANDOFF.md](projects/apps/vocara/HANDOFF.md), 검증 방법과 마지막 결과는 [vocara/VERIFY.md](projects/apps/vocara/VERIFY.md)
 
 ```bash
-cd projects/apps/vocab
+cd projects/apps/vocara
 flutter analyze && flutter test     # 181개 통과 (2026-11-27)
 flutter build apk --debug
 ```
@@ -105,7 +105,7 @@ flutter build apk --debug
 
 워크스페이스 쪽은 [HANDOFF.md](HANDOFF.md)에 PC별로, 앱은 그 앱의 `HANDOFF.md`에 정리돼 있다. 요약:
 
-- 영단어 앱: 단어 늘리기 4차(심화) 개인 PC 마무리(debug 빌드·에뮬레이터 확인), 출시 준비(앱 이름·아이콘·서명 키) — [vocab/HANDOFF.md](projects/apps/vocab/HANDOFF.md) "이어서 할 일"
+- 영단어 앱: 단어 늘리기 4차(심화) 개인 PC 마무리(debug 빌드·에뮬레이터 확인), 출시 준비(앱 이름·아이콘·서명 키) — [vocara/HANDOFF.md](projects/apps/vocara/HANDOFF.md) "이어서 할 일"
 - 사내망 PC: npm 방식 OMC 복사본 정리(플러그인으로 전환 완료)
 - 두 PC 공통: HUD 상태바 모양 확인, `/team` 동작 확인
 - 연습 과제: 1~9번 모두 완료(2026-11-17)
