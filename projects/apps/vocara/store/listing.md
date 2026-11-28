@@ -58,7 +58,7 @@ Vocara는 국제 기준(CEFR)으로 고른 영단어를 초등부터 심화까�
 The CEFR-J Wordlist Version 1.6. Compiled by Yukio Tono, Tokyo University of Foreign Studies. Retrieved from https://www.cefr-j.org/download.html on 23/11/26.
 Word frequency: Google Books Ngram dataset (version 20200217), licensed under CC BY 3.0 (https://creativecommons.org/licenses/by/3.0/), as compiled in hackerb9/gwordlist (https://github.com/hackerb9/gwordlist).
 
-문의: {문의 이메일}
+문의: mjins910517@gmail.com
 ```
 
 ## 그 밖의 항목 (제안)
@@ -67,17 +67,17 @@ Word frequency: Google Books Ngram dataset (version 20200217), licensed under CC
 |---|---|
 | 앱 카테고리 | 교육 |
 | 태그(최대 5개) | 교육, 언어 학습, 어휘, 영어, 학습 도구 — Play가 보여 주는 목록에서 가장 가까운 것을 고른다 |
-| 이메일 주소(필수, 공개) | `{문의 이메일}` |
+| 이메일 주소(필수, 공개) | `mjins910517@gmail.com` |
 | 웹사이트 | 비워 둠(선택) |
 | 전화번호 | 비워 둠(선택) |
 | 기본 언어 | 한국어 – ko-KR |
 
 ## 글자 수 확인
 
-`python -c` 로 센 값(공백·줄바꿈 포함, 코드 블록 안 내용만). 마지막으로 센 날: 2026-11-29(광고 줄 반영)
+`python -c` 로 센 값(공백·줄바꿈 포함, 코드 블록 안 내용만). 마지막으로 센 날: 2026-11-29(광고 줄·문의 이메일 반영)
 
 | 항목 | 글자 수 | 한도 |
 |---|---|---|
 | 앱 이름 | 24 | 30 |
 | 간단한 설명 | 46 | 80 |
-| 자세한 설명 | 1561 | 4,000 |
+| 자세한 설명 | 1574 | 4,000 |

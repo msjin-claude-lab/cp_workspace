@@ -6,7 +6,7 @@
 
 | 빈칸 | 들어가는 곳 | 메모 |
 |---|---|---|
-| `{문의 이메일}` | `listing.md`(자세한 설명 끝, 이메일 주소), `privacy-policy.md` 9절 | 앱 전용으로 만든 주소. 스토어에 공개된다 — 회사·개인 메일은 쓰지 않는다 |
+| ~~`{문의 이메일}`~~ **채움(2026-11-29)** `mjins910517@gmail.com` | `listing.md`(자세한 설명 끝, 이메일 주소), `privacy-policy.md` 9절 | 앱 전용으로 만든 주소(개인용 Gmail). 스토어에 공개된다 |
 | `{시행일 …}` | `privacy-policy.md` 맨 위 | 처리방침을 게시하는 날 |
 | `{처리방침 주소}` | `policy-answers.md` 1절, Play Console 앱 콘텐츠 | Google Sites에 게시한 뒤 생기는 주소(`privacy-policy.md` 맨 아래 안내) |
 
