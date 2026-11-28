@@ -9,11 +9,12 @@ import 'router.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // 광고(2026-11-29): 어린이 대상 설정을 광고 요청보다 먼저 적용한다. 적용하지 못하면 광고 없이 연다
+  // (bannerAdsProvider의 기본값이 광고 없음 — 성공했을 때만 AdMob으로 바꾼다)
   final adsReady = await startAds();
   runApp(
     ProviderScope(
       overrides: [
-        if (!adsReady) bannerAdsProvider.overrideWithValue(const NoBannerAds()),
+        if (adsReady) bannerAdsProvider.overrideWithValue(const AdMobBannerAds()),
       ],
       child: const VocabApp(),
     ),

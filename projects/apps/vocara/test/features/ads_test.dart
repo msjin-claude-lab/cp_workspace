@@ -181,4 +181,10 @@ void main() {
     expect(bannerAdUnitId, testBannerAdUnitId);
     expect(testBannerAdUnitId, 'ca-app-pub-3940256099942544/6300978111');
   });
+
+  test('광고의 기본값은 광고 없음이다 — 앱 시작에서 성공했을 때만 AdMob으로 바꾼다(검토 LOW 7)', () {
+    final container = ProviderContainer();
+    addTearDown(container.dispose);
+    expect(container.read(bannerAdsProvider), isA<NoBannerAds>());
+  });
 }

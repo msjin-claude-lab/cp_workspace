@@ -102,7 +102,9 @@ class AdMobBannerAds implements BannerAds {
   }
 }
 
-final bannerAdsProvider = Provider<BannerAds>((ref) => const AdMobBannerAds());
+/// 기본값은 광고 없음 — 앱 시작(`main.dart`)에서 [startAds]가 성공했을 때만 [AdMobBannerAds]로 바꾼다.
+/// 시험에서 가짜를 넣지 않아도 플랫폼 채널을 부르지 않는다(2026-11-29 검토 LOW 7).
+final bannerAdsProvider = Provider<BannerAds>((ref) => const NoBannerAds());
 
 /// 화면 아래 배너 자리. `Scaffold.bottomNavigationBar`에 넣는다 — Scaffold가 "새 등록" 같은
 /// 떠 있는 버튼을 이 자리 위로 올리므로 겹치지 않는다. 불러오기 전·실패면 높이 0.

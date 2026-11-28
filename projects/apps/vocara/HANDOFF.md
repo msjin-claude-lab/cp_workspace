@@ -2,7 +2,7 @@
 
 이 앱의 진행 상태 기록이다(`projects/apps/CLAUDE.md` "주제 인계"). 규칙·명령·코드 구조는 [CLAUDE.md](CLAUDE.md).
 
-- 상태: 종료 · 2026-11-29 · 개인 PC
+- 상태: 진행 중 · 2026-11-29 01시 · 개인 PC
 
 > **바로 이어 갈 것(2026-11-29 01시, 개인 PC — 광고 끝, 폴더 이름 vocara로 바꿈)**: AdMob 배너 광고 — 구현 wip 커밋 `f4a3097`. 이번 대화에서 ① 에뮬레이터 확인(카드·오늘의 단어·시험에 배너 없음, 비행기 모드에서 자리 없음) ② `store/` 광고 반영(처리방침·정책 답안 2·5·6절·설명 광고 줄 1,561자·체크리스트) ③ 업로드 키 AAB 다시 빌드(`CN=Vocara, C=KR`, 병합 매니페스트에 AD_ID·ADSERVICES 없음) ④ VERIFY.md·앱 CLAUDE.md(광고 구조·ID 위치)를 끝냈다(커밋 전). ⑤ architect 검토(COMMENT)도 반영했다(진행 이력 마지막 줄). 광고 커밋 `33f9056`. 폴더 이름도 `vocara`로 바꿨다(진행 이력 마지막 줄). **다음: 사용자 몫인 등록 전 확인(`store/README.md` 체크리스트 — 빈칸, AdMob 등급 G, 모두 어린이 처리·Android 12 이하 광고 ID 확인)**. 조사 근거 `.omc/research/vocab-ads.md`(git 밖 — 필요한 링크는 `store/policy-answers.md`에 옮김). **등록 전 확인(사용자)**: 나이 확인 화면 없이 "모두 어린이 처리"가 Play 가족 정책에 맞는지(공식 문구 못 찾음), AdMob 앱 설정의 광고 콘텐츠 등급 G
 
@@ -280,4 +280,5 @@
 - 2026-11-29 개인 PC · 결정 · 광고 대상은 **모두 어린이 처리 유지**(사용자 — 나이 확인 화면 넣지 않음, 일반 광고 안 함). 광고 ralph 남은 일: ① 에뮬레이터 debug로 카드·오늘의 단어·시험에 배너 없음·비행기 모드에서 자리 없음 확인 ② store/ 갱신 — `.omc/research/vocab-ads.md` 근거로 데이터 보안(IP·상호작용·진단·기기 ID, 공유, 광고·분석·사기 방지, TLS)·처리방침(AdMob·인터넷 권한·어린이 처리)·설명("광고 없음" 줄 삭제, 글자 수)·광고 포함=예·권한 표 ③ release AAB 다시 빌드 ④ VERIFY·앱 CLAUDE.md ⑤ architect 검토 → 정리 → 커밋
 - 2026-11-29 개인 PC · 마무리 · 광고 남은 일 ①~⑤ 끝: 에뮬레이터(debug 새로 설치, `ad1`) — 시작·학교급·난이도·홈·오답 노트·진도·설정에 Test Ad, 카드·오늘의 단어·시험에 없음, 비행기 모드에서 자리 없음 / `store/` 처리방침·정책 답안(2절 예, 5절 가족 정책, 6절 데이터 보안 4항목 수집·공유)·설명 1,561자·체크리스트 / AAB 다시 빌드(`CN=Vocara, C=KR`, AD_ID·ADSERVICES 없음) / VERIFY·앱 CLAUDE.md "광고". architect 검토 COMMENT → 반영: 광고 ID 문구를 "Android 13 이상"으로 좁힘(12 이하는 사용자 확인으로), iOS에서는 `startAds()`가 광고를 시작하지 않음(Info.plist 앱 ID 없음), 매니페스트 주석, 처리방침 화면 목록·인터넷 쓰는 때, 시험에 오답 시험 경로. analyze 문제없음·시험 218개. 남긴 것: 검토 LOW 7(`bannerAdsProvider` 기본값을 `NoBannerAds`로 — 선택)
 - 2026-11-29 개인 PC · 정리 · 사용자 요청으로 폴더 이름을 앱 이름에 맞춤: `projects/apps/vocab` → **`projects/apps/vocara`**(git mv — `key.properties`·`build/`도 함께 옮겨짐), Dart 패키지 `name: vocara`(`package:vocara/` 임포트 19개 파일), 문서 경로·링크·주제 이름(`/apps:selection-subject vocara`). **그대로 둔 것**: 앱 ID `kr.msjin.vocab`, 기기 DB `vocab.db`, iOS 번들 ID `dev.cp.vocab`(iOS 보류), 클래스 `VocabApp`, 업로드 키 `D:\dev\keys\vocab-upload.jks`, 에뮬레이터 `vocab_api36`, 저장소 밖 `D:\dev\tmp\vocab_*`, `.omc/specs/deep-interview-vocab*`. 진행 이력 속 옛 경로도 새 경로로 바뀜(링크가 살도록). pub get·analyze 문제없음·시험 218개·release AAB(`CN=Vocara, C=KR`). **사내망 PC는 pull 뒤 `projects/apps/vocara`에서 `flutter pub get`**(옛 `vocab` 폴더에 git 밖 파일 — build/·.dart_tool — 이 남으면 지워도 된다)
-- 2026-11-29 개인 PC · 종료 · 이 대화의 vocara 주제 종료. 남은 것: 등록 전 사용자 확인(`store/README.md` 체크리스트), 선택 사항 검토 LOW 7(`bannerAdsProvider` 기본값 `NoBannerAds`)
+- 2026-11-29 개인 PC · 종료 · 이 대화의 vocara 주제 종료. 남은 것: 등록 전 사용자 확인(`store/README.md` 체크리스트), (LOW 7은 아래 줄에서 반영)
+- 2026-11-29 개인 PC · 보강 · 검토 LOW 7 반영: `bannerAdsProvider` 기본값을 `NoBannerAds`로, `main.dart`는 `startAds()` 성공 때만 `AdMobBannerAds`로 바꿈(시험에서 가짜를 잊어도 플랫폼 채널을 부르지 않음), 기본값 시험 1개 추가. analyze 문제없음·시험 219개·debug 에뮬레이터(새로 설치 — 에뮬레이터가 꺼졌다 옛 스냅샷으로 켜짐) 시작 화면에 Test Ad
