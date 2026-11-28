@@ -112,7 +112,7 @@ void main() {
     await pumpApp(tester);
 
     expect(find.byType(StartScreen), findsOneWidget);
-    expect(find.text('영단어'), findsOneWidget); // 제목은 앱 이름
+    expect(find.text('Vocara'), findsOneWidget); // 제목은 앱 이름
     expect(tester.widget<AppBar>(find.byType(AppBar)).centerTitle, isTrue);
     await tap(tester, 'start-create');
     await enterName(tester, '  아침 단어  '); // 앞뒤 공백은 뗀다
@@ -380,7 +380,7 @@ void main() {
     final title = tester.widget<Text>(find.byKey(const ValueKey('menu-title')));
     final span = title.textSpan! as TextSpan;
     final version = span.children!.single as TextSpan;
-    expect(span.toPlainText(), '영단어 v1.0.0');
+    expect(span.toPlainText(), 'Vocara v1.0.0');
     expect(version.style!.fontSize!, lessThan(span.style!.fontSize!));
 
     // 메뉴에는 내 단어장만 — 메인화면·기본 단어장·"내 단어장" 항목·새 단어장 버튼은 없다
@@ -488,7 +488,7 @@ void main() {
       find.descendant(of: find.byType(AppBar), matching: find.text('앱 정보')),
       findsOneWidget,
     );
-    expect(find.text('영단어'), findsOneWidget);
+    expect(find.text('Vocara'), findsOneWidget);
     expect(find.text('버전 1.0.0'), findsOneWidget);
     // 단어 출처: 두 자료의 인용 문구가 정해진 형식 그대로 보인다
     expect(find.text('단어 출처'), findsOneWidget);

@@ -578,7 +578,7 @@ class _MenuDrawer extends ConsumerWidget {
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
-              // 앱 제목 + 작은 글씨의 버전. 예: 영단어 v1.0.0
+              // 앱 제목 + 작은 글씨의 버전. 예: Vocara v1.0.0
               child: Text.rich(
                 key: const ValueKey('menu-title'),
                 TextSpan(
