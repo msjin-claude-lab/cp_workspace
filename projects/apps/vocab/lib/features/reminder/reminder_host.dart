@@ -57,7 +57,12 @@ class _ReminderHostState extends ConsumerState<ReminderHost>
     if (payload == null || StudyDeck.parseId(payload) == null || !mounted) {
       return;
     }
-    widget.router.push('/today/$payload');
+    final path = '/today/$payload';
+    // 이미 그 화면에 있으면 같은 화면을 하나 더 쌓지 않는다
+    if (widget.router.routerDelegate.currentConfiguration.uri.path == path) {
+      return;
+    }
+    widget.router.push(path);
   }
 
   @override

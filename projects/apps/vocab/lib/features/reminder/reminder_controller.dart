@@ -105,7 +105,8 @@ class ReminderController extends AsyncNotifier<ReminderSettings> {
     final now = ref.read(nowProvider)();
     final decks = ref.read(studyDecksProvider);
     final today = await decks.loadDailySet(deck.deckId, dayKey(now));
-    var count = today?.wordIds.length;
+    // 오늘을 끝냈으면 다음 알림은 내일 것이므로, 오늘 묶음 크기가 아니라 저장된 개수(다음 날 적용)를 쓴다
+    var count = today == null || today.completed ? null : today.wordIds.length;
     if (count == null || count == 0) {
       final saved = await decks.loadDailyCount(deck.deckId);
       count = isValidDailyCount(saved) ? saved! : defaultDailyCount;

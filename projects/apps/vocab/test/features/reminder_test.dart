@@ -213,6 +213,8 @@ void main() {
       );
       await controller.reschedule();
       expect(notifications.scheduled!.first, DateTime(2026, 11, 29, 20));
+      // 내일 알림이므로 오늘 묶음(2개)이 아니라 저장된 개수(기본 10)로 알린다
+      expect(notifications.scheduled!.body, '오늘의 단어 10개가 기다려요');
     });
 
     test('문구의 개수는 오늘 고르기 전이면 그 단어장의 설정값', () async {
