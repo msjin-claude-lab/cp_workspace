@@ -17,7 +17,7 @@ Play Console → 정책 → 앱 콘텐츠의 항목마다 답과 근거를 적�
 
 ## 1. 개인정보처리방침
 
-- 답: Google Sites에 게시한 `privacy-policy.md`의 주소 → `{처리방침 주소}`
+- 답: Google Sites에 게시한 `privacy-policy.md`의 주소 → `https://sites.google.com/view/vocara-privacy`(2026-11-29 게시, 로그인 없이 열림 확인)
 
 ## 2. 광고
 

@@ -7,8 +7,8 @@
 | 빈칸 | 들어가는 곳 | 메모 |
 |---|---|---|
 | ~~`{문의 이메일}`~~ **채움(2026-11-29)** `mjins910517@gmail.com` | `listing.md`(자세한 설명 끝, 이메일 주소), `privacy-policy.md` 9절 | 앱 전용으로 만든 주소(개인용 Gmail). 스토어에 공개된다. 모든 앱 공통 — 원본은 [../../CLAUDE.md](../../CLAUDE.md) "앱 공통 정보" |
-| `{시행일 …}` | `privacy-policy.md` 맨 위 | 처리방침을 게시하는 날 |
-| `{처리방침 주소}` | `policy-answers.md` 1절, Play Console 앱 콘텐츠 | Google Sites에 게시한 뒤 생기는 주소(`privacy-policy.md` 맨 아래 안내) |
+| ~~`{시행일 …}`~~ **채움(2026-11-29)** `2026년 11월 29일` | `privacy-policy.md` 맨 위 | 처리방침을 게시한 날 |
+| ~~`{처리방침 주소}`~~ **채움(2026-11-29)** `https://sites.google.com/view/vocara-privacy` | `policy-answers.md` 1절, Play Console 앱 콘텐츠 | Google Sites에 게시한 주소 — 처리방침을 고치면 사이트 본문도 같이 고친다 |
 
 ## 파일
 
@@ -28,7 +28,7 @@
 1. [ ] Play 개발자 계정(개인, 등록비 25달러) — 본인 인증
    - [ ] AdMob 앱 설정에서 광고 콘텐츠 등급 **G**(앱 코드에도 G가 있지만 계정 쪽도 맞춘다). 출시 뒤 AdMob에서 Play 스토어 연결·지급 정보
 2. [ ] **앱 만들기**: 앱 이름 `Vocara - 국제 기준(CEFR) 영단어`, 기본 언어 한국어, 앱(게임 아님), 무료, 선언 체크
-3. [ ] 개인정보 처리방침을 Google Sites에 게시(`privacy-policy.md` 맨 아래) → 주소 확보
+3. [x] 개인정보 처리방침을 Google Sites에 게시(`privacy-policy.md` 맨 아래) → 주소 확보 — 2026-11-29 `https://sites.google.com/view/vocara-privacy`
 4. [ ] **앱 콘텐츠**(`policy-answers.md` 순서대로)
    - [ ] 개인정보처리방침 주소
    - [ ] 광고: **있음**(2026-11-29 AdMob 배너)
