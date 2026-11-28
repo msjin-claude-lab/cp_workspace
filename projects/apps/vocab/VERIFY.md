@@ -46,6 +46,11 @@
 
 ## 마지막 결과
 
+- **2026-11-28 저녁 개인 PC — 4차 심화 3,528개를 연 빌드**(커밋 `dadecac` 내용, 숨김 해제 `7c6a013`)
+  - `flutter analyze` "No issues found", `flutter test` "All tests passed"(**181개**), `flutter build apk --debug` "Built …app-debug.apk"(18:58 새로 생김, 171,924,383바이트, Gradle 33초). 세 명령을 `&&`로 이어 종료 코드 0. `build/app/outputs`를 먼저 지우지는 않았다(파일 시각으로 확인)
+  - **에뮬레이터: 통과**(설치 전 기기 DB·설정 백업 `D:\dev\tmp\vocab_db_backup\before_adv\` → `adb install -r` → 실행 뒤 `after_adv.db`): `user_version` 10 그대로(새 판 없음), `study_log` 1 · `quiz_log` 20 · `wrong_notes` 14 · 단어장 6개 모두 설치 전과 같음
+  - 화면(adb로 누름, 접근성 노드 + 캡처 — 사람이 직접 써 본 것은 아니다): 새 등록 `adv1` → 학교급 `초등 · 중등 · 고등 · 심화` → 심화 → 난이도 `쉬움 / 고등 이전에 놓친 쉬운 말 포함 / 1176단어` · `중간 / 1176단어` · `어려움 / 1176단어`(캡처) → 홈 `심화 [난이도 : 쉬움]` · `1176단어` / 카드 학습 `1 / 50` `blend`, 뒷면 뜻·예문·해석 — 누른 뒤 노드가 보이기까지 약 2.4초(uiautomator 덤프 시간 포함) / 시험 `1 / 20` 영단어 고르기, `unsure` 정답 풀이 / 설정 `전체 (1176)`. 뒤 DB: 단어장 7개(`adv1` `advanced_easy`), `quiz_log` 21(방금 푼 1문제), 나머지 그대로. logcat의 flutter 오류 0건. 시험 단어장 `adv1`은 남겨 둠
+
 - **2026-11-24 밤 개인 PC — 3차 고등 1,500개 + DB 10판**(커밋 `b05d702` 내용)
   - 재현: 원본 두 파일 SHA-256 README와 일치(`select.py`가 다르면 종료 코드 1) → `select.py --stage elementary|middle|high` 세 번 뒤 `git diff --exit-code -- 'docs/wordlist/*.csv'` 0, `cells.py --stage elementary|middle|high check --full` 9칸 문제 0건(267 · 267 · 266 / 234 · 233 · 233 / 500 · 500 · 500). `12a9766`과 초등·중등 1,500쌍 번호→영단어 같음(스크립트, 다르면 종료 코드 1)
   - `flutter analyze` "No issues found", `flutter test` "All tests passed"(**170개** — 번호 형식 `w-\d{4}`만, 앱 정보 문구에 "초·중등" 없음 포함), `flutter build apk --debug` "Built …app-debug.apk"(`build/app/outputs` 지운 뒤 23:06 새로 생김, 171,610,280바이트)

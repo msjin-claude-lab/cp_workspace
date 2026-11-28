@@ -107,7 +107,7 @@
 - 에뮬레이터 확인(개인 PC에서만): 기기 DB 백업 → 덮어 설치 → DB가 10판 그대로이고 기존 단어장·기록 줄 수가 설치 전과 같음, 새 단어장 → `심화` → 쉬움 버튼의 둘째 줄 → 홈 `심화 [난이도 : 쉬움]`과 단어 수, 카드·시험이 열림(약 1,200개 칸에서 화면이 뜨는 데 걸리는 시간도 본다), 설정 "전체 (단어 수)"
 - 문서: `HANDOFF.md`, `VERIFY.md`(낡은 "기대값"도 함께 — 시험 개수·칸별 개수·유사어 쌍 수), `docs/wordlist/README.md`, 앱 `CLAUDE.md` `:3`("9칸", 단어 수) · `:33`, `docs/spec.md:26` · `:32` · `:54`, 루트 `README.md`의 vocab 단어 수와 "남은 일", `about_screen.dart:49` 주석, `word_assets_test.dart` 머리 주석(`:9-13` · `:27`)
 
-**6단계 결과(2026-11-27 사내망 PC — 개인 PC 몫 남음)**: 숨김 해제(시험은 "기본으로 보인다"와 "숨긴 학교급은 안 보인다"로 나눠 181개) → 네 학교급 `select.py` 뒤 csv diff 0 · 초·중·고 단어 파일 `ce9b57a`와 같음 · 네 학교급 `check --full` 0건 → `flutter analyze` 문제없음 · `flutter test` 181개 통과 → **`flutter build apk --debug`는 사내망 PC에서 실패**(sqlite3 native assets를 github.com에서 받다 막힘 — 예상대로) → 두 축 검토: 코드 APPROVE(LOW 3 — 낡은 주석·빈 단언은 고침, 숨긴 학교급 화면에 AppBar 없음은 지금 영향 없어 둠), 단어(칸을 옮긴 말 85개와 새 칸) REQUEST CHANGES → 쌍 25개·해석 3줄 반영 → 문서 갱신. **남은 것(개인 PC)**: debug 빌드, 에뮬레이터 확인(위 목록), `VERIFY.md` "마지막 결과".
+**6단계 결과(2026-11-27 사내망 PC — 개인 PC 몫 남음)**: 숨김 해제(시험은 "기본으로 보인다"와 "숨긴 학교급은 안 보인다"로 나눠 181개) → 네 학교급 `select.py` 뒤 csv diff 0 · 초·중·고 단어 파일 `ce9b57a`와 같음 · 네 학교급 `check --full` 0건 → `flutter analyze` 문제없음 · `flutter test` 181개 통과 → **`flutter build apk --debug`는 사내망 PC에서 실패**(sqlite3 native assets를 github.com에서 받다 막힘 — 예상대로) → 두 축 검토: 코드 APPROVE(LOW 3 — 낡은 주석·빈 단언은 고침, 숨긴 학교급 화면에 AppBar 없음은 지금 영향 없어 둠), 단어(칸을 옮긴 말 85개와 새 칸) REQUEST CHANGES → 쌍 25개·해석 3줄 반영 → 문서 갱신. **개인 PC 몫(2026-11-28)**: debug 빌드 통과 → 에뮬레이터 덮어 설치, DB 10판·기존 줄 수 그대로, 새 단어장 → 심화 → 쉬움 `1176단어` · 카드 · 시험 · 설정 `전체 (1176)`, flutter 오류 0건 → `VERIFY.md` "마지막 결과". **4차 끝.**
 
 ## 완료 기준 (전체)
 
