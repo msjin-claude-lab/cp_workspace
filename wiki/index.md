@@ -1,6 +1,7 @@
 # Wiki Index
 
 > 12 pages | Last updated: 2026-11-26T10:57:02.702Z
+> 13 pages | Last updated: 2026-11-26T12:25:51.505Z
 
 ## architecture
 
@@ -31,3 +32,4 @@
 - [Session Log 2026-11-23](session-log-2026-11-23-e4369e20.md) — # Session Log 2026-11-23
 - [Session Log 2026-11-24](session-log-2026-11-24-774588f1.md) — # Session Log 2026-11-24
 - [Session Log 2026-11-24](session-log-2026-11-24-ff6f988f.md) — # Session Log 2026-11-24
+- [Session Log 2026-11-26](session-log-2026-11-26-a5268aff.md) — # Session Log 2026-11-26

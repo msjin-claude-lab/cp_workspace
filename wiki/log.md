@@ -56,3 +56,19 @@
 - **Pages:** session-log-2026-11-24-ff6f988f.md
 - **Summary:** Auto-captured session log for 38822c28-e8e4-426d-8294-fa5a1b853c65 (omc-wiki-capture:f334906975eb4b032a64df8a1b3158f0c7e8cbe155e408d0ee03449ca124da8f)
 
+## [2026-11-26T12:17:54.119Z] ingest
+- **Pages:** session-log-2026-11-26-a5268aff.md
+- **Summary:** Auto-captured session log for edd21fcc-4203-4db9-a56a-1f84d3f8f6a5 (omc-wiki-capture:37c792445383d3f972de58912e63efdd346fc8eea08e39a632d7ecf931285913)
+
+## [2026-11-26T12:26:24.338Z] ingest
+- **Pages:** session-log-2026-11-26-2f7abf15.md
+- **Summary:** Auto-captured session log for bd2ba6c3-422e-4c0f-b8e4-f69b8da8afe3 (omc-wiki-capture:f02998cec84bc213e07fdbcad232a88aa403aede3976b535383b80e5af1f3b2e)
+
+## [2026-11-26T12:26:32.727Z] ingest
+- **Pages:** session-log-2026-11-26-6fd36c0f.md
+- **Summary:** Auto-captured session log for e26935c1-b696-473a-9054-f58b1ded3360 (omc-wiki-capture:b5ebc1f4cca8ea638345ef0d52920d2fa263810ace6d451299070f4b6a24cf61)
+
+## [2026-11-26T12:27:47.402Z] ingest
+- **Pages:** session-log-2026-11-26-d6769fe6.md
+- **Summary:** Auto-captured session log for 1a5aeca4-1542-454d-b994-bb47840e9d30 (omc-wiki-capture:fd44d70d4edf36e28f5556d1ee5f8e00bb69598ce3bf8241acab430b0b03100f)
+
