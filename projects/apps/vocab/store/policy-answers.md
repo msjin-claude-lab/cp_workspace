@@ -6,9 +6,10 @@ Play Console → 정책 → 앱 콘텐츠의 항목마다 답과 근거를 적�
 
 | 사실 | 확인한 곳 |
 |---|---|
-| 인터넷 권한이 없다 — 데이터를 밖으로 보낼 수 없다 | release 병합 매니페스트(`build/app/intermediates/merged_manifests/release/…/AndroidManifest.xml`)의 `uses-permission`이 `kr.msjin.vocab.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION` 하나뿐 |
-| 계정·로그인 없음 | 앱에 로그인 화면·인증 패키지 없음(`pubspec.yaml` 의존성: flutter_tts, sqflite, path, go_router, flutter_riverpod, shared_preferences) |
-| 기록은 기기 안에만 | sqflite(`lib/data/` 학습·시험·오답·단어장), shared_preferences(고른 단어장) |
+| 인터넷 권한이 없다 — 데이터를 밖으로 보낼 수 없다 | release 병합 매니페스트(`build/app/intermediates/merged_manifests/release/processReleaseManifest/AndroidManifest.xml`, 2026-11-28 일일 학습 뒤)의 `uses-permission`: `POST_NOTIFICATIONS`(매일 알림)·`RECEIVE_BOOT_COMPLETED`(재부팅 뒤 알림 다시 예약)·`VIBRATE`(알림 패키지가 넣음)·`kr.msjin.vocab.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION`(AndroidX 내부) — `INTERNET` 없음, 정확한 알람 권한 없음 |
+| 계정·로그인 없음 | 앱에 로그인 화면·인증 패키지 없음(`pubspec.yaml` 의존성: flutter_tts, sqflite, path, go_router, flutter_riverpod, shared_preferences, flutter_local_notifications, timezone) |
+| 기록은 기기 안에만 | sqflite(`lib/data/` 학습·시험·오답·단어장·오늘의 단어 `daily_words`), shared_preferences(고른 단어장, 매일 알림 켜짐·시각) |
+| 알림은 기기 안 예약 | `flutter_local_notifications`의 로컬 예약 알림(`lib/features/reminder/`) — 서버 푸시·Firebase 없음 |
 | 광고·분석 SDK 없음 | `pubspec.yaml`에 광고·분석·Firebase 패키지 없음 |
 | 결제 없음 | 결제 패키지 없음 |
 | 발음은 기기 TTS | `flutter_tts`, 매니페스트 `<queries>`의 `TTS_SERVICE` |
@@ -44,7 +45,7 @@ Play Console → 정책 → 앱 콘텐츠의 항목마다 답과 근거를 적�
 ## 6. 데이터 보안
 
 - 앱이 사용자 데이터를 수집하거나 공유하는가: **아니요**
-  - 근거: 인터넷 권한이 없어 기기 밖으로 보낼 수 없다. Play 정의상 "기기에서만 처리되고 밖으로 전송되지 않는 데이터"는 수집으로 보지 않는다(이 정의는 Play 도움말 기준으로 알고 있는 내용 — 등록 때 화면 설명을 다시 읽고 확인)
+  - 근거: 인터넷 권한이 없어 기기 밖으로 보낼 수 없다. 매일 알림도 기기 안에서 예약하는 로컬 알림이라 데이터 전송이 없다(알림 권한은 데이터 보안 양식의 "수집" 대상이 아니다 — 알림을 보이게 하는 권한일 뿐). Play 정의상 "기기에서만 처리되고 밖으로 전송되지 않는 데이터"는 수집으로 보지 않는다(이 정의는 Play 도움말 기준으로 알고 있는 내용 — 등록 때 화면 설명을 다시 읽고 확인)
 - 데이터 암호화·삭제 요청 문항: 수집이 "아니요"면 보통 묻지 않는다. 묻는다면 "앱 삭제로 모든 기록이 지워진다"(처리방침 3절)
 
 ## 7. 그 밖의 선언
