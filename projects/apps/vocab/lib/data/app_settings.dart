@@ -12,24 +12,31 @@ class DeckSettings {
   const DeckSettings({
     this.cardCount = defaultCardCount,
     this.quizCount = defaultQuizCount,
+    this.dailyCount = defaultDailyCount,
   });
 
   final int cardCount;
   final int quizCount;
 
-  DeckSettings copyWith({int? cardCount, int? quizCount}) => DeckSettings(
-    cardCount: cardCount ?? this.cardCount,
-    quizCount: quizCount ?? this.quizCount,
-  );
+  /// 오늘의 단어 개수(5·10·15·20, 2026-11-28 사용자 결정). 바꾸면 다음에 고를 때(다음 날)부터 쓴다.
+  final int dailyCount;
+
+  DeckSettings copyWith({int? cardCount, int? quizCount, int? dailyCount}) =>
+      DeckSettings(
+        cardCount: cardCount ?? this.cardCount,
+        quizCount: quizCount ?? this.quizCount,
+        dailyCount: dailyCount ?? this.dailyCount,
+      );
 
   @override
   bool operator ==(Object other) =>
       other is DeckSettings &&
       other.cardCount == cardCount &&
-      other.quizCount == quizCount;
+      other.quizCount == quizCount &&
+      other.dailyCount == dailyCount;
 
   @override
-  int get hashCode => Object.hash(cardCount, quizCount);
+  int get hashCode => Object.hash(cardCount, quizCount, dailyCount);
 }
 
 /// 옛 공통 설정(7판 전 — 모든 단어장 공통이던 때). 이제 **읽기만** 한다: 7판 전에 있던 단어장(설정 열이
@@ -96,12 +103,18 @@ class DeckSettingsNotifier extends AsyncNotifier<DeckSettings> {
     final legacy = ref.watch(legacySettingsStoreProvider);
     // 내장 칸은 고유 설정이 없다(단어장이 아니다)
     DeckCounts own = (cardCount: null, quizCount: null);
+    int? daily;
     if (deck case StudyDeck(:final deckId)) {
       final decks = ref.watch(studyDecksProvider);
       try {
         own = await decks.loadCounts(deckId);
       } catch (_) {
         // 읽지 못하면 고유 값이 없는 것으로 보고 물려받는다
+      }
+      try {
+        daily = await decks.loadDailyCount(deckId);
+      } catch (_) {
+        // 읽지 못하면 기본값
       }
     }
     return DeckSettings(
@@ -116,6 +129,8 @@ class DeckSettingsNotifier extends AsyncNotifier<DeckSettings> {
         legacy.loadQuizCount,
         defaultQuizCount,
       ),
+      // 오늘의 단어 개수는 옛 공통 설정이 없다 — 저장된 값이 없거나 고르는 값이 아니면 기본값
+      dailyCount: isValidDailyCount(daily) ? daily! : defaultDailyCount,
     );
   }
 
@@ -129,6 +144,11 @@ class DeckSettingsNotifier extends AsyncNotifier<DeckSettings> {
   Future<bool> setQuizCount(int count) => _set(
     (s) => s.copyWith(quizCount: count),
     (decks, deckId) => decks.saveQuizCount(deckId, count),
+  );
+
+  Future<bool> setDailyCount(int count) => _set(
+    (s) => s.copyWith(dailyCount: count),
+    (decks, deckId) => decks.saveDailyCount(deckId, count),
   );
 
   Future<bool> _set(

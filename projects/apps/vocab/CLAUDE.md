@@ -35,6 +35,8 @@ PATH에 `D:\dev\flutter\bin`(두 PC 같은 경로). 작업 위치: `projects/app
 - 단어 읽기는 `lib/data/word_repository.dart`(`cellWordsProvider(cell)`)
 - 고른 단어장 번호는 **shared_preferences**, 기록과 단어장별 설정은 sqflite(옛 공통 설정 `card_count`·`quiz_count`는 shared_preferences에서 읽기만 한다). DB 판을 올릴 때는 `SqfliteStudyRecords.schemaVersion`과 onUpgrade의 `oldVersion < N` 단계를 더하고 `test/data/study_records_test.dart`(sqflite_common_ffi)에 이행 시험을 더한다. 멈춘 판에서 시험해야 하는 단계는 `@visibleForTesting`으로 공개한다(예: `upgradeToV8`)
 - 시험 섞기는 `quizRandomProvider` — 시험에서는 씨앗을 고정한 Random을 넣는다
+- **오늘의 단어**(2026-11-28): `lib/features/today/`(고르기 `daily_pick.dart` 순수 함수, `todayWordsProvider`, 섞기 `dailyRandomProvider`), 화면은 `StudyScreen(today: true)`·경로 `/today/:deckId`. 저장은 DB 11판 `daily_words`(단어장·날짜별 단어 순서·본 단어·완료)와 `study_decks.daily_count`. 지금 시각은 `nowProvider`(시험에서 바꿔 넣음)
+- **매일 알림**(2026-11-28): `lib/features/reminder/`(다음 시각 `reminder_schedule.dart` 순수 함수, 알림 패키지는 `ReminderNotifications` 뒤에 — 시험은 가짜, `ReminderHost`가 앱을 감싸 처음 실행 권한·눌러서 열기·다시 예약), 설정은 `lib/data/reminder_settings.dart`(shared_preferences, 기본 20:00). 패키지 `flutter_local_notifications` 22.3.3(23은 compileSdk 37 필요)·`timezone`, Android desugaring 켬. **인터넷 권한을 더하지 않는다**(Play 준비물·처리방침이 이것을 근거로 씀)
 - 시험(`test/`)은 기능·데이터마다 하나씩 늘린다
 
 ## 파일

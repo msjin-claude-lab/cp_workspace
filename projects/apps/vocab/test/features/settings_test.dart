@@ -17,6 +17,9 @@ import 'package:vocab/features/quiz/quiz_screen.dart';
 import 'package:vocab/features/study/study_screen.dart';
 import 'package:vocab/router.dart';
 
+import 'package:vocab/data/reminder_settings.dart';
+import 'package:vocab/features/reminder/reminder_notifications.dart';
+
 import '../fakes.dart';
 
 /// 설정은 단어장마다 따로(2026-11-22 사용자 결정 — "설정은 그 단어장의 고유 설정이다").
@@ -25,6 +28,8 @@ void main() {
   late FakeLegacySettingsStore legacy;
   late FakeRecords records;
   late FakeStudyDecks decks;
+  late FakeReminderSettingsStore reminderStore;
+  late FakeReminderNotifications notifications;
 
   /// 홈에서 여는 단어장(아침 단어)과 다른 단어장(저녁 단어). 둘 다 7판에서 만든 것(고유 값 50·20).
   late StudyDeck deck;
@@ -42,6 +47,10 @@ void main() {
     Key? appKey,
     String? location,
   }) async {
+    // 세로로 긴 폰 화면(설정에 오늘의 단어 개수·매일 알림이 더해져 길어졌다)
+    tester.view.physicalSize = const Size(800, 1200);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
     final router = createRouter();
     if (location != null) router.go(location);
     await tester.pumpWidget(
@@ -60,6 +69,8 @@ void main() {
             FakeCellStore(selectedDeck: deck.deckId),
           ),
           studyDecksProvider.overrideWithValue(decks),
+          reminderSettingsStoreProvider.overrideWithValue(reminderStore),
+          reminderNotificationsProvider.overrideWithValue(notifications),
         ],
         child: home == null
             ? MaterialApp.router(routerConfig: router)
@@ -70,11 +81,16 @@ void main() {
   }
 
   Future<void> tap(WidgetTester tester, String key) async {
+    // 홈에 오늘의 단어 버튼이 생겨 아래 버튼·설정 항목이 화면 밖에 있을 수 있다 — 사람처럼 스크롤해 보이게 한 뒤 누른다
+    await tester.ensureVisible(find.byKey(ValueKey(key)));
+    await tester.pumpAndSettle();
     await tester.tap(find.byKey(ValueKey(key)));
     await tester.pumpAndSettle();
   }
 
   setUp(() {
+    reminderStore = FakeReminderSettingsStore();
+    notifications = FakeReminderNotifications();
     legacy = FakeLegacySettingsStore();
     records = FakeRecords();
     decks = FakeStudyDecks(records);
@@ -93,8 +109,12 @@ void main() {
   });
 
   SegmentedButton<int> segmented(WidgetTester tester, {required bool card}) =>
+      // 설정이 길어져(오늘의 단어 개수·매일 알림) 스크롤하면 위쪽 버튼이 빠질 수 있다 — 순서가 아니라 그 줄의 키로 찾는다
       tester.widget<SegmentedButton<int>>(
-        find.byType(SegmentedButton<int>).at(card ? 0 : 1),
+        find.ancestor(
+          of: find.byKey(ValueKey(card ? 'settings-card-10' : 'settings-quiz-10')),
+          matching: find.byType(SegmentedButton<int>),
+        ),
       );
 
   testWidgets('홈의 진도 바로 아래에 설정 버튼이 있고 누르면 그 단어장의 설정 화면이 열린다', (tester) async {

@@ -24,3 +24,12 @@ bool isValidCount(int? n) => n != null && n >= minCount && n <= maxCount;
 /// 카드 학습 수로 쓸 수 있는 값인가 — 직접 입력 범위에 "전체"([allCardsCount])를 더한 것.
 /// 저장된 값이 이 밖이면 기본값으로 본다.
 bool isValidCardCount(int? n) => n == allCardsCount || isValidCount(n);
+
+/// 오늘의 단어 기본 개수(2026-11-28 사용자 결정 — 단어장마다 5·10·15·20 중 하나, 기본 10).
+const int defaultDailyCount = 10;
+
+/// 설정 화면에서 고르는 오늘의 단어 개수.
+const List<int> dailyCountChoices = [5, 10, 15, 20];
+
+/// 오늘의 단어 개수로 쓸 수 있는 값인가. 저장된 값이 이 밖이면 기본값으로 본다.
+bool isValidDailyCount(int? n) => dailyCountChoices.contains(n);

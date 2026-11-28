@@ -245,7 +245,7 @@ void main() {
     await db.close();
   });
 
-  test('새 설치와 1판·3판·6판·8판·9판 DB를 지금 판으로 올린 DB는 sqlite_master가 같다', () async {
+  test('새 설치와 1판·3판·6판·8판·9판·10판 DB를 지금 판으로 올린 DB는 sqlite_master가 같다', () async {
     Future<List<Map<String, Object?>>> master(String file) async {
       final db = await databaseFactoryFfi.openDatabase(p.join(dir.path, file));
       final rows = await db.rawQuery(
@@ -263,13 +263,14 @@ void main() {
       path: p.join(dir.path, 'fresh.db'),
     ).database).close();
 
-    // 1판·3판·6판·8판·9판 사용자의 DB(기록은 비어 있어도 판 번호가 옛것이면 올라온다)
+    // 1판·3판·6판·8판·9판·10판 사용자의 DB(기록은 비어 있어도 판 번호가 옛것이면 올라온다)
     for (final (file, version, create) in [
       ('v1.db', 1, SqfliteStudyRecords.createV1),
       ('v3.db', 3, SqfliteStudyRecords.createV3),
       ('v6.db', 6, SqfliteStudyRecords.createV6),
       ('v8.db', 8, SqfliteStudyRecords.createV8),
       ('v9.db', 9, SqfliteStudyRecords.createV9),
+      ('v10.db', 10, SqfliteStudyRecords.createV10),
     ]) {
       final old = await databaseFactoryFfi.openDatabase(
         p.join(dir.path, file),
@@ -292,6 +293,86 @@ void main() {
     expect(await master('v6.db'), fresh);
     expect(await master('v8.db'), fresh);
     expect(await master('v9.db'), fresh);
+    expect(await master('v10.db'), fresh);
+  });
+
+  test('10판 사용자의 DB는 11판으로 올라가며 오늘의 단어 개수 열이 NULL로, daily_words 표가 비어 생기고 기존 줄·기록은 그대로다', () async {
+    final v10 = await databaseFactoryFfi.openDatabase(
+      path,
+      options: OpenDatabaseOptions(
+        version: 10,
+        onCreate: (db, _) => SqfliteStudyRecords.createV10(db),
+      ),
+    );
+    await v10.insert('study_decks', {
+      'name': '아침',
+      'cell_id': 'high_medium',
+      'created_at': 1,
+      'card_count': 30,
+      'quiz_count': 10,
+    });
+    await v10.insert('study_log', {
+      'word_id': 'w-1501',
+      'cell_id': 'deck_1',
+      'known': 1,
+      'answered_at': 4,
+      'answered_day': '2026-11-27',
+    });
+    await v10.close();
+
+    final db = await SqfliteStudyRecords(
+      factory: databaseFactoryFfi,
+      path: path,
+    ).database;
+    expect(await db.getVersion(), 11);
+    expect(
+      await db.rawQuery(
+        'SELECT id, name, card_count, quiz_count, daily_count FROM study_decks',
+      ),
+      [
+        {
+          'id': 1,
+          'name': '아침',
+          'card_count': 30,
+          'quiz_count': 10,
+          'daily_count': null,
+        },
+      ],
+    );
+    expect(await tables(db), contains('daily_words'));
+    expect(await db.query('daily_words'), isEmpty);
+    expect(
+      await db.rawQuery('SELECT word_id, cell_id, answered_day FROM study_log'),
+      [
+        {'word_id': 'w-1501', 'cell_id': 'deck_1', 'answered_day': '2026-11-27'},
+      ],
+    );
+    await db.close();
+  });
+
+  test('카드를 마지막으로 본 시각은 단어장마다 단어별로 가장 늦은 것이다', () async {
+    final records = SqfliteStudyRecords(
+      factory: databaseFactoryFfi,
+      path: path,
+    );
+    final db = await records.database;
+    for (final (wordId, deckId, at) in [
+      ('w-1', 'deck_1', 10),
+      ('w-1', 'deck_1', 30),
+      ('w-2', 'deck_1', 20),
+      ('w-1', 'deck_2', 99),
+    ]) {
+      await db.insert('study_log', {
+        'word_id': wordId,
+        'cell_id': deckId,
+        'known': 1,
+        'answered_at': at,
+        'answered_day': '2026-11-28',
+      });
+    }
+    const deck = StudyDeck(deckId: 1, name: 'a', base: Cell.elementaryEasy);
+    expect(await records.lastViewedTimes(deck), {'w-1': 30, 'w-2': 20});
+    await db.close();
   });
 
   test('6판 사용자의 DB는 7판으로 올라가며 단어장마다 설정 열이 NULL로 생기고, 기존 줄·기록은 그대로다', () async {
@@ -733,7 +814,7 @@ void main() {
         path: path,
       );
       final db = await records.database;
-      expect(await db.getVersion(), 10);
+      expect(await db.getVersion(), SqfliteStudyRecords.schemaVersion);
       const kept = [
         'hx-001',
         'w-0010',
@@ -1041,7 +1122,7 @@ void main() {
     );
     final db = await records.database;
     expect(await db.getVersion(), SqfliteStudyRecords.schemaVersion);
-    expect(SqfliteStudyRecords.schemaVersion, 10);
+    expect(SqfliteStudyRecords.schemaVersion, 11);
     final names = await tables(db);
     expect(names, isNot(contains('word_books')));
     expect(names, isNot(contains('book_words')));

@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sqflite/sqflite.dart';
 
 import 'cell.dart';
 import 'counts.dart';
@@ -12,6 +15,27 @@ String legacyDeckName(Cell cell) =>
 /// 단어장 하나의 고유 설정(7판 `card_count`·`quiz_count`). null이면 저장된 값이 없다 —
 /// 7판 전에 있던 단어장이거나 없는 단어장. 범위 확인과 물려받기는 `app_settings.dart`가 한다.
 typedef DeckCounts = ({int? cardCount, int? quizCount});
+
+/// 단어장 하나의 그날 오늘의 단어(2026-11-28 사용자 결정): 그날 처음 열 때 고른 단어(순서 그대로)와
+/// 그중 카드로 본 단어. 고른 단어를 모두 보면 그날 완료.
+class DailySet {
+  const DailySet({
+    required this.day,
+    required this.wordIds,
+    this.seenIds = const {},
+  });
+
+  /// 기기 시간대 `YYYY-MM-DD`(`dayKey`).
+  final String day;
+  final List<String> wordIds;
+  final Set<String> seenIds;
+
+  /// 고른 단어 중 본 수.
+  int get seenCount => wordIds.where(seenIds.contains).length;
+
+  /// 고른 단어를 모두 봤나. 고른 단어가 없으면(단어가 없는 단어장) 끝낼 수 없다.
+  bool get completed => wordIds.isNotEmpty && seenCount == wordIds.length;
+}
 
 /// 이름 있는 단어장(2026-11-22 사용자 결정 — "새 등록"은 무조건 새 단어장, 이름을 짓고
 /// 학교급 → 난이도를 고른다. 같은 학교급+난이도도 여러 개). 시험(test)에서는 가짜로 바꾼다.
@@ -31,6 +55,24 @@ abstract interface class StudyDecks {
   Future<void> saveCardCount(int deckId, int count);
 
   Future<void> saveQuizCount(int deckId, int count);
+
+  /// 단어장의 오늘의 단어 개수(11판 `daily_count`). 저장된 값이 없으면 null(기본값을 쓴다).
+  Future<int?> loadDailyCount(int deckId);
+
+  Future<void> saveDailyCount(int deckId, int count);
+
+  /// 그 단어장·날짜(`dayKey`)에 고른 오늘의 단어. 아직 고르지 않았으면 null.
+  Future<DailySet?> loadDailySet(int deckId, String day);
+
+  /// 그 단어장·날짜의 오늘의 단어를 남기고 남은 것을 돌려준다. 이미 있으면 바꾸지 않고 있던 것을
+  /// 돌려준다 — 같은 날 두 곳에서 동시에 골라도 처음 것으로 고정된다.
+  Future<DailySet> createDailySet(int deckId, String day, List<String> wordIds);
+
+  /// 오늘의 단어 중 하나를 본 것으로 남기고 바뀐 것을 돌려준다(없는 날이면 null).
+  Future<DailySet?> markDailySeen(int deckId, String day, String wordId);
+
+  /// 오늘의 단어를 끝낸 날들(`dayKey`). 진도 달력에 표시한다.
+  Future<Set<String>> completedDailyDays(int deckId);
 
   /// 단어장과 그 오답 노트·학습·시험 기록(`wrong_notes`·`study_log`·`quiz_log`)을 지운다
   /// (2026-11-22 사용자 결정). 다른 단어장·칸 id의 줄은 건드리지 않는다.
@@ -79,6 +121,7 @@ class SqfliteStudyDecks implements StudyDecks {
       'created_at': DateTime.now().millisecondsSinceEpoch,
       'card_count': defaultCardCount,
       'quiz_count': defaultQuizCount,
+      'daily_count': defaultDailyCount,
     });
     return StudyDeck(deckId: id, name: name, base: base);
   }
@@ -106,6 +149,110 @@ class SqfliteStudyDecks implements StudyDecks {
   @override
   Future<void> saveQuizCount(int deckId, int count) =>
       _saveCount(deckId, 'quiz_count', count);
+
+  @override
+  Future<int?> loadDailyCount(int deckId) async {
+    final db = await _owner.database;
+    final rows = await db.query(
+      'study_decks',
+      columns: ['daily_count'],
+      where: 'id = ?',
+      whereArgs: [deckId],
+    );
+    return rows.isEmpty ? null : rows.single['daily_count'] as int?;
+  }
+
+  @override
+  Future<void> saveDailyCount(int deckId, int count) =>
+      _saveCount(deckId, 'daily_count', count);
+
+  @override
+  Future<DailySet?> loadDailySet(int deckId, String day) async {
+    final db = await _owner.database;
+    return _loadDailySet(db, deckId, day);
+  }
+
+  static Future<DailySet?> _loadDailySet(
+    DatabaseExecutor db,
+    int deckId,
+    String day,
+  ) async {
+    final rows = await db.query(
+      'daily_words',
+      where: 'deck_id = ? AND day = ?',
+      whereArgs: [deckId, day],
+    );
+    if (rows.isEmpty) return null;
+    final row = rows.single;
+    return DailySet(
+      day: day,
+      wordIds: _ids(row['word_ids']),
+      seenIds: _ids(row['seen_ids']).toSet(),
+    );
+  }
+
+  static List<String> _ids(Object? json) => [
+    for (final id in jsonDecode(json as String) as List<dynamic>) id as String,
+  ];
+
+  @override
+  Future<DailySet> createDailySet(
+    int deckId,
+    String day,
+    List<String> wordIds,
+  ) async {
+    final db = await _owner.database;
+    return db.transaction((txn) async {
+      await txn.insert('daily_words', {
+        'deck_id': deckId,
+        'day': day,
+        'word_ids': jsonEncode(wordIds),
+        'seen_ids': '[]',
+        'completed': 0,
+      }, conflictAlgorithm: ConflictAlgorithm.ignore);
+      return (await _loadDailySet(txn, deckId, day))!;
+    });
+  }
+
+  @override
+  Future<DailySet?> markDailySeen(int deckId, String day, String wordId) async {
+    final db = await _owner.database;
+    return db.transaction((txn) async {
+      final set = await _loadDailySet(txn, deckId, day);
+      if (set == null || !set.wordIds.contains(wordId)) return set;
+      final next = DailySet(
+        day: day,
+        wordIds: set.wordIds,
+        seenIds: {...set.seenIds, wordId},
+      );
+      await txn.update(
+        'daily_words',
+        {
+          // 고른 순서대로 남긴다
+          'seen_ids': jsonEncode([
+            for (final id in next.wordIds)
+              if (next.seenIds.contains(id)) id,
+          ]),
+          'completed': next.completed ? 1 : 0,
+        },
+        where: 'deck_id = ? AND day = ?',
+        whereArgs: [deckId, day],
+      );
+      return next;
+    });
+  }
+
+  @override
+  Future<Set<String>> completedDailyDays(int deckId) async {
+    final db = await _owner.database;
+    final rows = await db.query(
+      'daily_words',
+      columns: ['day'],
+      where: 'deck_id = ? AND completed = 1',
+      whereArgs: [deckId],
+    );
+    return {for (final row in rows) row['day'] as String};
+  }
 
   Future<void> _saveCount(int deckId, String column, int count) async {
     final db = await _owner.database;
@@ -139,6 +286,11 @@ class SqfliteStudyDecks implements StudyDecks {
           whereArgs: [StudyDeck.idOf(deckId)],
         );
       }
+      await txn.delete(
+        'daily_words',
+        where: 'deck_id = ?',
+        whereArgs: [deckId],
+      );
       await txn.delete('study_decks', where: 'id = ?', whereArgs: [deckId]);
     });
   }
@@ -296,3 +448,14 @@ class DeckSelectionNotSaved implements Exception {
 final deckListProvider = AsyncNotifierProvider<DeckListNotifier, DeckList>(
   DeckListNotifier.new,
 );
+
+/// 오늘의 단어를 끝낸 날들(`dayKey`). 진도 달력이 ✓로 보인다. 내장 칸은 오늘의 단어가 없어 빈 집합.
+/// 진도 화면을 열 때마다 새로 읽는다(autoDispose).
+final dailyCompletedDaysProvider = FutureProvider.autoDispose
+    .family<Set<String>, Deck>(
+      (ref, deck) async => switch (deck) {
+        StudyDeck(:final deckId) =>
+          ref.watch(studyDecksProvider).completedDailyDays(deckId),
+        Cell() => const <String>{},
+      },
+    );

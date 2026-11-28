@@ -48,6 +48,16 @@
 
 ## 마지막 결과
 
+- **2026-11-28 밤 개인 PC — 일일 학습(오늘의 단어 + 매일 알림), DB 11판**
+  - `flutter analyze` 문제없음·`flutter test` 통과(**211개**, `omc ralph verify` clean), `flutter build apk --release`(업로드 키 `CN=Vocara, C=KR`) 성공. release 병합 매니페스트 권한: `POST_NOTIFICATIONS`·`RECEIVE_BOOT_COMPLETED`·`VIBRATE`·`kr.msjin.vocab.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION` — **INTERNET 없음**, 정확한 알람 권한 없음
+  - **에뮬레이터(API 36): 통과**(기존 설치 위에 `adb install -r` — DB 10 → 11 이행, 기존 단어장·기록 그대로 보임)
+    - 업데이트 뒤 처음 실행 때 알림 권한 창(`Allow Vocara to send you notifications?`) → 허용 → 알림 켜짐, 예약 `2026-11-29 19:00`(이때 기본값 19시, 지금이 그 시각 뒤라 다음 날) — 이후 기본값을 20:00으로 바꿈(시험으로 확인, 에뮬레이터 재확인 안 함)
+    - 홈: "카드 학습" 바로 위 `오늘의 단어 · 0/10` → 3장 보고 나오면 `3/10` → 다시 열어도 첫 단어 같음(`shallow`) → 끝까지 넘기면 `오늘의 단어 10개를 모두 봤습니다`·`다시 하기`, 홈 `오늘의 단어 · 완료 ✓`
+    - 진도 달력: 28일 숫자 아래 ✓, 범례 `오늘의 단어 완료`(캡처)
+    - 알림: 안 끝낸 단어장 `rel1`로 바꾸고 설정 "앱 전체 — 매일 알림" 시각을 23:09로 → 예약 `2026-11-28 23:09` → 23:11에 알림 도착(정확한 알람이 아니라 몇 분 늦을 수 있음) `Vocara` / `오늘의 단어 10개가 기다려요` → 누르니 `rel1 - 오늘의 단어` 화면
+    - 재부팅: `ScheduledNotificationBootReceiver`가 실행되어 예약이 `2026-11-29 23:09`로 다시 잡힘
+    - logcat flutter 오류 0건. adb로 누르고 캡처·노드로 본 것 — 사람이 직접 써 본 것은 아니다. **화면 모양은 사람이 보기 전까지 "적용함, 화면 확인 필요"**
+
 - **2026-11-28 밤 개인 PC — release 준비(패키지 `kr.msjin.vocab`, 이름 Vocara, 아이콘, Play 업로드 키)**
   - 키 없는 상태: `flutter build apk --release` 성공, apksigner `CN=Android Debug`(서명 분기 확인)
   - 업로드 키(`D:\dev\keys\vocab-upload.jks`, 사용자가 만듦) + `key.properties`(git 무시 확인): `flutter build appbundle --release`·`flutter build apk --release` 성공, AAB `keytool -printcert` `Owner: CN=Vocara, C=KR`, APK apksigner `CN=Vocara, C=KR`

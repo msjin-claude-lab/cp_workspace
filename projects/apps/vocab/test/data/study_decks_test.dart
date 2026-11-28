@@ -251,6 +251,74 @@ void main() {
     });
   });
 
+  group('오늘의 단어(11판 daily_count·daily_words)', () {
+    test('새 단어장은 오늘의 단어 개수 10을 명시적으로 저장하고, 바꾸면 그 단어장만 바뀐다', () async {
+      final a = await decks.createDeck('아침', Cell.middleMedium);
+      final b = await decks.createDeck('저녁', Cell.middleMedium);
+      expect(await decks.loadDailyCount(a.deckId), 10);
+      await decks.saveDailyCount(a.deckId, 15);
+      expect(await decks.loadDailyCount(a.deckId), 15);
+      expect(await decks.loadDailyCount(b.deckId), 10);
+    });
+
+    test('그날 고른 단어는 순서 그대로 남고, 다시 만들려 해도 처음 것이 그대로이며 DB를 다시 열어도 같다', () async {
+      final a = await decks.createDeck('아침', Cell.middleMedium);
+      expect(await decks.loadDailySet(a.deckId, '2026-11-28'), isNull);
+      final first = await decks.createDailySet(a.deckId, '2026-11-28', [
+        'w-3',
+        'w-1',
+        'w-2',
+      ]);
+      expect(first.wordIds, ['w-3', 'w-1', 'w-2']);
+      // 같은 날 다른 곳에서 또 골라도 처음 것으로 고정된다
+      final again = await decks.createDailySet(a.deckId, '2026-11-28', [
+        'w-9',
+      ]);
+      expect(again.wordIds, ['w-3', 'w-1', 'w-2']);
+
+      // 앱을 다시 시작한 것처럼 새 연결로 읽는다
+      await (await records.database).close();
+      final reopened = SqfliteStudyDecks(
+        SqfliteStudyRecords(factory: databaseFactoryFfi, path: path),
+      );
+      final loaded = await reopened.loadDailySet(a.deckId, '2026-11-28');
+      expect(loaded!.wordIds, ['w-3', 'w-1', 'w-2']);
+      expect(await reopened.loadDailySet(a.deckId, '2026-11-29'), isNull);
+      await (await SqfliteStudyRecords(
+        factory: databaseFactoryFfi,
+        path: path,
+      ).database).close();
+    });
+
+    test('고른 단어를 모두 보면 완료되고 그 날이 끝낸 날에 들어간다(고르지 않은 단어는 세지 않는다)', () async {
+      final a = await decks.createDeck('아침', Cell.middleMedium);
+      await decks.createDailySet(a.deckId, '2026-11-28', ['w-1', 'w-2']);
+      var set = await decks.markDailySeen(a.deckId, '2026-11-28', 'w-2');
+      expect((set!.seenCount, set.completed), (1, false));
+      set = await decks.markDailySeen(a.deckId, '2026-11-28', 'w-9');
+      expect(set!.seenCount, 1);
+      expect(await decks.completedDailyDays(a.deckId), isEmpty);
+      set = await decks.markDailySeen(a.deckId, '2026-11-28', 'w-1');
+      expect(set!.completed, isTrue);
+      expect(await decks.completedDailyDays(a.deckId), {'2026-11-28'});
+      // 없는 날은 null
+      expect(await decks.markDailySeen(a.deckId, '2026-11-27', 'w-1'), isNull);
+    });
+
+    test('단어장을 지우면 그 단어장의 오늘의 단어도 지운다', () async {
+      final a = await decks.createDeck('아침', Cell.middleMedium);
+      final b = await decks.createDeck('저녁', Cell.middleMedium);
+      await decks.createDailySet(a.deckId, '2026-11-28', ['w-1']);
+      await decks.createDailySet(b.deckId, '2026-11-28', ['w-2']);
+      await decks.deleteDeck(a.deckId);
+      expect(await decks.loadDailySet(a.deckId, '2026-11-28'), isNull);
+      expect(
+        (await decks.loadDailySet(b.deckId, '2026-11-28'))!.wordIds,
+        ['w-2'],
+      );
+    });
+  });
+
   test('옛 칸 이름은 학교급 + 난이도', () {
     expect(legacyDeckName(Cell.middleMedium), '중등 중간');
     expect(legacyDeckName(Cell.elementaryHard), '초등 어려움');

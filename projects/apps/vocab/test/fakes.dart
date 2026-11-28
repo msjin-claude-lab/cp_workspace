@@ -4,11 +4,13 @@ import 'package:vocab/data/app_settings.dart';
 import 'package:vocab/data/cell.dart';
 import 'package:vocab/data/cell_store.dart';
 import 'package:vocab/data/counts.dart';
+import 'package:vocab/data/reminder_settings.dart';
 import 'package:vocab/data/speaker.dart';
 import 'package:vocab/data/study_decks.dart';
 import 'package:vocab/data/study_records.dart';
 import 'package:vocab/data/word.dart';
 import 'package:vocab/data/word_repository.dart';
+import 'package:vocab/features/reminder/reminder_notifications.dart';
 
 /// 시험(test)에서 함께 쓰는 가짜들. 모두 메모리에만 둔다.
 
@@ -91,6 +93,12 @@ class FakeStudyDecks implements StudyDecks {
   /// true면 설정 저장이 실패한다.
   bool failSave = false;
 
+  /// 단어장 번호별 오늘의 단어 개수(11판 `daily_count`). 없으면 NULL.
+  final Map<int, int> dailyCounts = {};
+
+  /// (단어장 번호, 날짜)별 오늘의 단어.
+  final Map<(int, String), DailySet> dailySets = {};
+
   /// true면 고유 설정 읽기가 실패한다.
   bool failLoad = false;
 
@@ -139,6 +147,43 @@ class FakeStudyDecks implements StudyDecks {
   }
 
   @override
+  Future<int?> loadDailyCount(int deckId) async => dailyCounts[deckId];
+
+  @override
+  Future<void> saveDailyCount(int deckId, int count) async {
+    if (failSave) throw StateError('db');
+    if (list.any((d) => d.deckId == deckId)) dailyCounts[deckId] = count;
+  }
+
+  @override
+  Future<DailySet?> loadDailySet(int deckId, String day) async =>
+      dailySets[(deckId, day)];
+
+  @override
+  Future<DailySet> createDailySet(
+    int deckId,
+    String day,
+    List<String> wordIds,
+  ) async => dailySets[(deckId, day)] ??= DailySet(day: day, wordIds: wordIds);
+
+  @override
+  Future<DailySet?> markDailySeen(int deckId, String day, String wordId) async {
+    final set = dailySets[(deckId, day)];
+    if (set == null || !set.wordIds.contains(wordId)) return set;
+    return dailySets[(deckId, day)] = DailySet(
+      day: day,
+      wordIds: set.wordIds,
+      seenIds: {...set.seenIds, wordId},
+    );
+  }
+
+  @override
+  Future<Set<String>> completedDailyDays(int deckId) async => {
+    for (final MapEntry(key: (id, day), :value) in dailySets.entries)
+      if (id == deckId && value.completed) day,
+  };
+
+  @override
   Future<void> renameDeck(int deckId, String name) async {
     final i = list.indexWhere((d) => d.deckId == deckId);
     if (i >= 0) list[i] = list[i].renamed(name);
@@ -151,6 +196,8 @@ class FakeStudyDecks implements StudyDecks {
     list.removeWhere((d) => d.deckId == deckId);
     cardCounts.remove(deckId);
     quizCounts.remove(deckId);
+    dailyCounts.remove(deckId);
+    dailySets.removeWhere((key, _) => key.$1 == deckId);
   }
 
   /// 실제 이행은 DB 시험(`study_decks_test.dart`)이 본다. 여기서는 한 번만 단어장을 만든다.
@@ -227,6 +274,7 @@ class FakeRecords implements StudyRecords {
     _quizLog.removeWhere((e) => e.$1 == deckId);
     _cardDecks.removeWhere((d) => d == deckId);
     _cardLog.removeWhere((e) => e.$1 == deckId);
+    viewedAt.removeWhere((key, _) => key.$1 == deckId);
   }
 
   void _miss(Deck deck, Word word) {
@@ -253,6 +301,7 @@ class FakeRecords implements StudyRecords {
     studied.add(word.id);
     _cardDecks.add(deck.id);
     _cardLog.add((deck.id, word.id));
+    viewedAt[(deck.id, word.id)] = ++_clock;
   }
 
   /// 카드를 넘겨 본 (단어장 id, 단어 id).
@@ -262,6 +311,15 @@ class FakeRecords implements StudyRecords {
   Future<Set<String>> viewedWordIds(Deck deck) async => {
     for (final (d, w) in _cardLog)
       if (d == deck.id) w,
+  };
+
+  /// 카드를 넘긴 차례를 시각으로 쓴다(나중에 넘긴 것이 큰 값). 시험이 미리 채울 수도 있다.
+  final Map<(String, String), int> viewedAt = {};
+
+  @override
+  Future<Map<String, int>> lastViewedTimes(Deck deck) async => {
+    for (final MapEntry(key: (d, w), :value) in viewedAt.entries)
+      if (d == deck.id) w: value,
   };
 
   @override
@@ -311,4 +369,84 @@ class FakeLegacySettingsStore implements LegacySettingsStore {
 
   @override
   Future<int?> loadQuizCount() async => quizCount;
+}
+
+/// 매일 알림 설정을 메모리에 둔다.
+class FakeReminderSettingsStore implements ReminderSettingsStore {
+  FakeReminderSettingsStore({
+    this.settings = const ReminderSettings(),
+    this.asked = false,
+  });
+
+  ReminderSettings settings;
+  bool asked;
+
+  @override
+  Future<ReminderSettings> load() async => settings;
+
+  @override
+  Future<void> save(ReminderSettings settings) async =>
+      this.settings = settings;
+
+  @override
+  Future<bool> loadAsked() async => asked;
+
+  @override
+  Future<void> saveAsked() async => asked = true;
+}
+
+/// 로컬 알림 가짜. 권한 응답을 정해 두고, 예약·지우기·권한 묻기를 남긴다.
+class FakeReminderNotifications implements ReminderNotifications {
+  FakeReminderNotifications({this.grant = true, this.permitted = false});
+
+  /// 권한을 물으면 돌려줄 값.
+  bool grant;
+
+  /// 지금 허용돼 있나.
+  bool permitted;
+
+  /// 권한을 물은 횟수.
+  int requests = 0;
+  int settingsOpened = 0;
+
+  /// 앱을 알림으로 시작했을 때의 payload.
+  String? launch;
+
+  /// initialize에 넘긴 알림 누름 처리.
+  void Function(String? payload)? onTap;
+
+  /// 지금 걸려 있는 예약(없으면 null).
+  ({DateTime first, String title, String body, String payload})? scheduled;
+
+  @override
+  Future<void> initialize(void Function(String? payload) onTap) async =>
+      this.onTap = onTap;
+
+  @override
+  Future<String?> launchPayload() async => launch;
+
+  @override
+  Future<bool> isPermitted() async => permitted;
+
+  @override
+  Future<bool> requestPermission() async {
+    requests++;
+    permitted = grant;
+    return grant;
+  }
+
+  @override
+  Future<void> openSettings() async => settingsOpened++;
+
+  @override
+  Future<void> cancelAll() async => scheduled = null;
+
+  @override
+  Future<void> scheduleDaily({
+    required DateTime first,
+    required String title,
+    required String body,
+    required String payload,
+  }) async =>
+      scheduled = (first: first, title: title, body: body, payload: payload);
 }

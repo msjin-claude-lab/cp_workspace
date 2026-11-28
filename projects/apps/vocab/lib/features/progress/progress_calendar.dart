@@ -5,10 +5,19 @@ import '../../data/study_records.dart';
 /// 날짜별 기록을 월 달력으로 보여 준다(2026-11-22 사용자 결정 — 전에는 날짜 목록).
 /// 공부한 날은 색을 칠하고, 날짜를 누르면 아래에 그날의 공부 수·시험 맞힌 수를 보여 준다.
 /// ‹ ›로 달을 넘긴다. 처음에는 이번 달, 오늘이 골라져 있다.
+/// 오늘의 단어를 끝낸 날은 숫자 아래 점 대신 작은 ✓를 보인다(2026-11-28 사용자 결정).
 class ProgressCalendar extends StatefulWidget {
-  const ProgressCalendar({super.key, required this.days, required this.today});
+  const ProgressCalendar({
+    super.key,
+    required this.days,
+    required this.today,
+    this.dailyDone = const {},
+  });
 
   final List<DayStat> days;
+
+  /// 오늘의 단어를 끝낸 날들(`dayKey`).
+  final Set<String> dailyDone;
 
   /// 오늘(기기 날짜). 시험에서 날짜를 고정하려고 밖에서 받는다.
   final DateTime today;
@@ -49,6 +58,7 @@ class _ProgressCalendarState extends State<ProgressCalendar> {
       final date = DateTime(_month.year, _month.month, day);
       final key = dayKey(date);
       final studied = stats.containsKey(key);
+      final done = widget.dailyDone.contains(key);
       final selected = key == selectedKey;
       return InkWell(
         key: ValueKey('cal-$key'),
@@ -79,15 +89,34 @@ class _ProgressCalendarState extends State<ProgressCalendar> {
               // 공부한 날은 숫자 아래 작은 점도 찍는다 — 오늘·고른 날의 테두리와 겹쳐도 공부한 날임이 보인다
               // (2026-11-22 사용자 결정(UX 점검)). 점이 없는 날도 같은 높이를 차지해 숫자가 흔들리지 않는다
               const SizedBox(height: 2),
-              Container(
-                key: studied ? ValueKey('cal-dot-$key') : null,
-                width: 5,
-                height: 5,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: studied ? theme.colorScheme.primary : null,
+              // 오늘의 단어를 끝낸 날은 점 대신 작은 ✓ — 점과 같은 높이만 차지해 숫자가 흔들리지 않는다
+              if (done)
+                SizedBox(
+                  height: 5,
+                  child: OverflowBox(
+                    maxHeight: 12,
+                    child: Text(
+                      '✓',
+                      key: ValueKey('cal-check-$key'),
+                      style: TextStyle(
+                        fontSize: 10,
+                        height: 1,
+                        fontWeight: FontWeight.bold,
+                        color: theme.colorScheme.primary,
+                      ),
+                    ),
+                  ),
+                )
+              else
+                Container(
+                  key: studied ? ValueKey('cal-dot-$key') : null,
+                  width: 5,
+                  height: 5,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: studied ? theme.colorScheme.primary : null,
+                  ),
                 ),
-              ),
             ],
           ),
         ),
@@ -187,6 +216,17 @@ class _ProgressCalendarState extends State<ProgressCalendar> {
             legendItem(
               legendMark(fill: theme.colorScheme.primaryContainer, dot: true),
               '공부한 날',
+            ),
+            legendItem(
+              Text(
+                '✓',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: theme.colorScheme.primary,
+                ),
+              ),
+              '오늘의 단어 완료',
             ),
             legendItem(legendMark(border: theme.colorScheme.outline), '오늘'),
             legendItem(

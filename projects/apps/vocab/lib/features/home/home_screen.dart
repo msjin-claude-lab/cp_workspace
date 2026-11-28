@@ -12,6 +12,7 @@ import '../../data/study_records.dart';
 import '../../data/word.dart';
 import '../../data/word_repository.dart';
 import '../quiz/quiz.dart' show quizBlockReason;
+import '../today/today_words.dart';
 import '../wrong_notes/review_words.dart';
 import 'dialogs.dart';
 
@@ -366,17 +367,28 @@ String homeCountsLine(DeckSettings settings, List<Word> words) {
   return '$cards · 시험 ${min(settings.quizCount, words.length)}문제';
 }
 
+/// 홈의 오늘의 단어 버튼 글: 진행 중이면 `오늘의 단어 · 본 수/고른 수`, 다 보면 `오늘의 단어 · 완료 ✓`
+/// (2026-11-28 사용자 결정). 읽는 중이면 `오늘의 단어`만.
+String todayLabel(TodayWords? today) => switch (today) {
+  null => '오늘의 단어',
+  TodayWords(completed: true) => '오늘의 단어 · 완료 ✓',
+  final t => '오늘의 단어 · ${t.seen}/${t.total}',
+};
+
 /// 단어장 홈: 고른 단어장에서 카드 학습·시험·오답 노트·진도를 연다.
 class DeckHomeScreen extends ConsumerWidget {
   const DeckHomeScreen({super.key, required this.deck});
 
   final StudyDeck deck;
 
-  /// 안쪽 화면에서 돌아오면 오답 수를 다시 읽는다.
+  /// 안쪽 화면에서 돌아오면 오답 수와 오늘의 단어 진행을 다시 읽는다.
   Future<void> _open(BuildContext context, WidgetRef ref, String path) async {
     if (ModalRoute.of(context)?.isCurrent != true) return; // 빠른 두 번 누름
     await context.push(path);
-    if (context.mounted) ref.invalidate(deckWrongNotesProvider(deck));
+    if (context.mounted) {
+      ref.invalidate(deckWrongNotesProvider(deck));
+      ref.invalidate(todayWordsProvider(deck));
+    }
   }
 
   @override
@@ -386,6 +398,7 @@ class DeckHomeScreen extends ConsumerWidget {
     final wrong = ref.watch(wrongEntriesProvider(deck));
     // 한 번에 하는 카드 수·문항 수(설정). 읽는 동안이나 읽지 못하면 단어 수만 보인다
     final settings = ref.watch(deckSettingsProvider(deck)).value;
+    final today = ref.watch(todayWordsProvider(deck)).value;
     return Scaffold(
       appBar: AppBar(
         leading: Builder(
@@ -444,6 +457,13 @@ class DeckHomeScreen extends ConsumerWidget {
                 ),
               ],
             const SizedBox(height: 24),
+            // 카드 학습 바로 위(2026-11-28 사용자 결정): 그날 고른 단어를 카드로 본다. 다 봐도 다시 볼 수 있다
+            _HomeAction(
+              key: const ValueKey('home-today'),
+              icon: Icons.today,
+              label: todayLabel(today),
+              onPressed: () => _open(context, ref, '/today/${deck.id}'),
+            ),
             _HomeAction(
               key: const ValueKey('home-study'),
               icon: Icons.style,

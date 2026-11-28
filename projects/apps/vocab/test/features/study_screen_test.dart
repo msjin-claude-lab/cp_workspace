@@ -87,6 +87,11 @@ class _FakeRecords implements StudyRecords {
       failViewed ? throw Exception('db') : seen;
 
   @override
+  Future<Map<String, int>> lastViewedTimes(Deck deck) async => {
+    for (final id in seen) id: 0,
+  };
+
+  @override
   Future<void> recordQuizAnswer({
     required Deck deck,
     required Word word,

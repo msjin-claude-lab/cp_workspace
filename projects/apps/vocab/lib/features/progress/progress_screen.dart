@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_ui/material_ui.dart';
 
 import '../../data/cell.dart';
+import '../../data/study_decks.dart';
 import '../../data/study_records.dart';
 import '../../data/word_repository.dart';
 import 'progress_calendar.dart';
@@ -18,6 +19,9 @@ class ProgressScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final progress = ref.watch(progressProvider(deck));
+    // 오늘의 단어를 끝낸 날. 읽는 중이거나 읽지 못하면 표시 없이
+    final dailyDone =
+        ref.watch(dailyCompletedDaysProvider(deck)).value ?? const <String>{};
     final text = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
@@ -53,7 +57,11 @@ class ProgressScreen extends ConsumerWidget {
                   padding: const EdgeInsets.fromLTRB(4, 24, 4, 4),
                   child: Text('날짜별 기록', style: text.titleMedium),
                 ),
-                ProgressCalendar(days: p.days, today: DateTime.now()),
+                ProgressCalendar(
+                  days: p.days,
+                  today: DateTime.now(),
+                  dailyDone: dailyDone,
+                ),
               ],
             );
           },

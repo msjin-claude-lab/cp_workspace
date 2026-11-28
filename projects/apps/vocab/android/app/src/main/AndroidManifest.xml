@@ -1,4 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 매일 알림(2026-11-28 사용자 결정, flutter_local_notifications): 알림 권한(안드로이드 13+)과
+         재부팅 뒤 예약을 다시 걸기 위한 부팅 완료 수신. 정확한 알람 권한(SCHEDULE_EXACT_ALARM)·인터넷은 쓰지 않는다 -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <!-- 앱 이름 "Vocara"(2026-11-28 사용자 결정 — 영문 표기, "영단어"는 Play 제목·설명에만).
          바꿀 때는 lib/app_info.dart의 appTitle과 함께 바꾼다 -->
     <application
@@ -27,6 +31,16 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <!-- 매일 알림: 예약한 알림을 띄우고, 재부팅·앱 업데이트 뒤 예약을 다시 건다(flutter_local_notifications README) -->
+        <receiver android:exported="false" android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" />
+        <receiver android:exported="false" android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON"/>
+            </intent-filter>
+        </receiver>
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data

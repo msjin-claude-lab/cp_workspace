@@ -41,6 +41,8 @@ dependencies:
   go_router: ^18.1.4
   flutter_riverpod: ^3.5.0
   shared_preferences: ^2.5.6
+  flutter_local_notifications: ^22.3.3
+  timezone: ^0.11.2
 
 dev_dependencies:
   flutter_test:

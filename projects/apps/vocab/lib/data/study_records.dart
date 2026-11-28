@@ -17,6 +17,10 @@ abstract interface class StudyRecords {
   /// `deck`에서 카드로 한 번이라도 넘겨 본 단어의 id. 카드 학습이 안 본 단어를 먼저 내는 데 쓴다.
   Future<Set<String>> viewedWordIds(Deck deck);
 
+  /// `deck`에서 카드로 넘겨 본 단어마다 마지막으로 본 시각(밀리초). 본 적 없는 단어는 없다.
+  /// 오늘의 단어가 "가장 오래전에 본 단어"를 고르는 데 쓴다.
+  Future<Map<String, int>> lastViewedTimes(Deck deck);
+
   /// 4지선다 한 문제의 결과를 남긴다. 틀리면(`correct == false`) 오답 노트에도 넣는다.
   /// 진도의 "외웠다"(시험에서 맞힘, 틀리면 해제)는 이 기록의 단어별 마지막 결과로 센다.
   Future<void> recordQuizAnswer({
@@ -126,6 +130,9 @@ String dayKey(DateTime t) =>
     '${t.month.toString().padLeft(2, '0')}-'
     '${t.day.toString().padLeft(2, '0')}';
 
+/// 지금 시각. 오늘의 단어의 날짜와 알림 예약이 읽는다 — 시험에서는 정한 시각을 돌려주는 함수를 넣는다.
+final nowProvider = Provider<DateTime Function()>((ref) => DateTime.now);
+
 /// sqflite 구현. DB 파일은 앱 전용 폴더의 `vocab.db`.
 ///
 /// - `study_log`: 카드를 넘겨 볼 때마다 한 줄(`known`은 늘 1, 옛 기록엔 0도 있다). 진도 화면의 칸별·날짜별 집계에 쓴다
@@ -166,7 +173,9 @@ class SqfliteStudyRecords implements StudyRecords {
   ///    기록과 오답 노트를 지움(2026-11-23 사용자 결정, docs/plan-words-phase2.md 3단계).
   /// 10: 고등 단어를 새 번호(`w-1501`~)로 바꾸며 옛 고등 번호(`he-`·`hm-`·`hh-`)의 학습·시험
   ///    기록과 오답 노트를 지움(docs/plan-words-phase3.md 3단계).
-  static const int schemaVersion = 10;
+  /// 11: 오늘의 단어(2026-11-28 사용자 결정) — 단어장마다의 개수 `study_decks.daily_count`(NULL이면 기본 10)와
+  ///    단어장·날짜마다 고른 단어·본 단어를 남기는 `daily_words` 추가.
+  static const int schemaVersion = 11;
 
   Future<Database> _open() async {
     final dbFactory = factory ?? databaseFactory;
@@ -184,6 +193,7 @@ class SqfliteStudyRecords implements StudyRecords {
           await _upgradeToV6(db);
           await _upgradeToV7(db);
           // 8·9·10판은 옛 기록을 지울 뿐이라 새 설치에는 할 일이 없다
+          await _upgradeToV11(db);
         },
         onUpgrade: (db, oldVersion, newVersion) async {
           if (oldVersion < 2) await _createQuizLog(db);
@@ -195,6 +205,7 @@ class SqfliteStudyRecords implements StudyRecords {
           if (oldVersion < 8) await upgradeToV8(db);
           if (oldVersion < 9) await upgradeToV9(db);
           if (oldVersion < 10) await _upgradeToV10(db);
+          if (oldVersion < 11) await _upgradeToV11(db);
         },
       ),
     );
@@ -240,6 +251,30 @@ class SqfliteStudyRecords implements StudyRecords {
   static Future<void> createV9(Database db) async {
     await createV8(db);
     await upgradeToV9(db);
+  }
+
+  /// 10판까지의 표. 시험에서 "10판 사용자"의 DB를 만들 때 쓴다 — 11판 이후의 변경은 여기에 더하지 않는다.
+  @visibleForTesting
+  static Future<void> createV10(Database db) async {
+    await createV9(db);
+    await _upgradeToV10(db);
+  }
+
+  /// 11판: 오늘의 단어(2026-11-28 사용자 결정). 단어장마다의 개수 `daily_count`(NULL이면 기본값 —
+  /// `app_settings.dart`)와, 단어장(`deck_id` = `study_decks.id`)·날짜(`day`, `answered_day`와 같은
+  /// 기기 시간대 `YYYY-MM-DD`)마다 그날 고른 단어(`word_ids`, 순서 그대로 JSON 배열)·그중 본 단어
+  /// (`seen_ids`, JSON 배열)·다 봤는지(`completed`)를 남긴다. 그날 처음 열 때 한 번 고르고 하루 동안 고정한다.
+  static Future<void> _upgradeToV11(Database db) async {
+    await db.execute('ALTER TABLE study_decks ADD COLUMN daily_count INTEGER');
+    await db.execute('''
+      CREATE TABLE daily_words(
+        deck_id INTEGER NOT NULL,
+        day TEXT NOT NULL,
+        word_ids TEXT NOT NULL,
+        seen_ids TEXT NOT NULL,
+        completed INTEGER NOT NULL DEFAULT 0,
+        PRIMARY KEY (deck_id, day)
+      )''');
   }
 
   /// 9판: 옛 중등 번호의 기록을 지운다(2026-11-23 사용자 결정 — "그 칸의 기존 50개씩을 지우고
@@ -492,6 +527,17 @@ class SqfliteStudyRecords implements StudyRecords {
       [deck.id],
     );
     return {for (final row in rows) row['word_id'] as String};
+  }
+
+  @override
+  Future<Map<String, int>> lastViewedTimes(Deck deck) async {
+    final db = await _database;
+    final rows = await db.rawQuery(
+      'SELECT word_id, MAX(answered_at) AS at FROM study_log '
+      'WHERE cell_id = ? GROUP BY word_id',
+      [deck.id],
+    );
+    return {for (final row in rows) row['word_id'] as String: row['at'] as int};
   }
 
   @override

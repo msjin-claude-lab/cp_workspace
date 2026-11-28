@@ -49,6 +49,18 @@ GoRouter createRouter() => GoRouter(
       builder: (context, state) =>
           _withDeck(state, (deck) => StudyScreen(deck: deck)),
     ),
+    // 오늘의 단어(2026-11-28 사용자 결정 — 카드 학습 화면을 그날 고른 단어로). 예: /today/deck_2.
+    // 매일 알림을 누르면 이 화면이 열린다. 내장 칸은 오늘의 단어가 없어 찾을 수 없는 화면
+    GoRoute(
+      path: '/today/:deckId',
+      builder: (context, state) => _withDeck(
+        state,
+        (deck) => switch (deck) {
+          StudyDeck() => StudyScreen(deck: deck, today: true),
+          Cell() => const _NotFound(),
+        },
+      ),
+    ),
     // 4지선다 시험. 예: /quiz/elementary_easy
     GoRoute(
       path: '/quiz/:deckId',

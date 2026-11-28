@@ -9,15 +9,24 @@ import '../../data/word.dart';
 import '../../data/word_repository.dart';
 import '../common/leave_guard.dart';
 import '../quiz/quiz.dart' show quizRandomProvider;
+import '../reminder/reminder_controller.dart';
+import '../../data/study_decks.dart';
+import '../today/today_words.dart';
 import 'card_pick.dart';
 
 /// 카드 학습: 칸·단어장의 단어를 한 장씩 넘겨 본다.
 /// 앞면 영단어 + 발음, 누르면 뒷면 뜻·예문·해석. 이전/다음으로 오가며 스스로 채점하지 않는다
 /// (2026-11-22 사용자 결정 — 안다/모른다를 없앴다. 오답 노트는 시험에서 틀린 단어만 담는다).
+///
+/// `today`면 오늘의 단어(2026-11-28 사용자 결정): 그날 고른 단어(`todayWordsProvider`)를 고른 순서대로
+/// 같은 카드로 보고, 넘긴 카드는 카드 학습과 똑같이 기록하며 그날 묶음에 본 것으로도 남긴다.
+/// 고른 단어를 모두 넘기면 그날 완료 — 매일 알림을 다시 예약해 오늘 것을 뺀다. 이름 있는 단어장만.
 class StudyScreen extends ConsumerStatefulWidget {
-  const StudyScreen({super.key, required this.deck});
+  const StudyScreen({super.key, required this.deck, this.today = false})
+    : assert(!today || deck is StudyDeck);
 
   final Deck deck;
+  final bool today;
 
   @override
   ConsumerState<StudyScreen> createState() => _StudyScreenState();
@@ -61,6 +70,7 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
         _saveFailed = true;
       }
     }
+    if (widget.today) await _markTodaySeen(word);
     if (!mounted) return;
     setState(() {
       _index++;
@@ -68,6 +78,30 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
       _saving = false;
       _advanced = true;
     });
+  }
+
+  /// 오늘의 단어를 고른 날. 화면을 연 채 자정을 넘겨도 본 것은 이 날의 묶음에 남긴다.
+  String? _todayDay;
+
+  /// 오늘의 단어를 이미 끝냈나(이 화면에서 끝낸 순간 한 번만 알림을 다시 예약한다).
+  bool _todayDone = false;
+
+  /// 오늘의 단어 묶음에 본 것으로 남긴다. 이번에 모두 보게 되면 알림을 다시 예약한다(오늘 알림을 뺀다).
+  Future<void> _markTodaySeen(Word word) async {
+    final deck = widget.deck as StudyDeck;
+    final day = _todayDay;
+    if (day == null || !mounted) return;
+    try {
+      final set = await ref
+          .read(studyDecksProvider)
+          .markDailySeen(deck.deckId, day, word.id);
+      if (set != null && set.completed && !_todayDone) {
+        _todayDone = true;
+        await ref.read(reminderControllerProvider.notifier).reschedule();
+      }
+    } catch (_) {
+      _saveFailed = true;
+    }
   }
 
   /// 이전: 기록하지 않고 앞 카드의 앞면으로.
@@ -99,6 +133,31 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final (list, failed) = widget.today ? _todayList() : _studyList();
+    return LeaveGuard(
+      // 도중에 ← 뒤로(앱바·시스템)를 누르면 먼저 묻는다(2026-11-22 사용자 결정(UX 점검))
+      inProgress: _inProgress,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            '${widget.deck.label} - ${widget.today ? '오늘의 단어' : '카드 학습'}',
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+        body: SafeArea(
+          child: failed
+              ? const Center(child: Text('단어를 읽지 못했습니다'))
+              : list == null
+              ? const Center(child: CircularProgressIndicator())
+              : _content(list),
+        ),
+      ),
+    );
+  }
+
+  /// 카드 학습의 이번 회차 카드. 아직 읽는 중이면 null, 단어를 읽지 못했으면 failed.
+  (List<Word>?, bool) _studyList() {
     // 설정을 읽은 뒤에야 카드를 만든다(읽는 동안 엉뚱한 개수가 보이지 않게)
     final words = ref.watch(deckWordsProvider(widget.deck));
     final settings = ref.watch(deckSettingsProvider(widget.deck));
@@ -108,39 +167,43 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
     final viewedAsync = ref.watch(viewedWordIdsProvider(widget.deck));
     final viewed =
         viewedAsync.value ?? (viewedAsync.hasError ? const <String>{} : null);
-    return LeaveGuard(
-      // 도중에 ← 뒤로(앱바·시스템)를 누르면 먼저 묻는다(2026-11-22 사용자 결정(UX 점검))
-      inProgress: _inProgress,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            '${widget.deck.label} - 카드 학습',
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
+    switch ((words, settings)) {
+      case (AsyncError(), _):
+        return (null, true);
+      case (AsyncData(value: final loaded), AsyncData(value: final s))
+          when viewed != null:
+        // 카드는 회차마다 무작위로 나온다(2026-11-22 사용자 결정 — 전에는 저장된 순서).
+        // 20%는 전체에서, 80%는 안 본 단어 먼저(2026-11-23 사용자 결정 — pickCards).
+        // 한 회차 동안은 순서를 붙잡아 이전/다음이 같은 카드로 오간다.
+        // 설정한 수(없으면 있는 만큼)만 낸다 — 회차를 시작할 때 정해지고 도중에 바뀌지 않는다
+        return (
+          _order ??= pickCards(
+            loaded,
+            {...viewed, ..._viewedHere},
+            s.cardCount,
+            ref.read(quizRandomProvider),
           ),
-        ),
-        body: SafeArea(
-          child: switch ((words, settings)) {
-            (AsyncError(), _) => const Center(child: Text('단어를 읽지 못했습니다')),
-            (AsyncData(value: final loaded), AsyncData(value: final s))
-                when viewed != null =>
-              _content(loaded, s.cardCount, viewed),
-            _ => const Center(child: CircularProgressIndicator()),
-          },
-        ),
-      ),
-    );
+          false,
+        );
+      default:
+        return (null, false);
+    }
   }
 
-  Widget _content(List<Word> loaded, int cardCount, Set<String> viewed) {
-    // 카드는 회차마다 무작위로 나온다(2026-11-22 사용자 결정 — 전에는 저장된 순서).
-    // 20%는 전체에서, 80%는 안 본 단어 먼저(2026-11-23 사용자 결정 — pickCards).
-    // 한 회차 동안은 순서를 붙잡아 이전/다음이 같은 카드로 오간다.
-    // 설정한 수(없으면 있는 만큼)만 낸다 — 회차를 시작할 때 정해지고 도중에 바뀌지 않는다
-    final list = _order ??= pickCards(loaded, {
-      ...viewed,
-      ..._viewedHere,
-    }, cardCount, ref.read(quizRandomProvider));
+  /// 오늘의 단어: 그날 고른 단어를 고른 순서대로(다시 하기도 같은 순서).
+  (List<Word>?, bool) _todayList() {
+    final today = ref.watch(todayWordsProvider(widget.deck as StudyDeck));
+    if (today.value case final t?) {
+      if (_todayDay == null) {
+        _todayDay = t.day;
+        _todayDone = t.completed;
+      }
+      return (_order ??= t.words, false);
+    }
+    return (null, today.hasError);
+  }
+
+  Widget _content(List<Word> list) {
     if (list.isEmpty) {
       // 화면에는 "칸"이라는 말을 쓰지 않는다(2026-11-20 사용자 결정)
       return const Center(child: Text('아직 단어가 없습니다'));
@@ -289,7 +352,7 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            '$total단어를 모두 봤습니다',
+            widget.today ? '오늘의 단어 $total개를 모두 봤습니다' : '$total단어를 모두 봤습니다',
             textAlign: TextAlign.center,
             style: text.titleLarge,
           ),

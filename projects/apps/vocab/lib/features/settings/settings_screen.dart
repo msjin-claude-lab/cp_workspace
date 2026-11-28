@@ -5,7 +5,10 @@ import 'package:material_ui/material_ui.dart';
 import '../../data/app_settings.dart';
 import '../../data/cell.dart';
 import '../../data/counts.dart';
+import '../../data/reminder_settings.dart';
 import '../../data/word_repository.dart';
+import '../reminder/reminder_controller.dart';
+import '../reminder/reminder_notifications.dart';
 
 /// 설정: 그 단어장의 카드 학습 단어 수와 시험 문항 수(2026-11-22 사용자 결정 — 단어장마다 따로).
 /// 고르는 즉시 저장한다(저장 버튼 없음). 진행 중인 회차에는 영향이 없고 다음 회차부터 쓴다.
@@ -68,16 +71,148 @@ class SettingsScreen extends ConsumerWidget {
                     _change(context, () => notifier.setQuizCount(n)),
               ),
               const SizedBox(height: 32),
+              _DailyCountSetting(
+                value: s.dailyCount,
+                onChanged: (n) => _change(context, () async {
+                  final saved = await notifier.setDailyCount(n);
+                  // 알림 문구의 개수를 맞춘다
+                  await ref
+                      .read(reminderControllerProvider.notifier)
+                      .reschedule();
+                  return saved;
+                }),
+              ),
+              const SizedBox(height: 32),
               Text(
                 '이 단어장에만 적용됩니다. 단어가 더 적으면 있는 단어를 모두 씁니다',
                 key: const ValueKey('settings-note'),
                 style: Theme.of(context).textTheme.bodySmall,
               ),
+              const SizedBox(height: 24),
+              const Divider(),
+              const SizedBox(height: 16),
+              const _ReminderSection(),
             ],
           ),
           _ => const Center(child: CircularProgressIndicator()),
         },
       ),
+    );
+  }
+}
+
+/// 오늘의 단어 개수: 5·10·15·20 중 하나(2026-11-28 사용자 결정, 기본 10). 바꾸면 다음에 고를 때
+/// (다음 날)부터 쓴다 — 오늘 고른 단어는 그대로. 버튼 키는 `settings-daily-<수>`.
+class _DailyCountSetting extends StatelessWidget {
+  const _DailyCountSetting({required this.value, required this.onChanged});
+
+  final int value;
+  final ValueChanged<int> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    final text = Theme.of(context).textTheme;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('오늘의 단어 개수', style: text.titleMedium),
+        const SizedBox(height: 2),
+        Text('하루에 볼 단어 수 — 다음 날부터 적용됩니다', style: text.bodySmall),
+        const SizedBox(height: 12),
+        SegmentedButton<int>(
+          showSelectedIcon: false,
+          segments: [
+            for (final n in dailyCountChoices)
+              ButtonSegment(
+                value: n,
+                label: Text('$n', key: ValueKey('settings-daily-$n')),
+              ),
+          ],
+          selected: {value},
+          onSelectionChanged: (s) => onChanged(s.first),
+        ),
+      ],
+    );
+  }
+}
+
+/// 앱 전체 설정 — 매일 알림 켜기/끄기와 시각(2026-11-28 사용자 결정 — 단어장 설정 화면 안에 따로,
+/// 어느 단어장에서 열어도 같은 값). 켤 때 권한이 없으면 다시 묻고, 그래도 없으면 시스템 설정을 안내한다.
+class _ReminderSection extends ConsumerWidget {
+  const _ReminderSection();
+
+  static String _time(ReminderSettings s) =>
+      '${s.hour.toString().padLeft(2, '0')}:${s.minute.toString().padLeft(2, '0')}';
+
+  Future<void> _toggle(BuildContext context, WidgetRef ref, bool on) async {
+    final messenger = ScaffoldMessenger.of(context);
+    final notifications = ref.read(reminderNotificationsProvider);
+    final ok = await ref
+        .read(reminderControllerProvider.notifier)
+        .setEnabled(on);
+    if (ok) return;
+    messenger
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          key: const ValueKey('reminder-denied'),
+          content: const Text('알림이 허용되지 않았습니다. 휴대폰 설정에서 Vocara 알림을 허용해 주세요'),
+          action: SnackBarAction(
+            label: '설정 열기',
+            onPressed: () async {
+              try {
+                await notifications.openSettings();
+              } catch (_) {
+                // 설정 화면을 열지 못하면 안내 문구만 남는다
+              }
+            },
+          ),
+        ),
+      );
+  }
+
+  Future<void> _pickTime(
+    BuildContext context,
+    WidgetRef ref,
+    ReminderSettings s,
+  ) async {
+    final controller = ref.read(reminderControllerProvider.notifier);
+    final picked = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay(hour: s.hour, minute: s.minute),
+    );
+    if (picked != null) await controller.setTime(picked.hour, picked.minute);
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final text = Theme.of(context).textTheme;
+    final settings = ref.watch(reminderControllerProvider).value;
+    return Column(
+      key: const ValueKey('reminder-section'),
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('앱 전체 — 매일 알림', style: text.titleMedium),
+        const SizedBox(height: 2),
+        Text('지금 고른 단어장의 오늘의 단어를 다 보지 않은 날 알려 줍니다', style: text.bodySmall),
+        if (settings case final s?) ...[
+          SwitchListTile(
+            key: const ValueKey('reminder-switch'),
+            contentPadding: EdgeInsets.zero,
+            title: const Text('매일 알림 받기'),
+            value: s.enabled,
+            onChanged: (on) => _toggle(context, ref, on),
+          ),
+          ListTile(
+            key: const ValueKey('reminder-time'),
+            contentPadding: EdgeInsets.zero,
+            enabled: s.enabled,
+            title: const Text('알림 시각'),
+            trailing: Text(_time(s), style: text.titleMedium),
+            onTap: () => _pickTime(context, ref, s),
+          ),
+        ],
+      ],
     );
   }
 }
