@@ -17,7 +17,9 @@
 기기에서 볼 것(adb `D:\dev\android-sdk\platform-tools\adb.exe`, Git Bash는 `MSYS_NO_PATHCONV=1`):
 - 화면: `adb emu screenrecord screenshot <절대경로.png>`(`screencap`은 검은 화면일 때가 있음)
 - TTS: 발음 버튼 뒤 logcat `GoogleTTSServiceImpl: TTS dispatch: en-us-x-…`, `AudioTrack: stop(…): called with N frames delivered`
-- 저장 유지: 저장하는 동작 → `adb shell am force-stop dev.cp.vocab` → `adb shell am start -W -n dev.cp.vocab/.MainActivity` → 값이 그대로
+- 저장 유지: 저장하는 동작 → `adb shell am force-stop kr.msjin.vocab` → `adb shell am start -W -n kr.msjin.vocab/.MainActivity` → 값이 그대로
+- 패키지 이름은 2026-11-28부터 `kr.msjin.vocab`(그 전 기록의 `dev.cp.vocab`는 옛 이름 — 기기에서는 다른 앱이라 옛 기록이 넘어오지 않는다)
+- 서명 확인: `D:\dev\android-sdk\build-tools\36.1.0\apksigner.bat verify --print-certs <apk>` — 업로드 키면 `CN=Vocara, C=KR`, 키 없는 PC의 release는 `CN=Android Debug`. AAB는 `keytool -printcert -jarfile <aab>`
 
 4단계(2026-11-18~19)에는 저장소 밖 시험용 프로젝트 `D:\dev\tmp\vocab_probe`(패키지 `dev.cp.vocab_probe`, 시험 화면: SPEAK apple·ADD ROW·행 수 표시)로 같은 명령을 돌렸다. 아래 "마지막 결과"의 2026-11-19 이전 항목은 그 프로젝트 결과다.
 
@@ -28,7 +30,7 @@
 
 - 테스트 46개(2026-11-20 화면 구조·오답 노트 뒤): 아래 36개를 바꾸고 늘림 — 첫 화면 7개(`test/widget_test.dart` — 학교급 → 난이도 세로 선택·저장·칸 홈, 저장된 칸으로 시작·오답 수, ☰ 2단계 메뉴, 메뉴 빠른 두 번 누름, 저장 실패, 칸 홈 → 학습·시험·오답 노트·⌂ 홈·← 뒤로·칸 바꾸기, 모른다 뒤 오답 수 갱신), 오답 노트 5개(`test/features/wrong_notes_test.dart`), 시험에 오답 시험 2개, 카드 학습에 다시 보기 1개, 실제 DB에 오답 노트 읽기·최근순·빼기 1개. 시험용 가짜는 `test/fakes.dart`
 - (이전) 테스트 36개(2026-11-20): 칸·단어 읽기 3개(`test/data/word_repository_test.dart`), 실제 단어 파일 검사 5개(`test/data/word_assets_test.dart` — 칸마다 정확히 50개, id 형식, 빈 필드 없음, 칸 사이 영단어 중복 없음, 예문에 단어 포함, 같은 칸 같은 뜻 없음), **실제 DB 2개**(`test/data/study_records_test.dart` — sqflite_common_ffi, 새 설치 2판 표·시험 기록·오답 노트, 1판 → 2판 이행 시 기록 유지), 첫 화면 6개(`test/widget_test.dart` — 첫 실행 학교급 선택·저장, 저장된 학교급으로 시작, ☰ 메뉴로 변경, 메뉴 빠른 두 번 누름, 저장 실패 알림, 칸 → 학습/시험 창), 카드 학습 9개(`test/features/study_screen_test.dart`), 시험 11개(`test/features/quiz_test.dart` — 20문제·서로 다른 단어·보기 4개 같은 칸, 매번 새로 섞기, 두 방향, 단어 적을 때, 맞힘·틀림 기록, 한 번만 답함, 영→뜻만 자동 발음, 결과·다시 하기 새로 섞기, 저장 실패, 50단어면 20문제, 4개 미만 안내). 기능을 넣으면 늘린다
-- sqflite 실제 저장은 PC에서 sqflite_common_ffi로 시험한다(Windows에서 별도 설치 없이 동작함, 2026-11-20). 기기 저장 유지는 에뮬레이터에서 확인. DB 내용은 `adb exec-out run-as dev.cp.vocab cat databases/vocab.db > <파일>` 후 sqlite로 읽는다
+- sqflite 실제 저장은 PC에서 sqflite_common_ffi로 시험한다(Windows에서 별도 설치 없이 동작함, 2026-11-20). 기기 저장 유지는 에뮬레이터에서 확인. DB 내용은 `adb exec-out run-as kr.msjin.vocab cat databases/vocab.db > <파일>`(release 빌드는 `run-as`가 안 되므로 debug 빌드에서) 후 sqlite로 읽는다
 - APK 약 158MB(debug, 시험용 프로젝트 기준)
 
 ## 함정
@@ -45,6 +47,12 @@
 - sqflite에 쓰고 앱을 껐다 켠 뒤 남아 있는지 — 위 "기기에서 볼 것"으로 확인
 
 ## 마지막 결과
+
+- **2026-11-28 밤 개인 PC — release 준비(패키지 `kr.msjin.vocab`, 이름 Vocara, 아이콘, Play 업로드 키)**
+  - 키 없는 상태: `flutter build apk --release` 성공, apksigner `CN=Android Debug`(서명 분기 확인)
+  - 업로드 키(`D:\dev\keys\vocab-upload.jks`, 사용자가 만듦) + `key.properties`(git 무시 확인): `flutter build appbundle --release`·`flutter build apk --release` 성공, AAB `keytool -printcert` `Owner: CN=Vocara, C=KR`, APK apksigner `CN=Vocara, C=KR`
+  - `flutter analyze` 문제없음·`flutter test` 통과(`omc ralph verify` clean — 시험 단언 3곳을 Vocara로)
+  - **에뮬레이터: 통과**(release APK 새로 설치 — 옛 `dev.cp.vocab` 앱 `영단어`는 다른 앱으로 남아 있음): 앱 서랍·홈에 `Vocara`와 카드 아이콘(adaptive 앞면 0.95배로 키운 뒤 캡처) / 처음 실행 `Vocara` · `단어장을 만들어 공부를 시작하세요` → 새 단어장 `rel1` → 초등 → 쉬움 `267단어` → 홈 `초등 [난이도 : 쉬움]`, 강제 종료 뒤 다시 실행해도 그 홈, 시작 시간 663ms. logcat flutter 오류 0건. **아이콘 모양은 사람이 화면으로 확인하기 전까지 "적용함, 화면 확인 필요"**
 
 - **2026-11-28 저녁 개인 PC — 4차 심화 3,528개를 연 빌드**(커밋 `dadecac` 내용, 숨김 해제 `7c6a013`)
   - `flutter analyze` "No issues found", `flutter test` "All tests passed"(**181개**), `flutter build apk --debug` "Built …app-debug.apk"(18:58 새로 생김, 171,924,383바이트, Gradle 33초). 세 명령을 `&&`로 이어 종료 코드 0. `build/app/outputs`를 먼저 지우지는 않았다(파일 시각으로 확인)

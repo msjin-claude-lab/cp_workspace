@@ -9,12 +9,18 @@ plugins {
 // Play 업로드 키(2026-11-28 사용자 결정): 개인 PC에만 있는 android/key.properties를 읽는다.
 // 이 파일이 없는 PC(사내망 PC 등)에서는 release도 디버그 키로 서명된다. key.properties와 *.jks는 git에 넣지 않는다.
 val keystorePropertiesFile = rootProject.file("key.properties")
-val keystoreProperties = Properties().apply {
-    if (keystorePropertiesFile.exists()) {
-        keystorePropertiesFile.inputStream().use { load(it) }
-    }
-}
 val hasUploadKey = keystorePropertiesFile.exists()
+val keystoreProperties = Properties().apply {
+    if (hasUploadKey) keystorePropertiesFile.inputStream().use { load(it) }
+}
+if (hasUploadKey) {
+    // 값이 빠지면 Gradle이 알아보기 어려운 오류를 내므로 먼저 막는다(storeFile은 슬래시 / 로 쓴다 — \는 이스케이프로 읽힌다)
+    for (key in listOf("storeFile", "keyAlias", "storePassword", "keyPassword")) {
+        require(!keystoreProperties.getProperty(key).isNullOrBlank()) { "android/key.properties: $key 값이 비어 있다" }
+    }
+} else {
+    logger.warn("android/key.properties 없음 — release도 디버그 키로 서명된다(Play에 올릴 수 없음)")
+}
 
 android {
     namespace = "kr.msjin.vocab"

@@ -6,7 +6,9 @@
 
 - Flutter 3.50.0 stable · 안드로이드 먼저 · iOS 보류 · 모바일만
 - 플랫폼 기능은 TTS만, 저장은 기기 안([docs/spec.md](docs/spec.md))
-- 프로젝트: `flutter create --platforms=android,ios --org dev.cp --project-name vocab` → 패키지 `dev.cp.vocab` (2026-11-19)
+- 프로젝트: `flutter create --platforms=android,ios --org dev.cp --project-name vocab` → 패키지 `dev.cp.vocab` (2026-11-19). **2026-11-28 `kr.msjin.vocab`으로 바꿈**(Play 등록용 사용자 결정 — `android/app/build.gradle.kts`의 namespace·applicationId, `kotlin/kr/msjin/vocab/MainActivity.kt`)
+- 앱 이름 `Vocara`(`AndroidManifest.xml` label + `lib/app_info.dart`), 아이콘 원본 `assets/icon/`(고친 뒤 `dart run flutter_launcher_icons`)
+- **release 서명(개인 PC만)**: Play 업로드 키 `D:\dev\keys\vocab-upload.jks`(저장소 밖, alias `upload`, PKCS12) + `android/key.properties`(gitignore — `storeFile`·`keyAlias`·`storePassword`·`keyPassword`). 이 파일이 없는 PC에서는 release도 디버그 키로 서명된다. 키·비밀번호 백업은 사용자가 따로 한다. 키를 잃으면 Play Console에서 업로드 키 재설정을 요청한다
 
 ## 패키지
 

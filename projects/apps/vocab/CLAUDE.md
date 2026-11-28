@@ -16,6 +16,7 @@ PATH에 `D:\dev\flutter\bin`(두 PC 같은 경로). 작업 위치: `projects/app
 | 정적 분석 | `flutter analyze` |
 | 테스트 | `flutter test` |
 | 안드로이드 빌드 | `flutter build apk --debug` |
+| Play용 빌드(개인 PC만 — 업로드 키, [SETUP.md](SETUP.md) "release 서명") | `flutter build appbundle --release` |
 | 에뮬레이터 | `D:\dev\android-sdk\emulator\emulator.exe -avd vocab_api36 -gpu swiftshader_indirect` |
 | 실행 | `flutter run -d emulator-5554` |
 

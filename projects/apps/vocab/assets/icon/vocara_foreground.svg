@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
-<g transform="translate(512 512) scale(0.62) translate(-512 -525)">
+<g transform="translate(512 512) scale(0.95) translate(-512 -525)">
 <rect x="300" y="250" width="440" height="560" rx="48" fill="#FFFFFF" opacity="0.35" transform="rotate(-10 520 530)"/>
 <rect x="290" y="240" width="440" height="560" rx="48" fill="#FFFFFF"/>
 <text x="510" y="580" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="230" font-weight="700" fill="#3B5BDB">Aa</text>
